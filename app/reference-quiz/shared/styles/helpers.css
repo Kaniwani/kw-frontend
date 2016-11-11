@@ -1,0 +1,96 @@
+.clearfix {
+  &:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+}
+
+.word-wrap {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+.flexcenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.visuallyhidden {
+  position: absolute;
+  height: 1px !important;
+  width: 1px !important;
+  margin: -1px !important;
+  clip: rect(0 0 0 0);
+  outline: 0;
+  overflow: hidden;
+  border: 0;
+  padding: 0;
+}
+
+.section-spacing {
+  margin-top: unit-md;
+  margin-bottom: unit-md;
+
+  @media(bp-lg) {
+    margin-top: unit-lg;
+    margin-bottom: unit-lg;
+  }
+}
+
+.section-gutters {
+  max-width: site-max-width;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: unit-sm;
+  padding-right: unit-sm;
+
+  @media(bp-md) {
+    padding-left: unit-md;
+    padding-right: unit-md;
+  }
+}
+
+.reset-list {
+  list-style: none;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+.reset-button {
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  padding: 0;
+  -webkit-appearance: button; /* for input */
+  -webkit-user-select: none; /* for button */
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+  /* pseudos */
+  &::-moz-focus-inner,
+  &::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* hidden but still takes up space, used with icons generally */
+.ghost {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  cursor: none !important;
+}

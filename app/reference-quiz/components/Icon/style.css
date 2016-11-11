@@ -1,0 +1,17 @@
+.wrapper {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    background-repeat: no-repeat;
+    transition: all 250ms ease-in-out;
+}
+.svg {
+    display: block;
+    pointer-events: none; /* capture bubbled events on wrapper instead */
+    transform-origin: 50% 50% 0px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}

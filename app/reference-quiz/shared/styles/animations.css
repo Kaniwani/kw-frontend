@@ -1,0 +1,77 @@
+@keyframes :global(wobble) {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-8deg);
+  }
+  75% {
+    transform: rotate(8deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes :global(shake) {
+  from, to {
+    transform: translate3d(0, 0, 0);
+  }
+
+  10%, 40%, 70% {
+    transform: translate3d(-8px, 0, 0);
+  }
+
+  25%, 55%, 85% {
+    transform: translate3d(8px, 0, 0);
+  }
+}
+
+.shake {
+  animation: shake .6s;
+  animation-fill-mode: both;
+}
+
+@keyframes :global(fadeOutUp) {
+  0% {
+    opacity: 1;
+    transform: translate3d(0,0,0) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(0, -125px, 0) scale(1.4);
+  }
+}
+
+@keyframes :global(srsRankUp) {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 3.5em, 0);
+  }
+
+  30% {
+    opacity: .1;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes :global(srsRankDown) {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -3.5em, 0);
+  }
+
+  30% {
+    opacity: .1;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}

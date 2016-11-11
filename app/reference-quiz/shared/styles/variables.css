@@ -1,0 +1,44 @@
+  /* Units */
+  @value unit-xs: 10px;
+  @value unit-sm: 15px;
+  @value unit-md: 25px;
+  @value unit-lg: 30px;
+  @value unit-xl: 40px;
+
+  /* Greyscale */
+  @value white-light: hsl(0, 0%, 98%);
+  @value white: hsl(0, 0%, 94%);
+  @value white-dark: hsl(0, 0%, 85%);
+  @value grey-light: hsl(0, 0%, 67%);
+  @value grey: hsl(0, 0%, 55%);
+  @value grey-dark: hsl(0, 0%, 38%);
+  @value black-light: hsl(0, 0%, 30%);
+  @value black: hsl(0, 0%, 23%);
+  @value black-dark: hsl(0, 0%, 8%);
+
+  /* KaniWani colors */
+  @value purple-light: hsl(270, 80%, 52%);
+  @value purple: hsl(274, 90%, 48%);
+  @value purple-dark: hsl(262, 58%, 46%);
+  @value blue-light: hsl(200, 100%, 41%);
+  @value blue: hsl(217, 63%, 57%);
+  @value blue-dark: hsl(228, 71%, 52%);
+  @value pink: hsl(314, 100%, 50%);
+  @value red: hsl(346, 75%, 54%);
+  @value green: hsl(107, 56%, 62%);
+  @value golden: hsl(60, 75%, 88%);
+  @value yellow: hsl(53, 100%, 48%);
+  @value tan: hsl(37, 67%, 65%);
+
+
+  /* Shadows */
+  @value shadow-text-thin: 1px 1px 1px rgba(black, .4);
+  @value shadow-text-light: 2px 2px 1px rgba(black, .5);
+  @value shadow-inner-light: inset 3px 3px 8px 0 rgba(black, .25);
+  @value shadow-inner-top: inset 1px 10px 9px -6px rgba(black,.25);
+  @value shadow-inner-medium: inset 0 3px 20px -8px rgba(black, .25);
+  @value shadow-outer-light: 0 0 25px -5px rgba(black, .25);
+  @value shadow-bottom-light: 0 1px 12px rgba(black, .1);
+
+  /* Borders */
+  @value border-primary: 3px;

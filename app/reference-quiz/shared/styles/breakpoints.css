@@ -1,0 +1,10 @@
+@value site-max-width: 1300px;
+
+@value bp-xs: (max-width: 480px);
+@value bp-sm: (min-width: 480px);
+@value bp-md: (min-width: 768px);
+@value bp-lg: (min-width: 1024px);
+@value bp-xl: (min-width: 1280px);
+@value bp-xxl: (min-width: 2000px);
+
+@value bp-nav: 680px;
