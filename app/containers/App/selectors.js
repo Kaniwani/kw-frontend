@@ -23,7 +23,7 @@ const selectError = () => createSelector(
 
 const selectUserData = () => createSelector(
   selectGlobal(),
-  (globalState) => globalState.getIn(['userData', 'userData'])
+  (globalState) => globalState.getIn(['userData', 'data'])
 );
 
 const selectLocationState = () => {

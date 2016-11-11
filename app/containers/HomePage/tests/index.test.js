@@ -6,7 +6,6 @@ import expect from 'expect';
 import { shallow, mount } from 'enzyme';
 import React from 'react';
 
-import { IntlProvider } from 'react-intl';
 import { HomePage, mapDispatchToProps } from '../index';
 import { changeUsername } from '../actions';
 import { loadUserData } from '../../App/actions';
@@ -24,12 +23,10 @@ describe('<HomePage />', () => {
 
   it('should render an error if loading failed', () => {
     const renderedComponent = mount(
-      <IntlProvider locale="en">
-        <HomePage
-          loading={false}
-          error={{ message: 'Loading failed!' }}
-        />
-      </IntlProvider>
+      <HomePage
+        loading={false}
+        error={{ message: 'Loading failed!' }}
+      />
     );
     expect(
       renderedComponent
@@ -41,13 +38,11 @@ describe('<HomePage />', () => {
   it('should render fetch the userData on mount if a username exists', () => {
     const submitSpy = expect.createSpy();
     mount(
-      <IntlProvider locale="en">
-        <HomePage
-          username="Not Empty"
-          onChangeUsername={() => {}}
-          onSubmitForm={submitSpy}
-        />
-      </IntlProvider>
+      <HomePage
+        username="Not Empty"
+        onChangeUsername={() => {}}
+        onSubmitForm={submitSpy}
+      />
     );
     expect(submitSpy).toHaveBeenCalled();
   });

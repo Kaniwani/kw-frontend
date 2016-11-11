@@ -17,14 +17,14 @@ import { fromJS } from 'immutable';
 
 // The initial state of the App
 const initialState = fromJS({
-  // username: '',
+  username: '',
 });
 
 function homeReducer(state = initialState, action) {
   switch (action.type) {
     case CHANGE_USERNAME:
       return state
-        .setIn(['user', 'name'], action.name);
+        .set('username', action.name);
     default:
       return state;
   }

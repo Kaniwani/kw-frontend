@@ -8,7 +8,7 @@ const selectHome = () => (state) => state.get('home');
 
 const selectUsername = () => createSelector(
   selectHome(),
-  (homeState) => homeState.getIn(['user', 'name'])
+  (homeState) => homeState.get('username')
 );
 
 export {

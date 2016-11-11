@@ -26,7 +26,7 @@ import {
  *
  * @return {object} An action object with a type of LOAD_USERDATA
  */
-export function loaduserData() {
+export function loadUserData() {
   return {
     type: LOAD_USERDATA,
   };
@@ -40,10 +40,11 @@ export function loaduserData() {
  *
  * @return {object}      An action object with a type of LOAD_USERDATA_SUCCESS passing the userData
  */
-export function userDataLoaded(userData) {
+export function userDataLoaded(userData, userName) {
   return {
     type: LOAD_USERDATA_SUCCESS,
     userData,
+    userName,
   };
 }
 
