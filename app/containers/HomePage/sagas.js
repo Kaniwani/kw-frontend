@@ -1,47 +1,48 @@
 /**
- * Gets the repositories of the user from Github
+ * Gets the userData of the user from Github
  */
 
 import { takeLatest } from 'redux-saga';
 import { take, call, put, select, fork, cancel } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { LOAD_REPOS } from 'containers/App/constants';
-import { reposLoaded, repoLoadingError } from 'containers/App/actions';
+import { LOAD_USERDATA } from 'containers/App/constants';
+import { userDataLoaded, userDataLoadingError } from 'containers/App/actions';
 
 import request from 'utils/request';
 import { selectUsername } from 'containers/HomePage/selectors';
 
 /**
- * Github repos request/response handler
+ * userData request/response handler
  */
-export function* getRepos() {
+export function* getUserData() {
   // Select username from store
   const username = yield select(selectUsername());
-  const requestURL = `https://api.github.com/users/${username}/repos?type=all&sort=updated`;
+  const requestURL = 'http://localhost:3000/api';
+  // const requestURL = `http://localhost:3000/shared/${username}/userData?type=all&sort=updated`;
 
   try {
     // Call our request helper (see 'utils/request')
-    const repos = yield call(request, requestURL);
-    yield put(reposLoaded(repos, username));
+    const userData = yield call(request, requestURL);
+    yield put(userDataLoaded(userData, username));
   } catch (err) {
-    yield put(repoLoadingError(err));
+    yield put(userDataLoadingError(err));
   }
 }
 
 /**
- * Watches for LOAD_REPOS actions and calls getRepos when one comes in.
+ * Watches for LOAD_USERDATA actions and calls getUserData when one comes in.
  * By using `takeLatest` only the result of the latest API call is applied.
  */
-export function* getReposWatcher() {
-  yield fork(takeLatest, LOAD_REPOS, getRepos);
+export function* getUserDataWatcher() {
+  yield fork(takeLatest, LOAD_USERDATA, getUserData);
 }
 
 /**
  * Root saga manages watcher lifecycle
  */
-export function* githubData() {
+export function* kwUserData() {
   // Fork watcher so we can continue execution
-  const watcher = yield fork(getReposWatcher);
+  const watcher = yield fork(getUserDataWatcher);
 
   // Suspend execution until location changes
   yield take(LOCATION_CHANGE);
@@ -50,5 +51,5 @@ export function* githubData() {
 
 // Bootstrap sagas
 export default [
-  githubData,
+  kwUserData,
 ];

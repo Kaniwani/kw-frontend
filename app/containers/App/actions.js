@@ -54,7 +54,7 @@ export function userDataLoaded(userData) {
  *
  * @return {object}       An action object with a type of LOAD_USERDATA_ERROR passing the error
  */
-export function repoLoadingError(error) {
+export function userDataLoadingError(error) {
   return {
     type: LOAD_USERDATA_ERROR,
     error,

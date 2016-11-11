@@ -9,7 +9,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { HomePage, mapDispatchToProps } from '../index';
 import { changeUsername } from '../actions';
-import { loadRepos } from '../../App/actions';
+import { loadUserData } from '../../App/actions';
 import RepoListItem from 'containers/RepoListItem';
 import List from 'components/List';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -38,7 +38,7 @@ describe('<HomePage />', () => {
       ).toBeGreaterThan(-1);
   });
 
-  it('should render fetch the repos on mount if a username exists', () => {
+  it('should render fetch the userData on mount if a username exists', () => {
     const submitSpy = expect.createSpy();
     mount(
       <IntlProvider locale="en">
@@ -52,8 +52,8 @@ describe('<HomePage />', () => {
     expect(submitSpy).toHaveBeenCalled();
   });
 
-  it('should render the repositories if loading was successful', () => {
-    const repos = [{
+  it('should render the userData if loading was successful', () => {
+    const userData = [{
       owner: {
         login: 'mxstbr',
       },
@@ -64,12 +64,12 @@ describe('<HomePage />', () => {
     }];
     const renderedComponent = shallow(
       <HomePage
-        repos={repos}
+        userData={userData}
         error={false}
       />
     );
 
-    expect(renderedComponent.contains(<List items={repos} component={RepoListItem} />)).toEqual(true);
+    expect(renderedComponent.contains(<List items={userData} component={RepoListItem} />)).toEqual(true);
   });
 
   describe('mapDispatchToProps', () => {
@@ -97,11 +97,11 @@ describe('<HomePage />', () => {
       expect(result.onSubmitForm).toExist();
     });
 
-    it('should dispatch loadRepos when called', () => {
+    it('should dispatch loadUserData when called', () => {
       const dispatch = expect.createSpy();
       const result = mapDispatchToProps(dispatch);
       result.onSubmitForm();
-      expect(dispatch).toHaveBeenCalledWith(loadRepos());
+      expect(dispatch).toHaveBeenCalledWith(loadUserData());
     });
 
     it('should preventDefault if called with event', () => {

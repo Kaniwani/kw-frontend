@@ -6,7 +6,7 @@ import {
   selectCurrentUser,
   selectLoading,
   selectError,
-  selectRepos,
+  selectUserData,
   selectLocationState,
 } from '../selectors';
 
@@ -60,18 +60,18 @@ describe('selectError', () => {
   });
 });
 
-describe('selectRepos', () => {
-  const reposSelector = selectRepos();
-  it('should select the repos', () => {
-    const repositories = fromJS([]);
+describe('selectUserData', () => {
+  const userDataSelector = selectUserData();
+  it('should select the userData', () => {
+    const userData = fromJS([]);
     const mockedState = fromJS({
       global: {
         userData: {
-          repositories,
+          userData,
         },
       },
     });
-    expect(reposSelector(mockedState)).toEqual(repositories);
+    expect(userDataSelector(mockedState)).toEqual(userData);
   });
 });
 

@@ -1,9 +1,9 @@
 import expect from 'expect';
 import appReducer from '../reducer';
 import {
-  loadRepos,
-  reposLoaded,
-  repoLoadingError,
+  loadUserData,
+  userDataLoaded,
+  userDataLoadingError,
 } from '../actions';
 import { fromJS } from 'immutable';
 
@@ -13,9 +13,8 @@ describe('appReducer', () => {
     state = fromJS({
       loading: false,
       error: false,
-      currentUser: false,
       userData: fromJS({
-        repositories: false,
+        userData: false,
       }),
     });
   });
@@ -25,29 +24,29 @@ describe('appReducer', () => {
     expect(appReducer(undefined, {})).toEqual(expectedResult);
   });
 
-  it('should handle the loadRepos action correctly', () => {
+  it('should handle the loadUserData action correctly', () => {
     const expectedResult = state
       .set('loading', true)
       .set('error', false)
-      .setIn(['userData', 'repositories'], false);
+      .setIn(['userData', 'userData'], false);
 
-    expect(appReducer(state, loadRepos())).toEqual(expectedResult);
+    expect(appReducer(state, loadUserData())).toEqual(expectedResult);
   });
 
-  it('should handle the reposLoaded action correctly', () => {
+  it('should handle the userDataLoaded action correctly', () => {
     const fixture = [{
-      name: 'My Repo',
+      name: 'Test Username',
     }];
     const username = 'test';
     const expectedResult = state
-      .setIn(['userData', 'repositories'], fixture)
+      .setIn(['userData', 'userData'], fixture)
       .set('loading', false)
       .set('currentUser', username);
 
-    expect(appReducer(state, reposLoaded(fixture, username))).toEqual(expectedResult);
+    expect(appReducer(state, userDataLoaded(fixture, username))).toEqual(expectedResult);
   });
 
-  it('should handle the repoLoadingError action correctly', () => {
+  it('should handle the userDataLoadingError action correctly', () => {
     const fixture = {
       msg: 'Not found',
     };
@@ -55,6 +54,6 @@ describe('appReducer', () => {
       .set('error', fixture)
       .set('loading', false);
 
-    expect(appReducer(state, repoLoadingError(fixture))).toEqual(expectedResult);
+    expect(appReducer(state, userDataLoadingError(fixture))).toEqual(expectedResult);
   });
 });

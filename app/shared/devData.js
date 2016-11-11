@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   user: {
     name: 'duncantest',
     level: 41,

@@ -19,7 +19,7 @@ import { loadUserData } from '../App/actions';
 import { selectUserData, selectLoading, selectError } from 'containers/App/selectors';
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-   render() {
+  render() {
     let mainContent = null;
 
     // Show a loading indicator when we're loading
@@ -33,7 +33,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       );
       mainContent = (<List component={ErrorComponent} />);
 
-    // If we're not loading, don't have an error and there are repos, show the repos
+    // If we're not loading, don't have an error and there are userData, show the userData
     } else if (this.props.userData !== false) {
       mainContent = (<List items={this.props.userData} component={ListItem} />);
     }
@@ -41,9 +41,9 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     return (
       <article>
         <Helmet
-          title="Dashboard"
+          title="Home"
           meta={[
-            { name: 'description', content: 'Kaniwani Dashboard' },
+            { name: 'description', content: 'Kaniwani Home Page' },
           ]}
         />
         <div>

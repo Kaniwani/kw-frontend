@@ -26,10 +26,10 @@ function App(props) {
   return (
     <AppWrapper>
       <Helmet
-        titleTemplate="%s - React.js Boilerplate"
-        defaultTitle="React.js Boilerplate"
+        titleTemplate="%s - Kaniwani"
+        defaultTitle="Kaniwani"
         meta={[
-          { name: 'description', content: 'A React.js Boilerplate application' },
+          { name: 'description', content: 'Kaniwani, An English to Japanese SRS Quiz' },
         ]}
       />
       <Header />
