@@ -22,12 +22,38 @@ export default function createRoutes(store) {
       name: 'home',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
+          System.import('containers/HomePage/reducer'),
+          System.import('containers/HomePage/sagas'),
           System.import('containers/HomePage'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([component]) => {
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('home', reducer.default);
+          injectSagas(sagas.default);
+
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
+      path: '/review',
+      name: 'review',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/Review/reducer'),
+          System.import('containers/Review/sagas'),
+          System.import('containers/Review'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('review', reducer.default);
+          injectSagas(sagas.default);
           renderRoute(component);
         });
 

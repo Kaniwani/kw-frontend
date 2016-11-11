@@ -1,17 +1,21 @@
 import React, { Component, PropTypes } from 'react';
-import classNames from 'classnames/bind';
-import styles from './style.css';
 import QuizHeader from './components/QuizHeader';
 import Quiz from './components/Quiz';
 import QuizInfo from './components/QuizInfo';
 import QuizBg from './components/QuizBg';
 
-const cx = classNames.bind(styles);
+// old .review-section css
+/*
+.base {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+*/
 
 class QuizApp extends Component {
   static propTypes = {
     data: PropTypes.object.isRequired,
-    optionalClassName: PropTypes.string,
   }
   constructor(props) {
     super(props);
@@ -20,9 +24,6 @@ class QuizApp extends Component {
     };
   }
   render() {
-    const className = cx('base', this.props.optionalClassName, {
-      fullWidth: true,
-    });
     return (
       <section className={className}>
         <QuizHeader />
