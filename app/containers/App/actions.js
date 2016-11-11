@@ -35,7 +35,7 @@ export function loadUserData() {
 /**
  * Dispatched when the userData are loaded by the request saga
  *
- * @param  {array} userData The userDataitory data
+ * @param  {object} userData The userData data
  * @param  {string} username The current username
  *
  * @return {object}      An action object with a type of LOAD_USERDATA_SUCCESS passing the userData

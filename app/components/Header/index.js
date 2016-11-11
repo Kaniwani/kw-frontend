@@ -1,18 +1,25 @@
 import React from 'react';
+import styled from 'styled-components';
 
-import A from './A';
 import Img from './Img';
 import NavBar from './NavBar';
 import HeaderLink from './HeaderLink';
-import Banner from './banner.jpg';
+import Logo from '../../shared/assets/logo.png';
+
+const LogoLink = styled.a`
+  display: block;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+`;
 
 class Header extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <div>
-        <A href="https://twitter.com/mxstbr">
-          <Img src={Banner} alt="react-boilerplate - Logo" />
-        </A>
+        <LogoLink href="https://kaniwani.com">
+          <Img src={Logo} alt="kaniwani - Logo" />
+        </LogoLink>
         <NavBar>
           <HeaderLink to="/">
             Home

@@ -11,8 +11,7 @@ import { createStructuredSelector } from 'reselect';
 
 import CenteredSection from './CenteredSection';
 import H2 from 'components/H2';
-import List from 'components/List';
-import ListItem from 'components/ListItem';
+import Button from 'components/Button';
 import LoadingIndicator from 'components/LoadingIndicator';
 import Section from './Section';
 import { loadUserData } from '../App/actions';
@@ -24,18 +23,18 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
     // Show a loading indicator when we're loading
     if (this.props.loading) {
-      mainContent = (<List component={LoadingIndicator} />);
+      mainContent = (<LoadingIndicator />);
 
     // Show an error if there is one
     } else if (this.props.error !== false) {
       const ErrorComponent = () => (
-        <ListItem item={'Something went wrong, please try again!'} />
+        <p>Something went wrong, please try again!</p>
       );
-      mainContent = (<List component={ErrorComponent} />);
+      mainContent = (<ErrorComponent />);
 
     // If we're not loading, don't have an error and there are userData, show the userData
     } else if (this.props.userData !== false) {
-      mainContent = (<List items={this.props.userData} component={ListItem} />);
+      mainContent = (<div>{JSON.stringify(this.props.userData)}</div>);
     }
 
     return (
@@ -77,7 +76,7 @@ HomePage.propTypes = {
     React.PropTypes.bool,
   ]),
   userData: React.PropTypes.oneOfType([
-    React.PropTypes.array,
+    React.PropTypes.object,
     React.PropTypes.bool,
   ]),
   onClick: React.PropTypes.func,
