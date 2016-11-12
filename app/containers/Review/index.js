@@ -12,6 +12,7 @@ export class Review extends React.Component { // eslint-disable-line react/prefe
   render() {
     return (
       <div>
+        I’m the Review page!
       </div>
     );
   }

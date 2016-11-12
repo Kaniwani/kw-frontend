@@ -10,15 +10,13 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 
-import Header from 'components/Header';
-import Footer from 'components/Footer';
-
+const gutter = '1rem';
 const AppWrapper = styled.div`
-  max-width: calc(768px + 16px * 2);
+  max-width: calc(768px + ${gutter} * 2);
   margin: 0 auto;
   display: flex;
   min-height: 100%;
-  padding: 0 16px;
+  padding: 0 ${gutter};
   flex-direction: column;
 `;
 
@@ -32,9 +30,9 @@ function App(props) {
           { name: 'description', content: 'Kaniwani, An English to Japanese SRS Quiz' },
         ]}
       />
-      <Header />
+
       {React.Children.toArray(props.children)}
-      <Footer />
+
     </AppWrapper>
   );
 }

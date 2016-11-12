@@ -1,5 +1,7 @@
 import { css } from 'styled-components';
 
+const bgColor = '#41addd';
+
 const buttonStyles = css`
   display: inline-block;
   box-sizing: border-box;
@@ -14,13 +16,14 @@ const buttonStyles = css`
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: bold;
   font-size: 16px;
-  border: 2px solid #41addd;
-  color: #41addd;
+  border: 2px solid ${bgColor};
+  color: ${bgColor};
 
   &:active {
-    background: #41addd;
+    background: ${bgColor};
     color: #fff;
   }
+
 `;
 
 export default buttonStyles;

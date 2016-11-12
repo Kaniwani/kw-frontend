@@ -16,7 +16,7 @@ const LogoLink = styled.a`
 class Header extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <div>
+      <header>
         <LogoLink href="https://kaniwani.com">
           <Img src={Logo} alt="kaniwani - Logo" />
         </LogoLink>
@@ -28,7 +28,7 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
             Review
           </HeaderLink>
         </NavBar>
-      </div>
+      </header>
     );
   }
 }

@@ -9,6 +9,8 @@ import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
+import Header from 'components/Header';
+import Footer from 'components/Footer';
 import CenteredSection from './CenteredSection';
 import H2 from 'components/H2';
 import Button from 'components/Button';
@@ -38,7 +40,8 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     }
 
     return (
-      <article>
+      <div>
+        <Header />
         <Helmet
           title="Home"
           meta={[
@@ -64,7 +67,8 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
             {mainContent}
           </Section>
         </div>
-      </article>
+        <Footer />
+      </div>
     );
   }
 }
