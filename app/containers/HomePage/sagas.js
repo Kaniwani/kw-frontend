@@ -9,21 +9,20 @@ import { LOAD_USERDATA } from 'containers/App/constants';
 import { userDataLoaded, userDataLoadingError } from 'containers/App/actions';
 
 import request from 'utils/request';
-import { selectUsername } from 'containers/HomePage/selectors';
+import { selectCurrentUser } from 'containers/App/selectors';
 
 /**
  * userData request/response handler
  */
 export function* getUserData() {
   // Select username from store
-  const username = yield select(selectUsername());
-  const requestURL = 'http://localhost:3000/api';
-  // const requestURL = `http://localhost:3000/shared/${username}/userData?type=all&sort=updated`;
+  const username = yield select(selectCurrentUser());
+  const requestURL = `http://localhost:3000/api/user?${username}`;
 
   try {
     // Call our request helper (see 'utils/request')
-    const userData = yield call(request, requestURL);
-    yield put(userDataLoaded(userData, username));
+    const data = yield call(request, requestURL);
+    yield put(userDataLoaded(data, username));
   } catch (err) {
     yield put(userDataLoadingError(err));
   }
@@ -40,7 +39,7 @@ export function* getUserDataWatcher() {
 /**
  * Root saga manages watcher lifecycle
  */
-export function* kwUserData() {
+export function* userData() {
   // Fork watcher so we can continue execution
   const watcher = yield fork(getUserDataWatcher);
 
@@ -51,5 +50,5 @@ export function* kwUserData() {
 
 // Bootstrap sagas
 export default [
-  kwUserData,
+  userData,
 ];

@@ -14,8 +14,8 @@ import Footer from 'components/Footer';
 import CenteredSection from './CenteredSection';
 import H2 from 'components/H2';
 import Button from 'components/Button';
-import LoadingIndicator from 'components/LoadingIndicator';
 import Section from './Section';
+import LoadingIndicator from 'components/LoadingIndicator';
 import { loadUserData } from '../App/actions';
 import { selectUserData, selectLoading, selectError } from 'containers/App/selectors';
 

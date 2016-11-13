@@ -10,21 +10,21 @@
  *   return state.set('yourStateVariable', true);
  */
 
+
+// NOTE: CHANGE_USERNAME should be in global really?
 import {
   CHANGE_USERNAME,
 } from './constants';
 import { fromJS } from 'immutable';
 
-// The initial state of the App
-const initialState = fromJS({
-  username: '',
-});
+// The initial state of the HomePage
+const initialState = fromJS({});
 
 function homeReducer(state = initialState, action) {
   switch (action.type) {
     case CHANGE_USERNAME:
       return state
-        .set('username', action.name);
+        .setIn(['user', 'name'], action.name);
     default:
       return state;
   }

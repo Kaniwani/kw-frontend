@@ -8,12 +8,27 @@ const selectReviewDomain = () => (state) => state.get('review');
 /**
  * Other specific selectors
  */
+const selectLoading = () => createSelector(
+  selectReviewDomain(),
+  (substate) => substate.get('loading')
+);
 
+const selectError = () => createSelector(
+  selectReviewDomain(),
+  (substate) => substate.get('error')
+);
 
-/**
- * Default selector used by Review
- */
+const selectReviewData = () => createSelector(
+  selectReviewDomain(),
+  (substate) => substate.get('reviews')
+);
 
+const selectCurrentReview = () => createSelector(
+  selectReviewDomain(),
+  (substate) => substate.get('current')
+);
+
+// generic catchall
 const selectReview = () => createSelector(
   selectReviewDomain(),
   (substate) => substate.toJS()
@@ -21,5 +36,8 @@ const selectReview = () => createSelector(
 
 export default selectReview;
 export {
-  selectReviewDomain,
+  selectError,
+  selectLoading,
+  selectReviewData,
+  selectCurrentReview,
 };

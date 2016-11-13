@@ -1,15 +1,15 @@
 import React from 'react';
-import styles from './style.css';
+import styled from 'styled-components';
 import Question from '../Question';
 import Answer from '../Answer';
-import SynonymModal from '../SynonymModal';
+// import SynonymModal from '../SynonymModal';
 
 const Quiz = () => (
-  <div className={styles.base}>
+  <div className="base">
     <Question />
     <div className="lower">
       <Answer />
-      <a
+      {/*<a
         id="addSynonym"
         className="button -addsynonym -hidden"
         data-modal="#newSynonym"
@@ -17,7 +17,7 @@ const Quiz = () => (
       >
         Add <strong>S</strong>ynonym
       </a>
-      <SynonymModal />
+      <SynonymModal />*/}
     </div>
   </div>
 );

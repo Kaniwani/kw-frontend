@@ -22,9 +22,7 @@ const initialState = fromJS({
   loading: false,
   error: false,
   currentUser: false,
-  userData: {
-    data: false,
-  },
+  user: false,
 });
 
 function appReducer(state = initialState, action) {
@@ -33,12 +31,12 @@ function appReducer(state = initialState, action) {
       return state
         .set('loading', true)
         .set('error', false)
-        .setIn(['userData', 'data'], false);
+        .set('user', false);
     case LOAD_USERDATA_SUCCESS:
       return state
-        .setIn(['userData', 'data'], action.userData)
-        .set('loading', false)
-        .set('currentUser', action.username);
+        .set('user', action.userData)
+        .set('currentUser', action.userData.name)
+        .set('loading', false);
     case LOAD_USERDATA_ERROR:
       return state
         .set('error', action.error)

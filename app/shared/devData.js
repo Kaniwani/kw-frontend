@@ -4,6 +4,10 @@ module.exports = {
     level: 41,
     unlockedLevels: [17],
     lastWKSyncDate: 'Aug. 23, 2016, 1:46 a.m.',
+    nextReview: '',
+    reviewCount: 37,
+    reviewsWithinHourCount: 0,
+    reviewsWithinDayCount: 0,
   },
   settings: {
     onVacation: false,
@@ -14,10 +18,6 @@ module.exports = {
     burnedOnly: true,
   },
   messages: [],
-  nextReview: '',
-  reviewCount: 37,
-  reviewsWithinHourCount: 0,
-  reviewsWithinDayCount: 0,
   review: [
     {
       user_specific_id: 5262,
