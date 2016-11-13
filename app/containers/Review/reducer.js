@@ -18,36 +18,43 @@ import {
 } from './constants';
 import { fromJS } from 'immutable';
 
-// The initial state of the Review
 const initialState = fromJS({
   loading: false,
   error: false,
   reviews: false,
   current: false,
+  remaining: 0,
 });
 
-function appReducer(state = initialState, action) {
+function reviewReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_REVIEWDATA:
       return state
         .set('loading', true)
         .set('error', false)
         .set('reviews', false);
-    case LOAD_REVIEWDATA_SUCCESS:
+    case LOAD_REVIEWDATA_SUCCESS: {
+      const reviews = action.reviews;
       return state
-        .set('reviews', action.reviews)
+        .set('current', reviews.shift())
+        .set('reviews', reviews)
+        .set('remaining', reviews.length)
         .set('loading', false);
+    }
     case LOAD_REVIEWDATA_ERROR:
       return state
         .set('error', action.error)
         .set('loading', false);
-    case ROTATE_CURRENT_REVIEW:
+    case ROTATE_CURRENT_REVIEW: {
+      const reviews = state.get('reviews');
       return state
-        .set('current', state.get('reviews')[0])
-        .set('reviews', state.get('reviews').slice(1));
+        .set('current', reviews.shift())
+        .set('reviews', reviews)
+        .set('remaining', reviews.length);
+    }
     default:
       return state;
   }
 }
 
-export default appReducer;
+export default reviewReducer;

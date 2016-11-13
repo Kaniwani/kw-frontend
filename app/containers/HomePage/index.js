@@ -13,13 +13,15 @@ import Header from 'components/Header';
 import Footer from 'components/Footer';
 import CenteredSection from './CenteredSection';
 import H2 from 'components/H2';
-import Button from 'components/Button';
 import Section from './Section';
 import LoadingIndicator from 'components/LoadingIndicator';
 import { loadUserData } from '../App/actions';
 import { selectUserData, selectLoading, selectError } from 'containers/App/selectors';
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  componentWillMount() {
+    this.props.loadUserData();
+  }
   render() {
     let mainContent = null;
 
@@ -35,8 +37,21 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       mainContent = (<ErrorComponent />);
 
     // If we're not loading, don't have an error and there are userData, show the userData
-    } else if (this.props.userData !== false) {
-      mainContent = (<div>{JSON.stringify(this.props.userData)}</div>);
+    } else if (this.props.user !== false) {
+      const {
+        name,
+        reviewCount,
+        lastWKSyncDate,
+        level,
+      } = this.props.user;
+      mainContent = (
+        <div>
+          <H2>Welcome Back {name}.</H2>
+          <p>You are level {level}.</p>
+          <p>You have {reviewCount} reviews waiting.</p>
+          <p>You last synced with WK on {lastWKSyncDate}.</p>
+        </div>
+      );
     }
 
     return (
@@ -51,19 +66,13 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         <div>
           <CenteredSection>
             <H2>
-              Welcome to Kaniwani
+              Kaniwani
             </H2>
             <p>
               Version 2.0
             </p>
           </CenteredSection>
           <Section>
-            <H2>
-              User data:
-            </H2>
-            <Button onClick={this.props.onClick}>
-              Load data
-            </Button>
             {mainContent}
           </Section>
         </div>
@@ -79,24 +88,21 @@ HomePage.propTypes = {
     React.PropTypes.object,
     React.PropTypes.bool,
   ]),
-  userData: React.PropTypes.oneOfType([
+  user: React.PropTypes.oneOfType([
     React.PropTypes.object,
     React.PropTypes.bool,
   ]),
-  onClick: React.PropTypes.func,
+  loadUserData: React.PropTypes.func.isRequired,
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onClick: (evt) => {
-      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-      dispatch(loadUserData());
-    },
+    loadUserData: () => dispatch(loadUserData()),
   };
 }
 
 const mapStateToProps = createStructuredSelector({
-  userData: selectUserData(),
+  user: selectUserData(),
   loading: selectLoading(),
   error: selectError(),
 });

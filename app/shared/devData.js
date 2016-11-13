@@ -38,7 +38,7 @@ module.exports = {
     {
       user_specific_id: 5340,
       streak: 0,
-      meaning: 'bottom of one&#39;s heart, bottom of my heart',
+      meaning: 'bottom of one’s heart, bottom of my heart',
       readings: ['しんそこ'],
       characters: ['心底'],
     },

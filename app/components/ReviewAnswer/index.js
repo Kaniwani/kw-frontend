@@ -13,7 +13,11 @@ const Wrapper = styled.div`
 `;
 
 const Input = styled.input`
-  color: rebeccaPurple,
+  font-size: 2rem;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: .1em;
+  text-align: center;
 `;
 
 function ReviewAnswer() {

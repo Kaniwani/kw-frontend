@@ -10,7 +10,7 @@ import Wrapper from './Wrapper';
 function ReviewQuestion({ question }) {
   return (
     <Wrapper>
-      <h1> {question} </h1>
+      <h1>{question}</h1>
     </Wrapper>
   );
 }

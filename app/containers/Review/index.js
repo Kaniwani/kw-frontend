@@ -13,7 +13,7 @@ import ReviewQuestion from 'components/ReviewQuestion';
 import ReviewAnswer from 'components/ReviewAnswer';
 
 import { loadReviewData, rotateCurrentReview } from './actions';
-import { selectReviewData, selectCurrentReview, selectLoading, selectError } from './selectors';
+import { selectReviews, selectCurrentReview, selectRemaining, selectLoading, selectError } from './selectors';
 
 const QnA = styled.section`
   display: table;
@@ -21,15 +21,22 @@ const QnA = styled.section`
   width: 100%;
 `;
 
+const RotateButton = styled.button`
+  border: 2px solid blue;
+  border-radius: 5px;
+  font-size: 2em;
+  margin: .3rem auto;
+  cursor: pointer;
+`;
+
 export class Review extends React.Component { // eslint-disable-line react/prefer-stateless-function
   componentWillMount() {
-    this.props.dispatch(loadReviewData());
-    setTimeout(() => this.props.dispatch(rotateCurrentReview()), 500);
+    this.props.loadReviewData();
   }
 
   render() {
     let mainContent = null;
-    const { error, loading, reviews, current } = this.props;
+    const { error, loading, reviews, current, remaining, rotateReview } = this.props;
 
     // Show a loading indicator when we're loading
     if (loading) {
@@ -43,8 +50,12 @@ export class Review extends React.Component { // eslint-disable-line react/prefe
     } else if (reviews !== false) {
       mainContent = (
         <QnA>
-          <ReviewQuestion question={current.meaning && current.meaning || 'derp'} />
+          <h4>Remaining: {remaining}</h4>
+          <ReviewQuestion question={current && current.meaning || '無'} />
           <ReviewAnswer />
+          <RotateButton type="button" onClick={rotateReview}>
+            Rotate
+          </RotateButton>
         </QnA>
       );
     }
@@ -67,19 +78,23 @@ Review.propTypes = {
     React.PropTypes.object,
     React.PropTypes.bool,
   ]),
-  dispatch: React.PropTypes.func.isRequired,
+  remaining: React.PropTypes.number,
+  rotateReview: React.PropTypes.func.isRequired,
+  loadReviewData: React.PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  reviews: selectReviewData(),
   loading: selectLoading(),
   error: selectError(),
+  reviews: selectReviews(),
   current: selectCurrentReview(),
+  remaining: selectRemaining(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    loadReviewData: () => dispatch(loadReviewData()),
+    rotateReview: () => dispatch(rotateCurrentReview()),
   };
 }
 

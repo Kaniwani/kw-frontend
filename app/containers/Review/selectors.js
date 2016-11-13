@@ -18,7 +18,7 @@ const selectError = () => createSelector(
   (substate) => substate.get('error')
 );
 
-const selectReviewData = () => createSelector(
+const selectReviews = () => createSelector(
   selectReviewDomain(),
   (substate) => substate.get('reviews')
 );
@@ -26,6 +26,11 @@ const selectReviewData = () => createSelector(
 const selectCurrentReview = () => createSelector(
   selectReviewDomain(),
   (substate) => substate.get('current')
+);
+
+const selectRemaining = () => createSelector(
+  selectReviewDomain(),
+  (substate) => substate.get('remaining')
 );
 
 // generic catchall
@@ -38,6 +43,7 @@ export default selectReview;
 export {
   selectError,
   selectLoading,
-  selectReviewData,
+  selectReviews,
+  selectRemaining,
   selectCurrentReview,
 };
