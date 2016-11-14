@@ -1,7 +1,8 @@
-@value black-light, blue-light, blue-dark, grey-dark, unit-xs from './variables.css';
+import { blackLight, blueLight, blueDark, greyDark } from './colors';
+import { unit-xs } from './sizing';
 
 /* 300, 400, 700 weights available */
-:global {
+:root {
   --ff-body: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   /* 400 only */
   --ff-heading: "Ubuntu", Helvetica, Arial, sans-serif;

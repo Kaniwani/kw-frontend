@@ -28,9 +28,9 @@ const selectCurrentReview = () => createSelector(
   (substate) => substate.get('current')
 );
 
-const selectRemaining = () => createSelector(
+const selectProgress = () => createSelector(
   selectReviewDomain(),
-  (substate) => substate.get('remaining')
+  (substate) => substate.get('progress')
 );
 
 // generic catchall
@@ -44,6 +44,6 @@ export {
   selectError,
   selectLoading,
   selectReviews,
-  selectRemaining,
+  selectProgress,
   selectCurrentReview,
 };

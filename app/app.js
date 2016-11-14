@@ -21,8 +21,9 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { useScroll } from 'react-router-scroll';
 import configureStore from './store';
 
-// Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
+// Import the CSS reset & global styles, which HtmlWebpackPlugin transfers to the build folder
 import 'sanitize.css/sanitize.css';
+import './global-styles';
 
 // Create redux store with history
 // this uses the singleton browserHistory provided by react-router

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Img from './Img';
 import NavBar from './NavBar';
 import HeaderLink from './HeaderLink';
-import Logo from '../../shared/assets/logo.png';
+import Logo from 'shared/assets/img/logo.png';
 
 const LogoLink = styled.a`
   display: block;

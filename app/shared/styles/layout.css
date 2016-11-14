@@ -1,5 +1,3 @@
-@value helpers: './helpers.css';
-@value white-light from './variables.css';
 
 html {
   box-sizing: border-box;

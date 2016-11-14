@@ -10,14 +10,12 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 
-const gutter = '1rem';
 const AppWrapper = styled.div`
-  max-width: calc(768px + ${gutter} * 2);
-  margin: 0 auto;
   display: flex;
-  min-height: 100%;
-  padding: 0 ${gutter};
   flex-direction: column;
+  padding: 0;
+  margin: 0 auto;
+  min-height: 100%;
 `;
 
 function App(props) {

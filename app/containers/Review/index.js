@@ -9,25 +9,28 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
 import LoadingIndicator from 'components/LoadingIndicator';
+import ReviewHeader from 'components/ReviewHeader';
 import ReviewQuestion from 'components/ReviewQuestion';
 import ReviewAnswer from 'components/ReviewAnswer';
+import ReviewFooter from 'components/ReviewFooter';
 
 import { loadReviewData, rotateCurrentReview } from './actions';
-import { selectReviews, selectCurrentReview, selectRemaining, selectLoading, selectError } from './selectors';
+import { selectReviews, selectCurrentReview, selectProgress, selectLoading, selectError } from './selectors';
 
-const QnA = styled.section`
+const Wrapper = styled.section`
   display: table;
   padding: 0;
   width: 100%;
+  height: 100vh;
 `;
 
-const RotateButton = styled.button`
-  border: 2px solid blue;
-  border-radius: 5px;
-  font-size: 2em;
-  margin: .3rem auto;
-  cursor: pointer;
-`;
+// const RotateButton = styled.button`
+//   border: 2px solid blue;
+//   border-radius: 5px;
+//   font-size: 2em;
+//   margin: .3rem auto;
+//   cursor: pointer;
+// `;
 
 export class Review extends React.Component { // eslint-disable-line react/prefer-stateless-function
   componentWillMount() {
@@ -36,7 +39,7 @@ export class Review extends React.Component { // eslint-disable-line react/prefe
 
   render() {
     let mainContent = null;
-    const { error, loading, reviews, current, remaining, rotateReview } = this.props;
+    const { error, loading, reviews, current, progress, rotateReview } = this.props;
 
     // Show a loading indicator when we're loading
     if (loading) {
@@ -49,14 +52,15 @@ export class Review extends React.Component { // eslint-disable-line react/prefe
     // If we're not loading, don't have an error and there is review data, show the review data
     } else if (reviews !== false) {
       mainContent = (
-        <QnA>
-          <h4>Remaining: {remaining}</h4>
-          <ReviewQuestion question={current && current.meaning || '無'} />
+        <Wrapper>
+          <ReviewHeader progress={progress} />
+          <ReviewQuestion question={current ? current.meaning : '無'} />
           <ReviewAnswer />
-          <RotateButton type="button" onClick={rotateReview}>
+{/*          <RotateButton type="button" onClick={rotateReview}>
             Rotate
-          </RotateButton>
-        </QnA>
+          </RotateButton>*/}
+          <ReviewFooter />
+        </Wrapper>
       );
     }
 
@@ -78,7 +82,7 @@ Review.propTypes = {
     React.PropTypes.object,
     React.PropTypes.bool,
   ]),
-  remaining: React.PropTypes.number,
+  progress: React.PropTypes.object.isRequired,
   rotateReview: React.PropTypes.func.isRequired,
   loadReviewData: React.PropTypes.func.isRequired,
 };
@@ -88,7 +92,7 @@ const mapStateToProps = createStructuredSelector({
   error: selectError(),
   reviews: selectReviews(),
   current: selectCurrentReview(),
-  remaining: selectRemaining(),
+  progress: selectProgress(),
 });
 
 function mapDispatchToProps(dispatch) {

@@ -1,4 +1,6 @@
-@keyframes :global(wobble) {
+import { keyframes } from 'styled-components';
+
+const wobble = keyframes`
   0% {
     transform: rotate(0deg);
   }
@@ -11,9 +13,9 @@
   100% {
     transform: rotate(0deg);
   }
-}
+`;
 
-@keyframes :global(shake) {
+const shake = keyframes`
   from, to {
     transform: translate3d(0, 0, 0);
   }
@@ -25,14 +27,14 @@
   25%, 55%, 85% {
     transform: translate3d(8px, 0, 0);
   }
-}
+}`;
 
-.shake {
-  animation: shake .6s;
-  animation-fill-mode: both;
-}
+// .shake {
+//   animation: shake .6s;
+//   animation-fill-mode: both;
+// }
 
-@keyframes :global(fadeOutUp) {
+const fadeOutUp = keyframes`
   0% {
     opacity: 1;
     transform: translate3d(0,0,0) scale(1);
@@ -42,9 +44,9 @@
     opacity: 0;
     transform: translate3d(0, -125px, 0) scale(1.4);
   }
-}
+}`;
 
-@keyframes :global(srsRankUp) {
+const srsRankUp = keyframes`
   0% {
     opacity: 0;
     transform: translate3d(0, 3.5em, 0);
@@ -58,9 +60,9 @@
     opacity: 1;
     transform: translate3d(0, 0, 0);
   }
-}
+}`;
 
-@keyframes :global(srsRankDown) {
+const srsRankDown = keyframes`
   0% {
     opacity: 0;
     transform: translate3d(0, -3.5em, 0);
@@ -74,4 +76,12 @@
     opacity: 1;
     transform: translate3d(0, 0, 0);
   }
-}
+}`;
+
+export {
+  wobble,
+  shake,
+  fadeOutUp,
+  srsRankDown,
+  srsRankUp,
+};

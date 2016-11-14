@@ -23,7 +23,7 @@ const initialState = fromJS({
   error: false,
   reviews: false,
   current: false,
-  remaining: 0,
+  progress: {},
 });
 
 function reviewReducer(state = initialState, action) {
@@ -38,7 +38,13 @@ function reviewReducer(state = initialState, action) {
       return state
         .set('current', reviews.shift())
         .set('reviews', reviews)
-        .set('remaining', reviews.length)
+        .set('progress', {
+          remaining: reviews.length,
+          completed: 0,
+          correct: 0,
+          incorrect: 0,
+          ignored: 0,
+        })
         .set('loading', false);
     }
     case LOAD_REVIEWDATA_ERROR:

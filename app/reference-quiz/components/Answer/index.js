@@ -4,7 +4,7 @@ import IgnoreButton from '../IgnoreButton';
 import SubmitButton from '../SubmitButton';
 
 const Answer = () => (
-  <form id="answerPanel" className="answerpanel">
+  <form id="answerPanel" className="answerpanel" style={{ height: '66vh' }}>
     <StreakIcon />
     <label
       htmlFor="userAnswer"

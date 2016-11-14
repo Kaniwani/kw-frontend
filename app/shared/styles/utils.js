@@ -1,27 +1,54 @@
-.clearfix {
+import { css } from 'styled-components';
+import { units } from './spacing';
+import { media } from './media';
+
+const sectionSpacing = css`
+  margin-top: ${units.md};
+  margin-bottom: ${units.md};
+
+  ${media('min').lg`
+    margin-top: ${units.lg};
+    margin-bottom: ${units.lg};
+  `}
+`;
+
+const sectionGutters = css`
+  max-width: ${units.siteMaxWidth};
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: ${units.sm};
+  padding-right: ${units.sm};
+
+  ${media('min').md`
+    padding-left: ${units.md};
+    padding-right: ${units.md};
+  `}
+`;
+
+const clearfix = `
   &:after {
     content: "";
     display: block;
     clear: both;
   }
-}
+`;
 
-.word-wrap {
+const wordwrap = `
   overflow-wrap: break-word;
   word-wrap: break-word;
   -ms-word-break: break-all;
   word-break: break-word;
   hyphens: auto;
-}
+`;
 
-.flexcenter {
+const flexcenter = `
   display: flex;
   justify-content: center;
   align-items: center;
   align-content: center;
-}
+`;
 
-.visuallyhidden {
+const visuallyhidden = `
   position: absolute;
   height: 1px !important;
   width: 1px !important;
@@ -31,39 +58,17 @@
   overflow: hidden;
   border: 0;
   padding: 0;
-}
+  line-height: 0;
+`;
 
-.section-spacing {
-  margin-top: unit-md;
-  margin-bottom: unit-md;
-
-  @media(bp-lg) {
-    margin-top: unit-lg;
-    margin-bottom: unit-lg;
-  }
-}
-
-.section-gutters {
-  max-width: site-max-width;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: unit-sm;
-  padding-right: unit-sm;
-
-  @media(bp-md) {
-    padding-left: unit-md;
-    padding-right: unit-md;
-  }
-}
-
-.reset-list {
+const resetList = `
   list-style: none;
   margin-top: 0;
   margin-bottom: 0;
   padding-left: 0;
-}
+`;
 
-.reset-button {
+const resetButton = `
   background: none;
   border: 0;
   color: inherit;
@@ -71,26 +76,39 @@
   line-height: normal;
   overflow: visible;
   padding: 0;
-  -webkit-appearance: button; /* for input */
-  -webkit-user-select: none; /* for button */
+  -webkit-appearance: button;
+  -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
 
-  /* pseudos */
   &::-moz-focus-inner,
   &::-moz-focus-inner {
     border: 0;
     padding: 0;
   }
-}
+`;
 
-.hidden {
+const hidden = `
   display: none !important;
-}
+`;
 
 /* hidden but still takes up space, used with icons generally */
-.ghost {
+const ghost = `
   opacity: 0 !important;
   pointer-events: none !important;
   cursor: none !important;
-}
+`;
+
+export {
+  sectionSpacing,
+  sectionGutters,
+  clearfix,
+  wordwrap,
+  flexcenter,
+  visuallyhidden,
+  resetList,
+  resetButton,
+  hidden,
+  ghost,
+};
+
