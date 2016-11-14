@@ -29,7 +29,7 @@ module.exports = {
 
     {
       user_specific_id: 5308,
-      streak: 1,
+      streak: 8,
       meaning: 'attendance',
       readings: ['しゅっせき'],
       characters: ['出席'],
@@ -37,7 +37,7 @@ module.exports = {
 
     {
       user_specific_id: 5340,
-      streak: 0,
+      streak: 6,
       meaning: 'bottom of one’s heart, bottom of my heart',
       readings: ['しんそこ'],
       characters: ['心底'],
@@ -53,7 +53,7 @@ module.exports = {
 
     {
       user_specific_id: 5273,
-      streak: 3,
+      streak: 4,
       meaning: 'absurd, rash, excessive',
       readings: ['むちゃ'],
       characters: ['無茶'],
@@ -61,7 +61,7 @@ module.exports = {
 
     {
       user_specific_id: 5315,
-      streak: 2,
+      streak: 5,
       meaning: 'after all, eventually, in the end, finally',
       readings: ['けっきょく', 'けぼく'],
       characters: ['結局',  'けぼく'],
@@ -87,8 +87,8 @@ module.exports = {
       user_specific_id: 5310,
       streak: 0,
       meaning: 'british person, english person, englishman',
-      readings: ['いぎりすじん','イギリスじん'],
-      characters: ['イギリス人','イギリス人'],
+      readings: ['いぎりすじん', 'イギリスじん'],
+      characters: ['イギリス人', 'イギリス人'],
     },
 
     {

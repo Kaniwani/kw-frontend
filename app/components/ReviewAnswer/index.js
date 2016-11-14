@@ -12,7 +12,7 @@ import SubmitButton from './SubmitButton';
 import { visuallyhidden } from 'shared/styles/utils';
 
 const Wrapper = styled.div`
-  display: table-row;
+  position: relative;
   width: 100%;
 `;
 
@@ -35,10 +35,10 @@ const Label = styled.label`
   ${visuallyhidden}
 `;
 
-function ReviewAnswer() {
+function ReviewAnswer({ streak, rotateReview }) {
   return (
     <Wrapper>
-      <StreakIcon />
+      <StreakIcon streak={streak} />
       <Label htmlFor="userAnswer">
         Vocabulary reading
       </Label>
@@ -53,10 +53,15 @@ function ReviewAnswer() {
         autoComplete="off"
       />
       <IgnoreButton />
-      <SubmitButton />
+      <SubmitButton handleClick={rotateReview} />
 {/*      <StreakAnimation />*/}
     </Wrapper>
   );
 }
+
+ReviewAnswer.propTypes = {
+  streak: React.PropTypes.number.isRequired,
+  rotateReview: React.PropTypes.func.isRequired,
+};
 
 export default ReviewAnswer;

@@ -1,12 +1,27 @@
 import React from 'react';
+import styled from 'styled-components';
+import Icon from 'components/Icon';
 
-const IgnoreButton = () => (
-  <button id="ignoreAnswer" type="button" className="submit -ignore -hidden">
-    { /* wrap because <button> can't display:flex in safari properly */ }
-    <span className="submitwrap">
-            <span className="icon i-cancel" />
-          </span>
-  </button>
-);
+const Button = styled.button`
+  display: block;
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+  right: 4em;
+  cursor: pointer;
+`;
+
+// TODO: alter Icon component, remove style prop and add use styled-components instead
+
+function IgnoreButton() {
+  return (
+    <Button type="button">
+      <Icon
+        name="CLOSE"
+        size={50}
+      />
+    </Button>
+  );
+}
 
 export default IgnoreButton;

@@ -7,7 +7,7 @@
 import React, { PropTypes } from 'react';
 import { ICONS } from './constants';
 
-// TODO: change this component to use styled-components
+// TODO: change this component to use styled-components!
 
 const Icon = ({
   name,

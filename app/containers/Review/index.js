@@ -55,7 +55,7 @@ export class Review extends React.Component { // eslint-disable-line react/prefe
         <Wrapper>
           <ReviewHeader progress={progress} />
           <ReviewQuestion question={current ? current.meaning : '無'} />
-          <ReviewAnswer />
+          <ReviewAnswer streak={current.streak} rotateReview={rotateReview} />
 {/*          <RotateButton type="button" onClick={rotateReview}>
             Rotate
           </RotateButton>*/}
