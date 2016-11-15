@@ -1,14 +1,41 @@
 // TODO: add tests
 
-import typeOf from 'just-typeof';
 import { SRS_RANKS } from 'shared/constants';
+
+
+/**
+ * Returns type of provided value with normalized strings (IE. 'array' instead of 'object' for [])
+ * @param  {*} value
+ * @return {String} type
+ *
+ * typeOf({}); // 'object'
+ * typeOf([]); // 'array'
+ * typeOf(function() {}); // 'function'
+ * typeOf(/a/); // 'regexp'
+ * typeOf(new Date()); // 'date'
+ * typeOf(null); // 'null'
+ * typeOf(undefined); // 'undefined'
+ * typeOf('a'); // 'string'
+ * typeOf(1); // 'number'
+ * typeOf(true); // 'boolean'
+ */
+export function typeOf(value) {
+  if (value === null) {
+    return 'null';
+  }
+  if (value !== Object(value)) {
+    return typeof value;
+  }
+  return ({}).toString.call(value).slice(8, -1).toLowerCase();
+}
 
 /**
  * Checks values against test types and console.warns any failures
+ *
  * @param  {...Array} tests Value/Test pairs of format [value, 'type']
  * @return {Boolean} True if any invalid types
  */
-function warnInvalidParams(...tests) {
+export function warnInvalidParams(...tests) {
   const warnings = tests.reduce((failedList, testPair) => {
     const [value, testType] = testPair;
     const valType = typeOf(value);
