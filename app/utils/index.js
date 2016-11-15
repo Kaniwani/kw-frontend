@@ -1,6 +1,29 @@
 // TODO: add tests
 
+import typeOf from 'just-typeof';
 import { SRS_RANKS } from 'shared/constants';
+
+/**
+ * Checks values against test types and console.warns any failures
+ * @param  {...Array} tests Value/Test pairs of format [value, 'type']
+ * @return {Boolean} True if any invalid types
+ */
+function warnInvalidParams(...tests) {
+  const warnings = tests.reduce((failedList, testPair) => {
+    const [value, testType] = testPair;
+    const valType = typeOf(value);
+
+    return (valType !== testType) ?
+       failedList.concat(`${value.toString()}: of type ${valType} which should have been ${testType}`) :
+       failedList;
+  }, []);
+
+  if (warnings.length) {
+    console.warn(`Invalid params provided to ${warnInvalidParams.caller.name}:\n ${warnings.join('\n')}`);
+  }
+
+  return !!warnings.length;
+}
 
 /**
  * Calculate percentage
@@ -10,14 +33,7 @@ import { SRS_RANKS } from 'shared/constants';
  * @return {Number} Percentage
  */
 export function calculatePercentage(numerator, denominator) {
-  const [numType, denomType] = [typeof numerator, typeof denominator];
-
-  if (numType !== 'number' || denomType !== 'number') {
-    console.warn(`Invalid params provided to calculatePercentage:
-      numerator: ${numerator} of type ${numType}
-      denominator: ${denominator} of type ${denomType}
-    `);
-  }
+  warnInvalidParams([numerator, 'number'], [denominator, 'number']);
 
   // "|| 0" to guard against dividing 0 by 0 => NaN
   return Math.floor((numerator / denominator) * 100) || 0;
@@ -27,17 +43,10 @@ export function calculatePercentage(numerator, denominator) {
  * Returns name of srs rank from provided number
  *
  * @param  {Number} streak Current srs rank
- * @return {String}        Rank name
+ * @return {String} Rank name
  */
 export function getSrsRankName(streak) {
-  const streakType = typeof streak;
-
-  if (streakType !== 'number') {
-    console.warn(`
-      Invalid streak provided to getSrsRankName:
-      ${streak} of type ${streakType}
-    `);
-  }
+  warnInvalidParams([streak, 'number']);
 
   switch (true) {
     case (streak > 8): return SRS_RANKS.FIVE;
