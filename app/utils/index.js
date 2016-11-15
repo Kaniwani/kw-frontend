@@ -1,34 +1,40 @@
-// TODO: add tests, check if ignored prop is > 0 instead of the || 0 ?
+// TODO: add tests
 
 import { SRS_RANKS } from 'shared/constants';
 
 /**
- * Calculate percentage of right answers out of 100
- * @param  {Number} correct   Answers correct
- * @param  {Number} completed Questions completed
+ * Calculate percentage out of 100
+ *
+ * @param  {Number} numerator   Answers correct
+ * @param  {Number} denominator Questions completed
  * @return {Number}           Percentage of correct answers
  */
-export function calculatePercentage(correct, completed) {
-  if (typeof correct !== 'number' || completed !== 'number') {
+export function calculatePercentage(numerator, denominator) {
+  const [numType, denomType] = [typeof numerator, typeof denominator];
+
+  if (numType !== 'number' || denomType !== 'number') {
     console.warn(`Invalid params provided to calculatePercentage:
-      correct: ${correct}
-      completed: ${completed}
+      numerator: ${numerator} of type ${numType}
+      denominator: ${denominator} of type ${denomType}
     `);
   }
-  // "|| 0" to guard against dividing by 0 completed (when first answer was ignored)
-  return Math.floor((correct / completed) * 100) || 0;
+
+  // "|| 0" to guard against dividing 0 by 0 => NaN
+  return Math.floor((numerator / denominator) * 100) || 0;
 }
 
 /**
  * Returns name of srs rank from provided number
+ *
  * @param  {Number} streak Current srs rank
  * @return {String}        Rank name
  */
 export function getSrsRankName(streak) {
-  if (typeof streak !== 'number') {
+  const streakType = typeof streak;
+  if (streakType !== 'number') {
     console.warn(`
       Invalid streak provided to getSrsRankName:
-      ${streak}
+      ${streak} of type ${streakType}
     `);
   }
   switch (true) {

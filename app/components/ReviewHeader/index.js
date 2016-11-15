@@ -20,10 +20,10 @@ const Wrapper = styled.div`
   color: ${white}
 `;
 
-function ReviewHeader({ progress: { correct, completed, remaining } }) {
+function ReviewHeader({ progress: { initial, remaining, correct, completed } }) {
   return (
     <Wrapper>
-      <ProgressBar value={completed} />
+      <ProgressBar value={(completed / initial) * 100} />
       <ExitQuiz />
       <StatsList
         completed={completed}

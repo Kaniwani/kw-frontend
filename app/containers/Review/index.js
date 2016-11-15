@@ -5,9 +5,11 @@
  */
 
 import React from 'react';
+import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
+
 import LoadingIndicator from 'components/LoadingIndicator';
 import ReviewHeader from 'components/ReviewHeader';
 import ReviewQuestion from 'components/ReviewQuestion';
@@ -59,6 +61,12 @@ export class Review extends React.Component { // eslint-disable-line react/prefe
     } else if (current.id !== false) {
       mainContent = (
         <Wrapper>
+          <Helmet
+            title="Review"
+            meta={[
+              { name: 'description', content: 'Kaniwani Reviews Page' },
+            ]}
+          />
           <ReviewHeader progress={progress} />
           <ReviewQuestion
             question={current.meaning}

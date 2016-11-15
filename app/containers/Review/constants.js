@@ -13,3 +13,4 @@ export const LOAD_REVIEWDATA = 'kaniwani/Review/LOAD_REVIEWDATA';
 export const LOAD_REVIEWDATA_SUCCESS = 'kaniwani/Review/LOAD_REVIEWDATA_SUCCESS';
 export const LOAD_REVIEWDATA_ERROR = 'kaniwani/Review/LOAD_REVIEWDATA_ERROR';
 export const ROTATE_CURRENT_REVIEW = 'kaniwani/Review/ROTATE_CURRENT_REVIEW';
+export const INCREASE_COMPLETED_COUNT = 'kaniwani/Review/INCREASE_COMPLETED_COUNT';
