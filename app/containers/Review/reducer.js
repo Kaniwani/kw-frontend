@@ -10,13 +10,13 @@
  *   return state.set('yourStateVariable', true);
  */
 
+import { fromJS } from 'immutable';
 import {
   LOAD_REVIEWDATA_SUCCESS,
   LOAD_REVIEWDATA,
   LOAD_REVIEWDATA_ERROR,
   ROTATE_CURRENT_REVIEW,
 } from './constants';
-import { fromJS } from 'immutable';
 
 const initialState = fromJS({
   loading: false,
@@ -40,10 +40,11 @@ const initialState = fromJS({
 
 function reviewReducer(state = initialState, action) {
   switch (action.type) {
-    case LOAD_REVIEWDATA:
+    case LOAD_REVIEWDATA: {
       return state
         .set('loading', true)
         .set('error', false);
+    }
     case LOAD_REVIEWDATA_SUCCESS: {
       const { reviews } = action;
       return state
@@ -52,14 +53,15 @@ function reviewReducer(state = initialState, action) {
         .setIn(['progress', 'remaining'], reviews.length)
         .set('loading', false);
     }
-    case LOAD_REVIEWDATA_ERROR:
+    case LOAD_REVIEWDATA_ERROR: {
       return state
         .set('error', action.error)
         .set('loading', false);
+    }
     case ROTATE_CURRENT_REVIEW: {
-      const newState = state.mergeIn(['current'], state.get('reviews').first())
+      const modifiedState = state.mergeIn(['current'], state.get('reviews').first())
                             .deleteIn(['reviews', 0]);
-      return newState.setIn(['progress', 'remaining'], newState.get('reviews').size);
+      return modifiedState.setIn(['progress', 'remaining'], modifiedState.get('reviews').size);
     }
     default:
       return state;
