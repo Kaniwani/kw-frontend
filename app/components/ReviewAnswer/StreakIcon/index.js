@@ -7,7 +7,7 @@ import Icon from 'components/Icon';
 function StreakIcon({ streak }) {
   return (
     <Icon
-      name={getSrsRankName(streak)}
+      name={getSrsRankName(streak).toUpperCase()}
       size={50}
       style={{
         display: 'block',

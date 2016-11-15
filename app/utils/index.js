@@ -1,5 +1,7 @@
 // TODO: add tests, check if ignored prop is > 0 instead of the || 0 ?
 
+import { SRS_RANKS } from 'shared/constants';
+
 /**
  * Calculate percentage of right answers out of 100
  * @param  {Number} correct   Answers correct
@@ -16,12 +18,18 @@ export function calculatePercentage(correct = 0, completed = 0) {
  * @param  {Number} streak Current srs rank
  * @return {String}        Rank name
  */
-export function getSrsRankName(streak = 0) {
+export function getSrsRankName(streak) {
+  if (typeof streak !== 'number') {
+    console.warn(`
+      Invalid streak provided to getSrsRankName:
+      ${streak}
+    `);
+  }
   switch (true) {
-    case (streak > 8): return 'BURNED';
-    case (streak > 7): return 'ENLIGHTENED';
-    case (streak > 6): return 'MASTER';
-    case (streak > 4): return 'GURU';
-    default: return 'APPRENTICE';
+    case (streak > 8): return SRS_RANKS.FIVE;
+    case (streak > 7): return SRS_RANKS.FOUR;
+    case (streak > 6): return SRS_RANKS.THREE;
+    case (streak > 4): return SRS_RANKS.TWO;
+    default: return SRS_RANKS.ONE;
   }
 }

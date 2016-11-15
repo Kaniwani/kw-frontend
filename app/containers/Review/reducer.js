@@ -56,7 +56,8 @@ function reviewReducer(state = initialState, action) {
       return state
         .set('current', reviews.shift())
         .set('reviews', reviews)
-        .set('remaining', reviews.length);
+        // NOTE: HALP! why is this selector wrong?
+        // .setIn(['progress', 'remaining'], reviews.length);
     }
     default:
       return state;
