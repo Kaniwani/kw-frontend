@@ -20,7 +20,7 @@ module.exports = {
   messages: [],
   review: [
     {
-      user_specific_id: 5262,
+      id: 5262,
       streak: 1,
       meaning: 'hallucination',
       readings: ['げんかく'],
@@ -28,7 +28,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5308,
+      id: 5308,
       streak: 8,
       meaning: 'attendance',
       readings: ['しゅっせき'],
@@ -36,7 +36,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5340,
+      id: 5340,
       streak: 6,
       meaning: 'bottom of one’s heart, bottom of my heart',
       readings: ['しんそこ'],
@@ -44,7 +44,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5306,
+      id: 5306,
       streak: 2,
       meaning: 'aichi prefecture, aichi ken',
       readings: ['あいちけん'],
@@ -52,7 +52,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5273,
+      id: 5273,
       streak: 4,
       meaning: 'absurd, rash, excessive',
       readings: ['むちゃ'],
@@ -60,7 +60,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5315,
+      id: 5315,
       streak: 5,
       meaning: 'after all, eventually, in the end, finally',
       readings: ['けっきょく', 'けぼく'],
@@ -68,7 +68,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5324,
+      id: 5324,
       streak: 1,
       meaning: 'absence, nonattendance',
       readings: ['けっせき'],
@@ -76,7 +76,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5284,
+      id: 5284,
       streak: 0,
       meaning: 'glory',
       readings: ['えいこう'],
@@ -84,7 +84,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5310,
+      id: 5310,
       streak: 0,
       meaning: 'british person, english person, englishman',
       readings: ['いぎりすじん', 'イギリスじん'],
@@ -92,7 +92,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5280,
+      id: 5280,
       streak: 1,
       meaning: 'arms, weapons',
       readings: ['へいき'],
@@ -100,7 +100,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5268,
+      id: 5268,
       streak: 1,
       meaning: 'consciously, awareness, consciousness',
       readings: ['いしき'],
@@ -108,7 +108,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5275,
+      id: 5275,
       streak: 1,
       meaning: 'anonymous, anonymity, nameless',
       readings: ['むめい'],
@@ -116,7 +116,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5266,
+      id: 5266,
       streak: 0,
       meaning: 'fruit',
       readings: ['くだもの'],
@@ -124,7 +124,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5276,
+      id: 5276,
       streak: 1,
       meaning: 'bottom',
       readings: ['そこ'],
@@ -132,7 +132,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5356,
+      id: 5356,
       streak: 0,
       meaning: 'breakfast',
       readings: ['あさごはん','あさごはん'],
@@ -140,7 +140,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5255,
+      id: 5255,
       streak: 1,
       meaning: 'crybaby',
       readings: ['なきむし'],
@@ -148,7 +148,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5326,
+      id: 5326,
       streak: 0,
       meaning: 'honor, privilege, honour',
       readings: ['こうえい'],
@@ -156,7 +156,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5256,
+      id: 5256,
       streak: 1,
       meaning: 'crying, sob',
       readings: ['なきごえ'],
@@ -164,7 +164,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5269,
+      id: 5269,
       streak: 1,
       meaning: 'hypothesis',
       readings: ['かせつ', 'かぶ'],
@@ -172,7 +172,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5353,
+      id: 5353,
       streak: 1,
       meaning: 'vanity',
       readings: ['きょえいしん'],
@@ -180,7 +180,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5282,
+      id: 5282,
       streak: 1,
       meaning: 'fantasy, illusion',
       readings: ['げんそう'],
@@ -188,7 +188,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5304,
+      id: 5304,
       streak: 0,
       meaning: 'ume, japanese plum',
       readings: ['うめ'],
@@ -196,7 +196,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5358,
+      id: 5358,
       streak: 1,
       meaning: 'bad tasting, unappetizing, unskillful',
       readings: ['まずい'],
@@ -204,7 +204,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5350,
+      id: 5350,
       streak: 1,
       meaning: 'before christ, bc, bce, before common era',
       readings: ['きげんぜん'],
@@ -212,7 +212,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5342,
+      id: 5342,
       streak: 0,
       meaning: 'building',
       readings: ['たてもの'],
@@ -220,7 +220,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5345,
+      id: 5345,
       streak: 1,
       meaning: 'failure, mistake',
       readings: ['しっぱい'],
@@ -228,7 +228,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5339,
+      id: 5339,
       streak: 1,
       meaning: 'illusion, phantom',
       readings: ['まぼろし'],
@@ -236,7 +236,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5349,
+      id: 5349,
       streak: 0,
       meaning: 'free, without charge, no charge, no cost',
       readings: ['むりょう'],
@@ -244,7 +244,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5283,
+      id: 5283,
       streak: 0,
       meaning: 'explanation',
       readings: ['せつめい'],
@@ -252,7 +252,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5318,
+      id: 5318,
       streak: 1,
       meaning: 'atom',
       readings: ['げんし'],
@@ -260,7 +260,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5354,
+      id: 5354,
       streak: 1,
       meaning: 'consciousness, awareness, realization, self-consciousness, self-awareness',
       readings: ['じかく'],
@@ -268,7 +268,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5257,
+      id: 5257,
       streak: 1,
       meaning: 'diplomat',
       readings: ['がいこうかん'],
@@ -276,7 +276,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5355,
+      id: 5355,
       streak: 1,
       meaning: 'illustration, explanatory diagram',
       readings: ['ずせつ'],
@@ -284,7 +284,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5272,
+      id: 5272,
       streak: 1,
       meaning: 'absolutely, by all means, without fail, definitely, certainly',
       readings: ['ぜひ'],
@@ -292,7 +292,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5331,
+      id: 5331,
       streak: 0,
       meaning: 'cause, origin, source',
       readings: ['げんいん'],
@@ -300,7 +300,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5271,
+      id: 5271,
       streak: 0,
       meaning: 'both sides',
       readings: ['りょうがわ'],
@@ -308,7 +308,7 @@ module.exports = {
     },
 
     {
-      user_specific_id: 5362,
+      id: 5362,
       streak: 1,
       meaning: 'dinner, supper',
       readings: ['ばんごはん'],

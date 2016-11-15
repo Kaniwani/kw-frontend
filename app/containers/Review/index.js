@@ -39,7 +39,13 @@ export class Review extends React.Component { // eslint-disable-line react/prefe
 
   render() {
     let mainContent = null;
-    const { error, loading, reviews, current, progress, rotateReview } = this.props;
+    const {
+      error,
+      loading,
+      current,
+      progress,
+      rotateReview,
+    } = this.props;
 
     // Show a loading indicator when we're loading
     if (loading) {
@@ -50,12 +56,17 @@ export class Review extends React.Component { // eslint-disable-line react/prefe
       mainContent = (<p>Something went wrong, please try again!</p>);
 
     // If we're not loading, don't have an error and there is review data, show the review data
-    } else if (reviews !== false) {
+    } else if (current.id !== false) {
       mainContent = (
         <Wrapper>
           <ReviewHeader progress={progress} />
-          <ReviewQuestion question={current ? current.meaning : '無'} />
-          <ReviewAnswer streak={current && current.streak} rotateReview={rotateReview} />
+          <ReviewQuestion
+            question={current.meaning}
+          />
+          <ReviewAnswer
+            streak={current.streak}
+            onSubmitAnswer={rotateReview}
+          />
 {/*          <RotateButton type="button" onClick={rotateReview}>
             Rotate
           </RotateButton>*/}
@@ -73,15 +84,11 @@ Review.propTypes = {
   error: React.PropTypes.oneOfType([
     React.PropTypes.object,
     React.PropTypes.bool,
-  ]),
-  reviews: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.bool,
-  ]),
+  ]).isRequired,
   current: React.PropTypes.oneOfType([
     React.PropTypes.object,
     React.PropTypes.bool,
-  ]),
+  ]).isRequired,
   progress: React.PropTypes.object.isRequired,
   rotateReview: React.PropTypes.func.isRequired,
   loadReviewData: React.PropTypes.func.isRequired,

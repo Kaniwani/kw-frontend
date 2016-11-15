@@ -20,17 +20,17 @@ const selectError = () => createSelector(
 
 const selectReviews = () => createSelector(
   selectReviewDomain(),
-  (substate) => substate.get('reviews')
+  (substate) => substate.get('reviews').toJS()
 );
 
 const selectCurrentReview = () => createSelector(
   selectReviewDomain(),
-  (substate) => substate.get('current')
+  (substate) => substate.get('current').toJS()
 );
 
 const selectProgress = () => createSelector(
   selectReviewDomain(),
-  (substate) => substate.get('progress')
+  (substate) => substate.get('progress').toJS()
 );
 
 // generic catchall

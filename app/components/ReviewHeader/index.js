@@ -20,8 +20,7 @@ const Wrapper = styled.div`
   color: ${white}
 `;
 
-function ReviewHeader({ progress }) {
-  const { completed, correct, remaining } = progress;
+function ReviewHeader({ progress: { correct, completed, remaining } }) {
   return (
     <Wrapper>
       <ProgressBar value={completed} />
@@ -36,11 +35,7 @@ function ReviewHeader({ progress }) {
 }
 
 ReviewHeader.propTypes = {
-  progress: React.PropTypes.shape({ /* eslint-disable react/no-unused-prop-types */
-    remaining: React.PropTypes.number.isRequired,
-    completed: React.PropTypes.number.isRequired,
-    correct: React.PropTypes.number.isRequired,
-  }),
+  progress: React.PropTypes.object.isRequired,
 };
 
 export default ReviewHeader;

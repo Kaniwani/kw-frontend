@@ -21,9 +21,21 @@ import { fromJS } from 'immutable';
 const initialState = fromJS({
   loading: false,
   error: false,
-  reviews: false,
-  current: false,
-  progress: {},
+  reviews: [],
+  current: {
+    id: 0,
+    meaning: '',
+    streak: 0,
+    readings: [],
+    characters: [],
+  },
+  progress: {
+    remaining: 0,
+    correct: 0,
+    incorrect: 0,
+    completed: 0,
+    ignored: 0,
+  },
 });
 
 function reviewReducer(state = initialState, action) {
@@ -31,20 +43,13 @@ function reviewReducer(state = initialState, action) {
     case LOAD_REVIEWDATA:
       return state
         .set('loading', true)
-        .set('error', false)
-        .set('reviews', false);
+        .set('error', false);
     case LOAD_REVIEWDATA_SUCCESS: {
-      const reviews = action.reviews;
+      const { reviews } = action;
       return state
-        .set('current', reviews.shift())
-        .set('reviews', reviews)
-        .set('progress', {
-          remaining: reviews.length,
-          completed: 0,
-          correct: 0,
-          incorrect: 0,
-          ignored: 0,
-        })
+        .mergeIn(['current'], reviews.shift())
+        .mergeDeepIn(['reviews'], reviews)
+        .setIn(['progress', 'remaining'], reviews.length)
         .set('loading', false);
     }
     case LOAD_REVIEWDATA_ERROR:
@@ -52,12 +57,9 @@ function reviewReducer(state = initialState, action) {
         .set('error', action.error)
         .set('loading', false);
     case ROTATE_CURRENT_REVIEW: {
-      const reviews = state.get('reviews');
-      return state
-        .set('current', reviews.shift())
-        .set('reviews', reviews)
-        // NOTE: HALP! why is this selector wrong?
-        // .setIn(['progress', 'remaining'], reviews.length);
+      const newState = state.mergeIn(['current'], state.get('reviews').first())
+                            .deleteIn(['reviews', 0]);
+      return newState.setIn(['progress', 'remaining'], newState.get('reviews').size);
     }
     default:
       return state;

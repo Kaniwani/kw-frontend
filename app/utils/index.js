@@ -8,7 +8,13 @@ import { SRS_RANKS } from 'shared/constants';
  * @param  {Number} completed Questions completed
  * @return {Number}           Percentage of correct answers
  */
-export function calculatePercentage(correct = 0, completed = 0) {
+export function calculatePercentage(correct, completed) {
+  if (typeof correct !== 'number' || completed !== 'number') {
+    console.warn(`Invalid params provided to calculatePercentage:
+      correct: ${correct}
+      completed: ${completed}
+    `);
+  }
   // "|| 0" to guard against dividing by 0 completed (when first answer was ignored)
   return Math.floor((correct / completed) * 100) || 0;
 }
