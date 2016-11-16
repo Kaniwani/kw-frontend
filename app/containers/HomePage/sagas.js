@@ -10,48 +10,6 @@ import { userDataLoaded, userDataLoadingError } from 'containers/App/actions';
 
 import request from 'utils/request';
 
-function shapeUserData(data) {
-  const {
-    name,
-    review_count: reviewsCount,
-    api_key: apiKey,
-    api_valid: apiValid,
-    join_date: joinDate,
-    last_wanikani_sync_date: lastWkSyncDate,
-    level,
-    unlocked_levels: unlockedLevels,
-    follow_me: followMe,
-    auto_advance_on_success: autoAdvanceCorrect,
-    auto_expand_answer_on_success: autoExpandCorrect,
-    auto_expand_answer_on_failure: autoExpandIncorrect,
-    only_review_burned: burnedOnly,
-    on_vacation: onVacation,
-    vacation_date: vacationDate,
-  } = data;
-
-  const user = Object.assign({}, {
-    name,
-    reviewsCount,
-    apiKey,
-    apiValid,
-    joinDate, // TODO: if (!= null) convert to date - use moment?
-    lastWkSyncDate, // TODO: if (!= null) convert to date - use moment?
-    level,
-    unlockedLevels,
-    settings: {
-      followMe,
-      autoAdvanceCorrect,
-      autoExpandCorrect,
-      autoExpandIncorrect,
-      burnedOnly,
-      onVacation,
-      vacationDate, // TODO: if (!= null) convert to date - use moment?
-    },
-  });
-
-  return user;
-}
-
 /**
  * userData request/response handler
  */
@@ -61,7 +19,7 @@ export function* getUserData() {
   try {
     // Call our request helper (see 'utils/request')
     const data = yield call(request, requestURL);
-    yield put(userDataLoaded(shapeUserData(data)));
+    yield put(userDataLoaded(data));
   } catch (err) {
     yield put(userDataLoadingError(err));
   }

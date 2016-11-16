@@ -50,7 +50,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
           <H2>Welcome Back {name}.</H2>
           <p>You are level {level}.</p>
           <p>You have {reviewCount} reviews waiting.</p>
-          <p>You last synced with WK on {lastWkSyncDate}.</p>
+          <p>You last synced with WK on {lastWkSyncDate.toDateString()}.</p>
         </div>
       );
     }
