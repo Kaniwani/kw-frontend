@@ -11,7 +11,7 @@
  */
 
 
-// NOTE: CHANGE_USERNAME should be in global really?
+// TODO: replace with real actions/reducers relevant to dashboard
 import {
   CHANGE_USERNAME,
 } from './constants';

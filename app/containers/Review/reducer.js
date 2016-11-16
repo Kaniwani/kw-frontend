@@ -23,12 +23,30 @@ const initialState = fromJS({
   loading: false,
   error: false,
   reviews: [],
+  // TODO: cut down to only relevant fields
+  // TODO: suggest to tadgh to send less data to keep response size smaller
   current: {
     id: 0,
-    meaning: '',
+    vocabulary: {
+      meaning: 'initialState',
+      readings: [{
+        character: 'initialState',
+        kana: 'initialState',
+        level: 0,
+      }],
+    },
+    correct: 0,
+    incorrect: 0,
     streak: 0,
-    readings: [],
-    characters: [],
+    last_studied: '2016-09-24T04:17:25.128478Z',
+    needs_review: true,
+    unlock_date: '2016-09-17T01:17:04.682953Z',
+    next_review_date: '2016-09-24T08:30:00.145429Z',
+    burned: false,
+    hidden: false,
+    wanikani_srs: 'burned',
+    wanikani_srs_numeric: 9,
+    wanikani_burned: true,
   },
   progress: {
     initial: 0,
@@ -47,11 +65,11 @@ function reviewReducer(state = initialState, action) {
         .set('error', false);
     }
     case LOAD_REVIEWDATA_SUCCESS: {
-      const { reviews } = action; // js array of objects
+      const { results: reviews, count } = action.reviewData; // vanillajs obj
       return state
-        .setIn(['progress', 'initial'], reviews.length)
+        .setIn(['progress', 'initial'], count)
         .mergeIn(['current'], reviews.shift())
-        .setIn(['progress', 'remaining'], reviews.length)
+        .setIn(['progress', 'remaining'], count)
         .mergeDeepIn(['reviews'], reviews)
         .set('loading', false);
     }
@@ -65,7 +83,7 @@ function reviewReducer(state = initialState, action) {
       return state
         .mergeIn(['current'], reviews.first())
         .deleteIn(['reviews', 0])
-        .setIn(['progress', 'remaining'], reviews.shift().size);
+        .updateIn(['progress', 'remaining'], (num) => num > 0 ? num - 1 : 0);
     }
     case INCREASE_COMPLETED_COUNT: {
       const { completed, initial } = state.get('progress').toJS();

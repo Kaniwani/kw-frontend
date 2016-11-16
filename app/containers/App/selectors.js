@@ -6,11 +6,6 @@ import { createSelector } from 'reselect';
 
 const selectGlobal = () => (state) => state.get('global');
 
-const selectCurrentUser = () => createSelector(
-  selectGlobal(),
-  (globalState) => globalState.get('currentUser')
-);
-
 const selectLoading = () => createSelector(
   selectGlobal(),
   (globalState) => globalState.get('loading')
@@ -21,7 +16,7 @@ const selectError = () => createSelector(
   (globalState) => globalState.get('error')
 );
 
-const selectUserData = () => createSelector(
+const selectUser = () => createSelector(
   selectGlobal(),
   (globalState) => globalState.get('user')
 );
@@ -44,9 +39,8 @@ const selectLocationState = () => {
 
 export {
   selectGlobal,
-  selectCurrentUser,
   selectLoading,
   selectError,
-  selectUserData,
+  selectUser,
   selectLocationState,
 };

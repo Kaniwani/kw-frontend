@@ -5,19 +5,22 @@
 */
 
 import React from 'react';
-import Icon from 'components/Icon';
+import { Link } from 'react-router';
 import styled from 'styled-components';
+import Icon from 'components/Icon';
 
-const Button = styled.button`
+const StyledLink = styled(Link)`
+  display: inline-block;
   cursor: pointer;
-  margin-top: .5em;
+  margin-top: .4em;
+  color: currentColor;
 `;
 
 function ExitQuiz() {
   return (
-    <Button type="button" title="Exit quiz and view summary">
+    <StyledLink to="/" title="Exit quiz and view summary">
       <Icon name="BACK" size="2rem" />
-    </Button>
+    </StyledLink>
   );
 }
 

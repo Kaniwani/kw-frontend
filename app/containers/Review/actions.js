@@ -34,16 +34,16 @@ export function loadReviewData() {
 }
 
 /**
- * Dispatched when the reviews are loaded by the request saga
+ * Dispatched when the review data is loaded by the request saga
  *
- * @param  {object} reviews The review data
+ * @param  {object} reviewData The review data
  *
- * @return {object} An action object with a type of LOAD_REVIEWDATA_SUCCESS passing the reviews
+ * @return {object} An action object with a type of LOAD_REVIEWDATA_SUCCESS passing the review data
  */
-export function reviewDataLoaded(reviews) {
+export function reviewDataLoaded(reviewData) {
   return {
     type: LOAD_REVIEWDATA_SUCCESS,
-    reviews,
+    reviewData,
   };
 }
 

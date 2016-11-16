@@ -69,7 +69,7 @@ export class Review extends React.Component { // eslint-disable-line react/prefe
           />
           <ReviewHeader progress={progress} />
           <ReviewQuestion
-            question={current.meaning}
+            meaning={current.vocabulary.meaning}
           />
           <ReviewAnswer
             streak={current.streak}
@@ -94,7 +94,9 @@ Review.propTypes = {
     React.PropTypes.bool,
   ]).isRequired,
   current: React.PropTypes.oneOfType([
-    React.PropTypes.object,
+    React.PropTypes.shape({
+
+    }),
     React.PropTypes.bool,
   ]).isRequired,
   progress: React.PropTypes.object.isRequired,

@@ -3,10 +3,9 @@ import expect from 'expect';
 
 import {
   selectGlobal,
-  selectCurrentUser,
   selectLoading,
   selectError,
-  selectUserData,
+  selectUser,
   selectLocationState,
 } from '../selectors';
 
@@ -18,19 +17,6 @@ describe('selectGlobal', () => {
       global: globalState,
     });
     expect(globalSelector(mockedState)).toEqual(globalState);
-  });
-});
-
-describe('selectCurrentUser', () => {
-  const currentUserSelector = selectCurrentUser();
-  it('should select the current user', () => {
-    const username = 'mxstbr';
-    const mockedState = fromJS({
-      global: {
-        currentUser: username,
-      },
-    });
-    expect(currentUserSelector(mockedState)).toEqual(username);
   });
 });
 
@@ -60,8 +46,8 @@ describe('selectError', () => {
   });
 });
 
-describe('selectUserData', () => {
-  const userDataSelector = selectUserData();
+describe('selectUser', () => {
+  const userDataSelector = selectUser();
   it('should select the userData', () => {
     const userData = fromJS([]);
     const mockedState = fromJS({

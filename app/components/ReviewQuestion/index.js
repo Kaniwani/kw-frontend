@@ -20,14 +20,14 @@ const Meaning = styled.h1`
   `}
 `;
 
-const Question = ({ question }) => (
+const Question = ({ meaning }) => (
   <Wrapper>
-    <Meaning>{ question }</Meaning>
+    <Meaning>{ meaning }</Meaning>
   </Wrapper>
 );
 
 Question.propTypes = {
-  question: PropTypes.string.isRequired,
+  meaning: PropTypes.string.isRequired,
 };
 
 export default Question;

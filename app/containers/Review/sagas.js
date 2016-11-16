@@ -1,24 +1,22 @@
 import { takeLatest } from 'redux-saga';
-import { take, call, put, select, fork, cancel } from 'redux-saga/effects';
+import { take, call, put, fork, cancel } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { LOAD_REVIEWDATA } from './constants';
 import { reviewDataLoaded, reviewDataLoadingError } from './actions';
 
 import request from 'utils/request';
-import { selectCurrentUser } from 'containers/App/selectors';
 
 /**
  *  request/response handler
  */
-export function* getReviewData() {
-  // Select username from store
-  const username = yield select(selectCurrentUser());
-  const requestURL = `api/review?${username}`;
+export function* getReviewData(limit = 100) {
+  // const requestURL = `api/reviews/?limit=${limit}`;
+  const requestURL = 'api/reviews';
 
   try {
     // Call our request helper (see 'utils/request')
-    const reviews = yield call(request, requestURL);
-    yield put(reviewDataLoaded(reviews));
+    const data = yield call(request, requestURL);
+    yield put(reviewDataLoaded(data));
   } catch (err) {
     yield put(reviewDataLoadingError(err));
   }

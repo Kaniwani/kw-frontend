@@ -16,7 +16,7 @@ import H2 from 'components/H2';
 import Section from './Section';
 import LoadingIndicator from 'components/LoadingIndicator';
 import { loadUserData } from '../App/actions';
-import { selectUserData, selectLoading, selectError } from 'containers/App/selectors';
+import { selectUser, selectLoading, selectError } from 'containers/App/selectors';
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentWillMount() {
@@ -36,20 +36,21 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       );
       mainContent = (<ErrorComponent />);
 
-    // If we're not loading, don't have an error and there are userData, show the userData
+    // If we're not loading, don't have an error and if there is userData, show the userData
     } else if (this.props.user !== false) {
       const {
         name,
         reviewCount,
-        lastWKSyncDate,
+        lastWkSyncDate,
         level,
       } = this.props.user;
+
       mainContent = (
         <div>
           <H2>Welcome Back {name}.</H2>
           <p>You are level {level}.</p>
           <p>You have {reviewCount} reviews waiting.</p>
-          <p>You last synced with WK on {lastWKSyncDate}.</p>
+          <p>You last synced with WK on {lastWkSyncDate}.</p>
         </div>
       );
     }
@@ -102,7 +103,7 @@ export function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  user: selectUserData(),
+  user: selectUser(),
   loading: selectLoading(),
   error: selectError(),
 });
