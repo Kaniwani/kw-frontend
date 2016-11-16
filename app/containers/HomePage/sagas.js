@@ -10,9 +10,10 @@ import { userDataLoaded, userDataLoadingError } from 'containers/App/actions';
 
 import request from 'utils/request';
 
-function normalizeUserData(data) {
+function shapeUserData(data) {
   const {
-    user: name,
+    name,
+    review_count: reviewsCount,
     api_key: apiKey,
     api_valid: apiValid,
     join_date: joinDate,
@@ -30,9 +31,10 @@ function normalizeUserData(data) {
 
   const user = Object.assign({}, {
     name,
+    reviewsCount,
     apiKey,
     apiValid,
-    joinDate,
+    joinDate, // TODO: if (!= null) convert to date - use moment?
     lastWkSyncDate, // TODO: if (!= null) convert to date - use moment?
     level,
     unlockedLevels,
@@ -59,7 +61,7 @@ export function* getUserData() {
   try {
     // Call our request helper (see 'utils/request')
     const data = yield call(request, requestURL);
-    yield put(userDataLoaded(normalizeUserData(data)));
+    yield put(userDataLoaded(shapeUserData(data)));
   } catch (err) {
     yield put(userDataLoadingError(err));
   }
