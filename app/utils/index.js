@@ -2,31 +2,20 @@
 
 import { SRS_RANKS } from 'shared/constants';
 
-
 /**
- * Returns type of provided value with normalized strings (IE. 'array' instead of 'object' for [])
- * @param  {*} value
- * @return {String} type
+ * Returns type of provided value with normalized strings.
+ * IE 'array' instead of '[object Array]' for [].
  *
- * typeOf({}); // 'object'
- * typeOf([]); // 'array'
- * typeOf(function() {}); // 'function'
- * typeOf(/a/); // 'regexp'
- * typeOf(new Date()); // 'date'
- * typeOf(null); // 'null'
- * typeOf(undefined); // 'undefined'
- * typeOf('a'); // 'string'
- * typeOf(1); // 'number'
- * typeOf(true); // 'boolean'
+ * @param  {} value
+ * @return {String} type (number, nan, object, array, map, regexp, date, function etc)
  */
 export function typeOf(value) {
-  if (value === null) {
-    return 'null';
+  switch (true) {
+    case (Number.isNaN(value)): return 'nan';
+    case (value === null): return 'null';
+    case (value !== Object(value)): return typeof value;
+    default: return ({}).toString.call(value).slice(8, -1).toLowerCase();
   }
-  if (value !== Object(value)) {
-    return typeof value;
-  }
-  return ({}).toString.call(value).slice(8, -1).toLowerCase();
 }
 
 /**
@@ -41,12 +30,12 @@ export function warnInvalidParams(...tests) {
     const valType = typeOf(value);
 
     return (valType !== testType) ?
-       failedList.concat(`${value.toString()}: of type ${valType} which should have been ${testType}`) :
+       failedList.concat(`  ${value}: of type ${valType} which should have been ${testType}`) :
        failedList;
   }, []);
 
   if (warnings.length) {
-    console.warn(`Invalid params provided to ${warnInvalidParams.caller.name}:\n ${warnings.join('\n')}`);
+    console.warn(`Invalid params provided to ${warnInvalidParams.caller.name}:\n${warnings.join('\n')}`);
   }
 
   return !!warnings.length;

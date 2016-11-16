@@ -13,7 +13,7 @@ import { selectCurrentUser } from 'containers/App/selectors';
 export function* getReviewData() {
   // Select username from store
   const username = yield select(selectCurrentUser());
-  const requestURL = `http://localhost:3000/api/review?${username}`;
+  const requestURL = `api/review?${username}`;
 
   try {
     // Call our request helper (see 'utils/request')

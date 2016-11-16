@@ -17,7 +17,7 @@ import { selectCurrentUser } from 'containers/App/selectors';
 export function* getUserData() {
   // Select username from store
   const username = yield select(selectCurrentUser());
-  const requestURL = `http://localhost:3000/api/user?${username}`;
+  const requestURL = `api/user?${username}`;
 
   try {
     // Call our request helper (see 'utils/request')
