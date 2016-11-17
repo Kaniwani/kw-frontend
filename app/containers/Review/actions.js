@@ -20,6 +20,10 @@ import {
   LOAD_REVIEWDATA_SUCCESS,
   LOAD_REVIEWDATA_ERROR,
   ROTATE_CURRENT_REVIEW,
+  RETURN_CURRENT_TO_QUEUE,
+  MARK_CORRECT,
+  MARK_INCORRECT,
+  MARK_IGNORED,
 } from './constants';
 
 /**
@@ -64,13 +68,52 @@ export function reviewDataLoadingError(error) {
 /**
  * Dispatched when rotating in next vocab question
  *
- * @param  {object} reviewData The reviews data
- * @param  {object} review The new review item
- *
- * @return {object} An action object with a type of ROTATE_CURRENT_REVIEW passing the new review item, and the updated reviewData list
+ * @return {object} An action object with a type of ROTATE_CURRENT_REVIEW
  */
 export function rotateCurrentReview() {
   return {
     type: ROTATE_CURRENT_REVIEW,
+  };
+}
+
+/**
+ * Inserts current review back into the reviews queue at a random insertion point
+ * @return {object} An action object with a type of RETURN_CURRENT_TO_QUEUE
+ */
+export function returnCurrentToQueue() {
+  return {
+    type: RETURN_CURRENT_TO_QUEUE,
+  };
+}
+
+/**
+ * Marks current review item as correct and updates progress
+ * @return {object} An action object with a type of MARK_CORRECT
+ */
+export function markCorrect() {
+  return {
+    type: MARK_CORRECT,
+  };
+}
+
+/**
+ * Marks current review item as incorrect and updates progress
+ * @param  {object} review Review item
+ * @return {object} An action object with a type of MARK_INCORRECT
+ */
+export function markIncorrect() {
+  return {
+    type: MARK_INCORRECT,
+  };
+}
+
+/**
+ * Marks current review item as ignored and updates progress
+ * @param  {object} review Review item
+ * @return {object} An action object with a type of MARK_IGNORED
+ */
+export function markIgnored() {
+  return {
+    type: MARK_IGNORED,
   };
 }

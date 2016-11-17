@@ -16,8 +16,15 @@ import ReviewQuestion from 'components/ReviewQuestion';
 import ReviewAnswer from 'components/ReviewAnswer';
 import ReviewFooter from 'components/ReviewFooter';
 
-import { loadReviewData, rotateCurrentReview } from './actions';
-import { selectReviews, selectCurrentReview, selectProgress, selectLoading, selectError } from './selectors';
+import { loadReviewData, rotateCurrentReview, returnCurrentToQueue } from './actions';
+import {
+ selectReviews,
+ selectCurrentReview,
+ selectCompletedCount,
+ selectProgress,
+ selectLoading,
+ selectError,
+} from './selectors';
 
 const Wrapper = styled.section`
   display: table;
@@ -26,13 +33,13 @@ const Wrapper = styled.section`
   height: 100vh;
 `;
 
-// const RotateButton = styled.button`
-//   border: 2px solid blue;
-//   border-radius: 5px;
-//   font-size: 2em;
-//   margin: .3rem auto;
-//   cursor: pointer;
-// `;
+const Button = styled.button`
+  border: 2px solid blue;
+  border-radius: 5px;
+  font-size: 2em;
+  margin: .3rem auto;
+  cursor: pointer;
+`;
 
 export class Review extends React.Component { // eslint-disable-line react/prefer-stateless-function
   componentWillMount() {
@@ -45,10 +52,11 @@ export class Review extends React.Component { // eslint-disable-line react/prefe
       error,
       loading,
       current,
+      completed,
       progress,
-      rotateReview,
+      returnCurrent,
+      getNewCurrent,
     } = this.props;
-
     // Show a loading indicator when we're loading
     if (loading) {
       mainContent = (<LoadingIndicator />);
@@ -67,17 +75,22 @@ export class Review extends React.Component { // eslint-disable-line react/prefe
               { name: 'description', content: 'Kaniwani Reviews Page' },
             ]}
           />
-          <ReviewHeader progress={progress} />
+          <ReviewHeader
+            completed={completed}
+            correct={progress.correct}
+            initial={progress.initial}
+            remaining={progress.remaining}
+          />
           <ReviewQuestion
             meaning={current.vocabulary.meaning}
           />
           <ReviewAnswer
             streak={current.streak}
-            onSubmitAnswer={rotateReview}
+            onSubmitAnswer={getNewCurrent}
           />
-{/*          <RotateButton type="button" onClick={rotateReview}>
-            Rotate
-          </RotateButton>*/}
+          <Button type="button" onClick={returnCurrent}>
+            Return current to queue
+          </Button>
           <ReviewFooter />
         </Wrapper>
       );
@@ -93,14 +106,11 @@ Review.propTypes = {
     React.PropTypes.object,
     React.PropTypes.bool,
   ]).isRequired,
-  current: React.PropTypes.oneOfType([
-    React.PropTypes.shape({
-
-    }),
-    React.PropTypes.bool,
-  ]).isRequired,
+  current: React.PropTypes.object.isRequired,
   progress: React.PropTypes.object.isRequired,
-  rotateReview: React.PropTypes.func.isRequired,
+  completed: React.PropTypes.number.isRequired,
+  returnCurrent: React.PropTypes.func.isRequired,
+  getNewCurrent: React.PropTypes.func.isRequired,
   loadReviewData: React.PropTypes.func.isRequired,
 };
 
@@ -109,13 +119,15 @@ const mapStateToProps = createStructuredSelector({
   error: selectError(),
   reviews: selectReviews(),
   current: selectCurrentReview(),
+  completed: selectCompletedCount(),
   progress: selectProgress(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     loadReviewData: () => dispatch(loadReviewData()),
-    rotateReview: () => dispatch(rotateCurrentReview()),
+    rotateCurrentReview: () => dispatch(rotateCurrentReview()),
+    returnCurrentToQueue: () => dispatch(returnCurrentToQueue()),
   };
 }
 

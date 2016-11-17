@@ -1,5 +1,5 @@
 import React from 'react';
-import { getSrsRankName } from 'utils';
+import getSrsRankName from 'utils/getSrsRankName';
 import Icon from 'components/Icon';
 
 

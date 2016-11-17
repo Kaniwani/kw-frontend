@@ -3,6 +3,7 @@ import { take, call, put, fork, cancel } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { LOAD_REVIEWDATA } from './constants';
 import { reviewDataLoaded, reviewDataLoadingError } from './actions';
+import { shapeReviewData } from './utils';
 
 import request from 'utils/request';
 
@@ -10,13 +11,13 @@ import request from 'utils/request';
  *  request/response handler
  */
 export function* getReviewData(limit = 100) {
-  // const requestURL = `api/reviews/?limit=${limit}`;
-  const requestURL = 'api/reviews';
+  const requestURL = `api/reviews/?limit=${limit}`;
 
   try {
     // Call our request helper (see 'utils/request')
     const data = yield call(request, requestURL);
-    yield put(reviewDataLoaded(data));
+    const shapedData = yield call(shapeReviewData, data);
+    yield put(reviewDataLoaded(shapedData));
   } catch (err) {
     yield put(reviewDataLoadingError(err));
   }
@@ -33,7 +34,7 @@ export function* getReviewDataWatcher() {
 /**
  * Root saga manages watcher lifecycle
  */
-export function* reviewData() {
+export function* reviewSaga() {
   // Fork watcher so we can continue execution
   const watcher = yield fork(getReviewDataWatcher);
 
@@ -44,5 +45,5 @@ export function* reviewData() {
 
 // Bootstrap sagas
 export default [
-  reviewData,
+  reviewSaga,
 ];

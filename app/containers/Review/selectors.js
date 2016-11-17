@@ -33,6 +33,12 @@ const selectProgress = () => createSelector(
   (substate) => substate.get('progress').toJS()
 );
 
+const selectCompletedCount = () => createSelector(
+  selectReviewDomain(),
+  (substate) => substate.get('completed').size
+);
+
+
 // generic catchall
 const selectReview = () => createSelector(
   selectReviewDomain(),
@@ -45,5 +51,6 @@ export {
   selectLoading,
   selectReviews,
   selectProgress,
+  selectCompletedCount,
   selectCurrentReview,
 };

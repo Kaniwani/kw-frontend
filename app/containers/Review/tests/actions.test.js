@@ -1,18 +1,63 @@
 import expect from 'expect';
 import {
-  defaultAction,
+  loadReviewData,
+  reviewDataLoaded,
+  reviewDataLoadingError,
+  rotateCurrentReview,
 } from '../actions';
 import {
-  DEFAULT_ACTION,
+  LOAD_REVIEWDATA,
+  LOAD_REVIEWDATA_SUCCESS,
+  LOAD_REVIEWDATA_ERROR,
+  ROTATE_CURRENT_REVIEW,
 } from '../constants';
 
+
 describe('Review actions', () => {
-  describe('Default Action', () => {
-    it('has a type of DEFAULT_ACTION', () => {
-      const expected = {
-        type: DEFAULT_ACTION,
+  describe('loadReviewData', () => {
+    it('should return the correct type', () => {
+      const expectedResult = {
+        type: LOAD_REVIEWDATA,
       };
-      expect(defaultAction()).toEqual(expected);
+
+      expect(loadReviewData()).toEqual(expectedResult);
+    });
+  });
+
+  describe('reviewDataLoaded', () => {
+    it('should return the correct type and the passed data', () => {
+      const fixture = {};
+      const expectedResult = {
+        type: LOAD_REVIEWDATA_SUCCESS,
+        reviewData: fixture,
+      };
+
+      expect(reviewDataLoaded(fixture)).toEqual(expectedResult);
+    });
+  });
+
+  describe('reviewDataLoadingError', () => {
+    it('should return the correct type and the error', () => {
+      const fixture = {
+        msg: 'Something went wrong!',
+      };
+      const expectedResult = {
+        type: LOAD_REVIEWDATA_ERROR,
+        error: fixture,
+      };
+
+
+      expect(reviewDataLoadingError(fixture)).toEqual(expectedResult);
+    });
+  });
+
+  describe('rotateCurrentReview', () => {
+    it('should return the correct type', () => {
+      const expectedResult = {
+        type: ROTATE_CURRENT_REVIEW,
+      };
+
+      expect(rotateCurrentReview()).toEqual(expectedResult);
     });
   });
 });

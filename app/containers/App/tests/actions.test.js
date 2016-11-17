@@ -26,14 +26,12 @@ describe('App Actions', () => {
   describe('userDataLoaded', () => {
     it('should return the correct type and the passed userData', () => {
       const fixture = ['Test'];
-      const username = 'test';
       const expectedResult = {
         type: LOAD_USERDATA_SUCCESS,
         userData: fixture,
-        username,
       };
 
-      expect(userDataLoaded(fixture, username)).toEqual(expectedResult);
+      expect(userDataLoaded(fixture)).toEqual(expectedResult);
     });
   });
 

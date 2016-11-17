@@ -54,7 +54,7 @@ function ReviewAnswer({ streak, onSubmitAnswer }) {
       />
       <IgnoreButton />
       <SubmitButton handleClick={onSubmitAnswer} />
-{/*      <StreakAnimation />*/}
+      {/*      <StreakAnimation />*/}
     </Wrapper>
   );
 }

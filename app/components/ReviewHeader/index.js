@@ -10,7 +10,7 @@ import { white } from 'shared/styles/colors';
 import ProgressBar from './ProgressBar';
 import ExitQuiz from './ExitQuiz';
 import StatsList from './StatsList';
-import { calculatePercentage } from 'utils';
+import calculatePercentage from 'utils/calculatePercentage';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -20,7 +20,7 @@ const Wrapper = styled.div`
   color: ${white}
 `;
 
-function ReviewHeader({ progress: { initial, remaining, correct, completed } }) {
+function ReviewHeader({ initial, remaining, completed, correct }) {
   return (
     <Wrapper>
       <ProgressBar value={(completed / initial) * 100} />
@@ -35,7 +35,10 @@ function ReviewHeader({ progress: { initial, remaining, correct, completed } }) 
 }
 
 ReviewHeader.propTypes = {
-  progress: React.PropTypes.object.isRequired,
+  initial: React.PropTypes.number.isRequired,
+  remaining: React.PropTypes.number.isRequired,
+  completed: React.PropTypes.number.isRequired,
+  correct: React.PropTypes.number.isRequired,
 };
 
 export default ReviewHeader;
