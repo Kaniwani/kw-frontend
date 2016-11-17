@@ -29,9 +29,10 @@ const initialState = fromJS({
   error: false,
   reviews: [],
   completed: [],
+  total: 0,
   // TODO: suggest to tadgh to send only these fields to keep api response size smaller
   current: {
-    id: false,
+    id: null,
     vocabulary: {
       meaning: 'initialState',
       readings: [{
@@ -50,7 +51,6 @@ const initialState = fromJS({
     correct: 0,
     incorrect: 0,
     ignored: 0,
-    remaining: 0,
   },
 });
 
@@ -62,11 +62,10 @@ function reviewReducer(state = initialState, action) {
         .set('error', false);
     }
     case LOAD_REVIEWDATA_SUCCESS: {
-      const { count, reviews } = action.reviewData; // vanillajs obj
+      const { count, reviews } = action.reviewData;
       return state
-        .setIn(['progress', 'initialCount'], count)
+        .set('total', count)
         .mergeIn(['current'], reviews.shift())
-        .setIn(['progress', 'remaining'], count)
         .mergeDeepIn(['reviews'], reviews)
         .set('loading', false);
     }
@@ -76,17 +75,17 @@ function reviewReducer(state = initialState, action) {
         .set('loading', false);
     }
     case ROTATE_CURRENT_REVIEW: {
-      const reviews = state.get('reviews'); // immutablejs List of Maps
+      const newCurrent = state.get('reviews').first();
+      const newReviews = state.get('reviews').shift();
       return state
-        .mergeIn(['current'], reviews.first())
-        .deleteIn(['reviews', 0])
-        .updateIn(['progress', 'remaining'], (num) => (num > 0 ? num - 1 : 0));
+        .set('current', newCurrent)
+        .set('reviews', newReviews);
     }
     case RETURN_CURRENT_TO_QUEUE: {
       const reviews = state.get('reviews');
       const current = state.get('current');
       const newIndex = randInRange(0, reviews.size);
-      return state.set(['reviews'], reviews.insert(newIndex, current));
+      return state.set('reviews', reviews.insert(newIndex, current));
     }
     case MARK_CORRECT: {
       const current = state.get('current').update('correct', (num) => num + 1);

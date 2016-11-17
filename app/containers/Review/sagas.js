@@ -1,9 +1,16 @@
 import { takeLatest } from 'redux-saga';
 import { take, call, put, fork, cancel } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { LOAD_REVIEWDATA } from './constants';
-import { reviewDataLoaded, reviewDataLoadingError } from './actions';
 import { shapeReviewData } from './utils';
+import {
+  LOAD_REVIEWDATA,
+  RETURN_CURRENT_TO_QUEUE,
+} from './constants';
+import {
+  reviewDataLoaded,
+  reviewDataLoadingError,
+  rotateCurrentReview,
+} from './actions';
 
 import request from 'utils/request';
 
@@ -31,6 +38,13 @@ export function* getReviewDataWatcher() {
   yield fork(takeLatest, LOAD_REVIEWDATA, getReviewData);
 }
 
+export function* watchReturnToQueue() {
+  while (true) {
+    yield take(RETURN_CURRENT_TO_QUEUE);
+    yield put(rotateCurrentReview());
+  }
+}
+
 /**
  * Root saga manages watcher lifecycle
  */
@@ -46,4 +60,5 @@ export function* reviewSaga() {
 // Bootstrap sagas
 export default [
   reviewSaga,
+  watchReturnToQueue,
 ];

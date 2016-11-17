@@ -20,23 +20,22 @@ const Wrapper = styled.div`
   color: ${white}
 `;
 
-function ReviewHeader({ initial, remaining, completed, correct }) {
+function ReviewHeader({ total, completed, correct }) {
   return (
     <Wrapper>
-      <ProgressBar value={(completed / initial) * 100} />
+      <ProgressBar value={(completed / total) * 100} />
       <ExitQuiz />
       <StatsList
         completed={completed}
         correct={calculatePercentage(correct, completed)}
-        remaining={remaining}
+        remaining={total - completed}
       />
     </Wrapper>
   );
 }
 
 ReviewHeader.propTypes = {
-  initial: React.PropTypes.number.isRequired,
-  remaining: React.PropTypes.number.isRequired,
+  total: React.PropTypes.number.isRequired,
   completed: React.PropTypes.number.isRequired,
   correct: React.PropTypes.number.isRequired,
 };

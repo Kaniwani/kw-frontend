@@ -16,11 +16,16 @@ import ReviewQuestion from 'components/ReviewQuestion';
 import ReviewAnswer from 'components/ReviewAnswer';
 import ReviewFooter from 'components/ReviewFooter';
 
-import { loadReviewData, rotateCurrentReview, returnCurrentToQueue } from './actions';
+import {
+  loadReviewData,
+  rotateCurrentReview,
+  returnCurrentToQueue,
+} from './actions';
 import {
  selectReviews,
  selectCurrentReview,
  selectCompletedCount,
+ selectSessionTotal,
  selectProgress,
  selectLoading,
  selectError,
@@ -53,6 +58,7 @@ export class Review extends React.Component { // eslint-disable-line react/prefe
       loading,
       current,
       completed,
+      total,
       progress,
       returnCurrent,
       getNewCurrent,
@@ -66,7 +72,7 @@ export class Review extends React.Component { // eslint-disable-line react/prefe
       mainContent = (<p>Something went wrong, please try again!</p>);
 
     // If we're not loading, don't have an error and there is review data, show the review data
-    } else if (current.id !== false) {
+    } else if (current.id !== null) {
       mainContent = (
         <Wrapper>
           <Helmet
@@ -78,8 +84,7 @@ export class Review extends React.Component { // eslint-disable-line react/prefe
           <ReviewHeader
             completed={completed}
             correct={progress.correct}
-            initial={progress.initial}
-            remaining={progress.remaining}
+            total={total}
           />
           <ReviewQuestion
             meaning={current.vocabulary.meaning}
@@ -107,6 +112,7 @@ Review.propTypes = {
     React.PropTypes.bool,
   ]).isRequired,
   current: React.PropTypes.object.isRequired,
+  total: React.PropTypes.number.isRequired,
   progress: React.PropTypes.object.isRequired,
   completed: React.PropTypes.number.isRequired,
   returnCurrent: React.PropTypes.func.isRequired,
@@ -119,6 +125,7 @@ const mapStateToProps = createStructuredSelector({
   error: selectError(),
   reviews: selectReviews(),
   current: selectCurrentReview(),
+  total: selectSessionTotal(),
   completed: selectCompletedCount(),
   progress: selectProgress(),
 });
@@ -126,8 +133,8 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     loadReviewData: () => dispatch(loadReviewData()),
-    rotateCurrentReview: () => dispatch(rotateCurrentReview()),
-    returnCurrentToQueue: () => dispatch(returnCurrentToQueue()),
+    getNewCurrent: () => dispatch(rotateCurrentReview()),
+    returnCurrent: () => dispatch(returnCurrentToQueue()),
   };
 }
 
