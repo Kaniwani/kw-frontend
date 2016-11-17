@@ -47,7 +47,6 @@ const initialState = fromJS({
     streak: 0,
   },
   progress: {
-    initial: 0,
     correct: 0,
     incorrect: 0,
     ignored: 0,
@@ -65,8 +64,10 @@ function reviewReducer(state = initialState, action) {
       const { count, reviews } = action.reviewData;
       return state
         .set('total', count)
+        // remove this since we don't want it happening when partial reviews load if session > 100
         .mergeIn(['current'], reviews.shift())
-        .mergeDeepIn(['reviews'], reviews)
+        // keep as merge since we'll be loading in more data periodically
+        .mergeIn(['reviews'], reviews)
         .set('loading', false);
     }
     case LOAD_REVIEWDATA_ERROR: {
@@ -84,7 +85,7 @@ function reviewReducer(state = initialState, action) {
     case RETURN_CURRENT_TO_QUEUE: {
       const reviews = state.get('reviews');
       const current = state.get('current');
-      const newIndex = randInRange(0, reviews.size);
+      const newIndex = randInRange(1, reviews.size);
       return state.set('reviews', reviews.insert(newIndex, current));
     }
     case MARK_CORRECT: {
