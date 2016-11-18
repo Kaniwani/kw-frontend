@@ -93,7 +93,7 @@ HomePage.propTypes = {
     React.PropTypes.object,
     React.PropTypes.bool,
   ]),
-  loadUserData: React.PropTypes.func.isRequired,
+  loadUserData: React.PropTypes.func,
 };
 
 export function mapDispatchToProps(dispatch) {

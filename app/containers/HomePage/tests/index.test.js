@@ -7,17 +7,15 @@ import { shallow, mount } from 'enzyme';
 import React from 'react';
 
 import { HomePage } from '../index';
-import { loadUserData } from '../../App/actions';
 import H2 from 'components/H2';
 import LoadingIndicator from 'components/LoadingIndicator';
-import Section from '../Section';
 
 describe('<HomePage />', () => {
   it('should render the loading indicator when its loading', () => {
     const renderedComponent = shallow(
-      <HomePage loading loadUserData={loadUserData} />
+      <HomePage loading />
     );
-    expect(renderedComponent.contains(<Section component={LoadingIndicator} />)).toEqual(true);
+    expect(renderedComponent.contains(<LoadingIndicator />).toEqual(true));
   });
 
   it('should render an error if loading failed', () => {
@@ -25,7 +23,6 @@ describe('<HomePage />', () => {
       <HomePage
         loading={false}
         error={{ message: 'Loading failed!' }}
-        loadUserData={loadUserData}
       />
     );
     expect(
@@ -46,7 +43,6 @@ describe('<HomePage />', () => {
       <HomePage
         user={user}
         error={false}
-        loadUserData={loadUserData}
       />
     );
 
