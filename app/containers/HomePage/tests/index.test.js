@@ -7,7 +7,7 @@ import { shallow, mount } from 'enzyme';
 import React from 'react';
 
 import { HomePage } from '../index';
-// import { loadUserData } from '../../App/actions';
+import { loadUserData } from '../../App/actions';
 import H2 from 'components/H2';
 import LoadingIndicator from 'components/LoadingIndicator';
 import Section from '../Section';
@@ -15,7 +15,7 @@ import Section from '../Section';
 describe('<HomePage />', () => {
   it('should render the loading indicator when its loading', () => {
     const renderedComponent = shallow(
-      <HomePage loading />
+      <HomePage loading loadUserData={loadUserData} />
     );
     expect(renderedComponent.contains(<Section component={LoadingIndicator} />)).toEqual(true);
   });
@@ -25,6 +25,7 @@ describe('<HomePage />', () => {
       <HomePage
         loading={false}
         error={{ message: 'Loading failed!' }}
+        loadUserData={loadUserData}
       />
     );
     expect(
@@ -39,12 +40,13 @@ describe('<HomePage />', () => {
       name: 'testname',
       level: 3,
       reviewCount: 2,
-      lastWkSyncDate: Date.now(),
+      lastWkSyncDate: new Date(),
     };
     const renderedComponent = shallow(
       <HomePage
         user={user}
         error={false}
+        loadUserData={loadUserData}
       />
     );
 
@@ -53,7 +55,7 @@ describe('<HomePage />', () => {
         <H2>Welcome Back testname.</H2>
         <p>You are level 3.</p>
         <p>You have 2 reviews waiting.</p>
-        <p>You last synced with WK on {Date.now().toDateString()}.</p>
+        <p>You last synced with WK on {new Date().toDateString()}.</p>
       </div>
     )).toEqual(true);
   });
