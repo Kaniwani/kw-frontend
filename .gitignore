@@ -3,6 +3,8 @@ coverage
 build
 node_modules
 stats.json
+# Don't check in old reference files
+reference-quiz
 
 # Cruft
 .DS_Store

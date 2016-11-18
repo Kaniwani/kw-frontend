@@ -29,7 +29,10 @@ module.exports = {
       },
       { test: /\.js$/,
         loader: 'babel',
-        exclude: [/node_modules/],
+        exclude: [
+          /node_modules/,
+          /reference-quiz/,
+        ],
       },
       { test: /\.jpe?g$|\.gif$|\.png$|\.svg$/i,
         loader: 'null-loader',

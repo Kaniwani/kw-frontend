@@ -15,7 +15,10 @@ module.exports = (options) => ({
     loaders: [{
       test: /\.js$/, // Transform all .js files required somewhere with Babel
       loader: 'babel',
-      exclude: /node_modules/,
+      exclude: [
+        /node_modules/,
+        /reference-quiz/,
+      ],
       query: options.babelQuery,
     }, {
       // Do not transform vendor's CSS with CSS-modules
