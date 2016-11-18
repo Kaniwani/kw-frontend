@@ -6,19 +6,18 @@ import expect from 'expect';
 import { shallow, mount } from 'enzyme';
 import React from 'react';
 
-import { HomePage, mapDispatchToProps } from '../index';
-import { changeUsername } from '../actions';
-import { loadUserData } from '../../App/actions';
-import RepoListItem from 'containers/RepoListItem';
-import List from 'components/List';
+import { HomePage } from '../index';
+// import { loadUserData } from '../../App/actions';
+import H2 from 'components/H2';
 import LoadingIndicator from 'components/LoadingIndicator';
+import Section from '../Section';
 
 describe('<HomePage />', () => {
   it('should render the loading indicator when its loading', () => {
     const renderedComponent = shallow(
       <HomePage loading />
     );
-    expect(renderedComponent.contains(<List component={LoadingIndicator} />)).toEqual(true);
+    expect(renderedComponent.contains(<Section component={LoadingIndicator} />)).toEqual(true);
   });
 
   it('should render an error if loading failed', () => {
@@ -35,39 +34,31 @@ describe('<HomePage />', () => {
       ).toBeGreaterThan(-1);
   });
 
-  it('should render fetch the userData on mount if a username exists', () => {
-    const submitSpy = expect.createSpy();
-    mount(
-      <HomePage
-        username="Not Empty"
-        onChangeUsername={() => {}}
-        onSubmitForm={submitSpy}
-      />
-    );
-    expect(submitSpy).toHaveBeenCalled();
-  });
-
   it('should render the userData if loading was successful', () => {
-    const userData = [{
-      owner: {
-        login: 'mxstbr',
-      },
-      html_url: 'https://github.com/mxstbr/react-boilerplate',
-      name: 'react-boilerplate',
-      open_issues_count: 20,
-      full_name: 'mxstbr/react-boilerplate',
-    }];
+    const user = {
+      name: 'testname',
+      level: 3,
+      reviewCount: 2,
+      lastWkSyncDate: Date.now(),
+    };
     const renderedComponent = shallow(
       <HomePage
-        userData={userData}
+        user={user}
         error={false}
       />
     );
 
-    expect(renderedComponent.contains(<List items={userData} component={RepoListItem} />)).toEqual(true);
+    expect(renderedComponent.contains(
+      <div>
+        <H2>Welcome Back testname.</H2>
+        <p>You are level 3.</p>
+        <p>You have 2 reviews waiting.</p>
+        <p>You last synced with WK on {Date.now().toDateString()}.</p>
+      </div>
+    )).toEqual(true);
   });
 
-  describe('mapDispatchToProps', () => {
+ /* describe('mapDispatchToProps', () => {
     describe('onChangeUsername', () => {
       it('should be injected', () => {
         const dispatch = expect.createSpy();
@@ -106,5 +97,5 @@ describe('<HomePage />', () => {
       result.onSubmitForm(evt);
       expect(preventDefault).toHaveBeenCalledWith();
     });
-  });
+  });*/
 });

@@ -12,10 +12,11 @@ export const sizes = {
 
 // iterate through the sizes and create a media template
 export const media = (direction) => Object.keys(sizes).reduce((accumulator, label) => {
-  accumulator[label] = (...args) => css`
+  const acc = accumulator;
+  acc[label] = (...args) => css`
     @media (${direction}-width: ${sizes[label]}px) {
       ${css(...args)}
     }
   `;
-  return accumulator;
+  return acc;
 }, {});
