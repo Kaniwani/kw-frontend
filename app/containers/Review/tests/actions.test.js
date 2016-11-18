@@ -3,13 +3,13 @@ import {
   loadReviewData,
   reviewDataLoaded,
   reviewDataLoadingError,
-  rotateCurrentReview,
+  setNewCurrent,
 } from '../actions';
 import {
   LOAD_REVIEWDATA,
   LOAD_REVIEWDATA_SUCCESS,
   LOAD_REVIEWDATA_ERROR,
-  ROTATE_CURRENT_REVIEW,
+  SET_NEW_CURRENT,
 } from '../constants';
 
 
@@ -26,10 +26,13 @@ describe('Review actions', () => {
 
   describe('reviewDataLoaded', () => {
     it('should return the correct type and the passed data', () => {
-      const fixture = {};
+      const fixture = {
+        count: 2,
+        reviews: [],
+      };
       const expectedResult = {
         type: LOAD_REVIEWDATA_SUCCESS,
-        reviewData: fixture,
+        data: fixture,
       };
 
       expect(reviewDataLoaded(fixture)).toEqual(expectedResult);
@@ -46,18 +49,17 @@ describe('Review actions', () => {
         error: fixture,
       };
 
-
       expect(reviewDataLoadingError(fixture)).toEqual(expectedResult);
     });
   });
 
-  describe('rotateCurrentReview', () => {
+  describe('setNewCurrent', () => {
     it('should return the correct type', () => {
       const expectedResult = {
-        type: ROTATE_CURRENT_REVIEW,
+        type: SET_NEW_CURRENT,
       };
 
-      expect(rotateCurrentReview()).toEqual(expectedResult);
+      expect(setNewCurrent()).toEqual(expectedResult);
     });
   });
 });

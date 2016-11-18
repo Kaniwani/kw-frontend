@@ -15,8 +15,9 @@ import {
   LOAD_REVIEWDATA_SUCCESS,
   LOAD_REVIEWDATA,
   LOAD_REVIEWDATA_ERROR,
-  ROTATE_CURRENT_REVIEW,
+  SET_NEW_CURRENT,
   RETURN_CURRENT_TO_QUEUE,
+  MOVE_CURRENT_TO_COMPLETED,
   MARK_CORRECT,
   MARK_INCORRECT,
   MARK_IGNORED,
@@ -24,7 +25,7 @@ import {
 
 import randInRange from 'utils/randInRange';
 
-const initialState = fromJS({
+export const initialState = fromJS({
   loading: false,
   error: false,
   reviews: [],
@@ -43,7 +44,7 @@ const initialState = fromJS({
     },
     correct: 0,
     incorrect: 0,
-    ignored: 0,
+    ignored: false,
     streak: 0,
   },
   progress: {
@@ -61,12 +62,9 @@ function reviewReducer(state = initialState, action) {
         .set('error', false);
     }
     case LOAD_REVIEWDATA_SUCCESS: {
-      const { count, reviews } = action.reviewData;
+      const { count, reviews } = action.data;
       return state
         .set('total', count)
-        // remove this since we don't want it happening when partial reviews load if session > 100
-        .mergeIn(['current'], reviews.shift())
-        // keep as merge since we'll be loading in more data periodically
         .mergeIn(['reviews'], reviews)
         .set('loading', false);
     }
@@ -75,7 +73,7 @@ function reviewReducer(state = initialState, action) {
         .set('error', action.error)
         .set('loading', false);
     }
-    case ROTATE_CURRENT_REVIEW: {
+    case SET_NEW_CURRENT: {
       const newCurrent = state.get('reviews').first();
       const newReviews = state.get('reviews').shift();
       return state
@@ -89,11 +87,11 @@ function reviewReducer(state = initialState, action) {
       return state.set('reviews', reviews.insert(newIndex, current));
     }
     case MARK_CORRECT: {
-      const current = state.get('current').update('correct', (num) => num + 1);
-      const completed = state.get('completed').push(current);
-      return state
-        .set('current', current)
-        .set('completed', completed);
+      return state.updateIn(['current', 'correct'], (num) => num + 1);
+    }
+    case MOVE_CURRENT_TO_COMPLETED: {
+      const completed = state.get('completed').push(state.get('current'));
+      return state.set('completed', completed);
     }
     case MARK_INCORRECT: {
       return state

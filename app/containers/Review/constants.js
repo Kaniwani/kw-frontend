@@ -12,8 +12,9 @@
 export const LOAD_REVIEWDATA = 'kaniwani/Review/LOAD_REVIEWDATA';
 export const LOAD_REVIEWDATA_SUCCESS = 'kaniwani/Review/LOAD_REVIEWDATA_SUCCESS';
 export const LOAD_REVIEWDATA_ERROR = 'kaniwani/Review/LOAD_REVIEWDATA_ERROR';
-export const ROTATE_CURRENT_REVIEW = 'kaniwani/Review/ROTATE_CURRENT_REVIEW';
+export const SET_NEW_CURRENT = 'kaniwani/Review/SET_NEW_CURRENT';
 export const RETURN_CURRENT_TO_QUEUE = 'kaniwani/Review/RETURN_CURRENT_TO_QUEUE';
+export const MOVE_CURRENT_TO_COMPLETED = 'kaniwani/Review/MOVE_CURRENT_TO_COMPLETED';
 export const MARK_CORRECT = 'kaniwani/Review/MARK_CORRECT';
 export const MARK_INCORRECT = 'kaniwani/Review/MARK_INCORRECT';
 export const MARK_IGNORED = 'kaniwani/Review/MARK_IGNORED';

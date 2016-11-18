@@ -19,7 +19,7 @@ import {
   LOAD_REVIEWDATA,
   LOAD_REVIEWDATA_SUCCESS,
   LOAD_REVIEWDATA_ERROR,
-  ROTATE_CURRENT_REVIEW,
+  SET_NEW_CURRENT,
   RETURN_CURRENT_TO_QUEUE,
   MARK_CORRECT,
   MARK_INCORRECT,
@@ -44,10 +44,10 @@ export function loadReviewData() {
  *
  * @return {object} An action object with a type of LOAD_REVIEWDATA_SUCCESS passing the review data
  */
-export function reviewDataLoaded(reviewData) {
+export function reviewDataLoaded(data) {
   return {
     type: LOAD_REVIEWDATA_SUCCESS,
-    reviewData,
+    data,
   };
 }
 
@@ -68,11 +68,11 @@ export function reviewDataLoadingError(error) {
 /**
  * Dispatched when rotating in next vocab question
  *
- * @return {object} An action object with a type of ROTATE_CURRENT_REVIEW
+ * @return {object} An action object with a type of SET_NEW_CURRENT
  */
-export function rotateCurrentReview() {
+export function setNewCurrent() {
   return {
-    type: ROTATE_CURRENT_REVIEW,
+    type: SET_NEW_CURRENT,
   };
 }
 

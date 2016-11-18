@@ -2,12 +2,12 @@ import { fromJS } from 'immutable';
 import expect from 'expect';
 
 import {
-  selectHome,
+  selectHomeDomain,
   // selectUsername,
 } from '../selectors';
 
-describe('selectHome', () => {
-  const homeSelector = selectHome();
+describe('selectHomeDomain', () => {
+  const homeSelector = selectHomeDomain();
   it('should select the home state', () => {
     const homeState = fromJS({
       userData: {},

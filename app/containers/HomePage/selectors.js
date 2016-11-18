@@ -4,8 +4,8 @@
 
 // import { createSelector } from 'reselect';
 
-const selectHome = () => (state) => state.get('home');
+const selectHomeDomain = () => (state) => state.get('home');
 
 export {
-  selectHome,
+  selectHomeDomain,
 };

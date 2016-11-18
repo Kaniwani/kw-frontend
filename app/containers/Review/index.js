@@ -18,14 +18,14 @@ import ReviewFooter from 'components/ReviewFooter';
 
 import {
   loadReviewData,
-  rotateCurrentReview,
+  setNewCurrent,
   returnCurrentToQueue,
 } from './actions';
 import {
  selectReviews,
  selectCurrentReview,
  selectCompletedCount,
- selectSessionTotal,
+ selectTotal,
  selectProgress,
  selectLoading,
  selectError,
@@ -61,7 +61,7 @@ export class Review extends React.Component { // eslint-disable-line react/prefe
       total,
       progress,
       returnCurrent,
-      getNewCurrent,
+      newCurrent,
     } = this.props;
     // Show a loading indicator when we're loading
     if (loading) {
@@ -91,7 +91,7 @@ export class Review extends React.Component { // eslint-disable-line react/prefe
           />
           <ReviewAnswer
             streak={current.streak}
-            onSubmitAnswer={getNewCurrent}
+            onSubmitAnswer={newCurrent}
           />
           <Button type="button" onClick={returnCurrent}>
             Return current to queue
@@ -116,7 +116,7 @@ Review.propTypes = {
   progress: React.PropTypes.object.isRequired,
   completed: React.PropTypes.number.isRequired,
   returnCurrent: React.PropTypes.func.isRequired,
-  getNewCurrent: React.PropTypes.func.isRequired,
+  newCurrent: React.PropTypes.func.isRequired,
   loadReviewData: React.PropTypes.func.isRequired,
 };
 
@@ -125,7 +125,7 @@ const mapStateToProps = createStructuredSelector({
   error: selectError(),
   reviews: selectReviews(),
   current: selectCurrentReview(),
-  total: selectSessionTotal(),
+  total: selectTotal(),
   completed: selectCompletedCount(),
   progress: selectProgress(),
 });
@@ -133,7 +133,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     loadReviewData: () => dispatch(loadReviewData()),
-    getNewCurrent: () => dispatch(rotateCurrentReview()),
+    newCurrent: () => dispatch(setNewCurrent()),
     returnCurrent: () => dispatch(returnCurrentToQueue()),
   };
 }

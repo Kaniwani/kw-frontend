@@ -38,24 +38,18 @@ const selectCompletedCount = () => createSelector(
   (substate) => substate.get('completed').size
 );
 
-const selectSessionTotal = () => createSelector(
+const selectTotal = () => createSelector(
   selectReviewDomain(),
   (substate) => substate.get('total')
 );
 
-// generic catchall
-const selectReview = () => createSelector(
-  selectReviewDomain(),
-  (substate) => substate.toJS()
-);
-
-export default selectReview;
 export {
+  selectReviewDomain,
   selectError,
   selectLoading,
   selectReviews,
   selectProgress,
-  selectSessionTotal,
+  selectTotal,
   selectCompletedCount,
   selectCurrentReview,
 };

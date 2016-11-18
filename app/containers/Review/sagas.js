@@ -9,7 +9,7 @@ import {
 import {
   reviewDataLoaded,
   reviewDataLoadingError,
-  rotateCurrentReview,
+  setNewCurrent,
 } from './actions';
 
 import request from 'utils/request';
@@ -25,6 +25,7 @@ export function* getReviewData(limit = 100) {
     const data = yield call(request, requestURL);
     const shapedData = yield call(shapeReviewData, data);
     yield put(reviewDataLoaded(shapedData));
+    yield put(setNewCurrent());
   } catch (err) {
     yield put(reviewDataLoadingError(err));
   }
@@ -41,7 +42,7 @@ export function* getReviewDataWatcher() {
 export function* watchReturnToQueue() {
   while (true) {
     yield take(RETURN_CURRENT_TO_QUEUE);
-    yield put(rotateCurrentReview());
+    yield put(setNewCurrent());
   }
 }
 
