@@ -28,29 +28,15 @@ import randInRange from 'utils/randInRange';
 export const initialState = fromJS({
   loading: false,
   error: false,
+  total: 0,
   reviews: [],
   completed: [],
-  total: 0,
-  // TODO: suggest to tadgh to send only these fields to keep api response size smaller
+  // TODO: suggest to tadgh to send only necessary review item fields to keep api response size smaller
   current: {
-    id: null,
-    vocabulary: {
-      meaning: 'initialState',
-      readings: [{
-        character: 'initialState',
-        kana: 'initialState',
-        level: 0,
-      }],
-    },
-    correct: 0,
-    incorrect: 0,
-    ignored: false,
     streak: 0,
-  },
-  progress: {
-    correct: 0,
-    incorrect: 0,
-    ignored: 0,
+    vocabulary: {
+      meaning: '',
+    },
   },
 });
 
@@ -65,7 +51,7 @@ function reviewReducer(state = initialState, action) {
       const { count, reviews } = action.data;
       return state
         .set('total', count)
-        .mergeIn(['reviews'], reviews)
+        .set('reviews', state.get('reviews').concat(reviews))
         .set('loading', false);
     }
     case LOAD_REVIEWDATA_ERROR: {
@@ -75,10 +61,10 @@ function reviewReducer(state = initialState, action) {
     }
     case SET_NEW_CURRENT: {
       const newCurrent = state.get('reviews').first();
-      const newReviews = state.get('reviews').shift();
+      const remainingReviews = state.get('reviews').rest();
       return state
-        .set('current', newCurrent)
-        .set('reviews', newReviews);
+        .set('current', fromJS(newCurrent))
+        .set('reviews', fromJS(remainingReviews));
     }
     case RETURN_CURRENT_TO_QUEUE: {
       const reviews = state.get('reviews');
@@ -86,22 +72,18 @@ function reviewReducer(state = initialState, action) {
       const newIndex = randInRange(1, reviews.size);
       return state.set('reviews', reviews.insert(newIndex, current));
     }
-    case MARK_CORRECT: {
-      return state.updateIn(['current', 'correct'], (num) => num + 1);
-    }
     case MOVE_CURRENT_TO_COMPLETED: {
       const completed = state.get('completed').push(state.get('current'));
       return state.set('completed', completed);
     }
+    case MARK_CORRECT: {
+      return state.mergeIn(['current', 'session'], { correct: true });
+    }
     case MARK_INCORRECT: {
-      return state
-        .updateIn(['current', 'incorrect'], (num) => num + 1)
-        .updateIn(['progress', 'incorrect'], (num) => num + 1);
+      return state.mergeIn(['current', 'session'], { incorrect: true });
     }
     case MARK_IGNORED: {
-      return state
-        .updateIn(['current', 'ignored'], (num) => num + 1)
-        .updateIn(['progress', 'ignored'], (num) => num + 1);
+      return state.mergeIn(['current', 'session'], { ignored: true });
     }
     default:
       return state;

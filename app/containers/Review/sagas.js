@@ -1,18 +1,24 @@
 import { takeLatest } from 'redux-saga';
-import { take, call, put, fork, cancel } from 'redux-saga/effects';
+import { take, select, call, put, fork, cancel } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { shapeReviewData } from './utils';
+import request from 'utils/request';
 import {
   LOAD_REVIEWDATA,
   RETURN_CURRENT_TO_QUEUE,
+  MOVE_CURRENT_TO_COMPLETED,
 } from './constants';
 import {
+  loadReviewData,
   reviewDataLoaded,
   reviewDataLoadingError,
   setNewCurrent,
 } from './actions';
-
-import request from 'utils/request';
+import {
+  selectCompletedCount,
+  selectReviewsCount,
+  selectTotalCount,
+} from './selectors';
 
 /**
  *  request/response handler
@@ -23,7 +29,7 @@ export function* getReviewData(limit = 100) {
   try {
     // Call our request helper (see 'utils/request')
     const data = yield call(request, requestURL);
-    const shapedData = yield call(shapeReviewData, data);
+    const shapedData = shapeReviewData(data);
     yield put(reviewDataLoaded(shapedData));
     yield put(setNewCurrent());
   } catch (err) {
@@ -46,6 +52,26 @@ export function* watchReturnToQueue() {
   }
 }
 
+export function* watchMoveCurrentToCompleted() {
+  while (true) {
+    yield take(MOVE_CURRENT_TO_COMPLETED);
+
+    const [reviews, total, completed] = yield [
+      select(selectReviewsCount()),
+      select(selectTotalCount()),
+      select(selectCompletedCount()),
+    ];
+    if (reviews < 10 && (reviews + completed) < total) {
+      yield put(loadReviewData());
+    } else if (completed === total) {
+      console.log('go to summary page here');
+      // TODO: stop quiz and show summary page -> showSummary() action
+    } else {
+      yield put(setNewCurrent());
+    }
+  }
+}
+
 /**
  * Root saga manages watcher lifecycle
  */
@@ -62,4 +88,5 @@ export function* reviewSaga() {
 export default [
   reviewSaga,
   watchReturnToQueue,
+  watchMoveCurrentToCompleted,
 ];

@@ -12,9 +12,9 @@ const Button = styled.button`
 `;
 
 // TODO: alter Icon component, remove style prop and add use styled-components instead
-function SubmitButton({ handleClick }) {
+function SubmitButton({ onSubmit }) {
   return (
-    <Button type="button" onClick={handleClick}>
+    <Button type="button" onClick={onSubmit}>
       <Icon
         name="ARROW_RIGHT"
         size={50}
@@ -24,7 +24,7 @@ function SubmitButton({ handleClick }) {
 }
 
 SubmitButton.propTypes = {
-  handleClick: React.PropTypes.func.isRequired,
+  onSubmit: React.PropTypes.func.isRequired,
 };
 
 export default SubmitButton;

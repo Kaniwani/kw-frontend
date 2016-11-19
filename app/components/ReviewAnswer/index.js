@@ -35,7 +35,7 @@ const Label = styled.label`
   ${visuallyhidden}
 `;
 
-function ReviewAnswer({ streak, onSubmitAnswer }) {
+function ReviewAnswer({ streak, onSubmit }) {
   return (
     <Wrapper>
       <StreakIcon streak={streak} />
@@ -53,15 +53,15 @@ function ReviewAnswer({ streak, onSubmitAnswer }) {
         autoComplete="off"
       />
       <IgnoreButton />
-      <SubmitButton handleClick={onSubmitAnswer} />
+      <SubmitButton onSubmit={onSubmit} />
       {/*      <StreakAnimation />*/}
     </Wrapper>
   );
 }
 
 ReviewAnswer.propTypes = {
-  streak: React.PropTypes.number.isRequired,
-  onSubmitAnswer: React.PropTypes.func.isRequired,
+  streak: React.PropTypes.number,
+  onSubmit: React.PropTypes.func.isRequired,
 };
 
 export default ReviewAnswer;

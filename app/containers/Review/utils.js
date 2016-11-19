@@ -11,8 +11,15 @@ export function shapeReviewData(data) {
       correct: item.correct,
       incorrect: item.incorrect,
       streak: item.streak,
+      session: {
+        correct: 0,
+        incorrect: 0,
+        ignored: 0,
+      },
     };
+
     return shapedItem;
   });
+
   return { count: data.count, reviews: shapedReviews };
 }

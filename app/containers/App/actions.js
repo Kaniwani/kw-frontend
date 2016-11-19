@@ -40,10 +40,10 @@ export function loadUserData() {
  *
  * @return {object}      An action object with a type of LOAD_USERDATA_SUCCESS passing the userData
  */
-export function userDataLoaded(userData) {
+export function userDataLoaded(data) {
   return {
     type: LOAD_USERDATA_SUCCESS,
-    userData,
+    data,
   };
 }
 

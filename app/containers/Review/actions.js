@@ -21,6 +21,7 @@ import {
   LOAD_REVIEWDATA_ERROR,
   SET_NEW_CURRENT,
   RETURN_CURRENT_TO_QUEUE,
+  MOVE_CURRENT_TO_COMPLETED,
   MARK_CORRECT,
   MARK_INCORRECT,
   MARK_IGNORED,
@@ -83,6 +84,15 @@ export function setNewCurrent() {
 export function returnCurrentToQueue() {
   return {
     type: RETURN_CURRENT_TO_QUEUE,
+  };
+}
+/**
+ * Inserts current review back into the reviews queue at a random insertion point
+ * @return {object} An action object with a type of RETURN_CURRENT_TO_QUEUE
+ */
+export function moveCurrentToCompleted() {
+  return {
+    type: MOVE_CURRENT_TO_COMPLETED,
   };
 }
 

@@ -35,9 +35,9 @@ function ReviewHeader({ total, completed, correct }) {
 }
 
 ReviewHeader.propTypes = {
-  total: React.PropTypes.number.isRequired,
-  completed: React.PropTypes.number.isRequired,
-  correct: React.PropTypes.number.isRequired,
+  total: React.PropTypes.number,
+  completed: React.PropTypes.number,
+  correct: React.PropTypes.number,
 };
 
 export default ReviewHeader;

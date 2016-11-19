@@ -7,6 +7,8 @@ import { take, call, put, fork, cancel } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { LOAD_USERDATA } from 'containers/App/constants';
 import { userDataLoaded, userDataLoadingError } from 'containers/App/actions';
+import { shapeUserData } from './utils';
+
 
 import request from 'utils/request';
 
@@ -19,7 +21,7 @@ export function* getUserData() {
   try {
     // Call our request helper (see 'utils/request')
     const data = yield call(request, requestURL);
-    yield put(userDataLoaded(data));
+    yield put(userDataLoaded(shapeUserData(data)));
   } catch (err) {
     yield put(userDataLoadingError(err));
   }

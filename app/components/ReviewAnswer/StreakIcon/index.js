@@ -21,7 +21,7 @@ function StreakIcon({ streak }) {
 }
 
 StreakIcon.propTypes = {
-  streak: React.PropTypes.number.isRequired,
+  streak: React.PropTypes.number,
 };
 
 export default StreakIcon;

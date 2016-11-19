@@ -5,8 +5,8 @@ import {
   selectError,
   selectLoading,
   selectReviews,
-  selectProgress,
-  selectTotal,
+  selectCompleted,
+  selectTotalCount,
   selectCompletedCount,
   selectCurrentReview,
 } from '../selectors';
@@ -71,25 +71,25 @@ describe('selectLoading', () => {
 });
 
 
-describe('selectProgress', () => {
-  const testSelector = selectProgress();
+describe('selectCompleted', () => {
+  const testSelector = selectCompleted();
 
-  it('should select the selectProgress state', () => {
-    const progressState = { correct: 1 };
+  it('should select the selectCompleted state', () => {
+    const completedState = fromJS([{ id: 0 }]);
     const mockedState = fromJS({
       review: {
-        progress: progressState,
+        completed: completedState,
       },
     });
-    expect(testSelector(mockedState)).toEqual(progressState);
+    expect(testSelector(mockedState)).toEqual(completedState);
   });
 });
 
 
-describe('selectTotal', () => {
-  const testSelector = selectTotal();
+describe('selectTotalCount', () => {
+  const testSelector = selectTotalCount();
 
-  it('should select the selectTotal state', () => {
+  it('should select the selectTotalCount state', () => {
     const totalState = 1;
     const mockedState = fromJS({
       review: {
