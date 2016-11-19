@@ -1,4 +1,4 @@
-import { takeLatest } from 'redux-saga';
+import { takeEvery, takeLatest } from 'redux-saga';
 import { take, select, call, put, fork, cancel } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { shapeReviewData } from './utils';
@@ -45,14 +45,11 @@ export function* getReviewDataWatcher() {
   yield fork(takeLatest, LOAD_REVIEWDATA, getReviewData);
 }
 
-export function* watchReturnToQueue() {
-  while (true) {
-    yield take(RETURN_CURRENT_TO_QUEUE);
-    yield put(setNewCurrent());
-  }
+export function* returnToQueueWatcher() {
+  yield takeEvery(RETURN_CURRENT_TO_QUEUE, () => put(setNewCurrent()));
 }
 
-export function* watchMoveCurrentToCompleted() {
+export function* moveCurrentToCompletedWatcher() {
   while (true) {
     yield take(MOVE_CURRENT_TO_COMPLETED);
 
@@ -61,10 +58,15 @@ export function* watchMoveCurrentToCompleted() {
       select(selectTotalCount()),
       select(selectCompletedCount()),
     ];
-    if (reviews < 10 && (reviews + completed) < total) {
+
+    const needMoreReviews = reviews < 10 && (reviews + completed) < total;
+
+    if (needMoreReviews) {
+      console.log('fetching more reviews...');
       yield put(loadReviewData());
+      console.log('fetched more reviews!');
     } else if (completed === total) {
-      console.log('go to summary page here');
+      console.log('all reviews complete, show summary page now');
       // TODO: stop quiz and show summary page -> showSummary() action
     } else {
       yield put(setNewCurrent());
@@ -76,17 +78,19 @@ export function* watchMoveCurrentToCompleted() {
  * Root saga manages watcher lifecycle
  */
 export function* reviewSaga() {
-  // Fork watcher so we can continue execution
-  const watcher = yield fork(getReviewDataWatcher);
+  // Fork watchers so we can continue execution
+  const watchers = yield [
+    fork(getReviewDataWatcher),
+    fork(returnToQueueWatcher),
+    fork(moveCurrentToCompletedWatcher),
+  ];
 
   // Suspend execution until location changes
   yield take(LOCATION_CHANGE);
-  yield cancel(watcher);
+  yield cancel(...watchers);
 }
 
 // Bootstrap sagas
 export default [
   reviewSaga,
-  watchReturnToQueue,
-  watchMoveCurrentToCompleted,
 ];
