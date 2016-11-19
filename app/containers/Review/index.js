@@ -13,7 +13,6 @@ import ReviewHeader from 'components/ReviewHeader';
 import ReviewQuestion from 'components/ReviewQuestion';
 import ReviewAnswer from 'components/ReviewAnswer';
 import ReviewFooter from 'components/ReviewFooter';
-
 import {
   loadReviewData,
   moveCurrentToCompleted,

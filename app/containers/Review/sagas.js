@@ -60,15 +60,16 @@ export function* moveCurrentToCompletedWatcher() {
     ];
 
     const needMoreReviews = reviews < 10 && (reviews + completed) < total;
-
+    const queueCompleted = completed === total;
     if (needMoreReviews) {
       console.log('fetching more reviews...');
       yield put(loadReviewData());
       console.log('fetched more reviews!');
-    } else if (completed === total) {
+    } else if (queueCompleted) {
       console.log('all reviews complete, show summary page now');
       // TODO: stop quiz and show summary page -> showSummary() action
     } else {
+      /* yield put(recordCurrentAnswer) */
       yield put(setNewCurrent());
     }
   }
