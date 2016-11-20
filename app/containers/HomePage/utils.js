@@ -1,7 +1,7 @@
 export function shapeUserData(data) {
   const shapedData = {
     name: data.name,
-    reviewsCount: data.review_count,
+    reviewCount: data.review_count,
     apiKey: data.api_key,
     apiValid: data.api_valid,
     joinDate: new Date(data.join_date),

@@ -9,6 +9,6 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const LOAD_USERDATA = 'kaniwani/App/LOAD_USERDATA';
-export const LOAD_USERDATA_SUCCESS = 'kaniwani/App/LOAD_USERDATA_SUCCESS';
-export const LOAD_USERDATA_ERROR = 'kaniwani/App/LOAD_USERDATA_ERROR';
+export const LOAD_USERDATA = 'kw/App/LOAD_USERDATA';
+export const LOAD_USERDATA_SUCCESS = 'kw/App/LOAD_USERDATA_SUCCESS';
+export const LOAD_USERDATA_ERROR = 'kw/App/LOAD_USERDATA_ERROR';

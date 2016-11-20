@@ -1,7 +1,7 @@
 module.exports = {
   profiles: {
     name: 'duncantest10',
-    review_count: 266,
+    review_count: 200,
     api_key: '5fa2d9c257dda131a54018f5c3f5ff90',
     api_valid: true,
     join_date: '2012-07-04',
@@ -20,7 +20,7 @@ module.exports = {
   },
   messages: [],
   reviews: {
-    count: 266,
+    count: 200,
     results: [{
       id: 5255,
       vocabulary: {

@@ -9,12 +9,16 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const LOAD_REVIEWDATA = 'kaniwani/Review/LOAD_REVIEWDATA';
-export const LOAD_REVIEWDATA_SUCCESS = 'kaniwani/Review/LOAD_REVIEWDATA_SUCCESS';
-export const LOAD_REVIEWDATA_ERROR = 'kaniwani/Review/LOAD_REVIEWDATA_ERROR';
-export const SET_NEW_CURRENT = 'kaniwani/Review/SET_NEW_CURRENT';
-export const RETURN_CURRENT_TO_QUEUE = 'kaniwani/Review/RETURN_CURRENT_TO_QUEUE';
-export const MOVE_CURRENT_TO_COMPLETED = 'kaniwani/Review/MOVE_CURRENT_TO_COMPLETED';
-export const MARK_CORRECT = 'kaniwani/Review/MARK_CORRECT';
-export const MARK_INCORRECT = 'kaniwani/Review/MARK_INCORRECT';
-export const MARK_IGNORED = 'kaniwani/Review/MARK_IGNORED';
+export const LOAD_REVIEWDATA = 'kw/Review/LOAD_REVIEWDATA';
+export const LOAD_REVIEWDATA_SUCCESS = 'kw/Review/LOAD_REVIEWDATA_SUCCESS';
+export const LOAD_REVIEWDATA_ERROR = 'kw/Review/LOAD_REVIEWDATA_ERROR';
+export const SET_NEW_CURRENT = 'kw/Review/SET_NEW_CURRENT';
+export const RETURN_CURRENT_TO_QUEUE = 'kw/Review/RETURN_CURRENT_TO_QUEUE';
+export const MOVE_CURRENT_TO_COMPLETED = 'kw/Review/MOVE_CURRENT_TO_COMPLETED';
+export const MARK_CORRECT = 'kw/Review/MARK_CORRECT';
+export const MARK_INCORRECT = 'kw/Review/MARK_INCORRECT';
+export const MARK_IGNORED = 'kw/Review/MARK_IGNORED';
+export const INCREASE_STREAK = 'kw/Review/INCREASE_STREAK';
+export const DECREASE_STREAK = 'kw/Review/DECREASE_STREAK';
+export const INCREASE_SESSION_CORRECT = 'kw/Review/INCREASE_SESSION_CORRECT';
+export const INCREASE_SESSION_INCORRECT = 'kw/Review/INCREASE_SESSION_INCORRECT';

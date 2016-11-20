@@ -35,7 +35,7 @@ const Label = styled.label`
   ${visuallyhidden}
 `;
 
-function ReviewAnswer({ streak, onSubmit }) {
+function ReviewAnswer({ streak, checkAnswer, ignoreAnswer }) {
   return (
     <Wrapper>
       <StreakIcon streak={streak} />
@@ -52,16 +52,18 @@ function ReviewAnswer({ streak, onSubmit }) {
         spellCheck="false"
         autoComplete="off"
       />
-      <IgnoreButton />
-      <SubmitButton onSubmit={onSubmit} />
+      <IgnoreButton onIgnoreClick={ignoreAnswer} />
+      <SubmitButton onSubmit={checkAnswer} />
       {/*      <StreakAnimation />*/}
     </Wrapper>
   );
 }
 
+// TODO: change to container and select/define functions here instead of Review index
 ReviewAnswer.propTypes = {
   streak: React.PropTypes.number,
-  onSubmit: React.PropTypes.func.isRequired,
+  checkAnswer: React.PropTypes.func.isRequired,
+  ignoreAnswer: React.PropTypes.func.isRequired,
 };
 
 export default ReviewAnswer;

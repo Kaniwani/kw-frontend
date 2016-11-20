@@ -13,9 +13,9 @@ const Button = styled.button`
 
 // TODO: alter Icon component, remove style prop and add use styled-components instead
 
-function IgnoreButton() {
+function IgnoreButton({ onIgnoreClick }) {
   return (
-    <Button type="button">
+    <Button type="button" onClick={onIgnoreClick}>
       <Icon
         name="CLOSE"
         size={50}
@@ -23,5 +23,9 @@ function IgnoreButton() {
     </Button>
   );
 }
+
+IgnoreButton.propTypes = {
+  onIgnoreClick: React.PropTypes.func.isRequired,
+};
 
 export default IgnoreButton;

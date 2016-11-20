@@ -8,8 +8,8 @@ export function shapeReviewData(data) {
     const shapedItem = {
       id: item.id,
       vocabulary: item.vocabulary,
-      correct: item.correct,
-      incorrect: item.incorrect,
+      // correct: item.correct,
+      // incorrect: item.incorrect,
       streak: item.streak,
       session: {
         correct: 0,

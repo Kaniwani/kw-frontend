@@ -12,6 +12,7 @@ const Button = styled.button`
 `;
 
 // TODO: alter Icon component, remove style prop and add use styled-components instead
+// NOTE: might need to change to a button type=submit if reviewAnswer is a form again
 function SubmitButton({ onSubmit }) {
   return (
     <Button type="button" onClick={onSubmit}>

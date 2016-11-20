@@ -21,6 +21,10 @@ import {
   MARK_CORRECT,
   MARK_INCORRECT,
   MARK_IGNORED,
+  INCREASE_SESSION_CORRECT,
+  INCREASE_SESSION_INCORRECT,
+  INCREASE_STREAK,
+  DECREASE_STREAK,
 } from './constants';
 
 import randInRange from 'utils/randInRange';
@@ -29,8 +33,13 @@ export const initialState = fromJS({
   loading: false,
   error: false,
   total: 0,
-  reviews: [],
+  queue: [],
   completed: [],
+  session: {
+    correct: 0,
+    incorrect: 0,
+    ignored: 0,
+  },
   // TODO: suggest to tadgh to send only necessary review item fields to keep api response size smaller
   current: {
     streak: 0,
@@ -39,6 +48,9 @@ export const initialState = fromJS({
     },
   },
 });
+
+const add = (a) => (b) => a + b;
+const subtract = (a) => (b) => a - b;
 
 function reviewReducer(state = initialState, action) {
   switch (action.type) {
@@ -51,7 +63,7 @@ function reviewReducer(state = initialState, action) {
       const { count, reviews } = action.data;
       return state
         .set('total', count)
-        .set('reviews', state.get('reviews').concat(reviews))
+        .set('queue', state.get('queue').concat(reviews))
         .set('loading', false);
     }
     case LOAD_REVIEWDATA_ERROR: {
@@ -60,31 +72,38 @@ function reviewReducer(state = initialState, action) {
         .set('loading', false);
     }
     case SET_NEW_CURRENT: {
-      const newCurrent = state.get('reviews').first();
-      const remainingReviews = state.get('reviews').rest();
+      const newCurrent = state.get('queue').first();
+      const remainingReviews = state.get('queue').rest();
       return state
         .set('current', fromJS(newCurrent))
-        .set('reviews', fromJS(remainingReviews));
+        .set('queue', fromJS(remainingReviews));
     }
     case RETURN_CURRENT_TO_QUEUE: {
-      const reviews = state.get('reviews');
+      const reviews = state.get('queue');
       const current = state.get('current');
       const newIndex = randInRange(1, reviews.size);
-      return state.set('reviews', reviews.insert(newIndex, current));
+      return state.set('queue', reviews.insert(newIndex, current));
     }
     case MOVE_CURRENT_TO_COMPLETED: {
       const completed = state.get('completed').push(state.get('current'));
       return state.set('completed', completed);
     }
-    case MARK_CORRECT: {
-      return state.mergeIn(['current', 'session'], { correct: true });
-    }
-    case MARK_INCORRECT: {
-      return state.mergeIn(['current', 'session'], { incorrect: true });
-    }
-    case MARK_IGNORED: {
-      return state.mergeIn(['current', 'session'], { ignored: true });
-    }
+    case MARK_CORRECT:
+      return state.updateIn(['current', 'session', 'correct'], add(1));
+    case MARK_INCORRECT:
+      return state.updateIn(['current', 'session', 'incorrect'], add(1));
+    case MARK_IGNORED:
+      return state
+        .updateIn(['session', 'ignored'], add(1))
+        .updateIn(['current', 'session', 'ignored'], add(1));
+    case INCREASE_SESSION_CORRECT:
+      return state.updateIn(['session', 'correct'], add(1));
+    case INCREASE_SESSION_INCORRECT:
+      return state.updateIn(['session', 'incorrect'], add(1));
+    case INCREASE_STREAK:
+      return state.updateIn(['current', 'streak'], add(1));
+    case DECREASE_STREAK:
+      return state.updateIn(['current', 'streak'], subtract(1));
     default:
       return state;
   }

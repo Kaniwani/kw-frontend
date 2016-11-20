@@ -9,4 +9,4 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-// export const CHANGE_USERNAME = 'kaniwani/Home/CHANGE_USERNAME';
+// export const CHANGE_USERNAME = 'kw/Home/CHANGE_USERNAME';

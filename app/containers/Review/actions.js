@@ -25,6 +25,10 @@ import {
   MARK_CORRECT,
   MARK_INCORRECT,
   MARK_IGNORED,
+  INCREASE_SESSION_CORRECT,
+  INCREASE_SESSION_INCORRECT,
+  INCREASE_STREAK,
+  DECREASE_STREAK,
 } from './constants';
 
 /**
@@ -97,7 +101,7 @@ export function moveCurrentToCompleted() {
 }
 
 /**
- * Marks current review item as correct and updates progress
+ * Marks current review item as correct and updates item's session data
  * @return {object} An action object with a type of MARK_CORRECT
  */
 export function markCorrect() {
@@ -107,8 +111,7 @@ export function markCorrect() {
 }
 
 /**
- * Marks current review item as incorrect and updates progress
- * @param  {object} review Review item
+ * Marks current review item as incorrect and updates item's session data
  * @return {object} An action object with a type of MARK_INCORRECT
  */
 export function markIncorrect() {
@@ -118,12 +121,51 @@ export function markIncorrect() {
 }
 
 /**
- * Marks current review item as ignored and updates progress
- * @param  {object} review Review item
+ * Marks current review item as ignored and updates item's session data
  * @return {object} An action object with a type of MARK_IGNORED
  */
 export function markIgnored() {
   return {
     type: MARK_IGNORED,
+  };
+}
+
+/**
+ * Increases the streak count by 1 on the current review item
+ * @return {object} An action object with a type of INCREASE_STREAK
+ */
+export function increaseStreak() {
+  return {
+    type: INCREASE_STREAK,
+  };
+}
+
+/**
+ * Decreases the streak count by 1 on the current review item
+ * @return {object} An action object with a type of DECREASE_STREAK
+ */
+export function decreaseStreak() {
+  return {
+    type: DECREASE_STREAK,
+  };
+}
+
+/**
+ * Increases the session total correct count by 1
+ * @return {object} An action object with a type of INCREASE_SESSION_CORRECT
+ */
+export function increaseSessionCorrect() {
+  return {
+    type: INCREASE_SESSION_CORRECT,
+  };
+}
+
+/**
+ * Increases the session total incorrect count by 1
+ * @return {object} An action object with a type of INCREASE_SESSION_INCORRECT
+ */
+export function increaseSessionIncorrect() {
+  return {
+    type: INCREASE_SESSION_INCORRECT,
   };
 }

@@ -23,17 +23,18 @@ const Wrapper = styled.div`
 function ReviewHeader({ total, completed, correct }) {
   return (
     <Wrapper>
-      <ProgressBar value={(completed / total) * 100} />
+      <ProgressBar value={calculatePercentage(completed, total)} />
       <ExitQuiz />
       <StatsList
-        completed={completed}
         correct={calculatePercentage(correct, completed)}
+        completed={completed}
         remaining={total - completed}
       />
     </Wrapper>
   );
 }
 
+// TODO: change to container and import selectors here instead of props from Review index
 ReviewHeader.propTypes = {
   total: React.PropTypes.number,
   completed: React.PropTypes.number,

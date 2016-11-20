@@ -15,8 +15,9 @@ import ReviewAnswer from 'components/ReviewAnswer';
 import ReviewFooter from 'components/ReviewFooter';
 import {
   loadReviewData,
-  moveCurrentToCompleted,
-  returnCurrentToQueue,
+  markCorrect,
+  markIncorrect,
+  markIgnored,
 } from './actions';
 import {
  selectCurrentMeaning,
@@ -35,14 +36,6 @@ const Wrapper = styled.section`
   height: 100vh;
 `;
 
-const Button = styled.button`
-  border: 2px solid blue;
-  border-radius: 5px;
-  font-size: 2em;
-  margin: .3rem auto;
-  cursor: pointer;
-`;
-
 export class Review extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentWillMount() {
     this.props.loadReviewData();
@@ -57,7 +50,7 @@ export class Review extends React.PureComponent { // eslint-disable-line react/p
       correctCount,
       totalCount,
       completedCount,
-      onButtonClick,
+      onIgnoreButton,
       onSubmitAnswer,
     } = this.props;
 
@@ -74,20 +67,16 @@ export class Review extends React.PureComponent { // eslint-disable-line react/p
           correct={correctCount}
           total={totalCount}
         />
-
         <ReviewQuestion
           loading={loading}
           error={error}
           meaning={meaning}
         />
-
         <ReviewAnswer
-          onSubmit={onSubmitAnswer}
+          checkAnswer={onSubmitAnswer}
+          ignoreAnswer={onIgnoreButton}
           streak={streak}
         />
-        <Button type="button" onClick={onButtonClick}>
-          Return current to queue
-        </Button>
         <ReviewFooter />
       </Wrapper>
     );
@@ -106,7 +95,7 @@ Review.propTypes = {
   totalCount: React.PropTypes.number,
   completedCount: React.PropTypes.number,
   // dispatch actions
-  onButtonClick: React.PropTypes.func.isRequired,
+  onIgnoreButton: React.PropTypes.func.isRequired,
   onSubmitAnswer: React.PropTypes.func.isRequired,
   loadReviewData: React.PropTypes.func.isRequired,
 };
@@ -124,8 +113,11 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     loadReviewData: () => dispatch(loadReviewData()),
-    onSubmitAnswer: () => dispatch(moveCurrentToCompleted()),
-    onButtonClick: () => dispatch(returnCurrentToQueue()),
+    onSubmitAnswer: () => dispatch(
+      // TODO: checkAnswer()
+      Math.random() * 10 > 4 ? markCorrect() : markIncorrect()
+    ),
+    onIgnoreButton: () => dispatch(markIgnored()),
   };
 }
 

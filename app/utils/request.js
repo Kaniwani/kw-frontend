@@ -1,3 +1,5 @@
+// TODO: swap to axios
+
 import 'whatwg-fetch';
 
 /**

@@ -18,9 +18,9 @@ const selectError = () => createSelector(
   (substate) => substate.get('error')
 );
 
-const selectReviews = () => createSelector(
+const selectQueue = () => createSelector(
   selectReviewDomain(),
-  (substate) => substate.get('reviews')
+  (substate) => substate.get('queue')
 );
 
 const selectCurrent = () => createSelector(
@@ -48,19 +48,30 @@ const selectCompleted = () => createSelector(
   (substate) => substate.get('completed')
 );
 
-const selectReviewsCount = () => createSelector(
-  selectReviews(),
+const selectQueueCount = () => createSelector(
+  selectQueue(),
   (substate) => substate.size
 );
 
-const selectCompletedCount = () => createSelector(
-  selectCompleted(),
-  (completed) => completed.size
+const selectSession = () => createSelector(
+  selectReviewDomain(),
+  (substate) => substate.get('session')
 );
 
 const selectCorrectCount = () => createSelector(
-  selectCompleted(),
-  (completed) => completed.filter((reviewItem) => !!reviewItem.getIn(['session', 'correct'])).size
+  selectSession(),
+  (substate) => substate.get('correct')
+);
+
+const selectIncorrectCount = () => createSelector(
+  selectSession(),
+  (substate) => substate.get('incorrect')
+);
+
+const selectCompletedCount = () => createSelector(
+  selectCorrectCount(),
+  selectIncorrectCount(),
+  (correct, incorrect) => correct + incorrect
 );
 
 const selectTotalCount = () => createSelector(
@@ -72,13 +83,15 @@ export {
   selectReviewDomain,
   selectError,
   selectLoading,
-  selectReviews,
+  selectQueue,
+  selectCompleted,
   selectCurrent,
   selectCurrentVocab,
   selectCurrentMeaning,
   selectCurrentStreak,
-  selectReviewsCount,
+  selectQueueCount,
   selectTotalCount,
   selectCompletedCount,
   selectCorrectCount,
+  selectIncorrectCount,
 };
