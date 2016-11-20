@@ -4,10 +4,10 @@ import {
   selectReviewDomain,
   selectError,
   selectLoading,
-  selectReviews,
+  selectQueue,
   selectCompleted,
   selectTotalCount,
-  selectCompletedCount,
+  selectAnsweredCount,
   selectCurrentReview,
 } from '../selectors';
 
@@ -15,29 +15,29 @@ describe('selectReviewDomain', () => {
   const testSelector = selectReviewDomain();
 
   it('should select the review state', () => {
-    const reviewState = fromJS({
-      reviews: [],
+    const queueState = fromJS({
+      queue: [],
     });
 
     const mockedState = fromJS({
-      review: reviewState,
+      review: queueState,
     });
 
-    expect(testSelector(mockedState)).toEqual(reviewState);
+    expect(testSelector(mockedState)).toEqual(queueState);
   });
 });
 
-describe('selectReviews', () => {
-  const testSelector = selectReviews();
+describe('selectQueue', () => {
+  const testSelector = selectQueue();
 
-  it('should select the reviews state', () => {
-    const reviewsState = [];
+  it('should select the queue state', () => {
+    const queueState = [];
     const mockedState = fromJS({
       review: {
-        reviews: reviewsState,
+        queue: queueState,
       },
     });
-    expect(testSelector(mockedState)).toEqual(reviewsState);
+    expect(testSelector(mockedState)).toEqual(queueState);
   });
 });
 
@@ -101,10 +101,10 @@ describe('selectTotalCount', () => {
 });
 
 
-describe('selectCompletedCount', () => {
-  const testSelector = selectCompletedCount();
+describe('selectAnsweredCount', () => {
+  const testSelector = selectAnsweredCount();
 
-  it('should select the selectCompletedCount state', () => {
+  it('should select the selectAnsweredCount state', () => {
     const completedCountState = 2;
     const mockedState = fromJS({
       review: {

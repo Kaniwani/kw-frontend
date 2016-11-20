@@ -59,7 +59,7 @@ export function* recordAnswer() {
 //  const postURL = '/kw/record_answer/';
 
   const [
-    review,
+    current,
     // authToken,
   ] = yield [
     select(selectCurrent()),
@@ -69,9 +69,9 @@ export function* recordAnswer() {
 /*
   const postData = {
     csrfmiddlewaretoken: 'csrf here',
-    user_specific_id: review.get('id'),
-    user_correct: review.getIn(['session', 'correct']) >= 1,
-    wrong_before: review.getIn(['session', 'incorrect']) >= 1,
+    user_specific_id: current.get('id'),
+    user_correct: current.getIn(['session', 'correct']) >= 1,
+    wrong_before: current.getIn(['session', 'incorrect']) >= 1,
   };
 
   // TODO: use axios; request is just a fetch function
@@ -79,9 +79,8 @@ export function* recordAnswer() {
   // Ask Tadgh if he'd prefer multiple submissions batched or if separate is better.
   yield fork(request, postURL, postData);
 */
-  console.log(`review id ${review.get('id')} recorded on server`);
+  console.log(`${current.get('id')} Recorded on server`);
   // TODO: catch errors and notify user answers not recorded
-  yield put(moveCurrentToCompleted());
 }
 
 export function* markAnswersWatcher() {
@@ -93,35 +92,36 @@ export function* markAnswersWatcher() {
     });
 
     const current = yield select(selectCurrent());
+    const currentID = current.get('id');
     const currentIncorrectCount = current.getIn(['session', 'incorrect']);
     const previouslyWrong = currentIncorrectCount >= 1;
     const firstTimeWrong = currentIncorrectCount === 1;
 
     if (correct) {
-      console.log('Answer was correct -> move to complete');
+      console.log(`${currentID} Correct ${!previouslyWrong ? 'Not previously wrong ' : ''}-> moved to complete`);
       if (correct && !previouslyWrong) {
         yield [
           put(increaseStreak()),
           put(increaseSessionCorrect()),
         ];
       }
-      yield call(recordAnswer);
+      yield fork(recordAnswer);
+      yield put(moveCurrentToCompleted());
+      yield put(setNewCurrent());
     }
     if (incorrect) {
-      console.log('Answer was incorrect');
       if (firstTimeWrong) {
         yield [
           put(decreaseStreak()),
           put(increaseSessionIncorrect()),
         ];
-        yield put(returnCurrentToQueue());
       }
-      if (previouslyWrong) {
-        yield put(moveCurrentToCompleted());
-      }
+      console.log(`${currentID} Incorrect ${firstTimeWrong ? 'first time ' : ''}-> returned to queue`);
+      yield put(returnCurrentToQueue());
       yield put(setNewCurrent());
     }
     if (ignored) {
+      console.log(`${currentID} Ignored -> returned to queue`);
       yield put(returnCurrentToQueue());
       yield put(setNewCurrent());
     }
@@ -144,11 +144,10 @@ export function* moveCurrentToCompletedWatcher() {
       console.log('fetching more reviews...');
       yield put(loadReviewData());
       console.log('fetched more reviews!');
-    } else if (queueCompleted) {
+    }
+    if (queueCompleted) {
       console.log('all reviews complete, show summary page now');
       // TODO: stop quiz and show summary page -> showSummary() action
-    } else {
-      yield put(setNewCurrent());
     }
   }
 }

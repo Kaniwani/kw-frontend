@@ -43,9 +43,9 @@ const selectCurrentMeaning = () => createSelector(
   (substate) => substate.getIn(['vocabulary', 'meaning'])
 );
 
-const selectCompleted = () => createSelector(
+const selectCompletedCount = () => createSelector(
   selectReviewDomain(),
-  (substate) => substate.get('completed')
+  (substate) => substate.get('completed').size
 );
 
 const selectQueueCount = () => createSelector(
@@ -68,7 +68,7 @@ const selectIncorrectCount = () => createSelector(
   (substate) => substate.get('incorrect')
 );
 
-const selectCompletedCount = () => createSelector(
+const selectAnsweredCount = () => createSelector(
   selectCorrectCount(),
   selectIncorrectCount(),
   (correct, incorrect) => correct + incorrect
@@ -84,7 +84,6 @@ export {
   selectError,
   selectLoading,
   selectQueue,
-  selectCompleted,
   selectCurrent,
   selectCurrentVocab,
   selectCurrentMeaning,
@@ -92,6 +91,7 @@ export {
   selectQueueCount,
   selectTotalCount,
   selectCompletedCount,
+  selectAnsweredCount,
   selectCorrectCount,
   selectIncorrectCount,
 };

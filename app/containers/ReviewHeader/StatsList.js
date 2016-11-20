@@ -27,12 +27,12 @@ const Label = styled.span`
   vertical-align: middle;
 `;
 
-function StatsList({ correct, completed, remaining }) {
+function StatsList({ correctness, completed, remaining }) {
   return (
     <List>
       <ListItem title="Correct answers">
         <Icon name="THUMBS_UP" />
-        <Label>{correct}</Label>%</ListItem>
+        <Label>{correctness}</Label>%</ListItem>
       <ListItem title="Reviews completed">
         <Icon name="CHECK" />
         <Label>{completed}</Label>
@@ -46,7 +46,7 @@ function StatsList({ correct, completed, remaining }) {
 }
 
 StatsList.propTypes = {
-  correct: React.PropTypes.number.isRequired,
+  correctness: React.PropTypes.number.isRequired,
   completed: React.PropTypes.number.isRequired,
   remaining: React.PropTypes.number.isRequired,
 };

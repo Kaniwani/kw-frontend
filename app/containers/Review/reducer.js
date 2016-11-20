@@ -32,7 +32,7 @@ import randInRange from 'utils/randInRange';
 export const initialState = fromJS({
   loading: false,
   error: false,
-  total: 0,
+  total: 1,
   queue: [],
   completed: [],
   session: {
