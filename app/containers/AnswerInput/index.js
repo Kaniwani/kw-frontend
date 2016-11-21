@@ -8,10 +8,9 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
+
 import { visuallyhidden } from 'shared/styles/utils';
-import {
-  selectInputText,
-} from './selectors';
+import { selectInputText } from './selectors';
 
 const Label = styled.label`
   ${visuallyhidden}

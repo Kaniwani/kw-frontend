@@ -12,6 +12,7 @@
 
 import { fromJS } from 'immutable';
 import randInRange from 'utils/randInRange';
+
 import {
   LOAD_REVIEWDATA_SUCCESS,
   LOAD_REVIEWDATA,
@@ -30,6 +31,9 @@ import {
 
 
 export const initialState = fromJS({
+  answerInput: {
+    text: '',
+  },
   loading: false,
   error: false,
   total: 1,

@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 /**
  * Direct selector to the answerInput state domain
  */
-const selectAnswerInputDomain = () => (state) => state.get('answerInput');
+const selectAnswerInputDomain = () => (state) => state.getIn(['review', 'answerInput']);
 
 /**
  * Other specific selectors
@@ -11,7 +11,7 @@ const selectAnswerInputDomain = () => (state) => state.get('answerInput');
 
 const selectInputText = () => createSelector(
   selectAnswerInputDomain(),
-  (substate) => substate.get('answerInput'),
+  (substate) => substate.get('text'),
 );
 
 /**

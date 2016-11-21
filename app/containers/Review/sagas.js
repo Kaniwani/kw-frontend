@@ -4,6 +4,7 @@
 import { takeLatest } from 'redux-saga';
 import { take, select, call, put, race, fork, cancel } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
+import answerInputSaga from 'containers/AnswerInput/sagas';
 import request from 'utils/request';
 import { shapeReviewData } from './utils';
 import {
@@ -176,4 +177,5 @@ export function* reviewSaga() {
 // Bootstrap sagas
 export default [
   reviewSaga,
+  answerInputSaga,
 ];

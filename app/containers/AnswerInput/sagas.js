@@ -1,11 +1,11 @@
-// import { take, call, put, select } from 'redux-saga/effects';
+import { call } from 'redux-saga/effects';
 
 // Individual exports for testing
-export function* defaultSaga() {
-  return;
+export function* answerInputSaga() {
+  yield call(console.log, 'test'); // eslint-disable-line no-console
 }
 
 // All sagas to be loaded
 export default [
-  defaultSaga,
+  answerInputSaga,
 ];
