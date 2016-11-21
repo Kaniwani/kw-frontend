@@ -18,6 +18,7 @@ export const MOVE_CURRENT_TO_COMPLETED = 'kw/Review/MOVE_CURRENT_TO_COMPLETED';
 export const MARK_CORRECT = 'kw/Review/MARK_CORRECT';
 export const MARK_INCORRECT = 'kw/Review/MARK_INCORRECT';
 export const MARK_IGNORED = 'kw/Review/MARK_IGNORED';
+export const CHECK_ANSWER = 'kw/Review/CHECK_ANSWER';
 export const INCREASE_STREAK = 'kw/Review/INCREASE_STREAK';
 export const DECREASE_STREAK = 'kw/Review/DECREASE_STREAK';
 export const INCREASE_SESSION_CORRECT = 'kw/Review/INCREASE_SESSION_CORRECT';

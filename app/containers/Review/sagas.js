@@ -177,5 +177,5 @@ export function* reviewSaga() {
 // Bootstrap sagas
 export default [
   reviewSaga,
-  answerInputSaga,
+  ...answerInputSaga,
 ];

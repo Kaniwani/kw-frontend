@@ -1,17 +1,12 @@
 /*
  * Review Reducer
- *
- * The reducer takes care of our data. Using actions, we can change our
- * application state.
- * To add a new action, add it to the switch statement in the reducer function
- *
- * Example:
- * case YOUR_ACTION_CONSTANT:
- *   return state.set('yourStateVariable', true);
  */
-
 import { fromJS } from 'immutable';
 import randInRange from 'utils/randInRange';
+import keyInListMatches from 'utils/keyInListMatches';
+
+import { CHANGE_INPUT } from 'containers/AnswerInput/constants';
+import answerInputReducer from 'containers/AnswerInput/reducer';
 
 import {
   LOAD_REVIEWDATA_SUCCESS,
@@ -23,22 +18,22 @@ import {
   MARK_CORRECT,
   MARK_INCORRECT,
   MARK_IGNORED,
+  CHECK_ANSWER,
   INCREASE_SESSION_CORRECT,
   INCREASE_SESSION_INCORRECT,
   INCREASE_STREAK,
   DECREASE_STREAK,
 } from './constants';
 
-
 export const initialState = fromJS({
-  answerInput: {
-    text: '',
-  },
   loading: false,
   error: false,
   total: 1,
   queue: [],
   completed: [],
+  answer: {
+    inputText: '',
+  },
   session: {
     correct: 0,
     incorrect: 0,
@@ -108,6 +103,17 @@ function reviewReducer(state = initialState, action) {
       return state.updateIn(['current', 'streak'], add(1));
     case DECREASE_STREAK:
       return state.updateIn(['current', 'streak'], subtract(1));
+    case CHANGE_INPUT: return answerInputReducer(state, action);
+    case CHECK_ANSWER: {
+      const readings = state.getIn(['current', 'vocabulary', 'readings']).toJS();
+      if (
+        keyInListMatches(readings, 'kana', action.text) ||
+        keyInListMatches(readings, 'character', action.text)
+      ) {
+        return state.setIn(['answer', 'matches'], true);
+      }
+      return state.setIn(['answer', 'matches'], false);
+    }
     default:
       return state;
   }

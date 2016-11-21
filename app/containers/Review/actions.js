@@ -22,6 +22,7 @@ import {
   SET_NEW_CURRENT,
   RETURN_CURRENT_TO_QUEUE,
   MOVE_CURRENT_TO_COMPLETED,
+  CHECK_ANSWER,
   MARK_CORRECT,
   MARK_INCORRECT,
   MARK_IGNORED,
@@ -167,5 +168,16 @@ export function increaseSessionCorrect() {
 export function increaseSessionIncorrect() {
   return {
     type: INCREASE_SESSION_INCORRECT,
+  };
+}
+
+/**
+ * Checks answer textInput to see if it matches review readings
+ * @return {object} An action object with a type of CHECK_ANSWER
+ */
+export function checkAnswer(text) {
+  return {
+    type: CHECK_ANSWER,
+    text,
   };
 }

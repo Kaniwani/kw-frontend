@@ -5,11 +5,12 @@
  */
 
 import {
-  DEFAULT_ACTION,
+  CHANGE_INPUT,
 } from './constants';
 
-export function defaultAction() {
+export function changeInput(text) { // eslint-disable-line import/prefer-default-export
   return {
-    type: DEFAULT_ACTION,
+    type: CHANGE_INPUT,
+    text,
   };
 }

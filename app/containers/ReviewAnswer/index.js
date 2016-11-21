@@ -13,9 +13,8 @@ import {
 } from 'containers/Review/selectors';
 
 import {
-  markCorrect,
-  markIncorrect,
   markIgnored,
+  checkAnswer,
 } from 'containers/Review/actions';
 
 import AnswerInput from 'containers/AnswerInput';
@@ -30,7 +29,7 @@ const Wrapper = styled.div`
 
 class ReviewAnswer extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { streak, checkAnswer, ignoreAnswer } = this.props;
+    const { streak, checkAnswer, ignoreAnswer } = this.props; // eslint-disable-line no-shadow
 
     return (
       <Wrapper>
@@ -50,8 +49,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    // FIXME: dispatch(checkAnswer())
-    checkAnswer: () => dispatch(Math.random() * 100 > 25 ? markCorrect() : markIncorrect()),
+    checkAnswer: () => dispatch(checkAnswer()),
     ignoreAnswer: () => dispatch(markIgnored()),
   };
 }

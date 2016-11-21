@@ -4,4 +4,4 @@
  *
  */
 
-export const DEFAULT_ACTION = 'app/AnswerInput/DEFAULT_ACTION';
+export const CHANGE_INPUT = 'kw/AnswerInput/CHANGE_INPUT'; // eslint-disable-line import/prefer-default-export
