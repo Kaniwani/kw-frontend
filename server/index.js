@@ -13,7 +13,7 @@ const app = express();
 const devData = require('./devData');
 
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
-// NOTE: these are temporary routes during dev
+// NOTE:10 these are temporary routes during dev
 app.use('/api/reviews', (req, res) => res.json(devData.reviews));
 app.use('/api/profiles', (req, res) => res.json(devData.profiles));
 app.use('/api/', (req, res) => res.json(devData));

@@ -29,6 +29,7 @@ import {
   selectTotalCount,
 } from './selectors';
 
+
 /**
  *  request/response handler
  */
@@ -83,6 +84,7 @@ export function* recordAnswer() {
   // TODO: catch errors and notify user answers not recorded
 }
 
+// TODO: move some of these to ReviewAnswer sagas instead?
 export function* markAnswersWatcher() {
   while (true) {
     const { correct, incorrect, ignored } = yield race({

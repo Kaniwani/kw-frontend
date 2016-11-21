@@ -15,11 +15,11 @@ import {
   selectCompletedCount,
 } from 'containers/Review/selectors';
 
+import calculatePercentage from 'utils/calculatePercentage';
 import Wrapper from './Wrapper';
 import ProgressBar from './ProgressBar';
 import ExitQuiz from './ExitQuiz';
 import StatsList from './StatsList';
-import calculatePercentage from 'utils/calculatePercentage';
 
 export class ReviewHeader extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {

@@ -11,6 +11,7 @@
  */
 
 import { fromJS } from 'immutable';
+import randInRange from 'utils/randInRange';
 import {
   LOAD_REVIEWDATA_SUCCESS,
   LOAD_REVIEWDATA,
@@ -27,7 +28,6 @@ import {
   DECREASE_STREAK,
 } from './constants';
 
-import randInRange from 'utils/randInRange';
 
 export const initialState = fromJS({
   loading: false,

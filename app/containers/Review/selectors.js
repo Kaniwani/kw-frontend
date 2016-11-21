@@ -43,11 +43,6 @@ const selectCurrentMeaning = () => createSelector(
   (substate) => substate.getIn(['vocabulary', 'meaning'])
 );
 
-const selectCompletedCount = () => createSelector(
-  selectReviewDomain(),
-  (substate) => substate.get('completed').size
-);
-
 const selectQueueCount = () => createSelector(
   selectQueue(),
   (substate) => substate.size
@@ -56,6 +51,12 @@ const selectQueueCount = () => createSelector(
 const selectSession = () => createSelector(
   selectReviewDomain(),
   (substate) => substate.get('session')
+);
+
+// TODO: move to ReviewHeader selectors ?
+const selectCompletedCount = () => createSelector(
+  selectReviewDomain(),
+  (substate) => substate.get('completed').size
 );
 
 const selectCorrectCount = () => createSelector(
