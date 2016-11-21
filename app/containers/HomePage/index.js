@@ -4,7 +4,7 @@
  * This is the first thing users see of our App, at the '/' route
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -84,16 +84,16 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 }
 
 HomePage.propTypes = {
-  loading: React.PropTypes.bool,
-  error: React.PropTypes.oneOfType([
-    React.PropTypes.object,
-    React.PropTypes.bool,
+  loading: PropTypes.bool,
+  error: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
   ]),
-  user: React.PropTypes.oneOfType([
-    React.PropTypes.object,
-    React.PropTypes.bool,
+  user: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
   ]),
-  loadUserData: React.PropTypes.func,
+  loadUserData: PropTypes.func,
 };
 
 export function mapDispatchToProps(dispatch) {

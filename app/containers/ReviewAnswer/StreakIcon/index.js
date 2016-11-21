@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import getSrsRankName from 'utils/getSrsRankName';
 import Icon from 'components/Icon';
 
@@ -21,7 +21,7 @@ function StreakIcon({ streak }) {
 }
 
 StreakIcon.propTypes = {
-  streak: React.PropTypes.number,
+  streak: PropTypes.number,
 };
 
 export default StreakIcon;

@@ -1,8 +1,11 @@
+/* eslint-disable no-console */
+/* eslint-disable no-constant-condition */
+
 import { takeLatest } from 'redux-saga';
 import { take, select, call, put, race, fork, cancel } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { shapeReviewData } from './utils';
 import request from 'utils/request';
+import { shapeReviewData } from './utils';
 import {
   LOAD_REVIEWDATA,
   MOVE_CURRENT_TO_COMPLETED,

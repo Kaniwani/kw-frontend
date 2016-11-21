@@ -9,11 +9,9 @@ const Question = ({ loading, error, meaning }) => {
   // Show a loading indicator when we're loading
   if (loading) {
     question = (<LoadingIndicator />);
-
   // Show an error if there is one
   } else if (error !== false) {
     question = `Something went wrong: "${error}". Please contact us or try again!`;
-
   // If we're not loading, don't have an error and there is review data, show the review data
   } else if (meaning.length) {
     question = meaning;
@@ -27,10 +25,10 @@ const Question = ({ loading, error, meaning }) => {
 };
 
 Question.propTypes = {
-  loading: React.PropTypes.bool,
-  error: React.PropTypes.oneOfType([
-    React.PropTypes.object,
-    React.PropTypes.bool,
+  loading: PropTypes.bool,
+  error: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
   ]),
   meaning: PropTypes.string.isRequired,
 };

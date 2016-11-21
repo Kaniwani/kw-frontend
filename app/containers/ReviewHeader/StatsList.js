@@ -4,7 +4,7 @@
 *
 */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 import Icon from 'components/Icon';
 
@@ -46,9 +46,9 @@ function StatsList({ correctness, completed, remaining }) {
 }
 
 StatsList.propTypes = {
-  correctness: React.PropTypes.number.isRequired,
-  completed: React.PropTypes.number.isRequired,
-  remaining: React.PropTypes.number.isRequired,
+  correctness: PropTypes.number.isRequired,
+  completed: PropTypes.number.isRequired,
+  remaining: PropTypes.number.isRequired,
 };
 
 export default StatsList;

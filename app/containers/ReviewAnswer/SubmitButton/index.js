@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 import Icon from 'components/Icon';
 
@@ -25,7 +25,7 @@ function SubmitButton({ onSubmit }) {
 }
 
 SubmitButton.propTypes = {
-  onSubmit: React.PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default SubmitButton;

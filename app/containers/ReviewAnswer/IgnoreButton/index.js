@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 import Icon from 'components/Icon';
 
@@ -25,7 +25,7 @@ function IgnoreButton({ onIgnoreClick }) {
 }
 
 IgnoreButton.propTypes = {
-  onIgnoreClick: React.PropTypes.func.isRequired,
+  onIgnoreClick: PropTypes.func.isRequired,
 };
 
 export default IgnoreButton;

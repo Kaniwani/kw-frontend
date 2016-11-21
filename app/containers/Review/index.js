@@ -4,7 +4,7 @@
  *
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -60,13 +60,13 @@ export class Review extends React.PureComponent { // eslint-disable-line react/p
 }
 
 Review.propTypes = {
-  loading: React.PropTypes.bool,
-  error: React.PropTypes.oneOfType([
-    React.PropTypes.object,
-    React.PropTypes.bool,
+  loading: PropTypes.bool,
+  error: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
   ]),
-  meaning: React.PropTypes.string,
-  loadReviewData: React.PropTypes.func.isRequired,
+  meaning: PropTypes.string,
+  loadReviewData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

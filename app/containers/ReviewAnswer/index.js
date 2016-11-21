@@ -3,8 +3,7 @@
 * ReviewAnswer
 *
 */
-
-import React from 'react';
+import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -19,33 +18,14 @@ import {
   markIgnored,
 } from 'containers/Review/actions';
 
+import AnswerInput from 'containers/AnswerInput';
 import StreakIcon from './StreakIcon';
 import IgnoreButton from './IgnoreButton';
 import SubmitButton from './SubmitButton';
-import { visuallyhidden } from 'shared/styles/utils';
 
 const Wrapper = styled.div`
   position: relative;
   width: 100%;
-`;
-
-const Input = styled.input`
-  display: block;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  outline: none;
-  border: 0;
-  background-color: #fafafa;
-  box-shadow: inset 0 3px 20px -8px rgba(59,59,59,.25);
-  font-size: calc(22px + 28 * ((100vw - 300px) / 1700));
-  line-height: 2.5;
-  text-align: center;
-  transition: all .1s ease-out;
-`;
-
-const Label = styled.label`
-  ${visuallyhidden}
 `;
 
 class ReviewAnswer extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -55,22 +35,10 @@ class ReviewAnswer extends React.PureComponent { // eslint-disable-line react/pr
     return (
       <Wrapper>
         <StreakIcon streak={streak} />
-        <Label htmlFor="userAnswer">
-          Vocabulary reading
-        </Label>
-        <Input
-          id="userAnswer"
-          lang="ja"
-          type="text"
-          placeholder="答え"
-          autoCapitalize="off"
-          autoCorrect="off"
-          spellCheck="false"
-          autoComplete="off"
-        />
+        <AnswerInput />
         <IgnoreButton onIgnoreClick={ignoreAnswer} />
         <SubmitButton onSubmit={checkAnswer} />
-        {/*      <StreakAnimation />*/}
+        {/* <StreakAnimation /> */}
       </Wrapper>
     );
   }
@@ -82,16 +50,16 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    // TODO: dispatch(checkAnswer())
+    // FIXME: dispatch(checkAnswer())
     checkAnswer: () => dispatch(Math.random() * 100 > 25 ? markCorrect() : markIncorrect()),
     ignoreAnswer: () => dispatch(markIgnored()),
   };
 }
 
 ReviewAnswer.propTypes = {
-  streak: React.PropTypes.number,
-  checkAnswer: React.PropTypes.func.isRequired,
-  ignoreAnswer: React.PropTypes.func.isRequired,
+  streak: PropTypes.number,
+  checkAnswer: PropTypes.func.isRequired,
+  ignoreAnswer: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReviewAnswer);

@@ -4,7 +4,7 @@
  *
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -39,10 +39,10 @@ export class ReviewHeader extends React.PureComponent { // eslint-disable-line r
 }
 
 ReviewHeader.propTypes = {
-  completed: React.PropTypes.number,
-  correct: React.PropTypes.number,
-  answered: React.PropTypes.number,
-  total: React.PropTypes.number,
+  completed: PropTypes.number,
+  correct: PropTypes.number,
+  answered: PropTypes.number,
+  total: PropTypes.number,
 };
 
 const mapStateToProps = createStructuredSelector({

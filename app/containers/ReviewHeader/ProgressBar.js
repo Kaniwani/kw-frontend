@@ -4,7 +4,7 @@
 *
 */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 import { whiteLight, blackLight } from 'shared/styles/colors';
 
@@ -36,7 +36,7 @@ function ProgressBar({ value }) {
 }
 
 ProgressBar.propTypes = {
-  value: React.PropTypes.number,
+  value: PropTypes.number,
 };
 
 export default ProgressBar;
