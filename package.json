@@ -277,6 +277,8 @@
     "webpack-dev-middleware": "1.8.4",
     "webpack-hot-middleware": "2.13.1"
   },
-  "//": "This rule allows js-hyperclick to resolve absolute imported modules properly",
-  "moduleRoots": ["app"]
+  "//": "This rule allows js-hyperclick (atom editor plugin) to resolve absolute imported modules properly",
+  "moduleRoots": [
+    "app"
+  ]
 }
