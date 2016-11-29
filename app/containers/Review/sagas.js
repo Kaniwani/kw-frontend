@@ -20,7 +20,7 @@ import {
   reviewDataLoaded,
   reviewDataLoadingError,
   returnCurrentToQueue,
-  moveCurrentToCompleted,
+  // moveCurrentToCompleted,
   markCorrect,
   markIncorrect,
   setNewCurrent,
@@ -71,7 +71,6 @@ export function* recordAnswer() {
     // select(selectAuthToken())
   ];
 
-/*
   const postData = {
     csrfmiddlewaretoken: 'csrf here',
     user_specific_id: current.get('id'),
@@ -82,9 +81,11 @@ export function* recordAnswer() {
   // TODO: use axios; request is just a fetch function
   // TODO: batch in lots of ten (or less if reviews completed)?
   // Ask Tadgh if he'd prefer multiple submissions batched or if separate is better.
-  yield fork(request, postURL, postData);
-*/
-  console.log(`${current.get('id')} Recorded on server`);
+  // yield fork(request, postURL, postData);
+
+  console.table(postData);
+  console.log('recorded on server');
+
   // TODO: catch errors and notify user answers not recorded
 }
 
@@ -102,18 +103,21 @@ export function* processAnswerWatcher() {
 }
 
 export function* checkAnswerWatcher() {
-  yield take(CHECK_ANSWER);
+  while (true) {
+    yield take(CHECK_ANSWER);
 
-  const [valid, matches] = yield [
-    select(selectAnswerValid()),
-    select(selectAnswerMatches()),
-  ];
+    const [valid, matches] = yield [
+      select(selectAnswerValid()),
+      select(selectAnswerMatches()),
+    ];
 
-  if (valid && !matches) put(markIncorrect());
-  if (valid && matches) put(markCorrect());
+    if (valid && !matches) yield put(markIncorrect());
+    if (valid && matches) yield put(markCorrect());
+  }
 }
 
-// TODO: move some of these to ReviewAnswer sagas instead?
+// TODO: almost all of this is irrelevant and should really be actioned in processanswer*
+// although we DO want to show what the streak change *would* be
 export function* markAnswersWatcher() {
   while (true) {
     const { correct, incorrect, ignored } = yield race({
@@ -129,16 +133,17 @@ export function* markAnswersWatcher() {
     const firstTimeWrong = currentIncorrectCount === 1;
 
     if (correct) {
-      console.log(`${currentID} Correct ${!previouslyWrong ? 'Not previously wrong ' : ''}-> moved to complete`);
+      console.log(`${currentID} Correct ${!previouslyWrong ? 'Not previously wrong ' : ''}-> should move to complete`);
       if (correct && !previouslyWrong) {
         yield [
           put(increaseStreak()),
           put(increaseSessionCorrect()),
         ];
       }
-      yield fork(recordAnswer);
-      yield put(moveCurrentToCompleted());
-      yield put(setNewCurrent());
+      // in process answer
+      // yield fork(recordAnswer);
+      // yield put(moveCurrentToCompleted());
+      // yield put(setNewCurrent());
     }
     if (incorrect) {
       if (firstTimeWrong) {
@@ -147,9 +152,10 @@ export function* markAnswersWatcher() {
           put(increaseSessionIncorrect()),
         ];
       }
-      console.log(`${currentID} Incorrect ${firstTimeWrong ? 'first time ' : ''}-> returned to queue`);
-      yield put(returnCurrentToQueue());
-      yield put(setNewCurrent());
+      console.log(`${currentID} Incorrect ${firstTimeWrong ? 'first time ' : ''}-> should return to queue`);
+      // in processAnswer
+      // yield put(returnCurrentToQueue());
+      // yield put(setNewCurrent());
     }
     if (ignored) {
       console.log(`${currentID} Ignored -> returned to queue`);
@@ -190,8 +196,10 @@ export function* reviewSaga() {
   // Fork watchers so we can continue execution
   const watchers = yield [
     fork(getReviewDataWatcher),
-    fork(moveCurrentToCompletedWatcher),
+    fork(checkAnswerWatcher),
     fork(markAnswersWatcher),
+    fork(processAnswerWatcher),
+    fork(moveCurrentToCompletedWatcher),
   ];
 
   // Suspend execution until location changes

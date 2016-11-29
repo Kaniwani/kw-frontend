@@ -124,7 +124,8 @@ function reviewReducer(state = initialState, action) {
         .setIn(['answer', 'valid'], isKanjiKana(inputText))
         .setIn(['answer', 'marked'], true);
     }
-    case PROCESS_ANSWER: return state;
+    case PROCESS_ANSWER:
+      return state;
     default:
       return state;
   }

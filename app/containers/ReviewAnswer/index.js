@@ -27,13 +27,12 @@ import IgnoreButton from './IgnoreButton';
 
 class ReviewAnswer extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { streak, marked, valid, checkAnswer, ignoreAnswer } = this.props; // eslint-disable-line no-shadow
-    const submitAction = marked && valid ? processAnswer : checkAnswer;
+    const { streak, marked, valid, checkAnswer, processAnswer, ignoreAnswer } = this.props; // eslint-disable-line no-shadow
     return (
       <Form
         marked={marked}
         valid={valid}
-        onSubmit={submitAction}
+        onSubmit={marked && valid ? processAnswer : checkAnswer}
       >
         <StreakIcon streak={streak} />
         <AnswerInput />
@@ -54,12 +53,12 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     checkAnswer: (event) => {
-      dispatch(checkAnswer());
       event.preventDefault();
+      dispatch(checkAnswer());
     },
     processAnswer: (event) => {
-      dispatch(processAnswer());
       event.preventDefault();
+      dispatch(processAnswer());
     },
     ignoreAnswer: () => dispatch(markIgnored()),
   };
@@ -70,6 +69,7 @@ ReviewAnswer.propTypes = {
   marked: PropTypes.bool,
   valid: PropTypes.bool,
   checkAnswer: PropTypes.func.isRequired,
+  processAnswer: PropTypes.func.isRequired,
   ignoreAnswer: PropTypes.func.isRequired,
 };
 
