@@ -8,6 +8,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
+import kanawana from 'shared/kanawana/index';
 
 import { visuallyhidden } from 'shared/styles/utils';
 import Input from './Input';
@@ -19,6 +20,12 @@ const Label = styled.label`
 `;
 
 export class AnswerInput extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  componentDidMount() {
+    kanawana.bind(this.inputField);
+  }
+  componentWillUnmount() {
+    kanawana.unbind(this.inputField);
+  }
   render() {
     const { text, onChangeInput } = this.props;
     return (
@@ -27,6 +34,7 @@ export class AnswerInput extends React.PureComponent { // eslint-disable-line re
           Vocabulary reading
         </Label>
         <Input
+          innerRef={(node) => { this.inputField = node; }}
           id="userAnswer"
           value={text}
           onChange={onChangeInput}
