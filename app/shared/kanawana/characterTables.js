@@ -1,3 +1,5 @@
+/* eslint-disable quote-props */
+
 export const longVowels = {
   a: 'あ',
   i: 'い',

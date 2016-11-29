@@ -252,7 +252,7 @@ export function romajiToKana(roma, opts = {}, ignoreCase = false) {
       chunk = getChunk(roma, cursor, cursor + chunkSize);
       chunkLC = chunk.toLowerCase();
       // Handle super-rare edge cases with 4 char chunks (like ltsu, chya, shya)
-      if (fourCharacterEdgeCases.includes(chunkLC) && (len-cursor) >= 4) {
+      if (fourCharacterEdgeCases.includes(chunkLC) && (len - cursor) >= 4) {
         chunkSize += 1;
         chunk = getChunk(roma, cursor, cursor + chunkSize);
         chunkLC = chunk.toLowerCase();
