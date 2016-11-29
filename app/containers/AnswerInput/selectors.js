@@ -14,9 +14,19 @@ const selectInputText = () => createSelector(
   (substate) => substate.get('inputText'),
 );
 
-const selectInputMatches = () => createSelector(
+const selectAnswerMatches = () => createSelector(
   selectAnswerInputDomain(),
   (substate) => substate.get('matches'),
+);
+
+const selectAnswerValid = () => createSelector(
+  selectAnswerInputDomain(),
+  (substate) => substate.get('valid'),
+);
+
+const selectAnswerMarked = () => createSelector(
+  selectAnswerInputDomain(),
+  (substate) => substate.get('marked'),
 );
 
 /**
@@ -31,5 +41,7 @@ const selectAnswerInput = () => createSelector(
 export default selectAnswerInput;
 export {
   selectInputText,
-  selectInputMatches,
+  selectAnswerMatches,
+  selectAnswerMarked,
+  selectAnswerValid,
 };

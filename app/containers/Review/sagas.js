@@ -1,15 +1,16 @@
 /* eslint-disable no-console */
 /* eslint-disable no-constant-condition */
 
-import { takeLatest } from 'redux-saga';
 import { take, select, call, put, race, fork, cancel } from 'redux-saga/effects';
+import { takeLatest } from 'redux-saga';
 import { LOCATION_CHANGE } from 'react-router-redux';
-// import answerInputSaga from 'containers/AnswerInput/sagas';
 import request from 'utils/request';
 import { shapeReviewData } from './utils';
 import {
   LOAD_REVIEWDATA,
   MOVE_CURRENT_TO_COMPLETED,
+  PROCESS_ANSWER,
+  CHECK_ANSWER,
   MARK_CORRECT,
   MARK_INCORRECT,
   MARK_IGNORED,
@@ -20,6 +21,8 @@ import {
   reviewDataLoadingError,
   returnCurrentToQueue,
   moveCurrentToCompleted,
+  markCorrect,
+  markIncorrect,
   setNewCurrent,
   increaseStreak,
   decreaseStreak,
@@ -32,6 +35,11 @@ import {
   selectQueueCount,
   selectTotalCount,
 } from './selectors';
+
+import {
+  selectAnswerMatches,
+  selectAnswerValid,
+} from '../AnswerInput/selectors';
 
 
 /**
@@ -49,14 +57,6 @@ export function* getReviewData(limit = 100) {
   } catch (err) {
     yield put(reviewDataLoadingError(err));
   }
-}
-
-/**
- * Watches for LOAD_REVIEWDATA actions and calls getReviewData when one comes in.
- * By using `takeLatest` only the result of the latest API call is applied.
- */
-export function* getReviewDataWatcher() {
-  yield fork(takeLatest, LOAD_REVIEWDATA, getReviewData);
 }
 
 export function* recordAnswer() {
@@ -86,6 +86,31 @@ export function* recordAnswer() {
 */
   console.log(`${current.get('id')} Recorded on server`);
   // TODO: catch errors and notify user answers not recorded
+}
+
+
+/**
+ * Watches for LOAD_REVIEWDATA actions and calls getReviewData when one comes in.
+ * By using `takeLatest` only the result of the latest API call is applied.
+ */
+export function* getReviewDataWatcher() {
+  yield fork(takeLatest, LOAD_REVIEWDATA, getReviewData);
+}
+
+export function* processAnswerWatcher() {
+  yield fork(takeLatest, PROCESS_ANSWER, recordAnswer);
+}
+
+export function* checkAnswerWatcher() {
+  yield take(CHECK_ANSWER);
+
+  const [valid, matches] = yield [
+    select(selectAnswerValid()),
+    select(selectAnswerMatches()),
+  ];
+
+  if (valid && !matches) put(markIncorrect());
+  if (valid && matches) put(markCorrect());
 }
 
 // TODO: move some of these to ReviewAnswer sagas instead?
@@ -177,5 +202,4 @@ export function* reviewSaga() {
 // Bootstrap sagas
 export default [
   reviewSaga,
-  // ...answerInputSaga,
 ];

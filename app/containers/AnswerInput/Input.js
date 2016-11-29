@@ -7,7 +7,7 @@ const Input = styled.input`
   margin: 0;
   outline: none;
   border: 0;
-  background-color: #fafafa;
+  color: currentColor;
   box-shadow: inset 0 3px 20px -8px rgba(59,59,59,.25);
   font-size: calc(22px + 28 * ((100vw - 300px) / 1700));
   line-height: 2.5;

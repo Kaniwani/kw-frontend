@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Icon from 'components/Icon';
 
@@ -9,23 +9,16 @@ const Button = styled.button`
   top: 50%;
   right: 0;
   cursor: pointer;
+  color: currentColor;
 `;
 
 // TODO: alter Icon component, remove style prop and add use styled-components instead
-// NOTE:0 might need to change to a button type=submit if reviewAnswer is a form again
-function SubmitButton({ onSubmit }) {
+function SubmitButton() {
   return (
-    <Button type="submit" onClick={onSubmit}>
-      <Icon
-        name="ARROW_RIGHT"
-        size={50}
-      />
+    <Button type="submit">
+      <Icon name="ARROW_RIGHT" size={50} />
     </Button>
   );
 }
-
-SubmitButton.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
 
 export default SubmitButton;

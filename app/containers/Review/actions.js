@@ -23,6 +23,7 @@ import {
   RETURN_CURRENT_TO_QUEUE,
   MOVE_CURRENT_TO_COMPLETED,
   CHECK_ANSWER,
+  PROCESS_ANSWER,
   MARK_CORRECT,
   MARK_INCORRECT,
   MARK_IGNORED,
@@ -175,9 +176,18 @@ export function increaseSessionIncorrect() {
  * Checks answer textInput to see if it matches review readings
  * @return {object} An action object with a type of CHECK_ANSWER
  */
-export function checkAnswer(text) {
+export function checkAnswer() {
   return {
     type: CHECK_ANSWER,
-    text,
+  };
+}
+
+/**
+ * Records answer as correct/incorrect on server, updates state stats
+ * @return {object} An action object with a type of PROCESS_ANSWER
+ */
+export function processAnswer() {
+  return {
+    type: PROCESS_ANSWER,
   };
 }

@@ -9,6 +9,7 @@ const Button = styled.button`
   top: 50%;
   right: 4em;
   cursor: pointer;
+  color: currentColor;
 `;
 
 // TODO: alter Icon component, remove style prop and add use styled-components instead

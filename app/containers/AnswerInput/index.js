@@ -12,8 +12,14 @@ import kanawana from 'shared/kanawana/index';
 
 import { visuallyhidden } from 'shared/styles/utils';
 import Input from './Input';
-import { selectInputText } from './selectors';
+import Wrapper from './Wrapper';
 import { changeInput } from './actions';
+import {
+  selectInputText,
+  selectAnswerMatches,
+  selectAnswerMarked,
+  selectAnswerValid,
+} from './selectors';
 
 const Label = styled.label`
   ${visuallyhidden}
@@ -27,9 +33,9 @@ export class AnswerInput extends React.PureComponent { // eslint-disable-line re
     kanawana.unbind(this.inputField);
   }
   render() {
-    const { text, onChangeInput } = this.props;
+    const { text, marked, valid, matches, onChangeInput } = this.props;
     return (
-      <div>
+      <Wrapper marked={marked} valid={valid} matches={matches} >
         <Label htmlFor="userAnswer">
           Vocabulary reading
         </Label>
@@ -46,7 +52,7 @@ export class AnswerInput extends React.PureComponent { // eslint-disable-line re
           spellCheck="false"
           autoComplete="off"
         />
-      </div>
+      </Wrapper>
     );
   }
 }
@@ -54,10 +60,16 @@ export class AnswerInput extends React.PureComponent { // eslint-disable-line re
 AnswerInput.propTypes = {
   text: PropTypes.string,
   onChangeInput: PropTypes.func.isRequired,
+  marked: PropTypes.bool,
+  valid: PropTypes.bool,
+  matches: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
   text: selectInputText(),
+  marked: selectAnswerMarked(),
+  valid: selectAnswerValid(),
+  matches: selectAnswerMatches(),
 });
 
 function mapDispatchToProps(dispatch) {

@@ -20,6 +20,7 @@ import {
   MARK_INCORRECT,
   MARK_IGNORED,
   CHECK_ANSWER,
+  PROCESS_ANSWER,
   INCREASE_SESSION_CORRECT,
   INCREASE_SESSION_INCORRECT,
   INCREASE_STREAK,
@@ -36,6 +37,7 @@ export const initialState = fromJS({
     inputText: '',
     matches: false,
     valid: false,
+    marked: false,
   },
   session: {
     correct: 0,
@@ -77,6 +79,12 @@ function reviewReducer(state = initialState, action) {
       const newCurrent = state.get('queue').first();
       const remainingReviews = state.get('queue').rest();
       return state
+        .set('answer', fromJS({
+          inputText: '',
+          matches: false,
+          valid: false,
+          marked: false,
+        }))
         .set('current', fromJS(newCurrent))
         .set('queue', fromJS(remainingReviews));
     }
@@ -106,14 +114,17 @@ function reviewReducer(state = initialState, action) {
       return state.updateIn(['current', 'streak'], add(1));
     case DECREASE_STREAK:
       return state.updateIn(['current', 'streak'], subtract(1));
-    case CHANGE_INPUT: return answerInputReducer(state, action);
+    case CHANGE_INPUT:
+      return answerInputReducer(state, action);
     case CHECK_ANSWER: {
       const readings = state.getIn(['current', 'vocabulary', 'readings']).toJS();
       const inputText = state.getIn(['answer', 'inputText']);
       return state
+        .setIn(['answer', 'matches'], isMatch(readings, inputText))
         .setIn(['answer', 'valid'], isKanjiKana(inputText))
-        .setIn(['answer', 'matches'], isMatch(readings, inputText));
+        .setIn(['answer', 'marked'], true);
     }
+    case PROCESS_ANSWER: return state;
     default:
       return state;
   }
