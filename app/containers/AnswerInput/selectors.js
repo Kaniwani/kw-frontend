@@ -14,6 +14,11 @@ const selectInputText = () => createSelector(
   (substate) => substate.get('inputText'),
 );
 
+const selectInputMatches = () => createSelector(
+  selectAnswerInputDomain(),
+  (substate) => substate.get('matches'),
+);
+
 /**
  * Default selector used by AnswerInput
  */
@@ -26,4 +31,5 @@ const selectAnswerInput = () => createSelector(
 export default selectAnswerInput;
 export {
   selectInputText,
+  selectInputMatches,
 };

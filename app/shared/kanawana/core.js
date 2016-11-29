@@ -3,6 +3,7 @@ import {
   KATAKANA_START,
   UPPERCASE_END,
   UPPERCASE_START,
+  KANJI_KANA_REGEX,
 } from './constants';
 
 import {
@@ -121,24 +122,30 @@ export function romajiToHiragana(roma, options) {
 }
 
 export function isHiragana(input) {
-  return input.split('').every(isCharHiragana);
+  return [...input].every(isCharHiragana);
 }
 
 export function isKatakana(input) {
-  return input.split('').every(isCharKatakana);
+  return [...input].every(isCharKatakana);
 }
 
 export function isKana(input) {
-  return input.split('').every(isCharKana);
+  return [...input].every(isCharKana);
+}
+
+// Test if input is All Japanese, for mixes of kanji and kana like "泣き虫。"
+// Includes Japanese full-width punctuation ranges
+export function isKanjiKana(input) {
+  return [...input].every((char) => KANJI_KANA_REGEX.test(char));
 }
 
 export function isRomaji(input) {
-  return input.split('').every((char) => !isHiragana(char) && !isKatakana(char));
+  return [...input].every((char) => !isHiragana(char) && !isKatakana(char));
 }
 
 // Returns true if input is a mix of romaji and kana
 export function isMixed(input) {
-  const chars = input.split('');
+  const chars = [...input];
   return (chars.some(isHiragana) || chars.some(isKatakana)) && chars.some(isRomaji);
 }
 

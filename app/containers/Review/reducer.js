@@ -4,6 +4,7 @@
 import { fromJS } from 'immutable';
 import randInRange from 'utils/randInRange';
 import keyInListMatches from 'utils/keyInListMatches';
+import { isKanjiKana } from 'shared/kanawana/core';
 
 import { CHANGE_INPUT } from 'containers/AnswerInput/constants';
 import answerInputReducer from 'containers/AnswerInput/reducer';
@@ -33,6 +34,8 @@ export const initialState = fromJS({
   completed: [],
   answer: {
     inputText: '',
+    matches: false,
+    valid: false,
   },
   session: {
     correct: 0,
@@ -106,13 +109,10 @@ function reviewReducer(state = initialState, action) {
     case CHANGE_INPUT: return answerInputReducer(state, action);
     case CHECK_ANSWER: {
       const readings = state.getIn(['current', 'vocabulary', 'readings']).toJS();
-      if (
-        keyInListMatches(readings, 'kana', action.text) ||
-        keyInListMatches(readings, 'character', action.text)
-      ) {
-        return state.setIn(['answer', 'matches'], true);
-      }
-      return state.setIn(['answer', 'matches'], false);
+      const inputText = state.getIn(['answer', 'inputText']);
+      return state
+        .setIn(['answer', 'valid'], isKanjiKana(inputText))
+        .setIn(['answer', 'matches'], isMatch(readings, inputText));
     }
     default:
       return state;
@@ -120,3 +120,7 @@ function reviewReducer(state = initialState, action) {
 }
 
 export default reviewReducer;
+
+function isMatch(answers, input) {
+  return keyInListMatches(answers, 'kana', input) || keyInListMatches(answers, 'character', input);
+}

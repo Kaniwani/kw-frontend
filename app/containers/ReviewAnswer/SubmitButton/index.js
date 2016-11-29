@@ -15,7 +15,7 @@ const Button = styled.button`
 // NOTE:0 might need to change to a button type=submit if reviewAnswer is a form again
 function SubmitButton({ onSubmit }) {
   return (
-    <Button type="button" onClick={onSubmit}>
+    <Button type="submit" onClick={onSubmit}>
       <Icon
         name="ARROW_RIGHT"
         size={50}

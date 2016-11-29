@@ -16,3 +16,8 @@ export const UPPERCASE_FULLWIDTH_START = 0xFF21;
 export const UPPERCASE_FULLWIDTH_END = 0xFF3A;
 export const PROLONGED_SOUND_MARK = 0x30FC;
 export const KANA_SLASH_DOT = 0x30FB;
+
+// All Japanese regex, for mixes of kanji and kana like "泣き虫"
+// Includes Japanese full-width punctuation ranges
+// doesn't including *half-width katakana / roman letters* since they should be considered typos
+export const KANJI_KANA_REGEX = /[\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff01-\uff0f\u4e00-\u9faf\u3400-\u4dbf]/;

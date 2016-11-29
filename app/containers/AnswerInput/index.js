@@ -62,7 +62,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    onChangeInput: (evt) => dispatch(changeInput(evt.target.value)),
+    onChangeInput: (event) => dispatch(changeInput(event.target.value)),
   };
 }
 
