@@ -8,6 +8,7 @@ import React, { PropTypes } from 'react';
 import { ICONS } from './constants';
 
 // TODO: change this component to use styled-components!
+// TODO: use react animation on srs rank change (component-will-update hook)
 
 const Icon = ({
   name,
@@ -26,7 +27,7 @@ const Icon = ({
     height: size, // Prevents scaling issue in IE
     backgroundRepeat: 'no-repeat',
     fill: color,
-    transition: 'all 250ms ease-in-out',
+    transition: 'all 200ms ease-in-out',
   };
   const svgStyle = {
     display: 'block',

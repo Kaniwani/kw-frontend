@@ -19,4 +19,5 @@ const markedBgColor = ({ marked, valid, matches }) => {
 export default styled.div`
   background-color: ${(props) => markedBgColor(props)};
   color: currentColor;
+  transition: all 150ms ease-in-out;
 `;

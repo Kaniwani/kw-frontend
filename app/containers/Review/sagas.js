@@ -79,7 +79,7 @@ export function* recordAnswer() {
   };
 
   // TODO: use axios; request is just a fetch function
-    // yield fork(request, postURL, postData);
+  // yield fork(request, postURL, postData);
 
   try {
     console.info(postData);
@@ -139,11 +139,11 @@ export function* markAnswersWatcher() {
 
     if (correct && !previouslyWrong) {
       yield put(increaseStreak(currentStreak));
-      console.log(`${currentID} Correct ${!previouslyWrong ? 'Not previously wrong ' : ''}-> should move to complete`);
+      console.log(`${currentID} Correct ${!previouslyWrong ? 'Not previously wrong ' : ''}-> should be moved to complete`);
     }
     if (incorrect && firstTimeWrong) {
       yield put(decreaseStreak(currentStreak));
-      console.log(`${currentID} Incorrect ${firstTimeWrong ? 'first time ' : ''}-> should return to queue`);
+      console.log(`${currentID} Incorrect ${firstTimeWrong ? 'first time ' : ''}-> should be returned to queue`);
     }
     if (ignored) {
       const previousStreak = current.get('previousStreak');
