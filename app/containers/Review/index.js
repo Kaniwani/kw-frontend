@@ -12,6 +12,7 @@ import styled from 'styled-components';
 import ReviewHeader from 'containers/ReviewHeader';
 import ReviewAnswer from 'containers/ReviewAnswer';
 import ReviewQuestion from 'components/ReviewQuestion';
+import ReviewInfo from 'components/ReviewInfo';
 import ReviewFooter from 'components/ReviewFooter';
 
 import {
@@ -53,6 +54,7 @@ export class Review extends React.PureComponent { // eslint-disable-line react/p
           meaning={meaning}
         />
         <ReviewAnswer />
+        <ReviewInfo />
         <ReviewFooter />
       </Wrapper>
     );

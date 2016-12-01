@@ -30,6 +30,9 @@ export class AnswerInput extends React.PureComponent { // eslint-disable-line re
   componentDidMount() {
     kanawana.bind(this.inputField);
   }
+  componentDidUpdate() {
+    this.inputField.focus();
+  }
   componentWillUnmount() {
     kanawana.unbind(this.inputField);
   }
@@ -47,6 +50,7 @@ export class AnswerInput extends React.PureComponent { // eslint-disable-line re
           onChange={onChangeInput}
           lang="ja"
           type="text"
+          autoFocus
           disabled={inputDisabled}
           placeholder="答え"
           autoCapitalize="off"
