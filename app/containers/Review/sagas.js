@@ -2,7 +2,7 @@
 /* eslint-disable no-constant-condition */
 
 import { take, select, call, put, race, fork, cancel } from 'redux-saga/effects';
-import { takeLatest } from 'redux-saga';
+import { takeLatest, takeEvery } from 'redux-saga';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import request from 'utils/request';
 import { shapeReviewData } from './utils';
@@ -20,12 +20,13 @@ import {
   reviewDataLoaded,
   reviewDataLoadingError,
   returnCurrentToQueue,
-  // moveCurrentToCompleted,
+  moveCurrentToCompleted,
   markCorrect,
   markIncorrect,
   setNewCurrent,
   increaseStreak,
   decreaseStreak,
+  resetStreak,
   increaseSessionCorrect,
   increaseSessionIncorrect,
 } from './actions';
@@ -60,33 +61,38 @@ export function* getReviewData(limit = 100) {
 }
 
 export function* recordAnswer() {
-// TODO: get @tadgh to change all these old ajax urls to /api/ ?
-//  const postURL = '/kw/record_answer/';
-
-  const [
-    current,
-    // authToken,
-  ] = yield [
+  const [current/* , authToken */] = yield [
     select(selectCurrent()),
     // select(selectAuthToken())
+  ];
+  const [id, correct, previouslyWrong] = [
+    current.get('id'),
+    current.getIn(['session', 'correct']) >= 1,
+    current.getIn(['session', 'incorrect']) > 1,
   ];
 
   const postData = {
     csrfmiddlewaretoken: 'csrf here',
-    user_specific_id: current.get('id'),
-    user_correct: current.getIn(['session', 'correct']) >= 1,
-    wrong_before: current.getIn(['session', 'incorrect']) >= 1,
+    user_specific_id: id,
+    user_correct: correct,
+    wrong_before: previouslyWrong,
   };
 
   // TODO: use axios; request is just a fetch function
-  // TODO: batch in lots of ten (or less if reviews completed)?
-  // Ask Tadgh if he'd prefer multiple submissions batched or if separate is better.
-  // yield fork(request, postURL, postData);
+    // yield fork(request, postURL, postData);
 
-  console.table(postData);
-  console.log('recorded on server');
-
-  // TODO: catch errors and notify user answers not recorded
+  try {
+    console.info(postData);
+    console.log('recorded on server');
+    // put(recordAnswerSuccess())
+  } catch (err) {
+    // TODO: catch errors and notify user answer not recorded but returned to queue instead
+    // put(recordAnswerFailure(message))
+  } finally {
+    yield put(correct && !previouslyWrong ? increaseSessionCorrect() : increaseSessionIncorrect());
+    yield put(moveCurrentToCompleted());
+    yield put(setNewCurrent());
+  }
 }
 
 
@@ -99,7 +105,7 @@ export function* getReviewDataWatcher() {
 }
 
 export function* processAnswerWatcher() {
-  yield fork(takeLatest, PROCESS_ANSWER, recordAnswer);
+  yield fork(takeEvery, PROCESS_ANSWER, recordAnswer);
 }
 
 export function* checkAnswerWatcher() {
@@ -116,8 +122,6 @@ export function* checkAnswerWatcher() {
   }
 }
 
-// TODO: almost all of this is irrelevant and should really be actioned in processanswer*
-// although we DO want to show what the streak change *would* be
 export function* markAnswersWatcher() {
   while (true) {
     const { correct, incorrect, ignored } = yield race({
@@ -131,34 +135,21 @@ export function* markAnswersWatcher() {
     const currentIncorrectCount = current.getIn(['session', 'incorrect']);
     const previouslyWrong = currentIncorrectCount >= 1;
     const firstTimeWrong = currentIncorrectCount === 1;
+    const currentStreak = current.get('streak');
 
-    if (correct) {
+    if (correct && !previouslyWrong) {
+      yield put(increaseStreak(currentStreak));
       console.log(`${currentID} Correct ${!previouslyWrong ? 'Not previously wrong ' : ''}-> should move to complete`);
-      if (correct && !previouslyWrong) {
-        yield [
-          put(increaseStreak()),
-          put(increaseSessionCorrect()),
-        ];
-      }
-      // in process answer
-      // yield fork(recordAnswer);
-      // yield put(moveCurrentToCompleted());
-      // yield put(setNewCurrent());
     }
-    if (incorrect) {
-      if (firstTimeWrong) {
-        yield [
-          put(decreaseStreak()),
-          put(increaseSessionIncorrect()),
-        ];
-      }
+    if (incorrect && firstTimeWrong) {
+      yield put(decreaseStreak(currentStreak));
       console.log(`${currentID} Incorrect ${firstTimeWrong ? 'first time ' : ''}-> should return to queue`);
-      // in processAnswer
-      // yield put(returnCurrentToQueue());
-      // yield put(setNewCurrent());
     }
     if (ignored) {
-      console.log(`${currentID} Ignored -> returned to queue`);
+      const previousStreak = current.get('previousStreak');
+      console.log(`${currentID} Ignored -> returned to queue
+Streak reset to ${previousStreak} from ${currentStreak}`);
+      yield put(resetStreak());
       yield put(returnCurrentToQueue());
       yield put(setNewCurrent());
     }

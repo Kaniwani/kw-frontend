@@ -22,5 +22,6 @@ export const CHECK_ANSWER = 'kw/Review/CHECK_ANSWER';
 export const PROCESS_ANSWER = 'kw/Review/PROCESS_ANSWER';
 export const INCREASE_STREAK = 'kw/Review/INCREASE_STREAK';
 export const DECREASE_STREAK = 'kw/Review/DECREASE_STREAK';
+export const RESET_STREAK = 'kw/Review/RESET_STREAK';
 export const INCREASE_SESSION_CORRECT = 'kw/Review/INCREASE_SESSION_CORRECT';
 export const INCREASE_SESSION_INCORRECT = 'kw/Review/INCREASE_SESSION_INCORRECT';

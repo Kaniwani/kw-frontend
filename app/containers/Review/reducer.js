@@ -6,7 +6,7 @@ import randInRange from 'utils/randInRange';
 import keyInListMatches from 'utils/keyInListMatches';
 import { isKanjiKana } from 'shared/kanawana/core';
 
-import { CHANGE_INPUT } from 'containers/AnswerInput/constants';
+import { UPDATE_INPUT } from 'containers/AnswerInput/constants';
 import answerInputReducer from 'containers/AnswerInput/reducer';
 
 import {
@@ -20,11 +20,11 @@ import {
   MARK_INCORRECT,
   MARK_IGNORED,
   CHECK_ANSWER,
-  PROCESS_ANSWER,
   INCREASE_SESSION_CORRECT,
   INCREASE_SESSION_INCORRECT,
   INCREASE_STREAK,
   DECREASE_STREAK,
+  RESET_STREAK,
 } from './constants';
 
 export const initialState = fromJS({
@@ -35,9 +35,10 @@ export const initialState = fromJS({
   completed: [],
   answer: {
     inputText: '',
-    matches: false,
+    inputDisabled: false,
     valid: false,
     marked: false,
+    matches: false,
   },
   session: {
     correct: 0,
@@ -47,6 +48,7 @@ export const initialState = fromJS({
   // TODO: suggest to tadgh to send only necessary review item fields to keep api response size smaller
   current: {
     streak: 0,
+    previousStreak: null,
     vocabulary: {
       meaning: '',
     },
@@ -64,7 +66,7 @@ function reviewReducer(state = initialState, action) {
         .set('error', false);
     }
     case LOAD_REVIEWDATA_SUCCESS: {
-      const { count, reviews } = action.data;
+      const { count, reviews } = action.payload;
       return state
         .set('total', count)
         .set('queue', state.get('queue').concat(reviews))
@@ -72,7 +74,7 @@ function reviewReducer(state = initialState, action) {
     }
     case LOAD_REVIEWDATA_ERROR: {
       return state
-        .set('error', action.error)
+        .set('error', action.payload)
         .set('loading', false);
     }
     case SET_NEW_CURRENT: {
@@ -84,6 +86,7 @@ function reviewReducer(state = initialState, action) {
           matches: false,
           valid: false,
           marked: false,
+          inputDisabled: false,
         }))
         .set('current', fromJS(newCurrent))
         .set('queue', fromJS(remainingReviews));
@@ -99,33 +102,48 @@ function reviewReducer(state = initialState, action) {
       return state.set('completed', completed);
     }
     case MARK_CORRECT:
-      return state.updateIn(['current', 'session', 'correct'], add(1));
+      return state
+        .updateIn(['current', 'session', 'correct'], add(1))
+        .mergeIn(['answer'], { marked: true, inputDisabled: true });
     case MARK_INCORRECT:
-      return state.updateIn(['current', 'session', 'incorrect'], add(1));
-    case MARK_IGNORED:
+      return state
+        .updateIn(['current', 'session', 'incorrect'], add(1))
+        .mergeIn(['answer'], { marked: true, inputDisabled: true });
+    case MARK_IGNORED: {
+      // When we marked correct or incorrect, we increased the current>session item's correctness
+      // here we will undo that since the user is ignoring their answer
+      const resetTarget = action.payload ? 'correct' : 'incorrect';
       return state
         .updateIn(['session', 'ignored'], add(1))
+        .updateIn(['current', 'session', resetTarget], subtract(1))
         .updateIn(['current', 'session', 'ignored'], add(1));
+    }
     case INCREASE_SESSION_CORRECT:
-      return state.updateIn(['session', 'correct'], add(1));
+      return state
+        .updateIn(['session', 'correct'], add(1));
     case INCREASE_SESSION_INCORRECT:
-      return state.updateIn(['session', 'incorrect'], add(1));
+      return state
+        .updateIn(['session', 'incorrect'], add(1));
     case INCREASE_STREAK:
-      return state.updateIn(['current', 'streak'], add(1));
+      return state
+        .setIn(['current', 'previousStreak'], action.payload)
+        .updateIn(['current', 'streak'], add(1));
     case DECREASE_STREAK:
-      return state.updateIn(['current', 'streak'], subtract(1));
-    case CHANGE_INPUT:
+      return state
+        .setIn(['current', 'previousStreak'], action.payload)
+        .updateIn(['current', 'streak'], subtract(1));
+    case RESET_STREAK:
+      return state.setIn(['current', 'streak'], state.getIn(['current', 'previousStreak']));
+    case UPDATE_INPUT:
       return answerInputReducer(state, action);
     case CHECK_ANSWER: {
       const readings = state.getIn(['current', 'vocabulary', 'readings']).toJS();
       const inputText = state.getIn(['answer', 'inputText']);
       return state
         .setIn(['answer', 'matches'], isMatch(readings, inputText))
-        .setIn(['answer', 'valid'], isKanjiKana(inputText))
-        .setIn(['answer', 'marked'], true);
+        .setIn(['answer', 'valid'], isKanjiKana(inputText));
     }
-    case PROCESS_ANSWER:
-      return state;
+    // case PROCESS_ANSWER:
     default:
       return state;
   }

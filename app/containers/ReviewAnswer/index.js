@@ -11,6 +11,7 @@ import { selectCurrentStreak } from 'containers/Review/selectors';
 import {
   selectAnswerMarked,
   selectAnswerValid,
+  selectAnswerMatches,
  } from 'containers/AnswerInput/selectors';
 
 import {
@@ -27,7 +28,7 @@ import IgnoreButton from './IgnoreButton';
 
 class ReviewAnswer extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { streak, marked, valid, checkAnswer, processAnswer, ignoreAnswer } = this.props; // eslint-disable-line no-shadow
+    const { streak, marked, valid, matches, checkAnswer, processAnswer, ignoreAnswer } = this.props; // eslint-disable-line no-shadow
     return (
       <Form
         marked={marked}
@@ -36,7 +37,7 @@ class ReviewAnswer extends React.PureComponent { // eslint-disable-line react/pr
       >
         <StreakIcon streak={streak} />
         <AnswerInput />
-        <IgnoreButton onIgnoreClick={ignoreAnswer} />
+        <IgnoreButton onIgnoreClick={() => ignoreAnswer(matches)} />
         <SubmitButton />
         {/* <StreakAnimation /> */}
       </Form>
@@ -48,6 +49,7 @@ const mapStateToProps = createStructuredSelector({
   streak: selectCurrentStreak(),
   marked: selectAnswerMarked(),
   valid: selectAnswerValid(),
+  matches: selectAnswerMatches(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -60,7 +62,7 @@ function mapDispatchToProps(dispatch) {
       event.preventDefault();
       dispatch(processAnswer());
     },
-    ignoreAnswer: () => dispatch(markIgnored()),
+    ignoreAnswer: (correct) => dispatch(markIgnored(correct)),
   };
 }
 
@@ -68,6 +70,7 @@ ReviewAnswer.propTypes = {
   streak: PropTypes.number,
   marked: PropTypes.bool,
   valid: PropTypes.bool,
+  matches: PropTypes.bool,
   checkAnswer: PropTypes.func.isRequired,
   processAnswer: PropTypes.func.isRequired,
   ignoreAnswer: PropTypes.func.isRequired,

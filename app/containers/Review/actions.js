@@ -31,6 +31,7 @@ import {
   INCREASE_SESSION_INCORRECT,
   INCREASE_STREAK,
   DECREASE_STREAK,
+  RESET_STREAK,
 } from './constants';
 
 /**
@@ -54,7 +55,7 @@ export function loadReviewData() {
 export function reviewDataLoaded(data) {
   return {
     type: LOAD_REVIEWDATA_SUCCESS,
-    data,
+    payload: data,
   };
 }
 
@@ -68,7 +69,7 @@ export function reviewDataLoaded(data) {
 export function reviewDataLoadingError(error) {
   return {
     type: LOAD_REVIEWDATA_ERROR,
-    error,
+    payload: error,
   };
 }
 
@@ -124,31 +125,47 @@ export function markIncorrect() {
 
 /**
  * Marks current review item as ignored and updates item's session data
- * @return {object} An action object with a type of MARK_IGNORED
+ * @param {boolean} correct Whether the item is currently marked as correct or not
+ * @return {object} An action object with a type of MARK_IGNORED and a payload of the current correctness mark
  */
-export function markIgnored() {
+export function markIgnored(correctness) {
   return {
     type: MARK_IGNORED,
+    payload: correctness,
   };
 }
 
 /**
  * Increases the streak count by 1 on the current review item
- * @return {object} An action object with a type of INCREASE_STREAK
+ * @param {number} previousStreak The previous streak number to be stored for RESET_STREAK action
+ * @return {object} An action object with a type of INCREASE_STREAK and a payload of the previous streak
  */
-export function increaseStreak() {
+export function increaseStreak(previousStreak) {
   return {
     type: INCREASE_STREAK,
+    payload: previousStreak,
   };
 }
 
 /**
  * Decreases the streak count by 1 on the current review item
- * @return {object} An action object with a type of DECREASE_STREAK
+ * @param {number} previousStreak The previous streak number to be stored for RESET_STREAK action
+ * @return {object} An action object with a type of DECREASE_STREAK and a payload of the previous streak
  */
-export function decreaseStreak() {
+export function decreaseStreak(previousStreak) {
   return {
     type: DECREASE_STREAK,
+    payload: previousStreak,
+  };
+}
+
+/**
+ * Resets the streak count on the current review item to the stored previous streak count
+ * @return {object} An action object with a type of RESET_STREAK
+ */
+export function resetStreak() {
+  return {
+    type: RESET_STREAK,
   };
 }
 

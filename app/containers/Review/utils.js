@@ -3,7 +3,7 @@
  * @param  {object} data Review data server result
  * @return {object} Modified review data
  */
-export function shapeReviewData(data) {
+export function shapeReviewData(data) { // eslint-disable-line import/prefer-default-export
   const shapedReviews = data.results.map((item) => {
     const shapedItem = {
       id: item.id,
@@ -11,6 +11,7 @@ export function shapeReviewData(data) {
       // correct: item.correct,
       // incorrect: item.incorrect,
       streak: item.streak,
+      previousStreak: item.streak,
       session: {
         correct: 0,
         incorrect: 0,
