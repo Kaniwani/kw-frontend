@@ -45,3 +45,21 @@ export default function keyInListMatches(list, key, target) {
 export function answerMatches(answers, input) {
   return keyInListMatches(answers, 'kana', input) || keyInListMatches(answers, 'character', input);
 }
+
+/**
+ * For use as immutablejs updateIn() function in reducers
+ * Takes a number and adds it to the value on the next invocation
+ * Usage: updateIn(['nested', someNum'], (someNum) => add(1)(someNum))
+ * or: updateIn(['nested', someNum'], add(1))
+ * @param {number} a Number to add to the next value passed in the following invocation
+ */
+export const add = (b) => (a) => a + b;
+
+/**
+* For use as immutablejs updateIn() function in reducers
+* Takes a number and subtracts it from the value on the next invocation
+* Usage: updateIn(['nested', someNum'], (someNum) => subtract(1)(someNum))
+* or: updateIn(['nested', someNum'], subtract(1))
+* @param {number} a Number to add to the next value passed in the following invocation
+*/
+export const subtract = (b) => (a) => a - b;

@@ -6,7 +6,11 @@ import randInRange from 'utils/randInRange';
 import { isKanjiKana } from 'shared/kanawana/core';
 import { UPDATE_INPUT } from 'containers/AnswerInput/constants';
 import answerInputReducer from 'containers/AnswerInput/reducer';
-import { answerMatches } from './utils';
+import {
+  add,
+  subtract,
+  answerMatches,
+} from './utils';
 
 import {
   LOAD_REVIEWDATA_SUCCESS,
@@ -53,9 +57,6 @@ export const initialState = fromJS({
     },
   },
 });
-
-const add = (a) => (b) => b + a;
-const subtract = (a) => (b) => b - a;
 
 function reviewReducer(state = initialState, action) {
   switch (action.type) {
@@ -136,7 +137,6 @@ function reviewReducer(state = initialState, action) {
     case CHECK_ANSWER: {
       const readings = state.getIn(['current', 'vocabulary', 'readings']).toJS();
       const inputText = state.getIn(['answer', 'inputText']);
-      console.log(answerMatches(readings, inputText));
       return state
         .mergeIn(['answer'], {
           matches: answerMatches(readings, inputText),
