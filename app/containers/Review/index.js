@@ -21,6 +21,7 @@ import {
 
 import {
  selectCurrentMeaning,
+ selectCurrentVocab,
  selectLoading,
  selectError,
 } from './selectors';
@@ -38,7 +39,7 @@ export class Review extends React.PureComponent { // eslint-disable-line react/p
   }
 
   render() {
-    const { error, loading, meaning } = this.props;
+    const { error, loading, meaning, vocab } = this.props;
     return (
       <Wrapper>
         <Helmet
@@ -54,7 +55,7 @@ export class Review extends React.PureComponent { // eslint-disable-line react/p
           meaning={meaning}
         />
         <ReviewAnswer />
-        <ReviewInfo />
+        <ReviewInfo vocab={vocab} />
         <ReviewFooter />
       </Wrapper>
     );
@@ -68,6 +69,7 @@ Review.propTypes = {
     PropTypes.bool,
   ]),
   meaning: PropTypes.string,
+  vocab: PropTypes.object,
   loadReviewData: PropTypes.func.isRequired,
 };
 
@@ -75,6 +77,7 @@ const mapStateToProps = createStructuredSelector({
   loading: selectLoading(),
   error: selectError(),
   meaning: selectCurrentMeaning(),
+  vocab: selectCurrentVocab(),
 });
 
 function mapDispatchToProps(dispatch) {
