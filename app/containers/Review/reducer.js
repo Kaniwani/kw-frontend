@@ -55,8 +55,8 @@ export const initialState = fromJS({
   },
 });
 
-const add = (a) => (b) => a + b;
-const subtract = (a) => (b) => a - b;
+const add = (a) => (b) => b + a;
+const subtract = (a) => (b) => b - a;
 
 function reviewReducer(state = initialState, action) {
   switch (action.type) {
