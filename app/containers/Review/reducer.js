@@ -3,11 +3,10 @@
  */
 import { fromJS } from 'immutable';
 import randInRange from 'utils/randInRange';
-import keyInListMatches from 'utils/keyInListMatches';
 import { isKanjiKana } from 'shared/kanawana/core';
-
 import { UPDATE_INPUT } from 'containers/AnswerInput/constants';
 import answerInputReducer from 'containers/AnswerInput/reducer';
+import { answerMatches } from './utils';
 
 import {
   LOAD_REVIEWDATA_SUCCESS,
@@ -36,7 +35,7 @@ export const initialState = fromJS({
   answer: {
     inputText: '',
     inputDisabled: false,
-    valid: false,
+    valid: null,
     marked: false,
     matches: false,
   },
@@ -84,7 +83,7 @@ function reviewReducer(state = initialState, action) {
         .set('answer', fromJS({
           inputText: '',
           matches: false,
-          valid: false,
+          valid: null,
           marked: false,
           inputDisabled: false,
         }))
@@ -119,11 +118,9 @@ function reviewReducer(state = initialState, action) {
         .updateIn(['current', 'session', 'ignored'], add(1));
     }
     case INCREASE_SESSION_CORRECT:
-      return state
-        .updateIn(['session', 'correct'], add(1));
+      return state.updateIn(['session', 'correct'], add(1));
     case INCREASE_SESSION_INCORRECT:
-      return state
-        .updateIn(['session', 'incorrect'], add(1));
+      return state.updateIn(['session', 'incorrect'], add(1));
     case INCREASE_STREAK:
       return state
         .setIn(['current', 'previousStreak'], action.payload)
@@ -139,9 +136,12 @@ function reviewReducer(state = initialState, action) {
     case CHECK_ANSWER: {
       const readings = state.getIn(['current', 'vocabulary', 'readings']).toJS();
       const inputText = state.getIn(['answer', 'inputText']);
+      console.log(answerMatches(readings, inputText));
       return state
-        .setIn(['answer', 'matches'], isMatch(readings, inputText))
-        .setIn(['answer', 'valid'], isKanjiKana(inputText));
+        .mergeIn(['answer'], {
+          matches: answerMatches(readings, inputText),
+          valid: inputText.length > 0 && isKanjiKana(inputText),
+        });
     }
     // case PROCESS_ANSWER:
     default:
@@ -150,7 +150,3 @@ function reviewReducer(state = initialState, action) {
 }
 
 export default reviewReducer;
-
-function isMatch(answers, input) {
-  return keyInListMatches(answers, 'kana', input) || keyInListMatches(answers, 'character', input);
-}

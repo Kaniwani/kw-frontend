@@ -53,8 +53,10 @@ export function* getReviewData(limit = 100) {
     // Call our request helper (see 'utils/request')
     const data = yield call(request, requestURL);
     const shapedData = shapeReviewData(data);
-    yield put(reviewDataLoaded(shapedData));
-    yield put(setNewCurrent());
+    yield [
+      put(reviewDataLoaded(shapedData)),
+      put(setNewCurrent()),
+    ];
   } catch (err) {
     yield put(reviewDataLoadingError(err));
   }
@@ -89,8 +91,14 @@ export function* recordAnswer() {
     // TODO: catch errors and notify user answer not recorded but returned to queue instead
     // put(recordAnswerFailure(message))
   } finally {
-    yield put(correct && !previouslyWrong ? increaseSessionCorrect() : increaseSessionIncorrect());
-    yield put(moveCurrentToCompleted());
+    // TODO: move to take(RECORD_ANSWER_SUCCESS)
+    if (correct && !previouslyWrong) yield put(increaseSessionCorrect());
+
+    // NOTE: if incorrect, we don't need to record answer - this should be an early escape clause
+    if (!correct && !previouslyWrong) yield put(increaseSessionIncorrect());
+
+    // TODO: take(RECORD_ANSWER_FAILURE) put(returnCurrentToQueue()) regardless
+    yield put(correct ? moveCurrentToCompleted() : returnCurrentToQueue());
     yield put(setNewCurrent());
   }
 }
@@ -149,9 +157,11 @@ export function* markAnswersWatcher() {
       const previousStreak = current.get('previousStreak');
       console.log(`${currentID} Ignored -> returned to queue
 Streak reset to ${previousStreak} from ${currentStreak}`);
-      yield put(resetStreak());
-      yield put(returnCurrentToQueue());
-      yield put(setNewCurrent());
+      yield [
+        put(resetStreak()),
+        put(returnCurrentToQueue()),
+        put(setNewCurrent()),
+      ];
     }
   }
 }

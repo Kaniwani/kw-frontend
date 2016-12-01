@@ -12,7 +12,6 @@ const Input = styled.input`
   font-size: calc(22px + 28 * ((100vw - 300px) / 1700));
   line-height: 2.5;
   text-align: center;
-  transition: all 150ms ease-in-out;
 `;
 
 export default Input;

@@ -9,7 +9,7 @@ import {
 
 const markedBgColor = ({ marked, valid, matches }) => {
   switch (true) {
-    case (marked && !valid): return yellow;
+    case (valid != null && !valid): return yellow;
     case (marked && valid && !matches): return red;
     case (marked && valid && matches): return green;
     default: return white;

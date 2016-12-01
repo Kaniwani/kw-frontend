@@ -5,7 +5,6 @@ const Form = styled.form`
   position: relative;
   width: 100%;
   color: ${({ marked, valid }) => (marked && valid ? white : black)};
-  transition: all 150ms ease-in-out;
 `;
 
 export default Form;

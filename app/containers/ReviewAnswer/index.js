@@ -37,7 +37,7 @@ class ReviewAnswer extends React.PureComponent { // eslint-disable-line react/pr
       >
         <StreakIcon streak={streak} />
         <AnswerInput />
-        <IgnoreButton onIgnoreClick={() => ignoreAnswer(matches)} />
+        <IgnoreButton onIgnoreClick={() => { if (valid) ignoreAnswer(matches); }} />
         <SubmitButton />
         {/* <StreakAnimation /> */}
       </Form>
@@ -69,7 +69,10 @@ function mapDispatchToProps(dispatch) {
 ReviewAnswer.propTypes = {
   streak: PropTypes.number,
   marked: PropTypes.bool,
-  valid: PropTypes.bool,
+  valid: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.null,
+  ]),
   matches: PropTypes.bool,
   checkAnswer: PropTypes.func.isRequired,
   processAnswer: PropTypes.func.isRequired,
