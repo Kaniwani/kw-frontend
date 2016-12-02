@@ -63,13 +63,13 @@ export class Review extends React.PureComponent { // eslint-disable-line react/p
 }
 
 Review.propTypes = {
-  loading: PropTypes.bool,
+  loading: PropTypes.bool.isRequired,
   error: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.bool,
-  ]),
-  meaning: PropTypes.string,
-  vocab: PropTypes.object,
+  ]).isRequired,
+  vocab: PropTypes.object.isRequired,
+  meaning: PropTypes.string.isRequired,
   loadReviewData: PropTypes.func.isRequired,
 };
 

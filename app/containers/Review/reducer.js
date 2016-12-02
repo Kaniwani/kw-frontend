@@ -54,6 +54,7 @@ export const initialState = fromJS({
     previousStreak: null,
     vocabulary: {
       meaning: '',
+      readings: [],
     },
   },
 });

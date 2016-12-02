@@ -16,10 +16,6 @@ import Wrapper from './Wrapper';
 import { changeInput } from './actions';
 import {
   selectInputText,
-  selectInputDisabled,
-  selectAnswerMatches,
-  selectAnswerMarked,
-  selectAnswerValid,
 } from './selectors';
 
 const Label = styled.label`
@@ -31,32 +27,35 @@ export class AnswerInput extends React.PureComponent { // eslint-disable-line re
     kanawana.bind(this.inputField);
   }
   componentDidUpdate() {
-    this.inputField.focus();
+    if (!this.props.disabled) this.inputField.focus();
   }
   componentWillUnmount() {
     kanawana.unbind(this.inputField);
   }
   render() {
-    const { text, inputDisabled, marked, valid, matches, onChangeInput } = this.props;
+    const { text, disabled, marked, valid, matches, onChangeInput } = this.props;
     return (
-      <Wrapper marked={marked} valid={valid} matches={matches} >
+      <Wrapper
+        marked={marked}
+        valid={valid}
+        matches={matches}
+      >
         <Label htmlFor="userAnswer">
           Vocabulary reading
         </Label>
         <Input
           innerRef={(node) => { this.inputField = node; }}
-          id="userAnswer"
-          value={text}
           onChange={onChangeInput}
+          value={text}
+          disabled={disabled}
           lang="ja"
           type="text"
-          autoFocus
-          disabled={inputDisabled}
           placeholder="答え"
+          autoFocus
           autoCapitalize="off"
           autoCorrect="off"
-          spellCheck="false"
           autoComplete="off"
+          spellCheck="false"
         />
       </Wrapper>
     );
@@ -64,20 +63,19 @@ export class AnswerInput extends React.PureComponent { // eslint-disable-line re
 }
 
 AnswerInput.propTypes = {
-  text: PropTypes.string,
+  text: PropTypes.string.isRequired,
   onChangeInput: PropTypes.func.isRequired,
-  inputDisabled: PropTypes.bool,
-  marked: PropTypes.bool,
-  valid: PropTypes.bool,
-  matches: PropTypes.bool,
+  disabled: PropTypes.bool.isRequired,
+  marked: PropTypes.bool.isRequired,
+  valid: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.null,
+  ]),
+  matches: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   text: selectInputText(),
-  marked: selectAnswerMarked(),
-  valid: selectAnswerValid(),
-  matches: selectAnswerMatches(),
-  inputDisabled: selectInputDisabled(),
 });
 
 function mapDispatchToProps(dispatch) {

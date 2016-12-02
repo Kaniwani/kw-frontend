@@ -8,16 +8,13 @@ import React, { PropTypes } from 'react';
 
 function ReviewInfo({ vocab }) {
   const { readings } = vocab.toJS();
-  const content = readings && (
+  return (
     <div>
-      {readings.map((reading, key) =>
-        <p key={key}>
-          {reading.character} | {reading.kana}
-        </p>)
-      }
+      {readings && readings.map((reading, index) => (
+        <p key={index}>{reading.character} | {reading.kana}</p>
+      ))}
     </div>
   );
-  return content || null;
 }
 
 ReviewInfo.propTypes = {
