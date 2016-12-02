@@ -3,34 +3,34 @@ import { createSelector } from 'reselect';
 /**
  * Direct selector to the answerInput state domain
  */
-const selectAnswerInputDomain = () => (state) => state.getIn(['review', 'answer']);
+const selectAnswerInputDomain = (state) => state.getIn(['review', 'answer']);
 
 /**
  * Other specific selectors
  */
 
 const selectInputText = () => createSelector(
-  selectAnswerInputDomain(),
+  selectAnswerInputDomain,
   (substate) => substate.get('inputText'),
 );
 
 const selectInputDisabled = () => createSelector(
-  selectAnswerInputDomain(),
+  selectAnswerInputDomain,
   (substate) => substate.get('inputDisabled'),
 );
 
 const selectAnswerMatches = () => createSelector(
-  selectAnswerInputDomain(),
+  selectAnswerInputDomain,
   (substate) => substate.get('matches'),
 );
 
 const selectAnswerValid = () => createSelector(
-  selectAnswerInputDomain(),
+  selectAnswerInputDomain,
   (substate) => substate.get('valid'),
 );
 
 const selectAnswerMarked = () => createSelector(
-  selectAnswerInputDomain(),
+  selectAnswerInputDomain,
   (substate) => substate.get('marked'),
 );
 
@@ -39,7 +39,7 @@ const selectAnswerMarked = () => createSelector(
  */
 
 const selectAnswerInput = () => createSelector(
-  selectAnswerInputDomain(),
+  selectAnswerInputDomain,
   (substate) => substate.toJS(),
 );
 

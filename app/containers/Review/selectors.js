@@ -3,28 +3,28 @@ import { createSelector } from 'reselect';
 /**
  * Direct selector to the review state domain
  */
-const selectReviewDomain = () => (state) => state.get('review');
+const selectReviewDomain = (state) => state.get('review');
 
 /**
  * Other specific selectors
  */
 const selectLoading = () => createSelector(
-  selectReviewDomain(),
+  selectReviewDomain,
   (substate) => substate.get('loading'),
 );
 
 const selectError = () => createSelector(
-  selectReviewDomain(),
+  selectReviewDomain,
   (substate) => substate.get('error'),
 );
 
 const selectQueue = () => createSelector(
-  selectReviewDomain(),
+  selectReviewDomain,
   (substate) => substate.get('queue'),
 );
 
 const selectCurrent = () => createSelector(
-  selectReviewDomain(),
+  selectReviewDomain,
   (substate) => substate.get('current'),
 );
 
@@ -49,13 +49,13 @@ const selectQueueCount = () => createSelector(
 );
 
 const selectSession = () => createSelector(
-  selectReviewDomain(),
+  selectReviewDomain,
   (substate) => substate.get('session'),
 );
 
 // TODO: move to ReviewHeader selectors ?
 const selectCompletedCount = () => createSelector(
-  selectReviewDomain(),
+  selectReviewDomain,
   (substate) => substate.get('completed').size,
 );
 
@@ -76,7 +76,7 @@ const selectAnsweredCount = () => createSelector(
 );
 
 const selectTotalCount = () => createSelector(
-  selectReviewDomain(),
+  selectReviewDomain,
   (substate) => substate.get('total'),
 );
 

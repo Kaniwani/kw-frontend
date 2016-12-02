@@ -160,6 +160,9 @@ export function* markAnswersWatcher() {
       yield put(increaseCurrentStreak(currentStreak));
       console.log(`${currentID} Correct ${!previouslyWrong ? 'Not previously wrong ' : ''}-> should be moved to complete`);
     }
+    // if (correct && settings.autoAdvance) {
+    //   yield put(processAnswer());
+    // }
     if (incorrect && firstTimeWrong) {
       yield put(decreaseCurrentStreak(currentStreak));
       console.log(`${currentID} Incorrect ${firstTimeWrong ? 'first time ' : ''}-> should be returned to queue`);

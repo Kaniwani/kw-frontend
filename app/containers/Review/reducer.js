@@ -148,8 +148,10 @@ function reviewReducer(state = initialState, action) {
     case UPDATE_INPUT:
       return answerInputReducer(state, action);
     case CHECK_ANSWER: {
+      // TODO: move these checks to saga instead
+      // special considerations should be handled there, and pass the relevant state changes to reducer?
       const readings = state.getIn(['current', 'vocabulary', 'readings']).toJS();
-      const inputText = state.getIn(['answer', 'inputText']);
+      const inputText = state.getIn(['answer', 'inputText']).trim();
       return state
         .mergeIn(['answer'], {
           matches: answerMatches(readings, inputText),

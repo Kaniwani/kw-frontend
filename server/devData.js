@@ -24,10 +24,10 @@ module.exports = {
     results: [{
       id: 5255,
       vocabulary: {
-        meaning: 'crybaby',
+        meaning: 'times (suffix)',
         readings: [{
-          character: '泣き虫',
-          kana: 'なきむし',
+          character: '〜回',
+          kana: '〜かい',
           level: 17,
         }],
       },
@@ -46,10 +46,10 @@ module.exports = {
     }, {
       id: 5256,
       vocabulary: {
-        meaning: 'crying, sob',
+        meaning: 'corpulence, fatness, obesity',
         readings: [{
-          character: '泣き声',
-          kana: 'なきごえ',
+          character: '肥満',
+          kana: 'ひまん',
           level: 17,
         }],
       },
