@@ -6,6 +6,15 @@ import randInRange from 'utils/randInRange';
 import { isKanjiKana } from 'shared/kanawana/core';
 import { UPDATE_INPUT } from 'containers/AnswerInput/constants';
 import answerInputReducer from 'containers/AnswerInput/reducer';
+
+// TODO: add to ReviewAnswer reducer and import that to handle these
+import {
+  MARK_CORRECT,
+  MARK_INCORRECT,
+  MARK_IGNORED,
+  CHECK_ANSWER,
+} from 'containers/ReviewAnswer/constants';
+
 import {
   add,
   subtract,
@@ -19,15 +28,11 @@ import {
   SET_NEW_CURRENT,
   RETURN_CURRENT_TO_QUEUE,
   MOVE_CURRENT_TO_COMPLETED,
-  MARK_CORRECT,
-  MARK_INCORRECT,
-  MARK_IGNORED,
-  CHECK_ANSWER,
+  INCREASE_CURRENT_STREAK,
+  DECREASE_CURRENT_STREAK,
+  RESET_CURRENT_STREAK,
   INCREASE_SESSION_CORRECT,
   INCREASE_SESSION_INCORRECT,
-  INCREASE_STREAK,
-  DECREASE_STREAK,
-  RESET_STREAK,
 } from './constants';
 
 export const initialState = fromJS({
@@ -123,15 +128,15 @@ function reviewReducer(state = initialState, action) {
       return state.updateIn(['session', 'correct'], add(1));
     case INCREASE_SESSION_INCORRECT:
       return state.updateIn(['session', 'incorrect'], add(1));
-    case INCREASE_STREAK:
+    case INCREASE_CURRENT_STREAK:
       return state
         .setIn(['current', 'previousStreak'], action.payload)
         .updateIn(['current', 'streak'], add(1));
-    case DECREASE_STREAK:
+    case DECREASE_CURRENT_STREAK:
       return state
         .setIn(['current', 'previousStreak'], action.payload)
         .updateIn(['current', 'streak'], subtract(1));
-    case RESET_STREAK:
+    case RESET_CURRENT_STREAK:
       return state.setIn(['current', 'streak'], state.getIn(['current', 'previousStreak']));
     case UPDATE_INPUT:
       return answerInputReducer(state, action);

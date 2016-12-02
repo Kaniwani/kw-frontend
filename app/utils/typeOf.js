@@ -3,7 +3,7 @@
  * IE 'array' instead of '[object Array]' for [].
  *
  * @param  {} value
- * @return {String} type (number, nan, object, array, map, regexp, date, function etc)
+ * @return {String} type (number, nan, object, array, map, set, regexp, date, function etc)
  */
 export default function typeOf(value) {
   switch (true) {

@@ -8,6 +8,7 @@ export function shapeReviewData(data) { // eslint-disable-line import/prefer-def
     const shapedItem = {
       id: item.id,
       vocabulary: item.vocabulary,
+      // NOTE: don't need these
       // correct: item.correct,
       // incorrect: item.incorrect,
       streak: item.streak,

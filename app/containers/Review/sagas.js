@@ -5,31 +5,40 @@ import { take, select, call, put, race, fork, cancel } from 'redux-saga/effects'
 import { takeLatest, takeEvery } from 'redux-saga';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import request from 'utils/request';
-import { shapeReviewData } from './utils';
 import {
-  LOAD_REVIEWDATA,
-  MOVE_CURRENT_TO_COMPLETED,
-  PROCESS_ANSWER,
   CHECK_ANSWER,
+  PROCESS_ANSWER,
   MARK_CORRECT,
   MARK_INCORRECT,
   MARK_IGNORED,
+} from 'containers/ReviewAnswer/constants';
+
+import {
+  markCorrect,
+  markIncorrect,
+} from 'containers/ReviewAnswer/actions';
+
+import { shapeReviewData } from './utils';
+
+import {
+  LOAD_REVIEWDATA,
+  MOVE_CURRENT_TO_COMPLETED,
 } from './constants';
+
 import {
   loadReviewData,
   reviewDataLoaded,
   reviewDataLoadingError,
   returnCurrentToQueue,
   moveCurrentToCompleted,
-  markCorrect,
-  markIncorrect,
   setNewCurrent,
-  increaseStreak,
-  decreaseStreak,
-  resetStreak,
+  increaseCurrentStreak,
+  decreaseCurrentStreak,
+  resetCurrentStreak,
   increaseSessionCorrect,
   increaseSessionIncorrect,
 } from './actions';
+
 import {
   selectCurrent,
   selectCompletedCount,
@@ -125,6 +134,8 @@ export function* checkAnswerWatcher() {
       select(selectAnswerMatches()),
     ];
 
+    // TODO: terminal N, tilde stuff here
+
     if (valid && !matches) yield put(markIncorrect());
     if (valid && matches) yield put(markCorrect());
   }
@@ -146,11 +157,11 @@ export function* markAnswersWatcher() {
     const currentStreak = current.get('streak');
 
     if (correct && !previouslyWrong) {
-      yield put(increaseStreak(currentStreak));
+      yield put(increaseCurrentStreak(currentStreak));
       console.log(`${currentID} Correct ${!previouslyWrong ? 'Not previously wrong ' : ''}-> should be moved to complete`);
     }
     if (incorrect && firstTimeWrong) {
-      yield put(decreaseStreak(currentStreak));
+      yield put(decreaseCurrentStreak(currentStreak));
       console.log(`${currentID} Incorrect ${firstTimeWrong ? 'first time ' : ''}-> should be returned to queue`);
     }
     if (ignored) {
@@ -158,7 +169,7 @@ export function* markAnswersWatcher() {
       console.log(`${currentID} Ignored -> returned to queue
 Streak reset to ${previousStreak} from ${currentStreak}`);
       yield [
-        put(resetStreak()),
+        put(resetCurrentStreak()),
         put(returnCurrentToQueue()),
         put(setNewCurrent()),
       ];

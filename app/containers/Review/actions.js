@@ -22,16 +22,11 @@ import {
   SET_NEW_CURRENT,
   RETURN_CURRENT_TO_QUEUE,
   MOVE_CURRENT_TO_COMPLETED,
-  CHECK_ANSWER,
-  PROCESS_ANSWER,
-  MARK_CORRECT,
-  MARK_INCORRECT,
-  MARK_IGNORED,
   INCREASE_SESSION_CORRECT,
   INCREASE_SESSION_INCORRECT,
-  INCREASE_STREAK,
-  DECREASE_STREAK,
-  RESET_STREAK,
+  INCREASE_CURRENT_STREAK,
+  DECREASE_CURRENT_STREAK,
+  RESET_CURRENT_STREAK,
 } from './constants';
 
 /**
@@ -103,69 +98,38 @@ export function moveCurrentToCompleted() {
   };
 }
 
-/**
- * Marks current review item as correct and updates item's session data
- * @return {object} An action object with a type of MARK_CORRECT
- */
-export function markCorrect() {
-  return {
-    type: MARK_CORRECT,
-  };
-}
-
-/**
- * Marks current review item as incorrect and updates item's session data
- * @return {object} An action object with a type of MARK_INCORRECT
- */
-export function markIncorrect() {
-  return {
-    type: MARK_INCORRECT,
-  };
-}
-
-/**
- * Marks current review item as ignored and updates item's session data
- * @param {boolean} correct Whether the item is currently marked as correct or not
- * @return {object} An action object with a type of MARK_IGNORED and a payload of the current correctness mark
- */
-export function markIgnored(correctness) {
-  return {
-    type: MARK_IGNORED,
-    payload: correctness,
-  };
-}
 
 /**
  * Increases the streak count by 1 on the current review item
- * @param {number} previousStreak The previous streak number to be stored for RESET_STREAK action
- * @return {object} An action object with a type of INCREASE_STREAK and a payload of the previous streak
+ * @param {number} previousStreak The previous streak number to be stored for RESET_CURRENT_STREAK action
+ * @return {object} An action object with a type of INCREASE_CURRENT_STREAK and a payload of the previous streak
  */
-export function increaseStreak(previousStreak) {
+export function increaseCurrentStreak(previousStreak) {
   return {
-    type: INCREASE_STREAK,
+    type: INCREASE_CURRENT_STREAK,
     payload: previousStreak,
   };
 }
 
 /**
  * Decreases the streak count by 1 on the current review item
- * @param {number} previousStreak The previous streak number to be stored for RESET_STREAK action
- * @return {object} An action object with a type of DECREASE_STREAK and a payload of the previous streak
+ * @param {number} previousStreak The previous streak number to be stored for RESET_CURRENT_STREAK action
+ * @return {object} An action object with a type of DECREASE_CURRENT_STREAK and a payload of the previous streak
  */
-export function decreaseStreak(previousStreak) {
+export function decreaseCurrentStreak(previousStreak) {
   return {
-    type: DECREASE_STREAK,
+    type: DECREASE_CURRENT_STREAK,
     payload: previousStreak,
   };
 }
 
 /**
  * Resets the streak count on the current review item to the stored previous streak count
- * @return {object} An action object with a type of RESET_STREAK
+ * @return {object} An action object with a type of RESET_CURRENT_STREAK
  */
-export function resetStreak() {
+export function resetCurrentStreak() {
   return {
-    type: RESET_STREAK,
+    type: RESET_CURRENT_STREAK,
   };
 }
 
@@ -186,25 +150,5 @@ export function increaseSessionCorrect() {
 export function increaseSessionIncorrect() {
   return {
     type: INCREASE_SESSION_INCORRECT,
-  };
-}
-
-/**
- * Checks answer textInput to see if it matches review readings
- * @return {object} An action object with a type of CHECK_ANSWER
- */
-export function checkAnswer() {
-  return {
-    type: CHECK_ANSWER,
-  };
-}
-
-/**
- * Records answer as correct/incorrect on server, updates state stats
- * @return {object} An action object with a type of PROCESS_ANSWER
- */
-export function processAnswer() {
-  return {
-    type: PROCESS_ANSWER,
   };
 }

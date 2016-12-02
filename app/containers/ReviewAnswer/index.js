@@ -10,6 +10,8 @@ import keydown from 'react-keydown';
 
 import { KEYS } from 'shared/constants';
 import { selectCurrentStreak } from 'containers/Review/selectors';
+import AnswerInput from 'containers/AnswerInput';
+
 import {
   selectAnswerMarked,
   selectAnswerValid,
@@ -21,9 +23,8 @@ import {
   markIgnored,
   checkAnswer,
   processAnswer,
-} from 'containers/Review/actions';
+} from './actions';
 
-import AnswerInput from 'containers/AnswerInput';
 import Form from './Form';
 import StreakIcon from './StreakIcon';
 import SubmitButton from './SubmitButton';
