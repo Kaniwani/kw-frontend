@@ -13,6 +13,7 @@ import {
   MARK_INCORRECT,
   MARK_IGNORED,
   CHECK_ANSWER,
+//  PROCESS_ANSWER,
 } from 'containers/ReviewAnswer/constants';
 
 import {
@@ -25,6 +26,9 @@ import {
   LOAD_REVIEWDATA_SUCCESS,
   LOAD_REVIEWDATA,
   LOAD_REVIEWDATA_ERROR,
+  RECORD_ANSWER,
+  RECORD_ANSWER_SUCCESS,
+  RECORD_ANSWER_FAILURE,
   SET_NEW_CURRENT,
   RETURN_CURRENT_TO_QUEUE,
   MOVE_CURRENT_TO_COMPLETED,
@@ -83,6 +87,9 @@ function reviewReducer(state = initialState, action) {
         .set('error', action.payload)
         .set('loading', false);
     }
+    case RECORD_ANSWER: return state; // TODO: implement
+    case RECORD_ANSWER_SUCCESS: return state; // TODO: implement
+    case RECORD_ANSWER_FAILURE: return state; // TODO: implement
     case SET_NEW_CURRENT: {
       const newCurrent = state.get('queue').first();
       const remainingReviews = state.get('queue').rest();
