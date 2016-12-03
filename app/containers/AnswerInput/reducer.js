@@ -9,7 +9,7 @@ import {
 function answerInputReducer(state = {}, action) {
   switch (action.type) {
     case UPDATE_INPUT:
-      return state.setIn(['answer', 'inputText'], action.text);
+      return state.setIn(['answer', 'inputText'], action.data);
     default:
       return state;
   }

@@ -49,8 +49,6 @@ export function unbind(input) {
 export function onInput(event, opts) {
   const options = Object.assign({}, defaultOptions, opts, { IMEMode: true });
   const input = event.target;
-  // const startingCursor = input.selectionStart;
-  // const startingLength = input.value.length;
   const normalizedInputString = convertFullwidthCharsToASCII((input.value));
   const newText = (toKana(normalizedInputString, options));
   if (normalizedInputString !== newText) {

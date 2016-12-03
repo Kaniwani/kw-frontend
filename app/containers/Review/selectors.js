@@ -33,6 +33,11 @@ const selectCurrentVocab = () => createSelector(
   (substate) => substate.get('vocabulary'),
 );
 
+const selectCurrentReadings = () => createSelector(
+  selectCurrentVocab(),
+  (substate) => substate.get('readings'),
+);
+
 const selectCurrentStreak = () => createSelector(
   selectCurrent(),
   (substate) => substate.get('streak'),
@@ -87,6 +92,7 @@ export {
   selectQueue,
   selectCurrent,
   selectCurrentVocab,
+  selectCurrentReadings,
   selectCurrentMeaning,
   selectCurrentStreak,
   selectQueueCount,

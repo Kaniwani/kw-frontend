@@ -3,23 +3,21 @@
  */
 import { fromJS } from 'immutable';
 import randInRange from 'utils/randInRange';
-import { isKanjiKana } from 'shared/kanawana/core';
 import { UPDATE_INPUT } from 'containers/AnswerInput/constants';
 import answerInputReducer from 'containers/AnswerInput/reducer';
 
-// TODO: add to ReviewAnswer reducer and import that to handle these
 import {
   MARK_CORRECT,
   MARK_INCORRECT,
   MARK_IGNORED,
-  CHECK_ANSWER,
+  // CHECK_ANSWER,
+  UPDATE_ANSWER,
 //  PROCESS_ANSWER,
 } from 'containers/ReviewAnswer/constants';
 
 import {
   add,
   subtract,
-  answerMatches,
 } from './utils';
 
 import {
@@ -147,18 +145,9 @@ function reviewReducer(state = initialState, action) {
       return state.setIn(['current', 'streak'], state.getIn(['current', 'previousStreak']));
     case UPDATE_INPUT:
       return answerInputReducer(state, action);
-    case CHECK_ANSWER: {
-      // TODO: move these checks to saga instead
-      // special considerations should be handled there, and pass the relevant state changes to reducer?
-      const readings = state.getIn(['current', 'vocabulary', 'readings']).toJS();
-      const inputText = state.getIn(['answer', 'inputText']).trim();
-      return state
-        .mergeIn(['answer'], {
-          matches: answerMatches(readings, inputText),
-          valid: inputText.length > 0 && isKanjiKana(inputText),
-        });
+    case UPDATE_ANSWER: {
+      return state.mergeIn(['answer'], action.payload);
     }
-    // case PROCESS_ANSWER:
     default:
       return state;
   }

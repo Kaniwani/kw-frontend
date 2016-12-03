@@ -13,7 +13,7 @@ import kanawana from 'shared/kanawana/index';
 import { visuallyhidden } from 'shared/styles/utils';
 import Input from './Input';
 import Wrapper from './Wrapper';
-import { changeInput } from './actions';
+import { updateInput } from './actions';
 import {
   selectInputText,
 } from './selectors';
@@ -80,7 +80,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    onChangeInput: (event) => dispatch(changeInput(event.target.value)),
+    onChangeInput: (event) => dispatch(updateInput(event.target.value)),
   };
 }
 

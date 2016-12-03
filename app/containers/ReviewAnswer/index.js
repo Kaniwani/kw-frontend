@@ -72,7 +72,7 @@ class ReviewAnswer extends React.PureComponent { // eslint-disable-line react/pr
             keyCode === KEYS.BACKSPACE || keyCode === KEYS.FORWARD_SLASH):
         this.ignore(event);
         break;
-      default: console.log('default case in Review handleShortcuts');
+      default: console.log('key handler fall through');
     }
   }
 

@@ -1,5 +1,6 @@
 import {
   CHECK_ANSWER,
+  UPDATE_ANSWER,
   PROCESS_ANSWER,
   MARK_CORRECT,
   MARK_INCORRECT,
@@ -13,6 +14,18 @@ import {
 export function checkAnswer() {
   return {
     type: CHECK_ANSWER,
+  };
+}
+
+/**
+ * Checks answer textInput to see if it matches review readings
+ * @param {object} payload Answer state updates
+ * @return {object} An action object with a type of UPDATE_ANSWER and updated data
+ */
+export function updateAnswer(payload) {
+  return {
+    type: UPDATE_ANSWER,
+    payload,
   };
 }
 

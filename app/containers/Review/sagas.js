@@ -5,6 +5,13 @@ import { take, select, call, put, race, fork, cancel } from 'redux-saga/effects'
 import { takeLatest, takeEvery } from 'redux-saga';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import request from 'utils/request';
+import { isKanjiKana } from 'shared/kanawana/core';
+import isEmpty from 'utils/isEmpty';
+
+import {
+  selectInputText,
+} from 'containers/AnswerInput/selectors';
+
 import {
   CHECK_ANSWER,
   PROCESS_ANSWER,
@@ -16,7 +23,15 @@ import {
 import {
   markCorrect,
   markIncorrect,
+  updateAnswer,
 } from 'containers/ReviewAnswer/actions';
+
+import {
+  answersContainTilde,
+  fixStartingTilde,
+  fixTerminalN,
+  answerMatches,
+} from 'containers/ReviewAnswer/utils';
 
 import { shapeReviewData } from './utils';
 
@@ -41,15 +56,11 @@ import {
 
 import {
   selectCurrent,
+  selectCurrentReadings,
   selectCompletedCount,
   selectQueueCount,
   selectTotalCount,
 } from './selectors';
-
-import {
-  selectAnswerMatches,
-  selectAnswerValid,
-} from '../AnswerInput/selectors';
 
 
 /**
@@ -112,36 +123,45 @@ export function* recordAnswer() {
   }
 }
 
+export function* checkAnswer() {
+  let [readings, inputText] = yield [ // eslint-disable-line prefer-const
+    select(selectCurrentReadings()),
+    select(selectInputText()),
+  ];
 
-/**
- * Watches for LOAD_REVIEWDATA actions and calls getReviewData when one comes in.
- * By using `takeLatest` only the result of the latest API call is applied.
- */
+  let answer = inputText.trim();
+  const hasContent = !isEmpty(answer);
+  readings = readings.toJS();
+
+  if (hasContent) {
+    answer = fixTerminalN(answer);
+    if (answersContainTilde(readings)) {
+      answer = fixStartingTilde(answer);
+    }
+  }
+
+  const valid = hasContent && isKanjiKana(answer);
+  const matches = answerMatches(readings, answer);
+  const correct = valid && matches;
+
+  yield put(updateAnswer({ valid, matches, inputText: (correct ? answer : inputText) }));
+  if (correct) yield put(markCorrect());
+  if (valid && !matches) yield put(markIncorrect());
+}
+
 export function* getReviewDataWatcher() {
-  yield fork(takeLatest, LOAD_REVIEWDATA, getReviewData);
+  yield takeLatest(LOAD_REVIEWDATA, getReviewData);
 }
 
 export function* processAnswerWatcher() {
-  yield fork(takeEvery, PROCESS_ANSWER, recordAnswer);
+  yield takeEvery(PROCESS_ANSWER, recordAnswer);
 }
 
 export function* checkAnswerWatcher() {
-  while (true) {
-    yield take(CHECK_ANSWER);
-
-    const [valid, matches] = yield [
-      select(selectAnswerValid()),
-      select(selectAnswerMatches()),
-    ];
-
-    // TODO: terminal N, tilde stuff here
-
-    if (valid && !matches) yield put(markIncorrect());
-    if (valid && matches) yield put(markCorrect());
-  }
+  yield takeEvery(CHECK_ANSWER, checkAnswer);
 }
 
-export function* markAnswersWatcher() {
+export function* markAnswerWatcher() {
   while (true) {
     const { correct, incorrect, ignored } = yield race({
       correct: take(MARK_CORRECT),
@@ -160,9 +180,17 @@ export function* markAnswersWatcher() {
       yield put(increaseCurrentStreak(currentStreak));
       console.log(`${currentID} Correct ${!previouslyWrong ? 'Not previously wrong ' : ''}-> should be moved to complete`);
     }
+
     // if (correct && settings.autoAdvance) {
     //   yield put(processAnswer());
     // }
+    //
+    // if ((correct && settings.showCorrectOnSuccess) ||
+    //     (incorrect && settings.showCorrectOnFail)
+    // ) {
+    //   yield put(showInfo());
+    // }
+
     if (incorrect && firstTimeWrong) {
       yield put(decreaseCurrentStreak(currentStreak));
       console.log(`${currentID} Incorrect ${firstTimeWrong ? 'first time ' : ''}-> should be returned to queue`);
@@ -212,7 +240,7 @@ export function* reviewSaga() {
   const watchers = yield [
     fork(getReviewDataWatcher),
     fork(checkAnswerWatcher),
-    fork(markAnswersWatcher),
+    fork(markAnswerWatcher),
     fork(processAnswerWatcher),
     fork(moveCurrentToCompletedWatcher),
   ];
