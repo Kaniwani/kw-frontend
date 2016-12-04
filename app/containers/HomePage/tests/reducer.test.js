@@ -1,4 +1,3 @@
-import expect from 'expect';
 import homeReducer from '../reducer';
 // import {
 //   changeUsername,
@@ -7,7 +6,6 @@ import { fromJS } from 'immutable';
 
 describe('homeReducer', () => {
   let state;
-
   beforeEach(() => {
     state = fromJS({});
   });

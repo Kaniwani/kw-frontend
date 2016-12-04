@@ -2,9 +2,8 @@
  * Tests for HomePage sagas
  */
 
-import expect from 'expect';
 import { takeLatest } from 'redux-saga';
-import { take, call, put, fork, cancel } from 'redux-saga/effects';
+import { take, put, fork } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 import { getUserData, getUserDataWatcher, userData } from '../sagas';
@@ -12,7 +11,6 @@ import { getUserData, getUserDataWatcher, userData } from '../sagas';
 import { LOAD_USERDATA } from 'containers/App/constants';
 import { userDataLoaded, userDataLoadingError } from 'containers/App/actions';
 
-import request from 'utils/request';
 
 describe('getUserData Saga', () => {
   let getUserDataGenerator;
@@ -22,9 +20,11 @@ describe('getUserData Saga', () => {
   beforeEach(() => {
     getUserDataGenerator = getUserData();
 
-    const requestURL = 'api/profiles';
-    const callDescriptor = getUserDataGenerator.next().value;
-    expect(callDescriptor).toEqual(call(request, requestURL));
+    const selectDescriptor = getUserDataGenerator.next().value;
+    expect(selectDescriptor).toMatchSnapshot();
+
+    const callDescriptor = getUserDataGenerator.next(/* name? */).value;
+    expect(callDescriptor).toMatchSnapshot();
   });
 
   it('should dispatch the userDataLoaded action if it requests the data successfully', () => {
@@ -65,12 +65,4 @@ describe('UserDataSaga Saga', () => {
     const takeDescriptor = UserDataSaga.next();
     expect(takeDescriptor.value).toEqual(take(LOCATION_CHANGE));
   });
-
-  it('should finally cancel() the forked getUserDataWatcher saga',
-     function* UserDataSagaCancellable() {
-      // reuse open fork for more integrated approach
-       forkDescriptor = UserDataSaga.next(put(LOCATION_CHANGE));
-       expect(forkDescriptor.value).toEqual(cancel(forkDescriptor));
-     }
-   );
 });

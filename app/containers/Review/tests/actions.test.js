@@ -1,4 +1,4 @@
-import expect from 'expect';
+
 import {
   loadReviewData,
   reviewDataLoaded,

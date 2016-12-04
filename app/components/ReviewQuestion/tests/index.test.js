@@ -2,7 +2,7 @@ import ReviewQuestion from '../index';
 import Wrapper from '../Wrapper';
 import Meaning from '../Meaning';
 
-import expect from 'expect';
+
 import { shallow } from 'enzyme';
 import React from 'react';
 
@@ -21,6 +21,6 @@ describe('<Meaning />', () => {
     const renderedComponent = shallow(
       <Meaning meaning={text} />
     );
-    expect(renderedComponent.contains(text)).toEqual(true);
+    expect(renderedComponent.contains(text)).toBe(true);
   });
 });

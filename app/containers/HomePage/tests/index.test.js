@@ -2,7 +2,7 @@
  * Test the HomePage
  */
 
-import expect from 'expect';
+
 import { shallow, mount } from 'enzyme';
 import React from 'react';
 
@@ -15,7 +15,7 @@ describe('<HomePage />', () => {
     const renderedComponent = shallow(
       <HomePage loading />
     );
-    expect(renderedComponent.contains(<LoadingIndicator />).toEqual(true));
+    expect(renderedComponent.contains(<LoadingIndicator />).toBe(true));
   });
 
   it('should render an error if loading failed', () => {
@@ -53,7 +53,7 @@ describe('<HomePage />', () => {
         <p>You have 2 reviews waiting.</p>
         <p>You last synced with WK on {new Date().toDateString()}.</p>
       </div>
-    )).toEqual(true);
+    )).toBe(true);
   });
 
  /* describe('mapDispatchToProps', () => {

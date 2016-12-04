@@ -2,7 +2,7 @@ import App from '../index';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 
-import expect from 'expect';
+
 import { shallow } from 'enzyme';
 import React from 'react';
 
@@ -21,7 +21,7 @@ describe('<App />', () => {
         {children}
       </App>
     );
-    expect(renderedComponent.contains(children)).toEqual(true);
+    expect(renderedComponent.contains(children)).toBe(true);
   });
 
   it('should render the footer', () => {

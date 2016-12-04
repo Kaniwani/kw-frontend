@@ -1,5 +1,3 @@
-import expect from 'expect';
-
 import {
   LOAD_USERDATA,
   LOAD_USERDATA_SUCCESS,

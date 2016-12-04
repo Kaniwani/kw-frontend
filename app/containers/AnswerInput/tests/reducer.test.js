@@ -1,4 +1,4 @@
-import expect from 'expect';
+
 import answerInputReducer from '../reducer';
 import { fromJS } from 'immutable';
 

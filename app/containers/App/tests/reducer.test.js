@@ -1,4 +1,4 @@
-import expect from 'expect';
+
 import appReducer from '../reducer';
 import {
   loadUserData,

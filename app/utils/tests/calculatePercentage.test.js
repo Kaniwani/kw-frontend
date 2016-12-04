@@ -1,5 +1,5 @@
 import calculatePercentage from '../calculatePercentage';
-import expect from 'expect';
+
 
 describe('calculatePercentage', () => {
   it('should properly calculate percentage', () => {
