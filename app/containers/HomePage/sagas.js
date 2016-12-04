@@ -49,5 +49,5 @@ export function* userData() {
 
 // Bootstrap sagas
 export default [
-  getUserDataWatcher,
+  userData,
 ];
