@@ -13,7 +13,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 describe('<HomePage />', () => {
   it('should render the loading indicator when its loading', () => {
     const renderedComponent = shallow(
-      <HomePage loading />
+      <HomePage loading />,
     );
     expect(renderedComponent.contains(<LoadingIndicator />).toBe(true));
   });
@@ -23,12 +23,12 @@ describe('<HomePage />', () => {
       <HomePage
         loading={false}
         error={{ message: 'Loading failed!' }}
-      />
+      />,
     );
     expect(
       renderedComponent
         .text()
-        .indexOf('Something went wrong, please try again!')
+        .indexOf('Something went wrong, please try again!'),
       ).toBeGreaterThan(-1);
   });
 
@@ -43,7 +43,7 @@ describe('<HomePage />', () => {
       <HomePage
         user={user}
         error={false}
-      />
+      />,
     );
 
     expect(renderedComponent.contains(
@@ -52,7 +52,7 @@ describe('<HomePage />', () => {
         <p>You are level 3.</p>
         <p>You have 2 reviews waiting.</p>
         <p>You last synced with WK on {new Date().toDateString()}.</p>
-      </div>
+      </div>,
     )).toBe(true);
   });
 
@@ -61,7 +61,7 @@ describe('<HomePage />', () => {
       it('should be injected', () => {
         const dispatch = expect.createSpy();
         const result = mapDispatchToProps(dispatch);
-        expect(result.onChangeUsername).toExist();
+        expect(result.onChangeUsername).toBeDefined();
       });
 
       it('should dispatch changeUsername when called', () => {
@@ -78,7 +78,7 @@ describe('<HomePage />', () => {
     it('should be injected', () => {
       const dispatch = expect.createSpy();
       const result = mapDispatchToProps(dispatch);
-      expect(result.onSubmitForm).toExist();
+      expect(result.onSubmitForm).toBeDefined();
     });
 
     it('should dispatch loadUserData when called', () => {

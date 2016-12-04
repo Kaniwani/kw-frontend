@@ -1,18 +1,21 @@
+import {
+  UPDATE_INPUT,
+} from '../constants';
 
 import {
-  defaultAction,
+  updateInput,
 } from '../actions';
-import {
-  DEFAULT_ACTION,
-} from '../constants';
+
 
 describe('AnswerInput actions', () => {
   describe('Default Action', () => {
-    it('has a type of DEFAULT_ACTION', () => {
+    it('has a type of UPDATE_INPUT', () => {
+      const text = 'fhqwhgads';
       const expected = {
-        type: DEFAULT_ACTION,
+        type: UPDATE_INPUT,
+        data: text,
       };
-      expect(defaultAction()).toEqual(expected);
+      expect(updateInput(text)).toEqual(expected);
     });
   });
 });

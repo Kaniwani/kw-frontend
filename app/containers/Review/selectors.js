@@ -8,85 +8,85 @@ const selectReviewDomain = (state) => state.get('review');
 /**
  * Other specific selectors
  */
-const selectLoading = () => createSelector(
+const selectLoading = createSelector(
   selectReviewDomain,
   (substate) => substate.get('loading'),
 );
 
-const selectError = () => createSelector(
+const selectError = createSelector(
   selectReviewDomain,
   (substate) => substate.get('error'),
 );
 
-const selectQueue = () => createSelector(
+const selectQueue = createSelector(
   selectReviewDomain,
   (substate) => substate.get('queue'),
 );
 
-const selectCurrent = () => createSelector(
+const selectCurrent = createSelector(
   selectReviewDomain,
   (substate) => substate.get('current'),
 );
 
-const selectCurrentVocab = () => createSelector(
-  selectCurrent(),
+const selectCurrentVocab = createSelector(
+  selectCurrent,
   (substate) => substate.get('vocabulary'),
 );
 
-const selectCurrentReadings = () => createSelector(
-  selectCurrentVocab(),
+const selectCurrentReadings = createSelector(
+  selectCurrentVocab,
   (substate) => substate.get('readings'),
 );
 
-const selectCurrentStreak = () => createSelector(
-  selectCurrent(),
+const selectCurrentStreak = createSelector(
+  selectCurrent,
   (substate) => substate.get('streak'),
 );
 
-const selectCurrentMeaning = () => createSelector(
-  selectCurrent(),
+const selectCurrentMeaning = createSelector(
+  selectCurrent,
   (substate) => substate.getIn(['vocabulary', 'meaning']),
 );
 
-const selectQueueCount = () => createSelector(
-  selectQueue(),
+const selectQueueCount = createSelector(
+  selectQueue,
   (substate) => substate.size,
 );
 
-const selectSession = () => createSelector(
+const selectSession = createSelector(
   selectReviewDomain,
   (substate) => substate.get('session'),
 );
 
-// TODO: move to ReviewHeader selectors ?
-const selectCompletedCount = () => createSelector(
+const selectCompletedCount = createSelector(
   selectReviewDomain,
   (substate) => substate.get('completed').size,
 );
 
-const selectCorrectCount = () => createSelector(
-  selectSession(),
+const selectCorrectCount = createSelector(
+  selectSession,
   (substate) => substate.get('correct'),
 );
 
-const selectIncorrectCount = () => createSelector(
-  selectSession(),
+const selectIncorrectCount = createSelector(
+  selectSession,
   (substate) => substate.get('incorrect'),
 );
 
-const selectAnsweredCount = () => createSelector(
-  selectCorrectCount(),
-  selectIncorrectCount(),
+const selectAnsweredCount = createSelector(
+  selectCorrectCount,
+  selectIncorrectCount,
   (correct, incorrect) => correct + incorrect,
 );
 
-const selectTotalCount = () => createSelector(
+const selectTotalCount = createSelector(
   selectReviewDomain,
   (substate) => substate.get('total'),
 );
 
+export default selectReviewDomain;
+
 export {
-  selectReviewDomain,
   selectError,
   selectLoading,
   selectQueue,

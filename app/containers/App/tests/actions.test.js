@@ -26,7 +26,7 @@ describe('App Actions', () => {
       const fixture = ['Test'];
       const expectedResult = {
         type: LOAD_USERDATA_SUCCESS,
-        userData: fixture,
+        data: fixture,
       };
 
       expect(userDataLoaded(fixture)).toEqual(expectedResult);

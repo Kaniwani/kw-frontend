@@ -12,7 +12,7 @@ describe('<Section />', () => {
 
   it('should have a className attribute', () => {
     const renderedComponent = shallow(<Section />);
-    expect(renderedComponent.prop('className')).toExist();
+    expect(renderedComponent.prop('className')).toBeDefined();
   });
 
   it('should adopt a valid attribute', () => {
@@ -23,6 +23,6 @@ describe('<Section />', () => {
 
   it('should not adopt an invalid attribute', () => {
     const renderedComponent = shallow(<Section attribute={'test'} />);
-    expect(renderedComponent.prop('attribute')).toNotExist();
+    expect(renderedComponent.prop('attribute')).not.toBeDefined();
   });
 });

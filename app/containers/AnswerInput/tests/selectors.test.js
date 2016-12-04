@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
 
-import {
+import selectAnswerInputDomain, {
   selectInputText,
   selectInputDisabled,
   selectAnswerMatches,
@@ -8,67 +8,86 @@ import {
   selectAnswerValid,
  } from '../selectors';
 
+describe('selectAnswerInputDomain', () => {
+  it('should select answer input domain', () => {
+    const expectedState = fromJS({ key1: 'value' });
+    const mockedState = fromJS({
+      review: {
+        answer: {
+          key1: 'value',
+        },
+      },
+    });
+    expect(selectAnswerInputDomain(mockedState)).toEqual(expectedState);
+  });
+});
+
 describe('selectAnswerMatches', () => {
-  const selector = selectAnswerMatches();
   it('should select answer matches', () => {
     const matches = true;
     const mockedState = fromJS({
-      answer: {
-        matches,
+      review: {
+        answer: {
+          matches,
+        },
       },
     });
-    expect(selector(mockedState)).toEqual(matches);
+    expect(selectAnswerMatches(mockedState)).toEqual(matches);
   });
 });
 
 describe('selectInputText', () => {
-  const selector = selectInputText();
   it('should select input text', () => {
-    const text = 'input';
+    const inputText = 'input';
     const mockedState = fromJS({
-      answer: {
-        text,
+      review: {
+        answer: {
+          inputText,
+        },
       },
     });
-    expect(selector(mockedState)).toEqual(text);
+    expect(selectInputText(mockedState)).toEqual(inputText);
   });
 });
 
 describe('selectInputDisabled', () => {
-  const selector = selectInputDisabled();
   it('should select input disabled', () => {
-    const disabled = true;
+    const inputDisabled = true;
     const mockedState = fromJS({
-      answer: {
-        disabled,
+      review: {
+        answer: {
+          inputDisabled,
+        },
       },
     });
-    expect(selector(mockedState)).toEqual(disabled);
+    expect(selectInputDisabled(mockedState)).toEqual(inputDisabled);
   });
 });
 
 describe('selectAnswerMarked', () => {
-  const selector = selectAnswerMarked();
   it('should select answer marked', () => {
     const marked = true;
     const mockedState = fromJS({
-      answer: {
-        marked,
+      review: {
+        answer: {
+          marked,
+        },
       },
     });
-    expect(selector(mockedState)).toEqual(marked);
+    expect(selectAnswerMarked(mockedState)).toEqual(marked);
   });
 });
 
 describe('selectAnswerValid', () => {
-  const selector = selectAnswerValid();
   it('should select answer valid', () => {
     const valid = true;
     const mockedState = fromJS({
-      answer: {
-        valid,
+      review: {
+        answer: {
+          valid,
+        },
       },
     });
-    expect(selector(mockedState)).toEqual(valid);
+    expect(selectAnswerValid(mockedState)).toEqual(valid);
   });
 });

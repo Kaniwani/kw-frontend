@@ -92,15 +92,15 @@ function reviewReducer(state = initialState, action) {
       const newCurrent = state.get('queue').first();
       const remainingReviews = state.get('queue').rest();
       return state
-        .set('answer', fromJS({
+        .mergeIn(['answer'], {
           inputText: '',
           matches: false,
           valid: null,
           marked: false,
           inputDisabled: false,
-        }))
-        .set('current', fromJS(newCurrent))
-        .set('queue', fromJS(remainingReviews));
+        })
+        .set('current', newCurrent)
+        .set('queue', remainingReviews);
     }
     case RETURN_CURRENT_TO_QUEUE: {
       const reviews = state.get('queue');

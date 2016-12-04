@@ -32,7 +32,7 @@ describe('Review actions', () => {
       };
       const expectedResult = {
         type: LOAD_REVIEWDATA_SUCCESS,
-        data: fixture,
+        payload: fixture,
       };
 
       expect(reviewDataLoaded(fixture)).toEqual(expectedResult);
@@ -46,7 +46,7 @@ describe('Review actions', () => {
       };
       const expectedResult = {
         type: LOAD_REVIEWDATA_ERROR,
-        error: fixture,
+        payload: fixture,
       };
 
       expect(reviewDataLoadingError(fixture)).toEqual(expectedResult);

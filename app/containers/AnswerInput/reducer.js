@@ -1,12 +1,10 @@
-/*
- * AnswerInput reducer
- */
 
+import { fromJS } from 'immutable';
 import {
   UPDATE_INPUT,
 } from './constants';
 
-function answerInputReducer(state = {}, action) {
+function answerInputReducer(state = fromJS({}), action) {
   switch (action.type) {
     case UPDATE_INPUT:
       return state.setIn(['answer', 'inputText'], action.data);

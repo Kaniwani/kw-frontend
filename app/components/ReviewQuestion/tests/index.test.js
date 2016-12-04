@@ -11,7 +11,7 @@ describe('<ReviewQuestion />', () => {
     const renderedComponent = shallow(
       <ReviewQuestion meaning="test" />
     );
-    expect(renderedComponent.find(Wrapper)).toExist();
+    expect(renderedComponent.find(Wrapper)).toBeDefined();
   });
 });
 

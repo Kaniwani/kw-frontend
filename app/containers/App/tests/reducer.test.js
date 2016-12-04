@@ -38,8 +38,7 @@ describe('appReducer', () => {
     const username = 'test';
     const expectedResult = state
       .set('user', fixture)
-      .set('loading', false)
-      .set('currentUser', username);
+      .set('loading', false);
 
     expect(appReducer(state, userDataLoaded(fixture, username))).toEqual(expectedResult);
   });

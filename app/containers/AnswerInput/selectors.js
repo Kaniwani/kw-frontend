@@ -9,27 +9,27 @@ const selectAnswerInputDomain = (state) => state.getIn(['review', 'answer']);
  * Other specific selectors
  */
 
-const selectInputText = () => createSelector(
+const selectInputText = createSelector(
   selectAnswerInputDomain,
   (substate) => substate.get('inputText'),
 );
 
-const selectInputDisabled = () => createSelector(
+const selectInputDisabled = createSelector(
   selectAnswerInputDomain,
   (substate) => substate.get('inputDisabled'),
 );
 
-const selectAnswerMatches = () => createSelector(
+const selectAnswerMatches = createSelector(
   selectAnswerInputDomain,
   (substate) => substate.get('matches'),
 );
 
-const selectAnswerValid = () => createSelector(
+const selectAnswerValid = createSelector(
   selectAnswerInputDomain,
   (substate) => substate.get('valid'),
 );
 
-const selectAnswerMarked = () => createSelector(
+const selectAnswerMarked = createSelector(
   selectAnswerInputDomain,
   (substate) => substate.get('marked'),
 );

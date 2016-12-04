@@ -7,15 +7,14 @@ import {
 } from '../selectors';
 
 describe('selectHomeDomain', () => {
-  const homeSelector = selectHomeDomain();
   it('should select the home state', () => {
     const homeState = fromJS({
-      userData: {},
+      user: {},
     });
     const mockedState = fromJS({
       home: homeState,
     });
-    expect(homeSelector(mockedState)).toEqual(homeState);
+    expect(selectHomeDomain(mockedState)).toEqual(homeState);
   });
 });
 

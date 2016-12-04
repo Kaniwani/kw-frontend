@@ -1,132 +1,219 @@
 import { fromJS } from 'immutable';
 
-import {
-  selectReviewDomain,
+import selectReviewDomain, {
   selectError,
   selectLoading,
   selectQueue,
-  selectCompleted,
+  selectCurrent,
+  selectCurrentVocab,
+  selectCurrentReadings,
+  selectCurrentMeaning,
+  selectCurrentStreak,
+  selectQueueCount,
   selectTotalCount,
+  selectCompletedCount,
   selectAnsweredCount,
-  selectCurrentReview,
+  selectCorrectCount,
+  selectIncorrectCount,
 } from '../selectors';
 
 describe('selectReviewDomain', () => {
-  const testSelector = selectReviewDomain();
-
   it('should select the review state', () => {
-    const queueState = fromJS({
+    const review = fromJS({
       queue: [],
     });
 
     const mockedState = fromJS({
-      review: queueState,
+      review,
     });
 
-    expect(testSelector(mockedState)).toEqual(queueState);
+    expect(selectReviewDomain(mockedState)).toEqual(review);
   });
 });
 
 describe('selectQueue', () => {
-  const testSelector = selectQueue();
-
   it('should select the queue state', () => {
-    const queueState = [];
+    const queue = fromJS([]);
     const mockedState = fromJS({
       review: {
-        queue: queueState,
+        queue,
       },
     });
-    expect(testSelector(mockedState)).toEqual(queueState);
+    expect(selectQueue(mockedState)).toEqual(queue);
   });
 });
 
 describe('selectError', () => {
-  const testSelector = selectError();
-
   it('should select the selectError state', () => {
-    const errorState = null;
+    const error = null;
     const mockedState = fromJS({
       review: {
-        error: errorState,
+        error,
       },
     });
-    expect(testSelector(mockedState)).toEqual(errorState);
+    expect(selectError(mockedState)).toEqual(error);
   });
 });
-
 
 describe('selectLoading', () => {
-  const testSelector = selectLoading();
-
   it('should select the selectLoading state', () => {
-    const loadingState = null;
+    const loading = null;
     const mockedState = fromJS({
       review: {
-        loading: loadingState,
+        loading,
       },
     });
-    expect(testSelector(mockedState)).toEqual(loadingState);
+    expect(selectLoading(mockedState)).toEqual(loading);
   });
 });
-
 
 describe('selectCompleted', () => {
-  const testSelector = selectCompleted();
-
   it('should select the selectCompleted state', () => {
-    const completedState = fromJS([{ id: 0 }]);
+    const completed = fromJS([{ id: '0' }, { id: '1' }]);
     const mockedState = fromJS({
       review: {
-        completed: completedState,
+        completed,
       },
     });
-    expect(testSelector(mockedState)).toEqual(completedState);
+    expect(selectCompletedCount(mockedState)).toEqual(completed.size);
   });
 });
 
+describe('selectCurrent', () => {
+  it('should select the selectCurrent state', () => {
+    const current = fromJS({ id: 1 });
+    const mockedState = fromJS({
+      review: {
+        current,
+      },
+    });
+    expect(selectCurrent(mockedState)).toEqual(current);
+  });
+});
+
+describe('selectCurrentVocab', () => {
+  it('should select the selectCurrentVocab state', () => {
+    const vocabulary = fromJS({});
+    const mockedState = fromJS({
+      review: {
+        current: {
+          vocabulary,
+        },
+      },
+    });
+    expect(selectCurrentVocab(mockedState)).toEqual(vocabulary);
+  });
+});
+
+describe('selectCurrentReadings', () => {
+  it('should select the selectCurrentReadings state', () => {
+    const readings = fromJS([]);
+    const mockedState = fromJS({
+      review: {
+        current: {
+          vocabulary: {
+            readings,
+          },
+        },
+      },
+    });
+    expect(selectCurrentReadings(mockedState)).toEqual(readings);
+  });
+});
+
+describe('selectCurrentMeaning', () => {
+  it('should select the selectCurrentMeaning state', () => {
+    const meaning = fromJS('fhqwhgads');
+    const mockedState = fromJS({
+      review: {
+        current: {
+          vocabulary: {
+            meaning,
+          },
+        },
+      },
+    });
+    expect(selectCurrentMeaning(mockedState)).toEqual(meaning);
+  });
+});
+
+describe('selectCurrentStreak', () => {
+  it('should select the selectCurrentStreak state', () => {
+    const streak = fromJS(1);
+    const mockedState = fromJS({
+      review: {
+        current: {
+          streak,
+        },
+      },
+    });
+    expect(selectCurrentStreak(mockedState)).toEqual(streak);
+  });
+});
+
+describe('selectQueueCount', () => {
+  it('should select the queue count', () => {
+    const queue = fromJS([{ id: 0 }, { id: 1 }]);
+    const mockedState = fromJS({
+      review: {
+        queue,
+      },
+    });
+    expect(selectQueueCount(mockedState)).toEqual(queue.size);
+  });
+});
 
 describe('selectTotalCount', () => {
-  const testSelector = selectTotalCount();
-
   it('should select the selectTotalCount state', () => {
-    const totalState = 1;
+    const total = 1;
     const mockedState = fromJS({
       review: {
-        total: totalState,
+        total,
       },
     });
-    expect(testSelector(mockedState)).toEqual(totalState);
+    expect(selectTotalCount(mockedState)).toEqual(total);
   });
 });
-
 
 describe('selectAnsweredCount', () => {
-  const testSelector = selectAnsweredCount();
-
   it('should select the selectAnsweredCount state', () => {
-    const completedCountState = 2;
+    const answeredCount = 2;
     const mockedState = fromJS({
       review: {
-        completed: [{ id: 0 }, { id: 1 }],
+        session: {
+          correct: 1,
+          incorrect: 1,
+        },
       },
     });
-    expect(testSelector(mockedState)).toEqual(completedCountState);
+    expect(selectAnsweredCount(mockedState)).toEqual(answeredCount);
   });
 });
 
-
-describe('selectCurrentReview', () => {
-  const testSelector = selectCurrentReview();
-
-  it('should select the selectCurrentReview state', () => {
-    const currentReviewState = { id: 1 };
+describe('selectCorrectCount', () => {
+  it('should select the selectCorrectCount state', () => {
+    const correct = fromJS(2);
     const mockedState = fromJS({
       review: {
-        current: currentReviewState,
+        session: {
+          correct,
+        },
       },
     });
-    expect(testSelector(mockedState)).toEqual(currentReviewState);
+    expect(selectCorrectCount(mockedState)).toEqual(correct);
   });
 });
 
+describe('selectIncorrectCount', () => {
+  it('should select the selectIncorrectCount state', () => {
+    const incorrect = fromJS(3);
+    const mockedState = fromJS({
+      review: {
+        session: {
+          incorrect,
+        },
+      },
+    });
+    expect(selectIncorrectCount(mockedState)).toEqual(incorrect);
+  });
+});

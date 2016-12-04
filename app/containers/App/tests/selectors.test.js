@@ -9,18 +9,16 @@ import {
 } from '../selectors';
 
 describe('selectGlobal', () => {
-  const globalSelector = selectGlobal();
   it('should select the global state', () => {
     const globalState = fromJS({});
     const mockedState = fromJS({
       global: globalState,
     });
-    expect(globalSelector(mockedState)).toEqual(globalState);
+    expect(selectGlobal(mockedState)).toEqual(globalState);
   });
 });
 
 describe('selectLoading', () => {
-  const loadingSelector = selectLoading();
   it('should select the loading', () => {
     const loading = false;
     const mockedState = fromJS({
@@ -28,12 +26,11 @@ describe('selectLoading', () => {
         loading,
       },
     });
-    expect(loadingSelector(mockedState)).toEqual(loading);
+    expect(selectLoading(mockedState)).toEqual(loading);
   });
 });
 
 describe('selectError', () => {
-  const errorSelector = selectError();
   it('should select the error', () => {
     const error = 404;
     const mockedState = fromJS({
@@ -41,27 +38,23 @@ describe('selectError', () => {
         error,
       },
     });
-    expect(errorSelector(mockedState)).toEqual(error);
+    expect(selectError(mockedState)).toEqual(error);
   });
 });
 
 describe('selectUser', () => {
-  const userDataSelector = selectUser();
-  it('should select the userData', () => {
-    const userData = fromJS([]);
+  it('should select the user', () => {
+    const user = fromJS({});
     const mockedState = fromJS({
       global: {
-        userData: {
-          userData,
-        },
+        user,
       },
     });
-    expect(userDataSelector(mockedState)).toEqual(userData);
+    expect(selectUser(mockedState)).toEqual(user);
   });
 });
 
 describe('selectLocationState', () => {
-  const locationStateSelector = selectLocationState();
   it('should select the route as a plain JS object', () => {
     const route = fromJS({
       locationBeforeTransitions: null,
@@ -69,6 +62,6 @@ describe('selectLocationState', () => {
     const mockedState = fromJS({
       route,
     });
-    expect(locationStateSelector(mockedState)).toEqual(route.toJS());
+    expect(selectLocationState()(mockedState)).toEqual(route.toJS());
   });
 });
