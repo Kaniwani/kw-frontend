@@ -1,8 +1,1 @@
-/*
- *
- * AnswerInput constants
- *
- */
-
-export const INPUT_CHANGED = 'kw/AnswerInput/INPUT_CHANGED';
-export const UPDATE_INPUT = 'kw/AnswerInput/UPDATE_INPUT';
+export const UPDATE_INPUT = 'kw/AnswerInput/UPDATE_INPUT'; // eslint-disable-line import/prefer-default-export
