@@ -1,0 +1,51 @@
+exports[`getUserData Saga should call the userDataLoadingError action if the response errors 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      "api/profiles",
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[`getUserData Saga should call the userDataLoadingError action if the response errors 2`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "PUT": Object {
+    "action": Object {
+      "error": [TypeError: Cannot read property 'name' of undefined],
+      "type": "kw/App/LOAD_USERDATA_ERROR",
+    },
+    "channel": null,
+  },
+}
+`;
+
+exports[`getUserData Saga should dispatch the userDataLoaded action if it requests the data successfully 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      "api/profiles",
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[`getUserData Saga should dispatch the userDataLoaded action if it requests the data successfully 2`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "PUT": Object {
+    "action": Object {
+      "error": [TypeError: Cannot read property 'name' of undefined],
+      "type": "kw/App/LOAD_USERDATA_ERROR",
+    },
+    "channel": null,
+  },
+}
+`;

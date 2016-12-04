@@ -13,9 +13,7 @@ describe('appReducer', () => {
     state = fromJS({
       loading: false,
       error: false,
-      userData: fromJS({
-        userData: false,
-      }),
+      user: false,
     });
   });
 
@@ -28,7 +26,7 @@ describe('appReducer', () => {
     const expectedResult = state
       .set('loading', true)
       .set('error', false)
-      .setIn(['userData', 'userData'], false);
+      .set('user', false);
 
     expect(appReducer(state, loadUserData())).toEqual(expectedResult);
   });
@@ -39,7 +37,7 @@ describe('appReducer', () => {
     }];
     const username = 'test';
     const expectedResult = state
-      .setIn(['userData', 'userData'], fixture)
+      .set('user', fixture)
       .set('loading', false)
       .set('currentUser', username);
 

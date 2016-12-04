@@ -34,16 +34,8 @@ const selectAnswerMarked = () => createSelector(
   (substate) => substate.get('marked'),
 );
 
-/**
- * Default selector used by AnswerInput
- */
+export default selectAnswerInputDomain;
 
-const selectAnswerInput = () => createSelector(
-  selectAnswerInputDomain,
-  (substate) => substate.toJS(),
-);
-
-export default selectAnswerInput;
 export {
   selectInputText,
   selectInputDisabled,
