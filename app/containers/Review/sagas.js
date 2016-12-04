@@ -252,5 +252,9 @@ export function* reviewSaga() {
 
 // Bootstrap sagas
 export default [
-  reviewSaga,
+  getReviewDataWatcher,
+  checkAnswerWatcher,
+  markAnswerWatcher,
+  processAnswerWatcher,
+  moveCurrentToCompletedWatcher,
 ];
