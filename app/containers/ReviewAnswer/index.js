@@ -31,14 +31,12 @@ import SubmitButton from './SubmitButton';
 import IgnoreButton from './IgnoreButton';
 
 class ReviewAnswer extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+
   componentWillReceiveProps({ keydown, disabled }) { // eslint-disable-line no-shadow
     if (disabled && keydown.event) {
       this.handleShortcuts(keydown.event);
     }
   }
-
-  /* eslint-disable no-console */
-  /* eslint-disable class-methods-use-this */
 
   handleShortcuts = (event) => {
     const keyCode = event.which;
@@ -72,7 +70,7 @@ class ReviewAnswer extends React.PureComponent { // eslint-disable-line react/pr
             keyCode === KEYS.BACKSPACE || keyCode === KEYS.FORWARD_SLASH):
         this.ignore(event);
         break;
-      default: console.log('key handler fall through');
+      default: console.log('key handler fall through'); // eslint-disable-line no-console
     }
   }
 
@@ -94,14 +92,15 @@ class ReviewAnswer extends React.PureComponent { // eslint-disable-line react/pr
     this.props.checkAnswer();
   }
 
-
+  /* eslint-disable class-methods-use-this */
   showInfo({ kana, kanji } = {}) {
     console.log(`show ${(kana ? 'kana' : kanji ? 'kanji' : 'both')} info pls`); // eslint-disable-line
   }
 
   showAddAnswerSynonym() {
-    console.log('show add synonym pls');
+    console.log('show add synonym pls'); // eslint-disable-line
   }
+  /* eslint-enable */
 
   render() {
     const { streak, marked, valid, matches, disabled } = this.props; // eslint-disable-line no-shadow
