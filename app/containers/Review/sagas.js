@@ -37,7 +37,7 @@ import { shapeReviewData } from './utils';
 
 import {
   LOAD_REVIEWDATA,
-  MOVE_CURRENT_TO_COMPLETED,
+  COPY_CURRENT_TO_COMPLETED,
 } from './constants';
 
 import {
@@ -45,7 +45,7 @@ import {
   reviewDataLoaded,
   reviewDataLoadingError,
   returnCurrentToQueue,
-  moveCurrentToCompleted,
+  copyCurrentToCompleted,
   setNewCurrent,
   increaseCurrentStreak,
   decreaseCurrentStreak,
@@ -74,6 +74,8 @@ export function* getReviewData(limit = 100) {
     const shapedData = shapeReviewData(data);
     yield [
       put(reviewDataLoaded(shapedData)),
+      // TODO: currently this would setNewCurrent when a second load of reviews loads
+      // we need to avoid that happening since user is still answering a question during the optimistic load
       put(setNewCurrent()),
     ];
   } catch (err) {
@@ -117,8 +119,17 @@ export function* recordAnswer() {
     if (!correct && !previouslyWrong) yield put(increaseSessionIncorrect());
 
     // TODO: take(RECORD_ANSWER_FAILURE) put(returnCurrentToQueue()) regardless
-    yield put(correct ? moveCurrentToCompleted() : returnCurrentToQueue());
-    yield put(setNewCurrent());
+    yield put(correct ? copyCurrentToCompleted() : returnCurrentToQueue());
+    yield [
+      put(setNewCurrent()),
+      put(updateAnswer({
+        inputText: '',
+        matches: false,
+        valid: null,
+        marked: false,
+        inputDisabled: false,
+      })),
+    ];
   }
 }
 
@@ -177,7 +188,7 @@ export function* markAnswerWatcher() {
 
     if (correct && !previouslyWrong) {
       yield put(increaseCurrentStreak(currentStreak));
-      console.log(`${currentID} Correct ${!previouslyWrong ? 'Not previously wrong ' : ''}-> should be moved to complete`);
+      console.log(`${currentID} Correct ${!previouslyWrong ? 'Not previously wrong ' : ''}-> should be copied to complete`);
     }
 
     // if (correct && settings.autoAdvance) {
@@ -202,14 +213,21 @@ Streak reset to ${previousStreak} from ${currentStreak}`);
         put(resetCurrentStreak()),
         put(returnCurrentToQueue()),
         put(setNewCurrent()),
+        put(updateAnswer({
+          inputText: '',
+          matches: false,
+          valid: null,
+          marked: false,
+          inputDisabled: false,
+        })),
       ];
     }
   }
 }
 
-export function* moveCurrentToCompletedWatcher() {
+export function* copyCurrentToCompletedWatcher() {
   while (true) {
-    yield take(MOVE_CURRENT_TO_COMPLETED);
+    yield take(COPY_CURRENT_TO_COMPLETED);
 
     const [queue, total, completed] = yield [
       select(selectQueueCount()),
@@ -241,7 +259,7 @@ export function* reviewSaga() {
     fork(checkAnswerWatcher),
     fork(markAnswerWatcher),
     fork(processAnswerWatcher),
-    fork(moveCurrentToCompletedWatcher),
+    fork(copyCurrentToCompletedWatcher),
   ];
 
   // Suspend execution until location changes

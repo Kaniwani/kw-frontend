@@ -5,7 +5,7 @@ import {
   reviewDataLoadingError,
   setNewCurrent,
   returnCurrentToQueue,
-  moveCurrentToCompleted,
+  copyCurrentToCompleted,
   increaseCurrentStreak,
   decreaseCurrentStreak,
   resetCurrentStreak,
@@ -19,7 +19,7 @@ import {
   LOAD_REVIEWDATA_ERROR,
   SET_NEW_CURRENT,
   RETURN_CURRENT_TO_QUEUE,
-  MOVE_CURRENT_TO_COMPLETED,
+  COPY_CURRENT_TO_COMPLETED,
   INCREASE_SESSION_CORRECT,
   INCREASE_SESSION_INCORRECT,
   INCREASE_CURRENT_STREAK,
@@ -83,12 +83,12 @@ describe('Review actions', () => {
     });
   });
 
-  describe('moveCurrentToCompleted', () => {
+  describe('copyCurrentToCompleted', () => {
     it('should return the correct type', () => {
       const expectedResult = {
-        type: MOVE_CURRENT_TO_COMPLETED,
+        type: COPY_CURRENT_TO_COMPLETED,
       };
-      expect(moveCurrentToCompleted()).toEqual(expectedResult);
+      expect(copyCurrentToCompleted()).toEqual(expectedResult);
     });
   });
 

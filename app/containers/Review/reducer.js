@@ -29,7 +29,7 @@ import {
   RECORD_ANSWER_FAILURE,
   SET_NEW_CURRENT,
   RETURN_CURRENT_TO_QUEUE,
-  MOVE_CURRENT_TO_COMPLETED,
+  COPY_CURRENT_TO_COMPLETED,
   INCREASE_CURRENT_STREAK,
   DECREASE_CURRENT_STREAK,
   RESET_CURRENT_STREAK,
@@ -93,13 +93,6 @@ function reviewReducer(state = initialState, action) {
       const remainingReviews = state.get('queue').rest();
       return state
         .mergeIn(['current'], newCurrent)
-        .mergeIn(['answer'], {
-          inputText: '',
-          matches: false,
-          valid: null,
-          marked: false,
-          inputDisabled: false,
-        })
         .set('queue', remainingReviews);
     }
     case RETURN_CURRENT_TO_QUEUE: {
@@ -108,7 +101,7 @@ function reviewReducer(state = initialState, action) {
       const newIndex = randInRange(1, reviews.size);
       return state.set('queue', reviews.insert(newIndex, current));
     }
-    case MOVE_CURRENT_TO_COMPLETED: {
+    case COPY_CURRENT_TO_COMPLETED: {
       const completed = state.get('completed').push(state.get('current'));
       return state.set('completed', completed);
     }

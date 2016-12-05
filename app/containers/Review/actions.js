@@ -21,7 +21,7 @@ import {
   LOAD_REVIEWDATA_ERROR,
   SET_NEW_CURRENT,
   RETURN_CURRENT_TO_QUEUE,
-  MOVE_CURRENT_TO_COMPLETED,
+  COPY_CURRENT_TO_COMPLETED,
   INCREASE_SESSION_CORRECT,
   INCREASE_SESSION_INCORRECT,
   INCREASE_CURRENT_STREAK,
@@ -92,9 +92,9 @@ export function returnCurrentToQueue() {
  * Inserts current review back into the reviews queue at a random insertion point
  * @return {object} An action object with a type of RETURN_CURRENT_TO_QUEUE
  */
-export function moveCurrentToCompleted() {
+export function copyCurrentToCompleted() {
   return {
-    type: MOVE_CURRENT_TO_COMPLETED,
+    type: COPY_CURRENT_TO_COMPLETED,
   };
 }
 

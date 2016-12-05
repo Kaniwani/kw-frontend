@@ -19,7 +19,7 @@ import {
   // RECORD_ANSWER_FAILURE,
   SET_NEW_CURRENT,
   RETURN_CURRENT_TO_QUEUE,
-  MOVE_CURRENT_TO_COMPLETED,
+  COPY_CURRENT_TO_COMPLETED,
   INCREASE_CURRENT_STREAK,
   DECREASE_CURRENT_STREAK,
   RESET_CURRENT_STREAK,
@@ -95,11 +95,11 @@ describe('Review reducer', () => {
       .toEqual(expectedState);
   });
 
-  it('moves current to completed', () => {
+  it('copies current to completed', () => {
     const testState = fromJS({ completed: [], current: { id: 0 } });
     const expectedState = fromJS({ completed: [{ id: 0 }], current: { id: 0 } });
 
-    expect(reviewReducer(testState, { type: MOVE_CURRENT_TO_COMPLETED }))
+    expect(reviewReducer(testState, { type: COPY_CURRENT_TO_COMPLETED }))
       .toEqual(expectedState);
   });
 
