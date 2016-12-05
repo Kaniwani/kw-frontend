@@ -27,7 +27,7 @@ describe('selectReviewDomain', () => {
       review,
     });
 
-    expect(selectReviewDomain(mockedState)).toEqual(review);
+    expect(selectReviewDomain()(mockedState)).toEqual(review);
   });
 });
 
@@ -39,7 +39,7 @@ describe('selectQueue', () => {
         queue,
       },
     });
-    expect(selectQueue(mockedState)).toEqual(queue);
+    expect(selectQueue()(mockedState)).toEqual(queue);
   });
 });
 
@@ -51,7 +51,7 @@ describe('selectError', () => {
         error,
       },
     });
-    expect(selectError(mockedState)).toEqual(error);
+    expect(selectError()(mockedState)).toEqual(error);
   });
 });
 
@@ -63,7 +63,7 @@ describe('selectLoading', () => {
         loading,
       },
     });
-    expect(selectLoading(mockedState)).toEqual(loading);
+    expect(selectLoading()(mockedState)).toEqual(loading);
   });
 });
 
@@ -75,7 +75,7 @@ describe('selectCompleted', () => {
         completed,
       },
     });
-    expect(selectCompletedCount(mockedState)).toEqual(completed.size);
+    expect(selectCompletedCount()(mockedState)).toEqual(completed.size);
   });
 });
 
@@ -87,7 +87,7 @@ describe('selectCurrent', () => {
         current,
       },
     });
-    expect(selectCurrent(mockedState)).toEqual(current);
+    expect(selectCurrent()(mockedState)).toEqual(current);
   });
 });
 
@@ -101,7 +101,7 @@ describe('selectCurrentVocab', () => {
         },
       },
     });
-    expect(selectCurrentVocab(mockedState)).toEqual(vocabulary);
+    expect(selectCurrentVocab()(mockedState)).toEqual(vocabulary);
   });
 });
 
@@ -117,7 +117,7 @@ describe('selectCurrentReadings', () => {
         },
       },
     });
-    expect(selectCurrentReadings(mockedState)).toEqual(readings);
+    expect(selectCurrentReadings()(mockedState)).toEqual(readings);
   });
 });
 
@@ -133,7 +133,7 @@ describe('selectCurrentMeaning', () => {
         },
       },
     });
-    expect(selectCurrentMeaning(mockedState)).toEqual(meaning);
+    expect(selectCurrentMeaning()(mockedState)).toEqual(meaning);
   });
 });
 
@@ -147,7 +147,7 @@ describe('selectCurrentStreak', () => {
         },
       },
     });
-    expect(selectCurrentStreak(mockedState)).toEqual(streak);
+    expect(selectCurrentStreak()(mockedState)).toEqual(streak);
   });
 });
 
@@ -159,7 +159,7 @@ describe('selectQueueCount', () => {
         queue,
       },
     });
-    expect(selectQueueCount(mockedState)).toEqual(queue.size);
+    expect(selectQueueCount()(mockedState)).toEqual(queue.size);
   });
 });
 
@@ -171,7 +171,7 @@ describe('selectTotalCount', () => {
         total,
       },
     });
-    expect(selectTotalCount(mockedState)).toEqual(total);
+    expect(selectTotalCount()(mockedState)).toEqual(total);
   });
 });
 
@@ -186,7 +186,7 @@ describe('selectAnsweredCount', () => {
         },
       },
     });
-    expect(selectAnsweredCount(mockedState)).toEqual(answeredCount);
+    expect(selectAnsweredCount()(mockedState)).toEqual(answeredCount);
   });
 });
 
@@ -200,7 +200,7 @@ describe('selectCorrectCount', () => {
         },
       },
     });
-    expect(selectCorrectCount(mockedState)).toEqual(correct);
+    expect(selectCorrectCount()(mockedState)).toEqual(correct);
   });
 });
 
@@ -214,6 +214,6 @@ describe('selectIncorrectCount', () => {
         },
       },
     });
-    expect(selectIncorrectCount(mockedState)).toEqual(incorrect);
+    expect(selectIncorrectCount()(mockedState)).toEqual(incorrect);
   });
 });

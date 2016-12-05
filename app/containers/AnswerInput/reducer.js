@@ -7,7 +7,7 @@ import {
 function answerInputReducer(state = fromJS({}), action) {
   switch (action.type) {
     case UPDATE_INPUT:
-      return state.setIn(['answer', 'inputText'], action.data);
+      return state.setIn(['answer', 'inputText'], action.payload);
     default:
       return state;
   }

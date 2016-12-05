@@ -5,15 +5,26 @@ import {
   MARK_CORRECT,
   MARK_INCORRECT,
   MARK_IGNORED,
+  // CHECK_ANSWER,
+  UPDATE_ANSWER,
+  // PROCESS_ANSWER,
 } from 'containers/ReviewAnswer/constants';
 
 import {
   LOAD_REVIEWDATA_SUCCESS,
   LOAD_REVIEWDATA,
   LOAD_REVIEWDATA_ERROR,
+  // RECORD_ANSWER,
+  // RECORD_ANSWER_SUCCESS,
+  // RECORD_ANSWER_FAILURE,
   SET_NEW_CURRENT,
   RETURN_CURRENT_TO_QUEUE,
   MOVE_CURRENT_TO_COMPLETED,
+  INCREASE_CURRENT_STREAK,
+  DECREASE_CURRENT_STREAK,
+  RESET_CURRENT_STREAK,
+  INCREASE_SESSION_CORRECT,
+  INCREASE_SESSION_INCORRECT,
 } from '../constants';
 
 describe('Review reducer', () => {
@@ -92,6 +103,46 @@ describe('Review reducer', () => {
       .toEqual(expectedState);
   });
 
+  it('increases current streak and stores previous streak', () => {
+    const testState = fromJS({ current: { streak: 2 } });
+    const expectedState = fromJS({ current: { streak: 3, previousStreak: 2 } });
+
+    expect(reviewReducer(testState, { type: INCREASE_CURRENT_STREAK, payload: 2 }))
+      .toEqual(expectedState);
+  });
+
+  it('decreases current streak and stores previous streak', () => {
+    const testState = fromJS({ current: { streak: 2 } });
+    const expectedState = fromJS({ current: { streak: 1, previousStreak: 2 } });
+
+    expect(reviewReducer(testState, { type: DECREASE_CURRENT_STREAK, payload: 2 }))
+      .toEqual(expectedState);
+  });
+
+  it('resets current streak to previous value', () => {
+    const testState = fromJS({ current: { streak: 1, previousStreak: 2 } });
+    const expectedState = fromJS({ current: { streak: 2, previousStreak: 2 } });
+
+    expect(reviewReducer(testState, { type: RESET_CURRENT_STREAK }))
+      .toEqual(expectedState);
+  });
+
+  it('increases session correct', () => {
+    const testState = fromJS({ session: { correct: 0 } });
+    const expectedState = fromJS({ session: { correct: 1 } });
+
+    expect(reviewReducer(testState, { type: INCREASE_SESSION_CORRECT }))
+      .toEqual(expectedState);
+  });
+
+  it('increases session incorrect', () => {
+    const testState = fromJS({ session: { incorrect: 0 } });
+    const expectedState = fromJS({ session: { incorrect: 1 } });
+
+    expect(reviewReducer(testState, { type: INCREASE_SESSION_INCORRECT }))
+      .toEqual(expectedState);
+  });
+
   it('marks current correct', () => {
     const testState = fromJS({ current: { session: { correct: 1 } } });
     const expectedState = fromJS({ current: { session: { correct: 2 } }, answer: { marked: true, inputDisabled: true } });
@@ -114,5 +165,16 @@ describe('Review reducer', () => {
 
     expect(reviewReducer(testState, { type: MARK_IGNORED, payload: false /* answer to ignore was incorrect */ }))
       .toEqual(expectedState);
+  });
+
+  it('updates answer object', () => {
+    const testState = fromJS({ answer: { inputText: 'fhq', valid: false, matches: false } });
+    const payload = { inputText: 'fhqwhqgads', valid: true, matches: true };
+    const expectedState = fromJS({ answer: payload });
+    const action = {
+      type: UPDATE_ANSWER,
+      payload,
+    };
+    expect(reviewReducer(testState, action)).toEqual(expectedState);
   });
 });

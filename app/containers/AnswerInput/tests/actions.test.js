@@ -13,7 +13,7 @@ describe('AnswerInput actions', () => {
       const text = 'fhqwhgads';
       const expected = {
         type: UPDATE_INPUT,
-        data: text,
+        payload: text,
       };
       expect(updateInput(text)).toEqual(expected);
     });

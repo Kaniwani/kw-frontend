@@ -1,12 +1,25 @@
 import { fromJS } from 'immutable';
 
-import {
-  selectGlobal,
+import selectGlobal, {
   selectLoading,
   selectError,
   selectUser,
   selectLocationState,
 } from '../selectors';
+
+
+describe('selectLocationState', () => {
+  it('should select the route as a plain JS object', () => {
+    const route = fromJS({
+      locationBeforeTransitions: null,
+    });
+    const mockedState = fromJS({
+      route,
+    });
+    expect(selectLocationState()(mockedState)).toEqual(route.toJS());
+  });
+});
+
 
 describe('selectGlobal', () => {
   it('should select the global state', () => {
@@ -14,7 +27,7 @@ describe('selectGlobal', () => {
     const mockedState = fromJS({
       global: globalState,
     });
-    expect(selectGlobal(mockedState)).toEqual(globalState);
+    expect(selectGlobal()(mockedState)).toEqual(globalState);
   });
 });
 
@@ -26,7 +39,7 @@ describe('selectLoading', () => {
         loading,
       },
     });
-    expect(selectLoading(mockedState)).toEqual(loading);
+    expect(selectLoading()(mockedState)).toEqual(loading);
   });
 });
 
@@ -38,7 +51,7 @@ describe('selectError', () => {
         error,
       },
     });
-    expect(selectError(mockedState)).toEqual(error);
+    expect(selectError()(mockedState)).toEqual(error);
   });
 });
 
@@ -50,18 +63,6 @@ describe('selectUser', () => {
         user,
       },
     });
-    expect(selectUser(mockedState)).toEqual(user);
-  });
-});
-
-describe('selectLocationState', () => {
-  it('should select the route as a plain JS object', () => {
-    const route = fromJS({
-      locationBeforeTransitions: null,
-    });
-    const mockedState = fromJS({
-      route,
-    });
-    expect(selectLocationState()(mockedState)).toEqual(route.toJS());
+    expect(selectUser()(mockedState)).toEqual(user);
   });
 });

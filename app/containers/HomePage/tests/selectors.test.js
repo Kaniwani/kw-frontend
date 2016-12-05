@@ -1,8 +1,7 @@
 import { fromJS } from 'immutable';
 
 
-import {
-  selectHomeDomain,
+import selectHomeDomain, {
   // selectUsername,
 } from '../selectors';
 
@@ -14,7 +13,7 @@ describe('selectHomeDomain', () => {
     const mockedState = fromJS({
       home: homeState,
     });
-    expect(selectHomeDomain(mockedState)).toEqual(homeState);
+    expect(selectHomeDomain()(mockedState)).toEqual(homeState);
   });
 });
 

@@ -93,7 +93,7 @@ HomePage.propTypes = {
     PropTypes.object,
     PropTypes.bool,
   ]),
-  loadUserData: PropTypes.func,
+  loadUserData: PropTypes.func.isRequired,
 };
 
 export function mapDispatchToProps(dispatch) {

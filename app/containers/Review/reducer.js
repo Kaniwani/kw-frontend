@@ -145,9 +145,8 @@ function reviewReducer(state = initialState, action) {
       return state.setIn(['current', 'streak'], state.getIn(['current', 'previousStreak']));
     case UPDATE_INPUT:
       return answerInputReducer(state, action);
-    case UPDATE_ANSWER: {
+    case UPDATE_ANSWER:
       return state.mergeIn(['answer'], action.payload);
-    }
     default:
       return state;
   }

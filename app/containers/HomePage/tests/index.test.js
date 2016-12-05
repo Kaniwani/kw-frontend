@@ -1,8 +1,3 @@
-/**
- * Test the HomePage
- */
-
-
 import { shallow, mount } from 'enzyme';
 import React from 'react';
 
@@ -10,10 +5,15 @@ import { HomePage } from '../index';
 import H2 from 'components/H2';
 import LoadingIndicator from 'components/LoadingIndicator';
 
+const noop = () => { /* nada */ };
+
 describe('<HomePage />', () => {
   it('should render the loading indicator when its loading', () => {
     const renderedComponent = shallow(
-      <HomePage loading />,
+      <HomePage
+        loading
+        loadUserData={noop}
+      />,
     );
     expect(renderedComponent.contains(<LoadingIndicator />).toBe(true));
   });
@@ -23,6 +23,7 @@ describe('<HomePage />', () => {
       <HomePage
         loading={false}
         error={{ message: 'Loading failed!' }}
+        loadUserData={noop}
       />,
     );
     expect(
@@ -42,7 +43,7 @@ describe('<HomePage />', () => {
     const renderedComponent = shallow(
       <HomePage
         user={user}
-        error={false}
+        loadUserData={noop}
       />,
     );
 
@@ -55,45 +56,4 @@ describe('<HomePage />', () => {
       </div>,
     )).toBe(true);
   });
-
- /* describe('mapDispatchToProps', () => {
-    describe('onChangeUsername', () => {
-      it('should be injected', () => {
-        const dispatch = expect.createSpy();
-        const result = mapDispatchToProps(dispatch);
-        expect(result.onChangeUsername).toBeDefined();
-      });
-
-      it('should dispatch changeUsername when called', () => {
-        const dispatch = expect.createSpy();
-        const result = mapDispatchToProps(dispatch);
-        const username = 'mxstbr';
-        result.onChangeUsername({ target: { value: username } });
-        expect(dispatch).toHaveBeenCalledWith(changeUsername(username));
-      });
-    });
-  });
-
-  describe('onSubmitForm', () => {
-    it('should be injected', () => {
-      const dispatch = expect.createSpy();
-      const result = mapDispatchToProps(dispatch);
-      expect(result.onSubmitForm).toBeDefined();
-    });
-
-    it('should dispatch loadUserData when called', () => {
-      const dispatch = expect.createSpy();
-      const result = mapDispatchToProps(dispatch);
-      result.onSubmitForm();
-      expect(dispatch).toHaveBeenCalledWith(loadUserData());
-    });
-
-    it('should preventDefault if called with event', () => {
-      const preventDefault = expect.createSpy();
-      const result = mapDispatchToProps(() => {});
-      const evt = { preventDefault };
-      result.onSubmitForm(evt);
-      expect(preventDefault).toHaveBeenCalledWith();
-    });
-  });*/
 });

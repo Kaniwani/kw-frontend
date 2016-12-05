@@ -33,7 +33,7 @@ function appReducer(state = initialState, action) {
         .set('user', false);
     case LOAD_USERDATA_SUCCESS: {
       return state
-        .set('user', action.data)
+        .set('user', action.payload)
         .set('loading', false);
     }
     case LOAD_USERDATA_ERROR:

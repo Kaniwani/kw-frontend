@@ -39,7 +39,7 @@ export class Review extends React.PureComponent { // eslint-disable-line react/p
   }
 
   render() {
-    const { error, loading, meaning, vocab } = this.props;
+    const { loading, error, meaning, vocab } = this.props;
     return (
       <Wrapper>
         <Helmet

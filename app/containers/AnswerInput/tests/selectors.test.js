@@ -18,7 +18,7 @@ describe('selectAnswerInputDomain', () => {
         },
       },
     });
-    expect(selectAnswerInputDomain(mockedState)).toEqual(expectedState);
+    expect(selectAnswerInputDomain()(mockedState)).toEqual(expectedState);
   });
 });
 
@@ -32,7 +32,7 @@ describe('selectAnswerMatches', () => {
         },
       },
     });
-    expect(selectAnswerMatches(mockedState)).toEqual(matches);
+    expect(selectAnswerMatches()(mockedState)).toEqual(matches);
   });
 });
 
@@ -46,7 +46,7 @@ describe('selectInputText', () => {
         },
       },
     });
-    expect(selectInputText(mockedState)).toEqual(inputText);
+    expect(selectInputText()(mockedState)).toEqual(inputText);
   });
 });
 
@@ -60,7 +60,7 @@ describe('selectInputDisabled', () => {
         },
       },
     });
-    expect(selectInputDisabled(mockedState)).toEqual(inputDisabled);
+    expect(selectInputDisabled()(mockedState)).toEqual(inputDisabled);
   });
 });
 
@@ -74,7 +74,7 @@ describe('selectAnswerMarked', () => {
         },
       },
     });
-    expect(selectAnswerMarked(mockedState)).toEqual(marked);
+    expect(selectAnswerMarked()(mockedState)).toEqual(marked);
   });
 });
 
@@ -88,6 +88,6 @@ describe('selectAnswerValid', () => {
         },
       },
     });
-    expect(selectAnswerValid(mockedState)).toEqual(valid);
+    expect(selectAnswerValid()(mockedState)).toEqual(valid);
   });
 });

@@ -1,14 +1,23 @@
-
-import answerInputReducer from '../reducer';
 import { fromJS } from 'immutable';
+import answerInputReducer from '../reducer';
+import {
+  UPDATE_INPUT,
+} from '../constants';
 
 describe('answerInputReducer', () => {
-  let state;
-  beforeEach(() => {
-    state = fromJS({});
-  });
-
   it('should return the initial state', () => {
-    expect(answerInputReducer(undefined, {})).toEqual(state);
+    const testState = undefined;
+    const expectedState = fromJS({});
+    const action = {};
+    expect(answerInputReducer(testState, action)).toEqual(expectedState);
+  });
+  it('should update the input', () => {
+    const testState = fromJS({ answer: { inputText: '' } });
+    const expectedState = fromJS({ answer: { inputText: 'fhqwhqgads' } });
+    const action = {
+      type: UPDATE_INPUT,
+      payload: 'fhqwhqgads',
+    };
+    expect(answerInputReducer(testState, action)).toEqual(expectedState);
   });
 });

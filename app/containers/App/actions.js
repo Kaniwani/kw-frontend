@@ -43,7 +43,7 @@ export function loadUserData() {
 export function userDataLoaded(data) {
   return {
     type: LOAD_USERDATA_SUCCESS,
-    data,
+    payload: data,
   };
 }
 
