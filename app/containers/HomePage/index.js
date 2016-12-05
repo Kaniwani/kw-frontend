@@ -20,6 +20,7 @@ import { selectUser, selectLoading, selectError } from 'containers/App/selectors
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentWillMount() {
+    // TODO: load in app rather than homepage, since other routes need access to user data
     this.props.loadUserData();
   }
   render() {
@@ -37,13 +38,13 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       mainContent = (<ErrorComponent />);
 
     // If we're not loading, don't have an error and if there is userData, show the userData
-    } else if (this.props.user !== false) {
+    } else if (this.props.user) {
       const {
         name,
         reviewCount,
         lastWkSyncDate,
         level,
-      } = this.props.user;
+      } = this.props.user.toJS();
 
       mainContent = (
         <div>

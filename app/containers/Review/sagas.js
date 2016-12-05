@@ -4,9 +4,13 @@
 import { take, select, call, put, race, fork, cancel } from 'redux-saga/effects';
 import { takeLatest, takeEvery } from 'redux-saga';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import request from 'utils/request';
 import { isKanjiKana } from 'shared/kanawana/core';
+import request from 'utils/request';
 import isEmpty from 'utils/isEmpty';
+
+import {
+  selectSettings,
+} from 'containers/App/selectors';
 
 import {
   selectInputText,
@@ -15,6 +19,8 @@ import {
 import {
   CHECK_ANSWER,
   PROCESS_ANSWER,
+  START_AUTO_ADVANCE,
+  CANCEL_AUTO_ADVANCE,
   MARK_CORRECT,
   MARK_INCORRECT,
   MARK_IGNORED,
@@ -24,6 +30,9 @@ import {
   markCorrect,
   markIncorrect,
   updateAnswer,
+  processAnswer,
+  startAutoAdvance,
+  cancelAutoAdvance,
 } from 'containers/ReviewAnswer/actions';
 
 import {
@@ -130,6 +139,7 @@ export function* recordAnswer() {
         inputDisabled: false,
       })),
     ];
+    yield put(cancelAutoAdvance());
   }
 }
 
@@ -154,9 +164,32 @@ export function* checkAnswer() {
   const matches = answerMatches(readings, answer);
   const correct = valid && matches;
 
-  yield put(updateAnswer({ valid, matches, inputText: (correct ? answer : inputText) }));
+  yield put(updateAnswer({
+    valid,
+    matches,
+    inputText: (correct ? answer : inputText),
+  }));
   if (correct) yield put(markCorrect());
   if (valid && !matches) yield put(markIncorrect());
+}
+
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+export function* autoAdvance() {
+  while (true) {
+    yield call(delay, 1000);
+    yield put(processAnswer());
+  }
+}
+
+export function* autoAdvanceWatcher() {
+  while (true) {
+    yield take(START_AUTO_ADVANCE);
+    yield race({
+      task: call(autoAdvance),
+      cancel: take(CANCEL_AUTO_ADVANCE),
+    });
+  }
 }
 
 export function* getReviewDataWatcher() {
@@ -179,7 +212,10 @@ export function* markAnswerWatcher() {
       ignored: take(MARK_IGNORED),
     });
 
-    const current = yield select(selectCurrent());
+    const [current, settings] = yield [
+      select(selectCurrent()),
+      select(selectSettings()),
+    ];
     const currentID = current.get('id');
     const currentIncorrectCount = current.getIn(['session', 'incorrect']);
     const previouslyWrong = currentIncorrectCount >= 1;
@@ -191,15 +227,15 @@ export function* markAnswerWatcher() {
       console.log(`${currentID} Correct ${!previouslyWrong ? 'Not previously wrong ' : ''}-> should be copied to complete`);
     }
 
-    // if (correct && settings.autoAdvance) {
-    //   yield put(processAnswer());
-    // }
-    //
     // if ((correct && settings.showCorrectOnSuccess) ||
     //     (incorrect && settings.showCorrectOnFail)
     // ) {
     //   yield put(showInfo());
     // }
+
+    if (correct && settings.get('autoAdvanceCorrect')) {
+      yield put(startAutoAdvance());
+    }
 
     if (incorrect && firstTimeWrong) {
       yield put(decreaseCurrentStreak(currentStreak));
@@ -258,6 +294,7 @@ export function* reviewSaga() {
     fork(getReviewDataWatcher),
     fork(checkAnswerWatcher),
     fork(markAnswerWatcher),
+    fork(autoAdvanceWatcher),
     fork(processAnswerWatcher),
     fork(copyCurrentToCompletedWatcher),
   ];

@@ -21,7 +21,7 @@ import { fromJS } from 'immutable';
 const initialState = fromJS({
   loading: false,
   error: false,
-  user: false,
+  user: null,
 });
 
 function appReducer(state = initialState, action) {
@@ -29,13 +29,11 @@ function appReducer(state = initialState, action) {
     case LOAD_USERDATA:
       return state
         .set('loading', true)
-        .set('error', false)
-        .set('user', false);
-    case LOAD_USERDATA_SUCCESS: {
+        .set('error', false);
+    case LOAD_USERDATA_SUCCESS:
       return state
-        .set('user', action.payload)
+        .set('user', fromJS(action.payload))
         .set('loading', false);
-    }
     case LOAD_USERDATA_ERROR:
       return state
         .set('error', action.error)

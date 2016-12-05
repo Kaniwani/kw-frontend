@@ -6,21 +6,6 @@ import { createSelector } from 'reselect';
 
 const selectGlobal = () => (state) => state.get('global');
 
-const selectLoading = () => createSelector(
-  selectGlobal(),
-  (globalState) => globalState.get('loading'),
-);
-
-const selectError = () => createSelector(
-  selectGlobal(),
-  (globalState) => globalState.get('error'),
-);
-
-const selectUser = () => createSelector(
-  selectGlobal(),
-  (globalState) => globalState.get('user'),
-);
-
 const selectLocationState = () => {
   let prevRoutingState;
   let prevRoutingStateJS;
@@ -37,11 +22,32 @@ const selectLocationState = () => {
   };
 };
 
+const selectLoading = () => createSelector(
+  selectGlobal(),
+  (globalState) => globalState.get('loading'),
+);
+
+const selectError = () => createSelector(
+  selectGlobal(),
+  (globalState) => globalState.get('error'),
+);
+
+const selectUser = () => createSelector(
+  selectGlobal(),
+  (globalState) => globalState.get('user'),
+);
+
+const selectSettings = () => createSelector(
+  selectUser(),
+  (substate) => substate.get('settings'),
+);
+
 export default selectGlobal;
 
 export {
+  selectLocationState,
   selectLoading,
   selectError,
   selectUser,
-  selectLocationState,
+  selectSettings,
 };

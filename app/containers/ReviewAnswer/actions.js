@@ -2,6 +2,8 @@ import {
   CHECK_ANSWER,
   UPDATE_ANSWER,
   PROCESS_ANSWER,
+  START_AUTO_ADVANCE,
+  CANCEL_AUTO_ADVANCE,
   MARK_CORRECT,
   MARK_INCORRECT,
   MARK_IGNORED,
@@ -36,6 +38,26 @@ export function updateAnswer(payload) {
 export function processAnswer() {
   return {
     type: PROCESS_ANSWER,
+  };
+}
+
+/**
+ * Starts a saga that will process answer after a delay
+ * @return {object} An action object with a type of START_AUTO_ADVANCE
+ */
+export function startAutoAdvance() {
+  return {
+    type: START_AUTO_ADVANCE,
+  };
+}
+
+/**
+ * Cancels pending autoadvance saga
+ * @return {object} An action object with a type of CANCEL_AUTO_ADVANCE
+ */
+export function cancelAutoAdvance() {
+  return {
+    type: CANCEL_AUTO_ADVANCE,
   };
 }
 
