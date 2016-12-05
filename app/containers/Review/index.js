@@ -20,10 +20,10 @@ import {
 } from './actions';
 
 import {
- selectCurrentMeaning,
- selectCurrentVocab,
  selectLoading,
  selectError,
+ selectCurrentMeaning,
+ selectCurrentVocab,
 } from './selectors';
 
 const Wrapper = styled.section`

@@ -68,7 +68,6 @@ import {
  */
 export function* getReviewData(limit = 100) {
   const requestURL = `api/reviews/?limit=${limit}`;
-
   try {
     // Call our request helper (see 'utils/request')
     const data = yield call(request, requestURL);

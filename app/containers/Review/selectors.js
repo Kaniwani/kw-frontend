@@ -38,14 +38,14 @@ const selectCurrentReadings = () => createSelector(
   (substate) => substate.get('readings'),
 );
 
+const selectCurrentMeaning = () => createSelector(
+  selectCurrentVocab(),
+  (substate) => substate.get('meaning'),
+);
+
 const selectCurrentStreak = () => createSelector(
   selectCurrent(),
   (substate) => substate.get('streak'),
-);
-
-const selectCurrentMeaning = () => createSelector(
-  selectCurrent(),
-  (substate) => substate.getIn(['vocabulary', 'meaning']),
 );
 
 const selectQueueCount = () => createSelector(

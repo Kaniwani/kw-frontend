@@ -52,10 +52,4 @@ const mapStateToProps = createStructuredSelector({
   total: selectTotalCount(),
 });
 
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     dispatch,
-//   };
-// }
-
 export default connect(mapStateToProps)(ReviewHeader);
