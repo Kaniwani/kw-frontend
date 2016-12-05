@@ -6,8 +6,8 @@ import Header from '../index';
 describe('<Header />', () => {
   it('should render a div', () => {
     const renderedComponent = shallow(
-      <Header />
+      <Header />,
     );
-    expect(renderedComponent.find('div').length).toEqual(1);
+    expect(renderedComponent.find('header').length).toEqual(1);
   });
 });

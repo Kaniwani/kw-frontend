@@ -4,32 +4,32 @@ import Wrapper from './Wrapper';
 import Meaning from './Meaning';
 
 const Question = ({ loading, error, meaning }) => {
-  let question = meaning;
+  let content = meaning;
 
   // Show a loading indicator when we're loading
   if (loading) {
-    question = (<LoadingIndicator />);
+    content = (<LoadingIndicator />);
   // Show an error if there is one
   } else if (error !== false) {
-    question = `Something went wrong: "${error}". Please contact us or try again!`;
+    content = `Something went wrong: "${error.msg}". Please contact us or try again!`;
   // If we're not loading, don't have an error and there is review data, show the review data
   } else if (meaning.length) {
-    question = meaning;
+    content = meaning;
   }
 
   return (
     <Wrapper>
-      <Meaning>{ question }</Meaning>
+      <Meaning>{ content }</Meaning>
     </Wrapper>
   );
 };
 
 Question.propTypes = {
-  loading: PropTypes.bool,
+  loading: PropTypes.bool.isRequired,
   error: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.bool,
-  ]),
+  ]).isRequired,
   meaning: PropTypes.string.isRequired,
 };
 

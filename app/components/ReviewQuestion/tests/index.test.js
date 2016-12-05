@@ -1,26 +1,27 @@
 import ReviewQuestion from '../index';
-import Wrapper from '../Wrapper';
-import Meaning from '../Meaning';
 
-
-import { shallow } from 'enzyme';
+import { shallow, render } from 'enzyme';
 import React from 'react';
 
 describe('<ReviewQuestion />', () => {
-  it('should render its wrapper', () => {
+  it('should render LoadingIndicator when loading', () => {
     const renderedComponent = shallow(
-      <ReviewQuestion meaning="test" />
+      <ReviewQuestion loading error={false} meaning="" />,
     );
-    expect(renderedComponent.find(Wrapper)).toBeDefined();
+    expect(renderedComponent.find('LoadingIndicator')).toBeDefined();
   });
-});
 
-describe('<Meaning />', () => {
-  it('should render its prop as text', () => {
-    const text = 'test';
-    const renderedComponent = shallow(
-      <Meaning meaning={text} />
+  it('should render meaning text when passed required props', () => {
+    const renderedComponent = render(
+      <ReviewQuestion loading={false} error={false} meaning="test" />,
     );
-    expect(renderedComponent.contains(text)).toBe(true);
+    expect(renderedComponent).toMatchSnapshot();
+  });
+
+  it('should render error message instead of meaning when error present', () => {
+    const renderedComponent = render(
+      <ReviewQuestion loading={false} error={{ message: 'fhqwhqgads' }} meaning="test" />,
+    );
+    expect(renderedComponent).toMatchSnapshot();
   });
 });

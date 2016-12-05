@@ -1,11 +1,21 @@
-// import { AnswerInput } from '../index';
+import { AnswerInput } from '../index';
+import Input from '../Input';
 
-
-// import { shallow } from 'enzyme';
-// import React from 'react';
+import { shallow } from 'enzyme';
+import React from 'react';
 
 describe('<AnswerInput />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toBe(false);
+  it('Expect it to render', () => {
+    const renderedComponent = shallow(
+      <AnswerInput
+        text={'text'}
+        onChangeInput={() => {}}
+        disabled
+        marked
+        valid
+        matches
+      />,
+    );
+    expect(renderedComponent.find(<Input />)).toBeDefined();
   });
 });
