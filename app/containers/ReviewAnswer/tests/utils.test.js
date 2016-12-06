@@ -1,4 +1,8 @@
 import * as utils from '../utils';
+import {
+  TILDE_EN,
+  TILDE_JA,
+} from 'shared/constants';
 
 describe('keyInListMatches', () => {
   const list = [{ obj: 'one' }, { obj: 'two', come_on: 'fhqhwqgads' }];
@@ -24,14 +28,14 @@ describe('keyInListMatches', () => {
 describe('keysInListMatch', () => {
   const list = [{ kana: 'foo' }, { character: 'bar' }];
   let keys = ['kana', 'character'];
-  let target = 'foo';
+  let target = 'bar';
   it('returns true if item exists in one of the keys', () => {
     expect(utils.keysInListMatch(list, keys, target)).toBe(true);
   });
   it('returns false if item does not exist in one of the keys', () => {
     target = 'qux';
     expect(utils.keysInListMatch(list, keys, target)).toBe(false);
-    target = 'foo';
+    target = 'bar';
     keys = ['fuz', 'jag'];
     expect(utils.keysInListMatch(list, keys, target)).toBe(false);
   });
@@ -93,15 +97,13 @@ describe('answersContainTilde', () => {
 });
 
 describe('fixStartingTilde', () => {
-  const tildeJA = '〜';
-  const tildeEN = '~';
-  it('replaces tildeEN with tildeJA on strings starting with tildeEN', () => {
-    expect(utils.fixStartingTilde(`${tildeEN}わん`)).toBe(`${tildeJA}わん`);
+  it('replaces romaji tilde with japanese tilde on strings', () => {
+    expect(utils.fixStartingTilde(`${TILDE_EN}わん`)).toBe(`${TILDE_JA}わん`);
   });
-  it('adds tildeJA to strings that do not already start with it', () => {
-    expect(utils.fixStartingTilde('わん')).toBe(`${tildeJA}わん`);
+  it('adds japanese tilde to strings that do not already start with it', () => {
+    expect(utils.fixStartingTilde('わん')).toBe(`${TILDE_JA}わん`);
   });
-  it('passes through strings that already start with tildeJA', () => {
-    expect(utils.fixStartingTilde(`${tildeJA}わん`)).toBe(`${tildeJA}わん`);
+  it('passes through strings that already start with japanese tilde', () => {
+    expect(utils.fixStartingTilde(`${TILDE_JA}わん`)).toBe(`${TILDE_JA}わん`);
   });
 });

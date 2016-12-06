@@ -10,6 +10,9 @@ export const SRS_RANKS = {
   FIVE: 'burned',
 };
 
+export const TILDE_JA = '〜';
+export const TILDE_EN = '~';
+
 /**
  * event.which keycodes
  * @type {Object} K_LOWERCASE: 75

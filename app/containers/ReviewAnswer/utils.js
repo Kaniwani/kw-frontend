@@ -1,4 +1,5 @@
 import isEmpty from 'utils/isEmpty';
+import { TILDE_JA, TILDE_EN } from 'shared/constants';
 
 /**
  * Checks an array of objects to see if a particular key's value matches a target
@@ -52,9 +53,6 @@ export function fixTerminalN(input) {
   return endsWith(input, 'n') ? `${input.slice(0, -1)}ん` : input;
 }
 
-const tildeJA = '〜';
-const tildeEN = '~';
-
 // TODO: refactor for more general use
 /**
  * Check if any strings in readings array start with Japanese tilde character
@@ -62,7 +60,7 @@ const tildeEN = '~';
  * @return {boolean}
  */
 export function answersContainTilde(readings) {
-  return readings.some((reading) => startsWith(reading.character, tildeJA));
+  return readings.some((reading) => startsWith(reading.character, TILDE_JA));
 }
 
 /**
@@ -71,10 +69,10 @@ export function answersContainTilde(readings) {
  * @return (string)
  */
 export function fixStartingTilde(input) {
-  if (startsWith(input, tildeEN)) {
-    return tildeJA + input.slice(1);
-  } else if (!startsWith(input, tildeJA)) {
-    return tildeJA + input;
+  if (startsWith(input, TILDE_EN)) {
+    return TILDE_JA + input.slice(1);
+  } else if (!startsWith(input, TILDE_JA)) {
+    return TILDE_JA + input;
   }
   return input;
 }
