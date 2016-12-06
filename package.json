@@ -1,15 +1,15 @@
 {
-  "name": "react-boilerplate",
-  "version": "3.3.3",
-  "description": "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices",
+  "name": "kw-react",
+  "version": "0.0.1",
+  "description": "Rework of kaniwani frontend with react, redux, immutable, reselect, and redux-saga",
   "repository": {
     "type": "git",
-    "url": "git://github.com/mxstbr/react-boilerplate.git"
+    "url": "git://github.com/DJTB/kaniwani.git"
   },
   "engines": {
     "npm": ">=5"
   },
-  "author": "Max Stoiber",
+  "author": "Duncan Bay",
   "license": "MIT",
   "scripts": {
     "analyze:clean": "rimraf stats.json",
