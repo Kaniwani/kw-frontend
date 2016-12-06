@@ -1,4 +1,9 @@
-export function shapeUserData(data) {
+/**
+ * Modifies user data loaded from server to preferred js name formats and shape
+ * @param  {object} data User data server result
+ * @return {object} Modified user data
+ */
+export function shapeUserData(data) { // eslint-disable-line import/prefer-default-export
   const shapedData = {
     name: data.name,
     reviewCount: data.review_count,

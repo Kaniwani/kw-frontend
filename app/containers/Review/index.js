@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
 import ReviewHeader from 'containers/ReviewHeader';
+import Modal from 'containers/Modal';
 import ReviewAnswer from 'containers/ReviewAnswer';
 import ReviewQuestion from 'components/ReviewQuestion';
 import ReviewInfo from 'components/ReviewInfo';
@@ -34,13 +35,14 @@ const Wrapper = styled.section`
   height: 100vh;
 `;
 
-export class Review extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class Review extends React.PureComponent {
   componentWillMount() {
     this.props.loadReviewData();
   }
 
   render() {
     const { loading, error, meaning, vocab, vocabInfoVisible } = this.props;
+
     return (
       <Wrapper>
         <Helmet
@@ -49,6 +51,9 @@ export class Review extends React.PureComponent { // eslint-disable-line react/p
             { name: 'description', content: 'Kaniwani Reviews Page' },
           ]}
         />
+        <Modal >
+          {() => <h1>Hello</h1>}
+        </Modal>
         <ReviewHeader />
         <ReviewQuestion
           loading={loading}
@@ -56,7 +61,10 @@ export class Review extends React.PureComponent { // eslint-disable-line react/p
           meaning={meaning}
         />
         <ReviewAnswer />
-        <ReviewInfo vocab={vocab} visible={vocabInfoVisible} />
+        <ReviewInfo
+          vocab={vocab}
+          isVisible={vocabInfoVisible}
+        />
         <ReviewFooter />
       </Wrapper>
     );

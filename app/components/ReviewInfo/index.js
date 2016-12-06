@@ -1,26 +1,23 @@
-/**
-*
-* ReviewInfo
-*
-*/
-
 import React, { PropTypes } from 'react';
 
-function ReviewInfo({ vocab, visible }) {
+// TODO: kaniwani styling
+function ReviewInfo({ vocab, isVisible }) {
+  if (!isVisible) return (<div />);
   const { readings } = vocab.toJS();
-  if (!visible) return (<div />);
   return (
-    <div>
-      {readings && readings.map((reading, index) => (
-        <p key={index}>{reading.character} | {reading.kana}</p>
-      ))}
-    </div>
+    readings ?
+      <div>
+        {readings.map((reading, index) => (
+          <p key={index}>{reading.character} | {reading.kana}</p>
+        ))}
+      </div>
+    : null
   );
 }
 
 ReviewInfo.propTypes = {
   vocab: PropTypes.object.isRequired,
-  visible: PropTypes.bool.isRequired,
+  isVisible: PropTypes.bool.isRequired,
 };
 
 export default ReviewInfo;
