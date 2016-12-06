@@ -1,8 +1,5 @@
 import * as utils from '../utils';
-import {
-  TILDE_EN,
-  TILDE_JA,
-} from 'shared/constants';
+import { TILDE_EN, TILDE_JA } from '../constants';
 
 describe('keyInListMatches', () => {
   const list = [{ obj: 'one' }, { obj: 'two', come_on: 'fhqhwqgads' }];

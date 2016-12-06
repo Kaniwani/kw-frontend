@@ -1,3 +1,8 @@
+// util helpers
+export const TILDE_JA = '〜';
+export const TILDE_EN = '~';
+
+// actions
 export const CHECK_ANSWER = 'kw/ReviewAnswer/CHECK_ANSWER';
 export const UPDATE_ANSWER = 'kw/ReviewAnswer/UPDATE_ANSWER';
 export const PROCESS_ANSWER = 'kw/ReviewAnswer/PROCESS_ANSWER';

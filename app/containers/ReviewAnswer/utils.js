@@ -1,5 +1,5 @@
 import isEmpty from 'utils/isEmpty';
-import { TILDE_JA, TILDE_EN } from 'shared/constants';
+import { TILDE_EN, TILDE_JA } from './constants';
 
 /**
  * Checks an array of objects to see if a particular key's value matches a target
