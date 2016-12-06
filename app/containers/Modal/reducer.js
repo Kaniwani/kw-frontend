@@ -2,14 +2,11 @@ import { fromJS } from 'immutable';
 import {
   HIDE_MODAL,
   SHOW_MODAL,
-  defaultSettings,
 } from './constants';
 
 export const initialState = fromJS({
   isVisible: false,
-  modalType: null,
-  modalProps: {},
-  ...defaultSettings,
+  contentProps: {},
 });
 
 export function modalReducer(state = initialState, action = {}) {

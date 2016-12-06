@@ -11,6 +11,7 @@ import keydown from 'react-keydown';
 import { KEYS } from 'shared/constants';
 import { selectCurrentStreak } from 'containers/Review/selectors';
 import AnswerInput from 'containers/AnswerInput';
+import { showModal } from 'containers/Modal/actions';
 
 import {
   selectAnswerMarked,
@@ -24,6 +25,7 @@ import {
   checkAnswer,
   processAnswer,
 } from './actions';
+
 
 import Form from './Form';
 import StreakIcon from './StreakIcon';
@@ -98,7 +100,7 @@ class ReviewAnswer extends React.PureComponent { // eslint-disable-line react/pr
   }
 
   showAddAnswerSynonym() {
-    console.log('show add synonym pls'); // eslint-disable-line
+    this.props.showSynonymModal();
   }
   /* eslint-enable */
 
@@ -143,6 +145,7 @@ function mapDispatchToProps(dispatch) {
     checkAnswer: () => dispatch(checkAnswer()),
     processAnswer: () => dispatch(processAnswer()),
     ignoreAnswer: (correct) => dispatch(markIgnored(correct)),
+    showSynonymModal: () => dispatch(showModal({})),
   };
 }
 
@@ -158,6 +161,7 @@ ReviewAnswer.propTypes = {
   checkAnswer: PropTypes.func.isRequired,
   processAnswer: PropTypes.func.isRequired,
   ignoreAnswer: PropTypes.func.isRequired,
+  showSynonymModal: PropTypes.func.isRequired,
 };
 
 export default keydown(connect(mapStateToProps, mapDispatchToProps)(ReviewAnswer));

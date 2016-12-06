@@ -1,24 +1,18 @@
 import {
   SHOW_MODAL,
   HIDE_MODAL,
-  defaultSettings,
 } from './constants';
 
 /**
- * Shows modal of specified modalType, with passed props and settings merged with default settings
- * @param  {String} modalType Identifier for this instantiation
- * @param  {Object} modalProps Props for this specific modal
- * @param  {*} rest Any additional settings or extra state
- * @return {Object} Action of type 'SHOW_MODAL' with a payload
+ * Shows modal with children using the passed props
+ * @param  {Object} contentProps Props to be passed to the children components
+ * @return {Object} Action of type 'SHOW_MODAL' with payload of contentprops
  */
-export function showModal({ modalType, modalProps = {}, ...rest }) {
+export function showModal({ contentProps = {} }) {
   return {
     type: SHOW_MODAL,
     payload: {
-      ...defaultSettings,
-      ...rest,
-      modalType,
-      modalProps,
+      contentProps,
     },
   };
 }

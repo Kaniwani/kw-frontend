@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
 import ReviewHeader from 'containers/ReviewHeader';
+import Modal from 'containers/Modal';
 import ReviewAnswer from 'containers/ReviewAnswer';
 import ReviewQuestion from 'components/ReviewQuestion';
 import ReviewInfo from 'components/ReviewInfo';
@@ -50,6 +51,9 @@ export class Review extends React.PureComponent {
             { name: 'description', content: 'Kaniwani Reviews Page' },
           ]}
         />
+        <Modal >
+          {() => <h1>Hello</h1>}
+        </Modal>
         <ReviewHeader />
         <ReviewQuestion
           loading={loading}
@@ -59,7 +63,7 @@ export class Review extends React.PureComponent {
         <ReviewAnswer />
         <ReviewInfo
           vocab={vocab}
-          visible={vocabInfoVisible}
+          isVisible={vocabInfoVisible}
         />
         <ReviewFooter />
       </Wrapper>

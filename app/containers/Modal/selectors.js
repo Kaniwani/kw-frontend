@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 /**
  * Direct selector to the modal state domain
  */
-const selectModalDomain = () => (state) => state.get('modal');
+const selectModalDomain = () => (state) => state.getIn(['review', 'modal']);
 
 /**
  * Other specific selectors
@@ -16,7 +16,7 @@ const selectModalDomain = () => (state) => state.get('modal');
 
 const selectModal = () => createSelector(
   selectModalDomain(),
-  (substate) => substate.toJS()
+  (substate) => substate.toJS(),
 );
 
 export default selectModal;

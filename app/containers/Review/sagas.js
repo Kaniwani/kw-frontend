@@ -217,8 +217,7 @@ export function* markAnswerWatcher() {
     }
 
     if ((correct && settings.get('autoExpandCorrect')) ||
-        (incorrect && settings.get('autoExpandIncorrect'))
-    ) {
+        (incorrect && settings.get('autoExpandIncorrect'))) {
       yield put(showVocabInfo());
     }
 
