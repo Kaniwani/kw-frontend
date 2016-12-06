@@ -6,9 +6,11 @@
 
 import React, { PropTypes } from 'react';
 
+
+// TODO: kaniwani styling
 function ReviewInfo({ vocab, visible }) {
-  const { readings } = vocab.toJS();
   if (!visible) return (<div />);
+  const { readings } = vocab.toJS();
   return (
     <div>
       {readings && readings.map((reading, index) => (

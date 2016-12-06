@@ -34,13 +34,14 @@ const Wrapper = styled.section`
   height: 100vh;
 `;
 
-export class Review extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class Review extends React.PureComponent {
   componentWillMount() {
     this.props.loadReviewData();
   }
 
   render() {
     const { loading, error, meaning, vocab, vocabInfoVisible } = this.props;
+
     return (
       <Wrapper>
         <Helmet
@@ -56,7 +57,10 @@ export class Review extends React.PureComponent { // eslint-disable-line react/p
           meaning={meaning}
         />
         <ReviewAnswer />
-        <ReviewInfo vocab={vocab} visible={vocabInfoVisible} />
+        <ReviewInfo
+          vocab={vocab}
+          visible={vocabInfoVisible}
+        />
         <ReviewFooter />
       </Wrapper>
     );
