@@ -3,10 +3,7 @@
  */
 import { fromJS } from 'immutable';
 import randInRange from 'utils/randInRange';
-import {
-  add,
-  subtract,
-} from './utils';
+import { add, subtract } from './utils';
 import answerInputReducer from 'containers/AnswerInput/reducer';
 import modalReducer from 'containers/Modal/reducer';
 import * as AnswerInput from 'containers/AnswerInput/constants';

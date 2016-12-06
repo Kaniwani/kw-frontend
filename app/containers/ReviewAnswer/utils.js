@@ -7,18 +7,18 @@ import isEmpty from 'utils/isEmpty';
  * @param  {any} target Target - value to test for
  * @return {boolean} True if a match was found
  */
-export function keyInListMatches(list, key, target) {
+export function keyInListMatches(list = [], key, target) {
   return list.some((obj) => obj[key] === target);
 }
 
 /**
  * Checks if answer matches either kana or character strings in answers list
- * @param  {array} answers Array of vocabulary objects to check against
- * @param  {string} input User input to check with
+ * @param  {array} [list=[]] Array of vocabulary objects to check against
+ * @param  {string} target User input to check with
  * @return {boolean} True if a match was found
  */
-export function answerMatches(answers, input) {
-  return keyInListMatches(answers, 'kana', input) || keyInListMatches(answers, 'character', input);
+export function keysInListMatch(list = [], keys = [], target) {
+  return keys.some((key) => keyInListMatches(list, key, target));
 }
 
 /**
@@ -54,6 +54,8 @@ export function fixTerminalN(input) {
 
 const tildeJA = '〜';
 const tildeEN = '~';
+
+// TODO: refactor for more general use
 /**
  * Check if any strings in readings array start with Japanese tilde character
  * @param  {array} readings Japanese readings

@@ -16,7 +16,7 @@ import { showModal } from 'containers/Modal/actions';
 import {
   selectAnswerMarked,
   selectAnswerValid,
-  selectAnswerMatches,
+  selectkeysInListMatch,
   selectInputDisabled,
  } from 'containers/AnswerInput/selectors';
 
@@ -136,7 +136,7 @@ const mapStateToProps = createStructuredSelector({
   streak: selectCurrentStreak(),
   marked: selectAnswerMarked(),
   valid: selectAnswerValid(),
-  matches: selectAnswerMatches(),
+  matches: selectkeysInListMatch(),
   disabled: selectInputDisabled(),
 });
 

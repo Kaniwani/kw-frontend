@@ -30,7 +30,7 @@ import {
   answersContainTilde,
   fixStartingTilde,
   fixTerminalN,
-  answerMatches,
+  keysInListMatch,
 } from 'containers/ReviewAnswer/utils';
 import { shapeReviewData } from './utils';
 import {
@@ -152,7 +152,7 @@ export function* checkAnswer() {
   }
 
   const valid = hasContent && isKanjiKana(answer);
-  const matches = answerMatches(readings, answer);
+  const matches = keysInListMatch(readings, answer);
   const correct = valid && matches;
 
   yield put(updateAnswer({
