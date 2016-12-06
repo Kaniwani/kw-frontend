@@ -2,20 +2,13 @@
 /* eslint-disable no-constant-condition */
 
 import { take, select, call, put, race, fork, cancel } from 'redux-saga/effects';
-import { takeLatest, takeEvery } from 'redux-saga';
+import { takeLatest, takeEvery, delay } from 'redux-saga';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { isKanjiKana } from 'shared/kanawana/core';
 import request from 'utils/request';
 import isEmpty from 'utils/isEmpty';
-
-import {
-  selectSettings,
-} from 'containers/App/selectors';
-
-import {
-  selectInputText,
-} from 'containers/AnswerInput/selectors';
-
+import { selectSettings } from 'containers/App/selectors';
+import { selectInputText } from 'containers/AnswerInput/selectors';
 import {
   CHECK_ANSWER,
   PROCESS_ANSWER,
@@ -25,7 +18,6 @@ import {
   MARK_INCORRECT,
   MARK_IGNORED,
 } from 'containers/ReviewAnswer/constants';
-
 import {
   markCorrect,
   markIncorrect,
@@ -34,21 +26,17 @@ import {
   startAutoAdvance,
   cancelAutoAdvance,
 } from 'containers/ReviewAnswer/actions';
-
 import {
   answersContainTilde,
   fixStartingTilde,
   fixTerminalN,
   answerMatches,
 } from 'containers/ReviewAnswer/utils';
-
 import { shapeReviewData } from './utils';
-
 import {
   LOAD_REVIEWDATA,
   COPY_CURRENT_TO_COMPLETED,
 } from './constants';
-
 import {
   loadReviewData,
   reviewDataLoaded,
@@ -61,8 +49,9 @@ import {
   resetCurrentStreak,
   increaseSessionCorrect,
   increaseSessionIncorrect,
+  showVocabInfo,
+  hideVocabInfo,
 } from './actions';
-
 import {
   selectCurrent,
   selectCurrentReadings,
@@ -70,7 +59,6 @@ import {
   selectQueueCount,
   selectTotalCount,
 } from './selectors';
-
 
 /**
  *  request/response handler
@@ -129,7 +117,10 @@ export function* recordAnswer() {
 
     // TODO: take(RECORD_ANSWER_FAILURE) put(returnCurrentToQueue()) regardless
     yield put(correct ? copyCurrentToCompleted() : returnCurrentToQueue());
+
+    // TODO: bundle these all into a 'reset and load new current' task?
     yield [
+      put(hideVocabInfo()),
       put(setNewCurrent()),
       put(updateAnswer({
         inputText: '',
@@ -172,8 +163,6 @@ export function* checkAnswer() {
   if (correct) yield put(markCorrect());
   if (valid && !matches) yield put(markIncorrect());
 }
-
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export function* autoAdvance() {
   while (true) {
@@ -227,11 +216,11 @@ export function* markAnswerWatcher() {
       console.log(`${currentID} Correct ${!previouslyWrong ? 'Not previously wrong ' : ''}-> should be copied to complete`);
     }
 
-    // if ((correct && settings.showCorrectOnSuccess) ||
-    //     (incorrect && settings.showCorrectOnFail)
-    // ) {
-    //   yield put(showInfo());
-    // }
+    if ((correct && settings.get('autoExpandCorrect')) ||
+        (incorrect && settings.get('autoExpandIncorrect'))
+    ) {
+      yield put(showVocabInfo());
+    }
 
     if (correct && settings.get('autoAdvanceCorrect')) {
       yield put(startAutoAdvance());
@@ -248,6 +237,8 @@ Streak reset to ${previousStreak} from ${currentStreak}`);
       yield [
         put(resetCurrentStreak()),
         put(returnCurrentToQueue()),
+        // TODO: this is almost the same as the end of RecordAnswer, extract similar "reset" puts
+        put(hideVocabInfo()),
         put(setNewCurrent()),
         put(updateAnswer({
           inputText: '',

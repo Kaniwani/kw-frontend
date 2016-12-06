@@ -35,6 +35,8 @@ import {
   RESET_CURRENT_STREAK,
   INCREASE_SESSION_CORRECT,
   INCREASE_SESSION_INCORRECT,
+  SHOW_VOCAB_INFO,
+  HIDE_VOCAB_INFO,
 } from './constants';
 
 export const initialState = fromJS({
@@ -43,6 +45,7 @@ export const initialState = fromJS({
   total: 1,
   queue: [],
   completed: [],
+  vocabInfoVisible: false,
   answer: {
     inputText: '',
     inputDisabled: false,
@@ -140,6 +143,10 @@ function reviewReducer(state = initialState, action) {
       return answerInputReducer(state, action);
     case UPDATE_ANSWER:
       return state.mergeIn(['answer'], action.payload);
+    case SHOW_VOCAB_INFO:
+      return state.set('vocabInfoVisible', true);
+    case HIDE_VOCAB_INFO:
+      return state.set('vocabInfoVisible', false);
     default:
       return state;
   }

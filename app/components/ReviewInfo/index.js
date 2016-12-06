@@ -6,8 +6,9 @@
 
 import React, { PropTypes } from 'react';
 
-function ReviewInfo({ vocab }) {
+function ReviewInfo({ vocab, visible }) {
   const { readings } = vocab.toJS();
+  if (!visible) return (<div />);
   return (
     <div>
       {readings && readings.map((reading, index) => (
@@ -18,7 +19,8 @@ function ReviewInfo({ vocab }) {
 }
 
 ReviewInfo.propTypes = {
-  vocab: PropTypes.object,
+  vocab: PropTypes.object.isRequired,
+  visible: PropTypes.bool.isRequired,
 };
 
 export default ReviewInfo;
