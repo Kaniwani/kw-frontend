@@ -9,6 +9,7 @@ import modalReducer from 'containers/Modal/reducer';
 import * as AnswerInput from 'containers/AnswerInput/constants';
 import * as Modal from 'containers/Modal/constants';
 import * as ReviewAnswer from 'containers/ReviewAnswer/constants';
+import * as ReviewInfo from 'containers/ReviewInfo/constants';
 import * as Review from './constants';
 
 export const initialState = fromJS({
@@ -17,7 +18,10 @@ export const initialState = fromJS({
   total: 1,
   queue: [],
   completed: [],
-  vocabInfoVisible: false,
+  reviewInfo: {
+    charactersVisible: false,
+    kanaVisible: false,
+  },
   answer: {
     inputText: '',
     inputDisabled: false,
@@ -122,10 +126,10 @@ function reviewReducer(state = initialState, action) {
       return state.mergeIn(['modal'], modalReducer(state.get('modal'), action));
     case ReviewAnswer.UPDATE_ANSWER:
       return state.mergeIn(['answer'], action.payload);
-    case Review.SHOW_VOCAB_INFO:
-      return state.set('vocabInfoVisible', true);
-    case Review.HIDE_VOCAB_INFO:
-      return state.set('vocabInfoVisible', false);
+    case ReviewInfo.SHOW_VOCAB_INFO:
+      return state.mergeIn(['reviewInfo'], action.payload);
+    case ReviewInfo.HIDE_VOCAB_INFO:
+      return state.mergeIn(['reviewInfo'], action.payload);
     default:
       return state;
   }

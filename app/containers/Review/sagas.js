@@ -27,6 +27,10 @@ import {
   cancelAutoAdvance,
 } from 'containers/ReviewAnswer/actions';
 import {
+  showVocabInfo,
+  hideVocabInfo,
+} from 'containers/ReviewInfo/actions';
+import {
   answersContainTilde,
   fixStartingTilde,
   fixTerminalN,
@@ -49,8 +53,6 @@ import {
   resetCurrentStreak,
   increaseSessionCorrect,
   increaseSessionIncorrect,
-  showVocabInfo,
-  hideVocabInfo,
 } from './actions';
 import {
   selectCurrent,
@@ -152,7 +154,7 @@ export function* checkAnswer() {
   }
 
   const valid = hasContent && isKanjiKana(answer);
-  const matches = keysInListMatch(readings, answer);
+  const matches = keysInListMatch(readings, ['kana', 'character'], answer);
   const correct = valid && matches;
 
   yield put(updateAnswer({
@@ -234,6 +236,7 @@ export function* markAnswerWatcher() {
       console.log(`${currentID} Ignored -> returned to queue
 Streak reset to ${previousStreak} from ${currentStreak}`);
       yield [
+        put(cancelAutoAdvance()),
         put(resetCurrentStreak()),
         put(returnCurrentToQueue()),
         // TODO: this is almost the same as the end of RecordAnswer, extract similar "reset" puts

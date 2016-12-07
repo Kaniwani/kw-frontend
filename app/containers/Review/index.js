@@ -12,8 +12,8 @@ import styled from 'styled-components';
 import ReviewHeader from 'containers/ReviewHeader';
 import Modal from 'containers/Modal';
 import ReviewAnswer from 'containers/ReviewAnswer';
+import ReviewInfo from 'containers/ReviewInfo';
 import ReviewQuestion from 'components/ReviewQuestion';
-import ReviewInfo from 'components/ReviewInfo';
 import ReviewFooter from 'components/ReviewFooter';
 
 import {
@@ -24,8 +24,6 @@ import {
  selectLoading,
  selectError,
  selectCurrentMeaning,
- selectCurrentVocab,
- selectVocabInfoVisible,
 } from './selectors';
 
 const Wrapper = styled.section`
@@ -41,7 +39,7 @@ export class Review extends React.PureComponent {
   }
 
   render() {
-    const { loading, error, meaning, vocab, vocabInfoVisible } = this.props;
+    const { loading, error, meaning } = this.props;
 
     return (
       <Wrapper>
@@ -61,10 +59,7 @@ export class Review extends React.PureComponent {
           meaning={meaning}
         />
         <ReviewAnswer />
-        <ReviewInfo
-          vocab={vocab}
-          isVisible={vocabInfoVisible}
-        />
+        <ReviewInfo />
         <ReviewFooter />
       </Wrapper>
     );
@@ -77,8 +72,6 @@ Review.propTypes = {
     PropTypes.object,
     PropTypes.bool,
   ]).isRequired,
-  vocab: PropTypes.object.isRequired,
-  vocabInfoVisible: PropTypes.bool.isRequired,
   meaning: PropTypes.string.isRequired,
   loadReviewData: PropTypes.func.isRequired,
 };
@@ -87,8 +80,6 @@ const mapStateToProps = createStructuredSelector({
   loading: selectLoading(),
   error: selectError(),
   meaning: selectCurrentMeaning(),
-  vocab: selectCurrentVocab(),
-  vocabInfoVisible: selectVocabInfoVisible(),
 });
 
 function mapDispatchToProps(dispatch) {

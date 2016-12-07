@@ -28,11 +28,6 @@ const selectCurrent = () => createSelector(
   (substate) => substate.get('current'),
 );
 
-const selectVocabInfoVisible = () => createSelector(
-  selectReviewDomain(),
-  (substate) => substate.get('vocabInfoVisible'),
-);
-
 const selectCurrentVocab = () => createSelector(
   selectCurrent(),
   (substate) => substate.get('vocabulary'),
@@ -106,5 +101,4 @@ export {
   selectAnsweredCount,
   selectCorrectCount,
   selectIncorrectCount,
-  selectVocabInfoVisible,
 };

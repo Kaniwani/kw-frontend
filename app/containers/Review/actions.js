@@ -27,8 +27,6 @@ import {
   INCREASE_CURRENT_STREAK,
   DECREASE_CURRENT_STREAK,
   RESET_CURRENT_STREAK,
-  SHOW_VOCAB_INFO,
-  HIDE_VOCAB_INFO,
 } from './constants';
 
 /**
@@ -152,27 +150,5 @@ export function increaseSessionCorrect() {
 export function increaseSessionIncorrect() {
   return {
     type: INCREASE_SESSION_INCORRECT,
-  };
-}
-
-
-/**
- * Sets the additional vocab info in review to visible
- * @return {object} An action object with a type of SHOW_VOCAB_INFO
- */
-export function showVocabInfo() {
-  return {
-    type: SHOW_VOCAB_INFO,
-  };
-}
-
-
-/**
- * Sets the additional vocab info in review to hidden
- * @return {object} An action object with a type of HIDE_VOCAB_INFO
- */
-export function hideVocabInfo() {
-  return {
-    type: HIDE_VOCAB_INFO,
   };
 }
