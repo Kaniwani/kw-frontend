@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
+import { responsiveType } from 'shared/styles/utils';
 import cuid from 'cuid';
 import ReviewBackground from './ReviewBackground';
 
@@ -26,6 +27,7 @@ const InfoWrapper = styled.div`
   position: absolute;
   width: 100%;
   text-align: center;
+  z-index: 1;
 `;
 
 const InfoRow = styled.div`
@@ -44,7 +46,7 @@ const setLeftRight = (left, right) => ({ position }) => (position === 'left' ? l
 const Entry = styled.p`
   background-color: hsla(0,0%,94%,.95);
   padding: 10px 15px;
-  font-size: calc(26px + 24 * ((100vw - 300px) / 1700));
+  font-size: ${responsiveType(26, 50, 300, 2000)}
   line-height: 1.5;
   margin: 0;
 `;
