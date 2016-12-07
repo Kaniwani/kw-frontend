@@ -1,5 +1,9 @@
 import styled from 'styled-components';
+import { responsiveType } from 'shared/styles/utils';
+import { white } from 'shared/styles/colors';
+import { innerMedium } from 'shared/styles/shadows';
 
+// TODO: disabled, and browser overrides
 const Input = styled.input`
   display: block;
   width: 100%;
@@ -7,11 +11,23 @@ const Input = styled.input`
   margin: 0;
   outline: none;
   border: 0;
-  color: currentColor;
-  box-shadow: inset 0 3px 20px -8px rgba(59,59,59,.25);
-  font-size: calc(22px + 28 * ((100vw - 300px) / 1700));
+  font-size: ${responsiveType(22, 50, 300, 2000)};
   line-height: 2.5;
   text-align: center;
+  color: currentColor;
+  box-shadow: ${innerMedium};
+  &::-ms-clear {;} /*hide stupid X on IE*/
+  &[disabled] {
+    -webkit-text-fill-color: ${white}; /* Override iOS / Android font color change */
+    -webkit-opacity: 1; /* Override iOS opacity change affecting text & background color */
+    color: {$white}; /* Override IE font color change */
+    &::-webkit-input-placeholder,
+    &::-moz-placeholder,
+    &:-ms-input-placeholder,
+    &:placeholder-shown {
+      color: $white;
+    }
+  }
 `;
 
 export default Input;

@@ -7,7 +7,7 @@ function StreakIcon({ streak }) {
   return (
     <Icon
       name={getSrsRankName(streak).toUpperCase()}
-      size={50}
+      size="1.3em"
       style={{
         display: 'block',
         position: 'absolute',

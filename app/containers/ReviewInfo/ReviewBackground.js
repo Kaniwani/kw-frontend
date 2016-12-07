@@ -4,7 +4,7 @@ import bg from 'shared/assets/img/backgrounds/reviews-800.png';
 import bgMd from 'shared/assets/img/backgrounds/reviews-1200.png';
 import bgXl from 'shared/assets/img/backgrounds/reviews.svg';
 
-const BackgroundImg = styled.div`
+const ReviewBackground = styled.div`
   width: 100%;
   height: 100%;
   opacity: .9;
@@ -24,4 +24,4 @@ const BackgroundImg = styled.div`
   }
 `;
 
-export default BackgroundImg;
+export default ReviewBackground;

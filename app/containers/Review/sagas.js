@@ -27,10 +27,14 @@ import {
   cancelAutoAdvance,
 } from 'containers/ReviewAnswer/actions';
 import {
+  showVocabInfo,
+  hideVocabInfo,
+} from 'containers/ReviewInfo/actions';
+import {
   answersContainTilde,
   fixStartingTilde,
   fixTerminalN,
-  answerMatches,
+  keysInListMatch,
 } from 'containers/ReviewAnswer/utils';
 import { shapeReviewData } from './utils';
 import {
@@ -49,8 +53,6 @@ import {
   resetCurrentStreak,
   increaseSessionCorrect,
   increaseSessionIncorrect,
-  showVocabInfo,
-  hideVocabInfo,
 } from './actions';
 import {
   selectCurrent,
@@ -116,22 +118,29 @@ export function* recordAnswer() {
     if (!correct && !previouslyWrong) yield put(increaseSessionIncorrect());
 
     // TODO: take(RECORD_ANSWER_FAILURE) put(returnCurrentToQueue()) regardless
-    yield put(correct ? copyCurrentToCompleted() : returnCurrentToQueue());
-
-    // TODO: bundle these all into a 'reset and load new current' task?
     yield [
-      put(hideVocabInfo()),
-      put(setNewCurrent()),
-      put(updateAnswer({
-        inputText: '',
-        matches: false,
-        valid: null,
-        marked: false,
-        inputDisabled: false,
-      })),
+      put(correct ? copyCurrentToCompleted() : returnCurrentToQueue()),
+      call(resetReview),
+      put(cancelAutoAdvance()),
     ];
-    yield put(cancelAutoAdvance());
   }
+}
+
+/**
+ * Hides vocab info, sets new current question, and resets answer input
+ */
+export function* resetReview() {
+  yield [
+    put(hideVocabInfo()),
+    put(setNewCurrent()),
+    put(updateAnswer({
+      inputText: '',
+      matches: false,
+      valid: null,
+      marked: false,
+      inputDisabled: false,
+    })),
+  ];
 }
 
 export function* checkAnswer() {
@@ -152,7 +161,7 @@ export function* checkAnswer() {
   }
 
   const valid = hasContent && isKanjiKana(answer);
-  const matches = answerMatches(readings, answer);
+  const matches = keysInListMatch(readings, ['kana', 'character'], answer);
   const correct = valid && matches;
 
   yield put(updateAnswer({
@@ -217,8 +226,7 @@ export function* markAnswerWatcher() {
     }
 
     if ((correct && settings.get('autoExpandCorrect')) ||
-        (incorrect && settings.get('autoExpandIncorrect'))
-    ) {
+        (incorrect && settings.get('autoExpandIncorrect'))) {
       yield put(showVocabInfo());
     }
 
@@ -235,18 +243,10 @@ export function* markAnswerWatcher() {
       console.log(`${currentID} Ignored -> returned to queue
 Streak reset to ${previousStreak} from ${currentStreak}`);
       yield [
+        put(cancelAutoAdvance()),
         put(resetCurrentStreak()),
         put(returnCurrentToQueue()),
-        // TODO: this is almost the same as the end of RecordAnswer, extract similar "reset" puts
-        put(hideVocabInfo()),
-        put(setNewCurrent()),
-        put(updateAnswer({
-          inputText: '',
-          matches: false,
-          valid: null,
-          marked: false,
-          inputDisabled: false,
-        })),
+        call(resetReview),
       ];
     }
   }

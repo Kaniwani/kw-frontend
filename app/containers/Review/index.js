@@ -10,10 +10,10 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
 import ReviewHeader from 'containers/ReviewHeader';
+import Modal from 'containers/Modal';
 import ReviewAnswer from 'containers/ReviewAnswer';
+import ReviewInfo from 'containers/ReviewInfo';
 import ReviewQuestion from 'components/ReviewQuestion';
-import ReviewInfo from 'components/ReviewInfo';
-import ReviewFooter from 'components/ReviewFooter';
 
 import {
   loadReviewData,
@@ -23,8 +23,6 @@ import {
  selectLoading,
  selectError,
  selectCurrentMeaning,
- selectCurrentVocab,
- selectVocabInfoVisible,
 } from './selectors';
 
 const Wrapper = styled.section`
@@ -34,13 +32,14 @@ const Wrapper = styled.section`
   height: 100vh;
 `;
 
-export class Review extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class Review extends React.PureComponent {
   componentWillMount() {
     this.props.loadReviewData();
   }
 
   render() {
-    const { loading, error, meaning, vocab, vocabInfoVisible } = this.props;
+    const { loading, error, meaning } = this.props;
+
     return (
       <Wrapper>
         <Helmet
@@ -49,6 +48,9 @@ export class Review extends React.PureComponent { // eslint-disable-line react/p
             { name: 'description', content: 'Kaniwani Reviews Page' },
           ]}
         />
+        <Modal >
+          {() => <h1>Hello</h1>}
+        </Modal>
         <ReviewHeader />
         <ReviewQuestion
           loading={loading}
@@ -56,8 +58,7 @@ export class Review extends React.PureComponent { // eslint-disable-line react/p
           meaning={meaning}
         />
         <ReviewAnswer />
-        <ReviewInfo vocab={vocab} visible={vocabInfoVisible} />
-        <ReviewFooter />
+        <ReviewInfo />
       </Wrapper>
     );
   }
@@ -69,8 +70,6 @@ Review.propTypes = {
     PropTypes.object,
     PropTypes.bool,
   ]).isRequired,
-  vocab: PropTypes.object.isRequired,
-  vocabInfoVisible: PropTypes.bool.isRequired,
   meaning: PropTypes.string.isRequired,
   loadReviewData: PropTypes.func.isRequired,
 };
@@ -79,8 +78,6 @@ const mapStateToProps = createStructuredSelector({
   loading: selectLoading(),
   error: selectError(),
   meaning: selectCurrentMeaning(),
-  vocab: selectCurrentVocab(),
-  vocabInfoVisible: selectVocabInfoVisible(),
 });
 
 function mapDispatchToProps(dispatch) {

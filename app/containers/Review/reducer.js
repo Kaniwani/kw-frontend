@@ -3,41 +3,14 @@
  */
 import { fromJS } from 'immutable';
 import randInRange from 'utils/randInRange';
-import { UPDATE_INPUT } from 'containers/AnswerInput/constants';
+import { add, subtract } from './utils';
 import answerInputReducer from 'containers/AnswerInput/reducer';
-
-import {
-  MARK_CORRECT,
-  MARK_INCORRECT,
-  MARK_IGNORED,
-  // CHECK_ANSWER,
-  UPDATE_ANSWER,
-//  PROCESS_ANSWER,
-} from 'containers/ReviewAnswer/constants';
-
-import {
-  add,
-  subtract,
-} from './utils';
-
-import {
-  LOAD_REVIEWDATA_SUCCESS,
-  LOAD_REVIEWDATA,
-  LOAD_REVIEWDATA_ERROR,
-  RECORD_ANSWER,
-  RECORD_ANSWER_SUCCESS,
-  RECORD_ANSWER_FAILURE,
-  SET_NEW_CURRENT,
-  RETURN_CURRENT_TO_QUEUE,
-  COPY_CURRENT_TO_COMPLETED,
-  INCREASE_CURRENT_STREAK,
-  DECREASE_CURRENT_STREAK,
-  RESET_CURRENT_STREAK,
-  INCREASE_SESSION_CORRECT,
-  INCREASE_SESSION_INCORRECT,
-  SHOW_VOCAB_INFO,
-  HIDE_VOCAB_INFO,
-} from './constants';
+import modalReducer from 'containers/Modal/reducer';
+import * as AnswerInput from 'containers/AnswerInput/constants';
+import * as Modal from 'containers/Modal/constants';
+import * as ReviewAnswer from 'containers/ReviewAnswer/constants';
+import * as ReviewInfo from 'containers/ReviewInfo/constants';
+import * as Review from './constants';
 
 export const initialState = fromJS({
   loading: false,
@@ -45,7 +18,10 @@ export const initialState = fromJS({
   total: 1,
   queue: [],
   completed: [],
-  vocabInfoVisible: false,
+  reviewInfo: {
+    charactersVisible: false,
+    kanaVisible: false,
+  },
   answer: {
     inputText: '',
     inputDisabled: false,
@@ -53,6 +29,7 @@ export const initialState = fromJS({
     marked: false,
     matches: false,
   },
+  modal: {},
   session: {
     correct: 0,
     incorrect: 0,
@@ -71,52 +48,52 @@ export const initialState = fromJS({
 
 function reviewReducer(state = initialState, action) {
   switch (action.type) {
-    case LOAD_REVIEWDATA: {
+    case Review.LOAD_REVIEWDATA: {
       return state
         .set('loading', true)
         .set('error', false);
     }
-    case LOAD_REVIEWDATA_SUCCESS: {
+    case Review.LOAD_REVIEWDATA_SUCCESS: {
       const { count, reviews } = action.payload;
       return state
         .set('total', count)
         .set('queue', state.get('queue').concat(reviews))
         .set('loading', false);
     }
-    case LOAD_REVIEWDATA_ERROR: {
+    case Review.LOAD_REVIEWDATA_ERROR: {
       return state
         .set('error', action.payload)
         .set('loading', false);
     }
-    case RECORD_ANSWER: return state; // TODO: implement
-    case RECORD_ANSWER_SUCCESS: return state; // TODO: implement
-    case RECORD_ANSWER_FAILURE: return state; // TODO: implement
-    case SET_NEW_CURRENT: {
+    case Review.RECORD_ANSWER: return state; // TODO: implement
+    case Review.RECORD_ANSWER_SUCCESS: return state; // TODO: implement
+    case Review.RECORD_ANSWER_FAILURE: return state; // TODO: implement
+    case Review.SET_NEW_CURRENT: {
       const newCurrent = state.get('queue').first();
       const remainingReviews = state.get('queue').rest();
       return state
         .mergeIn(['current'], newCurrent)
         .set('queue', remainingReviews);
     }
-    case RETURN_CURRENT_TO_QUEUE: {
+    case Review.RETURN_CURRENT_TO_QUEUE: {
       const reviews = state.get('queue');
       const current = state.get('current');
       const newIndex = randInRange(1, reviews.size);
       return state.set('queue', reviews.insert(newIndex, current));
     }
-    case COPY_CURRENT_TO_COMPLETED: {
+    case Review.COPY_CURRENT_TO_COMPLETED: {
       const completed = state.get('completed').push(state.get('current'));
       return state.set('completed', completed);
     }
-    case MARK_CORRECT:
+    case ReviewAnswer.MARK_CORRECT:
       return state
         .updateIn(['current', 'session', 'correct'], add(1))
         .mergeIn(['answer'], { marked: true, inputDisabled: true });
-    case MARK_INCORRECT:
+    case ReviewAnswer.MARK_INCORRECT:
       return state
         .updateIn(['current', 'session', 'incorrect'], add(1))
         .mergeIn(['answer'], { marked: true, inputDisabled: true });
-    case MARK_IGNORED: {
+    case ReviewAnswer.MARK_IGNORED: {
       // When we marked correct or incorrect, we increased the current>session item's correctness
       // here we will undo that since the user is ignoring their answer
       const resetTarget = action.payload ? 'correct' : 'incorrect';
@@ -125,28 +102,44 @@ function reviewReducer(state = initialState, action) {
         .updateIn(['current', 'session', resetTarget], subtract(1))
         .updateIn(['current', 'session', 'ignored'], add(1));
     }
-    case INCREASE_SESSION_CORRECT:
+    case Review.INCREASE_SESSION_CORRECT:
       return state.updateIn(['session', 'correct'], add(1));
-    case INCREASE_SESSION_INCORRECT:
+    case Review.INCREASE_SESSION_INCORRECT:
       return state.updateIn(['session', 'incorrect'], add(1));
-    case INCREASE_CURRENT_STREAK:
+    case Review.INCREASE_CURRENT_STREAK:
       return state
         .setIn(['current', 'previousStreak'], action.payload)
         .updateIn(['current', 'streak'], add(1));
-    case DECREASE_CURRENT_STREAK:
+    case Review.DECREASE_CURRENT_STREAK:
       return state
         .setIn(['current', 'previousStreak'], action.payload)
         .updateIn(['current', 'streak'], subtract(1));
-    case RESET_CURRENT_STREAK:
+    case Review.RESET_CURRENT_STREAK:
       return state.setIn(['current', 'streak'], state.getIn(['current', 'previousStreak']));
-    case UPDATE_INPUT:
+    // TODO: return state.set('answer', answerInputReducer(state.get('answer'), action))
+    // rather than passing the full state
+    case AnswerInput.UPDATE_INPUT:
       return answerInputReducer(state, action);
-    case UPDATE_ANSWER:
+    case Modal.HIDE_MODAL:
+      return state.mergeIn(['modal'], modalReducer(state.get('modal'), action));
+    case Modal.SHOW_MODAL:
+      return state.mergeIn(['modal'], modalReducer(state.get('modal'), action));
+    case ReviewAnswer.UPDATE_ANSWER:
       return state.mergeIn(['answer'], action.payload);
-    case SHOW_VOCAB_INFO:
-      return state.set('vocabInfoVisible', true);
-    case HIDE_VOCAB_INFO:
-      return state.set('vocabInfoVisible', false);
+    case ReviewInfo.TOGGLE_VOCAB_INFO:
+      return state
+        .updateIn(['reviewInfo', 'charactersVisible'], (value) => (action.payload.characters ? !value : value))
+        .updateIn(['reviewInfo', 'kanaVisible'], (value) => (action.payload.kana ? !value : value));
+    case ReviewInfo.SHOW_VOCAB_INFO:
+      return state.mergeIn(['reviewInfo'], {
+        charactersVisible: true,
+        kanaVisible: true,
+      });
+    case ReviewInfo.HIDE_VOCAB_INFO:
+      return state.mergeIn(['reviewInfo'], {
+        charactersVisible: false,
+        kanaVisible: false,
+      });
     default:
       return state;
   }
