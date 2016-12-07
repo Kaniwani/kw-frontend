@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
 import cuid from 'cuid';
+import ReviewBackground from './ReviewBackground';
+
 import {
   selectCharacters,
   selectKana,
@@ -12,17 +14,34 @@ import {
 } from './selectors';
 
 const Wrapper = styled.div`
+  display: table-row;
+  width: 100%;
+  height: 100%;
+  background-color: #e5e5e5;
+`;
+
+const InfoWrapper = styled.div`
   display: flex;
+  flex-flow: row wrap;
+  position: absolute;
+  width: 100%;
   text-align: center;
 `;
 
 const InfoRow = styled.div`
   flex: 1 0 50%;
+  background-color: transparent;
 `;
 
-// TODO: inset 2px ... if left -2px ... if right
+/**
+ * Sets left and right values based on position prop string: 'left' or 'right';
+ * @param {any} left  Value to set if this.props.position is 'left'
+ * @param {any} right  Value to set if this.props.position is 'right'
+ * @return {Function} Function waiting to receive `this.props`
+ */
+const setLeftRight = (left, right) => ({ position }) => (position === 'left' ? left : right);
+
 const Entry = styled.p`
-  box-shadow: inset -2px 0 10px -2px rgba(77,77,77,.15);
   background-color: hsla(0,0%,94%,.95);
   padding: 10px 15px;
   font-size: calc(26px + 24 * ((100vw - 300px) / 1700));
@@ -35,8 +54,8 @@ const InfoButton = styled.button`
   padding: .75em 1.5em;
   border: 1px solid #ababab;
   border-radius: 0;
-  border-left-width: ${({ position }) => (position === 'left' ? 0 : 1)}px;
-  border-right-width: ${({ position }) => (position === 'right' ? 0 : 1)}px;
+  border-left-width: ${setLeftRight(0, 1)}px;
+  border-right-width: ${setLeftRight(1, 0)}px;
   background-color: rgba(97,97,97,.9);
   color: #f0f0f0;
   cursor: pointer;
@@ -51,22 +70,26 @@ const InfoButton = styled.button`
 export class ReviewInfo extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { characters, kana, isInfoVisible, isCharactersVisible, isKanaVisible } = this.props;
-    if (!isInfoVisible) return null;
     return (
-      // add synonym button
       <Wrapper>
-        <InfoRow>
-          <InfoButton type="button" position="left"><strong>K</strong>anji</InfoButton>
-          {isCharactersVisible && characters.map((entry) =>
-            <Entry lang="ja" key={cuid()}>{entry}</Entry>,
-          )}
-        </InfoRow>
-        <InfoRow>
-          <InfoButton type="button" position="right"><strong>P</strong>honetic</InfoButton>
-          {isKanaVisible && kana.map((entry) =>
-            <Entry lang="ja" key={cuid()}>{entry}</Entry>,
-          )}
-        </InfoRow>
+        {/* // add synonym button */}
+        {isInfoVisible && (
+          <InfoWrapper>
+            <InfoRow>
+              <InfoButton type="button" position="left"><strong>K</strong>anji</InfoButton>
+              {isCharactersVisible && characters.map((entry) =>
+                <Entry lang="ja" key={cuid()}>{entry}</Entry>,
+              )}
+            </InfoRow>
+            <InfoRow>
+              <InfoButton type="button" position="right"><strong>P</strong>honetic</InfoButton>
+              {isKanaVisible && kana.map((entry) =>
+                <Entry lang="ja" key={cuid()}>{entry}</Entry>,
+              )}
+            </InfoRow>
+          </InfoWrapper>
+        )}
+        <ReviewBackground />
       </Wrapper>
     );
   }

@@ -90,6 +90,8 @@ class ReviewAnswer extends React.PureComponent { // eslint-disable-line react/pr
         />
         <IgnoreButton
           onIgnoreClick={this.ignore}
+          valid={valid}
+          marked={marked}
         />
         <SubmitButton />
         {/* <StreakAnimation /> */}

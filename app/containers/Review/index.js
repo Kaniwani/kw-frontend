@@ -14,7 +14,6 @@ import Modal from 'containers/Modal';
 import ReviewAnswer from 'containers/ReviewAnswer';
 import ReviewInfo from 'containers/ReviewInfo';
 import ReviewQuestion from 'components/ReviewQuestion';
-import ReviewFooter from 'components/ReviewFooter';
 
 import {
   loadReviewData,
@@ -60,7 +59,6 @@ export class Review extends React.PureComponent {
         />
         <ReviewAnswer />
         <ReviewInfo />
-        <ReviewFooter />
       </Wrapper>
     );
   }

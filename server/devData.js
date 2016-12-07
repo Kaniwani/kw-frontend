@@ -24,10 +24,10 @@ module.exports = {
     results: [{
       id: 5255,
       vocabulary: {
-        meaning: 'times (suffix)',
+        meaning: 'happy birthday',
         readings: [{
-          character: '〜回',
-          kana: '〜かい',
+          character: 'お誕生日おめでとう',
+          kana: 'おたんじょうびおめでとう',
           level: 17,
         }],
       },
@@ -46,10 +46,10 @@ module.exports = {
     }, {
       id: 5256,
       vocabulary: {
-        meaning: 'corpulence, fatness, obesity',
+        meaning: 'times (suffix)',
         readings: [{
-          character: '肥満',
-          kana: 'ひまん',
+          character: '〜回',
+          kana: '〜かい',
           level: 17,
         }],
       },

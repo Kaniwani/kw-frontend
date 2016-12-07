@@ -2,7 +2,27 @@ import { css } from 'styled-components';
 import { units } from './spacing';
 import { media } from './media';
 
-const sectionSpacing = css`
+/**
+ * Returns fallback, and media queried calc() font-sizes for responsive sizing
+ * @param  {Number} [minFont=12] Minimum font-size (px)
+ * @param  {Number} [maxFont=21] Maximum font-size (px)
+ * @param  {Number} [minWidth=420] Minimum viewport size to begin scaling (px)
+ * @param  {Number} [maxWidth=1280] Maximum viewport size to halt scaling (px)
+ * @return {String} CSS font-size rules
+ */
+export function responsiveType(minFont = 12, maxFont = 21, minWidth = 420, maxWidth = 1280) {
+  return `
+    font-size: ${minFont}px;
+    @media (min-width: ${minWidth}px) and (max-width: ${maxWidth}px){
+      font-size: calc( ${minFont}px + (${maxFont} - ${minFont}) * ( (100vw - ${minWidth}px) / ( ${maxWidth} - ${minWidth}) ));
+    }
+    @media (min-width: ${maxWidth}px){
+      font-size: ${maxFont}px;
+    }
+  `;
+}
+
+export const sectionSpacing = css`
   margin-top: ${units.md};
   margin-bottom: ${units.md};
 
@@ -12,7 +32,7 @@ const sectionSpacing = css`
   `}
 `;
 
-const sectionGutters = css`
+export const sectionGutters = css`
   max-width: ${units.siteMaxWidth};
   margin-left: auto;
   margin-right: auto;
@@ -25,7 +45,7 @@ const sectionGutters = css`
   `}
 `;
 
-const clearfix = `
+export const clearfix = `
   &:after {
     content: "";
     display: block;
@@ -33,7 +53,7 @@ const clearfix = `
   }
 `;
 
-const wordwrap = `
+export const wordwrap = `
   overflow-wrap: break-word;
   word-wrap: break-word;
   -ms-word-break: break-all;
@@ -41,14 +61,14 @@ const wordwrap = `
   hyphens: auto;
 `;
 
-const flexcenter = `
+export const flexcenter = `
   display: flex;
   justify-content: center;
   align-items: center;
   align-content: center;
 `;
 
-const visuallyhidden = `
+export const visuallyhidden = `
   position: absolute;
   height: 1px !important;
   width: 1px !important;
@@ -61,14 +81,14 @@ const visuallyhidden = `
   line-height: 0;
 `;
 
-const resetList = `
+export const resetList = `
   list-style: none;
   margin-top: 0;
   margin-bottom: 0;
   padding-left: 0;
 `;
 
-const resetButton = `
+export const resetButton = `
   background: none;
   border: 0;
   color: inherit;
@@ -88,27 +108,13 @@ const resetButton = `
   }
 `;
 
-const hidden = `
+export const hidden = `
   display: none !important;
 `;
 
 /* hidden but still takes up space, used with icons generally */
-const ghost = `
+export const ghost = `
   opacity: 0 !important;
   pointer-events: none !important;
   cursor: none !important;
 `;
-
-export {
-  sectionSpacing,
-  sectionGutters,
-  clearfix,
-  wordwrap,
-  flexcenter,
-  visuallyhidden,
-  resetList,
-  resetButton,
-  hidden,
-  ghost,
-};
-

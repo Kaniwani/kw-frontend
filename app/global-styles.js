@@ -1,8 +1,11 @@
 import { injectGlobal } from 'styled-components';
-
-const ffBody = '"Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif';
-const ffHeading = '"Ubuntu", Helvetica, Arial, sans-serif';
-const ffJapanese = '"Hiragino Kaku Gothic Pro", "Takao Pゴシック", "Meiryo", "Yu Gothic", "ヒラギノ角ゴ Pro W3", "メイリオ", "Osaka", "MS PGothic", "ＭＳ Ｐゴシック", sans-serif';
+import { blackLight, blueLight, blueDark, greyDark } from 'shared/styles/colors';
+import { responsiveType } from 'shared/styles/utils';
+import {
+  ffBody,
+  ffHeading,
+  ffJapanese,
+} from 'shared/styles/fonts';
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
@@ -14,10 +17,9 @@ injectGlobal`
 
   body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    font-size: calc(14px + 4 * ((100vw - 400px) / 1000));
+    ${responsiveType(14, 18, 400, 1400)}
     line-height: 1.4;
-    color: black-light;
+    color: ${blackLight};
   }
 
   body.fontLoaded {
@@ -29,16 +31,64 @@ injectGlobal`
     word-break: keep-all;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family:${ffHeading};
-    font-weight: normal;
-    margin: 0;
-    line-height: 1.4;
-    /*    color: grey-dark;*/
-  }
-
   #app {
     min-height: 100%;
     min-width: 100%;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: ${ffHeading};
+    margin: 0;
+    line-height: 1.4;
+    color: ${greyDark};
+    margin: 0;
+    margin-bottom: unit-xs;
+    line-height: 1.4;
+
+    &:first-child {
+      margin-top: .5em;
+    }
+  }
+
+  h1 { font-size: ${responsiveType(22, 36)}; }
+  h2 { font-size: ${responsiveType(20, 30)}; }
+  h3 { font-size: ${responsiveType(18, 26)}; }
+  h4 { font-size: ${responsiveType(17, 22)}; }
+  h5 { font-size: ${responsiveType(16, 21)}; }
+  h6 { font-size: ${responsiveType(16, 19)}; }
+
+${''/*
+  *:focus {
+    outline: none;
+  }
+*/}
+
+  b,
+  strong {
+    font-family: ${ffHeading};
+  }
+
+  a {
+    text-decoration: none;
+    transition: all .3s ease-out;
+    color: ${greyDark};
+  }
+
+  p + p:last-child {
+    margin-bottom: 0;
+  }
+
+  p {
+    ${responsiveType(14, 18, 400, 1400)}
+    margin-top: 0;
+    margin-bottom: .7em;
+  }
+
+  p > a {
+    color: ${blueLight};
+    &:hover {
+      color: ${blueDark};
+    }
+  }
+
 `;

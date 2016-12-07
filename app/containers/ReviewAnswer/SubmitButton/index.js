@@ -5,6 +5,7 @@ import Icon from 'components/Icon';
 const Button = styled.button`
   display: block;
   position: absolute;
+  height: 100%;
   transform: translateY(-50%);
   top: 50%;
   right: 0;
