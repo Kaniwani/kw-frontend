@@ -12,11 +12,16 @@ const Button = styled.button`
   color: currentColor;
 `;
 
-// TODO: alter Icon component, remove style prop and add use styled-components instead
+// TODO: alter Icon component, removing style prop (but still using attributes like below)
+// use styled-components within Icon instead to handle passed in attributes
+
 function SubmitButton() {
   return (
     <Button type="submit">
-      <Icon name="ARROW_RIGHT" size={50} />
+      <Icon
+        name="ARROW_RIGHT"
+        size="1.75em"
+      />
     </Button>
   );
 }

@@ -118,22 +118,29 @@ export function* recordAnswer() {
     if (!correct && !previouslyWrong) yield put(increaseSessionIncorrect());
 
     // TODO: take(RECORD_ANSWER_FAILURE) put(returnCurrentToQueue()) regardless
-    yield put(correct ? copyCurrentToCompleted() : returnCurrentToQueue());
-
-    // TODO: bundle these all into a 'reset and load new current' task?
     yield [
-      put(hideVocabInfo()),
-      put(setNewCurrent()),
-      put(updateAnswer({
-        inputText: '',
-        matches: false,
-        valid: null,
-        marked: false,
-        inputDisabled: false,
-      })),
+      put(correct ? copyCurrentToCompleted() : returnCurrentToQueue()),
+      call(resetReview),
+      put(cancelAutoAdvance()),
     ];
-    yield put(cancelAutoAdvance());
   }
+}
+
+/**
+ * Hides vocab info, sets new current question, and resets answer input
+ */
+export function* resetReview() {
+  yield [
+    put(hideVocabInfo()),
+    put(setNewCurrent()),
+    put(updateAnswer({
+      inputText: '',
+      matches: false,
+      valid: null,
+      marked: false,
+      inputDisabled: false,
+    })),
+  ];
 }
 
 export function* checkAnswer() {
@@ -239,16 +246,7 @@ Streak reset to ${previousStreak} from ${currentStreak}`);
         put(cancelAutoAdvance()),
         put(resetCurrentStreak()),
         put(returnCurrentToQueue()),
-        // TODO: this is almost the same as the end of RecordAnswer, extract similar "reset" puts
-        put(hideVocabInfo()),
-        put(setNewCurrent()),
-        put(updateAnswer({
-          inputText: '',
-          matches: false,
-          valid: null,
-          marked: false,
-          inputDisabled: false,
-        })),
+        call(resetReview),
       ];
     }
   }

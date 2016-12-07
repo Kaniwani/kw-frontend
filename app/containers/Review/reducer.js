@@ -126,10 +126,22 @@ function reviewReducer(state = initialState, action) {
       return state.mergeIn(['modal'], modalReducer(state.get('modal'), action));
     case ReviewAnswer.UPDATE_ANSWER:
       return state.mergeIn(['answer'], action.payload);
+    case ReviewInfo.TOGGLE_VOCAB_INFO: {
+      const { characters, kana } = action.payload;
+      return state
+        .updateIn(['reviewInfo', 'charactersVisible'], (value) => (characters ? !value : value))
+        .updateIn(['reviewInfo', 'kanaVisible'], (value) => (kana ? !value : value));
+    }
     case ReviewInfo.SHOW_VOCAB_INFO:
-      return state.mergeIn(['reviewInfo'], action.payload);
+      return state.mergeIn(['reviewInfo'], {
+        charactersVisible: true,
+        kanaVisible: true,
+      });
     case ReviewInfo.HIDE_VOCAB_INFO:
-      return state.mergeIn(['reviewInfo'], action.payload);
+      return state.mergeIn(['reviewInfo'], {
+        charactersVisible: false,
+        kanaVisible: false,
+      });
     default:
       return state;
   }

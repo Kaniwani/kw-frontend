@@ -8,6 +8,7 @@ const Meaning = styled.h1`
   padding: 50px 15px 30px;
   display: table-cell;
   font-size: calc(20px + 30 * ((100vw - 300px) / 1700));
+  font-weight: 700;
   vertical-align: middle;
   line-height: 1.3;
   letter-spacing: -1px;
