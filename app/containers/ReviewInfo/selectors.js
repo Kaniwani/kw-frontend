@@ -29,12 +29,12 @@ const selectKanaVisible = () => createSelector(
 
 const selectCharacters = () => createSelector(
   selectCurrentReadings(),
-  (substate) => substate.map((entry) => entry.get('character')).toJS(),
+  (substate) => substate.map((entry) => entry.get('character')),
 );
 
 const selectKana = () => createSelector(
   selectCurrentReadings(),
-  (substate) => substate.map((entry) => entry.get('kana')).toJS(),
+  (substate) => substate.map((entry) => entry.get('kana')),
 );
 
 export default selectReviewInfoDomain;

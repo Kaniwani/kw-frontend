@@ -4,15 +4,18 @@ import {
   UPDATE_INPUT,
 } from './constants';
 
-// TODO: the state currently in review Reducer?
-const initialState = fromJS({});
+export const answerInitialState = fromJS({
+  inputText: '',
+  inputDisabled: false,
+  valid: null,
+  marked: false,
+  matches: false,
+});
 
-function answerInputReducer(state = initialState, action) {
+function answerInputReducer(state = answerInitialState, action) {
   switch (action.type) {
     case UPDATE_INPUT:
-      // TODO: when state scoped to answer state only
-      // return state.set('inputText', action.payload);
-      return state.setIn(['answer', 'inputText'], action.payload);
+      return state.set('inputText', action.payload);
     default:
       return state;
   }

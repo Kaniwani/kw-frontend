@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { white, black } from 'shared/styles/colors';
-import { responsiveType } from 'shared/styles/utils';
+import { fluidType } from 'shared/styles/utils';
 
 const Form = styled.form`
   position: relative;
   width: 100%;
-  font-size: ${responsiveType(22, 50, 300, 2000)};
+  ${fluidType(22, 50, 300, 2000)}
   color: ${({ marked, valid }) => (marked && valid ? white : black)};
   padding: 0;
   margin: 0;

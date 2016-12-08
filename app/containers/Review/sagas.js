@@ -151,6 +151,8 @@ export function* checkAnswer() {
 
   let answer = inputText.trim();
   const hasContent = !isEmpty(answer);
+  // TODO: is this necessary? should be able to map over immutable
+  // perhaps convert fix/answers/keysinlist etc to work with immutable api
   readings = readings.toJS();
 
   if (hasContent) {

@@ -7,7 +7,7 @@ const ContentWrapper = styled.div`
   bottom: 0;
   left: 0;
   text-align: center;
-  z-index: 2;
+  z-index: 11;
   &:before {
     content: '';
     display: inline-block;

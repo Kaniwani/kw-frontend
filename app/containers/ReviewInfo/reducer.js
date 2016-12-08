@@ -6,15 +6,32 @@
 
 import { fromJS } from 'immutable';
 import {
-  DEFAULT_ACTION,
+  TOGGLE_VOCAB_INFO,
+  SHOW_VOCAB_INFO,
+  HIDE_VOCAB_INFO,
 } from './constants';
 
-const initialState = fromJS({});
+export const reviewInfoInitialState = fromJS({
+  charactersVisible: false,
+  kanaVisible: false,
+});
 
-function reviewInfoReducer(state = initialState, action) {
+function reviewInfoReducer(state = reviewInfoInitialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case TOGGLE_VOCAB_INFO:
+      return state
+        .updateIn(['charactersVisible'], (value) => (action.payload.characters ? !value : value))
+        .updateIn(['kanaVisible'], (value) => (action.payload.kana ? !value : value));
+    case SHOW_VOCAB_INFO:
+      return state.merge({
+        charactersVisible: true,
+        kanaVisible: true,
+      });
+    case HIDE_VOCAB_INFO:
+      return state.merge({
+        charactersVisible: false,
+        kanaVisible: false,
+      });
     default:
       return state;
   }

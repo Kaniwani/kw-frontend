@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
-import { responsiveType } from 'shared/styles/utils';
+import { fluidType } from 'shared/styles/utils';
 import cuid from 'cuid';
 import ReviewBackground from './ReviewBackground';
 
@@ -31,7 +31,7 @@ const InfoWrapper = styled.div`
 `;
 
 const InfoRow = styled.div`
-  flex: 1 0 50%;
+  flex: 1 1 250px; /* horizontal until 500px */
   background-color: transparent;
 `;
 
@@ -46,7 +46,7 @@ const setLeftRight = (left, right) => ({ position }) => (position === 'left' ? l
 const Entry = styled.p`
   background-color: hsla(0,0%,94%,.95);
   padding: 10px 15px;
-  font-size: ${responsiveType(26, 50, 300, 2000)}
+  ${fluidType(26, 50, 300, 2000)}
   line-height: 1.5;
   margin: 0;
 `;
@@ -98,8 +98,8 @@ export class ReviewInfo extends React.PureComponent { // eslint-disable-line rea
 }
 
 ReviewInfo.propTypes = {
-  characters: PropTypes.array,
-  kana: PropTypes.array,
+  characters: PropTypes.object,
+  kana: PropTypes.object,
   isInfoVisible: PropTypes.bool,
   isCharactersVisible: PropTypes.bool.isRequired,
   isKanaVisible: PropTypes.bool.isRequired,

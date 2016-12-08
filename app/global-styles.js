@@ -1,6 +1,6 @@
 import { injectGlobal } from 'styled-components';
 import { blackLight, blueLight, blueDark, greyDark } from 'shared/styles/colors';
-import { responsiveType } from 'shared/styles/utils';
+import { fluidType } from 'shared/styles/utils';
 import {
   ffBody,
   ffHeading,
@@ -17,7 +17,7 @@ injectGlobal`
 
   body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    ${responsiveType(14, 18, 400, 1400)}
+    ${fluidType(14, 18, 400, 1400)}
     line-height: 1.4;
     color: ${blackLight};
   }
@@ -50,12 +50,12 @@ injectGlobal`
     }
   }
 
-  h1 { font-size: ${responsiveType(22, 36)}; }
-  h2 { font-size: ${responsiveType(20, 30)}; }
-  h3 { font-size: ${responsiveType(18, 26)}; }
-  h4 { font-size: ${responsiveType(17, 22)}; }
-  h5 { font-size: ${responsiveType(16, 21)}; }
-  h6 { font-size: ${responsiveType(16, 19)}; }
+  h1 { ${fluidType(22, 36)} }
+  h2 { ${fluidType(20, 30)} }
+  h3 { ${fluidType(18, 26)} }
+  h4 { ${fluidType(17, 22)} }
+  h5 { ${fluidType(16, 21)} }
+  h6 { ${fluidType(16, 19)} }
 
 ${''/*
   *:focus {
@@ -79,7 +79,7 @@ ${''/*
   }
 
   p {
-    ${responsiveType(14, 18, 400, 1400)}
+    ${fluidType(14, 18, 400, 1400)}
     margin-top: 0;
     margin-bottom: .7em;
   }

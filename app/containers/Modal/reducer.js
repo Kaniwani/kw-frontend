@@ -4,12 +4,12 @@ import {
   SHOW_MODAL,
 } from './constants';
 
-export const initialState = fromJS({
+export const modalInitialState = fromJS({
   isVisible: false,
   contentProps: {},
 });
 
-export function modalReducer(state = initialState, action = {}) {
+export function modalReducer(state = modalInitialState, action = {}) {
   switch (action.type) {
     case HIDE_MODAL:
       return state.set('isVisible', false);
