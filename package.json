@@ -142,6 +142,13 @@
       "no-confusing-arrow": 0,
       "no-console": 1,
       "no-use-before-define": 0,
+      "no-underscore-dangle": [
+        2,
+        {
+          "allowAfterThis": true
+        }
+      ],
+
       "prefer-template": 2,
       "class-methods-use-this": 0,
       "react/forbid-prop-types": 0,

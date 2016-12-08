@@ -87,7 +87,7 @@ class ReviewAnswer extends React.PureComponent { // eslint-disable-line react/pr
           marked={marked}
         />
         <SubmitButton />
-        {/* <StreakAnimation /> */}
+        {/* TODO: <StreakAnimation /> */}
       </Form>
     );
   }

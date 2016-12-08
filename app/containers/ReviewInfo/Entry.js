@@ -1,7 +1,9 @@
 import styled from 'styled-components';
+import { black } from 'shared/styles/colors';
 import { fluidType } from 'shared/styles/utils';
 
 const Entry = styled.p`
+  color: ${black};
   background-color: hsla(0,0%,94%,.95);
   padding: 10px 15px;
   ${fluidType(26, 50, 300, 2000)}

@@ -32,7 +32,8 @@ import {
  */
 
 export class Modal extends React.PureComponent {
-//  If modal is now visible, `focus` it
+  // TODO: pull data from jisho?
+  // TODO: change to relevant field
   componentDidUpdate() {
     if (this.props.isVisible) this.contentWrapper.focus();
   }
