@@ -17,18 +17,15 @@ const Input = styled.input`
   box-shadow: ${innerMedium};
   /*hide stupid X on IE*/
   &::-ms-clear {
-    ;
+    display: none;
   }
   &[disabled] {
-    -webkit-text-fill-color: ${white}; /* Override iOS / Android font color change */
+    color: ${white}; /* Override Android / IE font color change */
     -webkit-opacity: 1; /* Override iOS opacity change affecting text & background color */
-    color: ${white}; /* Override IE font color change */
-    &::-webkit-input-placeholder,
-    &::-moz-placeholder,
-    &:-ms-input-placeholder,
-    &:placeholder-shown {
-      color: ${white};
-    }
+    &::-webkit-input-placeholder { color: ${white}; }
+    &::-moz-placeholder { color: ${white}; }
+    &:-ms-input-placeholder { color: ${white}; }
+    &:placeholder-shown { color: ${white}; }
   }
 `;
 

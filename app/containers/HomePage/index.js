@@ -46,6 +46,8 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         level,
       } = this.props.user.toJS();
 
+      // TODO: to handle time information try out https://date-fns.org
+      // TODO: for tooltips try out https://github.com/egoens/react-aria-tooltip
       mainContent = (
         <div>
           <H2>Welcome Back {name}.</H2>

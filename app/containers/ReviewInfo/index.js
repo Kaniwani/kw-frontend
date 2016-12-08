@@ -2,9 +2,10 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
-import { fluidType } from 'shared/styles/utils';
+import { fluidType, setLeftRight } from 'shared/styles/utils';
 import cuid from 'cuid';
 import ReviewBackground from './ReviewBackground';
+import { toggleVocabInfo } from 'containers/ReviewInfo/actions';
 
 import {
   selectCharacters,
@@ -25,23 +26,16 @@ const InfoWrapper = styled.div`
   display: flex;
   flex-flow: row wrap;
   position: absolute;
+  overflow: hidden;
   width: 100%;
   text-align: center;
   z-index: 1;
 `;
 
 const InfoRow = styled.div`
-  flex: 1 1 250px; /* horizontal until 500px */
+  flex: 1 0 50%;
   background-color: transparent;
 `;
-
-/**
- * Sets left and right values based on position prop string: 'left' or 'right';
- * @param {any} left  Value to set if this.props.position is 'left'
- * @param {any} right  Value to set if this.props.position is 'right'
- * @return {Function} Function waiting to receive `this.props`
- */
-const setLeftRight = (left, right) => ({ position }) => (position === 'left' ? left : right);
 
 const Entry = styled.p`
   background-color: hsla(0,0%,94%,.95);
@@ -70,21 +64,42 @@ const InfoButton = styled.button`
 `;
 
 export class ReviewInfo extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  static propTypes = {
+    characters: PropTypes.object,
+    kana: PropTypes.object,
+    isInfoVisible: PropTypes.bool,
+    isCharactersVisible: PropTypes.bool.isRequired,
+    isKanaVisible: PropTypes.bool.isRequired,
+    toggleInfo: PropTypes.func.isRequired,
+  }
+
   render() {
-    const { characters, kana, isInfoVisible, isCharactersVisible, isKanaVisible } = this.props;
+    const { characters, kana, isInfoVisible, isCharactersVisible, isKanaVisible, toggleInfo } = this.props;
     return (
       <Wrapper>
         {/* // add synonym button */}
         {isInfoVisible && (
           <InfoWrapper>
             <InfoRow>
-              <InfoButton type="button" position="left"><strong>K</strong>anji</InfoButton>
+              <InfoButton
+                type="button"
+                position="left"
+                onClick={() => { toggleInfo({ characters: true }); }}
+              >
+                <strong>K</strong>anji
+              </InfoButton>
               {isCharactersVisible && characters.map((entry) =>
                 <Entry lang="ja" key={cuid()}>{entry}</Entry>,
               )}
             </InfoRow>
             <InfoRow>
-              <InfoButton type="button" position="right"><strong>P</strong>honetic</InfoButton>
+              <InfoButton
+                type="button"
+                position="left"
+                onClick={() => { toggleInfo({ kana: true }); }}
+              >
+                <strong>P</strong>honetic
+              </InfoButton>
               {isKanaVisible && kana.map((entry) =>
                 <Entry lang="ja" key={cuid()}>{entry}</Entry>,
               )}
@@ -97,14 +112,6 @@ export class ReviewInfo extends React.PureComponent { // eslint-disable-line rea
   }
 }
 
-ReviewInfo.propTypes = {
-  characters: PropTypes.object,
-  kana: PropTypes.object,
-  isInfoVisible: PropTypes.bool,
-  isCharactersVisible: PropTypes.bool.isRequired,
-  isKanaVisible: PropTypes.bool.isRequired,
-};
-
 const mapStateToProps = createStructuredSelector({
   characters: selectCharacters(),
   kana: selectKana(),
@@ -115,7 +122,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    toggleInfo: (options) => dispatch(toggleVocabInfo(options)),
   };
 }
 

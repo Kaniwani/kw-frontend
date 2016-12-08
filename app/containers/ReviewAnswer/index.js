@@ -60,11 +60,9 @@ class ReviewAnswer extends React.PureComponent { // eslint-disable-line react/pr
     this.props.checkAnswer();
   }
 
-  /* eslint-disable class-methods-use-this */
   toggleInfo(options) {
     this.props.toggleVocabInfo(options);
   }
-  /* eslint-enable */
 
   showAddAnswerSynonym() {
     this.props.showSynonymModal();

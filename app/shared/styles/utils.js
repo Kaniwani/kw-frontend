@@ -23,6 +23,14 @@ export function fluidType(minFont = 12, maxFont = 21, minWidth = 420, maxWidth =
   `;
 }
 
+/**
+ * Sets left and right values based on position prop string: 'left' or 'right';
+ * @param {any} left  Value to set if this.props.position is 'left'
+ * @param {any} right  Value to set if this.props.position is 'right'
+ * @return {Function} Function waiting to receive `this.props`
+ */
+export const setLeftRight = (left, right) => ({ position }) => (position === 'left' ? left : right);
+
 export const sectionSpacing = css`
   margin-top: ${units.md};
   margin-bottom: ${units.md};
