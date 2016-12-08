@@ -8,6 +8,7 @@ const ReviewBackground = styled.div`
   width: 100%;
   height: 100%;
   opacity: .9;
+  background-color: #e5e5e5; /* image bg color, not used anywhere else hence no imported var name */
   background-image: url(${bg});
   background-repeat: no-repeat;
   background-position: bottom right;

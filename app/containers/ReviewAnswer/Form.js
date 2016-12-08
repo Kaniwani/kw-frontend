@@ -14,7 +14,6 @@ const Form = styled.form`
   outline: none;
   /* ios has rounded inputs by default ffs */
   appearance: none;
-  -webkit-appearance: none;
 `;
 
 export default Form;

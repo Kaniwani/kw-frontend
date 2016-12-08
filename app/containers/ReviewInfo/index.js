@@ -1,11 +1,15 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import styled from 'styled-components';
-import { fluidType, setLeftRight } from 'shared/styles/utils';
 import cuid from 'cuid';
-import ReviewBackground from './ReviewBackground';
+
 import { toggleVocabInfo } from 'containers/ReviewInfo/actions';
+import ReviewBackground from './ReviewBackground';
+import Wrapper from './Wrapper';
+import InfoWrapper from './InfoWrapper';
+import InfoRow from './InfoRow';
+import InfoButton from './InfoButton';
+import Entry from './Entry';
 
 import {
   selectCharacters,
@@ -14,54 +18,6 @@ import {
   selectCharactersVisible,
   selectKanaVisible,
 } from './selectors';
-
-const Wrapper = styled.div`
-  display: table-row;
-  width: 100%;
-  height: 100%;
-  background-color: #e5e5e5;
-`;
-
-const InfoWrapper = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  position: absolute;
-  overflow: hidden;
-  width: 100%;
-  text-align: center;
-  z-index: 1;
-`;
-
-const InfoRow = styled.div`
-  flex: 1 0 50%;
-  background-color: transparent;
-`;
-
-const Entry = styled.p`
-  background-color: hsla(0,0%,94%,.95);
-  padding: 10px 15px;
-  ${fluidType(26, 50, 300, 2000)}
-  line-height: 1.5;
-  margin: 0;
-`;
-
-const InfoButton = styled.button`
-  width: 100%;
-  padding: .75em 1.5em;
-  border: 1px solid #ababab;
-  border-radius: 0;
-  border-left-width: ${setLeftRight(0, 1)}px;
-  border-right-width: ${setLeftRight(1, 0)}px;
-  background-color: rgba(97,97,97,.9);
-  color: #f0f0f0;
-  cursor: pointer;
-  -webkit-appearance: none;
-  outline: 0;
-  transition: all .2s ease-out;
-  &:hover {
-    background-color: #616161;
-  }
-`;
 
 export class ReviewInfo extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
