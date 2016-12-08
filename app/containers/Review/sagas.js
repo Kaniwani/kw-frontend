@@ -6,7 +6,7 @@ import { takeLatest, takeEvery, delay } from 'redux-saga';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { isKanjiKana } from 'shared/kanawana/core';
 import request from 'utils/request';
-import isEmpty from 'utils/isEmpty';
+import isEmpty from 'lodash/isEmpty';
 import { selectSettings } from 'containers/App/selectors';
 import { selectInputText } from 'containers/AnswerInput/selectors';
 import {

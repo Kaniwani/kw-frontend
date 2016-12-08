@@ -1,4 +1,4 @@
-import isEmpty from 'utils/isEmpty';
+import isEmpty from 'lodash/isEmpty';
 import { TILDE_EN, TILDE_JA } from './constants';
 import { KEYS } from 'shared/constants';
 

@@ -232,7 +232,7 @@
     "redux-saga": "0.13.0",
     "reselect": "2.5.4",
     "sanitize.css": "4.1.0",
-    "styled-components": "1.0.11",
+    "styled-components": "^1.0.0",
     "warning": "3.0.0",
     "whatwg-fetch": "2.0.1"
   },
