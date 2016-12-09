@@ -19,7 +19,7 @@ injectGlobal`
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     ${fluidType(14, 18, 400, 1400)}
     line-height: 1.4;
-    color: ${blackLight};
+    color: rgb(${blackLight});
   }
 
   body.fontLoaded {
@@ -39,15 +39,9 @@ injectGlobal`
   h1, h2, h3, h4, h5, h6 {
     font-family: ${ffHeading};
     margin: 0;
-    line-height: 1.4;
-    color: ${greyDark};
-    margin: 0;
     margin-bottom: unit-xs;
+    color: rgb(${greyDark});
     line-height: 1.4;
-
-    &:first-child {
-      margin-top: .5em;
-    }
   }
 
   h1 { ${fluidType(22, 36)} }
@@ -57,12 +51,6 @@ injectGlobal`
   h5 { ${fluidType(16, 21)} }
   h6 { ${fluidType(16, 19)} }
 
-${''/*
-  *:focus {
-    outline: none;
-  }
-*/}
-
   b,
   strong {
     font-family: ${ffHeading};
@@ -71,7 +59,7 @@ ${''/*
   a {
     text-decoration: none;
     transition: all .3s ease-out;
-    color: ${greyDark};
+    color: rgb(${greyDark});
   }
 
   p + p:last-child {
@@ -85,9 +73,9 @@ ${''/*
   }
 
   p > a {
-    color: ${blueLight};
+    color: rgb(${blueLight});
     &:hover {
-      color: ${blueDark};
+      color: rgb(${blueDark});
     }
   }
 

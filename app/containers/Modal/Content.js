@@ -5,10 +5,9 @@ const Content = styled.div`
   vertical-align: middle;
   position: relative;
   margin: 0 auto;
-  width: 400px;
+  min-width: 200px;
+  max-width: 95vw;
   box-shadow: 0 0 20px 0 rgba(0,0,0,.2);
-  text-align: left;
-  background-color: white;
 `;
 
 export default Content;

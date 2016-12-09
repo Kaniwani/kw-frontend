@@ -6,7 +6,8 @@ import Overlay from './Overlay';
 import ContentWrapper from './ContentWrapper';
 import Content from './Content';
 import CloseButton from './CloseButton';
-
+import Icon from 'components/Icon';
+import AddSynonymModal from './AddSynonymModal';
 import {
   hideModal,
 } from './actions';
@@ -73,8 +74,11 @@ export class Modal extends React.PureComponent {
             tabIndex={-1} // NOTE: might have to change to "1" or "0"
           >
             <Content>
-              {React.createElement(children, props)}
-              <CloseButton type="button" onClick={closeModal}>Close</CloseButton>
+              <AddSynonymModal />
+              {/* {React.createElement(children, props)} */}
+              <CloseButton type="button" onClick={closeModal}>
+                <Icon name="CLOSE" size="1.5em" />
+              </CloseButton>
             </Content>
           </ContentWrapper>
         </div>

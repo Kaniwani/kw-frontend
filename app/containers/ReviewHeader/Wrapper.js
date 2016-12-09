@@ -6,6 +6,6 @@ const Wrapper = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  color: ${white}
+  color: rgb(${white})
 `;
 export default Wrapper;

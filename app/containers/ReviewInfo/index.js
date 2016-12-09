@@ -67,6 +67,7 @@ export class ReviewInfo extends React.PureComponent { // eslint-disable-line rea
           <InfoRow>
             <InfoButton
               type="button"
+              position="right"
               onClick={this._toggleKanaInfo}
             >
               <strong>P</strong>honetic

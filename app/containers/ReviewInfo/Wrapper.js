@@ -6,7 +6,7 @@ const Wrapper = styled.div`
   display: table-row;
   width: 100%;
   height: 100%;
-  background-color: ${whiteLight};
+  background-color: rgb(${whiteLight});
 `;
 
 export default Wrapper;

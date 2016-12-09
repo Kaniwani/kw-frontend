@@ -73,8 +73,9 @@ export function* getReviewData(limit = 100) {
     const shapedData = shapeReviewData(data);
     yield [
       put(reviewDataLoaded(shapedData)),
-      // TODO: currently this would setNewCurrent when a second load of reviews loads
-      // we need to avoid that happening since user is still answering a question during the optimistic load
+      // TODO: currently this would setNewCurrent when a second load of reviews loads we need to avoid that happening since user is still answering a question during the optimistic load
+
+      // TODO: shuffle the review queue after loading new items in, to help disperse ignored/incorrect items grouped near the start
       put(setNewCurrent()),
     ];
   } catch (err) {
