@@ -7,7 +7,7 @@ import ContentWrapper from './ContentWrapper';
 import Content from './Content';
 import CloseButton from './CloseButton';
 import Icon from 'components/Icon';
-import AddSynonymModal from './AddSynonymModal';
+import AddSynonymModal from 'containers/AddSynonymForm';
 import {
   hideModal,
 } from './actions';
