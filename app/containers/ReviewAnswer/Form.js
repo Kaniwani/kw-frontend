@@ -12,7 +12,6 @@ const Form = styled.form`
   border: 0;
   border-radius: 0;
   outline: none;
-  /* ios has rounded inputs by default ffs */
   appearance: none;
 `;
 

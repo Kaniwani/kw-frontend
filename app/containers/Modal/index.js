@@ -1,13 +1,15 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { KEYS } from 'shared/constants';
-import selectModal from './selectors';
-import Overlay from './Overlay';
-import ContentWrapper from './ContentWrapper';
-import Content from './Content';
-import CloseButton from './CloseButton';
 import Icon from 'components/Icon';
 import AddSynonymModal from 'containers/AddSynonymForm';
+import {
+  Overlay,
+  ContentWrapper,
+  Content,
+  CloseButton,
+} from './UI';
+import selectModal from './selectors';
 import {
   hideModal,
 } from './actions';
