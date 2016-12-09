@@ -3,12 +3,7 @@ import { createSelector } from 'reselect';
 /**
  * Direct selector to the modal state domain
  */
-const selectModalDomain = () => (state) => state.getIn(['review', 'modal']);
-
-/**
- * Other specific selectors
- */
-
+const selectModalDomain = () => (state) => state.get('modal');
 
 /**
  * Default selector used by Modal

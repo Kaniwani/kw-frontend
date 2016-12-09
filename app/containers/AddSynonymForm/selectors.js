@@ -1,9 +1,12 @@
 import { createSelector } from 'reselect';
-
+import selectModalDomain from 'containers/Modal/selectors';
 /**
  * Direct selector to the addSynonymForm state domain
  */
-const selectAddSynonymFormDomain = () => (state) => state.get('addSynonymForm');
+const selectAddSynonymFormDomain = () => createSelector(
+  selectModalDomain,
+  (state) => state.get('addSynonymForm'),
+);
 
 /**
  * Other specific selectors

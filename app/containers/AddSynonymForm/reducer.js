@@ -1,20 +1,36 @@
-/*
- *
- * AddSynonymForm reducer
- *
- */
-
 import { fromJS } from 'immutable';
 import {
-  DEFAULT_ACTION,
+  LOAD_JISHODATA,
+  LOAD_JISHODATA_SUCCESS,
+  LOAD_JISHODATA_ERROR,
 } from './constants';
 
-const initialState = fromJS({});
+const AddSynonymInitialState = fromJS({
+  input: {
+    characters: null,
+    kana: null,
+    isValid: false,
+  },
+  jisho: null,
+  loading: false,
+  error: false,
+});
 
-function addSynonymFormReducer(state = initialState, action) {
+function addSynonymFormReducer(state = AddSynonymInitialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case LOAD_JISHODATA:
+      return state
+        .set('loading', true)
+        .set('error', false);
+    case LOAD_JISHODATA_SUCCESS: {
+      return state
+        .set('jisho', action.payload)
+        .set('loading', false);
+    }
+    case LOAD_JISHODATA_ERROR:
+      return state
+        .set('error', action.payload)
+        .set('loading', false);
     default:
       return state;
   }

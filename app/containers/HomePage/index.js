@@ -20,7 +20,7 @@ import { selectUser, selectLoading, selectError } from 'containers/App/selectors
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentWillMount() {
-    // TODO: load in app rather than homepage, since other routes need access to user data
+    // TODO: load in app state rather than homepage, since other routes need access to user data
     this.props.loadUserData();
   }
   render() {

@@ -35,12 +35,6 @@ import {
  */
 
 export class Modal extends React.PureComponent {
-  // TODO: pull data from jisho?
-  // TODO: change to relevant field
-  componentDidUpdate() {
-    if (this.props.isVisible) this.contentWrapper.focus();
-  }
-
   // Hide the modal if the `Esc` key was pressed.
   hideOnEscapeKeyDown = (event) => {
     if (event.which === KEYS.ESCAPE) this.props.closeModal();
@@ -60,8 +54,9 @@ export class Modal extends React.PureComponent {
 //      ...rest
     } = this.props;
 
-    const props = {
+    const childProps = {
       ...contentProps,
+      isVisible,
       closeModal, // to be used with onSubmit() in modal content / although probably better to dispatch action from saga??
     };
 
@@ -76,7 +71,7 @@ export class Modal extends React.PureComponent {
             tabIndex={-1} // NOTE: might have to change to "1" or "0"
           >
             <Content>
-              <AddSynonymModal />
+              <AddSynonymModal {...childProps} />
               {/* {React.createElement(children, props)} */}
               <CloseButton type="button" onClick={closeModal}>
                 <Icon name="CLOSE" size="1.5em" />

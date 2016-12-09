@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import selectAddSynonymForm from './selectors';
+
 import {
   Wrapper,
   Heading,
@@ -13,6 +13,15 @@ import {
 } from './UI';
 
 export class AddSynonymForm extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  static propTypes = {
+    isVisible: PropTypes.bool.isRequired,
+  }
+
+  // TODO: change to relevant field
+  componentDidUpdate() {
+    if (this.props.isVisible) this.kanaInput.focus();
+  }
+
   render() {
     return (
       <Wrapper>
@@ -20,11 +29,11 @@ export class AddSynonymForm extends React.PureComponent { // eslint-disable-line
         <Form onSubmit={(ev) => { ev.preventDefault(); console.log('submitted!'); }}>
           <Label htmlFor="newKana">
             <LabelText>New Kana:</LabelText>
-            <Input id="newKana" type="text" />
+            <Input innerRef={(node) => { this.kanaInput = node; }} id="newKana" type="text" />
           </Label>
           <Label htmlFor="newCharacters">
             <LabelText>New Kanji:</LabelText>
-            <Input id="newCharacters" type="text" />
+            <Input innerRef={(node) => { this.charInput = node; }} id="newCharacters" type="text" />
           </Label>
           <Validation>
             <p>
@@ -40,7 +49,9 @@ export class AddSynonymForm extends React.PureComponent { // eslint-disable-line
   }
 }
 
-const mapStateToProps = selectAddSynonymForm();
+const mapStateToProps = {
+
+};
 
 function mapDispatchToProps(dispatch) {
   return {
