@@ -32,10 +32,16 @@ const selectError = () => createSelector(
   (globalState) => globalState.get('error'),
 );
 
+const selectModal = () => createSelector(
+  selectGlobal(),
+  (globalState) => globalState.get('modal'),
+);
+
 const selectUser = () => createSelector(
   selectGlobal(),
   (globalState) => globalState.get('user'),
 );
+
 
 const selectSettings = () => createSelector(
   selectUser(),
@@ -49,5 +55,6 @@ export {
   selectLoading,
   selectError,
   selectUser,
+  selectModal,
   selectSettings,
 };

@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { KEYS } from 'shared/constants';
 import Icon from 'components/Icon';
@@ -9,7 +10,9 @@ import {
   Content,
   CloseButton,
 } from './UI';
-import selectModal from './selectors';
+import {
+  selectVisible,
+} from './selectors';
 import {
   hideModal,
 } from './actions';
@@ -47,7 +50,7 @@ export class Modal extends React.PureComponent {
 
   render() {
     const {
-      children,
+      // children,
       isVisible,
       contentProps,
       closeModal,
@@ -87,7 +90,7 @@ export class Modal extends React.PureComponent {
 Modal.propTypes = {
   // 1. ATTRIBUTE PROPS
   // The component(s) to render inside the Modal
-  children: PropTypes.func,
+  // children: PropTypes.func,
 
   // 2. INJECTED PROPS
   // Whether the modal is visible.
@@ -102,7 +105,10 @@ Modal.defaultProps = {
   isVisible: false,
 };
 
-const mapStateToProps = selectModal();
+const mapStateToProps = createStructuredSelector({
+  isVisible: selectVisible(),
+  // contentProps: selectVisible(),
+});
 
 function mapDispatchToProps(dispatch) {
   return {
