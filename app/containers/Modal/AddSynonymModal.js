@@ -74,7 +74,7 @@ const Validation = styled.div`
 const SubmitButton = styled.button`
   margin: ${units.sm} auto;
   text-align: center;
-  border: 1px solid rgb($greyLight);
+  border: 1px solid rgb(${greyLight});
 
   ${media('min').md`
     margin-top: ${units.md};
