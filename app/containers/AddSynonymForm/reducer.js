@@ -7,11 +7,11 @@ import {
 
 const AddSynonymInitialState = fromJS({
   input: {
-    characters: null,
-    kana: null,
+    characters: false,
+    kana: false,
     isValid: false,
   },
-  jisho: null,
+  jisho: false,
   loading: false,
   error: false,
 });
