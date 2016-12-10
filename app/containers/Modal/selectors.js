@@ -6,15 +6,16 @@ const selectVisible = () => createSelector(
   (substate) => substate.get('isVisible'),
 );
 
-const selectContentProps = () => createSelector(
-  selectModal(),
-  (substate) => substate.get('contentProps'),
-);
-
 const selectModalType = () => createSelector(
   selectModal(),
   (substate) => substate.get('modalType'),
 );
+
+const selectContentProps = () => createSelector(
+  selectModal(),
+  (substate) => substate.get('contentProps').toJS(),
+);
+
 
 export default selectModal;
 export {
