@@ -29,6 +29,11 @@ const selectAnswerValid = () => createSelector(
   (substate) => substate.get('valid'),
 );
 
+const selectAnswerType = () => createSelector(
+  selectAnswerInputDomain(),
+  (substate) => substate.get('answerType'),
+);
+
 const selectAnswerMarked = () => createSelector(
   selectAnswerInputDomain(),
   (substate) => substate.get('marked'),
@@ -42,4 +47,5 @@ export {
   selectkeysInListMatch,
   selectAnswerMarked,
   selectAnswerValid,
+  selectAnswerType,
 };

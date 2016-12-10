@@ -4,7 +4,12 @@
 import { take, select, call, put, race, fork, cancel } from 'redux-saga/effects';
 import { takeLatest, takeEvery, delay } from 'redux-saga';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { isKanjiKana } from 'shared/kanawana/core';
+import {
+  isHiragana,
+  isKatakana,
+  isKanjiKana,
+} from 'shared/kanawana/core';
+
 import request from 'utils/request';
 import isEmpty from 'lodash/isEmpty';
 import { selectSettings } from 'containers/App/selectors';
@@ -163,13 +168,16 @@ export function* checkAnswer() {
     }
   }
 
-  const valid = hasContent && isKanjiKana(answer);
+  const allJapanese = isKanjiKana(answer);
+  const answerType = (isHiragana(answer) || isKatakana(answer) ? 'kana' : 'mixed');
+  const valid = hasContent && allJapanese;
   const matches = keysInListMatch(readings, ['kana', 'character'], answer);
   const correct = valid && matches;
 
   yield put(updateAnswer({
     valid,
     matches,
+    answerType,
     inputText: (correct ? answer : inputText),
   }));
   if (correct) yield put(markCorrect());

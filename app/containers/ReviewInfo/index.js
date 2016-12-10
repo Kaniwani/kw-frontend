@@ -4,6 +4,7 @@ import { createStructuredSelector } from 'reselect';
 import cuid from 'cuid';
 
 import { showModal } from 'containers/Modal/actions';
+import { ADD_SYNONYM_MODAL } from 'containers/Modal/constants';
 import { toggleVocabInfo } from 'containers/ReviewInfo/actions';
 import ReviewBackground from './ReviewBackground';
 import Wrapper from './Wrapper';
@@ -32,11 +33,7 @@ export class ReviewInfo extends React.PureComponent { // eslint-disable-line rea
     toggleInfo: PropTypes.func.isRequired,
   }
 
-  _showSynonymModal = () => {
-    const { characters, kana, showSynonymModal } = this.props;
-    showSynonymModal({ modalType: 'addSynonym', characters, kana });
-  }
-
+  _showSynonymModal = () => this.props.showSynonymModal({ modalType: ADD_SYNONYM_MODAL });
   _toggleCharsInfo = () => this.props.toggleInfo({ characters: true })
   _toggleKanaInfo = () => this.props.toggleInfo({ kana: true });
 
@@ -94,8 +91,8 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    toggleInfo: (options) => dispatch(toggleVocabInfo(options)),
-    showSynonymModal: (options) => dispatch(showModal(options)),
+    toggleInfo: (payload) => dispatch(toggleVocabInfo(payload)),
+    showSynonymModal: (payload) => dispatch(showModal(payload)),
   };
 }
 

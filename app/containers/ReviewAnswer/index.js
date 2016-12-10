@@ -7,6 +7,7 @@ import { handleShortcuts } from './utils';
 import { selectCurrentStreak } from 'containers/Review/selectors';
 import AnswerInput from 'containers/AnswerInput';
 import { showModal } from 'containers/Modal/actions';
+import { ADD_SYNONYM_MODAL } from 'containers/Modal/constants';
 import { toggleVocabInfo } from 'containers/ReviewInfo/actions';
 
 import {
@@ -107,7 +108,7 @@ function mapDispatchToProps(dispatch) {
     processAnswer: () => dispatch(processAnswer()),
     ignoreAnswer: (correct) => dispatch(markIgnored(correct)),
     toggleVocabInfo: (options) => dispatch(toggleVocabInfo(options)),
-    showSynonymModal: () => dispatch(showModal()),
+    showSynonymModal: () => dispatch(showModal({ modalType: ADD_SYNONYM_MODAL })),
   };
 }
 

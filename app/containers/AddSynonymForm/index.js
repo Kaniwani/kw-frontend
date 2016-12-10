@@ -1,5 +1,10 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import {
+  selectInputText,
+  selectAnswerType,
+} from 'containers/AnswerInput/selectors';
 
 import {
   Wrapper,
@@ -12,14 +17,15 @@ import {
   SubmitButton,
 } from './UI';
 
-export class AddSynonymForm extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class AddSynonymForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     isVisible: PropTypes.bool.isRequired,
+    text: PropTypes.string.isRequired,
+    answerType: PropTypes.string.isRequired,
   }
 
-  // TODO: change to relevant field
-  componentDidUpdate() {
-    if (this.props.isVisible) this.kanaInput.focus();
+  componentDidMount() {
+    if (this.props.isVisible) this[(this.props.answerType === 'kana' ? 'charInput' : 'kanaInput')].focus();
   }
 
   render() {
@@ -29,11 +35,11 @@ export class AddSynonymForm extends React.PureComponent { // eslint-disable-line
         <Form onSubmit={(ev) => { ev.preventDefault(); console.log('submitted!'); }}>
           <Label htmlFor="newKana">
             <LabelText>New Kana:</LabelText>
-            <Input innerRef={(node) => { this.kanaInput = node; }} id="newKana" type="text" />
+            <Input innerRef={(node) => { this.kanaInput = node; }} defaultValue={this.props.text} id="newKana" type="text" />
           </Label>
           <Label htmlFor="newCharacters">
             <LabelText>New Kanji:</LabelText>
-            <Input innerRef={(node) => { this.charInput = node; }} id="newCharacters" type="text" />
+            <Input innerRef={(node) => { this.charInput = node; }} defaultValue={this.props.text} id="newCharacters" type="text" />
           </Label>
           <Validation>
             <p>
@@ -49,9 +55,10 @@ export class AddSynonymForm extends React.PureComponent { // eslint-disable-line
   }
 }
 
-const mapStateToProps = {
-
-};
+const mapStateToProps = createStructuredSelector({
+  text: selectInputText(),
+  answerType: selectAnswerType(),
+});
 
 function mapDispatchToProps(dispatch) {
   return {

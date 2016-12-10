@@ -3,7 +3,7 @@ import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { KEYS } from 'shared/constants';
 import Icon from 'components/Icon';
-import AddSynonymModal from 'containers/AddSynonymForm';
+import { modals } from './constants';
 import {
   Overlay,
   ContentWrapper,
@@ -12,6 +12,8 @@ import {
 } from './UI';
 import {
   selectVisible,
+  selectContentProps,
+  selectModalType,
 } from './selectors';
 import {
   hideModal,
@@ -50,17 +52,17 @@ export class Modal extends React.PureComponent {
 
   render() {
     const {
-      // children,
       isVisible,
+      modalType,
       contentProps,
       closeModal,
 //      ...rest
     } = this.props;
 
-    const childProps = {
+    const ModalContent = modals[modalType];
+    const modalContentProps = {
       ...contentProps,
       isVisible,
-      closeModal, // to be used with onSubmit() in modal content / although probably better to dispatch action from saga??
     };
 
     return (
@@ -74,8 +76,7 @@ export class Modal extends React.PureComponent {
             tabIndex={-1} // NOTE: might have to change to "1" or "0"
           >
             <Content>
-              <AddSynonymModal {...childProps} />
-              {/* {React.createElement(children, props)} */}
+              <ModalContent {...modalContentProps} />
               <CloseButton type="button" onClick={closeModal}>
                 <Icon name="CLOSE" size="1.5em" />
               </CloseButton>
@@ -88,26 +89,20 @@ export class Modal extends React.PureComponent {
 }
 
 Modal.propTypes = {
-  // 1. ATTRIBUTE PROPS
-  // The component(s) to render inside the Modal
-  // children: PropTypes.func,
-
-  // 2. INJECTED PROPS
-  // Whether the modal is visible.
   isVisible: PropTypes.bool.isRequired,
-  // Props spread over the current modal component (ie. one of the components in `children`).
+  modalType: PropTypes.string,
   contentProps: PropTypes.object,
-  // Dispatch an action to hide the modal.
   closeModal: PropTypes.func.isRequired,
 };
 
-Modal.defaultProps = {
-  isVisible: false,
-};
+// Modal.defaultProps = {
+//   isVisible: false,
+// };
 
 const mapStateToProps = createStructuredSelector({
   isVisible: selectVisible(),
-  // contentProps: selectVisible(),
+  modalType: selectModalType(),
+  contentProps: selectContentProps(),
 });
 
 function mapDispatchToProps(dispatch) {

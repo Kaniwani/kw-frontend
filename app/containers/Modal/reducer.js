@@ -6,6 +6,7 @@ import {
 
 export const modalInitialState = fromJS({
   isVisible: false,
+  modalType: null,
   contentProps: {},
 });
 
