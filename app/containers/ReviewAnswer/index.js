@@ -14,7 +14,7 @@ import { toggleVocabInfo } from 'containers/ReviewInfo/actions';
 import {
   selectAnswerMarked,
   selectAnswerValid,
-  selectkeysInListMatch,
+  selectAnswerMatches,
   selectInputDisabled,
  } from 'containers/AnswerInput/selectors';
 
@@ -102,7 +102,7 @@ const mapStateToProps = createStructuredSelector({
   streak: selectCurrentStreak(),
   marked: selectAnswerMarked(),
   valid: selectAnswerValid(),
-  matches: selectkeysInListMatch(),
+  matches: selectAnswerMatches(),
   disabled: selectInputDisabled(),
 });
 

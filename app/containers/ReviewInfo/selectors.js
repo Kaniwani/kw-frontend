@@ -7,6 +7,7 @@ import {
 import {
   selectAnswerValid,
   selectAnswerMarked,
+  selectAnswerMatches,
 } from 'containers/AnswerInput/selectors';
 
 const selectReviewInfoDomain = () => (state) => state.getIn(['review', 'reviewInfo']);
@@ -16,15 +17,15 @@ const selectCharactersVisible = () => createSelector(
   (substate) => substate.get('charactersVisible'),
 );
 
-const selectInfoVisible = () => createSelector(
-  selectAnswerValid(),
-  selectAnswerMarked(),
-  (valid, marked) => valid && marked,
-);
-
 const selectKanaVisible = () => createSelector(
   selectReviewInfoDomain(),
   (substate) => substate.get('kanaVisible'),
+);
+
+const selectInfoVisible = () => createSelector(
+  selectAnswerMarked(),
+  selectAnswerValid(),
+  (marked, valid) => marked && valid,
 );
 
 const selectCharacters = () => createSelector(
@@ -42,7 +43,8 @@ export {
   selectCurrentVocab,
   selectCharacters,
   selectKana,
+  selectAnswerMatches,
   selectInfoVisible,
-  selectCharactersVisible,
   selectKanaVisible,
+  selectCharactersVisible,
 };

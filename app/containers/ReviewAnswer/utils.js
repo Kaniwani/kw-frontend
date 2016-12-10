@@ -4,6 +4,9 @@ import { KEYS } from 'shared/constants';
 
 /* eslint-disable no-underscore-dangle, no-fallthrough, no-console */
 export function handleShortcuts(event) {
+  // FIXME: modifier keys still apply when ReviewAnswer isn't focused
+  // so a user typing shift+backspace in synonym form will trigger an ignore...
+  // need to somehow prevent key events bubbling from there?
   const keyCode = event.which;
   const handlers = {
     [KEYS.ENTER]: () => this._processAnswer(event),

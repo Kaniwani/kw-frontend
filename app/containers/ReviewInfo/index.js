@@ -17,6 +17,7 @@ import Entry from './Entry';
 import {
   selectCharacters,
   selectKana,
+  selectAnswerMatches,
   selectInfoVisible,
   selectCharactersVisible,
   selectKanaVisible,
@@ -29,6 +30,7 @@ export class ReviewInfo extends React.PureComponent { // eslint-disable-line rea
     isInfoVisible: PropTypes.bool,
     isCharactersVisible: PropTypes.bool.isRequired,
     isKanaVisible: PropTypes.bool.isRequired,
+    isAnswerCorrect: PropTypes.bool.isRequired,
     showSynonymModal: PropTypes.func.isRequired,
     toggleInfo: PropTypes.func.isRequired,
   }
@@ -38,17 +40,19 @@ export class ReviewInfo extends React.PureComponent { // eslint-disable-line rea
   _toggleKanaInfo = () => this.props.toggleInfo({ kana: true });
 
   render() {
-    const { characters, kana, isInfoVisible, isCharactersVisible, isKanaVisible } = this.props;
+    const { characters, kana, isInfoVisible, isAnswerCorrect, isCharactersVisible, isKanaVisible } = this.props;
     return (
       <Wrapper>
         {isInfoVisible && (
         <InfoWrapper>
-          <SynonymButton
-            type="button"
-            onClick={this._showSynonymModal}
-          >
-            Add <strong>S</strong>ynonym
-          </SynonymButton>
+          { !isAnswerCorrect && (
+            <SynonymButton
+              type="button"
+              onClick={this._showSynonymModal}
+            >
+              Add <strong>S</strong>ynonym
+            </SynonymButton>
+          )}
           <InfoRow>
             <InfoButton
               type="button"
@@ -84,9 +88,10 @@ export class ReviewInfo extends React.PureComponent { // eslint-disable-line rea
 const mapStateToProps = createStructuredSelector({
   characters: selectCharacters(),
   kana: selectKana(),
+  isAnswerCorrect: selectAnswerMatches(),
   isInfoVisible: selectInfoVisible(),
-  isCharactersVisible: selectCharactersVisible(),
   isKanaVisible: selectKanaVisible(),
+  isCharactersVisible: selectCharactersVisible(),
 });
 
 function mapDispatchToProps(dispatch) {

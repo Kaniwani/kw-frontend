@@ -178,7 +178,7 @@ export function* checkAnswer() {
     valid,
     matches,
     answerType,
-    inputText: (correct ? answer : inputText),
+    inputText: (valid ? answer : inputText),
   }));
   if (correct) yield put(markCorrect());
   if (valid && !matches) yield put(markIncorrect());
