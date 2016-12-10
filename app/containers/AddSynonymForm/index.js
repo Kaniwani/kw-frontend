@@ -38,17 +38,25 @@ export class AddSynonymForm extends React.Component { // eslint-disable-line rea
     return '';
   }
 
+  _handleSubmit = () => {
+    blockEvent(event);
+    // NOTE: need to ensure all fields are valid
+    // IE: chars/kana are isKanjiKana() / isKana()
+    console.log('submitted!'); // eslint-disable-line no-console
+  }
+
   render() {
     const { answerType, text } = this.props;
     return (
       <Wrapper>
         <Heading>Add an accepted answer synonym</Heading>
-        <Form onSubmit={(event) => { blockEvent(event); console.log('submitted!'); }}>
+        <Form onSubmit={this._handleSubmit}>
           <Label htmlFor="newKana">
             <LabelText>New Kana:</LabelText>
             <Input
               id="newKana"
               type="text"
+              lang="ja"
               innerRef={(node) => { this.kanaInput = node; }}
               defaultValue={this._determineTextValue('kanaInput', answerType, text)}
             />
@@ -58,6 +66,7 @@ export class AddSynonymForm extends React.Component { // eslint-disable-line rea
             <Input
               id="newCharacters"
               type="text"
+              lang="ja"
               innerRef={(node) => { this.charInput = node; }}
               defaultValue={this._determineTextValue('charInput', answerType, text)}
             />
