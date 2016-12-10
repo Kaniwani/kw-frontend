@@ -34,7 +34,7 @@ const Wrapper = styled.section`
 
 export class Review extends React.PureComponent {
   componentWillMount() {
-    this.props.loadReviewData();
+    if (!this.props.meaning) this.props.loadReviewData();
   }
 
   render() {
@@ -48,9 +48,7 @@ export class Review extends React.PureComponent {
             { name: 'description', content: 'Kaniwani Reviews Page' },
           ]}
         />
-        <Modal >
-          {() => <h1>Hello</h1>}
-        </Modal>
+        <Modal />
         <ReviewHeader />
         <ReviewQuestion
           loading={loading}

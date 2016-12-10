@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import blockEvent from 'utils/blockEvent';
+
 import {
   selectInputText,
   selectAnswerType,
@@ -25,21 +27,40 @@ export class AddSynonymForm extends React.Component { // eslint-disable-line rea
   }
 
   componentDidMount() {
-    if (this.props.isVisible) this[(this.props.answerType === 'kana' ? 'charInput' : 'kanaInput')].focus();
+    if (this.props.isVisible) {
+      this[(this.props.answerType === 'kana' ? 'charInput' : 'kanaInput')].focus();
+    }
+  }
+
+  _determineTextValue = (field, answerType, text) => {
+    if (answerType === 'kana' && field === 'kanaInput') return text;
+    if (answerType === 'mixed' && field === 'charInput') return text;
+    return '';
   }
 
   render() {
+    const { answerType, text } = this.props;
     return (
       <Wrapper>
         <Heading>Add an accepted answer synonym</Heading>
-        <Form onSubmit={(ev) => { ev.preventDefault(); console.log('submitted!'); }}>
+        <Form onSubmit={(event) => { blockEvent(event); console.log('submitted!'); }}>
           <Label htmlFor="newKana">
             <LabelText>New Kana:</LabelText>
-            <Input innerRef={(node) => { this.kanaInput = node; }} defaultValue={this.props.text} id="newKana" type="text" />
+            <Input
+              id="newKana"
+              type="text"
+              innerRef={(node) => { this.kanaInput = node; }}
+              defaultValue={this._determineTextValue('kanaInput', answerType, text)}
+            />
           </Label>
           <Label htmlFor="newCharacters">
             <LabelText>New Kanji:</LabelText>
-            <Input innerRef={(node) => { this.charInput = node; }} defaultValue={this.props.text} id="newCharacters" type="text" />
+            <Input
+              id="newCharacters"
+              type="text"
+              innerRef={(node) => { this.charInput = node; }}
+              defaultValue={this._determineTextValue('charInput', answerType, text)}
+            />
           </Label>
           <Validation>
             <p>

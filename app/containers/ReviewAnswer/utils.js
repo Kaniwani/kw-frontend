@@ -2,41 +2,30 @@ import isEmpty from 'lodash/isEmpty';
 import { TILDE_EN, TILDE_JA } from './constants';
 import { KEYS } from 'shared/constants';
 
-export function handleShortcuts(event, self) {
+/* eslint-disable no-underscore-dangle, no-fallthrough, no-console */
+export function handleShortcuts(event) {
   const keyCode = event.which;
-  switch (true) {
-    case (keyCode === KEYS.ENTER):
-      self.process(event);
-      break;
+  const handlers = {
+    [KEYS.ENTER]: () => this._processAnswer(event),
+    [KEYS.P_LOWERCASE]: () => this._toggleVocabInfo(event, { kana: true }),
+    [KEYS.P_UPPERCASE]: () => this._toggleVocabInfo(event, { kana: true }),
+    [KEYS.K_LOWERCASE]: () => this._toggleVocabInfo(event, { characters: true }),
+    [KEYS.K_UPPERCASE]: () => this._toggleVocabInfo(event, { characters: true }),
+    [KEYS.F_LOWERCASE]: () => this._toggleVocabInfo(event, { characters: true, kana: true }),
+    [KEYS.F_UPPERCASE]: () => this._toggleVocabInfo(event, { characters: true, kana: true }),
+    [KEYS.S_LOWERCASE]: () => this._showSynonymModal(event),
+    [KEYS.S_UPPERCASE]: () => this._showSynonymModal(event),
+    [KEYS.I_LOWERCASE]: () => this._ignoreAnswer(event),
+    [KEYS.I_UPPERCASE]: () => this._ignoreAnswer(event),
+    [KEYS.BACKSPACE]: () => this._ignoreAnswer(event),
+    [KEYS.FORWARD_SLASH]: () => this._ignoreAnswer(event),
+  };
 
-    // Pressing P toggles phonetic reading
-    case (keyCode === KEYS.P_LOWERCASE || keyCode === KEYS.P_UPPERCASE):
-      self.toggleInfo({ kana: true });
-      break;
-
-    // Pressing K toggles the actual kanji reading.
-    case (keyCode === KEYS.K_LOWERCASE || keyCode === KEYS.K_UPPERCASE):
-      self.toggleInfo({ characters: true });
-      break;
-
-    // Pressing F toggles both item info boxes.
-    case (keyCode === KEYS.F_LOWERCASE || keyCode === KEYS.F_UPPERCASE):
-      self.toggleInfo({ characters: true, kana: true });
-      break;
-
-    // Pressing S toggles add synonym modal.
-    case (keyCode === KEYS.S_LOWERCASE || keyCode === KEYS.S_UPPERCASE):
-      self.showAddAnswerSynonym();
-      break;
-
-    // Pressing I ignores answer when input has been marked incorrect
-    case (keyCode === KEYS.I_LOWERCASE || keyCode === KEYS.I_UPPERCASE ||
-          keyCode === KEYS.BACKSPACE || keyCode === KEYS.FORWARD_SLASH):
-      self.ignore(event);
-      break;
-    default: console.log('key handler fall through'); // eslint-disable-line no-console
-  }
+  const action = handlers[keyCode];
+  if (action) action();
+  console.log('Handleshortcuts:', keyCode, action && action.name);
 }
+/* eslint-enable */
 
 /**
  * Checks an array of objects to see if a particular key's value matches a target

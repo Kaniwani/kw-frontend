@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import keydown from 'react-keydown';
 
+import blockEvent from 'utils/blockEvent';
 import { handleShortcuts } from './utils';
 import { selectCurrentStreak } from 'containers/Review/selectors';
 import AnswerInput from 'containers/AnswerInput';
@@ -29,38 +30,41 @@ import StreakIcon from './StreakIcon';
 import SubmitButton from './SubmitButton';
 import IgnoreButton from './IgnoreButton';
 
-class ReviewAnswer extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+class ReviewAnswer extends React.PureComponent {
+  constructor() {
+    super();
+    this._handleKeyDown = handleShortcuts.bind(this);
+  }
+
   componentWillReceiveProps({ keydown, disabled }) { // eslint-disable-line no-shadow
     if (disabled && keydown.event) {
-      this.handleKeyDown(keydown.event);
+      this._handleKeyDown(keydown.event);
     }
   }
 
-  handleKeyDown = (event) => handleShortcuts(event, this);
-
-  ignore = (event) => {
-    const { valid, matches, ignoreAnswer } = this.props;
-    if (valid) {
-      event.preventDefault();
-      ignoreAnswer(matches);
-    }
+  _ignoreAnswer = (event) => {
+    blockEvent(event);
+    const { valid, matches } = this.props;
+    if (valid) this.props.ignoreAnswer(matches);
   }
 
-  process = (event) => {
-    event.preventDefault();
+  _processAnswer = (event) => {
+    blockEvent(event);
     this.props.processAnswer();
   }
 
-  check = (event) => {
-    event.preventDefault();
+  _checkAnswer = (event) => {
+    blockEvent(event);
     this.props.checkAnswer();
   }
 
-  toggleInfo(options) {
+  _toggleVocabInfo = (event, options) => {
+    blockEvent(event);
     this.props.toggleVocabInfo(options);
   }
 
-  showAddAnswerSynonym() {
+  _showSynonymModal = (event) => {
+    blockEvent(event);
     this.props.showSynonymModal();
   }
 
@@ -70,7 +74,7 @@ class ReviewAnswer extends React.PureComponent { // eslint-disable-line react/pr
       <Form
         marked={marked}
         valid={valid}
-        onSubmit={marked && valid ? this.process : this.check}
+        onSubmit={marked && valid ? this._processAnswer : this._checkAnswer}
       >
         <StreakIcon
           streak={streak}
@@ -83,7 +87,7 @@ class ReviewAnswer extends React.PureComponent { // eslint-disable-line react/pr
           valid={valid}
         />
         <IgnoreButton
-          onIgnoreClick={this.ignore}
+          onIgnoreClick={this._ignoreAnswer}
           valid={valid}
           marked={marked}
         />
