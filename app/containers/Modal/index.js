@@ -1,12 +1,20 @@
 import React, { PropTypes } from 'react';
+import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { KEYS } from 'shared/constants';
-import selectModal from './selectors';
-import Overlay from './Overlay';
-import ContentWrapper from './ContentWrapper';
-import Content from './Content';
-import CloseButton from './CloseButton';
-
+import Icon from 'components/Icon';
+import { modals } from './constants';
+import {
+  Overlay,
+  ContentWrapper,
+  Content,
+  CloseButton,
+} from './UI';
+import {
+  selectVisible,
+  selectContentProps,
+  selectModalType,
+} from './selectors';
 import {
   hideModal,
 } from './actions';
@@ -32,12 +40,6 @@ import {
  */
 
 export class Modal extends React.PureComponent {
-  // TODO: pull data from jisho?
-  // TODO: change to relevant field
-  componentDidUpdate() {
-    if (this.props.isVisible) this.contentWrapper.focus();
-  }
-
   // Hide the modal if the `Esc` key was pressed.
   hideOnEscapeKeyDown = (event) => {
     if (event.which === KEYS.ESCAPE) this.props.closeModal();
@@ -50,16 +52,17 @@ export class Modal extends React.PureComponent {
 
   render() {
     const {
-      children,
       isVisible,
+      modalType,
       contentProps,
       closeModal,
 //      ...rest
     } = this.props;
 
-    const props = {
+    const ModalContent = modals[modalType];
+    const modalContentProps = {
       ...contentProps,
-      closeModal, // to be used with onSubmit() in modal content / although probably better to dispatch action from saga??
+      isVisible,
     };
 
     return (
@@ -73,8 +76,10 @@ export class Modal extends React.PureComponent {
             tabIndex={-1} // NOTE: might have to change to "1" or "0"
           >
             <Content>
-              {React.createElement(children, props)}
-              <CloseButton type="button" onClick={closeModal}>Close</CloseButton>
+              <ModalContent {...modalContentProps} />
+              <CloseButton type="button" onClick={closeModal}>
+                <Icon name="CLOSE" size="1.5em" />
+              </CloseButton>
             </Content>
           </ContentWrapper>
         </div>
@@ -84,24 +89,21 @@ export class Modal extends React.PureComponent {
 }
 
 Modal.propTypes = {
-  // 1. ATTRIBUTE PROPS
-  // The component(s) to render inside the Modal
-  children: PropTypes.func,
-
-  // 2. INJECTED PROPS
-  // Whether the modal is visible.
   isVisible: PropTypes.bool.isRequired,
-  // Props spread over the current modal component (ie. one of the components in `children`).
+  modalType: PropTypes.string,
   contentProps: PropTypes.object,
-  // Dispatch an action to hide the modal.
   closeModal: PropTypes.func.isRequired,
 };
 
-Modal.defaultProps = {
-  isVisible: false,
-};
+// Modal.defaultProps = {
+//   isVisible: false,
+// };
 
-const mapStateToProps = selectModal();
+const mapStateToProps = createStructuredSelector({
+  isVisible: selectVisible(),
+  modalType: selectModalType(),
+  contentProps: selectContentProps(),
+});
 
 function mapDispatchToProps(dispatch) {
   return {

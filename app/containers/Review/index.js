@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
 import ReviewHeader from 'containers/ReviewHeader';
-import Modal from 'containers/Modal';
 import ReviewAnswer from 'containers/ReviewAnswer';
 import ReviewInfo from 'containers/ReviewInfo';
 import ReviewQuestion from 'components/ReviewQuestion';
@@ -34,7 +33,7 @@ const Wrapper = styled.section`
 
 export class Review extends React.PureComponent {
   componentWillMount() {
-    this.props.loadReviewData();
+    if (!this.props.meaning) this.props.loadReviewData();
   }
 
   render() {
@@ -48,9 +47,6 @@ export class Review extends React.PureComponent {
             { name: 'description', content: 'Kaniwani Reviews Page' },
           ]}
         />
-        <Modal >
-          {() => <h1>Hello</h1>}
-        </Modal>
         <ReviewHeader />
         <ReviewQuestion
           loading={loading}

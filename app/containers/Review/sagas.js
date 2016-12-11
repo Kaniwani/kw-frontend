@@ -4,7 +4,12 @@
 import { take, select, call, put, race, fork, cancel } from 'redux-saga/effects';
 import { takeLatest, takeEvery, delay } from 'redux-saga';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { isKanjiKana } from 'shared/kanawana/core';
+import {
+  isHiragana,
+  isKatakana,
+  isKanjiKana,
+} from 'shared/kanawana/core';
+
 import request from 'utils/request';
 import isEmpty from 'lodash/isEmpty';
 import { selectSettings } from 'containers/App/selectors';
@@ -73,8 +78,9 @@ export function* getReviewData(limit = 100) {
     const shapedData = shapeReviewData(data);
     yield [
       put(reviewDataLoaded(shapedData)),
-      // TODO: currently this would setNewCurrent when a second load of reviews loads
-      // we need to avoid that happening since user is still answering a question during the optimistic load
+      // TODO: currently this would setNewCurrent when a second load of reviews loads we need to avoid that happening since user is still answering a question during the optimistic load
+
+      // TODO: shuffle the review queue after loading new items in, to help disperse ignored/incorrect items grouped near the start
       put(setNewCurrent()),
     ];
   } catch (err) {
@@ -162,14 +168,17 @@ export function* checkAnswer() {
     }
   }
 
-  const valid = hasContent && isKanjiKana(answer);
+  const allJapanese = isKanjiKana(answer);
+  const answerType = (isHiragana(answer) || isKatakana(answer) ? 'kana' : 'mixed');
+  const valid = hasContent && allJapanese;
   const matches = keysInListMatch(readings, ['kana', 'character'], answer);
   const correct = valid && matches;
 
   yield put(updateAnswer({
     valid,
     matches,
-    inputText: (correct ? answer : inputText),
+    answerType,
+    inputText: (valid ? answer : inputText),
   }));
   if (correct) yield put(markCorrect());
   if (valid && !matches) yield put(markIncorrect());
@@ -294,6 +303,7 @@ export function* reviewSaga() {
 
   // Suspend execution until location changes
   yield take(LOCATION_CHANGE);
+  console.log('should cancel all >.>');
   yield cancel(...watchers);
 }
 

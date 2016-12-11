@@ -1,25 +1,25 @@
 import { createSelector } from 'reselect';
+import { selectModal } from 'containers/App/selectors';
 
-/**
- * Direct selector to the modal state domain
- */
-const selectModalDomain = () => (state) => state.getIn(['review', 'modal']);
-
-/**
- * Other specific selectors
- */
-
-
-/**
- * Default selector used by Modal
- */
-
-const selectModal = () => createSelector(
-  selectModalDomain(),
-  (substate) => substate.toJS(),
+const selectVisible = () => createSelector(
+  selectModal(),
+  (substate) => substate.get('isVisible'),
 );
+
+const selectModalType = () => createSelector(
+  selectModal(),
+  (substate) => substate.get('modalType'),
+);
+
+const selectContentProps = () => createSelector(
+  selectModal(),
+  (substate) => substate.get('contentProps').toJS(),
+);
+
 
 export default selectModal;
 export {
-  selectModalDomain,
+  selectVisible,
+  selectContentProps,
+  selectModalType,
 };

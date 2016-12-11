@@ -5,10 +5,8 @@ import { fromJS } from 'immutable';
 import randInRange from 'utils/randInRange';
 import { add, subtract } from './utils';
 import answerInputReducer, { answerInitialState } from 'containers/AnswerInput/reducer';
-import modalReducer, { modalInitialState } from 'containers/Modal/reducer';
 import reviewInfoReducer, { reviewInfoInitialState } from 'containers/ReviewInfo/reducer';
 import * as AnswerInput from 'containers/AnswerInput/constants';
-import * as Modal from 'containers/Modal/constants';
 import * as ReviewAnswer from 'containers/ReviewAnswer/constants';
 import * as ReviewInfo from 'containers/ReviewInfo/constants';
 import * as Review from './constants';
@@ -21,7 +19,6 @@ export const initialState = fromJS({
   completed: [],
   reviewInfo: reviewInfoInitialState,
   answer: answerInitialState,
-  modal: modalInitialState,
   session: {
     correct: 0,
     incorrect: 0,
@@ -108,9 +105,6 @@ function reviewReducer(state = initialState, action) {
       return state.mergeIn(['answer'], action.payload);
     case AnswerInput.UPDATE_INPUT:
       return state.mergeIn(['answer'], answerInputReducer(state.get('answer'), action));
-    case Modal.HIDE_MODAL:
-    case Modal.SHOW_MODAL:
-      return state.mergeIn(['modal'], modalReducer(state.get('modal'), action));
     case ReviewInfo.TOGGLE_VOCAB_INFO:
     case ReviewInfo.SHOW_VOCAB_INFO:
     case ReviewInfo.HIDE_VOCAB_INFO:

@@ -4,7 +4,7 @@ import { media } from 'shared/styles/media';
 import { fluidType } from 'shared/styles/utils';
 
 const Meaning = styled.h1`
-  color: ${white};
+  color: rgb(${white});
   text-shadow: 1px 2px 4px ${purpleDark};
   padding: 50px 15px 30px;
   display: table-cell;

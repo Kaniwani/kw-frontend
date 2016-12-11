@@ -20,12 +20,12 @@ const Input = styled.input`
     display: none;
   }
   &[disabled] {
-    color: ${white}; /* Override Android / IE font color change */
+    color: rgb(${white}); /* Override Android / IE font color change */
     -webkit-opacity: 1; /* Override iOS opacity change affecting text & background color */
-    &::-webkit-input-placeholder { color: ${white}; }
-    &::-moz-placeholder { color: ${white}; }
-    &:-ms-input-placeholder { color: ${white}; }
-    &:placeholder-shown { color: ${white}; }
+    &::-webkit-input-placeholder { color: rgb(${white}); }
+    &::-moz-placeholder { color: rgb(${white}); }
+    &:-ms-input-placeholder { color: rgb(${white}); }
+    &:placeholder-shown { color: rgb(${white}); }
   }
 `;
 

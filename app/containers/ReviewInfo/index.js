@@ -4,6 +4,7 @@ import { createStructuredSelector } from 'reselect';
 import cuid from 'cuid';
 
 import { showModal } from 'containers/Modal/actions';
+import { ADD_SYNONYM_MODAL } from 'containers/Modal/constants';
 import { toggleVocabInfo } from 'containers/ReviewInfo/actions';
 import ReviewBackground from './ReviewBackground';
 import Wrapper from './Wrapper';
@@ -16,6 +17,7 @@ import Entry from './Entry';
 import {
   selectCharacters,
   selectKana,
+  selectAnswerMatches,
   selectInfoVisible,
   selectCharactersVisible,
   selectKanaVisible,
@@ -28,30 +30,29 @@ export class ReviewInfo extends React.PureComponent { // eslint-disable-line rea
     isInfoVisible: PropTypes.bool,
     isCharactersVisible: PropTypes.bool.isRequired,
     isKanaVisible: PropTypes.bool.isRequired,
+    isAnswerCorrect: PropTypes.bool.isRequired,
     showSynonymModal: PropTypes.func.isRequired,
     toggleInfo: PropTypes.func.isRequired,
   }
 
-  _showSynonymModal = () => {
-    const { characters, kana, showSynonymModal } = this.props;
-    showSynonymModal({ modalType: 'addSynonym', characters, kana });
-  }
-
+  _showSynonymModal = () => this.props.showSynonymModal({ modalType: ADD_SYNONYM_MODAL });
   _toggleCharsInfo = () => this.props.toggleInfo({ characters: true })
   _toggleKanaInfo = () => this.props.toggleInfo({ kana: true });
 
   render() {
-    const { characters, kana, isInfoVisible, isCharactersVisible, isKanaVisible } = this.props;
+    const { characters, kana, isInfoVisible, isAnswerCorrect, isCharactersVisible, isKanaVisible } = this.props;
     return (
       <Wrapper>
         {isInfoVisible && (
         <InfoWrapper>
-          <SynonymButton
-            type="button"
-            onClick={this._showSynonymModal}
-          >
-            Add <strong>S</strong>ynonym
-          </SynonymButton>
+          { !isAnswerCorrect && (
+            <SynonymButton
+              type="button"
+              onClick={this._showSynonymModal}
+            >
+              Add <strong>S</strong>ynonym
+            </SynonymButton>
+          )}
           <InfoRow>
             <InfoButton
               type="button"
@@ -67,6 +68,7 @@ export class ReviewInfo extends React.PureComponent { // eslint-disable-line rea
           <InfoRow>
             <InfoButton
               type="button"
+              position="right"
               onClick={this._toggleKanaInfo}
             >
               <strong>P</strong>honetic
@@ -86,15 +88,16 @@ export class ReviewInfo extends React.PureComponent { // eslint-disable-line rea
 const mapStateToProps = createStructuredSelector({
   characters: selectCharacters(),
   kana: selectKana(),
+  isAnswerCorrect: selectAnswerMatches(),
   isInfoVisible: selectInfoVisible(),
-  isCharactersVisible: selectCharactersVisible(),
   isKanaVisible: selectKanaVisible(),
+  isCharactersVisible: selectCharactersVisible(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    toggleInfo: (options) => dispatch(toggleVocabInfo(options)),
-    showSynonymModal: (options) => dispatch(showModal(options)),
+    toggleInfo: (payload) => dispatch(toggleVocabInfo(payload)),
+    showSynonymModal: (payload) => dispatch(showModal(payload)),
   };
 }
 

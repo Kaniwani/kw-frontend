@@ -11,75 +11,51 @@ import { createStructuredSelector } from 'reselect';
 
 import Header from 'components/Header';
 import Footer from 'components/Footer';
+import H2 from 'components/H2';
 import CenteredSection from './CenteredSection';
 import Section from './Section';
-import H2 from 'components/H2';
-import LoadingIndicator from 'components/LoadingIndicator';
-import { loadUserData } from '../App/actions';
-import { selectUser, selectLoading, selectError } from 'containers/App/selectors';
+import {
+  selectName,
+  selectLevel,
+  selectReviewCount,
+  selectLastWkSyncDate,
+} from 'containers/HomePage/selectors';
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  componentWillMount() {
-    // TODO: load in app rather than homepage, since other routes need access to user data
-    this.props.loadUserData();
-  }
   render() {
-    let mainContent = null;
+    // TODO: to handle time information try out https://date-fns.org
+    // TODO: for tooltips try out https://github.com/egoens/react-aria-tooltip
 
-    // Show a loading indicator when we're loading
-    if (this.props.loading) {
-      mainContent = (<LoadingIndicator />);
-
-    // Show an error if there is one
-    } else if (this.props.error !== false) {
-      const ErrorComponent = () => (
-        <p>Something went wrong, please try again!</p>
-      );
-      mainContent = (<ErrorComponent />);
-
-    // If we're not loading, don't have an error and if there is userData, show the userData
-    } else if (this.props.user) {
-      const {
-        name,
-        reviewCount,
-        lastWkSyncDate,
-        level,
-      } = this.props.user.toJS();
-
-      // TODO: to handle time information try out https://date-fns.org
-      // TODO: for tooltips try out https://github.com/egoens/react-aria-tooltip
-      mainContent = (
-        <div>
-          <H2>Welcome Back {name}.</H2>
-          <p>You are level {level}.</p>
-          <p>You have {reviewCount} reviews waiting.</p>
-          <p>You last synced with WK on {lastWkSyncDate.toDateString()}.</p>
-        </div>
-      );
-    }
+    const {
+      name,
+      level,
+      reviewCount,
+      lastWkSyncDate,
+    } = this.props;
 
     return (
       <div>
         <Header />
         <Helmet
-          title="Home"
+          title="Dashboard"
           meta={[
-            { name: 'description', content: 'Kaniwani Home Page' },
+            { name: 'description', content: 'Kaniwani Dashboard' },
           ]}
         />
-        <div>
-          <CenteredSection>
-            <H2>
-              Kaniwani
-            </H2>
-            <p>
-              Version 2.0
-            </p>
-          </CenteredSection>
-          <Section>
-            {mainContent}
-          </Section>
-        </div>
+        <CenteredSection>
+          <H2>
+            Kaniwani
+          </H2>
+          <p>
+            Version 2.0
+          </p>
+        </CenteredSection>
+        <Section>
+          <H2>Welcome Back {name}.</H2>
+          <p>You are level {level}.</p>
+          <p>You have {reviewCount} reviews waiting.</p>
+          <p>You last synced with WK on {lastWkSyncDate}.</p>
+        </Section>
         <Footer />
       </div>
     );
@@ -87,29 +63,24 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 }
 
 HomePage.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.bool,
-  ]),
-  user: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.bool,
-  ]),
-  loadUserData: PropTypes.func.isRequired,
+  name: PropTypes.string,
+  level: PropTypes.number,
+  reviewCount: PropTypes.number,
+  lastWkSyncDate: PropTypes.string,
 };
 
-export function mapDispatchToProps(dispatch) {
-  return {
-    loadUserData: () => dispatch(loadUserData()),
-  };
-}
+// export function mapDispatchToProps(dispatch) {
+//   return {
+//     loadUserData: () => dispatch(loadUserData()),
+//   };
+// }
 
 const mapStateToProps = createStructuredSelector({
-  user: selectUser(),
-  loading: selectLoading(),
-  error: selectError(),
+  name: selectName(),
+  level: selectLevel(),
+  reviewCount: selectReviewCount(),
+  lastWkSyncDate: selectLastWkSyncDate(),
 });
 
 // Wrap the component to inject dispatch and state into it
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default connect(mapStateToProps)(HomePage);
