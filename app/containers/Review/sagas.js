@@ -199,22 +199,18 @@ export function* autoAdvanceWatcher() {
     });
   }
 }
-autoAdvanceWatcher.isDaemon = true;
 
 export function* getReviewDataWatcher() {
   yield takeLatest(LOAD_REVIEWDATA, getReviewData);
 }
-getReviewDataWatcher.isDaemon = true;
 
 export function* processAnswerWatcher() {
   yield takeEvery(PROCESS_ANSWER, recordAnswer);
 }
-processAnswerWatcher.isDaemon = true;
 
 export function* checkAnswerWatcher() {
   yield takeEvery(CHECK_ANSWER, checkAnswer);
 }
-checkAnswerWatcher.isDaemon = true;
 
 export function* markAnswerWatcher() {
   while (true) {
@@ -265,7 +261,6 @@ Streak reset to ${previousStreak} from ${currentStreak}`);
     }
   }
 }
-markAnswerWatcher.isDaemon = true;
 
 export function* copyCurrentToCompletedWatcher() {
   while (true) {
@@ -291,12 +286,18 @@ export function* copyCurrentToCompletedWatcher() {
   }
 }
 
-// Bootstrap sagas
-export default [
+// Mark watchers to only run once on route entry
+const markAsDaemon = (saga) => {
+  saga.isDaemon = true; // eslint-disable-line no-param-reassign
+  return saga;
+};
+const watchers = [
+  autoAdvanceWatcher,
   getReviewDataWatcher,
+  processAnswerWatcher,
   checkAnswerWatcher,
   markAnswerWatcher,
-  autoAdvanceWatcher,
-  processAnswerWatcher,
-  copyCurrentToCompletedWatcher,
-];
+].map(markAsDaemon);
+
+// Bootstrap sagas
+export default watchers;
