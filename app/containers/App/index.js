@@ -13,6 +13,7 @@ import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
 
 import LoadingIndicator from 'components/LoadingIndicator';
+import Modal from 'containers/Modal';
 import { selectLoading, selectError } from 'containers/App/selectors';
 import { loadUserData } from 'containers/App/actions';
 
@@ -58,6 +59,7 @@ class App extends React.PureComponent {
           ]}
         />
 
+        <Modal />
         {appContent}
 
       </AppWrapper>

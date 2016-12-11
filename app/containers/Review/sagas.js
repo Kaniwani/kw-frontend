@@ -303,6 +303,7 @@ export function* reviewSaga() {
 
   // Suspend execution until location changes
   yield take(LOCATION_CHANGE);
+  console.log('should cancel all >.>');
   yield cancel(...watchers);
 }
 
