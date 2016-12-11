@@ -1,9 +1,8 @@
 /* eslint-disable no-console */
 /* eslint-disable no-constant-condition */
 
-import { take, select, call, put, race, fork, cancel } from 'redux-saga/effects';
+import { take, select, call, put, race } from 'redux-saga/effects';
 import { takeLatest, takeEvery, delay } from 'redux-saga';
-import { LOCATION_CHANGE } from 'react-router-redux';
 import {
   isHiragana,
   isKatakana,
@@ -200,18 +199,22 @@ export function* autoAdvanceWatcher() {
     });
   }
 }
+autoAdvanceWatcher.isDaemon = true;
 
 export function* getReviewDataWatcher() {
   yield takeLatest(LOAD_REVIEWDATA, getReviewData);
 }
+getReviewDataWatcher.isDaemon = true;
 
 export function* processAnswerWatcher() {
   yield takeEvery(PROCESS_ANSWER, recordAnswer);
 }
+processAnswerWatcher.isDaemon = true;
 
 export function* checkAnswerWatcher() {
   yield takeEvery(CHECK_ANSWER, checkAnswer);
 }
+checkAnswerWatcher.isDaemon = true;
 
 export function* markAnswerWatcher() {
   while (true) {
@@ -262,6 +265,7 @@ Streak reset to ${previousStreak} from ${currentStreak}`);
     }
   }
 }
+markAnswerWatcher.isDaemon = true;
 
 export function* copyCurrentToCompletedWatcher() {
   while (true) {
@@ -287,27 +291,12 @@ export function* copyCurrentToCompletedWatcher() {
   }
 }
 
-/**
- * Root saga manages watcher lifecycle
- */
-export function* reviewSaga() {
-  // Fork watchers so we can continue execution
-  const watchers = yield [
-    fork(getReviewDataWatcher),
-    fork(checkAnswerWatcher),
-    fork(markAnswerWatcher),
-    fork(autoAdvanceWatcher),
-    fork(processAnswerWatcher),
-    fork(copyCurrentToCompletedWatcher),
-  ];
-
-  // Suspend execution until location changes
-  yield take(LOCATION_CHANGE);
-  console.log('should cancel all >.>');
-  yield cancel(...watchers);
-}
-
 // Bootstrap sagas
 export default [
-  reviewSaga,
+  getReviewDataWatcher,
+  checkAnswerWatcher,
+  markAnswerWatcher,
+  autoAdvanceWatcher,
+  processAnswerWatcher,
+  copyCurrentToCompletedWatcher,
 ];
