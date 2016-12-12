@@ -2866,6 +2866,10 @@ executable@^1.0.0:
   dependencies:
     meow "^3.1.0"
 
+exenv@^1.2.0:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/exenv/-/exenv-1.2.1.tgz#75de1c8dee02e952b102aa17f8875973e0df14f9"
+
 exit-hook@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/exit-hook/-/exit-hook-1.1.1.tgz#f05ca233b48c05d54fff07765df8507e95c02ff8"
@@ -4676,6 +4680,10 @@ jws@^3.0.0, jws@~3.0.0:
     base64url "~1.0.4"
     jwa "~1.0.0"
 
+keycodes@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/keycodes/-/keycodes-0.2.3.tgz#f3ebb9408ef53aa445d7c125b23dd0c3088642ea"
+
 kind-of@^3.0.2:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-3.0.4.tgz#7b8ecf18a4e17f8269d73b501c9f232c96887a74"
@@ -6437,9 +6445,12 @@ react-intl@2.1.5:
     intl-relativeformat "^1.3.0"
     invariant "^2.1.1"
 
-react-keydown@^1.6.5:
-  version "1.6.5"
-  resolved "https://registry.yarnpkg.com/react-keydown/-/react-keydown-1.6.5.tgz#ce3fc94f6725b0f39e78434dbf2c05d3e87b3b65"
+react-key-handler@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/react-key-handler/-/react-key-handler-0.3.0.tgz#ce5b20e04139b3179798e5d7adc1c211016bda39"
+  dependencies:
+    exenv "^1.2.0"
+    keycodes "^0.2.3"
 
 react-proxy@^1.1.7:
   version "1.1.8"
@@ -6495,9 +6506,9 @@ react-transform-hmr@^1.0.3:
     global "^4.3.0"
     react-proxy "^1.1.7"
 
-react@15.4.0:
-  version "15.4.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-15.4.0.tgz#736c1c7c542e8088127106e1f450b010f86d172b"
+react@15.4.1:
+  version "15.4.1"
+  resolved "https://registry.yarnpkg.com/react/-/react-15.4.1.tgz#498e918602677a3983cd0fd206dfe700389a0dd6"
   dependencies:
     fbjs "^0.8.4"
     loose-envify "^1.1.0"
