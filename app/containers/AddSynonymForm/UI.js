@@ -53,6 +53,7 @@ export const Input = styled.input`
   display: inline-block;
   ${fluidType(16, 30)}
   appearance: none;
+  line-height: 1.8; /* lowercase descenders are cut off otherwise */
   flex: 1 5 100px;
   vertical-align: middle;
   padding: .35em .6em;

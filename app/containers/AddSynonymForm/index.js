@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import blockEvent from 'utils/blockEvent';
+import kanawana from 'shared/kanawana';
 
 import {
   selectInputText,
@@ -27,9 +28,16 @@ export class AddSynonymForm extends React.Component { // eslint-disable-line rea
   }
 
   componentDidMount() {
+    kanawana.bind(this.kanaInput);
+    kanawana.bind(this.charInput);
     if (this.props.isVisible) {
       this[(this.props.answerType === 'kana' ? 'charInput' : 'kanaInput')].focus();
     }
+  }
+
+  componentWillUnmount() {
+    kanawana.unbind(this.kanaInput);
+    kanawana.unbind(this.charInput);
   }
 
   _determineTextValue = (field, answerType, text) => {

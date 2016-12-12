@@ -2,33 +2,28 @@ import isEmpty from 'lodash/isEmpty';
 import { TILDE_EN, TILDE_JA } from './constants';
 import { KEYS } from 'shared/constants';
 
-/* eslint-disable no-underscore-dangle, no-fallthrough, no-console */
-export function handleShortcuts(event) {
-  // FIXME: modifier keys still apply when ReviewAnswer isn't focused
-  // so a user typing shift+backspace in synonym form will trigger an ignore...
-  // need to somehow prevent key events bubbling from there?
-  const keyCode = event.which;
+/**
+ * Handles key events occuring in ReviewAnswer component
+ * @param  {object} event
+ * @return {string|false} function to call if match else false
+ */
+export function getShortcutAction(event) {
+  const keyCode = event.keyCode;
   const handlers = {
-    [KEYS.ENTER]: () => this._processAnswer(event),
-    [KEYS.P_LOWERCASE]: () => this._toggleVocabInfo(event, { kana: true }),
-    [KEYS.P_UPPERCASE]: () => this._toggleVocabInfo(event, { kana: true }),
-    [KEYS.K_LOWERCASE]: () => this._toggleVocabInfo(event, { characters: true }),
-    [KEYS.K_UPPERCASE]: () => this._toggleVocabInfo(event, { characters: true }),
-    [KEYS.F_LOWERCASE]: () => this._toggleVocabInfo(event, { characters: true, kana: true }),
-    [KEYS.F_UPPERCASE]: () => this._toggleVocabInfo(event, { characters: true, kana: true }),
-    [KEYS.S_LOWERCASE]: () => this._showSynonymModal(event),
-    [KEYS.S_UPPERCASE]: () => this._showSynonymModal(event),
-    [KEYS.I_LOWERCASE]: () => this._ignoreAnswer(event),
-    [KEYS.I_UPPERCASE]: () => this._ignoreAnswer(event),
-    [KEYS.BACKSPACE]: () => this._ignoreAnswer(event),
-    [KEYS.FORWARD_SLASH]: () => this._ignoreAnswer(event),
+    [KEYS.ENTER]: '_processAnswer',
+    [KEYS.F_LOWERCASE]: '_toggleVocabInfo',
+    [KEYS.K_LOWERCASE]: '_toggleKanaInfo',
+    [KEYS.P_LOWERCASE]: '_toggleCharInfo',
+    [KEYS.S_LOWERCASE]: '_showSynonymModal',
+    [KEYS.I_LOWERCASE]: '_ignoreAnswer',
+    [KEYS.BACKSPACE]: '_ignoreAnswer',
+    [KEYS.FORWARD_SLASH]: '_ignoreAnswer',
   };
 
   const action = handlers[keyCode];
-  if (action) action();
-  console.log('Handleshortcuts:', keyCode, action && action.name);
+  console.log('getShortcutAction:', keyCode, action); // eslint-disable-line no-console
+  return action || false;
 }
-/* eslint-enable */
 
 /**
  * Checks an array of objects to see if a particular key's value matches a target

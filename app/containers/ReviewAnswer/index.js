@@ -1,10 +1,9 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import KeyHandler, { KEYUP } from 'react-key-handler';
-import { KEYS } from 'shared/constants';
 
 import blockEvent from 'utils/blockEvent';
+import { getShortcutAction } from './utils';
 import { selectCurrentStreakName } from 'containers/Review/selectors';
 import AnswerInput from 'containers/AnswerInput';
 import { showModal } from 'containers/Modal/actions';
@@ -31,59 +30,87 @@ import SubmitButton from './SubmitButton';
 import IgnoreButton from './IgnoreButton';
 
 class ReviewAnswer extends React.PureComponent {
+  componentDidMount() {
+    this.answerForm.addEventListener('keydown', this._handleKeyDown);
+  }
+
+  componentDidUpdate() {
+    if (this.props.disabled) this.answerForm.focus();
+  }
+
+  componentWillUnmount() {
+    this.answerForm.removeEventListener('keydown', this._handleKeyDown);
+  }
+
+  _handleKeyDown = (event) => {
+    const action = getShortcutAction(event);
+    if (action) {
+      this[action](event);
+      console.log('handleKeyDown calling: ', action); // eslint-disable-line no-console
+    }
+  }
+
   _ignoreAnswer = (event) => {
-    const { valid, disabled, matches } = this.props;
-    if (valid && disabled) {
+    const { disabled, matches } = this.props;
+    if (disabled) {
       blockEvent(event);
       this.props.ignoreAnswer(matches);
     }
   }
 
   _processAnswer = (event) => {
-    blockEvent(event);
-    this.props.processAnswer();
+    if (this.props.disabled) {
+      blockEvent(event);
+      this.props.processAnswer();
+    }
   }
 
   _checkAnswer = (event) => {
-    blockEvent(event);
-    this.props.checkAnswer();
+    const { marked } = this.props;
+    if (!marked) {
+      blockEvent(event);
+      this.props.checkAnswer();
+    }
   }
 
   _toggleKanaInfo = (event) => {
-    blockEvent(event);
-    this.props.toggleVocabInfo({ kana: true });
+    if (this.props.disabled) {
+      blockEvent(event);
+      this.props.toggleVocabInfo({ kana: true });
+    }
   }
 
   _toggleCharInfo = (event) => {
-    blockEvent(event);
-    this.props.toggleVocabInfo({ characters: true });
+    if (this.props.disabled) {
+      blockEvent(event);
+      this.props.toggleVocabInfo({ characters: true });
+    }
   }
 
   _toggleVocabInfo = (event) => {
-    blockEvent(event);
-    this.props.toggleVocabInfo({ characters: true, kana: true });
+    if (this.props.disabled) {
+      blockEvent(event);
+      this.props.toggleVocabInfo({ characters: true, kana: true });
+    }
   }
 
   _showSynonymModal = (event) => {
-    blockEvent(event);
-    this.props.showSynonymModal();
+    if (this.props.disabled) {
+      blockEvent(event);
+      this.props.showSynonymModal();
+    }
   }
 
   render() {
     const { streakName, marked, valid, matches, disabled } = this.props; // eslint-disable-line no-shadow
     return (
-      <Form marked={marked} valid={valid} onSubmit={marked && valid ? this._processAnswer : this._checkAnswer}>
-        {valid && disabled && (
-          <div>
-            <KeyHandler keyEventName={KEYUP} keyValue="p" onKeyHandle={this._toggleKanaInfo} />
-            <KeyHandler keyEventName={KEYUP} keyValue="k" onKeyHandle={this._toggleCharInfo} />
-            <KeyHandler keyEventName={KEYUP} keyValue="f" onKeyHandle={this._toggleVocabInfo} />
-            <KeyHandler keyEventName={KEYUP} keyValue="s" onKeyHandle={this._showSynonymModal} />
-            <KeyHandler keyEventName={KEYUP} keyValue="i" onKeyHandle={this._ignoreAnswer} />
-            <KeyHandler keyEventName={KEYUP} keyValue="enter" onKeyHandle={(ev) => { console.log(ev); }} />
-            <KeyHandler keyEventName={KEYUP} keyValue="/" onKeyHandle={this._ignoreAnswer} />
-          </div>
-        )}
+      <Form
+        innerRef={(node) => { this.answerForm = node; }}
+        marked={marked}
+        valid={valid}
+        onSubmit={marked && valid ? this._processAnswer : this._checkAnswer}
+        tabIndex={-1}
+      >
         {/* TODO: <StreakAnimation /> */}
         <StreakIcon streak={streakName} />
         <AnswerInput
@@ -93,9 +120,9 @@ class ReviewAnswer extends React.PureComponent {
           valid={valid}
         />
         <IgnoreButton
-          onIgnoreClick={this._ignoreAnswer}
           valid={valid}
           marked={marked}
+          onIgnoreClick={this._ignoreAnswer}
         />
         <SubmitButton />
       </Form>
