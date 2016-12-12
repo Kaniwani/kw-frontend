@@ -37,10 +37,8 @@ export class Review extends React.PureComponent {
     if (!this.props.meaning) this.props.loadReviewData();
   }
 
-  componentWillUpdate({ loading, meaning }) {
-    console.log('updatin');
+  componentWillReceiveProps({ loading, meaning }) {
     if (!loading && !meaning) {
-      console.log('updatin meaning');
       this.props.setNewCurrent();
     }
   }
