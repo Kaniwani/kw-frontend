@@ -16,6 +16,7 @@ import ReviewQuestion from 'components/ReviewQuestion';
 
 import {
   loadReviewData,
+  setNewCurrent,
 } from './actions';
 
 import {
@@ -34,6 +35,14 @@ const Wrapper = styled.section`
 export class Review extends React.PureComponent {
   componentWillMount() {
     if (!this.props.meaning) this.props.loadReviewData();
+  }
+
+  componentWillUpdate({ loading, meaning }) {
+    console.log('updatin');
+    if (!loading && !meaning) {
+      console.log('updatin meaning');
+      this.props.setNewCurrent();
+    }
   }
 
   render() {
@@ -68,6 +77,7 @@ Review.propTypes = {
   ]).isRequired,
   meaning: PropTypes.string.isRequired,
   loadReviewData: PropTypes.func.isRequired,
+  setNewCurrent: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -79,6 +89,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     loadReviewData: () => dispatch(loadReviewData()),
+    setNewCurrent: () => dispatch(setNewCurrent()),
   };
 }
 

@@ -76,14 +76,9 @@ export function* getReviewData(limit = 100) {
   try {
     // Call our request helper (see 'utils/request')
     const data = yield call(request, requestURL);
+    data.results = data.results.slice(0, 15);
     const shapedData = shapeReviewData(data);
-    yield [
-      put(reviewDataLoaded(shapedData)),
-      // TODO: currently this would setNewCurrent when a second load of reviews loads we need to avoid that happening since user is still answering a question during the optimistic load
-
-      // TODO: shuffle the review queue after loading new items in, to help disperse ignored/incorrect items grouped near the start
-      put(setNewCurrent()),
-    ];
+    yield put(reviewDataLoaded(shapedData));
   } catch (err) {
     yield put(reviewDataLoadingError(err));
   }
@@ -276,6 +271,12 @@ export function* copyCurrentToCompletedWatcher() {
 
     const needMoreReviews = (queue < 10) && (queue + completed < total);
     const queueCompleted = completed === total;
+    console.log(
+      'queue', queue,
+      '\nqueue + completed < total', queue + completed < total,
+      '\nneedMoreReviews', needMoreReviews,
+      '\nqueueComplete', queueCompleted,
+    );
     if (needMoreReviews) {
       console.log('fetching more reviews...');
       yield put(loadReviewData());
@@ -294,11 +295,12 @@ const markAsDaemon = (saga) => {
   return saga;
 };
 const watchers = [
-  autoAdvanceWatcher,
   getReviewDataWatcher,
-  processAnswerWatcher,
   checkAnswerWatcher,
   markAnswerWatcher,
+  processAnswerWatcher,
+  autoAdvanceWatcher,
+  copyCurrentToCompletedWatcher,
 ].map(markAsDaemon);
 
 // Bootstrap sagas

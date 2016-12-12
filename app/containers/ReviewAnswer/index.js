@@ -47,7 +47,7 @@ class ReviewAnswer extends React.PureComponent {
     if (action) {
       blockEvent(event);
       this[action]();
-      console.log('handleKeyDown calling: ', action.name); // eslint-disable-line no-console
+      console.log('handleKeyDown calling: ', action); // eslint-disable-line no-console
     }
   }
 

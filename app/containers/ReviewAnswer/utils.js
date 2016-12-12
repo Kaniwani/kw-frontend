@@ -18,13 +18,9 @@ export function getShortcutAction(keyCode, disabled) {
     [KEYS.BACKSPACE]: '_ignoreAnswer',
     [KEYS.FORWARD_SLASH]: '_ignoreAnswer',
   };
-
-  let action = false;
-  if (disabled) {
-    action = handlers[keyCode];
-  }
-  console.log('getShortcutAction:', keyCode, action); // eslint-disable-line no-console
-  return action;
+  let action;
+  if (disabled) action = handlers[keyCode];
+  return action || false;
 }
 
 /**

@@ -2,7 +2,6 @@
  * Review Reducer
  */
 import { fromJS } from 'immutable';
-import randInRange from 'utils/randInRange';
 import { add, subtract } from './utils';
 import answerInputReducer, { answerInitialState } from 'containers/AnswerInput/reducer';
 import reviewInfoReducer, { reviewInfoInitialState } from 'containers/ReviewInfo/reducer';
@@ -37,6 +36,7 @@ export const initialState = fromJS({
 
 function reviewReducer(state = initialState, action) {
   switch (action.type) {
+    // FIXME: loading:true is problematic when loading additional reviews, perhaps we can simply check for meaning && queue in review component to see if we need to show a loading symbol?
     case Review.LOAD_REVIEWDATA:
       return state
         .set('loading', true)
@@ -45,8 +45,8 @@ function reviewReducer(state = initialState, action) {
       const { count, reviews } = action.payload;
       return state
         .set('total', count)
-        .set('queue', state.get('queue').concat(reviews))
-        .set('loading', false);
+        .set('loading', false)
+        .mergeIn(['queue'], fromJS(reviews));
     }
     case Review.LOAD_REVIEWDATA_ERROR:
       return state
@@ -56,17 +56,17 @@ function reviewReducer(state = initialState, action) {
     case Review.RECORD_ANSWER_SUCCESS: return state; // TODO: implement
     case Review.RECORD_ANSWER_FAILURE: return state; // TODO: implement
     case Review.SET_NEW_CURRENT: {
-      const newCurrent = state.get('queue').first();
-      const remainingReviews = state.get('queue').rest();
+      const sampleIndex = Math.floor(Math.random() * state.get('queue').size); // between 0 and reviews.length - 1
+      const newCurrent = state.getIn(['queue', sampleIndex]);
+      const remainingReviews = state.get('queue').splice(sampleIndex, 1);
       return state
-        .mergeIn(['current'], newCurrent)
-        .set('queue', remainingReviews);
+        .set('current', fromJS(newCurrent))
+        .set('queue', fromJS(remainingReviews));
     }
     case Review.RETURN_CURRENT_TO_QUEUE: {
       const reviews = state.get('queue');
       const current = state.get('current');
-      const newIndex = randInRange(1, reviews.size);
-      return state.set('queue', reviews.insert(newIndex, current));
+      return state.set('queue', reviews.push(current));
     }
     case Review.COPY_CURRENT_TO_COMPLETED: {
       const completed = state.get('completed').push(state.get('current'));
