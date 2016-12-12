@@ -1,12 +1,18 @@
 /* eslint-disable no-console */
 /* eslint-disable no-constant-condition */
 
-import { take, select, call, put, race, fork, cancel } from 'redux-saga/effects';
+// TODO: extract into container sagas, this is huge!
+
+import { take, select, call, put, race } from 'redux-saga/effects';
 import { takeLatest, takeEvery, delay } from 'redux-saga';
-import { LOCATION_CHANGE } from 'react-router-redux';
-import { isKanjiKana } from 'shared/kanawana/core';
+import {
+  isHiragana,
+  isKatakana,
+  isKanjiKana,
+} from 'shared/kanawana/core';
+
 import request from 'utils/request';
-import isEmpty from 'utils/isEmpty';
+import isEmpty from 'lodash/isEmpty';
 import { selectSettings } from 'containers/App/selectors';
 import { selectInputText } from 'containers/AnswerInput/selectors';
 import {
@@ -70,13 +76,9 @@ export function* getReviewData(limit = 100) {
   try {
     // Call our request helper (see 'utils/request')
     const data = yield call(request, requestURL);
+    data.results = data.results.slice(0, 15);
     const shapedData = shapeReviewData(data);
-    yield [
-      put(reviewDataLoaded(shapedData)),
-      // TODO: currently this would setNewCurrent when a second load of reviews loads
-      // we need to avoid that happening since user is still answering a question during the optimistic load
-      put(setNewCurrent()),
-    ];
+    yield put(reviewDataLoaded(shapedData));
   } catch (err) {
     yield put(reviewDataLoadingError(err));
   }
@@ -151,6 +153,8 @@ export function* checkAnswer() {
 
   let answer = inputText.trim();
   const hasContent = !isEmpty(answer);
+  // TODO: is this necessary? should be able to map over immutable
+  // perhaps convert fix/answers/keysinlist etc to work with immutable api
   readings = readings.toJS();
 
   if (hasContent) {
@@ -160,14 +164,17 @@ export function* checkAnswer() {
     }
   }
 
-  const valid = hasContent && isKanjiKana(answer);
+  const allJapanese = isKanjiKana(answer);
+  const answerType = (isHiragana(answer) || isKatakana(answer) ? 'kana' : 'mixed');
+  const valid = hasContent && allJapanese;
   const matches = keysInListMatch(readings, ['kana', 'character'], answer);
   const correct = valid && matches;
 
   yield put(updateAnswer({
     valid,
     matches,
-    inputText: (correct ? answer : inputText),
+    answerType,
+    inputText: (valid ? answer : inputText),
   }));
   if (correct) yield put(markCorrect());
   if (valid && !matches) yield put(markIncorrect());
@@ -264,6 +271,12 @@ export function* copyCurrentToCompletedWatcher() {
 
     const needMoreReviews = (queue < 10) && (queue + completed < total);
     const queueCompleted = completed === total;
+    console.log(
+      'queue', queue,
+      '\nqueue + completed < total', queue + completed < total,
+      '\nneedMoreReviews', needMoreReviews,
+      '\nqueueComplete', queueCompleted,
+    );
     if (needMoreReviews) {
       console.log('fetching more reviews...');
       yield put(loadReviewData());
@@ -276,26 +289,19 @@ export function* copyCurrentToCompletedWatcher() {
   }
 }
 
-/**
- * Root saga manages watcher lifecycle
- */
-export function* reviewSaga() {
-  // Fork watchers so we can continue execution
-  const watchers = yield [
-    fork(getReviewDataWatcher),
-    fork(checkAnswerWatcher),
-    fork(markAnswerWatcher),
-    fork(autoAdvanceWatcher),
-    fork(processAnswerWatcher),
-    fork(copyCurrentToCompletedWatcher),
-  ];
-
-  // Suspend execution until location changes
-  yield take(LOCATION_CHANGE);
-  yield cancel(...watchers);
-}
+// Mark watchers to only run once on route entry
+const markAsDaemon = (saga) => {
+  saga.isDaemon = true; // eslint-disable-line no-param-reassign
+  return saga;
+};
+const watchers = [
+  getReviewDataWatcher,
+  checkAnswerWatcher,
+  markAnswerWatcher,
+  processAnswerWatcher,
+  autoAdvanceWatcher,
+  copyCurrentToCompletedWatcher,
+].map(markAsDaemon);
 
 // Bootstrap sagas
-export default [
-  reviewSaga,
-];
+export default watchers;

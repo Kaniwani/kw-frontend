@@ -1,95 +1,83 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import styled from 'styled-components';
-import { responsiveType } from 'shared/styles/utils';
 import cuid from 'cuid';
+
+import { showModal } from 'containers/Modal/actions';
+import { ADD_SYNONYM_MODAL } from 'containers/Modal/constants';
+import { toggleVocabInfo } from 'containers/ReviewInfo/actions';
 import ReviewBackground from './ReviewBackground';
+import Wrapper from './Wrapper';
+import InfoWrapper from './InfoWrapper';
+import InfoRow from './InfoRow';
+import InfoButton from './InfoButton';
+import SynonymButton from './SynonymButton';
+import Entry from './Entry';
 
 import {
   selectCharacters,
   selectKana,
+  selectAnswerMatches,
   selectInfoVisible,
   selectCharactersVisible,
   selectKanaVisible,
 } from './selectors';
 
-const Wrapper = styled.div`
-  display: table-row;
-  width: 100%;
-  height: 100%;
-  background-color: #e5e5e5;
-`;
-
-const InfoWrapper = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  z-index: 1;
-`;
-
-const InfoRow = styled.div`
-  flex: 1 0 50%;
-  background-color: transparent;
-`;
-
-/**
- * Sets left and right values based on position prop string: 'left' or 'right';
- * @param {any} left  Value to set if this.props.position is 'left'
- * @param {any} right  Value to set if this.props.position is 'right'
- * @return {Function} Function waiting to receive `this.props`
- */
-const setLeftRight = (left, right) => ({ position }) => (position === 'left' ? left : right);
-
-const Entry = styled.p`
-  background-color: hsla(0,0%,94%,.95);
-  padding: 10px 15px;
-  font-size: ${responsiveType(26, 50, 300, 2000)}
-  line-height: 1.5;
-  margin: 0;
-`;
-
-const InfoButton = styled.button`
-  width: 100%;
-  padding: .75em 1.5em;
-  border: 1px solid #ababab;
-  border-radius: 0;
-  border-left-width: ${setLeftRight(0, 1)}px;
-  border-right-width: ${setLeftRight(1, 0)}px;
-  background-color: rgba(97,97,97,.9);
-  color: #f0f0f0;
-  cursor: pointer;
-  -webkit-appearance: none;
-  outline: 0;
-  transition: all .2s ease-out;
-  &:hover {
-    background-color: #616161;
-  }
-`;
-
 export class ReviewInfo extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  static propTypes = {
+    characters: PropTypes.object,
+    kana: PropTypes.object,
+    isInfoVisible: PropTypes.bool,
+    isCharactersVisible: PropTypes.bool.isRequired,
+    isKanaVisible: PropTypes.bool.isRequired,
+    isAnswerCorrect: PropTypes.bool.isRequired,
+    showSynonymModal: PropTypes.func.isRequired,
+    toggleInfo: PropTypes.func.isRequired,
+  }
+
+  _showSynonymModal = () => this.props.showSynonymModal({ modalType: ADD_SYNONYM_MODAL });
+  _toggleCharsInfo = () => this.props.toggleInfo({ characters: true })
+  _toggleKanaInfo = () => this.props.toggleInfo({ kana: true });
+
   render() {
-    const { characters, kana, isInfoVisible, isCharactersVisible, isKanaVisible } = this.props;
+    const { characters, kana, isInfoVisible, isAnswerCorrect, isCharactersVisible, isKanaVisible } = this.props;
     return (
       <Wrapper>
-        {/* // add synonym button */}
         {isInfoVisible && (
-          <InfoWrapper>
-            <InfoRow>
-              <InfoButton type="button" position="left"><strong>K</strong>anji</InfoButton>
-              {isCharactersVisible && characters.map((entry) =>
-                <Entry lang="ja" key={cuid()}>{entry}</Entry>,
-              )}
-            </InfoRow>
-            <InfoRow>
-              <InfoButton type="button" position="right"><strong>P</strong>honetic</InfoButton>
-              {isKanaVisible && kana.map((entry) =>
-                <Entry lang="ja" key={cuid()}>{entry}</Entry>,
-              )}
-            </InfoRow>
-          </InfoWrapper>
+        <InfoWrapper>
+          { !isAnswerCorrect && (
+            <SynonymButton
+              type="button"
+              onClick={this._showSynonymModal}
+            >
+              Add <strong>S</strong>ynonym
+            </SynonymButton>
+          )}
+          <InfoRow>
+            <InfoButton
+              type="button"
+              position="left"
+              onClick={this._toggleCharsInfo}
+            >
+              <strong>K</strong>anji
+            </InfoButton>
+            {isCharactersVisible && characters.map((entry) =>
+              <Entry lang="ja" key={cuid()}>{entry}</Entry>,
+            )}
+          </InfoRow>
+          <InfoRow>
+            <InfoButton
+              type="button"
+              position="right"
+              onClick={this._toggleKanaInfo}
+            >
+              <strong>P</strong>honetic
+            </InfoButton>
+            {isKanaVisible && kana.map((entry) =>
+              <Entry lang="ja" key={cuid()}>{entry}</Entry>,
+            )}
+          </InfoRow>
+        </InfoWrapper>
         )}
         <ReviewBackground />
       </Wrapper>
@@ -97,25 +85,19 @@ export class ReviewInfo extends React.PureComponent { // eslint-disable-line rea
   }
 }
 
-ReviewInfo.propTypes = {
-  characters: PropTypes.array,
-  kana: PropTypes.array,
-  isInfoVisible: PropTypes.bool,
-  isCharactersVisible: PropTypes.bool.isRequired,
-  isKanaVisible: PropTypes.bool.isRequired,
-};
-
 const mapStateToProps = createStructuredSelector({
   characters: selectCharacters(),
   kana: selectKana(),
+  isAnswerCorrect: selectAnswerMatches(),
   isInfoVisible: selectInfoVisible(),
-  isCharactersVisible: selectCharactersVisible(),
   isKanaVisible: selectKanaVisible(),
+  isCharactersVisible: selectCharactersVisible(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    toggleInfo: (payload) => dispatch(toggleVocabInfo(payload)),
+    showSynonymModal: (payload) => dispatch(showModal(payload)),
   };
 }
 

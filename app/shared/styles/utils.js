@@ -4,23 +4,37 @@ import { media } from './media';
 
 /**
  * Returns fallback, and media queried calc() font-sizes for responsive sizing
+ * based on https://madebymike.com.au/writing/precise-control-responsive-typography/
  * @param  {Number} [minFont=12] Minimum font-size (px)
  * @param  {Number} [maxFont=21] Maximum font-size (px)
  * @param  {Number} [minWidth=420] Minimum viewport size to begin scaling (px)
  * @param  {Number} [maxWidth=1280] Maximum viewport size to halt scaling (px)
  * @return {String} CSS font-size rules
  */
-export function responsiveType(minFont = 12, maxFont = 21, minWidth = 420, maxWidth = 1280) {
-  return `
+export function fluidType(minFont = 12, maxFont = 21, minWidth = 420, maxWidth = 1280) {
+  return css`
     font-size: ${minFont}px;
-    @media (min-width: ${minWidth}px) and (max-width: ${maxWidth}px){
-      font-size: calc( ${minFont}px + (${maxFont} - ${minFont}) * ( (100vw - ${minWidth}px) / ( ${maxWidth} - ${minWidth}) ));
+    @media (min-width: ${minWidth}px) and (max-width: ${maxWidth}px) {
+      font-size: calc(${minFont}px + (${maxFont} - ${minFont}) * ( (100vw - ${minWidth}px) / ( ${maxWidth} - ${minWidth}) ));
     }
-    @media (min-width: ${maxWidth}px){
+    @media (min-width: ${maxWidth}px) {
       font-size: ${maxFont}px;
     }
   `;
 }
+
+/**
+ * Sets left and right values based on position prop string: 'left' or 'right';
+ * @param {any} left  Value to set if this.props.position is 'left'
+ * @param {any} right  Value to set if this.props.position is 'right'
+ * @param {any} fallback  Value to set if this.props.position is neither left nor right
+ * @return {Function} Function waiting to receive `this.props`
+ */
+export const setLeftRight = (left, right, fallback) => ({ position }) => {
+  if (position === 'left') return left;
+  if (position === 'right') return right;
+  return fallback;
+};
 
 export const sectionSpacing = css`
   margin-top: ${units.md};

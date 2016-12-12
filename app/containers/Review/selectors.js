@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import getSrsRankName from 'utils/getSrsRankName';
 
 /**
  * Direct selector to the review state domain
@@ -48,9 +49,14 @@ const selectCurrentStreak = () => createSelector(
   (substate) => substate.get('streak'),
 );
 
+const selectCurrentStreakName = () => createSelector(
+  selectCurrentStreak(),
+  (streakNum) => getSrsRankName(streakNum).toUpperCase(),
+);
+
 const selectQueueCount = () => createSelector(
   selectQueue(),
-  (substate) => substate.size,
+  (queueList) => queueList.size,
 );
 
 const selectSession = () => createSelector(
@@ -95,6 +101,7 @@ export {
   selectCurrentReadings,
   selectCurrentMeaning,
   selectCurrentStreak,
+  selectCurrentStreakName,
   selectQueueCount,
   selectTotalCount,
   selectCompletedCount,

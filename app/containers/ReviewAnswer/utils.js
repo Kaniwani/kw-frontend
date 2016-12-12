@@ -1,41 +1,26 @@
-import isEmpty from 'utils/isEmpty';
+import isEmpty from 'lodash/isEmpty';
 import { TILDE_EN, TILDE_JA } from './constants';
 import { KEYS } from 'shared/constants';
 
-export function handleShortcuts(event, self) {
-  const keyCode = event.which;
-  switch (true) {
-    case (keyCode === KEYS.ENTER):
-      self.process(event);
-      break;
-
-    // Pressing P toggles phonetic reading
-    case (keyCode === KEYS.P_LOWERCASE || keyCode === KEYS.P_UPPERCASE):
-      self.toggleInfo({ kana: true });
-      break;
-
-    // Pressing K toggles the actual kanji reading.
-    case (keyCode === KEYS.K_LOWERCASE || keyCode === KEYS.K_UPPERCASE):
-      self.toggleInfo({ characters: true });
-      break;
-
-    // Pressing F toggles both item info boxes.
-    case (keyCode === KEYS.F_LOWERCASE || keyCode === KEYS.F_UPPERCASE):
-      self.toggleInfo({ characters: true, kana: true });
-      break;
-
-    // Pressing S toggles add synonym modal.
-    case (keyCode === KEYS.S_LOWERCASE || keyCode === KEYS.S_UPPERCASE):
-      self.showAddAnswerSynonym();
-      break;
-
-    // Pressing I ignores answer when input has been marked incorrect
-    case (keyCode === KEYS.I_LOWERCASE || keyCode === KEYS.I_UPPERCASE ||
-          keyCode === KEYS.BACKSPACE || keyCode === KEYS.FORWARD_SLASH):
-      self.ignore(event);
-      break;
-    default: console.log('key handler fall through'); // eslint-disable-line no-console
-  }
+/**
+ * Handles key events occuring in ReviewAnswer component
+ * @param  {object} event
+ * @return {string|false} function to call if match else false
+ */
+export function getShortcutAction(keyCode, disabled) {
+  const handlers = {
+    [KEYS.ENTER]: '_processAnswer',
+    [KEYS.F_LOWERCASE]: '_toggleVocabInfo',
+    [KEYS.K_LOWERCASE]: '_toggleKanaInfo',
+    [KEYS.P_LOWERCASE]: '_toggleCharInfo',
+    [KEYS.S_LOWERCASE]: '_showSynonymModal',
+    [KEYS.I_LOWERCASE]: '_ignoreAnswer',
+    [KEYS.BACKSPACE]: '_ignoreAnswer',
+    [KEYS.FORWARD_SLASH]: '_ignoreAnswer',
+  };
+  let action;
+  if (disabled) action = handlers[keyCode];
+  return action || false;
 }
 
 /**

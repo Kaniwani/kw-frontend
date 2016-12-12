@@ -3,7 +3,7 @@ import { fromJS } from 'immutable';
 import selectAnswerInputDomain, {
   selectInputText,
   selectInputDisabled,
-  selectkeysInListMatch,
+  selectAnswerMatches,
   selectAnswerMarked,
   selectAnswerValid,
  } from '../selectors';
@@ -22,7 +22,7 @@ describe('selectAnswerInputDomain', () => {
   });
 });
 
-describe('selectkeysInListMatch', () => {
+describe('selectAnswerMatches', () => {
   it('should select answer matches', () => {
     const matches = true;
     const mockedState = fromJS({
@@ -32,7 +32,7 @@ describe('selectkeysInListMatch', () => {
         },
       },
     });
-    expect(selectkeysInListMatch()(mockedState)).toEqual(matches);
+    expect(selectAnswerMatches()(mockedState)).toEqual(matches);
   });
 });
 

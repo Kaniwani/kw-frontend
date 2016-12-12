@@ -1,23 +1,19 @@
-/**
-*
-* ReviewAnswer
-*
-*/
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import keydown from 'react-keydown';
 
-import { handleShortcuts } from './utils';
-import { selectCurrentStreak } from 'containers/Review/selectors';
+import blockEvent from 'utils/blockEvent';
+import { getShortcutAction } from './utils';
+import { selectCurrentStreakName } from 'containers/Review/selectors';
 import AnswerInput from 'containers/AnswerInput';
 import { showModal } from 'containers/Modal/actions';
+import { ADD_SYNONYM_MODAL } from 'containers/Modal/constants';
 import { toggleVocabInfo } from 'containers/ReviewInfo/actions';
 
 import {
   selectAnswerMarked,
   selectAnswerValid,
-  selectkeysInListMatch,
+  selectAnswerMatches,
   selectInputDisabled,
  } from 'containers/AnswerInput/selectors';
 
@@ -33,78 +29,94 @@ import StreakIcon from './StreakIcon';
 import SubmitButton from './SubmitButton';
 import IgnoreButton from './IgnoreButton';
 
-class ReviewAnswer extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  componentWillReceiveProps({ keydown, disabled }) { // eslint-disable-line no-shadow
-    if (disabled && keydown.event) {
-      this.handleKeyDown(keydown.event);
+class ReviewAnswer extends React.PureComponent {
+  componentDidMount() {
+    this.answerForm.addEventListener('keydown', this._handleKeyDown);
+  }
+
+  componentDidUpdate() {
+    if (this.props.disabled) this.answerForm.focus();
+  }
+
+  componentWillUnmount() {
+    this.answerForm.removeEventListener('keydown', this._handleKeyDown);
+  }
+
+  _handleKeyDown = (event) => {
+    const action = getShortcutAction(event.keyCode, this.props.disabled);
+    if (action) {
+      blockEvent(event);
+      this[action]();
+      console.log('handleKeyDown calling: ', action); // eslint-disable-line no-console
     }
   }
 
-  handleKeyDown = (event) => handleShortcuts(event, this);
-
-  ignore = (event) => {
-    const { valid, matches, ignoreAnswer } = this.props;
-    if (valid) {
-      event.preventDefault();
-      ignoreAnswer(matches);
-    }
+  _ignoreAnswer = () => {
+    this.props.ignoreAnswer(this.props.matches);
   }
 
-  process = (event) => {
-    event.preventDefault();
+  _processAnswer = () => {
     this.props.processAnswer();
   }
 
-  check = (event) => {
-    event.preventDefault();
-    this.props.checkAnswer();
+  _checkAnswer = (event) => {
+    const { marked, valid } = this.props;
+    if (!marked || !valid) {
+      blockEvent(event);
+      this.props.checkAnswer();
+    }
   }
 
-  /* eslint-disable class-methods-use-this */
-  toggleInfo(options) {
-    this.props.toggleVocabInfo(options);
+  _toggleKanaInfo = () => {
+    this.props.toggleVocabInfo({ kana: true });
   }
-  /* eslint-enable */
 
-  showAddAnswerSynonym() {
+  _toggleCharInfo = () => {
+    this.props.toggleVocabInfo({ characters: true });
+  }
+
+  _toggleVocabInfo = () => {
+    this.props.toggleVocabInfo({ characters: true, kana: true });
+  }
+
+  _showSynonymModal = () => {
     this.props.showSynonymModal();
   }
 
   render() {
-    const { streak, marked, valid, matches, disabled } = this.props; // eslint-disable-line no-shadow
+    const { streakName, marked, valid, matches, disabled } = this.props; // eslint-disable-line no-shadow
     return (
       <Form
+        innerRef={(node) => { this.answerForm = node; }}
         marked={marked}
         valid={valid}
-        onSubmit={marked && valid ? this.process : this.check}
+        onSubmit={disabled ? this._processAnswer : this._checkAnswer}
+        tabIndex={-1}
       >
-        <StreakIcon
-          streak={streak}
-        />
+        {/* TODO: <StreakAnimation /> */}
+        <StreakIcon streak={streakName} />
         <AnswerInput
           disabled={disabled}
-          streak={streak}
           marked={marked}
           matches={matches}
           valid={valid}
         />
-        <IgnoreButton
-          onIgnoreClick={this.ignore}
-          valid={valid}
-          marked={marked}
-        />
+        { disabled &&
+          <IgnoreButton
+            onIgnoreClick={this._ignoreAnswer}
+          />
+        }
         <SubmitButton />
-        {/* <StreakAnimation /> */}
       </Form>
     );
   }
 }
 
 const mapStateToProps = createStructuredSelector({
-  streak: selectCurrentStreak(),
+  streakName: selectCurrentStreakName(),
   marked: selectAnswerMarked(),
   valid: selectAnswerValid(),
-  matches: selectkeysInListMatch(),
+  matches: selectAnswerMatches(),
   disabled: selectInputDisabled(),
 });
 
@@ -112,14 +124,14 @@ function mapDispatchToProps(dispatch) {
   return {
     checkAnswer: () => dispatch(checkAnswer()),
     processAnswer: () => dispatch(processAnswer()),
-    ignoreAnswer: (correct) => dispatch(markIgnored(correct)),
+    ignoreAnswer: (isCorrect) => dispatch(markIgnored(isCorrect)),
     toggleVocabInfo: (options) => dispatch(toggleVocabInfo(options)),
-    showSynonymModal: () => dispatch(showModal()),
+    showSynonymModal: (options) => dispatch(showModal({ modalType: ADD_SYNONYM_MODAL, ...options })),
   };
 }
 
 ReviewAnswer.propTypes = {
-  streak: PropTypes.number.isRequired,
+  streakName: PropTypes.string.isRequired,
   marked: PropTypes.bool.isRequired,
   valid: PropTypes.oneOfType([
     PropTypes.bool,
@@ -134,4 +146,4 @@ ReviewAnswer.propTypes = {
   showSynonymModal: PropTypes.func.isRequired,
 };
 
-export default keydown(connect(mapStateToProps, mapDispatchToProps)(ReviewAnswer));
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewAnswer);

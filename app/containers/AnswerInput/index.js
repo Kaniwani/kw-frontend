@@ -1,9 +1,3 @@
-/*
- *
- * AnswerInput
- *
- */
-
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -14,9 +8,7 @@ import { visuallyhidden } from 'shared/styles/utils';
 import Input from './Input';
 import Wrapper from './Wrapper';
 import { updateInput } from './actions';
-import {
-  selectInputText,
-} from './selectors';
+import { selectInputText } from './selectors';
 
 const Label = styled.label`
   ${visuallyhidden}
@@ -44,12 +36,13 @@ export class AnswerInput extends React.PureComponent { // eslint-disable-line re
           Vocabulary reading
         </Label>
         <Input
+          id="userAnswer"
+          lang="ja"
+          type="text"
           innerRef={(node) => { this.inputField = node; }}
           onChange={onChangeInput}
           value={text}
           disabled={disabled}
-          lang="ja"
-          type="text"
           placeholder="答え"
           autoFocus
           autoCapitalize="off"

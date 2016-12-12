@@ -19,7 +19,7 @@ const selectInputDisabled = () => createSelector(
   (substate) => substate.get('inputDisabled'),
 );
 
-const selectkeysInListMatch = () => createSelector(
+const selectAnswerMatches = () => createSelector(
   selectAnswerInputDomain(),
   (substate) => substate.get('matches'),
 );
@@ -27,6 +27,11 @@ const selectkeysInListMatch = () => createSelector(
 const selectAnswerValid = () => createSelector(
   selectAnswerInputDomain(),
   (substate) => substate.get('valid'),
+);
+
+const selectAnswerType = () => createSelector(
+  selectAnswerInputDomain(),
+  (substate) => substate.get('answerType'),
 );
 
 const selectAnswerMarked = () => createSelector(
@@ -39,7 +44,8 @@ export default selectAnswerInputDomain;
 export {
   selectInputText,
   selectInputDisabled,
-  selectkeysInListMatch,
+  selectAnswerMatches,
   selectAnswerMarked,
   selectAnswerValid,
+  selectAnswerType,
 };

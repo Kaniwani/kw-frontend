@@ -8,10 +8,11 @@ import {
  * @param  {Object} contentProps Props to be passed to the children components
  * @return {Object} Action of type 'SHOW_MODAL' with payload of contentprops
  */
-export function showModal({ contentProps = {} }) {
+export function showModal({ modalType, contentProps = {} }) {
   return {
     type: SHOW_MODAL,
     payload: {
+      modalType,
       contentProps,
     },
   };

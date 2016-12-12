@@ -8,7 +8,7 @@ const Button = styled.button`
   height: 100%;
   transform: translateY(-50%);
   top: 50%;
-  right: 1.75em;
+  right: 1.85em;
   cursor: pointer;
   color: currentColor;
   opacity: .5;
@@ -18,24 +18,15 @@ const Button = styled.button`
   }
 `;
 
-// TODO: alter Icon component, removing style prop (but still using attributes like below)
-// use styled-components within Icon instead to handle passed in attributes
-
-function IgnoreButton({ onIgnoreClick, marked, valid }) {
-  if (!valid && !marked) return null;
+function IgnoreButton({ onIgnoreClick }) {
   return (
     <Button type="button" onClick={onIgnoreClick}>
-      <Icon
-        name="CLOSE"
-        size="1.3em"
-      />
+      <Icon name="CLOSE" size="1.3em" />
     </Button>
   );
 }
 
 IgnoreButton.propTypes = {
-  valid: PropTypes.bool,
-  marked: PropTypes.bool,
   onIgnoreClick: PropTypes.func.isRequired,
 };
 

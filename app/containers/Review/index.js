@@ -10,13 +10,13 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
 import ReviewHeader from 'containers/ReviewHeader';
-import Modal from 'containers/Modal';
 import ReviewAnswer from 'containers/ReviewAnswer';
 import ReviewInfo from 'containers/ReviewInfo';
 import ReviewQuestion from 'components/ReviewQuestion';
 
 import {
   loadReviewData,
+  setNewCurrent,
 } from './actions';
 
 import {
@@ -34,7 +34,13 @@ const Wrapper = styled.section`
 
 export class Review extends React.PureComponent {
   componentWillMount() {
-    this.props.loadReviewData();
+    if (!this.props.meaning) this.props.loadReviewData();
+  }
+
+  componentWillReceiveProps({ loading, meaning }) {
+    if (!loading && !meaning) {
+      this.props.setNewCurrent();
+    }
   }
 
   render() {
@@ -48,9 +54,6 @@ export class Review extends React.PureComponent {
             { name: 'description', content: 'Kaniwani Reviews Page' },
           ]}
         />
-        <Modal >
-          {() => <h1>Hello</h1>}
-        </Modal>
         <ReviewHeader />
         <ReviewQuestion
           loading={loading}
@@ -72,6 +75,7 @@ Review.propTypes = {
   ]).isRequired,
   meaning: PropTypes.string.isRequired,
   loadReviewData: PropTypes.func.isRequired,
+  setNewCurrent: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -83,6 +87,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     loadReviewData: () => dispatch(loadReviewData()),
+    setNewCurrent: () => dispatch(setNewCurrent()),
   };
 }
 

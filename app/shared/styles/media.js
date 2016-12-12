@@ -1,6 +1,10 @@
 import { css } from 'styled-components';
 
-// these sizes are arbitrary and you can set them to whatever you wish
+/**
+ * Sizes for media queries using media tag
+ * IE: media.xl`css: rule;`;
+ * @type {Object}
+ */
 export const sizes = {
   xs: 400,
   sm: 600,
@@ -10,7 +14,13 @@ export const sizes = {
   xxl: 2000,
 };
 
-// iterate through the sizes and create a media template
+/**
+ * Returns css wrappen in a given media query
+ * usage with styled-components:
+ * media.sm`color: red;`;
+ * @param  {String} direction 'min' or 'max' to apply min-width or max-width
+ * @return {String} css wrapped in media query
+ */
 export const media = (direction) => Object.keys(sizes).reduce((accumulator, label) => {
   const acc = accumulator;
   acc[label] = (...args) => {

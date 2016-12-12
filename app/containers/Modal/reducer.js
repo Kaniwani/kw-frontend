@@ -1,20 +1,22 @@
 import { fromJS } from 'immutable';
 import {
-  HIDE_MODAL,
   SHOW_MODAL,
+  HIDE_MODAL,
 } from './constants';
 
-export const initialState = fromJS({
+export const modalInitialState = fromJS({
   isVisible: false,
+  modalType: null,
   contentProps: {},
 });
 
-export function modalReducer(state = initialState, action = {}) {
+export function modalReducer(state = modalInitialState, action = {}) {
   switch (action.type) {
+    case SHOW_MODAL:
+      return fromJS(action.payload).set('isVisible', true);
+    // TODO: add UPDATE_MODAL action, separate from SHOW_MODAL which should only set visibility really
     case HIDE_MODAL:
       return state.set('isVisible', false);
-    case SHOW_MODAL:
-      return state.merge(action.payload).set('isVisible', true);
     default:
       return state;
   }

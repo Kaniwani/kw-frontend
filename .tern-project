@@ -22,7 +22,7 @@
     "es_modules": {},
     "doc_comment": {
       "fullDocs": true,
-      "strong": false
+      "strong": true
     },
     "node": {
       "dontLoad": "",
