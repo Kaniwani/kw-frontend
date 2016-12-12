@@ -76,9 +76,8 @@ class ReviewAnswer extends React.PureComponent {
         valid={valid}
         onSubmit={marked && valid ? this._processAnswer : this._checkAnswer}
       >
-        <StreakIcon
-          streak={streak}
-        />
+        {/* TODO: <StreakAnimation /> */}
+        <StreakIcon streak={streak} />
         <AnswerInput
           disabled={disabled}
           streak={streak}
@@ -92,7 +91,6 @@ class ReviewAnswer extends React.PureComponent {
           marked={marked}
         />
         <SubmitButton />
-        {/* TODO: <StreakAnimation /> */}
       </Form>
     );
   }

@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 /* eslint-disable no-constant-condition */
 
+// TODO: extract into container sagas, this is huge!
+
 import { take, select, call, put, race } from 'redux-saga/effects';
 import { takeLatest, takeEvery, delay } from 'redux-saga';
 import {

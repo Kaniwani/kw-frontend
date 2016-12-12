@@ -1,21 +1,24 @@
 import React, { PropTypes } from 'react';
+import styled from 'styled-components';
 import getSrsRankName from 'utils/getSrsRankName';
 import Icon from 'components/Icon';
 
-// TODO: alter Icon component, remove style prop and add use styled-components instead
+// FIXME: might just need to add another wrapper before this since the Icon wrapper is pos: absolute already which we're messing up here. Or rethink styling since the old icon (scss/kw) never had a wrapper.
+const StyledIcon = styled(Icon)`
+  display: block;
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+  left: .5em;
+  color: currentColor;
+`;
+
+// TODO: apply getSrsRankName in selector instead!
 function StreakIcon({ streak }) {
   return (
-    <Icon
+    <StyledIcon
       name={getSrsRankName(streak).toUpperCase()}
       size="1.3em"
-      style={{
-        display: 'block',
-        position: 'absolute',
-        transform: 'translateY(-50%)',
-        top: '50%',
-        left: '.5em',
-        color: 'currentColor',
-      }}
     />
   );
 }
