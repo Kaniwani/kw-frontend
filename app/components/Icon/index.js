@@ -24,8 +24,9 @@ const SVG = styled.svg`
   left: 0;
 `;
 
-const Icon = ({ color, size, name, ...rest }) => (
-  <Wrapper color={color} size={size}>
+
+const Icon = ({ color, size, name, className, ...rest }) => (
+  <Wrapper className={className} color={color} size={size}>
     <SVG
       title={name}
       width="100%"

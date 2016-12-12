@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import keydown from 'react-keydown';
+import KeyHandler, { KEYUP } from 'react-key-handler';
 
 import blockEvent from 'utils/blockEvent';
 import { handleShortcuts } from './utils';
@@ -36,16 +36,10 @@ class ReviewAnswer extends React.PureComponent {
     this._handleKeyDown = handleShortcuts.bind(this);
   }
 
-  componentWillReceiveProps({ keydown, disabled }) { // eslint-disable-line no-shadow
-    if (disabled && keydown.event) {
-      this._handleKeyDown(keydown.event);
-    }
-  }
-
   _ignoreAnswer = (event) => {
     blockEvent(event);
-    const { valid, matches } = this.props;
-    if (valid) this.props.ignoreAnswer(matches);
+    const { valid, matches, disabled } = this.props;
+    if (valid && disabled) this.props.ignoreAnswer(matches);
   }
 
   _processAnswer = (event) => {
@@ -76,6 +70,8 @@ class ReviewAnswer extends React.PureComponent {
         valid={valid}
         onSubmit={marked && valid ? this._processAnswer : this._checkAnswer}
       >
+        <KeyHandler keyEventName={KEYUP} keyValue="i" onKeyHandle={this._ignoreAnswer} />
+
         {/* TODO: <StreakAnimation /> */}
         <StreakIcon streak={streak} />
         <AnswerInput
@@ -130,4 +126,4 @@ ReviewAnswer.propTypes = {
   showSynonymModal: PropTypes.func.isRequired,
 };
 
-export default keydown(connect(mapStateToProps, mapDispatchToProps)(ReviewAnswer));
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewAnswer);
