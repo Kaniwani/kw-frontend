@@ -8,7 +8,7 @@ const Button = styled.button`
   height: 100%;
   transform: translateY(-50%);
   top: 50%;
-  right: 1.75em;
+  right: 1.85em;
   cursor: pointer;
   color: currentColor;
   opacity: .5;

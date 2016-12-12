@@ -2,10 +2,10 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import KeyHandler, { KEYUP } from 'react-key-handler';
+import { KEYS } from 'shared/constants';
 
 import blockEvent from 'utils/blockEvent';
-import { handleShortcuts } from './utils';
-import { selectCurrentStreak } from 'containers/Review/selectors';
+import { selectCurrentStreakName } from 'containers/Review/selectors';
 import AnswerInput from 'containers/AnswerInput';
 import { showModal } from 'containers/Modal/actions';
 import { ADD_SYNONYM_MODAL } from 'containers/Modal/constants';
@@ -31,15 +31,12 @@ import SubmitButton from './SubmitButton';
 import IgnoreButton from './IgnoreButton';
 
 class ReviewAnswer extends React.PureComponent {
-  constructor() {
-    super();
-    this._handleKeyDown = handleShortcuts.bind(this);
-  }
-
   _ignoreAnswer = (event) => {
-    blockEvent(event);
-    const { valid, matches, disabled } = this.props;
-    if (valid && disabled) this.props.ignoreAnswer(matches);
+    const { valid, disabled, matches } = this.props;
+    if (valid && disabled) {
+      blockEvent(event);
+      this.props.ignoreAnswer(matches);
+    }
   }
 
   _processAnswer = (event) => {
@@ -52,9 +49,19 @@ class ReviewAnswer extends React.PureComponent {
     this.props.checkAnswer();
   }
 
-  _toggleVocabInfo = (event, options) => {
+  _toggleKanaInfo = (event) => {
     blockEvent(event);
-    this.props.toggleVocabInfo(options);
+    this.props.toggleVocabInfo({ kana: true });
+  }
+
+  _toggleCharInfo = (event) => {
+    blockEvent(event);
+    this.props.toggleVocabInfo({ characters: true });
+  }
+
+  _toggleVocabInfo = (event) => {
+    blockEvent(event);
+    this.props.toggleVocabInfo({ characters: true, kana: true });
   }
 
   _showSynonymModal = (event) => {
@@ -63,20 +70,24 @@ class ReviewAnswer extends React.PureComponent {
   }
 
   render() {
-    const { streak, marked, valid, matches, disabled } = this.props; // eslint-disable-line no-shadow
+    const { streakName, marked, valid, matches, disabled } = this.props; // eslint-disable-line no-shadow
     return (
-      <Form
-        marked={marked}
-        valid={valid}
-        onSubmit={marked && valid ? this._processAnswer : this._checkAnswer}
-      >
-        <KeyHandler keyEventName={KEYUP} keyValue="i" onKeyHandle={this._ignoreAnswer} />
-
+      <Form marked={marked} valid={valid} onSubmit={marked && valid ? this._processAnswer : this._checkAnswer}>
+        {valid && disabled && (
+          <div>
+            <KeyHandler keyEventName={KEYUP} keyValue="p" onKeyHandle={this._toggleKanaInfo} />
+            <KeyHandler keyEventName={KEYUP} keyValue="k" onKeyHandle={this._toggleCharInfo} />
+            <KeyHandler keyEventName={KEYUP} keyValue="f" onKeyHandle={this._toggleVocabInfo} />
+            <KeyHandler keyEventName={KEYUP} keyValue="s" onKeyHandle={this._showSynonymModal} />
+            <KeyHandler keyEventName={KEYUP} keyValue="i" onKeyHandle={this._ignoreAnswer} />
+            <KeyHandler keyEventName={KEYUP} keyValue="enter" onKeyHandle={(ev) => { console.log(ev); }} />
+            <KeyHandler keyEventName={KEYUP} keyValue="/" onKeyHandle={this._ignoreAnswer} />
+          </div>
+        )}
         {/* TODO: <StreakAnimation /> */}
-        <StreakIcon streak={streak} />
+        <StreakIcon streak={streakName} />
         <AnswerInput
           disabled={disabled}
-          streak={streak}
           marked={marked}
           matches={matches}
           valid={valid}
@@ -93,7 +104,7 @@ class ReviewAnswer extends React.PureComponent {
 }
 
 const mapStateToProps = createStructuredSelector({
-  streak: selectCurrentStreak(),
+  streakName: selectCurrentStreakName(),
   marked: selectAnswerMarked(),
   valid: selectAnswerValid(),
   matches: selectAnswerMatches(),
@@ -104,14 +115,14 @@ function mapDispatchToProps(dispatch) {
   return {
     checkAnswer: () => dispatch(checkAnswer()),
     processAnswer: () => dispatch(processAnswer()),
-    ignoreAnswer: (correct) => dispatch(markIgnored(correct)),
+    ignoreAnswer: (isCorrect) => dispatch(markIgnored(isCorrect)),
     toggleVocabInfo: (options) => dispatch(toggleVocabInfo(options)),
-    showSynonymModal: () => dispatch(showModal({ modalType: ADD_SYNONYM_MODAL })),
+    showSynonymModal: (options) => dispatch(showModal({ modalType: ADD_SYNONYM_MODAL, ...options })),
   };
 }
 
 ReviewAnswer.propTypes = {
-  streak: PropTypes.number.isRequired,
+  streakName: PropTypes.string.isRequired,
   marked: PropTypes.bool.isRequired,
   valid: PropTypes.oneOfType([
     PropTypes.bool,
