@@ -3,7 +3,7 @@
  * @param  {object} data User data server result
  * @return {object} Modified user data
  */
-export function shapeUserData(data) { // eslint-disable-line import/prefer-default-export
+export default function shapeUserData(data) { // eslint-disable-line import/prefer-default-export
   const shapedData = {
     name: data.name,
     reviewCount: data.review_count,

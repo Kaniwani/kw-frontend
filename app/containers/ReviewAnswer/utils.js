@@ -1,4 +1,5 @@
 import isEmpty from 'lodash/isEmpty';
+// TODO: move tildes to kanawana imo
 import { TILDE_EN, TILDE_JA } from './constants';
 import { KEYS } from 'shared/constants';
 

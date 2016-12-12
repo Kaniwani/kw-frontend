@@ -42,7 +42,7 @@ import {
   fixTerminalN,
   keysInListMatch,
 } from 'containers/ReviewAnswer/utils';
-import { shapeReviewData } from './utils';
+import shapeReviewData from './utils/shapeReviewData';
 import {
   LOAD_REVIEWDATA,
   COPY_CURRENT_TO_COMPLETED,
