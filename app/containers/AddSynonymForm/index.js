@@ -27,6 +27,11 @@ export class AddSynonymForm extends React.Component { // eslint-disable-line rea
     answerType: PropTypes.string.isRequired,
   }
 
+//  componentWillMount() {
+    // TODO: fetch jisho stuff and show it below
+    // TODO: in all honesty this is really probably nicer as an expanding section below quiz, should have less problematic sizing and visual real estate, and allow users to remove synonyms too
+//  }
+
   componentDidMount() {
     kanawana.bind(this.kanaInput);
     kanawana.bind(this.charInput);
@@ -46,9 +51,9 @@ export class AddSynonymForm extends React.Component { // eslint-disable-line rea
     return '';
   }
 
-  _handleSubmit = () => {
+  _handleSubmit = (event) => {
     blockEvent(event);
-    // NOTE: need to ensure all fields are valid
+    // TODO: need to ensure all fields are valid
     // IE: chars/kana are isKanjiKana() / isKana()
     console.log('submitted!'); // eslint-disable-line no-console
   }

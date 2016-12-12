@@ -7,8 +7,7 @@ import { KEYS } from 'shared/constants';
  * @param  {object} event
  * @return {string|false} function to call if match else false
  */
-export function getShortcutAction(event) {
-  const keyCode = event.keyCode;
+export function getShortcutAction(keyCode, disabled) {
   const handlers = {
     [KEYS.ENTER]: '_processAnswer',
     [KEYS.F_LOWERCASE]: '_toggleVocabInfo',
@@ -20,9 +19,12 @@ export function getShortcutAction(event) {
     [KEYS.FORWARD_SLASH]: '_ignoreAnswer',
   };
 
-  const action = handlers[keyCode];
+  let action = false;
+  if (disabled) {
+    action = handlers[keyCode];
+  }
   console.log('getShortcutAction:', keyCode, action); // eslint-disable-line no-console
-  return action || false;
+  return action;
 }
 
 /**

@@ -43,62 +43,44 @@ class ReviewAnswer extends React.PureComponent {
   }
 
   _handleKeyDown = (event) => {
-    const action = getShortcutAction(event);
+    const action = getShortcutAction(event.keyCode, this.props.disabled);
     if (action) {
-      this[action](event);
-      console.log('handleKeyDown calling: ', action); // eslint-disable-line no-console
+      blockEvent(event);
+      this[action]();
+      console.log('handleKeyDown calling: ', action.name); // eslint-disable-line no-console
     }
   }
 
-  _ignoreAnswer = (event) => {
-    const { disabled, matches } = this.props;
-    if (disabled) {
-      blockEvent(event);
-      this.props.ignoreAnswer(matches);
-    }
+  _ignoreAnswer = () => {
+    this.props.ignoreAnswer(this.props.matches);
   }
 
-  _processAnswer = (event) => {
-    if (this.props.disabled) {
-      blockEvent(event);
-      this.props.processAnswer();
-    }
+  _processAnswer = () => {
+    this.props.processAnswer();
   }
 
   _checkAnswer = (event) => {
-    const { marked } = this.props;
-    if (!marked) {
+    const { marked, valid } = this.props;
+    if (!marked || !valid) {
       blockEvent(event);
       this.props.checkAnswer();
     }
   }
 
-  _toggleKanaInfo = (event) => {
-    if (this.props.disabled) {
-      blockEvent(event);
-      this.props.toggleVocabInfo({ kana: true });
-    }
+  _toggleKanaInfo = () => {
+    this.props.toggleVocabInfo({ kana: true });
   }
 
-  _toggleCharInfo = (event) => {
-    if (this.props.disabled) {
-      blockEvent(event);
-      this.props.toggleVocabInfo({ characters: true });
-    }
+  _toggleCharInfo = () => {
+    this.props.toggleVocabInfo({ characters: true });
   }
 
-  _toggleVocabInfo = (event) => {
-    if (this.props.disabled) {
-      blockEvent(event);
-      this.props.toggleVocabInfo({ characters: true, kana: true });
-    }
+  _toggleVocabInfo = () => {
+    this.props.toggleVocabInfo({ characters: true, kana: true });
   }
 
-  _showSynonymModal = (event) => {
-    if (this.props.disabled) {
-      blockEvent(event);
-      this.props.showSynonymModal();
-    }
+  _showSynonymModal = () => {
+    this.props.showSynonymModal();
   }
 
   render() {
@@ -108,7 +90,7 @@ class ReviewAnswer extends React.PureComponent {
         innerRef={(node) => { this.answerForm = node; }}
         marked={marked}
         valid={valid}
-        onSubmit={marked && valid ? this._processAnswer : this._checkAnswer}
+        onSubmit={disabled ? this._processAnswer : this._checkAnswer}
         tabIndex={-1}
       >
         {/* TODO: <StreakAnimation /> */}
@@ -119,11 +101,11 @@ class ReviewAnswer extends React.PureComponent {
           matches={matches}
           valid={valid}
         />
-        <IgnoreButton
-          valid={valid}
-          marked={marked}
-          onIgnoreClick={this._ignoreAnswer}
-        />
+        { disabled &&
+          <IgnoreButton
+            onIgnoreClick={this._ignoreAnswer}
+          />
+        }
         <SubmitButton />
       </Form>
     );
