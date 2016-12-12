@@ -6,11 +6,11 @@ const Wrapper = styled.span`
   display: inline-block;
   vertical-align: middle;
   position: relative;
-  width: ${({ size }) => size}; /*CSS instead of html width attr to support non-pixel units*/
-  height: ${({ size }) => size}; /*Prevents scaling issue in IE*/
+  width: ${({ iconSize }) => iconSize}; /*CSS instead of html width attr to support non-pixel units*/
+  height: ${({ iconSize }) => iconSize}; /*Prevents scaling issue in IE*/
   background-repeat: no-repeat;
   transition: all 200ms ease-in-out;
-  fill: ${({ color }) => color};
+  fill: ${({ iconColor }) => iconColor};
 `;
 
 const SVG = styled.svg`
@@ -25,7 +25,7 @@ const SVG = styled.svg`
 `;
 
 const Icon = ({ color, size, name, ...rest }) => (
-  <Wrapper color={color} size={size}>
+  <Wrapper iconColor={color} iconSize={size}>
     <SVG
       title={name}
       width="100%"
@@ -35,7 +35,7 @@ const Icon = ({ color, size, name, ...rest }) => (
       <path d={ICONS[name]} />
     </SVG>
   </Wrapper>
-  );
+);
 
 Icon.propTypes = {
   name: PropTypes.oneOf(Object.keys(ICONS)).isRequired,
