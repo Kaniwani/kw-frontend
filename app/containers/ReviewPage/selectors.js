@@ -96,6 +96,7 @@ export {
   selectError,
   selectLoading,
   selectQueue,
+  selectSession,
   selectCurrent,
   selectCurrentVocab,
   selectCurrentReadings,

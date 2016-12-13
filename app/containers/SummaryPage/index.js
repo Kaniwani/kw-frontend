@@ -1,9 +1,3 @@
-/*
- *
- * SummaryPage
- *
- */
-
 import React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
@@ -19,6 +13,7 @@ export class SummaryPage extends React.PureComponent { // eslint-disable-line re
             { name: 'description', content: 'Description of SummaryPage' },
           ]}
         />
+        <h1> I am summary </h1>
       </div>
     );
   }
