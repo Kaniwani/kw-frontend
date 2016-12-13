@@ -80,7 +80,11 @@ class ReviewAnswer extends React.PureComponent {
   }
 
   _showSynonymModal = () => {
-    this.props.showSynonymModal();
+    const { disabled, matches } = this.props;
+    // only allow on incorrect answers
+    if (disabled && !matches) {
+      this.props.showSynonymModal();
+    }
   }
 
   render() {
