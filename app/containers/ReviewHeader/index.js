@@ -1,9 +1,3 @@
-/*
- *
- * ReviewHeader
- *
- */
-
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -18,7 +12,7 @@ import {
 import calculatePercentage from 'utils/calculatePercentage';
 import Wrapper from './Wrapper';
 import ProgressBar from './ProgressBar';
-import ExitQuiz from './ExitQuiz';
+import ExitQuizLink from './ExitQuizLink';
 import StatsList from './StatsList';
 
 export class ReviewHeader extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -27,7 +21,7 @@ export class ReviewHeader extends React.PureComponent { // eslint-disable-line r
     return (
       <Wrapper>
         <ProgressBar value={calculatePercentage(answered, total)} />
-        <ExitQuiz />
+        <ExitQuizLink />
         <StatsList
           correctness={calculatePercentage(correct, answered)}
           completed={completed}

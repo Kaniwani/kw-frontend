@@ -1,9 +1,3 @@
-/**
-*
-* ExitQuiz
-*
-*/
-
 import React from 'react';
 import { Link } from 'react-router';
 import styled from 'styled-components';
@@ -16,12 +10,12 @@ const StyledLink = styled(Link)`
   color: currentColor;
 `;
 
-function ExitQuiz() {
+function ExitQuizLink() {
   return (
-    <StyledLink to="/" title="Exit quiz and view summary">
+    <StyledLink to="/review/summary" title="Exit quiz and view summary">
       <Icon name="BACK" size="2rem" />
     </StyledLink>
   );
 }
 
-export default ExitQuiz;
+export default ExitQuizLink;
