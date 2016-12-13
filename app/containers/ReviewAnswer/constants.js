@@ -5,6 +5,7 @@ export const TILDE_EN = '~';
 // actions
 export const CHECK_ANSWER = 'kw/ReviewAnswer/CHECK_ANSWER';
 export const UPDATE_ANSWER = 'kw/ReviewAnswer/UPDATE_ANSWER';
+export const RESET_ANSWER = 'kw/ReviewAnswer/RESET_ANSWER';
 export const PROCESS_ANSWER = 'kw/ReviewAnswer/PROCESS_ANSWER';
 export const START_AUTO_ADVANCE = 'kw/ReviewAnswer/START_AUTO_ADVANCE';
 export const CANCEL_AUTO_ADVANCE = 'kw/ReviewAnswer/CANCEL_AUTO_ADVANCE';

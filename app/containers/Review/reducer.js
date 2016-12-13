@@ -101,6 +101,8 @@ function reviewReducer(state = initialState, action) {
         .updateIn(['current', 'streak'], subtract(1));
     case Review.RESET_CURRENT_STREAK:
       return state.setIn(['current', 'streak'], state.getIn(['current', 'previousStreak']));
+    case ReviewAnswer.RESET_ANSWER:
+      return state.set('answer', answerInitialState);
     case ReviewAnswer.UPDATE_ANSWER:
       return state.mergeIn(['answer'], action.payload);
     case AnswerInput.UPDATE_INPUT:

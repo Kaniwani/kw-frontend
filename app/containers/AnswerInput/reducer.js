@@ -10,6 +10,7 @@ export const answerInitialState = fromJS({
   valid: null,
   marked: false,
   matches: false,
+  answerType: null,
 });
 
 function answerInputReducer(state = answerInitialState, action) {

@@ -1,6 +1,7 @@
 import {
   CHECK_ANSWER,
   UPDATE_ANSWER,
+  RESET_ANSWER,
   PROCESS_ANSWER,
   START_AUTO_ADVANCE,
   CANCEL_AUTO_ADVANCE,
@@ -20,7 +21,17 @@ export function checkAnswer() {
 }
 
 /**
- * Checks answer textInput to see if it matches review readings
+ * Resets answer state to defaults
+ * @return {object} An action object with a type of RESET_ANSWER
+ */
+export function resetAnswer() {
+  return {
+    type: RESET_ANSWER,
+  };
+}
+
+/**
+* Updates answer state
  * @param {object} payload Answer state updates
  * @return {object} An action object with a type of UPDATE_ANSWER and updated data
  */
