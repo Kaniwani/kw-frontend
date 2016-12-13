@@ -13,7 +13,7 @@ import {
   selectTotalCount,
   selectAnsweredCount,
   selectCompletedCount,
-} from 'containers/Review/selectors';
+} from 'containers/ReviewPage/selectors';
 
 import calculatePercentage from 'utils/calculatePercentage';
 import Wrapper from './Wrapper';

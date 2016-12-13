@@ -46,9 +46,9 @@ export default function createRoutes(store) {
       name: 'review',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/Review/reducer'),
-          System.import('containers/Review/sagas'),
-          System.import('containers/Review'),
+          System.import('containers/ReviewPage/reducer'),
+          System.import('containers/ReviewPage/sagas'),
+          System.import('containers/ReviewPage'),
         ]);
 
         const renderRoute = loadModule(cb);

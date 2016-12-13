@@ -69,14 +69,10 @@ import {
   selectTotalCount,
 } from './selectors';
 
-/**
- *  request/response handler
- */
-export function* getReviewData(limit = 100) {
-  const requestURL = `api/reviews/?limit=${limit}`;
+export function* getReviewData() {
+  const requestURL = 'api/reviews/';
   try {
     const data = yield call(request, requestURL);
-    // data.results = data.results.slice(0, 15); // debug extra reviews loading
     const shapedData = shapeReviewData(data);
     yield put(reviewDataLoaded(shapedData));
   } catch (err) {
@@ -107,7 +103,7 @@ export function* recordAnswer() {
 
   try {
     console.log('pretend record');
-    console.table(postData);
+    console.log(postData);
     // put(recordAnswerSuccess())
   } catch (err) {
     // TODO: catch errors and notify user answer not recorded but returned to queue instead

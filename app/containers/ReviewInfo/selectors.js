@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import {
   selectCurrentVocab,
   selectCurrentReadings,
-} from 'containers/Review/selectors';
+} from 'containers/ReviewPage/selectors';
 
 import {
   selectAnswerValid,
