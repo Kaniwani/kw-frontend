@@ -7,7 +7,7 @@ const StyledIcon = styled(Icon)`
   position: absolute;
   transform: translateY(-50%);
   top: 50%;
-  left: .4em;
+  left: .3em;
   color: currentColor;
 `;
 

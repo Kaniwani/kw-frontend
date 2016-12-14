@@ -6,14 +6,14 @@ import Icon from 'components/Icon';
 const StyledLink = styled(Link)`
   display: inline-block;
   cursor: pointer;
-  margin: .5em 1em .5em .35em;
+  margin: .6em 1em .5em .6em;
   color: currentColor;
 `;
 
 function ViewSummaryLink() {
   return (
-    <StyledLink to="/review/summary" title="Exit quiz and view summary">
-      <Icon name="ASSIGNMENT" size="1.25em" />
+    <StyledLink to="/review/summary" title="View current review summary">
+      <Icon name="ASSIGNMENT" size="1.5em" />
     </StyledLink>
   );
 }

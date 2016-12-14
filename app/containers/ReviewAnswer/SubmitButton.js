@@ -6,6 +6,7 @@ const Button = styled.button`
   display: block;
   position: absolute;
   height: 100%;
+  padding: 0;
   transform: translateY(-50%);
   top: 50%;
   right: 0;
