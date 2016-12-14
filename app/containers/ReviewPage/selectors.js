@@ -74,16 +74,19 @@ const selectCompletedCount = () => createSelector(
   (substate) => substate.size,
 );
 
+// TODO: use selectors from Summarypage - more accurate!
 const selectCorrectCount = () => createSelector(
   selectSession(),
   (substate) => substate.get('correct'),
 );
 
+// TODO: use selectors from Summarypage - more accurate!
 const selectIncorrectCount = () => createSelector(
   selectSession(),
   (substate) => substate.get('incorrect'),
 );
 
+// TODO: use selectors from Summarypage - more accurate!
 const selectIgnoredCount = () => createSelector(
   selectSession(),
   (substate) => substate.get('ignored'),

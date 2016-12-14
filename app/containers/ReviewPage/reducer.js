@@ -47,7 +47,9 @@ function reviewReducer(state = initialState, action) {
       const completedIDs = state.get('completed').map((x) => x.get('id'));
       const queueIDs = state.get('queue').map((x) => x.get('id'));
       const currentID = state.getIn(['current', 'id']);
-      const reviews = action.payload.reviews.filter(({ id }) => !completedIDs.includes(id) && !queueIDs.includes(id) && id !== currentID);
+      const reviews = action.payload.reviews
+        .filter(({ id }) => !completedIDs.includes(id) && !queueIDs.includes(id) && id !== currentID);
+
       return state
         .set('total', action.payload.count)
         .set('loading', false)
@@ -97,13 +99,9 @@ function reviewReducer(state = initialState, action) {
     case Review.INCREASE_SESSION_INCORRECT:
       return state.updateIn(['session', 'incorrect'], add(1));
     case Review.INCREASE_CURRENT_STREAK:
-      return state
-        // .setIn(['current', 'previousStreak'], action.payload)
-        .updateIn(['current', 'session', 'streak'], add(1));
+      return state.updateIn(['current', 'session', 'streak'], add(1));
     case Review.DECREASE_CURRENT_STREAK:
-      return state
-        // .setIn(['current', 'previousStreak'], action.payload)
-        .updateIn(['current', 'session', 'streak'], subtract(1));
+      return state.updateIn(['current', 'session', 'streak'], subtract(1));
     case Review.RESET_CURRENT_STREAK:
       return state.setIn(['current', 'session', 'streak'], state.getIn(['current', 'history', 'streak']));
     case ReviewAnswer.RESET_ANSWER:

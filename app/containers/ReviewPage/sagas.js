@@ -85,10 +85,11 @@ export function* recordAnswer() {
     select(selectCurrent()),
     // select(selectAuthToken())
   ];
-  const [id, correct, previouslyWrong] = [
+  const [id, correct, previouslyWrong, firstTimeWrong] = [
     current.get('id'),
     current.getIn(['session', 'correct']) >= 1,
     current.getIn(['session', 'incorrect']) > 1,
+    current.getIn(['session', 'incorrect']) === 1,
   ];
 
   const postData = {
@@ -102,20 +103,20 @@ export function* recordAnswer() {
   // yield fork(request, postURL, postData);
 
   try {
-    console.log('pretend record');
-    console.log(postData);
-    // put(recordAnswerSuccess())
+    if (correct || (!correct && firstTimeWrong)) {
+      console.log('pretend record');
+      console.log(postData);
+      // put(recordAnswerSuccess())
+    }
   } catch (err) {
     // TODO: catch errors and notify user answer not recorded but returned to queue instead
     // put(recordAnswerFailure(message))
   } finally {
     // TODO: move to take(RECORD_ANSWER_SUCCESS)
     if (correct && !previouslyWrong) yield put(increaseSessionCorrect());
-
-    // NOTE: if incorrect, we don't need to record answer - this should be an early escape clause
     if (!correct && !previouslyWrong) yield put(increaseSessionIncorrect());
 
-    // TODO: take(RECORD_ANSWER_FAILURE) put(returnCurrentToQueue()) regardless
+    // TODO: take(RECORD_ANSWER_FAILURE)
     yield [
       put(correct ? copyCurrentToCompleted() : returnCurrentToQueue()),
       call(resetReview),

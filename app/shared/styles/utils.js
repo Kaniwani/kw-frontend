@@ -1,6 +1,7 @@
 import { css } from 'styled-components';
 import { units } from './spacing';
 import { media } from './media';
+import { convert } from 'css-color-function';
 
 /**
  * Returns fallback, and media queried calc() font-sizes for responsive sizing
@@ -35,6 +36,27 @@ export const setLeftRight = (left, right, fallback) => ({ position }) => {
   if (position === 'right') return right;
   return fallback;
 };
+
+
+/**
+ * Creates a background gradient shiftin between x% of a given color
+ * @param  {String} [initialColor='grey'] Color to blend between
+ * @param  {String} [direction='bottom'] Direction of gradient
+ * @param  {Number} [percent=20] Color change between points
+ * @return {String} CSS background rules
+ */
+export function bgGradient(initialColor = 'grey', direction = 'bottom', percent = 5) {
+  // using css-color-function to reach parity with future css
+  const fromColor = convert(`color(${initialColor} lightness(+ ${percent}%))`);
+  const toColor = convert(`color(${initialColor} lightness(- ${percent}%))`);
+
+  return css`
+    background-color: ${initialColor}; /* fallback */
+    background-image: linear-gradient(to ${direction}, ${fromColor}, ${toColor});
+    background-repeat: repeat-x;
+  `;
+}
+
 
 export const sectionSpacing = css`
   margin-top: ${units.md};

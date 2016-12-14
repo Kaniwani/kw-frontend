@@ -5,10 +5,10 @@ const ItemList = ({ items }) => (
   <ul>
     {items.map(({ vocabulary }) => (
       <li key={cuid()} className="vocab-card">
-        {console.log(vocabulary)}
         <div className="vocab-base">
-          {/* FIXME: need pk id on vocab coming from review endpoint */}
-          <a href={`https://www.kaniwani.com/vocabulary/${vocabulary.readings[0].character}`} className="readingset">
+          {/* FIXME: need pk id on vocab coming from review endpoint
+            to create <Link to=`/vocabulary/${vocabulary.pkid}` />*/}
+          <a href="#vocabitem" className="readingset">
             <div className="ja">
               {vocabulary.readings.map(({ kana, character }) => (
                 <span key={cuid()}>
