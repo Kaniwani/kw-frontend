@@ -58,6 +58,7 @@ class App extends React.PureComponent {
             { name: 'description', content: 'Kaniwani, An English to Japanese SRS Quiz' },
           ]}
         />
+        {/* navbar should be here, but need to conditionally hide it if the route is review */}
 
         <Modal />
         {appContent}

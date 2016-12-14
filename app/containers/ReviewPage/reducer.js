@@ -25,8 +25,9 @@ export const initialState = fromJS({
   },
   // TODO: suggest to tadgh to send only necessary review item fields to keep api response size smaller
   current: {
-    streak: 0,
-    previousStreak: null,
+    session: {
+      streak: 0,
+    },
     vocabulary: {
       meaning: '',
       readings: [],
@@ -97,14 +98,14 @@ function reviewReducer(state = initialState, action) {
       return state.updateIn(['session', 'incorrect'], add(1));
     case Review.INCREASE_CURRENT_STREAK:
       return state
-        .setIn(['current', 'previousStreak'], action.payload)
-        .updateIn(['current', 'streak'], add(1));
+        // .setIn(['current', 'previousStreak'], action.payload)
+        .updateIn(['current', 'session', 'streak'], add(1));
     case Review.DECREASE_CURRENT_STREAK:
       return state
-        .setIn(['current', 'previousStreak'], action.payload)
-        .updateIn(['current', 'streak'], subtract(1));
+        // .setIn(['current', 'previousStreak'], action.payload)
+        .updateIn(['current', 'session', 'streak'], subtract(1));
     case Review.RESET_CURRENT_STREAK:
-      return state.setIn(['current', 'streak'], state.getIn(['current', 'previousStreak']));
+      return state.setIn(['current', 'session', 'streak'], state.getIn(['current', 'history', 'streak']));
     case ReviewAnswer.RESET_ANSWER:
       return state.set('answer', answerInitialState);
     case ReviewAnswer.UPDATE_ANSWER:

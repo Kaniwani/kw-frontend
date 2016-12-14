@@ -3,8 +3,8 @@
 
 // TODO: extract into container sagas, this is huge!
 
-import { take, select, call, put, race } from 'redux-saga/effects';
 import { takeLatest, takeEvery, delay } from 'redux-saga';
+import { take, select, call, put, race } from 'redux-saga/effects';
 import {
   isHiragana,
   isKatakana,
@@ -214,10 +214,9 @@ export function* markAnswerWatcher() {
     const currentIncorrectCount = current.getIn(['session', 'incorrect']);
     const previouslyWrong = currentIncorrectCount >= 1;
     const firstTimeWrong = currentIncorrectCount === 1;
-    const currentStreak = current.get('streak');
 
     if (correct && !previouslyWrong) {
-      yield put(increaseCurrentStreak(currentStreak));
+      yield put(increaseCurrentStreak());
     }
 
     if ((correct && settings.get('autoExpandCorrect')) ||
@@ -230,7 +229,7 @@ export function* markAnswerWatcher() {
     }
 
     if (incorrect && firstTimeWrong) {
-      yield put(decreaseCurrentStreak(currentStreak));
+      yield put(decreaseCurrentStreak());
     }
     if (ignored) {
       yield [

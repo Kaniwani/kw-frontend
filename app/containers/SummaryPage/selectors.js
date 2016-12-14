@@ -25,7 +25,7 @@ const selectCompleted = () => createSelector(
 const selectSummaryPage = () => createSelector(
   selectCompleted(),
   selectSession(),
-  (session, completed) => ({ session, completed }),
+  (completed, session) => ({ completed, session }),
 );
 
 export default selectSummaryPage;

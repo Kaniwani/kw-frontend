@@ -100,31 +100,27 @@ export function copyCurrentToCompleted() {
 
 
 /**
- * Increases the streak count by 1 on the current review item
- * @param {number} previousStreak The previous streak number to be stored for RESET_CURRENT_STREAK action
- * @return {object} An action object with a type of INCREASE_CURRENT_STREAK and a payload of the previous streak
+ * Increases the session streak count by 1 on the current review item
+ * @return {object} An action object with a type of INCREASE_CURRENT_STREAK
  */
-export function increaseCurrentStreak(previousStreak) {
+export function increaseCurrentStreak() {
   return {
     type: INCREASE_CURRENT_STREAK,
-    payload: previousStreak,
   };
 }
 
 /**
- * Decreases the streak count by 1 on the current review item
- * @param {number} previousStreak The previous streak number to be stored for RESET_CURRENT_STREAK action
- * @return {object} An action object with a type of DECREASE_CURRENT_STREAK and a payload of the previous streak
+ * Decreases the session streak count by 1 on the current review item
+ * @return {object} An action object with a type of DECREASE_CURRENT_STREAK
  */
-export function decreaseCurrentStreak(previousStreak) {
+export function decreaseCurrentStreak() {
   return {
     type: DECREASE_CURRENT_STREAK,
-    payload: previousStreak,
   };
 }
 
 /**
- * Resets the streak count on the current review item to the stored previous streak count
+ * Resets the session streak count on the current review item to the historical streak count
  * @return {object} An action object with a type of RESET_CURRENT_STREAK
  */
 export function resetCurrentStreak() {

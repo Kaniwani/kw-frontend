@@ -46,7 +46,7 @@ const selectCurrentMeaning = () => createSelector(
 
 const selectCurrentStreak = () => createSelector(
   selectCurrent(),
-  (substate) => substate.get('streak'),
+  (substate) => substate.getIn(['session', 'streak']),
 );
 
 const selectCurrentStreakName = () => createSelector(
