@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
 import { units } from './spacing';
 import { media } from './media';
-import { convert } from 'css-color-function';
+import { convert } from 'css-color-function'; // https://github.com/postcss/postcss-color-function
 
 /**
  * Returns fallback, and media queried calc() font-sizes for responsive sizing
