@@ -1,6 +1,7 @@
 import {
   selectSession,
   selectCompleted,
+  selectQueue,
   selectCompletedCount,
   selectCorrectCount,
   selectIncorrectCount,
@@ -13,6 +14,7 @@ import {
 export {
   selectSession,
   selectCompleted,
+  selectQueue,
   selectCompletedCount,
   selectCorrectCount,
   selectIncorrectCount,

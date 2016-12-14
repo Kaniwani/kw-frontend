@@ -5,12 +5,7 @@ import { createStructuredSelector } from 'reselect';
 import {
   selectSession,
   selectCompleted,
-  selectCompletedCount,
-  selectCorrectCount,
-  selectIncorrectCount,
-  selectIgnoredCount,
-  selectAnsweredCount,
-  selectTotalCount,
+  selectQueue,
 } from './selectors';
 
 import { selectPercentCorrect } from 'containers/ReviewHeader/selectors';
@@ -20,6 +15,7 @@ import SummarySection from './SummarySection';
 export class SummaryPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     session: PropTypes.object,
+    queue: PropTypes.object,
     completed: PropTypes.object,
     percentCorrect: PropTypes.number,
     // completedCount: PropTypes.number,
@@ -37,16 +33,27 @@ export class SummaryPage extends React.PureComponent { // eslint-disable-line re
 
     // temporary
     const sessionStats = this.props.session.toJS();
-    const completedItems = this.props.completed.toJS();
-    console.log('completed', completedItems);
-    const correctItems = completedItems.filter(({ session }) => session.correct >= 1 && session.incorrect < 1);
-    const incorrectItems = completedItems.filter(({ session }) => session.incorrect >= 1);
+    const completed = this.props.completed.toJS();
+    const queue = this.props.queue.toJS();
+    const correctItems = completed.filter(({ session }) => session.correct >= 1 && session.incorrect < 1);
+    const incorrectItems = queue.filter(({ session }) => session.incorrect >= 1);
 
     console.log(
       'correct', correctItems,
       'incorrect', incorrectItems,
     );
 
+    let content = <div className="inner"><div>No reviews completed</div></div>;
+    if (correctItems.length || incorrectItems.length) {
+      content = (
+        <div className="inner">
+          <h1 className="section-heading correctPercent">{percentCorrect}% Accuracy</h1>
+          <div className="percentage-bar"><span className="percentage" /></div>
+          <SummarySection items={incorrectItems} correct={false} />
+          <SummarySection items={correctItems} correct />
+        </div>
+      );
+    }
     return (
       <div>
         <Helmet
@@ -56,13 +63,7 @@ export class SummaryPage extends React.PureComponent { // eslint-disable-line re
           ]}
         />
         <section className="summary-section">
-          <div className="inner">
-
-            <h1 className="section-heading correctPercent">{percentCorrect}% Accuracy</h1>
-            <div className="percentage-bar"><span className="percentage" /></div>
-            <SummarySection items={incorrectItems} correct={false} />
-            <SummarySection items={correctItems} correct />
-          </div>
+          {content}
         </section>
       </div>
     );
@@ -71,6 +72,7 @@ export class SummaryPage extends React.PureComponent { // eslint-disable-line re
 
 const mapStateToProps = createStructuredSelector({
   session: selectSession(),
+  queue: selectQueue(),
   completed: selectCompleted(),
   percentCorrect: selectPercentCorrect(),
   // completedCount: selectCompletedCount(),

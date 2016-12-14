@@ -40,15 +40,13 @@ PlaceHolder.propTypes = {
   correct: PropTypes.bool.isRequired,
 };
 
-const SummarySection = ({ items, correct }) => {
-  console.log(items, correct);
-  return items.length > 0 ?
-    <section>
-      <h2 className="title">{`${items.length} ${correct ? 'Correct' : 'Incorrect'}`}</h2>
-      <ItemList items={items} />
-    </section>
-  : <PlaceHolder correct={correct} />;
-};
+const SummarySection = ({ items, correct }) => (
+  <section>
+    <h2 className="title">{`${items.length} ${correct ? 'Correct' : 'Incorrect'}`}</h2>
+    { items.length ? <ItemList items={items} /> : <PlaceHolder correct={correct} /> }
+  </section>
+);
+
 
 SummarySection.propTypes = {
   items: PropTypes.array.isRequired,
