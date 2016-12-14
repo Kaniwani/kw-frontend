@@ -64,9 +64,14 @@ const selectSession = () => createSelector(
   (substate) => substate.get('session'),
 );
 
-const selectCompletedCount = () => createSelector(
+const selectCompleted = () => createSelector(
   selectReviewDomain(),
-  (substate) => substate.get('completed').size,
+  (substate) => substate.get('completed'),
+);
+
+const selectCompletedCount = () => createSelector(
+  selectCompleted(),
+  (substate) => substate.size,
 );
 
 const selectCorrectCount = () => createSelector(
@@ -77,6 +82,11 @@ const selectCorrectCount = () => createSelector(
 const selectIncorrectCount = () => createSelector(
   selectSession(),
   (substate) => substate.get('incorrect'),
+);
+
+const selectIgnoredCount = () => createSelector(
+  selectSession(),
+  (substate) => substate.get('ignored'),
 );
 
 const selectAnsweredCount = () => createSelector(
@@ -98,6 +108,7 @@ export {
   selectQueue,
   selectSession,
   selectCurrent,
+  selectCompleted,
   selectCurrentVocab,
   selectCurrentReadings,
   selectCurrentMeaning,
@@ -109,4 +120,5 @@ export {
   selectAnsweredCount,
   selectCorrectCount,
   selectIncorrectCount,
+  selectIgnoredCount,
 };

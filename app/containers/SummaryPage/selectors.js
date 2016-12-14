@@ -1,35 +1,22 @@
-import { createSelector } from 'reselect';
-import selectReviewDomain, {
+import {
   selectSession,
+  selectCompleted,
+  selectCompletedCount,
+  selectCorrectCount,
+  selectIncorrectCount,
+  selectIgnoredCount,
+  selectAnsweredCount,
+  selectTotalCount,
 } from 'containers/ReviewPage/selectors';
 
 
-/**
- * Direct selector to the summaryPage state domain
- */
-const selectSummaryPageDomain = selectReviewDomain;
-
-/**
- * Other specific selectors
- */
-
-const selectCompleted = () => createSelector(
-  selectSummaryPageDomain(),
-  (substate) => substate.get('completed'),
-);
-
-/**
- * Default selector used by SummaryPage
- */
-
-const selectSummaryPage = () => createSelector(
-  selectCompleted(),
-  selectSession(),
-  (completed, session) => ({ completed, session }),
-);
-
-export default selectSummaryPage;
 export {
   selectSession,
   selectCompleted,
+  selectCompletedCount,
+  selectCorrectCount,
+  selectIncorrectCount,
+  selectIgnoredCount,
+  selectAnsweredCount,
+  selectTotalCount,
 };
