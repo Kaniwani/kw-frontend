@@ -11,6 +11,7 @@ import {
   selectPercentCorrect,
 } from './selectors';
 
+import { Link } from 'react-router';
 import SummarySection from './SummarySection';
 
 import { bgGradient } from 'shared/styles/utils';
@@ -84,6 +85,7 @@ export class SummaryPage extends React.Component { // eslint-disable-line react/
           ]}
         />
         <section className="summary-section">
+          <Link to="/review">Return to review</Link>
           {content}
         </section>
       </div>

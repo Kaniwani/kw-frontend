@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 import Icon from 'components/Icon';
-import { fluidType } from 'shared/styles/utils';
 
 const List = styled.ul`
   list-style: none;
@@ -9,7 +8,6 @@ const List = styled.ul`
   padding: 0;
   margin: .75em;
   float: right;
-  ${fluidType(16, 20)}
 `;
 
 const ListItem = styled.li`

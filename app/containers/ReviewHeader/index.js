@@ -11,7 +11,7 @@ import {
 
 import Wrapper from './Wrapper';
 import ProgressBar from './ProgressBar';
-import ExitQuizLink from './ExitQuizLink';
+import ViewSummaryLink from './ViewSummaryLink';
 import StatsList from './StatsList';
 
 export class ReviewHeader extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -19,7 +19,7 @@ export class ReviewHeader extends React.PureComponent { // eslint-disable-line r
     return (
       <Wrapper>
         <ProgressBar value={this.props.percentCompleted} />
-        <ExitQuizLink />
+        <ViewSummaryLink />
         <StatsList
           correctness={this.props.percentCorrect}
           completed={this.props.reviewsCompleted}
