@@ -13,7 +13,7 @@ const StyledLink = styled(Link)`
 function ViewSummaryLink() {
   return (
     <StyledLink to="/review/summary" title="View current review summary">
-      <Icon name="ASSIGNMENT" size="1.5em" />
+      <Icon name="SUMMARY" size="1.5em" />
     </StyledLink>
   );
 }

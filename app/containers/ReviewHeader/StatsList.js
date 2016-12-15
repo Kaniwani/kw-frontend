@@ -12,7 +12,7 @@ const List = styled.ul`
 
 const ListItem = styled.li`
   display: inline-block;
-  margin-left: .9em;
+  margin-left: .75em;
 `;
 
 const Label = styled.span`
@@ -24,14 +24,16 @@ function StatsList({ correctness, completed, remaining }) {
   return (
     <List>
       <ListItem title="Correct answers">
-        <Icon name="THUMBS_UP" />
-        <Label>{correctness}</Label>%</ListItem>
-      <ListItem title="Reviews completed">
         <Icon name="CHECK" />
+        <Label>{`${correctness}%`}</Label>
+
+      </ListItem>
+      <ListItem title="Reviews completed">
+        <Icon name="ASSIGNMENT_CHECK" />
         <Label>{completed}</Label>
       </ListItem>
       <ListItem title="Reviews remaining">
-        <Icon name="INBOX" />
+        <Icon name="ASSIGNMENT_INBOX" />
         <Label>{remaining}</Label>
       </ListItem>
     </List>
