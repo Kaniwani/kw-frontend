@@ -11,6 +11,10 @@ const StyledIcon = styled(Icon)`
   color: currentColor;
 `;
 
+// TODO: react tooltip with titleCase
+// https://github.com/wwayne/react-tooltip
+// const titleCase = (str) => `${str.slice(0, 1).toUpperCase()}${str.slice(1).toLowerCase()}`;
+
 function StreakIcon({ streak }) {
   return (
     <StyledIcon
