@@ -105,11 +105,7 @@ class ReviewAnswer extends React.PureComponent {
           matches={matches}
           valid={valid}
         />
-        { disabled &&
-          <IgnoreButton
-            onIgnoreClick={this._ignoreAnswer}
-          />
-        }
+        { disabled && <IgnoreButton onIgnoreClick={this._ignoreAnswer} />}
         <SubmitButton />
       </Form>
     );

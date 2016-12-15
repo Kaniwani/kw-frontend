@@ -1,12 +1,12 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 
-import Header from '../index';
+import DashboardHeader from '../index';
 
-describe('<Header />', () => {
+describe('<DashboardHeader />', () => {
   it('should render a div', () => {
     const renderedComponent = shallow(
-      <Header />,
+      <DashboardHeader />,
     );
     expect(renderedComponent.find('header').length).toEqual(1);
   });

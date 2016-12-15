@@ -1,5 +1,5 @@
 import App from '../index';
-import Header from 'components/Header';
+import DashboardHeader from 'components/DashboardHeader';
 import Footer from 'components/Footer';
 
 import { shallow } from 'enzyme';
@@ -10,7 +10,7 @@ describe('<App />', () => {
     const renderedComponent = shallow(
       <App />,
     );
-    expect(renderedComponent.find(Header)).toBeDefined();
+    expect(renderedComponent.find(DashboardHeader)).toBeDefined();
   });
 
   it('should render its children', () => {

@@ -6,34 +6,44 @@ const List = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
-  margin: .75em;
-  float: right;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ListItem = styled.li`
-  display: inline-block;
-  margin-left: .75em;
+  padding-left: .35em;
+  padding-right: .35em;
 `;
 
 const Label = styled.span`
+  vertical-align: middle; /* Icon has va-m */
   margin-left: .15em;
-  vertical-align: middle;
 `;
 
 function StatsList({ correctness, completed, remaining }) {
   return (
     <List>
-      <ListItem title="Correct answers">
-        <Icon name="CHECK" />
+      <ListItem>
+        <Icon
+          name="CHECK"
+          tooltip={{ text: 'Correctness', position: 'left', showDelay: 200 }}
+        />
         <Label>{`${correctness}%`}</Label>
-
       </ListItem>
-      <ListItem title="Reviews completed">
-        <Icon name="ASSIGNMENT_CHECK" />
+      <ListItem>
+        <Icon
+          name="ASSIGNMENT_CHECK"
+          tooltip={{ text: 'Reviews completed', position: 'left', showDelay: 200 }}
+        />
         <Label>{completed}</Label>
       </ListItem>
-      <ListItem title="Reviews remaining">
-        <Icon name="ASSIGNMENT_INBOX" />
+      <ListItem>
+        <Icon
+          name="ASSIGNMENT_INBOX"
+          tooltip={{ text: 'Reviews remaining', position: 'left', showDelay: 200 }}
+        />
         <Label>{remaining}</Label>
       </ListItem>
     </List>

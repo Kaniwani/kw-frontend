@@ -21,7 +21,7 @@ const Button = styled.button`
 function IgnoreButton({ onIgnoreClick }) {
   return (
     <Button type="button" onClick={onIgnoreClick}>
-      <Icon name="CLOSE" size="1.3em" />
+      <Icon name="CLOSE" size="1.3em" tooltip={{ text: 'Ignore answer', position: 'left', showDelay: 1000 }} />
     </Button>
   );
 }

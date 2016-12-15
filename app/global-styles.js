@@ -9,6 +9,16 @@ import {
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
+  html {
+    box-sizing: border-box;
+  }
+
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+
   html,
   body {
     height: 100%;

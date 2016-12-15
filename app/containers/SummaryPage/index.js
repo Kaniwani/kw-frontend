@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import styled from 'styled-components';
 import { createStructuredSelector } from 'reselect';
 import {
   selectIgnoredCount,
@@ -9,47 +8,31 @@ import {
   selectIncorrectItems,
   selectCriticalItems,
   selectPercentCorrect,
+  selectTotalCount,
 } from './selectors';
 
-import { Link } from 'react-router';
+import SummaryHeader from './Header';
+import PercentageBar from './PercentageBar';
 import SummarySection from './SummarySection';
 
-import { bgGradient } from 'shared/styles/utils';
-import { purple, purpleDark } from 'shared/styles/colors';
-
-
-// TODO: extract and allow color etc to be passed as props
-const PercentageBar = styled.div`
-${bgGradient(`rgba(${purpleDark}, 0.1)`, 'left')}
-  height: 1.75rem;
-  border-radius: 3px;
-`;
-
-const Percentage = styled.div`
-  ${bgGradient(`rgb(${purple})`, 'left')}
-  display: block;
-  height: 100%;
-  transition: width .8s ease-in-out;
-  width: ${(props) => props.width}%; /* TODO: animate reactily */
-`;
-
-export class SummaryPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class SummaryPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     correctItems: PropTypes.object,
     incorrectItems: PropTypes.object,
     criticalItems: PropTypes.object,
     ignoredCount: PropTypes.number,
     percentCorrect: PropTypes.number,
+    remainingCount: PropTypes.number,
   }
 
   render() {
-    const { percentCorrect, ignoredCount } = this.props;
+    const { percentCorrect, ignoredCount, remainingCount } = this.props;
     let { correctItems, incorrectItems, criticalItems } = this.props;
 
     let content = (
-      <div className="inner">
+      <section>
         <div>No reviews completed</div>
-      </div>
+      </section>
     );
 
     correctItems = correctItems.toJS();
@@ -58,11 +41,9 @@ export class SummaryPage extends React.Component { // eslint-disable-line react/
 
     if (correctItems.length || incorrectItems.length) {
       content = (
-        <div className="inner">
-          <h1 className="section-heading correctPercent">{percentCorrect}% Accuracy</h1>
-          <PercentageBar>
-            <Percentage width={percentCorrect} />
-          </PercentageBar>
+        <section>
+          <h1>{percentCorrect}% Accuracy</h1>
+          <PercentageBar percent={percentCorrect} />
           <SummarySection items={incorrectItems} count={incorrectItems.length} correct={false} />
           <SummarySection items={correctItems} count={correctItems.length} correct />
           {criticalItems.length &&
@@ -72,22 +53,20 @@ export class SummaryPage extends React.Component { // eslint-disable-line react/
             </div>
           }
           { ignoredCount && <h4>Items ignored: {ignoredCount}</h4>}
-        </div>
+        </section>
       );
     }
 
     return (
       <div>
         <Helmet
-          title="SummaryPage"
+          title="Review Summary"
           meta={[
-            { name: 'description', content: 'Description of SummaryPage' },
+            { name: 'description', content: 'Summary of Session Review' },
           ]}
         />
-        <section className="summary-section">
-          <Link to="/review">Return to review</Link>
-          {content}
-        </section>
+        <SummaryHeader remainingReviews={remainingCount} />
+        {content}
       </div>
     );
   }
@@ -96,6 +75,7 @@ export class SummaryPage extends React.Component { // eslint-disable-line react/
 const mapStateToProps = createStructuredSelector({
   correctItems: selectCorrectItems(),
   incorrectItems: selectIncorrectItems(),
+  remainingCount: selectTotalCount(),
   criticalItems: selectCriticalItems(),
   ignoredCount: selectIgnoredCount(),
   percentCorrect: selectPercentCorrect(),

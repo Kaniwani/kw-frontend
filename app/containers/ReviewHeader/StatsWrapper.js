@@ -8,6 +8,11 @@ const Wrapper = styled.div`
   left: 0;
   width: 100%;
   color: rgb(${white})
-  ${fluidType(16, 20)}
+  ${fluidType(16, 24)}
+  line-height: 1;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  padding: .5rem;
 `;
 export default Wrapper;

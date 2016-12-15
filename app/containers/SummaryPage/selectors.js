@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 import {
   selectCompleted,
   selectQueue,
+  selectTotalCount,
 } from 'containers/ReviewPage/selectors';
 
 import { selectPercentCorrect } from 'containers/ReviewHeader/selectors';
@@ -44,5 +45,6 @@ export {
   selectIncorrectItems,
   selectCriticalItems,
   selectIgnoredCount,
+  selectTotalCount,
   selectPercentCorrect,
 };

@@ -9,7 +9,7 @@ import {
   selectCompletedCount,
 } from './selectors';
 
-import Wrapper from './Wrapper';
+import StatsWrapper from './StatsWrapper';
 import ProgressBar from './ProgressBar';
 import ViewSummaryLink from './ViewSummaryLink';
 import StatsList from './StatsList';
@@ -17,15 +17,17 @@ import StatsList from './StatsList';
 export class ReviewHeader extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <Wrapper>
+      <div>
         <ProgressBar value={this.props.percentCompleted} />
-        <ViewSummaryLink />
-        <StatsList
-          correctness={this.props.percentCorrect}
-          completed={this.props.reviewsCompleted}
-          remaining={this.props.reviewsRemaining}
-        />
-      </Wrapper>
+        <StatsWrapper>
+          <ViewSummaryLink />
+          <StatsList
+            correctness={this.props.percentCorrect}
+            completed={this.props.reviewsCompleted}
+            remaining={this.props.reviewsRemaining}
+          />
+        </StatsWrapper>
+      </div>
     );
   }
 }
