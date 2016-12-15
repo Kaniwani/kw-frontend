@@ -25,25 +25,16 @@ const Label = styled.span`
 function StatsList({ correctness, completed, remaining }) {
   return (
     <List>
-      <ListItem>
-        <Icon
-          name="CHECK"
-          tooltip={{ text: 'Correctness', position: 'left', showDelay: 200 }}
-        />
+      <ListItem title="Correctness">
+        <Icon name="CHECK" />
         <Label>{`${correctness}%`}</Label>
       </ListItem>
-      <ListItem>
-        <Icon
-          name="ASSIGNMENT_CHECK"
-          tooltip={{ text: 'Reviews completed', position: 'left', showDelay: 200 }}
-        />
+      <ListItem title="Reviews completed">
+        <Icon name="ASSIGNMENT_CHECK" />
         <Label>{completed}</Label>
       </ListItem>
-      <ListItem>
-        <Icon
-          name="ASSIGNMENT_INBOX"
-          tooltip={{ text: 'Reviews remaining', position: 'left', showDelay: 200 }}
-        />
+      <ListItem title="Reviews remaining">
+        <Icon name="ASSIGNMENT_INBOX" />
         <Label>{remaining}</Label>
       </ListItem>
     </List>

@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import ReactTooltip from 'react-tooltip';
 import { Link } from 'react-router';
 import styled from 'styled-components';
 
@@ -20,7 +19,9 @@ const AlignToIcon = styled.span`
   line-height: 1;
 `;
 
-const DoubleBlock = styled.div`
+
+import { blueLight, blue } from 'shared/styles/colors';
+const LinkBlock = styled.div`
   display: inline-flex;
   flex-flow: row nowrap;
   padding-bottom: 1em;
@@ -35,12 +36,15 @@ const DoubleBlock = styled.div`
     color: #fff;
     letter-spacing: -1px;
     text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
-    transition: background-color 0.1s ease-in;
   }
 
   & > *:first-child {
+    transition: background-color 0.2s ease-in;
     border-radius: 3px 0 0 3px;
-    background-color: #0af;
+    background-color: rgb(${blue});
+    &:hover {
+      background-color: rgb(${blueLight});
+    }
   }
 
   & > *:last-child {
@@ -54,31 +58,22 @@ const InboxIcon = styled(Icon)`
 
 const SummaryHeader = ({ remainingReviews }) => (
   <header>
-    <ReactTooltip id="summaryHeader" />
     <Nav>
       <LogoLink size="4em" />
-      <DoubleBlock>
+      <LinkBlock>
         <Link
           to="/review/"
-          data-for="summaryHeader"
-          data-tip="Start review session"
-          data-place="left"
-          data-delay-show="500"
+          title="Start review session"
         >
           Start Session
         </Link>
-        <span
-          data-for="summaryHeader"
-          data-tip="Remaining reviews"
-          data-place="left"
-          data-delay-show="500"
-        >
+        <span title="Remaining reviews">
           <span>
-            <InboxIcon name="ASSIGNMENT_INBOX" color="white" />
+            <InboxIcon name="ASSIGNMENT_INBOX" color="white" size="1.2em" />
             <AlignToIcon>{remainingReviews}</AlignToIcon>
           </span>
         </span>
-      </DoubleBlock>
+      </LinkBlock>
     </Nav>
     <H1>
       <Icon name="CHECK_CIRCLE" />

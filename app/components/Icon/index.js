@@ -51,7 +51,7 @@ const Icon = ({ color, size, name, className, tooltip, ...rest }) => {
       data-delay-show={tooltipOptions.showDelay}
       data-delay-hide={tooltipOptions.hideDelay}
     >
-      <ReactTooltip id={tooltipOptions.id} />
+      { tooltipOptions.text && <ReactTooltip id={tooltipOptions.id} /> }
       <SVG
         title={name}
         width="100%"
@@ -74,7 +74,12 @@ Icon.propTypes = {
   ]),
   viewBox: PropTypes.string,
   preserveAspectRatio: PropTypes.string,
-  tooltip: PropTypes.object,
+  tooltip: PropTypes.shape({
+    text: PropTypes.string.isRequired,
+    position: PropTypes.string,
+    showDelay: PropTypes.number,
+    hideDelay: PropTypes.number,
+  }),
 };
 
 Icon.defaultProps = {

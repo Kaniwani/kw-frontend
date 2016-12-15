@@ -17,12 +17,8 @@ const Button = styled.button`
 
 function SubmitButton() {
   return (
-    <Button type="submit">
-      <Icon
-        name="ARROW_RIGHT"
-        size="1.75em"
-        tooltip={{ text: 'Submit answer', position: 'left', showDelay: 1000 }}
-      />
+    <Button type="submit" title="Submit answer">
+      <Icon name="ARROW_RIGHT" size="1.75em" />
     </Button>
   );
 }

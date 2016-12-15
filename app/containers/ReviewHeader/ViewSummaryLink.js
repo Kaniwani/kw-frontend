@@ -11,12 +11,8 @@ const StyledLink = styled(Link)`
 
 function ViewSummaryLink() {
   return (
-    <StyledLink to="/review/summary">
-      <Icon
-        name="SUMMARY"
-        size="1.5em"
-        tooltip={{ text: 'View current review summary', position: 'right', showDelay: 250 }}
-      />
+    <StyledLink to="/review/summary" title="View current review summary">
+      <Icon name="SUMMARY" size="1.5em" />
     </StyledLink>
   );
 }

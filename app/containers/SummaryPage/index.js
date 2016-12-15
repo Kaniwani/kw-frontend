@@ -3,31 +3,30 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import {
-  selectIgnoredCount,
-  selectCorrectItems,
-  selectIncorrectItems,
+  selectCorrectCategorized,
+  selectIncorrectCategorized,
   selectCriticalItems,
   selectPercentCorrect,
+  selectIgnoredCount,
   selectTotalCount,
 } from './selectors';
 
-import SummaryHeader from './Header';
+import SummaryHeader from './SummaryHeader';
 import PercentageBar from './PercentageBar';
 import SummarySection from './SummarySection';
 
-export class SummaryPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class SummaryPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     correctItems: PropTypes.object,
     incorrectItems: PropTypes.object,
-    criticalItems: PropTypes.object,
+    criticalItems: PropTypes.array,
     ignoredCount: PropTypes.number,
     percentCorrect: PropTypes.number,
     remainingCount: PropTypes.number,
   }
 
   render() {
-    const { percentCorrect, ignoredCount, remainingCount } = this.props;
-    let { correctItems, incorrectItems, criticalItems } = this.props;
+    const { correctItems, incorrectItems, criticalItems, percentCorrect, ignoredCount, remainingCount } = this.props;
 
     let content = (
       <section>
@@ -35,24 +34,20 @@ export class SummaryPage extends React.PureComponent { // eslint-disable-line re
       </section>
     );
 
-    correctItems = correctItems.toJS();
-    incorrectItems = incorrectItems.toJS();
-    criticalItems = criticalItems.toJS();
-
-    if (correctItems.length || incorrectItems.length) {
+    if (correctItems.count || incorrectItems.count) {
       content = (
         <section>
           <h1>{percentCorrect}% Accuracy</h1>
           <PercentageBar percent={percentCorrect} />
-          <SummarySection items={incorrectItems} count={incorrectItems.length} correct={false} />
-          <SummarySection items={correctItems} count={correctItems.length} correct />
+          <SummarySection items={incorrectItems} count={incorrectItems.count} correct={false} />
+          <SummarySection items={correctItems} count={correctItems.count} correct />
           {criticalItems.length &&
             <div>
               <h3>Critical Items:</h3>
               {criticalItems.map((item, index) => <p key={`crit-${index}`}>{item.vocabulary.meaning}</p>)}
             </div>
           }
-          { ignoredCount && <h4>Items ignored: {ignoredCount}</h4>}
+          { ignoredCount > 0 && <h4>Items ignored: {ignoredCount}</h4>}
         </section>
       );
     }
@@ -61,9 +56,7 @@ export class SummaryPage extends React.PureComponent { // eslint-disable-line re
       <div>
         <Helmet
           title="Review Summary"
-          meta={[
-            { name: 'description', content: 'Summary of Session Review' },
-          ]}
+          meta={[{ name: 'description', content: 'Summary of Session Review' }]}
         />
         <SummaryHeader remainingReviews={remainingCount} />
         {content}
@@ -73,8 +66,8 @@ export class SummaryPage extends React.PureComponent { // eslint-disable-line re
 }
 
 const mapStateToProps = createStructuredSelector({
-  correctItems: selectCorrectItems(),
-  incorrectItems: selectIncorrectItems(),
+  correctItems: selectCorrectCategorized(),
+  incorrectItems: selectIncorrectCategorized(),
   remainingCount: selectTotalCount(),
   criticalItems: selectCriticalItems(),
   ignoredCount: selectIgnoredCount(),
