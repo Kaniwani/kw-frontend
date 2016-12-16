@@ -2,33 +2,27 @@ import React from 'react';
 import cuid from 'cuid';
 
 import Ul from './Ul';
-import Wrapper from './Wrapper';
 
-function List(props) {
-  const ComponentToRender = props.component;
+function List({ items, component, componentProps }) {
+  const ComponentToRender = component;
   let content = (<div />);
 
   // If we have items, render them
-  if (props.items) {
-    content = props.items.map((item) => (
-      <ComponentToRender key={cuid()} item={item} />
+  if (items) {
+    content = items.map((item) => (
+      <ComponentToRender key={cuid()} item={item} {...componentProps} />
     ));
   } else {
     // Otherwise render a single component
     content = (<ComponentToRender />);
   }
 
-  return (
-    <Wrapper>
-      <Ul>
-        {content}
-      </Ul>
-    </Wrapper>
-  );
+  return <Ul>{content}</Ul>;
 }
 
 List.propTypes = {
   component: React.PropTypes.func.isRequired,
+  componentProps: React.PropTypes.object,
   items: React.PropTypes.array,
 };
 

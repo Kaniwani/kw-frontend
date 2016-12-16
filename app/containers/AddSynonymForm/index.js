@@ -25,6 +25,7 @@ export class AddSynonymForm extends React.Component { // eslint-disable-line rea
     isVisible: PropTypes.bool.isRequired,
     text: PropTypes.string.isRequired,
     answerType: PropTypes.string.isRequired,
+    closeModal: PropTypes.func.isRequired,
   }
 
 //  componentWillMount() {
@@ -55,7 +56,8 @@ export class AddSynonymForm extends React.Component { // eslint-disable-line rea
     blockEvent(event);
     // TODO: need to ensure all fields are valid
     // IE: chars/kana are isKanjiKana() / isKana()
-    console.log('submitted!'); // eslint-disable-line no-console
+    alert('pretend submission!'); // eslint-disable-line no-alert
+    this.props.closeModal();
   }
 
   render() {
@@ -103,10 +105,10 @@ const mapStateToProps = createStructuredSelector({
   answerType: selectAnswerType(),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     closeModal: ,
+//   };
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddSynonymForm);
+export default connect(mapStateToProps/* , mapDispatchToProps */)(AddSynonymForm);

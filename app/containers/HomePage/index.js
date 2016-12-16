@@ -9,7 +9,7 @@ import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import Header from 'components/Header';
+import DashboardHeader from 'components/DashboardHeader';
 import Footer from 'components/Footer';
 import H2 from 'components/H2';
 import CenteredSection from './CenteredSection';
@@ -24,8 +24,6 @@ import {
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     // TODO: to handle time information try out https://date-fns.org
-    // TODO: for tooltips try out https://github.com/egoens/react-aria-tooltip
-
     const {
       name,
       level,
@@ -35,7 +33,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
     return (
       <div>
-        <Header />
+        <DashboardHeader />
         <Helmet
           title="Dashboard"
           meta={[

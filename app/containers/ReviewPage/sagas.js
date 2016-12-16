@@ -3,8 +3,8 @@
 
 // TODO: extract into container sagas, this is huge!
 
-import { take, select, call, put, race } from 'redux-saga/effects';
 import { takeLatest, takeEvery, delay } from 'redux-saga';
+import { take, select, call, put, race } from 'redux-saga/effects';
 import {
   isHiragana,
   isKatakana,
@@ -28,6 +28,7 @@ import {
   markCorrect,
   markIncorrect,
   updateAnswer,
+  resetAnswer,
   processAnswer,
   startAutoAdvance,
   cancelAutoAdvance,
@@ -68,15 +69,10 @@ import {
   selectTotalCount,
 } from './selectors';
 
-/**
- *  request/response handler
- */
-export function* getReviewData(limit = 100) {
-  const requestURL = `api/reviews/?limit=${limit}`;
+export function* getReviewData() {
+  const requestURL = 'api/reviews/';
   try {
-    // Call our request helper (see 'utils/request')
     const data = yield call(request, requestURL);
-    data.results = data.results.slice(0, 15);
     const shapedData = shapeReviewData(data);
     yield put(reviewDataLoaded(shapedData));
   } catch (err) {
@@ -89,10 +85,11 @@ export function* recordAnswer() {
     select(selectCurrent()),
     // select(selectAuthToken())
   ];
-  const [id, correct, previouslyWrong] = [
+  const [id, correct, previouslyWrong, firstTimeWrong] = [
     current.get('id'),
     current.getIn(['session', 'correct']) >= 1,
     current.getIn(['session', 'incorrect']) > 1,
+    current.getIn(['session', 'incorrect']) === 1,
   ];
 
   const postData = {
@@ -106,20 +103,20 @@ export function* recordAnswer() {
   // yield fork(request, postURL, postData);
 
   try {
-    console.info(postData);
-    console.log('recorded on server');
-    // put(recordAnswerSuccess())
+    if (correct || (!correct && firstTimeWrong)) {
+      console.log('pretend record');
+      console.log(postData);
+      // put(recordAnswerSuccess())
+    }
   } catch (err) {
     // TODO: catch errors and notify user answer not recorded but returned to queue instead
     // put(recordAnswerFailure(message))
   } finally {
     // TODO: move to take(RECORD_ANSWER_SUCCESS)
     if (correct && !previouslyWrong) yield put(increaseSessionCorrect());
-
-    // NOTE: if incorrect, we don't need to record answer - this should be an early escape clause
     if (!correct && !previouslyWrong) yield put(increaseSessionIncorrect());
 
-    // TODO: take(RECORD_ANSWER_FAILURE) put(returnCurrentToQueue()) regardless
+    // TODO: take(RECORD_ANSWER_FAILURE)
     yield [
       put(correct ? copyCurrentToCompleted() : returnCurrentToQueue()),
       call(resetReview),
@@ -135,13 +132,7 @@ export function* resetReview() {
   yield [
     put(hideVocabInfo()),
     put(setNewCurrent()),
-    put(updateAnswer({
-      inputText: '',
-      matches: false,
-      valid: null,
-      marked: false,
-      inputDisabled: false,
-    })),
+    put(resetAnswer()),
   ];
 }
 
@@ -221,15 +212,12 @@ export function* markAnswerWatcher() {
       select(selectCurrent()),
       select(selectSettings()),
     ];
-    const currentID = current.get('id');
     const currentIncorrectCount = current.getIn(['session', 'incorrect']);
     const previouslyWrong = currentIncorrectCount >= 1;
     const firstTimeWrong = currentIncorrectCount === 1;
-    const currentStreak = current.get('streak');
 
     if (correct && !previouslyWrong) {
-      yield put(increaseCurrentStreak(currentStreak));
-      console.log(`${currentID} Correct ${!previouslyWrong ? 'Not previously wrong ' : ''}-> should be copied to complete`);
+      yield put(increaseCurrentStreak());
     }
 
     if ((correct && settings.get('autoExpandCorrect')) ||
@@ -242,13 +230,9 @@ export function* markAnswerWatcher() {
     }
 
     if (incorrect && firstTimeWrong) {
-      yield put(decreaseCurrentStreak(currentStreak));
-      console.log(`${currentID} Incorrect ${firstTimeWrong ? 'first time ' : ''}-> should be returned to queue`);
+      yield put(decreaseCurrentStreak());
     }
     if (ignored) {
-      const previousStreak = current.get('previousStreak');
-      console.log(`${currentID} Ignored -> returned to queue
-Streak reset to ${previousStreak} from ${currentStreak}`);
       yield [
         put(cancelAutoAdvance()),
         put(resetCurrentStreak()),
@@ -271,12 +255,12 @@ export function* copyCurrentToCompletedWatcher() {
 
     const needMoreReviews = (queue < 10) && (queue + completed < total);
     const queueCompleted = completed === total;
-    console.log(
-      'queue', queue,
-      '\nqueue + completed < total', queue + completed < total,
-      '\nneedMoreReviews', needMoreReviews,
-      '\nqueueComplete', queueCompleted,
-    );
+    // console.log(
+    //   'queue', queue,
+    //   '\nqueue + completed < total', queue + completed < total,
+    //   '\nneedMoreReviews', needMoreReviews,
+    //   '\nqueueComplete', queueCompleted,
+    // );
     if (needMoreReviews) {
       console.log('fetching more reviews...');
       yield put(loadReviewData());

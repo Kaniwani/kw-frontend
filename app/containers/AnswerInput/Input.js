@@ -6,7 +6,7 @@ import { innerMedium } from 'shared/styles/shadows';
 const Input = styled.input`
   display: block;
   width: 100%;
-  padding: 0;
+  padding: 0 1.8em;
   margin: 0;
   outline: none;
   border: 0;

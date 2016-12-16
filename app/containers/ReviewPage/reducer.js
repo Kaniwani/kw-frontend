@@ -25,8 +25,9 @@ export const initialState = fromJS({
   },
   // TODO: suggest to tadgh to send only necessary review item fields to keep api response size smaller
   current: {
-    streak: 0,
-    previousStreak: null,
+    session: {
+      streak: 0,
+    },
     vocabulary: {
       meaning: '',
       readings: [],
@@ -42,9 +43,15 @@ function reviewReducer(state = initialState, action) {
         .set('loading', true)
         .set('error', false);
     case Review.LOAD_REVIEWDATA_SUCCESS: {
-      const { count, reviews } = action.payload;
+      // FIXME: these checks should be unneccesary if we're paginating getReviews correctly
+      const completedIDs = state.get('completed').map((x) => x.get('id'));
+      const queueIDs = state.get('queue').map((x) => x.get('id'));
+      const currentID = state.getIn(['current', 'id']);
+      const reviews = action.payload.reviews
+        .filter(({ id }) => !completedIDs.includes(id) && !queueIDs.includes(id) && id !== currentID);
+
       return state
-        .set('total', count)
+        .set('total', action.payload.count)
         .set('loading', false)
         .mergeIn(['queue'], fromJS(reviews));
     }
@@ -57,8 +64,8 @@ function reviewReducer(state = initialState, action) {
     case Review.RECORD_ANSWER_FAILURE: return state; // TODO: implement
     case Review.SET_NEW_CURRENT: {
       const sampleIndex = Math.floor(Math.random() * state.get('queue').size); // between 0 and reviews.length - 1
-      const newCurrent = state.getIn(['queue', sampleIndex]);
-      const remainingReviews = state.get('queue').splice(sampleIndex, 1);
+      const newCurrent = state.getIn(['queue', sampleIndex]) || null;
+      const remainingReviews = state.get('queue').delete(sampleIndex);
       return state
         .set('current', fromJS(newCurrent))
         .set('queue', fromJS(remainingReviews));
@@ -92,15 +99,13 @@ function reviewReducer(state = initialState, action) {
     case Review.INCREASE_SESSION_INCORRECT:
       return state.updateIn(['session', 'incorrect'], add(1));
     case Review.INCREASE_CURRENT_STREAK:
-      return state
-        .setIn(['current', 'previousStreak'], action.payload)
-        .updateIn(['current', 'streak'], add(1));
+      return state.updateIn(['current', 'session', 'streak'], add(1));
     case Review.DECREASE_CURRENT_STREAK:
-      return state
-        .setIn(['current', 'previousStreak'], action.payload)
-        .updateIn(['current', 'streak'], subtract(1));
+      return state.updateIn(['current', 'session', 'streak'], subtract(1));
     case Review.RESET_CURRENT_STREAK:
-      return state.setIn(['current', 'streak'], state.getIn(['current', 'previousStreak']));
+      return state.setIn(['current', 'session', 'streak'], state.getIn(['current', 'history', 'streak']));
+    case ReviewAnswer.RESET_ANSWER:
+      return state.set('answer', answerInitialState);
     case ReviewAnswer.UPDATE_ANSWER:
       return state.mergeIn(['answer'], action.payload);
     case AnswerInput.UPDATE_INPUT:

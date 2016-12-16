@@ -46,7 +46,7 @@ const selectCurrentMeaning = () => createSelector(
 
 const selectCurrentStreak = () => createSelector(
   selectCurrent(),
-  (substate) => substate.get('streak'),
+  (substate) => substate.getIn(['session', 'streak']),
 );
 
 const selectCurrentStreakName = () => createSelector(
@@ -64,19 +64,32 @@ const selectSession = () => createSelector(
   (substate) => substate.get('session'),
 );
 
-const selectCompletedCount = () => createSelector(
+const selectCompleted = () => createSelector(
   selectReviewDomain(),
-  (substate) => substate.get('completed').size,
+  (substate) => substate.get('completed'),
 );
 
+const selectCompletedCount = () => createSelector(
+  selectCompleted(),
+  (substate) => substate.size,
+);
+
+// TODO: use selectors from Summarypage - more accurate!
 const selectCorrectCount = () => createSelector(
   selectSession(),
   (substate) => substate.get('correct'),
 );
 
+// TODO: use selectors from Summarypage - more accurate!
 const selectIncorrectCount = () => createSelector(
   selectSession(),
   (substate) => substate.get('incorrect'),
+);
+
+// TODO: use selectors from Summarypage - more accurate!
+const selectIgnoredCount = () => createSelector(
+  selectSession(),
+  (substate) => substate.get('ignored'),
 );
 
 const selectAnsweredCount = () => createSelector(
@@ -96,7 +109,9 @@ export {
   selectError,
   selectLoading,
   selectQueue,
+  selectSession,
   selectCurrent,
+  selectCompleted,
   selectCurrentVocab,
   selectCurrentReadings,
   selectCurrentMeaning,
@@ -108,4 +123,5 @@ export {
   selectAnsweredCount,
   selectCorrectCount,
   selectIncorrectCount,
+  selectIgnoredCount,
 };

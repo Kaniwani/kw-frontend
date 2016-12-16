@@ -5,7 +5,7 @@ import { fluidType } from 'shared/styles/utils';
 
 const Meaning = styled.h1`
   color: rgb(${white});
-  text-shadow: 1px 2px 4px ${purpleDark};
+  text-shadow: 1px 2px 4px rgb(${purpleDark});
   padding: 50px 15px 30px;
   display: table-cell;
   ${fluidType(20, 50, 300, 2000)}

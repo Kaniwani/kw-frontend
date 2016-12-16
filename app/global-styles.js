@@ -1,6 +1,7 @@
 import { injectGlobal } from 'styled-components';
 import { blackLight, blueLight, blueDark, greyDark } from 'shared/styles/colors';
 import { fluidType } from 'shared/styles/utils';
+import { units } from 'shared/styles/spacing';
 import {
   ffBody,
   ffHeading,
@@ -9,6 +10,16 @@ import {
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
+  html {
+    box-sizing: border-box;
+  }
+
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+
   html,
   body {
     height: 100%;
@@ -43,14 +54,14 @@ injectGlobal`
   h1, h2, h3, h4, h5, h6 {
     font-family: ${ffHeading};
     margin: 0;
-    margin-bottom: unit-xs;
+    margin-bottom: ${units.xs};
     color: rgb(${greyDark});
     line-height: 1.4;
   }
 
   h1 { ${fluidType(22, 36)} }
   h2 { ${fluidType(20, 30)} }
-  h3 { ${fluidType(18, 26)} }
+  h3 { ${fluidType(18, 24)} }
   h4 { ${fluidType(17, 22)} }
   h5 { ${fluidType(16, 21)} }
   h6 { ${fluidType(16, 19)} }

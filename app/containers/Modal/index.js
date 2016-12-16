@@ -62,6 +62,7 @@ export class Modal extends React.PureComponent {
     const ModalContent = modals[modalType];
     const modalContentProps = {
       ...contentProps,
+      closeModal,
       isVisible,
     };
 

@@ -26,13 +26,6 @@
   }
 }
 
-@define-mixin bg-gradient $clr, $dir: bottom, $percent: 5% {
-  /* fallback color */
-  background-color: $clr;
-  background-image: linear-gradient(to $dir, color(lighten $clr, $percent)}, #{darken $clr, $percent)});
-  background-repeat: repeat-x;
-}
-
 /* include under input {} */
 
 @define-mixin placeholder-color $clr: #444 {

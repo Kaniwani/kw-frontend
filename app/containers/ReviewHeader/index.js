@@ -1,55 +1,49 @@
-/*
- *
- * ReviewHeader
- *
- */
-
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import {
-  selectCorrectCount,
-  selectTotalCount,
-  selectAnsweredCount,
+  selectPercentCorrect,
+  selectPercentCompleted,
+  selectReviewsRemaining,
   selectCompletedCount,
-} from 'containers/Review/selectors';
+} from './selectors';
 
-import calculatePercentage from 'utils/calculatePercentage';
-import Wrapper from './Wrapper';
+import StatsWrapper from './StatsWrapper';
 import ProgressBar from './ProgressBar';
-import ExitQuiz from './ExitQuiz';
+import ViewSummaryLink from './ViewSummaryLink';
 import StatsList from './StatsList';
 
 export class ReviewHeader extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { completed, correct, answered, total } = this.props;
     return (
-      <Wrapper>
-        <ProgressBar value={calculatePercentage(answered, total)} />
-        <ExitQuiz />
-        <StatsList
-          correctness={calculatePercentage(correct, answered)}
-          completed={completed}
-          remaining={(total - 1 /* current review */) - completed}
-        />
-      </Wrapper>
+      <div>
+        <ProgressBar value={this.props.percentCompleted} />
+        <StatsWrapper>
+          <ViewSummaryLink />
+          <StatsList
+            correctness={this.props.percentCorrect}
+            completed={this.props.reviewsCompleted}
+            remaining={this.props.reviewsRemaining}
+          />
+        </StatsWrapper>
+      </div>
     );
   }
 }
 
 ReviewHeader.propTypes = {
-  completed: PropTypes.number,
-  correct: PropTypes.number,
-  answered: PropTypes.number,
-  total: PropTypes.number,
+  percentCorrect: PropTypes.number,
+  percentCompleted: PropTypes.number,
+  reviewsRemaining: PropTypes.number,
+  reviewsCompleted: PropTypes.number,
 };
 
 const mapStateToProps = createStructuredSelector({
-  completed: selectCompletedCount(),
-  correct: selectCorrectCount(),
-  answered: selectAnsweredCount(),
-  total: selectTotalCount(),
+  percentCorrect: selectPercentCorrect(),
+  percentCompleted: selectPercentCompleted(),
+  reviewsRemaining: selectReviewsRemaining(),
+  reviewsCompleted: selectCompletedCount(),
 });
 
 export default connect(mapStateToProps)(ReviewHeader);

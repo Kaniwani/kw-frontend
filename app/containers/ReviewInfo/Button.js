@@ -5,7 +5,7 @@ const Button = styled.button`
   width: 100%;
   padding: .75em 1.5em;
   border-radius: 0;
-  border: 1px solid ${greyLight};
+  border: 1px solid rgb(${greyLight});
   border-left-width: 0;
   border-right-width: 0;
   background-color: rgba(97,97,97,.9);

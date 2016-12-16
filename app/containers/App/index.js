@@ -12,8 +12,8 @@ import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
 
-import LoadingIndicator from 'components/LoadingIndicator';
 import Modal from 'containers/Modal';
+import LoadingIndicator from 'components/LoadingIndicator';
 import { selectLoading, selectError } from 'containers/App/selectors';
 import { loadUserData } from 'containers/App/actions';
 
@@ -58,7 +58,7 @@ class App extends React.PureComponent {
             { name: 'description', content: 'Kaniwani, An English to Japanese SRS Quiz' },
           ]}
         />
-
+        {/* navbar should be here, but need to conditionally hide it if the route is review */}
         <Modal />
         {appContent}
 

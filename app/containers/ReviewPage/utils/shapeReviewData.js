@@ -8,12 +8,13 @@ export default function shapeReviewData(data) {
     const shapedItem = {
       id: item.id,
       vocabulary: item.vocabulary,
-      // NOTE: don't need these in API response
-      // correct: item.correct,
-      // incorrect: item.incorrect,
-      streak: item.streak,
-      previousStreak: item.streak,
+      history: {
+        correct: item.correct,
+        incorrect: item.incorrect,
+        streak: item.streak,
+      },
       session: {
+        streak: item.streak,
         correct: 0,
         incorrect: 0,
         ignored: 0,

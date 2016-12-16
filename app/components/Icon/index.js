@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 import styled from 'styled-components';
+import ReactTooltip from 'react-tooltip';
+import cuid from 'cuid';
 import { ICONS } from './constants';
 
 const Wrapper = styled.span`
@@ -24,18 +26,43 @@ const SVG = styled.svg`
   left: 0;
 `;
 
-const Icon = ({ color, size, name, className, ...rest }) => (
-  <Wrapper className={className} iconColor={color} iconSize={size}>
-    <SVG
-      title={name}
-      width="100%"
-      height="100%"
-      {...rest}
+const tooltipDefaults = {
+  position: 'right',
+  showDelay: 0,
+  hideDelay: 0,
+};
+
+const Icon = ({ color, size, name, className, tooltip, ...rest }) => {
+  // NOTE: <ReactTooltip /> must be present in a parent component (pref root) for tooltips to show!
+  const tooltipOptions = Object.assign(
+    {},
+    tooltipDefaults,
+    tooltip,
+    { id: cuid() },
+  );
+  return (
+    <Wrapper
+      className={className}
+      iconColor={color}
+      iconSize={size}
+      data-tip={tooltipOptions.text}
+      data-for={tooltipOptions.id}
+      data-place={tooltipOptions.position}
+      data-delay-show={tooltipOptions.showDelay}
+      data-delay-hide={tooltipOptions.hideDelay}
     >
-      <path d={ICONS[name]} />
-    </SVG>
-  </Wrapper>
-);
+      { tooltipOptions.text && <ReactTooltip id={tooltipOptions.id} /> }
+      <SVG
+        title={name}
+        width="100%"
+        height="100%"
+        {...rest}
+      >
+        <path d={ICONS[name]} />
+      </SVG>
+    </Wrapper>
+  );
+};
 
 Icon.propTypes = {
   name: PropTypes.oneOf(Object.keys(ICONS)).isRequired,
@@ -47,6 +74,12 @@ Icon.propTypes = {
   ]),
   viewBox: PropTypes.string,
   preserveAspectRatio: PropTypes.string,
+  tooltip: PropTypes.shape({
+    text: PropTypes.string.isRequired,
+    position: PropTypes.string,
+    showDelay: PropTypes.number,
+    hideDelay: PropTypes.number,
+  }),
 };
 
 Icon.defaultProps = {

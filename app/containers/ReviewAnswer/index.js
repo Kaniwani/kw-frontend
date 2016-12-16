@@ -4,7 +4,7 @@ import { createStructuredSelector } from 'reselect';
 
 import blockEvent from 'utils/blockEvent';
 import { getShortcutAction } from './utils';
-import { selectCurrentStreakName } from 'containers/Review/selectors';
+import { selectCurrentStreakName } from 'containers/ReviewPage/selectors';
 import AnswerInput from 'containers/AnswerInput';
 import { showModal } from 'containers/Modal/actions';
 import { ADD_SYNONYM_MODAL } from 'containers/Modal/constants';
@@ -80,7 +80,11 @@ class ReviewAnswer extends React.PureComponent {
   }
 
   _showSynonymModal = () => {
-    this.props.showSynonymModal();
+    const { disabled, matches } = this.props;
+    // only allow on incorrect answers
+    if (disabled && !matches) {
+      this.props.showSynonymModal();
+    }
   }
 
   render() {
@@ -101,11 +105,7 @@ class ReviewAnswer extends React.PureComponent {
           matches={matches}
           valid={valid}
         />
-        { disabled &&
-          <IgnoreButton
-            onIgnoreClick={this._ignoreAnswer}
-          />
-        }
+        { disabled && <IgnoreButton onIgnoreClick={this._ignoreAnswer} />}
         <SubmitButton />
       </Form>
     );

@@ -1,39 +1,40 @@
 import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 import Icon from 'components/Icon';
-import { fluidType } from 'shared/styles/utils';
 
 const List = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
-  margin: .75em;
-  float: right;
-  ${fluidType(16, 20)}
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ListItem = styled.li`
-  display: inline-block;
-  margin-left: .9em;
+  padding-left: .35em;
+  padding-right: .35em;
 `;
 
 const Label = styled.span`
+  vertical-align: middle; /* Icon has va-m */
   margin-left: .15em;
-  vertical-align: middle;
 `;
 
 function StatsList({ correctness, completed, remaining }) {
   return (
     <List>
-      <ListItem title="Correct answers">
-        <Icon name="THUMBS_UP" />
-        <Label>{correctness}</Label>%</ListItem>
-      <ListItem title="Reviews completed">
+      <ListItem title="Correctness">
         <Icon name="CHECK" />
+        <Label>{`${correctness}%`}</Label>
+      </ListItem>
+      <ListItem title="Reviews completed">
+        <Icon name="ASSIGNMENT_CHECK" />
         <Label>{completed}</Label>
       </ListItem>
       <ListItem title="Reviews remaining">
-        <Icon name="INBOX" />
+        <Icon name="ASSIGNMENT_INBOX" />
         <Label>{remaining}</Label>
       </ListItem>
     </List>
