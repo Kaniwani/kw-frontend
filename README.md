@@ -23,17 +23,7 @@ Now you're ready to rumble!
 - [Styling](docs/css): How to work with the CSS tooling
 - [Your app](docs/js): Supercharging your app with Routing, Redux, simple
   asynchronicity helpers, etc.
-
-<!-- Slack -->
-<div align="center">
-<h3>Drop by the Kaniwani slack channel</h3>
-  <a href="https://kaniwani.slack.com">
-    <img src="https://avatars0.githubusercontent.com/u/6911160?v=3&s=200" width="50px" alt="Slack Chat" />
-  </a>
-</div> 
-
-<br />
-
+  
 <div align="center">
   <sub>Made with &#128034; by <a href="https://twitter.com/djtbay">Duncan Bay</a></sub>
 </div>
