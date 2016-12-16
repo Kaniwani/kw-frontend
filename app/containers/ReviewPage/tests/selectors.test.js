@@ -1,5 +1,7 @@
 import { fromJS } from 'immutable';
 
+import { SRS_RANKS } from 'shared/constants';
+
 import selectReviewDomain, {
   selectError,
   selectLoading,
@@ -9,6 +11,7 @@ import selectReviewDomain, {
   selectCurrentReadings,
   selectCurrentMeaning,
   selectCurrentStreak,
+  selectCurrentStreakName,
   selectQueueCount,
   selectTotalCount,
   selectCompletedCount,
@@ -139,15 +142,33 @@ describe('selectCurrentMeaning', () => {
 
 describe('selectCurrentStreak', () => {
   it('should select the selectCurrentStreak state', () => {
-    const streak = fromJS(1);
+    const streak = 1;
     const mockedState = fromJS({
       review: {
         current: {
-          streak,
+          session: {
+            streak,
+          },
         },
       },
     });
     expect(selectCurrentStreak()(mockedState)).toEqual(streak);
+  });
+});
+
+describe('selectCurrentStreakName', () => {
+  it('should select the current streak as a rank name', () => {
+    const streak = 8;
+    const mockedState = fromJS({
+      review: {
+        current: {
+          session: {
+            streak,
+          },
+        },
+      },
+    });
+    expect(selectCurrentStreakName()(mockedState)).toEqual(SRS_RANKS.FOUR);
   });
 });
 

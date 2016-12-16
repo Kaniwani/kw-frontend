@@ -1,20 +1,15 @@
-
-import appReducer from '../reducer';
+import appReducer, { initialState } from '../reducer';
+import { fromJS } from 'immutable';
 import {
   loadUserData,
   userDataLoaded,
   userDataLoadingError,
 } from '../actions';
-import { fromJS } from 'immutable';
 
 describe('appReducer', () => {
   let state;
   beforeEach(() => {
-    state = fromJS({
-      loading: false,
-      error: false,
-      user: false,
-    });
+    state = initialState;
   });
 
   it('should return the initial state', () => {
@@ -25,16 +20,15 @@ describe('appReducer', () => {
   it('should handle the loadUserData action correctly', () => {
     const expectedResult = state
       .set('loading', true)
-      .set('error', false)
-      .set('user', false);
+      .set('error', false);
 
     expect(appReducer(state, loadUserData())).toEqual(expectedResult);
   });
 
   it('should handle the userDataLoaded action correctly', () => {
-    const fixture = [{
+    const fixture = fromJS({
       name: 'Test Username',
-    }];
+    });
     const username = 'test';
     const expectedResult = state
       .set('user', fixture)
@@ -44,9 +38,9 @@ describe('appReducer', () => {
   });
 
   it('should handle the userDataLoadingError action correctly', () => {
-    const fixture = {
+    const fixture = fromJS({
       msg: 'Not found',
-    };
+    });
     const expectedResult = state
       .set('error', fixture)
       .set('loading', false);

@@ -50,10 +50,19 @@ describe('Review reducer', () => {
   });
 
   it('sets loaded review data', () => {
-    const testState = fromJS({ loading: true, queue: [] });
     const queue = fromJS([{ id: 0 }, { id: 1 }]);
     const count = 2;
-    const expectedState = fromJS({ loading: false, queue, total: count });
+    const testState = fromJS({
+      loading: true,
+      queue,
+      completed: [],
+    });
+    const expectedState = fromJS({
+      loading: false,
+      queue,
+      completed: [],
+      total: count,
+    });
 
     expect(reviewReducer(testState, { type: LOAD_REVIEWDATA_SUCCESS, payload: { count, reviews: queue } }))
       .toEqual(expectedState);
@@ -61,25 +70,11 @@ describe('Review reducer', () => {
 
   it('sets new current', () => {
     const testState = fromJS({
-      queue: [{ id: 0 }, { id: 1 }],
-      answer: {
-        inputText: 'wubbalub',
-        inputDisabled: true,
-        valid: true,
-        marked: true,
-        matches: true,
-      },
+      queue: [{ id: 0 }],
       current: null,
     });
     const expectedState = fromJS({
-      queue: [{ id: 1 }],
-      answer: {
-        inputText: '',
-        inputDisabled: false,
-        valid: null,
-        marked: false,
-        matches: false,
-      },
+      queue: [],
       current: { id: 0 },
     });
 
@@ -103,25 +98,35 @@ describe('Review reducer', () => {
       .toEqual(expectedState);
   });
 
-  it('increases current streak and stores previous streak', () => {
-    const testState = fromJS({ current: { streak: 2 } });
-    const expectedState = fromJS({ current: { streak: 3, previousStreak: 2 } });
+  it('increases current streak', () => {
+    const testState = fromJS({ current: { session: { streak: 1 } } });
+    const expectedState = fromJS({ current: { session: { streak: 2 } } });
 
-    expect(reviewReducer(testState, { type: INCREASE_CURRENT_STREAK, payload: 2 }))
+    expect(reviewReducer(testState, { type: INCREASE_CURRENT_STREAK }))
       .toEqual(expectedState);
   });
 
-  it('decreases current streak and stores previous streak', () => {
-    const testState = fromJS({ current: { streak: 2 } });
-    const expectedState = fromJS({ current: { streak: 1, previousStreak: 2 } });
+  it('decreases current streak', () => {
+    const testState = fromJS({ current: { session: { streak: 2 } } });
+    const expectedState = fromJS({ current: { session: { streak: 1 } } });
 
-    expect(reviewReducer(testState, { type: DECREASE_CURRENT_STREAK, payload: 2 }))
+    expect(reviewReducer(testState, { type: DECREASE_CURRENT_STREAK }))
       .toEqual(expectedState);
   });
 
-  it('resets current streak to previous value', () => {
-    const testState = fromJS({ current: { streak: 1, previousStreak: 2 } });
-    const expectedState = fromJS({ current: { streak: 2, previousStreak: 2 } });
+  it('resets current streak to historical value', () => {
+    const testState = fromJS({
+      current: {
+        history: { streak: 1 },
+        session: { streak: 2 },
+      },
+    });
+    const expectedState = fromJS({
+      current: {
+        history: { streak: 1 },
+        session: { streak: 1 },
+      },
+    });
 
     expect(reviewReducer(testState, { type: RESET_CURRENT_STREAK }))
       .toEqual(expectedState);

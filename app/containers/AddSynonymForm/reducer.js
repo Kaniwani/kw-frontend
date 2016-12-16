@@ -5,7 +5,7 @@ import {
   LOAD_JISHODATA_ERROR,
 } from './constants';
 
-const AddSynonymInitialState = fromJS({
+export const addSynonymInitialState = fromJS({
   input: {
     characters: false,
     kana: false,
@@ -16,7 +16,7 @@ const AddSynonymInitialState = fromJS({
   error: false,
 });
 
-function addSynonymFormReducer(state = AddSynonymInitialState, action) {
+function addSynonymFormReducer(state = addSynonymInitialState, action) {
   switch (action.type) {
     case LOAD_JISHODATA:
       return state

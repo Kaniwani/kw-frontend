@@ -1,18 +1,29 @@
-
 import {
-  defaultAction,
-} from '../actions';
-import {
-  DEFAULT_ACTION,
+  SHOW_MODAL,
+  HIDE_MODAL,
 } from '../constants';
+import {
+  showModal,
+  hideModal,
+} from '../actions';
 
 describe('Modal actions', () => {
-  describe('Default Action', () => {
-    it('has a type of DEFAULT_ACTION', () => {
+  describe('#showModal', () => {
+    it(`has a type of ${SHOW_MODAL}`, () => {
+      const payload = { modalType: 'MyModal', contentProps: { hello: 'you' } };
       const expected = {
-        type: DEFAULT_ACTION,
+        type: SHOW_MODAL,
+        payload,
       };
-      expect(defaultAction()).toEqual(expected);
+      expect(showModal(payload)).toEqual(expected);
+    });
+  });
+  describe('#hideModal', () => {
+    it(`has a type of ${HIDE_MODAL}`, () => {
+      const expected = {
+        type: HIDE_MODAL,
+      };
+      expect(hideModal()).toEqual(expected);
     });
   });
 });

@@ -1,13 +1,13 @@
 /**
  * Maps srs rank levels to english names for rank
- * @type {Object} 'ONE': 'apprentice'
+ * @type {Object} 'ONE': 'APPRENTICE'
  */
 export const SRS_RANKS = {
-  ONE: 'apprentice',
-  TWO: 'guru',
-  THREE: 'master',
-  FOUR: 'enlightened',
-  FIVE: 'burned',
+  ONE: 'APPRENTICE',
+  TWO: 'GURU',
+  THREE: 'MASTER',
+  FOUR: 'ENLIGHTENED',
+  FIVE: 'BURNED',
 };
 
 /**

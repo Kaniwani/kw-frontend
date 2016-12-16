@@ -51,7 +51,7 @@ const selectCurrentStreak = () => createSelector(
 
 const selectCurrentStreakName = () => createSelector(
   selectCurrentStreak(),
-  (streakNum) => getSrsRankName(streakNum).toUpperCase(),
+  (streakNum) => getSrsRankName(streakNum),
 );
 
 const selectQueueCount = () => createSelector(

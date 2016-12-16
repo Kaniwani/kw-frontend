@@ -93,24 +93,20 @@ describe('Review actions', () => {
   });
 
   describe('increaseCurrentStreak', () => {
-    it('should return the correct type and the previous streak', () => {
-      const fixture = 2;
+    it('should return the correct type', () => {
       const expectedResult = {
         type: INCREASE_CURRENT_STREAK,
-        payload: fixture, /* previousStreak */
       };
-      expect(increaseCurrentStreak(fixture)).toEqual(expectedResult);
+      expect(increaseCurrentStreak()).toEqual(expectedResult);
     });
   });
 
   describe('decreaseCurrentStreak', () => {
-    it('should return the correct type and the previous streak', () => {
-      const fixture = 2;
+    it('should return the correct type', () => {
       const expectedResult = {
         type: DECREASE_CURRENT_STREAK,
-        payload: fixture, /*previousStreak */
       };
-      expect(decreaseCurrentStreak(fixture)).toEqual(expectedResult);
+      expect(decreaseCurrentStreak()).toEqual(expectedResult);
     });
   });
 
