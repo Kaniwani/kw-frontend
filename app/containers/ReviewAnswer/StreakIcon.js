@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 import Icon from 'components/Icon';
+import titleCase from 'utils/titleCase';
 
 const StyledIcon = styled(Icon)`
   display: block;
@@ -11,7 +12,6 @@ const StyledIcon = styled(Icon)`
   color: currentColor;
 `;
 
-const titleCase = (str) => `${str.slice(0, 1).toUpperCase()}${str.slice(1).toLowerCase()}`;
 
 function StreakIcon({ streak }) {
   return (

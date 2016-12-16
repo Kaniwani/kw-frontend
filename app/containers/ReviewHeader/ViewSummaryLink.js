@@ -4,9 +4,12 @@ import styled from 'styled-components';
 import Icon from 'components/Icon';
 
 const StyledLink = styled(Link)`
-  display: inline-block;
+  display: block;
   cursor: pointer;
   color: currentColor;
+  /* magic numbers to make icon alignment more visually pleasing */
+  margin-top: 0.1em;
+  margin-left: -0.1em;
 `;
 
 function ViewSummaryLink() {

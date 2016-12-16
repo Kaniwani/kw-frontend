@@ -11,7 +11,6 @@ import isCritical from './utils/isCritical';
 import getSrsRankName from 'utils/getSrsRankName';
 
 // FIXME: uhh, this isn't selecting the current session completed correctly.
-// think we need to use a separate state to review perhaps (copy and clear completed when viewing summary?)
 const selectCorrectItems = () => createSelector(
   selectCompleted(),
   (completed) => completed.filter((item) => {

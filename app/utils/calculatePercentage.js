@@ -1,5 +1,5 @@
 /**
- * Calculates percentage to whole numbers, but always rounds down
+ * Calculates percentage as an integer, but always rounds down
  * (99.9, 100) => 99 (percent)
  *
  * @param  {Number} numerator Partial

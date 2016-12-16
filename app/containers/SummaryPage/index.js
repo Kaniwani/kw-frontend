@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
+import ReactTooltip from 'react-tooltip';
+
 import {
   selectCorrectCategorized,
   selectIncorrectCategorized,
@@ -14,6 +16,8 @@ import {
 import SummaryHeader from './SummaryHeader';
 import PercentageBar from './PercentageBar';
 import SummarySection from './SummarySection';
+import VocabChip from './VocabChip';
+import List from 'components/List';
 
 export class SummaryPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
@@ -37,6 +41,7 @@ export class SummaryPage extends React.Component { // eslint-disable-line react/
     if (correctItems.count || incorrectItems.count) {
       content = (
         <section>
+          <ReactTooltip id="vocabCardTip" place="bottom" html />
           <h1>{percentCorrect}% Accuracy</h1>
           <PercentageBar percent={percentCorrect} />
           <SummarySection items={incorrectItems} count={incorrectItems.count} correct={false} />
@@ -44,7 +49,7 @@ export class SummaryPage extends React.Component { // eslint-disable-line react/
           {criticalItems.length &&
             <div>
               <h3>Critical Items:</h3>
-              {criticalItems.map((item, index) => <p key={`crit-${index}`}>{item.vocabulary.meaning}</p>)}
+              <List items={criticalItems} component={VocabChip} />
             </div>
           }
           { ignoredCount > 0 && <h4>Items ignored: {ignoredCount}</h4>}
