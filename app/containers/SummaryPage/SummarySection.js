@@ -1,23 +1,32 @@
 import React, { PropTypes } from 'react';
 import styled from 'styled-components';
-import { white, green, red } from 'shared/styles/colors';
 import titleCase from 'utils/titleCase';
 import cuid from 'cuid';
 
 import List from 'components/List';
-
 import RankHeader from './RankHeader';
 import VocabChip from './VocabChip';
+import {
+  Section,
+  SectionHeader,
+} from './UI';
+
+
+const Wrapper = styled.div`
+  &:not(:first-of-type) {
+    margin-top: 1.5rem;
+  }
+`;
 
 const VocabList = ({ ranks, correct }) => (
   <Section>
     {Object.entries(ranks).map(([rank, vocabItems]) => {
       const count = vocabItems.length;
       return (count > 0) && (
-        <section key={cuid()}>
+        <Wrapper key={cuid()}>
           <RankHeader text={titleCase(rank)} count={count} />
           <List items={vocabItems} component={VocabChip} componentProps={{ color: (correct ? 'green' : 'red') }} />
-        </section>
+        </Wrapper>
       );
     })}
   </Section>
@@ -42,21 +51,9 @@ PlaceHolder.propTypes = {
   correct: PropTypes.bool.isRequired,
 };
 
-const SectionHeader = styled.h2`
-  margin: 0;
-  padding: 1rem;
-  color: rgb(${white});
-  background-color: rgb(${(props) => (props.correct ? green : red)});
-`;
-
-const Section = styled.section`
-  margin-top: .5rem;
-  padding: 1rem;
-`;
-
 const SummarySection = ({ items, correct }) => (
   <section>
-    <SectionHeader correct={correct}>{`${items.count} Answered ${correct ? 'Correctly' : 'Incorrectly'}`}</SectionHeader>
+    <SectionHeader color={correct ? 'green' : 'red'}>{`${items.count} Answered ${correct ? 'Correctly' : 'Incorrectly'}`}</SectionHeader>
     { items.count ? <VocabList ranks={items.ranks} correct={correct} /> : <PlaceHolder correct={correct} /> }
   </section>
 );

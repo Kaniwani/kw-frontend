@@ -13,11 +13,16 @@ import {
   selectTotalCount,
 } from './selectors';
 
+import List from 'components/List';
 import SummaryHeader from './SummaryHeader';
 import PercentageBar from './PercentageBar';
 import SummarySection from './SummarySection';
 import VocabChip from './VocabChip';
-import List from 'components/List';
+import {
+  Section,
+  SectionHeader,
+} from './UI';
+
 
 export class SummaryPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
@@ -48,8 +53,10 @@ export class SummaryPage extends React.Component { // eslint-disable-line react/
           <SummarySection items={correctItems} count={correctItems.count} correct />
           {criticalItems.length &&
             <div>
-              <h3>Critical Items:</h3>
-              <List items={criticalItems} component={VocabChip} />
+              <SectionHeader color="orange">Critical Items:</SectionHeader>
+              <Section color="orange">
+                <List items={criticalItems} component={VocabChip} componentProps={{ color: 'orange' }} />
+              </Section>
             </div>
           }
           { ignoredCount > 0 && <h4>Items ignored: {ignoredCount}</h4>}

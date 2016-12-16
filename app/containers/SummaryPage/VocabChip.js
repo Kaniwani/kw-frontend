@@ -43,9 +43,8 @@ const ChipWrapper = styled.li`
   margin-bottom: .1rem;
   background-color: ${(props) => `rgb(${COLORS[props.bgColor]})`};
   border-radius: .3rem;
-  color: whiteSmoke;
+  color: #fff;
   font-size: 1.2rem;
-  height: 2.4rem;
   line-height: 1;
   max-width: 100%;
   text-decoration: none;
@@ -54,13 +53,15 @@ const ChipWrapper = styled.li`
 
 const ChipLink = styled(Link)`
   color: currentColor;
-  padding: .3rem .6rem;
+  padding: .4em .6em;
 `;
 
 const ChipText = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  ${fluidType(18, 28)}
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, .1);
 `;
 
 /**

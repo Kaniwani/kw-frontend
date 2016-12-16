@@ -7,7 +7,7 @@ const Header = styled.h3`
   color: rgba(${grey}, .9);
   font-weight: 400;
   line-height: 1.2;
-  border-bottom: 2px solid rgba(${grey}, .2);
+  border-bottom: 2px solid rgba(${grey}, .25);
 `;
 
 const Inner = styled.span`

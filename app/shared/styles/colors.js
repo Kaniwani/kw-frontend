@@ -15,6 +15,7 @@ export const blue = '76, 129, 214'; // #4c81d6
 export const blueDark = '46, 80, 220'; // #2e50dc
 export const pink = '255, 0, 195'; // #ff00c3
 export const red = '226, 50, 91'; // #e2325b
+export const orange = '246, 111, 70'; // #f66f46
 export const green = '127, 212, 104'; // #7fd468
 export const golden = '247, 247, 201'; // #f7f7c9
 export const yellow = '245, 216, 0'; // #f5d800
