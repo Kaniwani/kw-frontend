@@ -6,6 +6,7 @@ import {
   selectTotalCount,
 } from 'containers/ReviewPage/selectors';
 
+import { SRS_RANKS } from 'shared/constants';
 import { selectPercentCorrect } from 'containers/ReviewHeader/selectors';
 import isCritical from './utils/isCritical';
 import getSrsRankName from 'utils/getSrsRankName';
@@ -29,11 +30,11 @@ const categorizeItems = (list) => {
   const shape = fromJS({
     count: list.size,
     ranks: {
-      apprentice: [],
-      guru: [],
-      master: [],
-      enlightened: [],
-      burned: [],
+      [SRS_RANKS.ONE]: [],
+      [SRS_RANKS.TWO]: [],
+      [SRS_RANKS.THREE]: [],
+      [SRS_RANKS.FOUR]: [],
+      [SRS_RANKS.FIVE]: [],
     },
   });
   return list.reduce((dict, item) => {

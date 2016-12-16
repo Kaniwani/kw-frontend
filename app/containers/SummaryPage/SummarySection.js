@@ -11,7 +11,6 @@ import {
   SectionHeader,
 } from './UI';
 
-
 const Wrapper = styled.div`
   &:not(:first-of-type) {
     margin-top: 1.5rem;

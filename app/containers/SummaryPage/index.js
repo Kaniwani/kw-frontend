@@ -19,10 +19,10 @@ import PercentageBar from './PercentageBar';
 import SummarySection from './SummarySection';
 import VocabChip from './VocabChip';
 import {
+  Main,
   Section,
   SectionHeader,
 } from './UI';
-
 
 export class SummaryPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
@@ -47,13 +47,13 @@ export class SummaryPage extends React.Component { // eslint-disable-line react/
       content = (
         <section>
           <ReactTooltip id="vocabCardTip" place="bottom" html />
-          <h1>{percentCorrect}% Accuracy</h1>
           <PercentageBar percent={percentCorrect} />
           <SummarySection items={incorrectItems} count={incorrectItems.count} correct={false} />
           <SummarySection items={correctItems} count={correctItems.count} correct />
           {criticalItems.length &&
             <div>
-              <SectionHeader color="orange">Critical Items:</SectionHeader>
+              {/* FIXME: SectionHeader as percentage bar!!! then animate! */}
+              <SectionHeader color="orange">{criticalItems.length} Critical Items:</SectionHeader>
               <Section color="orange">
                 <List items={criticalItems} component={VocabChip} componentProps={{ color: 'orange' }} />
               </Section>
@@ -70,8 +70,10 @@ export class SummaryPage extends React.Component { // eslint-disable-line react/
           title="Review Summary"
           meta={[{ name: 'description', content: 'Summary of Session Review' }]}
         />
-        <SummaryHeader remainingReviews={remainingCount} />
-        {content}
+        <Main>
+          <SummaryHeader remainingReviews={remainingCount} />
+          {content}
+        </Main>
       </div>
     );
   }
