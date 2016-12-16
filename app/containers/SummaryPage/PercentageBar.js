@@ -3,10 +3,9 @@ import styled from 'styled-components';
 import { bgGradient, fluidType } from 'shared/styles/utils';
 import * as COLORS from 'shared/styles/colors';
 
-
 const Wrapper = styled.div`
   ${bgGradient(`rgba(${COLORS.purpleDark}, 0.1)`, 'left')}
-  ${fluidType(18, 26)}
+  ${fluidType(18, 26)} /* TODO: change all these to reference HEADINGS.MEGA etc in sizing instead */
   position: relative;
   display: flex;
   height: 2.5em;
