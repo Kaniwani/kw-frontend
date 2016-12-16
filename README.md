@@ -3,8 +3,6 @@
   <h2>Client UI</h2>
 </div>
 
-<br />
-
 <div align="center">
   <sub>Made with &#128034; by <a href="https://twitter.com/djtbay">Duncan Bay</a></sub>
 </div>
