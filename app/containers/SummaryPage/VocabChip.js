@@ -6,6 +6,8 @@ import { fluidType } from 'shared/styles/utils';
 import calculatePercentage from 'utils/calculatePercentage';
 import titleCase from 'utils/titleCase';
 
+import { Link } from 'react-router';
+
 /* eslint-disable no-unused-expressions */
 injectGlobal`
   .vocab-tip {
@@ -50,7 +52,7 @@ const ChipWrapper = styled.li`
   vertical-align: middle;
 `;
 
-const ChipLink = styled.a`
+const ChipLink = styled(Link)`
   color: currentColor;
   padding: .3rem .6rem;
 `;
@@ -88,7 +90,7 @@ const VocabChip = ({ item, color }) => {
         </ul>
       `}
     >
-      <ChipLink href={`/kw/vocabulary/${id}`}>
+      <ChipLink to={`/vocabulary/:${id}`}>
         <ChipText lang="ja">{ character }</ChipText>
       </ChipLink>
     </ChipWrapper>
