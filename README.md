@@ -7,7 +7,7 @@
 
 <!-- Slack -->
 <div align="center">
-<h3>Kaniwani slack channel</h3>
+<h3>Drop by the Kaniwani slack channel</h3>
   <a href="https://kaniwani.slack.com">
     <img src="https://avatars0.githubusercontent.com/u/6911160?v=3&s=200" width="50px" alt="Slack Chat" />
   </a>
@@ -21,7 +21,7 @@
 
 ## Quick start
 
-1. Clone this repo using `git clone --depth=1 https://github.com/DJTB/KW-Frontend.git`
+1. Clone this repo using `git clone https://github.com/DJTB/KW-Frontend.git`
 2. Run `yarn` to install dependencies (`npm install -g yarn` first if you don't have yarn).
 3. Run `npm start` to load up the development server and watch for changes.
 4. Run `npm run test` to test all the things.
