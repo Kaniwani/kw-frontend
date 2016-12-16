@@ -5,6 +5,12 @@
 
 <br />
 
+<div align="center">
+  <sub>Made with &#128034; by <a href="https://twitter.com/djtbay">Duncan Bay</a></sub>
+</div>
+
+<br />
+
 ## Quick start
 
 1. Clone this repo using `git clone https://github.com/DJTB/KW-Frontend.git`
@@ -24,10 +30,6 @@ Now you're ready to rumble!
 - [Your app](docs/js): Supercharging your app with Routing, Redux, simple
   asynchronicity helpers, etc.
   
-<div align="center">
-  <sub>Made with &#128034; by <a href="https://twitter.com/djtbay">Duncan Bay</a></sub>
-</div>
-
 ## License
 
 This project is licensed under the MIT license, Copyright (c) 2016 Duncan Bay. For more information see `LICENSE.md`.
