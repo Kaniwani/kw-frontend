@@ -1,16 +1,19 @@
-<img src="https://raw.githubusercontent.com/DJTB/KW-Frontend/master/app/shared/assets/img/logo.png" alt="kaniwani logo" align="center" />
+<img src="https://raw.githubusercontent.com/DJTB/KW-Frontend/master/app/shared/assets/img/logo.png" alt="kaniwani logo" width="100px" align="center" />
 
 <br />
 
-<div align="center"><strong>KaniWani Frontend</strong></div>
-<div align="center">A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices</div>
+<div align="center">
+  <h1><strong>KaniWani Frontend</strong></h1>
+  <h2>Client UI and Functionality</h2>
+</div>
 
 <br />
 
 <!-- Slack -->
 <div align="center">
+<h3>Kaniwani slack channel</h3>
   <a href="https://kaniwani.slack.com">
-    <img src="https://avatars0.githubusercontent.com/u/6911160?v=3&s=200" alt="Slack Chat" />
+    <img src="https://avatars0.githubusercontent.com/u/6911160?v=3&s=200" width="50px" alt="Slack Chat" />
   </a>
 </div> 
 
