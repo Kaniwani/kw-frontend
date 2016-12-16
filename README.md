@@ -1,9 +1,5 @@
-<img src="https://raw.githubusercontent.com/DJTB/KW-Frontend/master/app/shared/assets/img/logo.png" alt="kaniwani logo" width="100px" align="center" />
-
-<br />
-
 <div align="center">
-  <h1><strong>KaniWani Frontend</strong></h1>
+  <h1><img src="https://raw.githubusercontent.com/DJTB/KW-Frontend/master/app/shared/assets/img/logo.png" alt="kaniwani logo" width="100px" /><strong>KaniWani Frontend</strong></h1>
   <h2>Client UI and Functionality</h2>
 </div>
 
