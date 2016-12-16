@@ -39,9 +39,10 @@ injectGlobal`
 const ChipWrapper = styled.li`
   display: inline-flex;
   align-items: center;
-  margin-right: .1rem;
-  margin-bottom: .1rem;
+  margin-right: .2em;
+  margin-bottom: .2em;
   background-color: ${(props) => `rgb(${COLORS[props.bgColor]})`};
+  box-shadow: 2px 2px 0 rgba(0,0,0, .1);
   border-radius: .3rem;
   color: #fff;
   font-size: 1.2rem;
