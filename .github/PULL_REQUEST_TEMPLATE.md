@@ -1,4 +1,4 @@
-## Kaniwani
+## KaniWani
 
 Thank you for contributing! Please take a moment to review our [**contributing guidelines**](https://github.com/DJTB/KW-Frontend/blob/master/.github/CONTRIBUTING.md)
 to make the process easy and effective for everyone involved.
