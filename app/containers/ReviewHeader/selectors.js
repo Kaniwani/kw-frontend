@@ -23,7 +23,7 @@ const selectPercentCompleted = () => createSelector(
   (answered, total) => calculatePercentage(answered, total),
 );
 
-const selectReviewsRemaining = () => createSelector(
+const selectRemainingCount = () => createSelector(
   selectTotalCount(),
   selectCompletedCount(),
   (total, completed) => (total - 1 /* current review being questioned */) - completed,
@@ -32,6 +32,6 @@ const selectReviewsRemaining = () => createSelector(
 export {
   selectPercentCorrect,
   selectPercentCompleted,
-  selectReviewsRemaining,
+  selectRemainingCount,
   selectCompletedCount,
 };

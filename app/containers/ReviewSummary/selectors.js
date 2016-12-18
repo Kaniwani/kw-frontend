@@ -3,11 +3,14 @@ import { fromJS } from 'immutable';
 import {
   selectCompleted,
   selectQueue,
-  selectTotalCount,
 } from 'containers/ReviewPage/selectors';
 
+import {
+  selectRemainingCount,
+  selectPercentCorrect,
+} from 'containers/ReviewHeader/selectors';
+
 import { SRS_RANKS } from 'shared/constants';
-import { selectPercentCorrect } from 'containers/ReviewHeader/selectors';
 import isCritical from './utils/isCritical';
 import getSrsRankName from 'utils/getSrsRankName';
 
@@ -77,6 +80,6 @@ export {
   selectIncorrectCategorized,
   selectCriticalItems,
   selectIgnoredCount,
-  selectTotalCount,
+  selectRemainingCount,
   selectPercentCorrect,
 };

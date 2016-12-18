@@ -5,7 +5,7 @@ import { createStructuredSelector } from 'reselect';
 import {
   selectPercentCorrect,
   selectPercentCompleted,
-  selectReviewsRemaining,
+  selectRemainingCount,
   selectCompletedCount,
 } from './selectors';
 
@@ -43,7 +43,7 @@ ReviewHeader.propTypes = {
 const mapStateToProps = createStructuredSelector({
   percentCorrect: selectPercentCorrect(),
   percentCompleted: selectPercentCompleted(),
-  reviewsRemaining: selectReviewsRemaining(),
+  reviewsRemaining: selectRemainingCount(),
   reviewsCompleted: selectCompletedCount(),
 });
 

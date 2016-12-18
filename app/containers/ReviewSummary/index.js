@@ -10,7 +10,7 @@ import {
   selectCriticalItems,
   selectPercentCorrect,
   selectIgnoredCount,
-  selectTotalCount,
+  selectRemainingCount,
 } from './selectors';
 
 import List from 'components/List';
@@ -82,7 +82,7 @@ export class ReviewSummary extends React.Component { // eslint-disable-line reac
 const mapStateToProps = createStructuredSelector({
   correctItems: selectCorrectCategorized(),
   incorrectItems: selectIncorrectCategorized(),
-  remainingCount: selectTotalCount(),
+  remainingCount: selectRemainingCount(),
   criticalItems: selectCriticalItems(),
   ignoredCount: selectIgnoredCount(),
   percentCorrect: selectPercentCorrect(),

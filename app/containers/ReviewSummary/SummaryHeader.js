@@ -17,9 +17,9 @@ const SummaryHeader = ({ remainingReviews }) => (
       <LinkBlock>
         <Link
           to="/review/"
-          title="Start review session"
+          title="Continue session"
         >
-          Start Session
+          Continue Session
         </Link>
         <span title="Remaining reviews">
           <span>

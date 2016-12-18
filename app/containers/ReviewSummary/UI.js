@@ -60,7 +60,7 @@ export const Main = styled.main`
 export const SectionHeader = styled.h2`
   margin: 0;
   padding: 1rem;
-  color: rgb(${COLORS.white});
+  color: white;
   background-color: rgb(${(props) => COLORS[props.color]});
 `;
 
