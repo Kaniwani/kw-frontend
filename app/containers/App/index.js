@@ -26,7 +26,7 @@ const AppWrapper = styled.div`
 `;
 
 class App extends React.PureComponent {
-  componentWillMount() {
+  componentDidMount() {
     this.props.loadUserData();
   }
 

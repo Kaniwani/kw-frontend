@@ -1,10 +1,14 @@
 import { createSelector } from 'reselect';
 import getSrsRankName from 'utils/getSrsRankName';
+import selectReviewDomain from 'containers/ReviewPage/selectors';
 
 /**
  * Direct selector to the review state domain
  */
-const selectReviewSession = () => (state) => state.get('session');
+const selectReviewSession = () => createSelector(
+  selectReviewDomain(),
+  (substate) => substate.get('session'),
+);
 
 const selectCurrent = () => createSelector(
   selectReviewSession(),

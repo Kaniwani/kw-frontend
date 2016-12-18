@@ -29,8 +29,10 @@ const Wrapper = styled.section`
   height: 100vh;
 `;
 
-export class Review extends React.PureComponent {
-  componentWillReceiveProps({ loading, error, meaning }) {
+export class ReviewSession extends React.Component {
+  componentDidUpdate(prevProps) {
+    console.log(prevProps, this.props);
+    const { loading, error, meaning } = this.props();
     if (!loading && !error && !meaning) {
       this.props.setNewCurrent();
     }
@@ -60,7 +62,7 @@ export class Review extends React.PureComponent {
   }
 }
 
-Review.propTypes = {
+ReviewSession.propTypes = {
   loading: PropTypes.bool.isRequired,
   error: PropTypes.oneOfType([
     PropTypes.object,
@@ -82,4 +84,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Review);
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewSession);

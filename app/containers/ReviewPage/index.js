@@ -12,11 +12,11 @@ import {
 
 
 export class ReviewPage extends React.PureComponent {
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.queue.size < 5) this.props.loadReviewData();
   }
   render() {
-    return React.Children.toArray(this.props.children);
+    return React.Children.only(this.props.children);
   }
 }
 

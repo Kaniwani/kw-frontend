@@ -63,15 +63,11 @@ export default function createRoutes(store) {
       indexRoute: {
         getComponent(nextState, cb) {
           const importModules = Promise.all([
-            System.import('containers/ReviewSession/reducer'),
-            System.import('containers/ReviewSession/sagas'),
             System.import('containers/ReviewSession'),
           ]);
           const renderRoute = loadModule(cb);
 
-          importModules.then(([reducer, sagas, component]) => {
-            injectReducer('session', reducer.default);
-            injectSagas(sagas.default);
+          importModules.then(([component]) => {
             renderRoute(component);
           });
 
@@ -80,39 +76,15 @@ export default function createRoutes(store) {
       },
       childRoutes: [
         {
-          path: '/review/session',
-          name: 'review session',
-          getComponent(nextState, cb) {
-            const importModules = Promise.all([
-              System.import('containers/ReviewSession/reducer'),
-              System.import('containers/ReviewSession/sagas'),
-              System.import('containers/ReviewSession'),
-            ]);
-            const renderRoute = loadModule(cb);
-
-            importModules.then(([reducer, sagas, component]) => {
-              injectReducer('session', reducer.default);
-              injectSagas(sagas.default);
-              renderRoute(component);
-            });
-
-            importModules.catch(errorLoading);
-          },
-        },
-        {
           path: '/review/summary',
           name: 'review summary',
           getComponent(nextState, cb) {
             const importModules = Promise.all([
-              System.import('containers/ReviewSummary/reducer'),
-              System.import('containers/ReviewSummary/sagas'),
               System.import('containers/ReviewSummary'),
             ]);
             const renderRoute = loadModule(cb);
 
-            importModules.then(([reducer, sagas, component]) => {
-              injectReducer('summary', reducer.default);
-              injectSagas(sagas.default);
+            importModules.then(([component]) => {
               renderRoute(component);
             });
 

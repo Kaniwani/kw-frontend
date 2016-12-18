@@ -3,7 +3,11 @@
  */
 import { fromJS } from 'immutable';
 import * as Review from './constants';
-// import reviewSessionReducer from 'containers/ReviewSession/reducer';
+import reviewSessionReducer, { reviewSessionInitialState } from 'containers/ReviewSession/reducer';
+import * as ReviewSession from 'containers/ReviewSession/constants';
+import * as ReviewAnswer from 'containers/ReviewAnswer/constants';
+import * as AnswerInput from 'containers/AnswerInput/constants';
+import * as ReviewInfo from 'containers/ReviewInfo/constants';
 
 export const initialState = fromJS({
   loading: false,
@@ -11,6 +15,7 @@ export const initialState = fromJS({
   total: 1,
   queue: [],
   completed: [],
+  session: reviewSessionInitialState,
 });
 
 function reviewReducer(state = initialState, action) {
@@ -37,61 +42,27 @@ function reviewReducer(state = initialState, action) {
       return state
         .set('error', action.payload)
         .set('loading', false);
-    // case ReviewSession.RECORD_ANSWER: return state; // TODO: implement
-    // case ReviewSession.RECORD_ANSWER_SUCCESS: return state; // TODO: implement
-    // case ReviewSession.RECORD_ANSWER_FAILURE: return state; // TODO: implement
-    // case ReviewSession.SET_NEW_CURRENT: {
-    //   const sampleIndex = Math.floor(Math.random() * state.get('queue').size); // between 0 and reviews.length - 1
-    //   const newCurrent = state.getIn(['queue', sampleIndex]) || null;
-    //   const remainingReviews = state.get('queue').delete(sampleIndex);
-    //   return state
-    //     .set('current', fromJS(newCurrent))
-    //     .set('queue', fromJS(remainingReviews));
-    // }
-    // case ReviewSession.RETURN_CURRENT_TO_QUEUE: {
-    //   const reviews = state.get('queue');
-    //   const current = state.get('current');
-    //   return state.set('queue', reviews.push(current));
-    // }
-    // case ReviewSession.COPY_CURRENT_TO_COMPLETED: {
-    //   const completed = state.get('completed').push(state.get('current'));
-    //   return state.set('completed', completed);
-    // }
-    // case ReviewAnswer.MARK_CORRECT:
-    //   return state
-    //     .updateIn(['current', 'session', 'correct'], increment)
-    //     .mergeIn(['answer'], { marked: true, inputDisabled: true });
-    // case ReviewAnswer.MARK_INCORRECT:
-    //   return state
-    //     .updateIn(['current', 'session', 'incorrect'], increment)
-    //     .mergeIn(['answer'], { marked: true, inputDisabled: true });
-    // case ReviewAnswer.MARK_IGNORED:
-    //   // When we marked correct or incorrect, we increased the current>session item's correctness
-    //   // here we will undo that since the user is ignoring their answer
-    //   return state
-    //     .updateIn(['session', 'ignored'], increment)
-    //     .updateIn(['current', 'session', action.payload ? 'correct' : 'incorrect'], decrement)
-    //     .updateIn(['current', 'session', 'ignored'], increment);
-    // case ReviewSession.INCREASE_SESSION_CORRECT:
-    //   return state.updateIn(['session', 'correct'], increment);
-    // case ReviewSession.INCREASE_SESSION_INCORRECT:
-    //   return state.updateIn(['session', 'incorrect'], increment);
-    // case ReviewSession.INCREASE_CURRENT_STREAK:
-    //   return state.updateIn(['current', 'session', 'streak'], increment);
-    // case ReviewSession.DECREASE_CURRENT_STREAK:
-    //   return state.updateIn(['current', 'session', 'streak'], decrement);
-    // case ReviewSession.RESET_CURRENT_STREAK:
-    //   return state.setIn(['current', 'session', 'streak'], state.getIn(['current', 'history', 'streak']));
-    // case ReviewAnswer.RESET_ANSWER:
-    //   return state.set('answer', answerInitialState);
-    // case ReviewAnswer.UPDATE_ANSWER:
-    //   return state.mergeIn(['answer'], action.payload);
-    // case AnswerInput.UPDATE_INPUT:
-    //   return state.mergeIn(['answer'], answerInputReducer(state.get('answer'), action));
-    // case ReviewInfo.TOGGLE_VOCAB_INFO:
-    // case ReviewInfo.SHOW_VOCAB_INFO:
-    // case ReviewInfo.HIDE_VOCAB_INFO:
-    //   return state.mergeIn(['reviewInfo'], reviewInfoReducer(state.get('reviewInfo'), action));
+    case ReviewSession.RECORD_ANSWER:
+    case ReviewSession.RECORD_ANSWER_SUCCESS:
+    case ReviewSession.RECORD_ANSWER_FAILURE:
+    case ReviewSession.SET_NEW_CURRENT:
+    case ReviewSession.RETURN_CURRENT_TO_QUEUE:
+    case ReviewSession.COPY_CURRENT_TO_COMPLETED:
+    case ReviewSession.INCREASE_SESSION_CORRECT:
+    case ReviewSession.INCREASE_SESSION_INCORRECT:
+    case ReviewSession.INCREASE_CURRENT_STREAK:
+    case ReviewSession.DECREASE_CURRENT_STREAK:
+    case ReviewSession.RESET_CURRENT_STREAK:
+    case ReviewAnswer.MARK_CORRECT:
+    case ReviewAnswer.MARK_INCORRECT:
+    case ReviewAnswer.MARK_IGNORED:
+    case ReviewAnswer.RESET_ANSWER:
+    case ReviewAnswer.UPDATE_ANSWER:
+    case AnswerInput.UPDATE_INPUT:
+    case ReviewInfo.TOGGLE_VOCAB_INFO:
+    case ReviewInfo.SHOW_VOCAB_INFO:
+    case ReviewInfo.HIDE_VOCAB_INFO:
+      return state.mergeDeep(reviewSessionReducer(state, action));
     default:
       return state;
   }
