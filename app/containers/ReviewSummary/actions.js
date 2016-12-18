@@ -1,6 +1,6 @@
 /*
  *
- * SummaryPage actions
+ * ReviewSummary actions
  *
  */
 

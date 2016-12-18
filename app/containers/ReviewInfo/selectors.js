@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
-import {
+import selectSessionDomain, {
   selectCurrentVocab,
   selectCurrentReadings,
-} from 'containers/ReviewPage/selectors';
+} from 'containers/ReviewSession/selectors';
 
 import {
   selectAnswerValid,
@@ -10,7 +10,10 @@ import {
   selectAnswerMatches,
 } from 'containers/AnswerInput/selectors';
 
-const selectReviewInfoDomain = () => (state) => state.getIn(['review', 'reviewInfo']);
+const selectReviewInfoDomain = () => createSelector(
+  selectSessionDomain(),
+  (session) => session.get('reviewInfo'),
+);
 
 const selectCharactersVisible = () => createSelector(
   selectReviewInfoDomain(),

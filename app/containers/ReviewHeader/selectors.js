@@ -4,9 +4,12 @@ import calculatePercentage from 'utils/calculatePercentage';
 import {
   selectTotalCount,
   selectCompletedCount,
+} from 'containers/ReviewPage/selectors';
+
+import {
   selectAnsweredCount,
   selectCorrectCount,
-} from 'containers/ReviewPage/selectors';
+} from 'containers/ReviewSession/selectors';
 
 const selectPercentCorrect = () => createSelector(
   selectCorrectCount(),

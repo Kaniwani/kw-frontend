@@ -1,6 +1,6 @@
 /*
  *
- * SummaryPage reducer
+ * ReviewSummary reducer
  *
  */
 
@@ -9,9 +9,11 @@ import {
   DEFAULT_ACTION,
 } from './constants';
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  pretend: 'summarystate',
+});
 
-function summaryPageReducer(state = initialState, action) {
+function ReviewSummaryReducer(state = initialState, action) {
   switch (action.type) {
     case DEFAULT_ACTION:
       return state;
@@ -20,4 +22,4 @@ function summaryPageReducer(state = initialState, action) {
   }
 }
 
-export default summaryPageReducer;
+export default ReviewSummaryReducer;

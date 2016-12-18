@@ -48,9 +48,8 @@ export default function createRoutes(store) {
         const importModules = Promise.all([
           System.import('containers/ReviewPage/reducer'),
           System.import('containers/ReviewPage/sagas'),
-          System.import('containers/ReviewPage'),
+          System.import('containers/ReviewPage/'),
         ]);
-
         const renderRoute = loadModule(cb);
 
         importModules.then(([reducer, sagas, component]) => {
@@ -61,25 +60,66 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    }, {
-      path: '/review/summary',
-      name: 'review summary',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          System.import('containers/SummaryPage/reducer'),
-          System.import('containers/SummaryPage/sagas'),
-          System.import('containers/SummaryPage'),
-        ]);
-        const renderRoute = loadModule(cb);
+      indexRoute: {
+        getComponent(nextState, cb) {
+          const importModules = Promise.all([
+            System.import('containers/ReviewSession/reducer'),
+            System.import('containers/ReviewSession/sagas'),
+            System.import('containers/ReviewSession'),
+          ]);
+          const renderRoute = loadModule(cb);
 
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer('summary', reducer.default);
-          injectSagas(sagas.default);
-          renderRoute(component);
-        });
+          importModules.then(([reducer, sagas, component]) => {
+            injectReducer('session', reducer.default);
+            injectSagas(sagas.default);
+            renderRoute(component);
+          });
 
-        importModules.catch(errorLoading);
+          importModules.catch(errorLoading);
+        },
       },
+      childRoutes: [
+        {
+          path: '/review/session',
+          name: 'review session',
+          getComponent(nextState, cb) {
+            const importModules = Promise.all([
+              System.import('containers/ReviewSession/reducer'),
+              System.import('containers/ReviewSession/sagas'),
+              System.import('containers/ReviewSession'),
+            ]);
+            const renderRoute = loadModule(cb);
+
+            importModules.then(([reducer, sagas, component]) => {
+              injectReducer('session', reducer.default);
+              injectSagas(sagas.default);
+              renderRoute(component);
+            });
+
+            importModules.catch(errorLoading);
+          },
+        },
+        {
+          path: '/review/summary',
+          name: 'review summary',
+          getComponent(nextState, cb) {
+            const importModules = Promise.all([
+              System.import('containers/ReviewSummary/reducer'),
+              System.import('containers/ReviewSummary/sagas'),
+              System.import('containers/ReviewSummary'),
+            ]);
+            const renderRoute = loadModule(cb);
+
+            importModules.then(([reducer, sagas, component]) => {
+              injectReducer('summary', reducer.default);
+              injectSagas(sagas.default);
+              renderRoute(component);
+            });
+
+            importModules.catch(errorLoading);
+          },
+        },
+      ],
     },
     {
       path: '*',

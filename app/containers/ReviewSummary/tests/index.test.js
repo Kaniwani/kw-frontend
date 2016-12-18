@@ -1,10 +1,10 @@
-// import { SummaryPage } from '../index';
+// import { ReviewSummary } from '../index';
 
 
 // import { shallow } from 'enzyme';
 // import React from 'react';
 
-describe('<SummaryPage />', () => {
+describe('<ReviewSummary />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

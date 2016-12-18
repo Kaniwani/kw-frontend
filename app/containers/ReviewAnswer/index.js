@@ -4,7 +4,7 @@ import { createStructuredSelector } from 'reselect';
 
 import blockEvent from 'utils/blockEvent';
 import { getShortcutAction } from './utils';
-import { selectCurrentStreakName } from 'containers/ReviewPage/selectors';
+import { selectCurrentStreakName } from 'containers/ReviewSession/selectors';
 import AnswerInput from 'containers/AnswerInput';
 import { showModal } from 'containers/Modal/actions';
 import { ADD_SYNONYM_MODAL } from 'containers/Modal/constants';

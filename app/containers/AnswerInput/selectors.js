@@ -1,9 +1,13 @@
 import { createSelector } from 'reselect';
+import selectSessionDomain from 'containers/ReviewSession/selectors';
 
 /**
  * Direct selector to the answerInput state domain
  */
-const selectAnswerInputDomain = () => (state) => state.getIn(['review', 'answer']);
+const selectAnswerInputDomain = () => createSelector(
+  selectSessionDomain(),
+  (session) => session.get('answer'),
+);
 
 /**
  * Other specific selectors

@@ -24,7 +24,7 @@ import {
   SectionHeader,
 } from './UI';
 
-export class SummaryPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class ReviewSummary extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     correctItems: PropTypes.object,
     incorrectItems: PropTypes.object,
@@ -94,4 +94,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SummaryPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewSummary);

@@ -1,6 +1,6 @@
-
 import { takeLatest } from 'redux-saga';
 import { call } from 'redux-saga/effects';
+import markAllAsDaemon from 'utils/markAllAsDaemon';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 function* log() {
@@ -11,7 +11,11 @@ function* defaultSaga() {
   yield takeLatest(LOCATION_CHANGE, log);
 }
 
-defaultSaga.isDaemon = true;
+const watchers = markAllAsDaemon([
+  defaultSaga,
+]);
 
 // Bootstrap sagas
-export default [defaultSaga];
+export default [
+  ...watchers,
+];
