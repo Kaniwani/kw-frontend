@@ -63,7 +63,7 @@ const selectAllSummaryItems = () => createSelector(
 // TODO: store criticality during review instead so we can sort descending and slice the top 10
 const selectCriticalItems = () => createSelector(
   selectAllSummaryItems(),
-  (items) => items.filter((item) => isCritical(item)).slice(0, 10).toJS(),
+  (items) => items.filter((item) => isCritical(item)).toJS(),
 );
 
 const selectIgnoredCount = () => createSelector(

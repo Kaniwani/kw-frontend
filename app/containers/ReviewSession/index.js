@@ -17,11 +17,6 @@ import {
   selectCurrentMeaning,
 } from './selectors';
 
-import {
-  setNewCurrent,
-} from './actions';
-
-
 const Wrapper = styled.section`
   display: table;
   padding: 0;
@@ -29,37 +24,25 @@ const Wrapper = styled.section`
   height: 100vh;
 `;
 
-export class ReviewSession extends React.Component {
-  componentDidUpdate(prevProps) {
-    console.log(prevProps, this.props);
-    const { loading, error, meaning } = this.props();
-    if (!loading && !error && !meaning) {
-      this.props.setNewCurrent();
-    }
-  }
-
-  render() {
-    const { loading, error, meaning } = this.props;
-
-    return (
-      <Wrapper>
-        <Helmet
-          title="Review Session"
-          meta={[
-            { name: 'description', content: 'Kaniwani Review Session' },
-          ]}
-        />
-        <ReviewHeader />
-        <ReviewQuestion
-          loading={loading}
-          error={error}
-          meaning={meaning}
-        />
-        <ReviewAnswer />
-        <ReviewInfo />
-      </Wrapper>
-    );
-  }
+export function ReviewSession({ loading, error, meaning }) {
+  return (
+    <Wrapper>
+      <Helmet
+        title="Review Session"
+        meta={[
+          { name: 'description', content: 'Kaniwani Review Session' },
+        ]}
+      />
+      <ReviewHeader />
+      <ReviewQuestion
+        loading={loading}
+        error={error}
+        meaning={meaning}
+      />
+      <ReviewAnswer />
+      <ReviewInfo />
+    </Wrapper>
+  );
 }
 
 ReviewSession.propTypes = {
@@ -69,7 +52,6 @@ ReviewSession.propTypes = {
     PropTypes.bool,
   ]).isRequired,
   meaning: PropTypes.string.isRequired,
-  setNewCurrent: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -78,10 +60,4 @@ const mapStateToProps = createStructuredSelector({
   meaning: selectCurrentMeaning(),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    setNewCurrent: () => dispatch(setNewCurrent()),
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewSession);
+export default connect(mapStateToProps)(ReviewSession);

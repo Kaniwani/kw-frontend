@@ -62,7 +62,7 @@ function reviewReducer(state = initialState, action) {
     case ReviewInfo.TOGGLE_VOCAB_INFO:
     case ReviewInfo.SHOW_VOCAB_INFO:
     case ReviewInfo.HIDE_VOCAB_INFO:
-      return state.mergeDeep(reviewSessionReducer(state, action));
+      return state.merge(reviewSessionReducer(state, action));
     default:
       return state;
   }

@@ -61,6 +61,10 @@ import {
 } from 'containers/ReviewPage/actions';
 
 import {
+  LOAD_REVIEWDATA_SUCCESS,
+} from 'containers/ReviewPage/constants';
+
+import {
   COPY_CURRENT_TO_COMPLETED,
 } from './constants';
 
@@ -83,9 +87,23 @@ import {
 
 import {
   selectCurrent,
+  selectCurrentMeaning,
   selectCurrentReadings,
 } from './selectors';
 
+// TODO: move to reviewPage saga?
+export function* loadReviewDataSuccessWatcher() {
+  while (true) {
+    yield take(LOAD_REVIEWDATA_SUCCESS);
+    const [meaning, queueCount] = yield [
+      select(selectCurrentMeaning()),
+      select(selectQueueCount()),
+    ];
+    if (isEmpty(meaning) && queueCount !== 0) {
+      yield put(setNewCurrent());
+    }
+  }
+}
 
 export function* recordAnswer() {
   const [current/* , authToken */] = yield [
@@ -277,6 +295,7 @@ export function* copyCurrentToCompletedWatcher() {
 }
 
 const watchers = markAllAsDaemon([
+  loadReviewDataSuccessWatcher,
   checkAnswerWatcher,
   markAnswerWatcher,
   processAnswerWatcher,
