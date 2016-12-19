@@ -4,7 +4,7 @@ import { call } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 function* log() {
-  yield call(console.log, 'you have left summary page summarysaga');
+  yield call(console.log, 'you have left summary page summarysaga'); // eslint-disable-line no-console
 }
 
 function* defaultSaga() {
