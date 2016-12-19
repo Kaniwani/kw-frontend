@@ -3,13 +3,15 @@ language: node_js
 node_js:
   - 7
 
+after_install: 'yarn run test'
+
 script: yarn run build
 
 notifications:
   email:
     on_failure: change
 
-after_success: 'npm run coveralls'
+after_success: 'yarn run coveralls'
 
 cache:
   yarn: true
