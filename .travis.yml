@@ -3,7 +3,7 @@ language: node_js
 node_js:
   - 7
 
-after_install: 'yarn run test'
+before_script: 'yarn run test'
 
 script: yarn run build
 
