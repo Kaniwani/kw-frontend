@@ -1,14 +1,34 @@
 import styled from 'styled-components';
 import Icon from 'components/Icon';
-import { units } from 'shared/styles/spacing';
-import * as COLORS from 'shared/styles/colors';
+import H1 from 'components/H1';
+import { units, borders } from 'shared/styles/spacing';
+import * as colors from 'shared/styles/colors';
 
-export const Nav = styled.nav`
+export const Header = styled.header`
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
   width: 100%;
   padding: .5em;
+`;
+
+export const Title = styled(H1)`
+  align-self: flex-start;
+  margin-top: 0;
+`;
+
+export const SummaryNav = styled.nav`
   display: flex;
-  justify-content: space-between;
-  align-items: top;
+  align-self: flex-end;
+`;
+
+export const LogoWrapper = styled.div`
+  display: block;
+  background-color: rgb(${colors.blueLogo});
+  padding: 0 3px 0 2px;
+  border-radius: ${borders.radius};
+  margin-left: auto;
+  margin-right: 5px;
 `;
 
 export const AlignToIcon = styled.span`
@@ -19,7 +39,6 @@ export const AlignToIcon = styled.span`
 export const LinkBlock = styled.div`
   display: inline-flex;
   flex-flow: row nowrap;
-  padding-bottom: 1em;
 
   > * {
     display: flex;
@@ -36,9 +55,9 @@ export const LinkBlock = styled.div`
   & > *:first-child {
     transition: background-color 0.2s ease-in;
     border-radius: 3px 0 0 3px;
-    background-color: rgb(${COLORS.blue});
+    background-color: rgb(${colors.blue});
     &:hover {
-      background-color: rgb(${COLORS.blueLight});
+      background-color: rgb(${colors.blueLight});
     }
   }
 
@@ -61,7 +80,7 @@ export const SectionHeader = styled.h2`
   margin: 0;
   padding: 1rem;
   color: white;
-  background-color: rgb(${(props) => COLORS[props.color]});
+  background-color: rgb(${(props) => colors[props.color]});
 `;
 
 export const Section = styled.section`

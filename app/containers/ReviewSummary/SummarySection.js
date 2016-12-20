@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import titleCase from 'utils/titleCase';
 import cuid from 'cuid';
 
+import H1 from 'components/H1';
 import List from 'components/List';
 import RankHeader from './RankHeader';
 import VocabChip from './VocabChip';
@@ -40,8 +41,8 @@ VocabList.propTypes = {
 const PlaceHolder = ({ correct }) => (
   <Section>
     { !correct ?
-      <h3 ><span lang="ja">満点！ </span> (๑•̀ㅂ•́)و</h3> :
-      <h3 ><span lang="ja">零点... 残念だよ </span> (๑◕︵◕๑)</h3>
+      <H1 style={{ fontWeight: 'normal' }}><span lang="ja">満点！ </span> (๑•̀ㅂ•́)و</H1> :
+      <H1 style={{ fontWeight: 'normal' }}><span lang="ja">零点... 残念だよ </span> (๑◕︵◕๑)</H1>
     }
   </Section>
 );

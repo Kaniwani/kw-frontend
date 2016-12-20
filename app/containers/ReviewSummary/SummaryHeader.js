@@ -1,23 +1,30 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import Icon from 'components/Icon';
-import H1 from 'components/H1';
 import LogoLink from 'components/LogoLink';
 import {
-  Nav,
+  Header,
+  Title,
+  SummaryNav,
   AlignToIcon,
   LinkBlock,
+  LogoWrapper,
   InboxIcon,
 } from './UI';
 
 const SummaryHeader = ({ remainingReviews }) => (
-  <header>
-    <Nav>
-      <LogoLink size="4em" />
+  <Header>
+    <Title>
+      <Icon name="CHECK_CIRCLE" />
+      <AlignToIcon>Review Summary</AlignToIcon>
+    </Title>
+    <SummaryNav>
+      <LogoWrapper title="Return to Dashboard">
+        <LogoLink size="50px" />
+      </LogoWrapper>
       <LinkBlock>
         <Link
           to="/review/"
-          title="Continue session"
         >
           Continue Session
         </Link>
@@ -28,12 +35,8 @@ const SummaryHeader = ({ remainingReviews }) => (
           </span>
         </span>
       </LinkBlock>
-    </Nav>
-    <H1>
-      <Icon name="CHECK_CIRCLE" />
-      <AlignToIcon>Review Summary</AlignToIcon>
-    </H1>
-  </header>
+    </SummaryNav>
+  </Header>
 );
 
 SummaryHeader.propTypes = {

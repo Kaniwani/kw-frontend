@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import ReactTooltip from 'react-tooltip';
@@ -34,35 +35,15 @@ export class ReviewSummary extends React.Component { // eslint-disable-line reac
     remainingCount: PropTypes.number,
   }
 
+  componentWillMount() {
+    // redirect to review if no items answered yet
+    if (!this.props.correctItems.count || !this.props.correctItems.count) {
+      browserHistory.push('/review');
+    }
+  }
+
   render() {
     const { correctItems, incorrectItems, criticalItems, percentCorrect, ignoredCount, remainingCount } = this.props;
-
-    let content = (
-      <section>
-        <div>No reviews completed</div>
-      </section>
-    );
-
-    if (correctItems.count || incorrectItems.count) {
-      content = (
-        <section>
-          <ReactTooltip id="vocabCardTip" place="bottom" html />
-          <PercentageBar percent={percentCorrect} />
-          <SummarySection items={incorrectItems} count={incorrectItems.count} correct={false} />
-          <SummarySection items={correctItems} count={correctItems.count} correct />
-          {criticalItems.length &&
-            <div>
-              {/* FIXME: SectionHeader as percentage bar!!! then animate! */}
-              <SectionHeader color="orange">{criticalItems.length} Critical Items:</SectionHeader>
-              <Section color="orange">
-                <List items={criticalItems} component={VocabChip} componentProps={{ color: 'orange' }} />
-              </Section>
-            </div>
-          }
-          { ignoredCount > 0 && <h4>Items ignored: {ignoredCount}</h4>}
-        </section>
-      );
-    }
 
     return (
       <div>
@@ -72,7 +53,22 @@ export class ReviewSummary extends React.Component { // eslint-disable-line reac
         />
         <Main>
           <SummaryHeader remainingReviews={remainingCount} />
-          {content}
+          <section>
+            <ReactTooltip id="vocabCardTip" place="bottom" html />
+            <PercentageBar percent={percentCorrect} />
+            <SummarySection items={incorrectItems} count={incorrectItems.count} correct={false} />
+            <SummarySection items={correctItems} count={correctItems.count} correct />
+            {criticalItems.length > 0 &&
+              <div>
+                {/* FIXME: SectionHeader as percentage bar!!! then animate! */}
+                <SectionHeader color="orange">{criticalItems.length} Critical Items:</SectionHeader>
+                <Section color="orange">
+                  <List items={criticalItems} component={VocabChip} componentProps={{ color: 'orange' }} />
+                </Section>
+              </div>
+            }
+            { ignoredCount > 0 && <h4>{ignoredCount} Items ignored.</h4>}
+          </section>
         </Main>
       </div>
     );
