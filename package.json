@@ -20,7 +20,6 @@
     "preinstall": "yarn run npmcheckversion",
     "postinstall": "yarn run build:dll",
     "prebuild": "yarn run build:clean",
-    "precommit": "yarn run lint",
     "build": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js --color -p --progress",
     "build:clean": "yarn run test:clean",
     "build:dll": "node ./internals/scripts/dependencies.js",
