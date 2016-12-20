@@ -14,7 +14,7 @@ import {
 } from 'containers/ReviewPage/selectors';
 
 import {
-  selectCurrentMeaning,
+  selectCurrentVocab,
 } from './selectors';
 
 const Wrapper = styled.section`
@@ -24,7 +24,7 @@ const Wrapper = styled.section`
   height: 100vh;
 `;
 
-export function ReviewSession({ loading, error, meaning }) {
+export function ReviewSession({ loading, error, vocab }) {
   return (
     <Wrapper>
       <Helmet
@@ -37,10 +37,10 @@ export function ReviewSession({ loading, error, meaning }) {
       <ReviewQuestion
         loading={loading}
         error={error}
-        meaning={meaning}
+        meaning={vocab.get('meaning')}
       />
       <ReviewAnswer />
-      <ReviewInfo />
+      <ReviewInfo readings={vocab.get('readings')} />
     </Wrapper>
   );
 }
@@ -51,13 +51,13 @@ ReviewSession.propTypes = {
     PropTypes.object,
     PropTypes.bool,
   ]).isRequired,
-  meaning: PropTypes.string.isRequired,
+  vocab: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   loading: selectLoading(),
   error: selectError(),
-  meaning: selectCurrentMeaning(),
+  vocab: selectCurrentVocab(),
 });
 
 export default connect(mapStateToProps)(ReviewSession);

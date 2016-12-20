@@ -12,8 +12,8 @@ export function getShortcutAction(keyCode, disabled) {
   const handlers = {
     [KEYS.ENTER]: '_processAnswer',
     [KEYS.F_LOWERCASE]: '_toggleVocabInfo',
-    [KEYS.K_LOWERCASE]: '_toggleKanaInfo',
-    [KEYS.P_LOWERCASE]: '_toggleCharInfo',
+    // [KEYS.K_LOWERCASE]: '_toggleKanaInfo',
+    // [KEYS.P_LOWERCASE]: '_toggleCharInfo',
     [KEYS.S_LOWERCASE]: '_showSynonymModal',
     [KEYS.I_LOWERCASE]: '_ignoreAnswer',
     [KEYS.BACKSPACE]: '_ignoreAnswer',

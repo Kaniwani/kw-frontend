@@ -3549,6 +3549,13 @@ he@1.1.x:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/he/-/he-1.1.0.tgz#29319d49beec13a9b1f3c4f9b2a6dde4859bb2a7"
 
+hedron@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/hedron/-/hedron-0.4.0.tgz#47b275af0d6975b82ef540bf9be8dac83c7c3772"
+  dependencies:
+    react "^15.3.2"
+    styled-components "^1.0.10"
+
 history@^3.0.0:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/history/-/history-3.2.1.tgz#71c7497f4e6090363d19a6713bb52a1bfcdd99aa"
@@ -6335,7 +6342,7 @@ react-transform-hmr@^1.0.3:
     global "^4.3.0"
     react-proxy "^1.1.7"
 
-react@15.4.1:
+react@15.4.1, react@^15.3.2:
   version "15.4.1"
   resolved "https://registry.yarnpkg.com/react/-/react-15.4.1.tgz#498e918602677a3983cd0fd206dfe700389a0dd6"
   dependencies:
@@ -7097,7 +7104,7 @@ style-loader@0.13.1:
   dependencies:
     loader-utils "^0.2.7"
 
-styled-components@1.1.2:
+styled-components@1.1.2, styled-components@^1.0.10:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-1.1.2.tgz#d9931dc887322ea9b61e7a4fbda25ebd69240854"
   dependencies:

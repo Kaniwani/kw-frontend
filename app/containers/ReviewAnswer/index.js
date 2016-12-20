@@ -67,18 +67,11 @@ class ReviewAnswer extends React.PureComponent {
     }
   }
 
-  _toggleKanaInfo = () => {
-    this.props.toggleVocabInfo({ kana: true });
-  }
-
-  _toggleCharInfo = () => {
-    this.props.toggleVocabInfo({ characters: true });
-  }
-
   _toggleVocabInfo = () => {
-    this.props.toggleVocabInfo({ characters: true, kana: true });
+    this.props.toggleVocabInfo();
   }
 
+  // TODO: shortcut key to add a new synonym (prefilling relevant field)
   _showSynonymModal = () => {
     const { disabled, matches } = this.props;
     // only allow on incorrect answers
@@ -125,7 +118,7 @@ function mapDispatchToProps(dispatch) {
     checkAnswer: () => dispatch(checkAnswer()),
     processAnswer: () => dispatch(processAnswer()),
     ignoreAnswer: (isCorrect) => dispatch(markIgnored(isCorrect)),
-    toggleVocabInfo: (options) => dispatch(toggleVocabInfo(options)),
+    toggleVocabInfo: (options) => dispatch(toggleVocabInfo()),
     showSynonymModal: (options) => dispatch(showModal({ modalType: ADD_SYNONYM_MODAL, ...options })),
   };
 }

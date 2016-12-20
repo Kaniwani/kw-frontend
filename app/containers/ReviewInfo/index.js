@@ -1,82 +1,80 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import cuid from 'cuid';
-
-import { showModal } from 'containers/Modal/actions';
-import { ADD_SYNONYM_MODAL } from 'containers/Modal/constants';
+import { Row, Column } from 'hedron';
+import List from 'components/List';
 import { toggleVocabInfo } from 'containers/ReviewInfo/actions';
 import ReviewBackground from './ReviewBackground';
 import Wrapper from './Wrapper';
 import InfoWrapper from './InfoWrapper';
-import InfoRow from './InfoRow';
-import InfoButton from './InfoButton';
-import SynonymButton from './SynonymButton';
 import Entry from './Entry';
 
 import {
-  selectCharacters,
-  selectKana,
   selectAnswerMatches,
   selectInfoVisible,
-  selectCharactersVisible,
-  selectKanaVisible,
 } from './selectors';
 
-export class ReviewInfo extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class ReviewInfo extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
-    characters: PropTypes.object,
-    kana: PropTypes.object,
+    readings: PropTypes.object.isRequired,
     isInfoVisible: PropTypes.bool,
-    isCharactersVisible: PropTypes.bool.isRequired,
-    isKanaVisible: PropTypes.bool.isRequired,
     isAnswerCorrect: PropTypes.bool.isRequired,
-    showSynonymModal: PropTypes.func.isRequired,
     toggleInfo: PropTypes.func.isRequired,
   }
 
-  _showSynonymModal = () => this.props.showSynonymModal({ modalType: ADD_SYNONYM_MODAL });
-  _toggleCharsInfo = () => this.props.toggleInfo({ characters: true })
-  _toggleKanaInfo = () => this.props.toggleInfo({ kana: true });
+  _toggleInfo() {
+    this.props.toggleInfo();
+  }
 
   render() {
-    const { characters, kana, isInfoVisible, isAnswerCorrect, isCharactersVisible, isKanaVisible } = this.props;
+    const { readings, isInfoVisible, isAnswerCorrect } = this.props;
+
+    const testComp = ({ item }) => (
+      <Row>
+        <Column md={3}>
+          <h5>Characters</h5>
+          <Entry item={item.get('character')} />
+        </Column>
+        <Column md={3}>
+          <h5>Kana</h5>
+          <Entry item={item.get('kana')} />
+        </Column>
+        <Column md={3}>
+          <h5>Parts of Speech</h5>
+          <List items={item.get('tags')} component={Entry} />
+        </Column>
+        <Column md={3}>
+          <h5>Sentence</h5>
+          <Entry lang="ja" item={item.get('sentence_ja')} />
+          <Entry item={item.get('sentence_en')} />
+        </Column>
+        <Column md={3}>
+          <h5>Tags</h5>
+          <Entry item={item.get('jlpt')} />
+          <Entry item={item.get('common') && 'Common'} />
+        </Column>
+      </Row>
+    );
+
     return (
       <Wrapper>
         {isInfoVisible && (
         <InfoWrapper>
-          { !isAnswerCorrect && (
-            <SynonymButton
-              type="button"
-              onClick={this._showSynonymModal}
-            >
-              Add <strong>S</strong>ynonym
-            </SynonymButton>
-          )}
-          <InfoRow>
-            <InfoButton
-              type="button"
-              position="left"
-              onClick={this._toggleCharsInfo}
-            >
-              <strong>K</strong>anji
-            </InfoButton>
-            {isCharactersVisible && characters.map((entry) =>
-              <Entry lang="ja" key={cuid()}>{entry}</Entry>,
-            )}
-          </InfoRow>
-          <InfoRow>
-            <InfoButton
-              type="button"
-              position="right"
-              onClick={this._toggleKanaInfo}
-            >
-              <strong>P</strong>honetic
-            </InfoButton>
-            {isKanaVisible && kana.map((entry) =>
-              <Entry lang="ja" key={cuid()}>{entry}</Entry>,
-            )}
-          </InfoRow>
+          {/* readings: [
+            {
+              character: 'お誕生日おめでとう',
+              kana: 'おたんじょうびおめでとう',
+              level: 17,
+              tags: [
+                'Intransitive verb', 'Godan verb',
+              ],
+              sentence_en: 'She smoothly and elegantly poured the water into the glass.',
+              sentence_ja: '滞りのない優雅な仕草でグラスに水を注ぎ込んだ',
+              jlpt: 'JLPT N1',
+              common: false,
+            },
+          ], */}
+          <List items={readings} component={testComp} />
         </InfoWrapper>
         )}
         <ReviewBackground />
@@ -86,18 +84,13 @@ export class ReviewInfo extends React.PureComponent { // eslint-disable-line rea
 }
 
 const mapStateToProps = createStructuredSelector({
-  characters: selectCharacters(),
-  kana: selectKana(),
   isAnswerCorrect: selectAnswerMatches(),
   isInfoVisible: selectInfoVisible(),
-  isKanaVisible: selectKanaVisible(),
-  isCharactersVisible: selectCharactersVisible(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    toggleInfo: (payload) => dispatch(toggleVocabInfo(payload)),
-    showSynonymModal: (payload) => dispatch(showModal(payload)),
+    toggleInfo: (payload) => dispatch(toggleVocabInfo()),
   };
 }
 

@@ -6,19 +6,18 @@ import {
 
 
 /**
- * Toggles the additional vocab info in review to options passed in payload
- * @param {object} payload Object of keys to toggle in vocabInfo { characters, kana }
- * @return {object} An action object with a type of TOGGLE_VOCAB_INFO and a payload of options
+ * Toggles the additional vocab info in review
+ * @return {object} An action object with a type of TOGGLE_VOCAB_INFO
  */
-export function toggleVocabInfo(payload = {}) {
+export function toggleVocabInfo() {
   return {
     type: TOGGLE_VOCAB_INFO,
-    payload,
   };
 }
 
 /**
- * Sets all vocab info visibility to true
+ * Shows the additional vocab info in review
+ * @return {object} An action object with a type of SHOW_VOCAB_INFO
  */
 export function showVocabInfo() {
   return {
@@ -27,8 +26,9 @@ export function showVocabInfo() {
 }
 
 /**
-* Sets all vocab info visibility to false
-*/
+ * Hides the additional vocab info in review
+ * @return {object} An action object with a type of HIDE_VOCAB_INFO
+ */
 export function hideVocabInfo() {
   return {
     type: HIDE_VOCAB_INFO,

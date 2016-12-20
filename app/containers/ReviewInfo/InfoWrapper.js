@@ -1,9 +1,8 @@
 import styled from 'styled-components';
-import { white } from 'shared/styles/colors';
+// import { white } from 'shared/styles/colors';
 
 const InfoWrapper = styled.div`
   display: flex;
-  color: rgb(${white});
   flex-flow: row wrap;
   position: absolute;
   overflow: hidden;

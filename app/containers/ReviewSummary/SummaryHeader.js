@@ -23,9 +23,7 @@ const SummaryHeader = ({ remainingReviews }) => (
         <LogoLink size="50px" />
       </LogoWrapper>
       <LinkBlock>
-        <Link
-          to="/review/"
-        >
+        <Link to="/review/">
           Continue Session
         </Link>
         <span title="Remaining reviews">
