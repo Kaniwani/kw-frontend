@@ -61,6 +61,7 @@ export function ReviewSession({ loading, error, isInfoVisible, meaning, readings
         />
       </Upper>
       <ReviewAnswer />
+      {/*  need to put info and bg into same container so bg stops resizing */}
       {isInfoVisible && <ReviewInfo readings={readings} />}
       <ReviewBackground />
     </Wrapper>

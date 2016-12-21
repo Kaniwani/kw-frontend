@@ -22,12 +22,7 @@ const Question = ({ loading, error, meaning, tags }) => {
   return (
     <Wrapper>
       <Meaning>{content}</Meaning>
-      {tags && !!tags.size && (
-        <TagList
-          items={tags}
-          component={Chip}
-        />
-      )}
+      {tags && !!tags.size && <TagList items={tags} component={Chip} />}
     </Wrapper>
   );
 };

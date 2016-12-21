@@ -43,7 +43,7 @@ Chip.propTypes = {
 
 Chip.defaultProps = {
   textColor: 'blackLight',
-  bgColor: 'whiteDark',
+  bgColor: 'white',
 };
 
 export default Chip;
