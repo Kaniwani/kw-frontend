@@ -1,7 +1,7 @@
 import { injectGlobal } from 'styled-components';
 import { blackLight, blueLight, blueDark, greyDark } from 'shared/styles/colors';
 import { fluidType } from 'shared/styles/utils';
-import { units } from 'shared/styles/spacing';
+import { unit } from 'shared/styles/spacing';
 import {
   ffBody,
   ffHeading,
@@ -54,7 +54,7 @@ injectGlobal`
   h1, h2, h3, h4, h5, h6 {
     font-family: ${ffHeading};
     margin: 0;
-    margin-bottom: ${units.xs};
+    margin-bottom: ${unit.xs};
     color: rgb(${greyDark});
     line-height: 1.4;
   }

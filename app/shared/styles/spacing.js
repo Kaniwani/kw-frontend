@@ -1,4 +1,4 @@
-export const units = {
+export const unit = {
   xs: '10px',
   sm: '15px',
   md: '25px',
@@ -7,7 +7,7 @@ export const units = {
   siteMaxWidth: '1300px',
 };
 
-export const borders = {
+export const border = {
   radius: '3px',
   width: '2px',
 };

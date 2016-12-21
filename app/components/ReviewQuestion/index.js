@@ -1,9 +1,12 @@
 import React, { PropTypes } from 'react';
+import Immutable from 'immutable';
 import LoadingIndicator from 'components/LoadingIndicator';
 import Wrapper from './Wrapper';
 import Meaning from './Meaning';
+import TagList from './TagList';
+import Chip from 'components/Chip';
 
-const Question = ({ loading, error, meaning }) => {
+const Question = ({ loading, error, meaning, tags }) => {
   let content = meaning;
 
   // Show a loading indicator when we're loading
@@ -16,10 +19,15 @@ const Question = ({ loading, error, meaning }) => {
   } else if (meaning.length) {
     content = meaning;
   }
-
   return (
     <Wrapper>
-      <Meaning>{ content }</Meaning>
+      <Meaning>{content}</Meaning>
+      {tags && !!tags.size && (
+        <TagList
+          items={tags}
+          component={Chip}
+        />
+      )}
     </Wrapper>
   );
 };
@@ -31,6 +39,7 @@ Question.propTypes = {
     PropTypes.bool,
   ]).isRequired,
   meaning: PropTypes.string.isRequired,
+  tags: PropTypes.instanceOf(Immutable.Iterable),
 };
 
 export default Question;

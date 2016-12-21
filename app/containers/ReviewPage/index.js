@@ -10,8 +10,7 @@ import {
   selectQueue,
 } from './selectors';
 
-
-export class ReviewPage extends React.PureComponent {
+export class ReviewPage extends React.Component {
   componentDidMount() {
     if (this.props.queue.size < 5) this.props.loadReviewData();
   }

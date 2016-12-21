@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Icon from 'components/Icon';
 import H1 from 'components/H1';
-import { units, borders } from 'shared/styles/spacing';
+import { unit, border } from 'shared/styles/spacing';
 import * as colors from 'shared/styles/colors';
 
 export const Header = styled.header`
@@ -26,7 +26,7 @@ export const LogoWrapper = styled.div`
   display: block;
   background-color: rgb(${colors.blueLogo});
   padding: 0 3px 0 2px;
-  border-radius: ${borders.radius};
+  border-radius: ${border.radius};
   margin-left: auto;
   margin-right: 5px;
 `;
@@ -43,7 +43,7 @@ export const LinkBlock = styled.div`
   > * {
     display: flex;
     height: 100%;
-    flex-flow: column nowrap;
+    flex-direction: column;
     justify-content: center;
     padding: 0 1em;
     background-color: black;
@@ -73,7 +73,7 @@ export const InboxIcon = styled(Icon)`
 export const Main = styled.main`
   margin-left: auto;
   margin-right: auto;
-  max-width: ${units.siteMaxWidth};
+  max-width: ${unit.siteMaxWidth};
 `;
 
 export const SectionHeader = styled.h2`

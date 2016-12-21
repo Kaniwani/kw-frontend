@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import Immutable from 'immutable';
 import cuid from 'cuid';
 
 import Ul from './Ul';
@@ -26,6 +27,7 @@ List.propTypes = {
   items: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
+    PropTypes.instanceOf(Immutable.Iterable),
   ]),
 };
 

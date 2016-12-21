@@ -1,5 +1,5 @@
 import { css } from 'styled-components';
-import { units } from './spacing';
+import { unit } from './spacing';
 import { media } from './media';
 import { convert } from 'css-color-function'; // https://github.com/postcss/postcss-color-function
 
@@ -59,25 +59,25 @@ export function bgGradient(initialColor = 'grey', direction = 'bottom', percent 
 
 
 export const sectionSpacing = css`
-  margin-top: ${units.md};
-  margin-bottom: ${units.md};
+  margin-top: ${unit.md};
+  margin-bottom: ${unit.md};
 
   ${media('min').lg`
-    margin-top: ${units.lg};
-    margin-bottom: ${units.lg};
+    margin-top: ${unit.lg};
+    margin-bottom: ${unit.lg};
   `}
 `;
 
 export const sectionGutters = css`
-  max-width: ${units.siteMaxWidth};
+  max-width: ${unit.siteMaxWidth};
   margin-left: auto;
   margin-right: auto;
-  padding-left: ${units.sm};
-  padding-right: ${units.sm};
+  padding-left: ${unit.sm};
+  padding-right: ${unit.sm};
 
   ${media('min').md`
-    padding-left: ${units.md};
-    padding-right: ${units.md};
+    padding-left: ${unit.md};
+    padding-right: ${unit.md};
   `}
 `;
 

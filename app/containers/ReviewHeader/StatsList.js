@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 import Icon from 'components/Icon';
 
-const List = styled.ul`
+const Wrapper = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
@@ -12,7 +12,7 @@ const List = styled.ul`
   align-items: center;
 `;
 
-const ListItem = styled.li`
+const Stat = styled.li`
   padding-left: .35em;
   padding-right: .35em;
 `;
@@ -24,20 +24,20 @@ const Label = styled.span`
 
 function StatsList({ correctness, completed, remaining }) {
   return (
-    <List>
-      <ListItem title="Correctness">
+    <Wrapper>
+      <Stat title="Correctness">
         <Icon name="CHECK" />
         <Label>{`${correctness}%`}</Label>
-      </ListItem>
-      <ListItem title="Reviews completed">
+      </Stat>
+      <Stat title="Reviews completed">
         <Icon name="ASSIGNMENT_CHECK" />
         <Label>{completed}</Label>
-      </ListItem>
-      <ListItem title="Reviews remaining">
+      </Stat>
+      <Stat title="Reviews remaining">
         <Icon name="ASSIGNMENT_INBOX" />
         <Label>{remaining}</Label>
-      </ListItem>
-    </List>
+      </Stat>
+    </Wrapper>
   );
 }
 

@@ -2,23 +2,18 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Row, Column } from 'hedron';
+import cuid from 'cuid';
 import List from 'components/List';
 import { toggleVocabInfo } from 'containers/ReviewInfo/actions';
-import ReviewBackground from './ReviewBackground';
 import Wrapper from './Wrapper';
-import InfoWrapper from './InfoWrapper';
-import Entry from './Entry';
 
 import {
   selectAnswerMatches,
-  selectInfoVisible,
 } from './selectors';
 
 export class ReviewInfo extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     readings: PropTypes.object.isRequired,
-    isInfoVisible: PropTypes.bool,
-    isAnswerCorrect: PropTypes.bool.isRequired,
     toggleInfo: PropTypes.func.isRequired,
   }
 
@@ -27,46 +22,42 @@ export class ReviewInfo extends React.Component { // eslint-disable-line react/p
   }
 
   render() {
-    const { readings, isInfoVisible, isAnswerCorrect } = this.props;
+    const { readings } = this.props;
 
-    const testComp = ({ item }) => (
-      <li>
-        <Row>
-          <Column md={3}>
-            <h5>Characters</h5>
-            <Entry item={item.get('character')} />
-          </Column>
-          <Column md={3}>
-            <h5>Kana</h5>
-            <Entry item={item.get('kana')} />
-          </Column>
-          <Column md={3}>
-            <h5>Parts of Speech</h5>
-            <List items={item.get('tags')} component={Entry} />
-          </Column>
-          <Column md={3}>
-            <h5>Sentence</h5>
-            <Entry lang="ja" item={item.get('sentence_ja')} />
-            <Entry item={item.get('sentence_en')} />
-          </Column>
-          <Column md={3}>
-            <h5>Tags</h5>
-            <Entry item={item.get('jlpt')} />
-            <Entry item={item.get('common') && 'Common'} />
-          </Column>
-        </Row>
-      </li>
-    );
+    const testComp = ({ item }) => {
+      const char = item.get('character');
+      const kana = item.get('kana');
+      const tags = item.get('tags');
+      const jlpt = item.get('jlpt');
+      const common = item.get('common');
+
+      return (
+        <li>
+          <Row>
+            <Column>
+              <span style={{ fontSize: 24 }}>
+                <strong><span>{char}</span></strong>
+                <span>{kana}</span>
+              </span>
+              {tags && tags.map((tag) => <span key={cuid()}>{tag}</span>)}
+              {jlpt && <span>{jlpt}</span>}
+              {common && <span>Common</span>}
+            </Column>
+          </Row>
+        </li>
+      );
+    };
+
 
     return (
       <Wrapper>
-        {isInfoVisible && (
-        <InfoWrapper>
-          {/* // TODO: SectionList instead */}
-          <List items={readings} component={testComp} />
-        </InfoWrapper>
-        )}
-        <ReviewBackground />
+        {/* // TODO: SectionList instead */}
+        <List items={readings} component={testComp} />
+        <div>
+          <h5>Example Sentence</h5>
+          <p lang="ja">{readings.getIn([0, 'sentence_ja'])}</p>
+          <p>{readings.getIn([0, 'sentence_en'])}</p>
+        </div>
       </Wrapper>
     );
   }
@@ -74,12 +65,11 @@ export class ReviewInfo extends React.Component { // eslint-disable-line react/p
 
 const mapStateToProps = createStructuredSelector({
   isAnswerCorrect: selectAnswerMatches(),
-  isInfoVisible: selectInfoVisible(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    toggleInfo: (payload) => dispatch(toggleVocabInfo()),
+    toggleInfo: () => dispatch(toggleVocabInfo()),
   };
 }
 

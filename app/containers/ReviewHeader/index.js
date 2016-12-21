@@ -18,7 +18,7 @@ export class ReviewHeader extends React.PureComponent { // eslint-disable-line r
   render() {
     const { percentCompleted, percentCorrect, reviewsCompleted, reviewsRemaining } = this.props;
     return (
-      <div>
+      <header>
         <ProgressBar value={percentCompleted} />
         <StatsWrapper>
           <ViewSummaryLink />
@@ -28,7 +28,7 @@ export class ReviewHeader extends React.PureComponent { // eslint-disable-line r
             remaining={reviewsRemaining}
           />
         </StatsWrapper>
-      </div>
+      </header>
     );
   }
 }

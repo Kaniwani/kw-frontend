@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { media } from 'shared/styles/media';
-import { units } from 'shared/styles/spacing';
+import { unit } from 'shared/styles/spacing';
 import { fluidType } from 'shared/styles/utils';
 import {
   whiteLight,
@@ -14,30 +14,30 @@ export const Wrapper = styled.div`
 
 export const Heading = styled.h3`
   text-align: left;
-  margin: 0 ${units.sm} ${units.sm} ${units.sm};
-  padding: ${units.md} 0 .5em;
+  margin: 0 ${unit.sm} ${unit.sm} ${unit.sm};
+  padding: ${unit.md} 0 .5em;
   line-height: 1.2;
   border-bottom: 2px solid rgba(${greyLight}, .1);
 `;
 
 export const Form = styled.form`
   text-align: center;
-  margin: ${units.sm} auto 0;
+  margin: ${unit.sm} auto 0;
   padding: 0 5%;
   ${media('min').md`
-    margin-top: ${units.lg};
+    margin-top: ${unit.lg};
   `}
 `;
 
 export const Label = styled.label`
   display: flex;
-  margin-top: ${units.sm};
+  margin-top: ${unit.sm};
   justify-content: center;
   align-items: center;
   align-content: center;
 
   ${media('min').lg`
-    margin-top: ${units.md};
+    margin-top: ${unit.md};
   `}
 `;
 
@@ -63,21 +63,21 @@ export const Input = styled.input`
 `;
 
 export const Validation = styled.div`
-  margin-top: ${units.sm};
+  margin-top: ${unit.sm};
   padding: 0 1.2em;
   font-style: italic;
   ${media('min').md`
-    margin-top: ${units.md};
+    margin-top: ${unit.md};
   `}
 `;
 
 export const SubmitButton = styled.button`
-  margin: ${units.sm} auto;
+  margin: ${unit.sm} auto;
   text-align: center;
   border: 1px solid rgb(${greyLight});
 
   ${media('min').md`
-    margin-top: ${units.md};
-    margin-bottom: ${units.md};
+    margin-top: ${unit.md};
+    margin-bottom: ${unit.md};
   `}
 `;
