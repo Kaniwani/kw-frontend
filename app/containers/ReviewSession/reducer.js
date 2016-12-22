@@ -12,6 +12,7 @@ import * as ReviewSession from './constants';
 
 // All nested under state.get('session')
 export const reviewSessionInitialState = fromJS({
+  shortcutsEnabled: false, // FIME: action, constant, usage in shortcut handling function
   correct: 0,
   incorrect: 0,
   ignored: 0,

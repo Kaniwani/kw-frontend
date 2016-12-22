@@ -1,10 +1,9 @@
-import React from 'react';
-
+import React, { PropTypes } from 'react';
 import Circle from './Circle';
 import Wrapper from './Wrapper';
 
-const LoadingIndicator = () => (
-  <Wrapper>
+const LoadingIndicator = ({ color }) => (
+  <Wrapper color={color}>
     <Circle />
     <Circle rotate={30} delay={-1.1} />
     <Circle rotate={60} delay={-1} />
@@ -19,5 +18,9 @@ const LoadingIndicator = () => (
     <Circle rotate={330} delay={-0.1} />
   </Wrapper>
 );
+
+LoadingIndicator.propTypes = {
+  color: PropTypes.string,
+};
 
 export default LoadingIndicator;

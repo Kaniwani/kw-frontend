@@ -1,17 +1,24 @@
-import React, { Children, PropTypes } from 'react';
 import styled from 'styled-components';
 import { white, purpleDark } from 'shared/styles/colors';
 import { fluidType } from 'shared/styles/utils';
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  text-align: center;
+`;
+
+export const MeaningWrapper = styled.div`
   flex: 999 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
 `;
 
-const H1 = styled.h1`
-  ${fluidType(20, 50, 300, 2000)}
+export const Meaning = styled.h1`
+  ${fluidType(22, 50, 300, 2000)}
   color: rgb(${white});
   margin: 0;
   font-weight: 700;
@@ -19,18 +26,3 @@ const H1 = styled.h1`
   text-shadow: 1px 2px 4px rgb(${purpleDark});
   padding: 10vh 5vw;
 `;
-
-const Meaning = (props) => (
-  <Wrapper>
-    <H1>{Children.toArray(props.children)}</H1>
-  </Wrapper>
-);
-
-Meaning.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.node,
-  ]).isRequired,
-};
-
-export default Meaning;

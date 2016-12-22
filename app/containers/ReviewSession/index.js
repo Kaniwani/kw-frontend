@@ -3,13 +3,16 @@ import Immutable from 'immutable';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import styled from 'styled-components';
-import { white } from 'shared/styles/colors';
+import LoadingIndicator from 'components/LoadingIndicator';
 import ReviewHeader from 'containers/ReviewHeader';
 import ReviewAnswer from 'containers/ReviewAnswer';
 import ReviewInfo from 'containers/ReviewInfo';
 import ReviewQuestion from 'components/ReviewQuestion';
-import ReviewBackground from 'containers/ReviewInfo/ReviewBackground'; // TODO: relocate
+import {
+  Wrapper,
+  Upper,
+  ReviewBackground,
+} from './UI';
 
 import {
  selectLoading,
@@ -25,24 +28,25 @@ import {
   selectCurrentReadings,
 } from './selectors';
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background-color: #e5e5e5; /* image bg color, not used anywhere else hence no imported var name */
-`;
-
-const Upper = styled.section`
-  display: flex;
-  flex-direction: column;
-  padding: .5rem;
-  background-color: #6a3bbc;
-  background-image: linear-gradient(180deg, #774ac6, #5f35a9);
-  background-repeat: repeat-x;
-  color: rgb(${white});
-`;
-
 export function ReviewSession({ loading, error, isInfoVisible, meaning, readings }) {
+  let content = meaning;
+
+  // Show a loading indicator when we're loading
+  if (loading) {
+    content = (<LoadingIndicator color="white" />);
+  // Show an error if there is one
+  } else if (error !== false) {
+    content = `Something went wrong: "${error.msg}". Please contact us or try again!`;
+  // If we're not loading, don't have an error and there is review data, show the review data
+  } else if (!loading && !error && meaning.length) {
+    content = (
+      <ReviewQuestion
+        meaning={meaning}
+        tags={readings && readings.getIn([0, 'tags'])}
+      />
+    );
+  }
+
   return (
     <Wrapper>
       <Helmet
@@ -53,12 +57,7 @@ export function ReviewSession({ loading, error, isInfoVisible, meaning, readings
       />
       <Upper>
         <ReviewHeader />
-        <ReviewQuestion
-          loading={loading}
-          error={error}
-          meaning={meaning}
-          tags={readings.getIn([0, 'tags'])}
-        />
+        {content}
       </Upper>
       <ReviewAnswer />
       {/*  need to put info and bg into same container so bg stops resizing */}
