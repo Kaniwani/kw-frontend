@@ -1,4 +1,8 @@
 <div align="center">
+<!-- Slack status -->
+  <a href="https://rauchg-slackin-iurjmkotad.now.sh">
+    <img src="https://rauchg-slackin-iurjmkotad.now.sh/badge.svg" alt="Slack Status" />
+  </a>
   <!-- Dependency Status -->
   <a href="https://david-dm.org/DJTB/KanaWana">
     <img src="https://img.shields.io/david/DJTB/KW-Frontend.svg" alt="Dependency Status" />
@@ -48,6 +52,10 @@ Now you're ready to rumble!
 - [Styling](docs/css): How to work with the CSS tooling
 - [Your app](docs/js): Supercharging your app with Routing, Redux, simple
   asynchronicity helpers, etc.
+  
+## Help
+- Visit our [Issues](https://github.com/Kaniwani/KW-Frontend/issues) page
+- Join us on [Slack](https://rauchg-slackin-iurjmkotad.now.sh)
   
 ## License
 
