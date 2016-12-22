@@ -44,6 +44,11 @@
 
 Now you're ready to rumble!
 
+## Debugging / Developing
+The following Chrome extensions will allow you to explore the app structure while developing
+- [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd)
+- [React DevTools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
+
 ## Architecture Documentation
 
 - [Intro](docs/general): What's included and why
