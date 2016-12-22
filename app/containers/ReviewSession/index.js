@@ -21,6 +21,7 @@ import {
 
 import {
   selectInfoVisible,
+  selectInfoFullDetails,
 } from 'containers/ReviewInfo/selectors';
 
 import {
@@ -28,7 +29,7 @@ import {
   selectCurrentReadings,
 } from './selectors';
 
-export function ReviewSession({ loading, error, isInfoVisible, meaning, readings }) {
+export function ReviewSession({ loading, error, meaning, readings, isInfoVisible, isFullyDetailed }) {
   let content = meaning;
 
   // Show a loading indicator when we're loading
@@ -61,7 +62,7 @@ export function ReviewSession({ loading, error, isInfoVisible, meaning, readings
       </Upper>
       <ReviewAnswer />
       {/*  need to put info and bg into same container so bg stops resizing */}
-      {isInfoVisible && <ReviewInfo readings={readings} />}
+      {isInfoVisible && <ReviewInfo fullDetails={isFullyDetailed} readings={readings} />}
       <ReviewBackground />
     </Wrapper>
   );
@@ -74,6 +75,7 @@ ReviewSession.propTypes = {
     PropTypes.bool,
   ]).isRequired,
   isInfoVisible: PropTypes.bool.isRequired,
+  isFullyDetailed: PropTypes.bool.isRequired,
   meaning: PropTypes.string.isRequired,
   readings: PropTypes.instanceOf(Immutable.Iterable).isRequired,
 };
@@ -82,6 +84,7 @@ const mapStateToProps = createStructuredSelector({
   loading: selectLoading(),
   error: selectError(),
   isInfoVisible: selectInfoVisible(),
+  isFullyDetailed: selectInfoFullDetails(),
   meaning: selectCurrentMeaning(),
   readings: selectCurrentReadings(),
 });

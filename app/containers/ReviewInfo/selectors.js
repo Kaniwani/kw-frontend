@@ -17,9 +17,15 @@ const selectInfoVisible = () => createSelector(
   (substate) => substate.get('infoVisible'),
 );
 
+const selectInfoFullDetails = () => createSelector(
+  selectReviewInfoDomain(),
+  (substate) => substate.get('fullDetails'),
+);
+
 export default selectReviewInfoDomain;
 export {
   selectCurrentVocab,
   selectAnswerMatches,
   selectInfoVisible,
+  selectInfoFullDetails,
 };

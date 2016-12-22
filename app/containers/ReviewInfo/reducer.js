@@ -8,7 +8,7 @@ import {
 
 export const reviewInfoInitialState = fromJS({
   infoVisible: false,
-  showAll: false,
+  fullDetails: true,
 });
 
 function reviewInfoReducer(state = reviewInfoInitialState, action) {
@@ -18,7 +18,7 @@ function reviewInfoReducer(state = reviewInfoInitialState, action) {
     case SHOW_VOCAB_INFO:
       return state.set('infoVisible', true);
     case TOGGLE_VOCAB_INFO_DEPTH:
-      return state.set('showAll', !state.get('showAll'));
+      return state.set('fullDetails', !state.get('fullDetails'));
     case HIDE_VOCAB_INFO:
       return state.set('infoVisible', false);
     default:
