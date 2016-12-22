@@ -37,10 +37,10 @@
 ## Quick start
 
 1. Clone this repo using `git clone https://github.com/DJTB/KW-Frontend.git`
-2. Run `yarn` to install dependencies (`npm install -g yarn` first if you don't have yarn).
-3. Run `npm start` to load up the development server and watch for changes.
-4. Run `npm run test` to test all the things.
-5. Run `npm run start:production` to build the production files.
+2. Run `yarn` to install dependencies ([get yarn here](https://yarnpkg.com/en/docs/install)).
+3. Run `yarn start` to load up the development server and watch for changes.
+4. Run `yarn run test` to test all the things.
+5. Run `yarn run start:production` to build the production files.
 
 Now you're ready to rumble!
 
