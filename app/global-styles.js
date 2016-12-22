@@ -1,7 +1,7 @@
 import { injectGlobal } from 'styled-components';
 import { blackLight, blueLight, blueDark, greyDark } from 'shared/styles/colors';
 import { fluidType } from 'shared/styles/utils';
-import { unit } from 'shared/styles/spacing';
+import { unit } from 'shared/styles/sizing';
 import {
   ffBody,
   ffHeading,
@@ -39,7 +39,7 @@ injectGlobal`
 
   [lang=ja] {
     font-family: ${ffJapanese};
-    word-break: keep-all;
+    word-break: break-word;
   }
 
   #app {

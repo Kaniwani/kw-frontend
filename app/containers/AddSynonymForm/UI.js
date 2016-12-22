@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { media } from 'shared/styles/media';
-import { unit } from 'shared/styles/spacing';
+import { unit } from 'shared/styles/sizing';
 import { fluidType } from 'shared/styles/utils';
 import {
   whiteLight,

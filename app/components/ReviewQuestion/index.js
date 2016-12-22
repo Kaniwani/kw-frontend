@@ -1,11 +1,10 @@
 import React, { PropTypes } from 'react';
 import Immutable from 'immutable';
-import TagList from 'components/TagList';
-import Chip from 'components/Chip';
 import {
   Wrapper,
   MeaningWrapper,
   Meaning,
+  Tags,
 } from './UI';
 
 const Question = ({ meaning, tags }) => (
@@ -13,7 +12,7 @@ const Question = ({ meaning, tags }) => (
     <MeaningWrapper>
       <Meaning>{meaning}</Meaning>
     </MeaningWrapper>
-    {tags && <TagList items={tags} component={Chip} />}
+    {tags && <Tags items={tags} />}
   </Wrapper>
   );
 

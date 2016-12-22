@@ -1,9 +1,9 @@
 export const unit = {
-  xs: '10px',
-  sm: '15px',
-  md: '25px',
-  lg: '30px',
-  xl: '40px',
+  xs: '.75rem',
+  sm: '1rem',
+  md: '1.3rem',
+  lg: '2rem',
+  xl: '2.5rem',
   siteMaxWidth: '1300px',
 };
 

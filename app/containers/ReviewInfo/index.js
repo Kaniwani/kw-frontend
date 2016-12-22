@@ -1,9 +1,8 @@
 import React, { PropTypes } from 'react';
 import Immutable from 'immutable';
 import cuid from 'cuid';
-import Icon from 'components/Icon';
-import TagList from 'components/TagList';
-import { InfoHeading, Wrapper } from './UI';
+import InfoHeading from './InfoHeading';
+import { Wrapper, Row, RowItem } from './UI';
 
 /*
  * alignContent  String - Sets the value of the CSS align-content property
@@ -22,7 +21,8 @@ const combineTags = (tags, jlpt, common) => {
   return ret;
 };
 
-const InfoPanel = ({ item, type }) => {
+const InfoPanel = ({ item, heading, showAll }) => {
+  // TODO: selectors
   const char = item.get('character');
   const kana = item.get('kana');
   const tags = item.get('tags');
@@ -34,41 +34,37 @@ const InfoPanel = ({ item, type }) => {
 
   return (
     <div>
-      <InfoHeading>
-        <span>{type}</span>
-        <TagList items={allTags} />
-      </InfoHeading>
-      <div justifyContent="center">
-        <span lang="ja" style={{ fontSize: '2em' }}>
-          <strong>{char}</strong>
-          <span>「{kana}」</span>
-          <button type="button"><Icon name="ARROW_DOWN" /></button>
-        </span>
-      </div>
-      <div alignItems="center" justifyContent="space-around">
-        <span sm={9}>
-          <p lang="ja">{sentenceJA}</p>
-          <p>{sentenceEN}</p>
-        </span>
-      </div>
+      {showAll && <InfoHeading text={heading} tags={allTags} />}
+      <Row asReadingPair>
+        <RowItem lang="ja">{char}</RowItem>
+        <RowItem lang="ja">「{kana}」</RowItem>
+      </Row>
+      {showAll && (
+        <Row asSentencePair>
+          <RowItem lang="ja" fullWidth>{sentenceJA}</RowItem>
+          <RowItem fullWidth>{sentenceEN}</RowItem>
+        </Row>
+      )}
     </div>
   );
 };
 
 InfoPanel.propTypes = {
   item: PropTypes.instanceOf(Immutable.Iterable).isRequired,
-  type: PropTypes.string.isRequired,
+  heading: PropTypes.string.isRequired,
+  showAll: PropTypes.bool.isRequired,
 };
 
-export const ReviewInfo = ({ readings }) => (
+export const ReviewInfo = ({ readings, showAll }) => (
   <Wrapper>
-    <InfoPanel key={cuid()} item={readings.first()} type="Main" />
-    {readings.size > 1 && readings.slice(1).map((reading) => <InfoPanel key={cuid()} item={reading} type="Synonym" />)}
+    <InfoPanel key={cuid()} item={readings.first()} heading="Main" />
+    {readings.slice(1).map((reading) => <InfoPanel key={cuid()} item={reading} heading="Synonym" />)}
   </Wrapper>
   );
 
 ReviewInfo.propTypes = {
   readings: PropTypes.instanceOf(Immutable.Iterable).isRequired,
+  showAll: PropTypes.bool.isRequired,
 };
 
 export default ReviewInfo;

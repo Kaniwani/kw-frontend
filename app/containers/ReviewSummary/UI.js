@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Icon from 'components/Icon';
 import H1 from 'components/H1';
-import { unit, border } from 'shared/styles/spacing';
+import { unit, border } from 'shared/styles/sizing';
 import * as colors from 'shared/styles/colors';
 
 export const Header = styled.header`

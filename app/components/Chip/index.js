@@ -1,15 +1,11 @@
 import React, { PropTypes } from 'react';
 import styled from 'styled-components';
-import { border } from 'shared/styles/spacing';
+import { border } from 'shared/styles/sizing';
 import * as colors from 'shared/styles/colors';
 import { fluidType } from 'shared/styles/utils';
 
-const Wrapper = styled.div`
+const Li = styled.li`
   ${fluidType(10, 14)}
-  align-items: center;
-  background-color: rgb(${(props) => colors[props.bgColor]});
-  color: rgb(${(props) => colors[props.textColor]});
-  border-radius: ${border.radius};
   display: inline-flex;
   max-width: 100%;
   padding: .3em .6em;
@@ -17,6 +13,10 @@ const Wrapper = styled.div`
   margin-right: .3em;
   text-decoration: none;
   vertical-align: middle;
+  align-items: center;
+  background-color: rgb(${(props) => colors[props.bgColor]});
+  color: rgb(${(props) => colors[props.textColor]});
+  border-radius: ${border.radius};
 `;
 
 const Text = styled.span`
@@ -29,9 +29,9 @@ const Text = styled.span`
 
 function Chip({ item, ...styleProps }) {
   return (
-    <Wrapper {...styleProps}>
+    <Li {...styleProps}>
       <Text>{item}</Text>
-    </Wrapper>
+    </Li>
   );
 }
 

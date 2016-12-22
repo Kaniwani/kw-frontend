@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import TagList from 'components/TagList';
 import { white, purpleDark } from 'shared/styles/colors';
 import { fluidType } from 'shared/styles/utils';
 
@@ -25,4 +26,12 @@ export const Meaning = styled.h1`
   letter-spacing: -1px;
   text-shadow: 1px 2px 4px rgb(${purpleDark});
   padding: 10vh 5vw;
+`;
+
+export const Tags = styled(TagList)`
+  display: flex;
+  align-self: flex-start;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  z-index: 2;
 `;

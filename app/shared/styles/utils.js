@@ -1,5 +1,5 @@
 import { css } from 'styled-components';
-import { unit } from './spacing';
+import { unit } from './sizing';
 import { media } from './media';
 import { convert } from 'css-color-function'; // https://github.com/postcss/postcss-color-function
 
@@ -57,6 +57,10 @@ export function bgGradient(initialColor = 'grey', direction = 'bottom', percent 
   `;
 }
 
+export const fullWidthBg = css`
+  padding-left: calc(50% - ${unit.siteMaxWidth});
+  padding-right: calc(50% - ${unit.siteMaxWidth});
+`;
 
 export const sectionSpacing = css`
   margin-top: ${unit.md};
