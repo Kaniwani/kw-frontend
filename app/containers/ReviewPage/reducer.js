@@ -9,6 +9,9 @@ import * as ReviewAnswer from 'containers/ReviewAnswer/constants';
 import * as AnswerInput from 'containers/AnswerInput/constants';
 import * as ReviewInfo from 'containers/ReviewInfo/constants';
 
+// FIXME: this is duplication constants/actions so they have to be added twice
+// Craziness! just pull all of reviewsession into here please
+
 export const initialState = fromJS({
   loading: false,
   error: false,
@@ -60,6 +63,7 @@ function reviewReducer(state = initialState, action) {
     case ReviewAnswer.UPDATE_ANSWER:
     case AnswerInput.UPDATE_INPUT:
     case ReviewInfo.TOGGLE_VOCAB_INFO:
+    case ReviewInfo.TOGGLE_VOCAB_INFO_DEPTH:
     case ReviewInfo.SHOW_VOCAB_INFO:
     case ReviewInfo.HIDE_VOCAB_INFO:
       return state.merge(reviewSessionReducer(state, action));

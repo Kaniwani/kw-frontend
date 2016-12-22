@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import TagList from 'components/TagList';
 import { whiteLight, greyLight, red } from 'shared/styles/colors';
-import { border } from 'shared/styles/sizing';
 import { fullWidthBg } from 'shared/styles/utils';
 
 export const Wrapper = styled.section`
@@ -86,18 +85,20 @@ export const RowItem = styled.div`
 `;
 
 export const RemoveButton = styled.button`
-  appearance: none;
-  border-radius: 5px;
-  opacity: .6;
-  padding: 2px;
-  align-self: center;
-  margin-left: .4rem;
-  font-size: .75em;
-  background-color: rgb(${red});
-  color: rgb(${whiteLight});
-  cursor: pointer;
-  transition: opacity .2s ease-in-out;
-  &:hover {
-    opacity: .9;
+  &[type="button"] {
+    appearance: none;
+    border-radius: 5px;
+    opacity: .6;
+    padding: 2px;
+    align-self: center;
+    margin-left: .4rem;
+    font-size: .75em;
+    background-color: rgb(${red});
+    color: rgb(${whiteLight});
+    cursor: pointer;
+    transition: opacity .2s ease-in-out;
+    &:hover {
+      opacity: .9;
+    }
   }
 `;

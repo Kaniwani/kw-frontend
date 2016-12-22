@@ -8,7 +8,10 @@ import { selectCurrentStreakName } from 'containers/ReviewSession/selectors';
 import AnswerInput from 'containers/AnswerInput';
 import { showModal } from 'containers/Modal/actions';
 import { ADD_SYNONYM_MODAL } from 'containers/Modal/constants';
-import { toggleVocabInfo } from 'containers/ReviewInfo/actions';
+import {
+  toggleVocabInfo,
+  toggleVocabInfoDepth,
+ } from 'containers/ReviewInfo/actions';
 
 import {
   selectAnswerMarked,
@@ -71,6 +74,10 @@ class ReviewAnswer extends React.PureComponent {
     this.props.toggleVocabInfo();
   }
 
+  _toggleVocabInfoDepth = () => {
+    this.props.toggleVocabInfoDepth();
+  }
+
   // TODO: shortcut key to add a new synonym (prefilling relevant field)
   _showSynonymModal = () => {
     const { disabled, matches } = this.props;
@@ -118,7 +125,8 @@ function mapDispatchToProps(dispatch) {
     checkAnswer: () => dispatch(checkAnswer()),
     processAnswer: () => dispatch(processAnswer()),
     ignoreAnswer: (isCorrect) => dispatch(markIgnored(isCorrect)),
-    toggleVocabInfo: (options) => dispatch(toggleVocabInfo()),
+    toggleVocabInfo: () => dispatch(toggleVocabInfo()),
+    toggleVocabInfoDepth: () => dispatch(toggleVocabInfoDepth()),
     showSynonymModal: (options) => dispatch(showModal({ modalType: ADD_SYNONYM_MODAL, ...options })),
   };
 }
@@ -136,6 +144,7 @@ ReviewAnswer.propTypes = {
   processAnswer: PropTypes.func.isRequired,
   ignoreAnswer: PropTypes.func.isRequired,
   toggleVocabInfo: PropTypes.func.isRequired,
+  toggleVocabInfoDepth: PropTypes.func.isRequired,
   showSynonymModal: PropTypes.func.isRequired,
 };
 

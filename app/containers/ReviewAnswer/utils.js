@@ -11,6 +11,7 @@ import { KEYS } from 'shared/constants';
 export function getShortcutAction(keyCode, disabled) {
   const handlers = {
     [KEYS.ENTER]: '_processAnswer',
+    [KEYS.SPACE]: '_toggleVocabInfoDepth',
     [KEYS.F_LOWERCASE]: '_toggleVocabInfo',
     // [KEYS.K_LOWERCASE]: '_toggleKanaInfo',
     // [KEYS.P_LOWERCASE]: '_toggleCharInfo',

@@ -87,6 +87,7 @@ function reviewSessionReducer(state = reviewSessionInitialState, action) {
     case AnswerInput.UPDATE_INPUT:
       return state.mergeIn(['session', 'answer'], answerInputReducer(state.getIn(['session', 'answer']), action));
     case ReviewInfo.TOGGLE_VOCAB_INFO:
+    case ReviewInfo.TOGGLE_VOCAB_INFO_DEPTH:
     case ReviewInfo.SHOW_VOCAB_INFO:
     case ReviewInfo.HIDE_VOCAB_INFO:
       return state.mergeIn(['session', 'reviewInfo'], reviewInfoReducer(state.getIn(['session', 'reviewInfo']), action));

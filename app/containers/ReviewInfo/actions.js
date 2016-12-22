@@ -1,5 +1,6 @@
 import {
   TOGGLE_VOCAB_INFO,
+  TOGGLE_VOCAB_INFO_DEPTH,
   SHOW_VOCAB_INFO,
   HIDE_VOCAB_INFO,
 } from './constants';
@@ -12,6 +13,16 @@ import {
 export function toggleVocabInfo() {
   return {
     type: TOGGLE_VOCAB_INFO,
+  };
+}
+
+/**
+ * Toggles all additional vocab info in review
+ * @return {object} An action object with a type of TOGGLE_VOCAB_INFO_DEPTH
+ */
+export function toggleVocabInfoDepth() {
+  return {
+    type: TOGGLE_VOCAB_INFO_DEPTH,
   };
 }
 

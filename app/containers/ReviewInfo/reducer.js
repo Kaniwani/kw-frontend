@@ -15,10 +15,10 @@ function reviewInfoReducer(state = reviewInfoInitialState, action) {
   switch (action.type) {
     case TOGGLE_VOCAB_INFO:
       return state.set('infoVisible', !state.get('infoVisible'));
-    case SHOW_VOCAB_INFO:
-      return state.set('infoVisible', true);
     case TOGGLE_VOCAB_INFO_DEPTH:
       return state.set('fullDetails', !state.get('fullDetails'));
+    case SHOW_VOCAB_INFO:
+      return state.set('infoVisible', true);
     case HIDE_VOCAB_INFO:
       return state.set('infoVisible', false);
     default:

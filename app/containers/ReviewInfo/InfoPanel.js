@@ -28,6 +28,14 @@ const InfoPanel = ({ item, category, fullDetails }) => {
         <RowItem lang="ja">{char}</RowItem>
         <RowItem lang="ja">「{kana}」</RowItem>
       </Row>
+      {fullDetails && <div
+        style={{
+          width: '50%',
+          backgroundColor: 'rgba(0, 0, 0, .2)',
+          height: '2px',
+          margin: '.2rem auto',
+        }}
+      />}
       {fullDetails && (
         <Row asSentencePair>
           <RowItem lang="ja" fullWidth>{sentenceJA}</RowItem>
