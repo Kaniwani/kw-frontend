@@ -32,8 +32,8 @@ const InfoPanel = ({ item, category, detailLevel }) => {
       {(detailLevel > 2) && <Divider />}
       {(detailLevel > 2) && (
         <Row asSentencePair>
-          <RowItem lang="ja" fullWidth>{sentenceJA}</RowItem>
-          <RowItem fullWidth>{sentenceEN}</RowItem>
+          <RowItem lang="ja">{sentenceJA}</RowItem>
+          <RowItem>{sentenceEN}</RowItem>
         </Row>
       )}
     </PanelWrapper>

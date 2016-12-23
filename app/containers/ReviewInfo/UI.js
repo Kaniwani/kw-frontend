@@ -51,6 +51,13 @@ export const Tags = styled(TagList)`
   justify-content: flex-end;
 `;
 
+export const RowItem = styled.div`
+  flex: 0 1 auto;
+  margin: .2rem 1rem;
+  padding: 0;
+  text-align: center;
+`;
+
 export const Row = styled.section`
   display: flex;
   flex-flow: row wrap;
@@ -60,6 +67,9 @@ export const Row = styled.section`
   ${(props) => {
     if (props.asReadingPair) {
       return `
+        > * {
+          flex: 0 1 100%;
+        }
         > *:first-of-type {
           font-size: 2.5em;
         }
@@ -85,12 +95,6 @@ export const Row = styled.section`
     }
     return 'font-size: 1.5em';
   }};
-`;
-
-export const RowItem = styled.div`
-  flex: 0 1 ${(props) => props.fullWidth ? '100%' : 'auto'};
-  margin: .2rem;
-  padding: 0;
 `;
 
 const IconButton = styled.button`

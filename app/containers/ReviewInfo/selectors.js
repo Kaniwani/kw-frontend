@@ -32,6 +32,11 @@ const selectInfoDetailLevel = () => createSelector(
   (substate) => substate.get('detailLevel'),
 );
 
+const selectInfoDetailLevelName = () => createSelector(
+  selectInfoDetailLevel(),
+  (level) => ['Low', 'Medium', 'High'][level - 1],
+);
+
 export default selectReviewInfoDomain;
 export {
   selectCurrentVocab,
@@ -40,4 +45,5 @@ export {
   selectInfoPanelsVisible,
   selectInfoAddSynonymVisible,
   selectInfoDetailLevel,
+  selectInfoDetailLevelName,
 };

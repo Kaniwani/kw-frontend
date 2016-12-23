@@ -24,16 +24,16 @@ export const ReviewInfo = ({ readings, showToggleBar, showPanels, showAddSynonym
 );
 
 ReviewInfo.propTypes = {
-  detailLevel: PropTypes.number.isRequired,
   readings: PropTypes.instanceOf(Immutable.Iterable).isRequired,
-  showPanels: PropTypes.bool.isRequired,
-  showAddSynonym: PropTypes.bool.isRequired,
   showToggleBar: PropTypes.bool.isRequired,
+  showAddSynonym: PropTypes.bool.isRequired,
+  detailLevel: PropTypes.number.isRequired,
+  showPanels: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  detailLevel: selectInfoDetailLevel(),
   showAddSynonym: selectInfoAddSynonymVisible(),
+  detailLevel: selectInfoDetailLevel(),
   showPanels: selectInfoPanelsVisible(),
 });
 
