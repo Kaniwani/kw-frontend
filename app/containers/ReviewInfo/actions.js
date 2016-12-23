@@ -36,12 +36,11 @@ export function toggleNewSynonymPanel({ show, hide } = {}) {
   };
 }
 
-export function toggleInfoDepth({ show, hide } = {}) {
+export function toggleInfoDepth({ level } = {}) {
   return {
     type: TOGGLE_INFO_DEPTH,
     payload: {
-      show,
-      hide,
+      level,
     },
   };
 }

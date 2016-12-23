@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import TagList from 'components/TagList';
 import { whiteLight, greyLight, blackLight, green, red } from 'shared/styles/colors';
+import { unit } from 'shared/styles/sizing';
 import { fullWidthBg } from 'shared/styles/utils';
 
 export const Wrapper = styled.section`
@@ -16,6 +17,9 @@ export const Wrapper = styled.section`
 
 export const PanelWrapper = styled.div`
   padding: .4rem;
+  max-width: calc(${unit.siteMaxWidth} / 1.5);
+  margin-left: auto;
+  margin-right: auto;
   &:last-of-type {
     padding-bottom: ${(props) => props.addPadding ? '1.2rem' : '.4rem'};
   }
@@ -59,7 +63,7 @@ export const Row = styled.section`
         > *:first-of-type {
           font-size: 2.5em;
         }
-        > *:last-of-type {
+        > *:not(:first-of-type) {
           font-size: 1.8em;
           align-self: flex-end;
           padding-bottom: .2em;
@@ -73,7 +77,7 @@ export const Row = styled.section`
         > *:first-of-type {
           font-size: 1.5em;
         }
-        > *:last-of-type {
+        > *:not(:first-of-type) {
           font-size: 1em;
           font-style: italic;
         }

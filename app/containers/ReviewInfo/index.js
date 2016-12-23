@@ -9,22 +9,22 @@ import ToggleBar from 'components/ToggleBar';
 import AddSynonymPanel from './AddSynonymPanel';
 import {
   selectInfoAddSynonymVisible,
-  selectInfoFullDetails,
+  selectInfoDetailLevel,
   selectInfoPanelsVisible,
 } from './selectors';
 
-export const ReviewInfo = ({ readings, showToggleBar, showPanels, showAddSynonym, fullDetails }) => (
+export const ReviewInfo = ({ readings, showToggleBar, showPanels, showAddSynonym, detailLevel }) => (
   <Wrapper >
     { showToggleBar && <ToggleBar />}
-    { showPanels && <InfoPanel fullDetails={fullDetails} item={readings.first()} category="Main" /> }
+    { showPanels && <InfoPanel detailLevel={detailLevel} item={readings.first()} category="Main" /> }
     { showPanels && readings.slice(1).map((reading) =>
-      <InfoPanel fullDetails={fullDetails} key={cuid()} item={reading} category="Synonym" />) }
-    { showAddSynonym && <AddSynonymPanel addPadding={fullDetails} /> }
+      <InfoPanel detailLevel={detailLevel} key={cuid()} item={reading} category="Synonym" />) }
+    { showAddSynonym && <AddSynonymPanel addPadding={detailLevel > 2} /> }
   </Wrapper>
 );
 
 ReviewInfo.propTypes = {
-  fullDetails: PropTypes.bool.isRequired,
+  detailLevel: PropTypes.number.isRequired,
   readings: PropTypes.instanceOf(Immutable.Iterable).isRequired,
   showPanels: PropTypes.bool.isRequired,
   showAddSynonym: PropTypes.bool.isRequired,
@@ -32,7 +32,7 @@ ReviewInfo.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  fullDetails: selectInfoFullDetails(),
+  detailLevel: selectInfoDetailLevel(),
   showAddSynonym: selectInfoAddSynonymVisible(),
   showPanels: selectInfoPanelsVisible(),
 });

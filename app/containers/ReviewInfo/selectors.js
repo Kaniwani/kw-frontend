@@ -27,9 +27,9 @@ const selectInfoAddSynonymVisible = () => createSelector(
   (substate) => substate.get('newSynonymPanelVisible'),
 );
 
-const selectInfoFullDetails = () => createSelector(
+const selectInfoDetailLevel = () => createSelector(
   selectReviewInfoDomain(),
-  (substate) => substate.get('fullDetails'),
+  (substate) => substate.get('detailLevel'),
 );
 
 export default selectReviewInfoDomain;
@@ -39,5 +39,5 @@ export {
   selectInfoToggleBarVisible,
   selectInfoPanelsVisible,
   selectInfoAddSynonymVisible,
-  selectInfoFullDetails,
+  selectInfoDetailLevel,
 };

@@ -4,13 +4,24 @@ import {
   TOGGLE_INFO_PANELS,
   TOGGLE_NEW_SYNONYM_PANEL,
   TOGGLE_INFO_DEPTH,
+  MAX_INFO_DEPTH,
 } from './constants';
+
+/**
+ * Rotates through numbers without going above max depth
+ * @param  {Number} [level=1]
+ * @return {Number} Previous level incremented by 1 || 1 if above max depth
+ */
+const getRotatedLevel = (level = 1) => {
+  const newLevel = level + 1;
+  return newLevel > MAX_INFO_DEPTH ? 1 : newLevel;
+};
 
 export const reviewInfoInitialState = fromJS({
   toggleBarVisible: false,
   panelsVisible: false,
   newSynonymPanelVisible: false,
-  fullDetails: false,
+  detailLevel: 1, /* TODO: set level based on settings + localStorage */
 });
 
 function reviewInfoReducer(state = reviewInfoInitialState, action) {
@@ -34,10 +45,8 @@ function reviewInfoReducer(state = reviewInfoInitialState, action) {
       return state.set('newSynonymPanelVisible', !state.get('newSynonymPanelVisible'));
     }
     case TOGGLE_INFO_DEPTH: {
-      const { show, hide } = action.payload;
-      if (show) return state.set('fullDetails', true);
-      if (hide) return state.set('fullDetails', false);
-      return state.set('fullDetails', !state.get('fullDetails'));
+      if (action.payload.level <= MAX_INFO_DEPTH) return state.set('detailLevel', action.payload.level);
+      return state.set('detailLevel', getRotatedLevel(state.get('detailLevel')));
     }
     default:
       return state;

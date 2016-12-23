@@ -11,7 +11,7 @@ const combineTags = (tags, jlpt, common) => {
   return ret;
 };
 
-const InfoPanel = ({ item, category, fullDetails }) => {
+const InfoPanel = ({ item, category, detailLevel }) => {
   // TODO: selectors
   const char = item.get('character');
   const kana = item.get('kana');
@@ -23,14 +23,14 @@ const InfoPanel = ({ item, category, fullDetails }) => {
   const allTags = combineTags(tags, jlpt, common);
 
   return (
-    <PanelWrapper addPadding={fullDetails}>
-      {fullDetails && <InfoHeading category={category} tags={allTags} />}
+    <PanelWrapper addPadding={detailLevel > 2}>
+      {(detailLevel > 2) && <InfoHeading category={category} tags={allTags} />}
       <Row asReadingPair>
         <RowItem lang="ja">{char}</RowItem>
-        <RowItem lang="ja">「{kana}」</RowItem>
+        {(detailLevel > 1) && <RowItem lang="ja">「{kana}」</RowItem> }
       </Row>
-      {fullDetails && <Divider />}
-      {fullDetails && (
+      {(detailLevel > 2) && <Divider />}
+      {(detailLevel > 2) && (
         <Row asSentencePair>
           <RowItem lang="ja" fullWidth>{sentenceJA}</RowItem>
           <RowItem fullWidth>{sentenceEN}</RowItem>
@@ -43,7 +43,7 @@ const InfoPanel = ({ item, category, fullDetails }) => {
 InfoPanel.propTypes = {
   item: PropTypes.instanceOf(Immutable.Iterable).isRequired,
   category: PropTypes.string.isRequired,
-  fullDetails: PropTypes.bool.isRequired,
+  detailLevel: PropTypes.number.isRequired,
 };
 
 export default InfoPanel;
