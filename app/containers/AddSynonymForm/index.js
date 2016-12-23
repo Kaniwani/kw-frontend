@@ -50,7 +50,7 @@ export class AddSynonymForm extends React.Component { // eslint-disable-line rea
     // TODO: need to ensure all fields are valid
     // IE: chars/kana are isKanjiKana() / isKana()
     console.info('TODO: Implement saga to Add Synonym'); // eslint-disable-line no-alert
-    console.info('TODO: Implement saga watcher to close form when synonym added/requested'); // eslint-disable-line no-alert
+    console.info('TODO: Implement saga watcher to close form & advance when synonym added/requested'); // eslint-disable-line no-alert
   }
 
   render() {

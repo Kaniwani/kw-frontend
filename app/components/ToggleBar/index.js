@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import styled, { css } from 'styled-components';
 import * as COLORS from 'shared/styles/colors';
-import { fullWidthBg } from 'shared/styles/utils';
 import {
   toggleNewSynonymPanel,
   toggleInfoPanels,

@@ -124,7 +124,14 @@ export function* recordAnswer() {
     wrong_before: previouslyWrong,
   };
 
-  // TODO: use axios; request is just a fetch function
+  // TODO: implement post using fetch in main utils folder (use request.js as template)
+  /*
+  fetch('/path', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  */
   // yield fork(request, postURL, postData);
 
   try {
@@ -170,8 +177,8 @@ export function* checkAnswer() {
 
   let answer = inputText.trim();
   const hasContent = !isEmpty(answer);
-  // TODO: is this necessary? should be able to map over immutable
-  // perhaps convert fix/answers/keysinlist etc to work with immutable api
+  // TODO: map over immutable instead
+  // convert fix/answers/keysinlist etc to work with immutable api
   readings = readings.toJS();
 
   if (hasContent) {

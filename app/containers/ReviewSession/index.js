@@ -60,8 +60,7 @@ export function ReviewSession({ loading, error, meaning, readings, isInfoBarVisi
         {content}
       </Upper>
       <ReviewAnswer />
-      {/* FIXME:  need to put info and bg into same container so bg stops resizing
-        take a look at fullscreen and you'll see it */}
+      {/* FIXME:  need to put info and bg into same container so bg stops resizing and we get proper background in margins behind centered reviewInfo on larger screens */}
       {isInfoBarVisible && <ReviewInfo showToggleBar={isInfoBarVisible} readings={readings} />}
       <ReviewBackground />
     </Wrapper>
