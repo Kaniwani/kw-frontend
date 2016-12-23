@@ -58,13 +58,10 @@ function reviewReducer(state = initialState, action) {
         .set('error', action.payload)
         .set('loading', false);
 
-    // FIXME: loading:true is problematic when loading additional reviews, perhaps we can simply check for meaning && queue in review component to see if we need to show a loading symbol?
     case ReviewSession.RECORD_ANSWER: return state; // TODO: implement
     case ReviewSession.RECORD_ANSWER_SUCCESS: return state; // TODO: implement
     case ReviewSession.RECORD_ANSWER_FAILURE: return state; // TODO: implement
 
-    // FIXME: Move anything not referencing (['session', 'blah']) to reviewPage reducer so we can skip getIn(['session'])
-    // Should not be reaching UP out of the component, ewww
     case ReviewSession.SET_NEW_CURRENT: {
       const sampleIndex = Math.floor(Math.random() * state.get('queue').size); // between 0 and reviews.length - 1
       const newCurrent = state.getIn(['queue', sampleIndex]) || null;

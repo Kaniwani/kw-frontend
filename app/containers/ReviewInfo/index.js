@@ -16,8 +16,8 @@ import {
 export const ReviewInfo = ({ readings, showToggleBar, showPanels, showAddSynonym, detailLevel }) => (
   <Wrapper >
     { showToggleBar && <ToggleBar />}
-    { showPanels && <InfoPanel detailLevel={detailLevel} item={readings.first()} category="Main" /> }
-    { showPanels && readings.slice(1).map((reading) =>
+    { !showAddSynonym && showPanels && <InfoPanel detailLevel={detailLevel} item={readings.first()} category="Main" /> }
+    { !showAddSynonym && showPanels && readings.slice(1).map((reading) =>
       <InfoPanel detailLevel={detailLevel} key={cuid()} item={reading} category="Synonym" />) }
     { showAddSynonym && <AddSynonymPanel addPadding={detailLevel > 2} /> }
   </Wrapper>

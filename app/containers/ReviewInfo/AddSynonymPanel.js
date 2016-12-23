@@ -1,14 +1,6 @@
 import React, { PropTypes } from 'react';
-import styled from 'styled-components';
-import { greyLight } from 'shared/styles/colors';
 import AddSynonymForm from 'containers/AddSynonymForm';
-import { PanelWrapper, H4 } from './UI';
-
-const Heading = styled.div`
-  margin-top: .2rem;
-  padding-top: .4rem;
-  border-top: 1px solid rgb(${greyLight});
-`;
+import { PanelWrapper, Heading, H4 } from './UI';
 
 const AddSynonymPanel = ({ addPadding }) => (
   <PanelWrapper addPadding>

@@ -35,12 +35,12 @@ export const LabelText = styled.span`
 
 export const Input = styled.input`
   display: inline-block;
-  ${fluidType(16, 30)}
+  ${fluidType(16, 28)}
   appearance: none;
   line-height: 1.8; /* lowercase descenders are cut off otherwise */
   flex: 1 5 100px;
   vertical-align: middle;
-  padding: .35em .6em;
+  padding: 0 .5rem;
   border: 1px solid rgba(${greyLight}, .3);
   border-radius: 3px;
   box-shadow: inset 0 3px 20px -8px rgba(${black}, 0.3);
@@ -48,6 +48,7 @@ export const Input = styled.input`
 
 export const Validation = styled.div`
   margin-top: ${unit.sm};
+  font-size: .8em;
   padding: 0 1.2em;
   font-style: italic;
   ${media('min').md`
@@ -56,7 +57,7 @@ export const Validation = styled.div`
 `;
 
 export const SubmitButton = styled.button`
-  margin: ${unit.sm} auto;
+  margin: .5rem auto 0;
   text-align: center;
   border: 1px solid rgb(${greyLight});
 

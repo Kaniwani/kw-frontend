@@ -75,8 +75,7 @@ export const Row = styled.section`
         }
         > *:not(:first-of-type) {
           font-size: 1.8em;
-          align-self: flex-end;
-          padding-bottom: .2em;
+          padding-bottom: .2rem;
         }
       `;
     }

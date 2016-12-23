@@ -34,15 +34,19 @@ function reviewInfoReducer(state = reviewInfoInitialState, action) {
     }
     case TOGGLE_INFO_PANELS: {
       const { show, hide } = action.payload;
-      if (show) return state.set('panelsVisible', true);
-      if (hide) return state.set('panelsVisible', false);
-      return state.set('panelsVisible', !state.get('panelsVisible'));
+      const isVisible = state.get('panelsVisible');
+      const showState = state.set('panelsVisible', true).set('newSynonymPanelVisible', false);
+      if (show) return showState;
+      if (hide || isVisible) return state.set('panelsVisible', false);
+      return showState;
     }
     case TOGGLE_NEW_SYNONYM_PANEL: {
       const { show, hide } = action.payload;
-      if (show) return state.set('newSynonymPanelVisible', true);
-      if (hide) return state.set('newSynonymPanelVisible', false);
-      return state.set('newSynonymPanelVisible', !state.get('newSynonymPanelVisible'));
+      const isVisible = state.get('newSynonymPanelVisible');
+      const showState = state.set('newSynonymPanelVisible', true).set('panelsVisible', false);
+      if (show) return showState;
+      if (hide || isVisible) return state.set('newSynonymPanelVisible', false);
+      return showState;
     }
     case TOGGLE_INFO_DEPTH: {
       if (action.payload.level <= MAX_INFO_DEPTH) return state.set('detailLevel', action.payload.level);

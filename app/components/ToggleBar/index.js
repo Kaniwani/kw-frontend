@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import styled, { css } from 'styled-components';
 import * as COLORS from 'shared/styles/colors';
+import { fullWidthBg } from 'shared/styles/utils';
 import {
   toggleNewSynonymPanel,
   toggleInfoPanels,
@@ -17,18 +18,18 @@ import {
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   background-color: rgb(${COLORS.white});
-  padding: .5rem 0;
+  padding: .5rem .4rem;
 `;
 
 const Toggle = styled.div`
   text-align: center;
   position: relative;
   font-size: .7rem;
-  flex: 0 0 30%;
+  flex: 0 1 300px;
   cursor: pointer;
-  padding: .2rem .6rem;
+  padding: .2rem;
   margin: 0 .2rem;
   background-color: rgb(${COLORS.whiteLight});
   color: rgb(${(props) => (props.active ? COLORS.greyDark : COLORS.greyLight)});
