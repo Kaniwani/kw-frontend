@@ -45,8 +45,8 @@ import {
 } from 'containers/ReviewAnswer/actions';
 
 import {
-  showVocabInfo,
-  hideVocabInfo,
+  toggleInfoBar,
+  toggleInfoPanels,
 } from 'containers/ReviewInfo/actions';
 
 import {
@@ -155,7 +155,8 @@ export function* recordAnswer() {
  */
 export function* resetReview() {
   yield [
-    put(hideVocabInfo()),
+    put(toggleInfoPanels({ hide: true })),
+    put(toggleInfoBar({ hide: true })),
     put(setNewCurrent()),
     put(resetAnswer()),
   ];
@@ -229,6 +230,8 @@ export function* markAnswerWatcher() {
       ignored: take(MARK_IGNORED),
     });
 
+    yield put(toggleInfoBar({ show: true }));
+
     const [current, settings] = yield [
       select(selectCurrent()),
       select(selectSettings()),
@@ -243,7 +246,7 @@ export function* markAnswerWatcher() {
 
     if ((correct && settings.get('autoExpandCorrect')) ||
         (incorrect && settings.get('autoExpandIncorrect'))) {
-      yield put(showVocabInfo());
+      yield put(toggleInfoPanels({ show: true }));
     }
 
     if (correct && settings.get('autoAdvanceCorrect')) {
@@ -253,6 +256,7 @@ export function* markAnswerWatcher() {
     if (incorrect && firstTimeWrong) {
       yield put(decreaseCurrentStreak());
     }
+
     if (ignored) {
       yield [
         put(cancelAutoAdvance()),

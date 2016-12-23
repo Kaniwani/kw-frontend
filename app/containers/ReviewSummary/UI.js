@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Icon from 'components/Icon';
 import H1 from 'components/H1';
 import { unit, border } from 'shared/styles/sizing';
-import * as colors from 'shared/styles/colors';
+import * as COLORS from 'shared/styles/colors';
 
 export const Header = styled.header`
   display: flex;
@@ -24,7 +24,7 @@ export const SummaryNav = styled.nav`
 
 export const LogoWrapper = styled.div`
   display: block;
-  background-color: rgb(${colors.blueLogo});
+  background-color: rgb(${COLORS.blueLogo});
   padding: 0 3px 0 2px;
   border-radius: ${border.radius};
   margin-left: auto;
@@ -55,9 +55,9 @@ export const LinkBlock = styled.div`
   & > *:first-child {
     transition: background-color 0.2s ease-in;
     border-radius: 3px 0 0 3px;
-    background-color: rgb(${colors.blue});
+    background-color: rgb(${COLORS.blue});
     &:hover {
-      background-color: rgb(${colors.blueLight});
+      background-color: rgb(${COLORS.blueLight});
     }
   }
 
@@ -80,7 +80,7 @@ export const SectionHeader = styled.h2`
   margin: 0;
   padding: 1rem;
   color: white;
-  background-color: rgb(${(props) => colors[props.color]});
+  background-color: rgb(${(props) => COLORS[props.color]});
 `;
 
 export const Section = styled.section`

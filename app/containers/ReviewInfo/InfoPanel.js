@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import Immutable from 'immutable';
 import InfoHeading from './InfoHeading';
+import Divider from 'components/Divider';
 import { Row, RowItem } from './UI';
 
 const combineTags = (tags, jlpt, common) => {
@@ -28,14 +29,7 @@ const InfoPanel = ({ item, category, fullDetails }) => {
         <RowItem lang="ja">{char}</RowItem>
         <RowItem lang="ja">「{kana}」</RowItem>
       </Row>
-      {fullDetails && <div
-        style={{
-          width: '50%',
-          backgroundColor: 'rgba(0, 0, 0, .2)',
-          height: '2px',
-          margin: '.2rem auto',
-        }}
-      />}
+      {fullDetails && <Divider />}
       {fullDetails && (
         <Row asSentencePair>
           <RowItem lang="ja" fullWidth>{sentenceJA}</RowItem>

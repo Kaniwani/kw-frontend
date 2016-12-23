@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ReviewHeader from 'containers/ReviewHeader';
+import ReviewQuestion from 'components/ReviewQuestion';
 import ReviewAnswer from 'containers/ReviewAnswer';
 import ReviewInfo from 'containers/ReviewInfo';
-import ReviewQuestion from 'components/ReviewQuestion';
 import {
   Wrapper,
   Upper,
@@ -20,8 +20,7 @@ import {
 } from 'containers/ReviewPage/selectors';
 
 import {
-  selectInfoVisible,
-  selectInfoFullDetails,
+  selectInfoToggleBarVisible,
 } from 'containers/ReviewInfo/selectors';
 
 import {
@@ -29,7 +28,7 @@ import {
   selectCurrentReadings,
 } from './selectors';
 
-export function ReviewSession({ loading, error, meaning, readings, isInfoVisible, isFullyDetailed }) {
+export function ReviewSession({ loading, error, meaning, readings, isInfoBarVisible }) {
   let content = meaning;
 
   // Show a loading indicator when we're loading
@@ -61,8 +60,9 @@ export function ReviewSession({ loading, error, meaning, readings, isInfoVisible
         {content}
       </Upper>
       <ReviewAnswer />
-      {/*  need to put info and bg into same container so bg stops resizing */}
-      {isInfoVisible && <ReviewInfo fullDetails={isFullyDetailed} readings={readings} />}
+      {/* FIXME:  need to put info and bg into same container so bg stops resizing
+        take a look at fullscreen and you'll see it */}
+      {isInfoBarVisible && <ReviewInfo showToggleBar={isInfoBarVisible} readings={readings} />}
       <ReviewBackground />
     </Wrapper>
   );
@@ -74,17 +74,15 @@ ReviewSession.propTypes = {
     PropTypes.object,
     PropTypes.bool,
   ]).isRequired,
-  isInfoVisible: PropTypes.bool.isRequired,
-  isFullyDetailed: PropTypes.bool.isRequired,
   meaning: PropTypes.string.isRequired,
+  isInfoBarVisible: PropTypes.bool.isRequired,
   readings: PropTypes.instanceOf(Immutable.Iterable).isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   loading: selectLoading(),
   error: selectError(),
-  isInfoVisible: selectInfoVisible(),
-  isFullyDetailed: selectInfoFullDetails(),
+  isInfoBarVisible: selectInfoToggleBarVisible(),
   meaning: selectCurrentMeaning(),
   readings: selectCurrentReadings(),
 });

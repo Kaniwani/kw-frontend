@@ -11,11 +11,9 @@ import { KEYS } from 'shared/constants';
 export function getShortcutAction(keyCode, disabled) {
   const handlers = {
     [KEYS.ENTER]: '_processAnswer',
-    [KEYS.SPACE]: '_toggleVocabInfoDepth',
-    [KEYS.F_LOWERCASE]: '_toggleVocabInfo',
-    // [KEYS.K_LOWERCASE]: '_toggleKanaInfo',
-    // [KEYS.P_LOWERCASE]: '_toggleCharInfo',
-    [KEYS.S_LOWERCASE]: '_showSynonymModal',
+    [KEYS.SPACE]: '_toggleInfoDepth',
+    [KEYS.F_LOWERCASE]: '_toggleInfoPanels',
+    [KEYS.S_LOWERCASE]: '_showNewSynonymPanel',
     [KEYS.I_LOWERCASE]: '_ignoreAnswer',
     [KEYS.BACKSPACE]: '_ignoreAnswer',
     [KEYS.FORWARD_SLASH]: '_ignoreAnswer',

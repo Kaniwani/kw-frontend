@@ -6,11 +6,10 @@ import blockEvent from 'utils/blockEvent';
 import { getShortcutAction } from './utils';
 import { selectCurrentStreakName } from 'containers/ReviewSession/selectors';
 import AnswerInput from 'containers/AnswerInput';
-import { showModal } from 'containers/Modal/actions';
-import { ADD_SYNONYM_MODAL } from 'containers/Modal/constants';
 import {
-  toggleVocabInfo,
-  toggleVocabInfoDepth,
+  toggleInfoPanels,
+  toggleInfoDepth,
+  toggleNewSynonymPanel,
  } from 'containers/ReviewInfo/actions';
 
 import {
@@ -70,21 +69,16 @@ class ReviewAnswer extends React.PureComponent {
     }
   }
 
-  _toggleVocabInfo = () => {
-    this.props.toggleVocabInfo();
+  _toggleInfoPanels = () => {
+    this.props.toggleInfoPanels();
   }
 
-  _toggleVocabInfoDepth = () => {
-    this.props.toggleVocabInfoDepth();
+  _toggleInfoDepth = () => {
+    this.props.toggleInfoDepth();
   }
 
-  // TODO: shortcut key to add a new synonym (prefilling relevant field)
-  _showSynonymModal = () => {
-    const { disabled, matches } = this.props;
-    // only allow on incorrect answers
-    if (disabled && !matches) {
-      this.props.showSynonymModal();
-    }
+  _showNewSynonymPanel = () => {
+    this.props.showNewSynonymPanel();
   }
 
   render() {
@@ -125,9 +119,9 @@ function mapDispatchToProps(dispatch) {
     checkAnswer: () => dispatch(checkAnswer()),
     processAnswer: () => dispatch(processAnswer()),
     ignoreAnswer: (isCorrect) => dispatch(markIgnored(isCorrect)),
-    toggleVocabInfo: () => dispatch(toggleVocabInfo()),
-    toggleVocabInfoDepth: () => dispatch(toggleVocabInfoDepth()),
-    showSynonymModal: (options) => dispatch(showModal({ modalType: ADD_SYNONYM_MODAL, ...options })),
+    toggleInfoPanels: () => dispatch(toggleInfoPanels()),
+    toggleInfoDepth: () => dispatch(toggleInfoDepth()),
+    showNewSynonymPanel: (options) => dispatch(toggleNewSynonymPanel({ show: true })),
   };
 }
 
@@ -143,9 +137,9 @@ ReviewAnswer.propTypes = {
   checkAnswer: PropTypes.func.isRequired,
   processAnswer: PropTypes.func.isRequired,
   ignoreAnswer: PropTypes.func.isRequired,
-  toggleVocabInfo: PropTypes.func.isRequired,
-  toggleVocabInfoDepth: PropTypes.func.isRequired,
-  showSynonymModal: PropTypes.func.isRequired,
+  toggleInfoPanels: PropTypes.func.isRequired,
+  toggleInfoDepth: PropTypes.func.isRequired,
+  showNewSynonymPanel: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReviewAnswer);

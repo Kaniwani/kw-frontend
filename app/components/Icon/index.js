@@ -12,7 +12,7 @@ const Wrapper = styled.span`
   height: ${({ iconSize }) => iconSize}; /*Prevents scaling issue in IE*/
   background-repeat: no-repeat;
   transition: all 200ms ease-in-out;
-  fill: ${({ iconColor }) => iconColor};
+  color: ${({ iconColor }) => iconColor};
 `;
 
 const SVG = styled.svg`

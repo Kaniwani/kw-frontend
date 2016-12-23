@@ -9,9 +9,10 @@ import {
   selectAnswerType,
 } from 'containers/AnswerInput/selectors';
 
+import { Heading } from 'containers/ReviewInfo/UI';
+
 import {
   Wrapper,
-  Heading,
   Form,
   Label,
   LabelText,
@@ -22,23 +23,18 @@ import {
 
 export class AddSynonymForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
-    isVisible: PropTypes.bool.isRequired,
     text: PropTypes.string.isRequired,
     answerType: PropTypes.string.isRequired,
-    closeModal: PropTypes.func.isRequired,
   }
 
-//  componentWillMount() {
-    // TODO: fetch jisho stuff and show it below
-    // TODO: in all honesty this is really probably nicer as an expanding section below quiz, should have less problematic sizing and visual real estate, and allow users to remove synonyms too
-//  }
+  componentWillMount() {
+    console.info('TODO: Implement Saga to load Jisho data on Add Synonym Mount');
+  }
 
   componentDidMount() {
     kanawana.bind(this.kanaInput);
     kanawana.bind(this.charInput);
-    if (this.props.isVisible) {
-      this[(this.props.answerType === 'kana' ? 'charInput' : 'kanaInput')].focus();
-    }
+    this[(this.props.answerType === 'kana' ? 'charInput' : 'kanaInput')].focus();
   }
 
   componentWillUnmount() {
@@ -56,8 +52,8 @@ export class AddSynonymForm extends React.Component { // eslint-disable-line rea
     blockEvent(event);
     // TODO: need to ensure all fields are valid
     // IE: chars/kana are isKanjiKana() / isKana()
-    alert('pretend submission!'); // eslint-disable-line no-alert
-    this.props.closeModal();
+    console.info('TODO: Implement saga to Add Synonym'); // eslint-disable-line no-alert
+    console.info('TODO: Implement saga watcher to close form when synonym added/requested'); // eslint-disable-line no-alert
   }
 
   render() {
@@ -105,10 +101,4 @@ const mapStateToProps = createStructuredSelector({
   answerType: selectAnswerType(),
 });
 
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     closeModal: ,
-//   };
-// }
-
-export default connect(mapStateToProps/* , mapDispatchToProps */)(AddSynonymForm);
+export default connect(mapStateToProps)(AddSynonymForm);

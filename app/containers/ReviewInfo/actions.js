@@ -1,47 +1,47 @@
 import {
-  TOGGLE_VOCAB_INFO,
-  TOGGLE_VOCAB_INFO_DEPTH,
-  SHOW_VOCAB_INFO,
-  HIDE_VOCAB_INFO,
+  TOGGLE_INFO_BAR,
+  TOGGLE_INFO_PANELS,
+  TOGGLE_NEW_SYNONYM_PANEL,
+  TOGGLE_INFO_DEPTH,
 } from './constants';
 
 
-/**
- * Toggles the additional vocab info in review
- * @return {object} An action object with a type of TOGGLE_VOCAB_INFO
- */
-export function toggleVocabInfo() {
+export function toggleInfoBar({ show, hide } = {}) {
   return {
-    type: TOGGLE_VOCAB_INFO,
+    type: TOGGLE_INFO_BAR,
+    payload: {
+      show,
+      hide,
+    },
   };
 }
 
-/**
- * Toggles all additional vocab info in review
- * @return {object} An action object with a type of TOGGLE_VOCAB_INFO_DEPTH
- */
-export function toggleVocabInfoDepth() {
+export function toggleInfoPanels({ show, hide } = {}) {
   return {
-    type: TOGGLE_VOCAB_INFO_DEPTH,
+    type: TOGGLE_INFO_PANELS,
+    payload: {
+      show,
+      hide,
+    },
   };
 }
 
-/**
- * Shows the additional vocab info in review
- * @return {object} An action object with a type of SHOW_VOCAB_INFO
- */
-export function showVocabInfo() {
+export function toggleNewSynonymPanel({ show, hide } = {}) {
   return {
-    type: SHOW_VOCAB_INFO,
+    type: TOGGLE_NEW_SYNONYM_PANEL,
+    payload: {
+      show,
+      hide,
+    },
   };
 }
 
-/**
- * Hides the additional vocab info in review
- * @return {object} An action object with a type of HIDE_VOCAB_INFO
- */
-export function hideVocabInfo() {
+export function toggleInfoDepth({ show, hide } = {}) {
   return {
-    type: HIDE_VOCAB_INFO,
+    type: TOGGLE_INFO_DEPTH,
+    payload: {
+      show,
+      hide,
+    },
   };
 }

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import TagList from 'components/TagList';
-import { whiteLight, greyLight, red } from 'shared/styles/colors';
+import { whiteLight, greyLight, blackLight, green, red } from 'shared/styles/colors';
 import { fullWidthBg } from 'shared/styles/utils';
 
 export const Wrapper = styled.section`
@@ -8,18 +8,24 @@ export const Wrapper = styled.section`
   overflow: hidden;
   width: 100%;
   ${fullWidthBg} /* sets padding-{left,right} */
-  padding-bottom: .4rem;
+  box-shadow: inset 2px 0 10px -2px rgba(${blackLight}, .15);
+  box-shadow: inset -2px 0 10px -2px rgba(${blackLight}, .15);
+  box-shadow: inset 0 0 8px -2px rgba(${blackLight}, .15);
   z-index: 2;
-  > * {
+  & > div {
     position: relative;
     padding: .4rem;
   }
+
+  & > div:last-child {
+    padding-bottom: ${(props) => props.addPadding ? '1.2rem' : '.4rem'};
+  }
+
 `;
 
 export const Heading = styled.section`
   display: flex;
   flex-flow: row wrap;
-  opacity: .8;
   justify-content: space-between;
   padding: .2rem 0 .4rem;
   margin-bottom: .2rem;
@@ -27,11 +33,12 @@ export const Heading = styled.section`
 `;
 
 export const H4 = styled.h4`
-  text-align: left;
-  align-self: flex-start;
-  margin: 0;
-  flex: 0 0 auto;
   display: flex;
+  margin: 0;
+  opacity: .8;
+  text-align: left;
+  flex: 0 0 auto;
+  align-self: flex-start;
 `;
 
 export const Tags = styled(TagList)`
@@ -84,21 +91,40 @@ export const RowItem = styled.div`
   padding: 0;
 `;
 
-export const RemoveButton = styled.button`
+const IconButton = styled.button`
   &[type="button"] {
+    display: block;
     appearance: none;
     border-radius: 5px;
-    opacity: .6;
-    padding: 2px;
     align-self: center;
+    transform: translateY(1px);
+    padding: 2px;
+    line-height: 1;
     margin-left: .4rem;
     font-size: .75em;
-    background-color: rgb(${red});
-    color: rgb(${whiteLight});
+    background-color: transparent;
+    color: currentColor;
     cursor: pointer;
     transition: opacity .2s ease-in-out;
     &:hover {
-      opacity: .9;
+      opacity: 1;
     }
+  }
+`;
+
+export const AddButton = styled(IconButton)`
+  &[type="button"] {
+    background-color: transparent;
+    color: rgb(${green});
+    opacity: .9;
+    margin-left: .2rem; /* icon size is larger in this button */
+  }
+`;
+
+export const RemoveButton = styled(IconButton)`
+  &[type="button"] {
+    color: rgb(${whiteLight});
+    background-color: rgb(${red});
+    opacity: .6;
   }
 `;

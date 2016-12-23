@@ -1,21 +1,21 @@
 import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 import { border } from 'shared/styles/sizing';
-import * as colors from 'shared/styles/colors';
+import * as COLORS from 'shared/styles/colors';
 import { fluidType } from 'shared/styles/utils';
 
 const Li = styled.li`
   ${fluidType(10, 14)}
   display: inline-flex;
   max-width: 100%;
-  padding: .3em .6em;
+  padding: .2em .6em .3em;
   margin-top: .3em;
   margin-right: .3em;
   text-decoration: none;
   vertical-align: middle;
   align-items: center;
-  background-color: rgb(${(props) => colors[props.bgColor]});
-  color: rgb(${(props) => colors[props.textColor]});
+  background-color: rgb(${(props) => COLORS[props.bgColor]});
+  color: rgb(${(props) => COLORS[props.textColor]});
   border-radius: ${border.radius};
 `;
 
@@ -37,8 +37,8 @@ function Chip({ item, ...styleProps }) {
 
 Chip.propTypes = {
   item: PropTypes.string.isRequired,
-  textColor: PropTypes.oneOf(Object.keys(colors)),
-  bgColor: PropTypes.oneOf(Object.keys(colors)),
+  textColor: PropTypes.oneOf(Object.keys(COLORS)),
+  bgColor: PropTypes.oneOf(Object.keys(COLORS)),
 };
 
 Chip.defaultProps = {

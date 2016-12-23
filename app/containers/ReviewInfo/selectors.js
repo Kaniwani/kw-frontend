@@ -12,9 +12,19 @@ const selectReviewInfoDomain = () => createSelector(
   (session) => session.get('reviewInfo'),
 );
 
-const selectInfoVisible = () => createSelector(
+const selectInfoToggleBarVisible = () => createSelector(
   selectReviewInfoDomain(),
-  (substate) => substate.get('infoVisible'),
+  (substate) => substate.get('toggleBarVisible'),
+);
+
+const selectInfoPanelsVisible = () => createSelector(
+  selectReviewInfoDomain(),
+  (substate) => substate.get('panelsVisible'),
+);
+
+const selectInfoAddSynonymVisible = () => createSelector(
+  selectReviewInfoDomain(),
+  (substate) => substate.get('newSynonymPanelVisible'),
 );
 
 const selectInfoFullDetails = () => createSelector(
@@ -26,6 +36,8 @@ export default selectReviewInfoDomain;
 export {
   selectCurrentVocab,
   selectAnswerMatches,
-  selectInfoVisible,
+  selectInfoToggleBarVisible,
+  selectInfoPanelsVisible,
+  selectInfoAddSynonymVisible,
   selectInfoFullDetails,
 };
