@@ -12,18 +12,16 @@ export const Wrapper = styled.section`
   box-shadow: inset -2px 0 10px -2px rgba(${blackLight}, .15);
   box-shadow: inset 0 0 8px -2px rgba(${blackLight}, .15);
   z-index: 2;
-  & > div {
-    position: relative;
-    padding: .4rem;
-  }
-
-  & > div:last-child {
-    padding-bottom: ${(props) => props.addPadding ? '1.2rem' : '.4rem'};
-  }
-
 `;
 
-export const Heading = styled.section`
+export const PanelWrapper = styled.div`
+  padding: .4rem;
+  &:last-of-type {
+    padding-bottom: ${(props) => props.addPadding ? '1.2rem' : '.4rem'};
+  }
+`;
+
+export const Heading = styled.div`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;

@@ -12,24 +12,23 @@ import {
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  background-color: rgb(${COLORS.greyLight});
+  background-color: rgba(${COLORS.greyLight}, .5);
   color: rgb(${COLORS.blackLight});
-  padding: .2rem .5rem;
 `;
 
 const Toggle = styled.div`
   text-align: center;
   padding: .2rem .6rem;
   cursor: pointer;
-  border: 1px solid brown;
+  background-color: rgb(${COLORS.orange});
 `;
 
 function ToggleBar({ _toggleNewSynonymPanel, _toggleInfoPanels, _toggleInfoDepth }) {
   return (
     <Wrapper>
-      <Toggle onClick={_toggleInfoDepth}>All Details</Toggle>
-      <Toggle onClick={_toggleInfoPanels}>Toggle Info</Toggle>
-      <Toggle onClick={_toggleNewSynonymPanel}>Add Synonym</Toggle>
+      <Toggle onClick={_toggleInfoDepth}>Toggle Detail</Toggle>
+      <Toggle onClick={_toggleInfoPanels}>Toggle Info Panel</Toggle>
+      <Toggle onClick={_toggleNewSynonymPanel}>Add New Synonym</Toggle>
     </Wrapper>
   );
 }

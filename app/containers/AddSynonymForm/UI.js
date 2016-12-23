@@ -2,23 +2,7 @@ import styled from 'styled-components';
 import { media } from 'shared/styles/media';
 import { unit } from 'shared/styles/sizing';
 import { fluidType } from 'shared/styles/utils';
-import {
-  whiteLight,
-  greyLight,
-  black,
-} from 'shared/styles/colors';
-
-export const Wrapper = styled.div`
-  background-color: rgb(${whiteLight})
-`;
-
-export const Heading = styled.h3`
-  text-align: left;
-  margin: 0 ${unit.sm} ${unit.sm} ${unit.sm};
-  padding: ${unit.md} 0 .5em;
-  line-height: 1.2;
-  border-bottom: 2px solid rgba(${greyLight}, .1);
-`;
+import { greyLight, black } from 'shared/styles/colors';
 
 export const Form = styled.form`
   text-align: center;

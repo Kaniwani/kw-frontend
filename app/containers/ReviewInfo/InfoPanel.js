@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import Immutable from 'immutable';
 import InfoHeading from './InfoHeading';
 import Divider from 'components/Divider';
-import { Row, RowItem } from './UI';
+import { PanelWrapper, Row, RowItem } from './UI';
 
 const combineTags = (tags, jlpt, common) => {
   let ret = tags;
@@ -23,7 +23,7 @@ const InfoPanel = ({ item, category, fullDetails }) => {
   const allTags = combineTags(tags, jlpt, common);
 
   return (
-    <div>
+    <PanelWrapper addPadding={fullDetails}>
       {fullDetails && <InfoHeading category={category} tags={allTags} />}
       <Row asReadingPair>
         <RowItem lang="ja">{char}</RowItem>
@@ -36,7 +36,7 @@ const InfoPanel = ({ item, category, fullDetails }) => {
           <RowItem fullWidth>{sentenceEN}</RowItem>
         </Row>
       )}
-    </div>
+    </PanelWrapper>
   );
 };
 

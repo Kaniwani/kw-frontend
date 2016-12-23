@@ -6,21 +6,20 @@ import cuid from 'cuid';
 import InfoPanel from './InfoPanel';
 import { Wrapper } from './UI';
 import ToggleBar from 'components/ToggleBar';
-import AddSynonymForm from 'containers/AddSynonymForm';
+import AddSynonymPanel from './AddSynonymPanel';
 import {
   selectInfoAddSynonymVisible,
   selectInfoFullDetails,
   selectInfoPanelsVisible,
 } from './selectors';
 
-
 export const ReviewInfo = ({ readings, showToggleBar, showPanels, showAddSynonym, fullDetails }) => (
-  <Wrapper addPadding={fullDetails && showPanels} >
+  <Wrapper >
     { showToggleBar && <ToggleBar />}
     { showPanels && <InfoPanel fullDetails={fullDetails} item={readings.first()} category="Main" /> }
     { showPanels && readings.slice(1).map((reading) =>
       <InfoPanel fullDetails={fullDetails} key={cuid()} item={reading} category="Synonym" />) }
-    { showAddSynonym && <AddSynonymForm />}
+    { showAddSynonym && <AddSynonymPanel addPadding={fullDetails} /> }
   </Wrapper>
 );
 
