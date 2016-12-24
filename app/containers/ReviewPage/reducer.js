@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
 import * as Review from './constants';
-import { increment, decrement, getDecreasedStreak } from './utils';
+import { add, subtract, getDecreasedStreak } from './utils';
 import answerInputReducer, { answerInitialState } from 'containers/AnswerInput/reducer';
 import reviewInfoReducer, { reviewInfoInitialState } from 'containers/ReviewInfo/reducer';
 import * as ReviewAnswer from 'containers/ReviewAnswer/constants';
@@ -82,25 +82,25 @@ function reviewReducer(state = initialState, action) {
     }
     case ReviewAnswer.MARK_CORRECT:
       return state
-        .updateIn(['session', 'current', 'session', 'correct'], increment)
+        .updateIn(['session', 'current', 'session', 'correct'], add(1))
         .mergeIn(['session', 'answer'], { marked: true, inputDisabled: true });
     case ReviewAnswer.MARK_INCORRECT:
       return state
-        .updateIn(['session', 'current', 'session', 'incorrect'], increment)
+        .updateIn(['session', 'current', 'session', 'incorrect'], add(1))
         .mergeIn(['session', 'answer'], { marked: true, inputDisabled: true });
     case ReviewAnswer.MARK_IGNORED:
       // When we marked correct or incorrect, we increased the current>session item's correctness
       // here we will undo that since the user is ignoring their answer
       return state
-        .updateIn(['session', 'ignored'], increment)
-        .updateIn(['session', 'current', 'session', action.payload ? 'correct' : 'incorrect'], decrement)
-        .updateIn(['session', 'current', 'session', 'ignored'], increment);
+        .updateIn(['session', 'ignored'], add(1))
+        .updateIn(['session', 'current', 'session', action.payload ? 'correct' : 'incorrect'], subtract(1))
+        .updateIn(['session', 'current', 'session', 'ignored'], add(1));
     case ReviewSession.INCREASE_SESSION_CORRECT:
-      return state.updateIn(['session', 'correct'], increment);
+      return state.updateIn(['session', 'correct'], add(1));
     case ReviewSession.INCREASE_SESSION_INCORRECT:
-      return state.updateIn(['session', 'incorrect'], increment);
+      return state.updateIn(['session', 'incorrect'], add(1));
     case ReviewSession.INCREASE_CURRENT_STREAK:
-      return state.updateIn(['session', 'current', 'session', 'streak'], increment);
+      return state.updateIn(['session', 'current', 'session', 'streak'], add(1));
     case ReviewSession.DECREASE_CURRENT_STREAK:
       return state.updateIn(['session', 'current', 'session', 'streak'], getDecreasedStreak);
     case ReviewSession.RESET_CURRENT_STREAK:
