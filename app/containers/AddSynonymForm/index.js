@@ -1,13 +1,23 @@
 import React, { PropTypes } from 'react';
+import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import blockEvent from 'utils/blockEvent';
 import kanawana from 'shared/kanawana';
+// import LoadingIndicator from 'components/LoadingIndicator';
 
 import {
   selectInputText,
   selectAnswerType,
 } from 'containers/AnswerInput/selectors';
+
+// import {
+//   selectJishoData,
+// } from './selectors';
+//
+// import {
+//   loadJishoData,
+// } from './actions';
 
 import {
   Form,
@@ -22,15 +32,15 @@ export class AddSynonymForm extends React.Component { // eslint-disable-line rea
   static propTypes = {
     text: PropTypes.string.isRequired,
     answerType: PropTypes.string.isRequired,
-  }
-
-  componentWillMount() {
-    console.info('TODO: Implement Saga to load Jisho data on Add Synonym Mount');
+    // jishoData: PropTypes.instanceOf(Immutable.Iterable),
+    // loadJishoData: PropTypes.func.isRequired,
   }
 
   componentDidMount() {
     kanawana.bind(this.kanaInput);
     kanawana.bind(this.charInput);
+    // TODO: jisho api won't do cross-origin at the moment, revisit this when/if api gets the long-awaited upgrade
+    // this.props.loadJishoData(this.props.text);
     this[(this.props.answerType === 'kana' ? 'charInput' : 'kanaInput')].focus();
   }
 
@@ -54,7 +64,7 @@ export class AddSynonymForm extends React.Component { // eslint-disable-line rea
   }
 
   render() {
-    const { answerType, text } = this.props;
+    const { answerType, text /* , jishoData */ } = this.props;
     return (
       <Form onSubmit={this._handleSubmit}>
         <Label htmlFor="newKana">
@@ -84,6 +94,7 @@ export class AddSynonymForm extends React.Component { // eslint-disable-line rea
             – use Hiragana for the Kanji field.
           </p>
         </Validation>
+        {/* {jishoData ? <div>jishoData</div> : <LoadingIndicator />} */}
         <SubmitButton type="submit">Submit</SubmitButton>
       </Form>
     );
@@ -93,6 +104,11 @@ export class AddSynonymForm extends React.Component { // eslint-disable-line rea
 const mapStateToProps = createStructuredSelector({
   text: selectInputText(),
   answerType: selectAnswerType(),
+  // jishoData: selectJishoData(),
 });
 
-export default connect(mapStateToProps)(AddSynonymForm);
+const mapDispatchToProps = (dispatch) => ({
+  // loadJishoData: (keyword) => dispatch(loadJishoData(keyword)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddSynonymForm);

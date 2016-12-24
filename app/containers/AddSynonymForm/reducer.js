@@ -7,8 +7,8 @@ import {
 
 export const addSynonymInitialState = fromJS({
   input: {
-    characters: false,
-    kana: false,
+    characters: false, // don't constantly update, only on submit to check validity
+    kana: false, // don't constantly update, only on submit to check validity
     isValid: false,
   },
   jisho: false,
@@ -16,7 +16,7 @@ export const addSynonymInitialState = fromJS({
   error: false,
 });
 
-function addSynonymFormReducer(state = addSynonymInitialState, action) {
+function addSynonymReducer(state = addSynonymInitialState, action) {
   switch (action.type) {
     case LOAD_JISHODATA:
       return state
@@ -36,4 +36,4 @@ function addSynonymFormReducer(state = addSynonymInitialState, action) {
   }
 }
 
-export default addSynonymFormReducer;
+export default addSynonymReducer;

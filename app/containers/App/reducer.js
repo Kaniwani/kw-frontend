@@ -12,6 +12,8 @@
 
 import { fromJS } from 'immutable';
 import modalReducer, { modalInitialState } from 'containers/Modal/reducer';
+import addSynonymReducer, { addSynonymInitialState } from 'containers/AddSynonymForm/reducer';
+import * as AddSynonym from 'containers/AddSynonymForm/constants';
 import * as Modal from 'containers/Modal/constants';
 import * as App from './constants';
 
@@ -20,6 +22,7 @@ export const initialState = fromJS({
   loading: false,
   error: false,
   modal: modalInitialState,
+  addSynonym: addSynonymInitialState,
   user: {
     name: null,
     reviewCount: null,
@@ -55,6 +58,10 @@ function appReducer(state = initialState, action) {
       return state
         .set('error', action.error)
         .set('loading', false);
+    case AddSynonym.LOAD_JISHODATA:
+    case AddSynonym.LOAD_JISHODATA_SUCCESS:
+    case AddSynonym.LOAD_JISHODATA_ERROR:
+      return state.set('addSynonym', fromJS(addSynonymReducer(state.get('addSynonym'), action)));
     case Modal.SHOW_MODAL:
     case Modal.HIDE_MODAL:
       return state.set('modal', fromJS(modalReducer(state.get('modal'), action)));

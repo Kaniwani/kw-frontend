@@ -1,28 +1,16 @@
 import { createSelector } from 'reselect';
-import selectModalDomain from 'containers/Modal/selectors';
-/**
- * Direct selector to the addSynonymForm state domain
- */
-const selectAddSynonymFormDomain = () => createSelector(
-  selectModalDomain,
-  (state) => state.get('addSynonymForm'),
-);
+import selectAddSynonym from 'containers/App/selectors';
 
 /**
  * Other specific selectors
  */
-
-
-/**
- * Default selector used by AddSynonymForm
- */
-
-const selectAddSynonymForm = () => createSelector(
-  selectAddSynonymFormDomain(),
-  (substate) => substate,
+const selectJishoData = () => createSelector(
+  selectAddSynonym(),
+  (substate) => substate.get('jishoData'),
 );
 
-export default selectAddSynonymForm;
+export default selectAddSynonym;
+
 export {
-  selectAddSynonymFormDomain,
+  selectJishoData,
 };

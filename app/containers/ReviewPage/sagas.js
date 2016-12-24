@@ -1,6 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-constant-condition */
-
 import { takeLatest } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 import markAllAsDaemon from 'utils/markAllAsDaemon';
@@ -10,6 +7,7 @@ import reviewSessionSagas from 'containers/ReviewSession/sagas';
 import reviewSummarySagas from 'containers/ReviewSummary/sagas';
 
 import shapeReviewData from './utils/shapeReviewData';
+
 import {
   LOAD_REVIEWDATA,
 } from './constants';
