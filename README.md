@@ -1,4 +1,8 @@
 <div align="center">
+<!-- Slack status -->
+  <a href="https://rauchg-slackin-iurjmkotad.now.sh">
+    <img src="https://rauchg-slackin-iurjmkotad.now.sh/badge.svg" alt="Slack Status" />
+  </a>
   <!-- Dependency Status -->
   <a href="https://david-dm.org/Kaniwani/KanaWana">
     <img src="https://img.shields.io/david/Kaniwani/KW-Frontend.svg" alt="Dependency Status" />
@@ -33,12 +37,17 @@
 ## Quick start
 
 1. Clone this repo using `git clone https://github.com/Kaniwani/KW-Frontend.git`
-2. Run `yarn` to install dependencies (`npm install -g yarn` first if you don't have yarn).
-3. Run `npm start` to load up the development server and watch for changes.
-4. Run `npm run test` to test all the things.
-5. Run `npm run start:production` to build the production files.
+2. Run `yarn` to install dependencies ([get yarn here](https://yarnpkg.com/en/docs/install)).
+3. Run `yarn start` to load up the development server and watch for changes.
+4. Run `yarn run test` to test all the things.
+5. Run `yarn run start:production` to build the production files.
 
 Now you're ready to rumble!
+
+## Debugging / Developing
+The following Chrome extensions will allow you to explore the app structure while developing
+- [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd)
+- [React DevTools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
 
 ## Architecture Documentation
 
@@ -48,6 +57,10 @@ Now you're ready to rumble!
 - [Styling](docs/css): How to work with the CSS tooling
 - [Your app](docs/js): Supercharging your app with Routing, Redux, simple
   asynchronicity helpers, etc.
+  
+## Help
+- Visit our [Issues](https://github.com/Kaniwani/KW-Frontend/issues) page
+- Join us on [Slack](https://rauchg-slackin-iurjmkotad.now.sh)
   
 ## License
 
