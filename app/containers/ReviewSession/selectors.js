@@ -25,6 +25,11 @@ const selectCurrentReadings = () => createSelector(
   (substate) => substate.get('readings'),
 );
 
+const selectCurrentSynonyms = () => createSelector(
+  selectCurrentVocab(),
+  (substate) => substate.get('synonyms'),
+);
+
 const selectCurrentMeaning = () => createSelector(
   selectCurrentVocab(),
   (substate) => substate.get('meaning'),
@@ -69,6 +74,7 @@ export {
   selectCurrentVocab,
   selectCurrentMeaning,
   selectCurrentReadings,
+  selectCurrentSynonyms,
   selectCurrentStreak,
   selectCurrentStreakName,
   selectAnsweredCount,

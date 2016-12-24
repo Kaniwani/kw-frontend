@@ -21,3 +21,5 @@ export const green = '127, 212, 104'; // #7fd468
 export const golden = '247, 247, 201'; // #f7f7c9
 export const yellow = '245, 216, 0'; // #f5d800
 export const tan = '226, 180, 106'; // #e2b46a
+// matches review background svg
+export const reviewBackground = '229, 229, 227'; // #e5e5e5

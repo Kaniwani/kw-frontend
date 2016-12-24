@@ -45,7 +45,6 @@ import {
 } from 'containers/ReviewAnswer/actions';
 
 import {
-  toggleInfoBar,
   toggleInfoPanels,
 } from 'containers/ReviewInfo/actions';
 
@@ -163,7 +162,6 @@ export function* recordAnswer() {
 export function* resetReview() {
   yield [
     put(toggleInfoPanels({ hide: true })),
-    put(toggleInfoBar({ hide: true })),
     put(setNewCurrent()),
     put(resetAnswer()),
   ];
@@ -236,8 +234,6 @@ export function* markAnswerWatcher() {
       incorrect: take(MARK_INCORRECT),
       ignored: take(MARK_IGNORED),
     });
-
-    yield put(toggleInfoBar({ show: true }));
 
     const [current, settings] = yield [
       select(selectCurrent()),

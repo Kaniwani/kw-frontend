@@ -8,9 +8,12 @@ import ReviewHeader from 'containers/ReviewHeader';
 import ReviewQuestion from 'components/ReviewQuestion';
 import ReviewAnswer from 'containers/ReviewAnswer';
 import ReviewInfo from 'containers/ReviewInfo';
+import ToggleBar from 'components/ToggleBar';
+
 import {
   Wrapper,
   Upper,
+  Lower,
   ReviewBackground,
 } from './UI';
 
@@ -20,15 +23,12 @@ import {
 } from 'containers/ReviewPage/selectors';
 
 import {
-  selectInfoToggleBarVisible,
-} from 'containers/ReviewInfo/selectors';
-
-import {
   selectCurrentMeaning,
   selectCurrentReadings,
+  selectCurrentSynonyms,
 } from './selectors';
 
-export function ReviewSession({ loading, error, meaning, readings, isInfoBarVisible }) {
+export function ReviewSession({ loading, error, meaning, readings, synonyms }) {
   let content = meaning;
 
   // Show a loading indicator when we're loading
@@ -59,10 +59,12 @@ export function ReviewSession({ loading, error, meaning, readings, isInfoBarVisi
         <ReviewHeader />
         {content}
       </Upper>
-      <ReviewAnswer />
-      {/* FIXME:  need to put info and bg into same container so bg stops resizing and we get proper background in margins behind centered reviewInfo on larger screens */}
-      {isInfoBarVisible && <ReviewInfo showToggleBar={isInfoBarVisible} readings={readings} />}
-      <ReviewBackground />
+      <Lower>
+        <ReviewAnswer />
+        <ToggleBar />
+        <ReviewInfo readings={readings} synonyms={synonyms} />
+        <ReviewBackground />
+      </Lower>
     </Wrapper>
   );
 }
@@ -74,16 +76,16 @@ ReviewSession.propTypes = {
     PropTypes.bool,
   ]).isRequired,
   meaning: PropTypes.string.isRequired,
-  isInfoBarVisible: PropTypes.bool.isRequired,
   readings: PropTypes.instanceOf(Immutable.Iterable).isRequired,
+  synonyms: PropTypes.instanceOf(Immutable.Iterable),
 };
 
 const mapStateToProps = createStructuredSelector({
   loading: selectLoading(),
   error: selectError(),
-  isInfoBarVisible: selectInfoToggleBarVisible(),
   meaning: selectCurrentMeaning(),
   readings: selectCurrentReadings(),
+  synonyms: selectCurrentSynonyms(),
 });
 
 export default connect(mapStateToProps)(ReviewSession);

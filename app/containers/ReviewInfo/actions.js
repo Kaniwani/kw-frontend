@@ -1,20 +1,8 @@
 import {
-  TOGGLE_INFO_BAR,
   TOGGLE_INFO_PANELS,
   TOGGLE_NEW_SYNONYM_PANEL,
   TOGGLE_INFO_DEPTH,
 } from './constants';
-
-
-export function toggleInfoBar({ show, hide } = {}) {
-  return {
-    type: TOGGLE_INFO_BAR,
-    payload: {
-      show,
-      hide,
-    },
-  };
-}
 
 export function toggleInfoPanels({ show, hide } = {}) {
   return {

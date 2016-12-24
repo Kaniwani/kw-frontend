@@ -1,13 +1,17 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import styled, { css } from 'styled-components';
-import * as COLORS from 'shared/styles/colors';
+import styled from 'styled-components';
+import { whiteLight, greyLight, grey, greyDark } from 'shared/styles/colors';
+import { unit } from 'shared/styles/sizing';
+import { shadowBox } from 'shared/styles/shadows';
 import {
   toggleNewSynonymPanel,
   toggleInfoPanels,
   toggleInfoDepth,
  } from 'containers/ReviewInfo/actions';
+
+import { selectAnswerMarked } from 'containers/AnswerInput/selectors';
 
 import {
   selectInfoAddSynonymVisible,
@@ -18,8 +22,13 @@ import {
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  background-color: rgb(${COLORS.white});
-  padding: .5rem .4rem;
+  background-color: transparent;
+  padding: 0 .4rem .5rem;
+  width: 100%;
+  max-width: ${unit.siteMaxWidth};
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 2;
 `;
 
 const Toggle = styled.div`
@@ -30,36 +39,66 @@ const Toggle = styled.div`
   cursor: pointer;
   padding: .2rem;
   margin: 0 .2rem;
-  background-color: rgb(${COLORS.whiteLight});
-  color: rgb(${(props) => (props.active ? COLORS.greyDark : COLORS.greyLight)});
-  box-shadow: 1px 1px 0 #e1e1e1, -1px 1px 0 #e1e1e1;
-  ${(props) => props.active ? css`
+  ${shadowBox}
+  background-color: rgb(${whiteLight});
+  color: rgb(${greyLight});
+  &.is-active {
+    color: rgb(${greyDark});
+    /* Triangle pointer */
     &:after {
       content: '';
       position: absolute;
       width: 0;
       height: 0;
-      bottom: -10px;
+      bottom: -.6rem;
       left: 50%;
-      margin-left: -21px;
+      margin-left: -.9rem;
       border-style: solid;
-      border-width: 0 16px 16px 16px;
-      border-color: transparent transparent rgb(${COLORS.whiteLight}) transparent;
+      border-width: 0 .8rem .8rem .8rem;
+      border-color: transparent transparent rgb(${whiteLight}) transparent;
       z-index: 10;
     }
-  ` : ''}
+  }
+  &.is-disabled {
+    opacity: .7;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
 `;
 
 const DetailToggle = styled(Toggle)`
-  color: rgb(${COLORS.grey});
+  color: rgb(${grey});
 `;
 
-function ToggleBar({ _toggleNewSynonymPanel, _toggleInfoPanels, _toggleInfoDepth, showAddSynonym, showPanels, detailLevelName }) {
+function ToggleBar({
+  _toggleNewSynonymPanel,
+  _toggleInfoPanels,
+  _toggleInfoDepth,
+  isAddSynonymVisible,
+  isPanelsVisible,
+  isAnswerMarked,
+  detailLevelName,
+}) {
   return (
     <Wrapper>
-      <DetailToggle onClick={_toggleInfoDepth}>Detail: {detailLevelName}</DetailToggle>
-      <Toggle active={showPanels} onClick={_toggleInfoPanels}>Info Panel</Toggle>
-      <Toggle active={showAddSynonym} onClick={_toggleNewSynonymPanel}>New Synonym</Toggle>
+      <DetailToggle
+        className={(!isAnswerMarked && 'is-disabled')}
+        onClick={_toggleInfoDepth}
+      >
+        Detail: {detailLevelName}
+      </DetailToggle>
+      <Toggle
+        className={(!isAnswerMarked && 'is-disabled') || (isPanelsVisible && 'is-active')}
+        onClick={_toggleInfoPanels}
+      >
+        Info Panel
+      </Toggle>
+      <Toggle
+        className={(!isAnswerMarked && 'is-disabled') || (isAddSynonymVisible && 'is-active')}
+        onClick={_toggleNewSynonymPanel}
+      >
+        New Synonym
+      </Toggle>
     </Wrapper>
   );
 }
@@ -69,14 +108,16 @@ ToggleBar.propTypes = {
   _toggleInfoPanels: PropTypes.func.isRequired,
   _toggleInfoDepth: PropTypes.func.isRequired,
   detailLevelName: PropTypes.string.isRequired,
-  showPanels: PropTypes.bool.isRequired,
-  showAddSynonym: PropTypes.bool.isRequired,
+  isAddSynonymVisible: PropTypes.bool.isRequired,
+  isPanelsVisible: PropTypes.bool.isRequired,
+  isAnswerMarked: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  showAddSynonym: selectInfoAddSynonymVisible(),
+  isAnswerMarked: selectAnswerMarked(),
+  isAddSynonymVisible: selectInfoAddSynonymVisible(),
+  isPanelsVisible: selectInfoPanelsVisible(),
   detailLevelName: selectInfoDetailLevelName(),
-  showPanels: selectInfoPanelsVisible(),
 });
 
 const mapDispatchToProps = (dispatch) => ({

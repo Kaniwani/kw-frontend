@@ -7,14 +7,11 @@ import {
   selectAnswerMatches,
 } from 'containers/AnswerInput/selectors';
 
+import { getDetailLevelName } from './utils';
+
 const selectReviewInfoDomain = () => createSelector(
   selectSessionDomain(),
   (session) => session.get('reviewInfo'),
-);
-
-const selectInfoToggleBarVisible = () => createSelector(
-  selectReviewInfoDomain(),
-  (substate) => substate.get('toggleBarVisible'),
 );
 
 const selectInfoPanelsVisible = () => createSelector(
@@ -34,14 +31,13 @@ const selectInfoDetailLevel = () => createSelector(
 
 const selectInfoDetailLevelName = () => createSelector(
   selectInfoDetailLevel(),
-  (level) => ['Low', 'Medium', 'High'][level - 1],
+  (level) => getDetailLevelName(level),
 );
 
 export default selectReviewInfoDomain;
 export {
   selectCurrentVocab,
   selectAnswerMatches,
-  selectInfoToggleBarVisible,
   selectInfoPanelsVisible,
   selectInfoAddSynonymVisible,
   selectInfoDetailLevel,

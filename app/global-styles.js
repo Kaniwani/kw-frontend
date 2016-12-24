@@ -12,6 +12,8 @@ import {
 injectGlobal`
   html {
     box-sizing: border-box;
+    ${fluidType(14, 20, 400, 1400)}
+    line-height: 1.4;
   }
 
   *,
@@ -28,8 +30,6 @@ injectGlobal`
 
   body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    ${fluidType(14, 18, 400, 1400)}
-    line-height: 1.4;
     color: rgb(${blackLight});
   }
 

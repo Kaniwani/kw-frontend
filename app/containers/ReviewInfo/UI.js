@@ -2,22 +2,21 @@ import styled from 'styled-components';
 import TagList from 'components/TagList';
 import { whiteLight, greyLight, blackLight, green, red } from 'shared/styles/colors';
 import { unit } from 'shared/styles/sizing';
-import { fullWidthBg } from 'shared/styles/utils';
 
-export const Wrapper = styled.section`
-  background-color: rgb(${whiteLight});
+export const Wrapper = styled.div`
+  background-color: transparent;
   overflow: hidden;
   width: 100%;
-  ${fullWidthBg} /* sets padding-{left,right} */
-  box-shadow: inset 2px 0 10px -2px rgba(${blackLight}, .15);
-  box-shadow: inset -2px 0 10px -2px rgba(${blackLight}, .15);
-  box-shadow: inset 0 0 8px -2px rgba(${blackLight}, .15);
   z-index: 2;
 `;
 
 export const PanelWrapper = styled.div`
   padding: .4rem;
-  max-width: calc(${unit.siteMaxWidth} / 1.5);
+  background-color: rgb(${whiteLight});
+  box-shadow: inset 2px 0 10px -2px rgba(${blackLight}, .15);
+  box-shadow: inset -2px 0 10px -2px rgba(${blackLight}, .15);
+  box-shadow: inset 0 0 8px -2px rgba(${blackLight}, .15);
+  max-width: ${unit.siteMaxWidth};
   margin-left: auto;
   margin-right: auto;
   &:last-of-type {
@@ -46,7 +45,7 @@ export const H4 = styled.h4`
 export const Tags = styled(TagList)`
   display: flex;
   flex: 1 1 70%;
-  /*align-self: center;*/
+  align-self: center;
   flex-flow: row wrap;
   justify-content: flex-end;
 `;
@@ -58,12 +57,13 @@ export const RowItem = styled.div`
   text-align: center;
 `;
 
-export const Row = styled.section`
+export const Row = styled.div`
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
   align-content: center;
   align-items: center;
+  text-align: center;
   ${(props) => {
     if (props.asReadingPair) {
       return `

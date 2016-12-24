@@ -25,11 +25,7 @@ import {
   processAnswer,
 } from './actions';
 
-
 import Form from './Form';
-import StreakIcon from './StreakIcon';
-import SubmitButton from './SubmitButton';
-import IgnoreButton from './IgnoreButton';
 
 class ReviewAnswer extends React.PureComponent {
   componentDidMount() {
@@ -81,26 +77,28 @@ class ReviewAnswer extends React.PureComponent {
     this.props.showNewSynonymPanel();
   }
 
+  // TODO: could use a selector instead than 3 unused props
+  _getMarkClassname = ({ marked, valid, matches }) => {
+    switch (true) {
+      case (valid != null && !valid): return 'is-invalid';
+      case (marked && valid && !matches): return 'is-marked is-incorrect';
+      case (marked && valid && matches): return 'is-marked is-correct';
+      default: return '';
+    }
+  };
+
   render() {
-    const { streakName, marked, valid, matches, disabled } = this.props; // eslint-disable-line no-shadow
+    const { streakName, disabled } = this.props; // eslint-disable-line no-shadow
+
     return (
       <Form
+        className={this._getMarkClassname(this.props)}
         innerRef={(node) => { this.answerForm = node; }}
-        marked={marked}
-        valid={valid}
         onSubmit={disabled ? this._processAnswer : this._checkAnswer}
         tabIndex={-1}
       >
         {/* TODO: <StreakAnimation /> */}
-        <StreakIcon streak={streakName} />
-        <AnswerInput
-          disabled={disabled}
-          marked={marked}
-          matches={matches}
-          valid={valid}
-        />
-        { disabled && <IgnoreButton onIgnoreClick={this._ignoreAnswer} />}
-        <SubmitButton />
+        <AnswerInput streakName={streakName} onIgnore={this._ignoreAnswer} disabled={disabled} />
       </Form>
     );
   }

@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
 import * as Review from './constants';
-import { increment, decrement } from './utils';
+import { increment, decrement, getDecreasedStreak } from './utils';
 import answerInputReducer, { answerInitialState } from 'containers/AnswerInput/reducer';
 import reviewInfoReducer, { reviewInfoInitialState } from 'containers/ReviewInfo/reducer';
 import * as ReviewAnswer from 'containers/ReviewAnswer/constants';
@@ -28,6 +28,7 @@ export const initialState = fromJS({
       vocabulary: {
         meaning: '',
         readings: [],
+        synonyms: [],
       },
     },
   },
@@ -101,7 +102,7 @@ function reviewReducer(state = initialState, action) {
     case ReviewSession.INCREASE_CURRENT_STREAK:
       return state.updateIn(['session', 'current', 'session', 'streak'], increment);
     case ReviewSession.DECREASE_CURRENT_STREAK:
-      return state.updateIn(['session', 'current', 'session', 'streak'], decrement);
+      return state.updateIn(['session', 'current', 'session', 'streak'], getDecreasedStreak);
     case ReviewSession.RESET_CURRENT_STREAK:
       return state.setIn(['session', 'current', 'session', 'streak'], state.getIn(['session', 'current', 'history', 'streak']));
     case ReviewAnswer.RESET_ANSWER:
@@ -110,7 +111,6 @@ function reviewReducer(state = initialState, action) {
       return state.mergeIn(['session', 'answer'], action.payload);
     case AnswerInput.UPDATE_INPUT:
       return state.mergeIn(['session', 'answer'], answerInputReducer(state.getIn(['session', 'answer']), action));
-    case ReviewInfo.TOGGLE_INFO_BAR:
     case ReviewInfo.TOGGLE_INFO_PANELS:
     case ReviewInfo.TOGGLE_NEW_SYNONYM_PANEL:
     case ReviewInfo.TOGGLE_INFO_DEPTH:
