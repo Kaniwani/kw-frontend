@@ -4,6 +4,7 @@ import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
 import { whiteLight, greyLight, grey, greyDark } from 'shared/styles/colors';
 import { unit } from 'shared/styles/sizing';
+import { media } from 'shared/styles/media';
 import { shadowBox } from 'shared/styles/shadows';
 import {
   toggleNewSynonymPanel,
@@ -23,12 +24,16 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   background-color: transparent;
-  padding: 0 .4rem .5rem;
+  padding: 0 .4rem .4rem;
   width: 100%;
-  max-width: ${unit.siteMaxWidth};
-  margin-left: auto;
-  margin-right: auto;
   z-index: 2;
+  ${media('min').sm`
+    padding-left: .5rem;
+    padding-right: .5rem;
+    max-width: ${unit.siteMaxWidth};
+    margin-left: auto;
+    margin-right: auto;
+  `}
 `;
 
 const Toggle = styled.div`

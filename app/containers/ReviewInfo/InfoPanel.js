@@ -12,7 +12,6 @@ const combineTags = (tags, jlpt, common) => {
 };
 
 const InfoPanel = ({ item, category, detailLevel }) => {
-  // TODO: selectors
   const char = item.get('character');
   const kana = item.get('kana');
   const tags = item.get('tags');
@@ -25,13 +24,13 @@ const InfoPanel = ({ item, category, detailLevel }) => {
   return (
     <PanelWrapper addPadding={detailLevel > 2}>
       {(detailLevel > 2) && <InfoHeading category={category} tags={allTags} />}
-      <Row asReadingPair>
+      <Row className="is-reading-pair">
         <RowItem lang="ja">{char}</RowItem>
-        {(detailLevel > 1) && <RowItem lang="ja">「{kana}」</RowItem> }
+        {(detailLevel > 1) && <RowItem lang="ja">{kana}</RowItem> }
       </Row>
       {(detailLevel > 2) && <Divider />}
       {(detailLevel > 2) && (
-        <Row asSentencePair>
+        <Row className="is-sentence-pair">
           <RowItem lang="ja">{sentenceJA}</RowItem>
           <RowItem>{sentenceEN}</RowItem>
         </Row>

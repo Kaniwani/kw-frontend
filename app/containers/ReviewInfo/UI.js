@@ -1,27 +1,38 @@
 import styled from 'styled-components';
 import TagList from 'components/TagList';
-import { whiteLight, greyLight, blackLight, green, red } from 'shared/styles/colors';
+import { whiteLight, greyLight, greyDark, green, red } from 'shared/styles/colors';
 import { unit } from 'shared/styles/sizing';
+import { media } from 'shared/styles/media';
 
 export const Wrapper = styled.div`
   background-color: transparent;
   overflow: hidden;
   width: 100%;
   z-index: 2;
+  max-width: ${unit.siteMaxWidth};
+  margin-left: auto;
+  margin-right: auto;
+  ${media('min').sm`
+    margin-bottom: 2rem;
+  `}
 `;
 
 export const PanelWrapper = styled.div`
   padding: .4rem;
   background-color: rgb(${whiteLight});
-  box-shadow: inset 2px 0 10px -2px rgba(${blackLight}, .15);
-  box-shadow: inset -2px 0 10px -2px rgba(${blackLight}, .15);
-  box-shadow: inset 0 0 8px -2px rgba(${blackLight}, .15);
-  max-width: ${unit.siteMaxWidth};
-  margin-left: auto;
-  margin-right: auto;
   &:last-of-type {
     padding-bottom: ${(props) => props.addPadding ? '1.2rem' : '.4rem'};
   }
+  ${media('min').sm`
+    margin-left: .6rem;
+    margin-right: .6rem;
+    &:first-of-type {
+      border-radius: .3rem .3rem 0 0;
+    }
+    &:last-of-type {
+      border-radius: 0 0 .3rem .3rem;
+    }
+  `}
 `;
 
 export const Heading = styled.div`
@@ -36,6 +47,7 @@ export const Heading = styled.div`
 export const H4 = styled.h4`
   display: flex;
   margin: 0;
+  margin-left: .2rem;
   opacity: .8;
   text-align: left;
   flex: 0 0 auto;
@@ -52,7 +64,7 @@ export const Tags = styled(TagList)`
 
 export const RowItem = styled.div`
   flex: 0 1 auto;
-  margin: .2rem 1rem;
+  margin: 0 1rem;
   padding: 0;
   text-align: center;
 `;
@@ -64,36 +76,33 @@ export const Row = styled.div`
   align-content: center;
   align-items: center;
   text-align: center;
-  ${(props) => {
-    if (props.asReadingPair) {
-      return `
-        > * {
-          flex: 0 1 100%;
-        }
-        > *:first-of-type {
-          font-size: 2.5em;
-        }
-        > *:not(:first-of-type) {
-          font-size: 1.8em;
-          padding-bottom: .2rem;
-        }
-      `;
+  &.is-reading-pair{
+    > div {
+      flex: 0 1 100%;
     }
-    if (props.asSentencePair) {
-      return `
-        text-align: center;
-        color: #666;
-        > *:first-of-type {
-          font-size: 1.5em;
-        }
-        > *:not(:first-of-type) {
-          font-size: 1em;
-          font-style: italic;
-        }
-      `;
+    > div:first-of-type {
+      font-size: 2.6em;
     }
-    return 'font-size: 1.5em';
-  }};
+    > div:not(:first-of-type) {
+      font-size: 1.3em;
+      color: rgb(${greyDark});
+      transform: translateY(-.3rem);
+    }
+  }
+  &.is-sentence-pair {
+    text-align: center;
+    color: #666;
+    > div {
+      max-width: 500px;
+    }
+    > div:first-of-type {
+      font-size: 1.4em;
+    }
+    > div:not(:first-of-type) {
+      font-size: 1em;
+      font-style: italic;
+    }
+  }
 `;
 
 const IconButton = styled.button`

@@ -2,7 +2,7 @@ import { css } from 'styled-components';
 
 /**
  * Sizes for media queries using media tag
- * IE: media.xl`css: rule;`;
+ * IE: media('min').xl`css: rule;`;
  * @type {Object}
  */
 export const sizes = {
