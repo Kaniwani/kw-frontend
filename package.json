@@ -4,7 +4,7 @@
   "description": "Rework of kaniwani frontend with react, redux, immutable, reselect, and redux-saga",
   "repository": {
     "type": "git",
-    "url": "git://github.com/DJTB/KW-Frontend.git"
+    "url": "git://github.com/Kaniwani/KW-Frontend.git"
   },
   "engines": {
     "npm": ">=7"

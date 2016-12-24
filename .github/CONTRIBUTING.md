@@ -8,7 +8,7 @@ Following these guidelines helps to communicate that you respect the time of the
 
 ## Using the issue tracker
 
-The [issue tracker](https://github.com/DJTB/KW-Frontend/issues) is
+The [issue tracker](https://github.com/Kaniwani/KW-Frontend/issues) is
 the preferred channel for [bug reports](#bugs), [features requests](#features)
 and [submitting pull requests](#pull-requests).
 
@@ -85,7 +85,7 @@ included in the project:
    # Navigate to the newly cloned directory
    cd react-boilerplate
    # Assign the original repo to a remote called "upstream"
-   git remote add upstream https://github.com/DJTB/KW-Frontend.git
+   git remote add upstream https://github.com/Kaniwani/KW-Frontend.git
    ```
 
 2. If you cloned a while ago, get the latest changes from upstream:
@@ -119,4 +119,4 @@ included in the project:
     with a clear title and description.
 
 **IMPORTANT**: By submitting a patch, you agree to allow the project
-owners to license your work under the terms of the [MIT License](https://github.com/DJTB/KW-Frontend/blob/master/LICENSE.md).
+owners to license your work under the terms of the [MIT License](https://github.com/Kaniwani/KW-Frontend/blob/master/LICENSE.md).
