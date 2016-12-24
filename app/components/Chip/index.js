@@ -8,7 +8,7 @@ const Li = styled.li`
   ${fluidType(10, 14)}
   display: inline-flex;
   max-width: 100%;
-  padding: .2em .6em .3em;
+  padding: .2em .6em .2em;
   margin-top: .3em;
   margin-right: .3em;
   text-decoration: none;
