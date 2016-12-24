@@ -48,9 +48,11 @@ export const Input = styled.input`
 
 export const Validation = styled.div`
   margin-top: ${unit.sm};
-  font-size: .8em;
   padding: 0 1.2em;
-  font-style: italic;
+  & > p {
+    font-size: .8em;
+    font-style: italic;
+  }
   ${media('min').md`
     margin-top: ${unit.md};
   `}

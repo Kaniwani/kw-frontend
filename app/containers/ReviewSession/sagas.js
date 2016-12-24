@@ -46,6 +46,8 @@ import {
 
 import {
   toggleInfoPanels,
+  toggleNewSynonymPanel,
+  toggleInfoDepth,
 } from 'containers/ReviewInfo/actions';
 
 import {
@@ -162,6 +164,8 @@ export function* recordAnswer() {
 export function* resetReview() {
   yield [
     put(toggleInfoPanels({ hide: true })),
+    put(toggleNewSynonymPanel({ hide: true })),
+    put(toggleInfoDepth({ level: 1 })),
     put(setNewCurrent()),
     put(resetAnswer()),
   ];
@@ -204,7 +208,7 @@ export function* checkAnswer() {
 
 export function* autoAdvance() {
   while (true) {
-    yield call(delay, 1000);
+    yield call(delay, 1500);
     yield put(processAnswer());
   }
 }
