@@ -1,7 +1,7 @@
 {
   "name": "KW-Frontend",
   "version": "0.0.1",
-  "description": "Rework of kaniwani frontend with react, redux, immutable, reselect, and redux-saga",
+  "description": "Rework of KaniWani frontend with react, redux, immutable, reselect, and redux-saga",
   "repository": {
     "type": "git",
     "url": "git://github.com/DJTB/KW-Frontend.git"
@@ -16,13 +16,13 @@
     "preanalyze": "yarn run analyze:clean",
     "analyze": "node ./internals/scripts/analyze.js",
     "npmcheckversion": "node ./internals/scripts/npmcheckversion.js",
-    "commit": "git-cz",
     "preinstall": "yarn run npmcheckversion",
     "postinstall": "yarn run build:dll",
     "prebuild": "yarn run build:clean",
     "build": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js --color -p --progress",
     "build:clean": "yarn run test:clean",
     "build:dll": "node ./internals/scripts/dependencies.js",
+    "commit": "git-cz",
     "start": "cross-env NODE_ENV=development node server",
     "start:tunnel": "cross-env NODE_ENV=development ENABLE_TUNNEL=true node server",
     "start:production": "yarn run build && yarn run start:prod",
@@ -295,18 +295,19 @@
     "react-addons-test-utils": "15.4.1",
     "rimraf": "2.5.4",
     "shelljs": "0.7.5",
-    "sinon": "2.0.0-pre",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
     "webpack": "2.1.0-beta.25",
     "webpack-dev-middleware": "1.8.4",
     "webpack-hot-middleware": "2.13.2"
   },
-  "czConfig": {
-    "path": "node_modules/cz-conventional-changelog"
-  },
   "//": "This rule allows js-hyperclick (atom editor plugin) to resolve absolute imported modules properly",
   "moduleRoots": [
     "app"
-  ]
+  ],
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
