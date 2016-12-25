@@ -26,20 +26,16 @@ export function shapeReviewData(data) { // eslint-disable-line import/prefer-def
   return { count: data.count, reviews: shapedReviews };
 }
 
-/**
- * For use as immutablejs updateIn() function in reducers
- * Takes a number and adds it to the value on the next invocation
- * Usage: updateIn(['nested', someNum'], (someNum) => add(1)(someNum))
- * or: updateIn(['nested', someNum'], add(1))
- * @param {number} a Number to add to the next value passed in the following invocation
- */
 export const add = (b) => (a) => a + b;
+export const subtract = (b) => (a) => a - b;
 
 /**
-* For use as immutablejs updateIn() function in reducers
-* Takes a number and subtracts it from the value on the next invocation
-* Usage: updateIn(['nested', someNum'], (someNum) => subtract(1)(someNum))
-* or: updateIn(['nested', someNum'], subtract(1))
-* @param {number} a Number to add to the next value passed in the following invocation
-*/
-export const subtract = (b) => (a) => a - b;
+ * Helper function to correctly decrement streak value and increase count of incorrect.
+ * If user is nearing burned status, they get doubly-decremented.
+ * @param  {Number} streak
+ * @return {Number} decreased streak or 0 (if decreased streak is negative)
+ */
+export const getDecreasedStreak = (streak) => {
+  const newStreak = streak === 7 ? streak - 2 : streak - 1;
+  return Math.max(0, newStreak);
+};

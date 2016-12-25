@@ -15,6 +15,8 @@ const StyledImg = styled(Img)`
   max-width: 100%;
 `;
 
+
+// FIXME: svg using <Icon /> with hover fill color change
 const LogoLink = ({ urlPath, size }) => (
   <StyledLink to={urlPath} size={size}>
     <StyledImg src={Logo} alt="kaniwani - Logo" />

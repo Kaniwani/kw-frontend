@@ -1,5 +1,5 @@
 import { css } from 'styled-components';
-import { units } from './spacing';
+import { unit } from './sizing';
 import { media } from './media';
 import { convert } from 'css-color-function'; // https://github.com/postcss/postcss-color-function
 
@@ -57,27 +57,43 @@ export function bgGradient(initialColor = 'grey', direction = 'bottom', percent 
   `;
 }
 
+/* increases clickable/hoverable/tappable area for element without increasing size visually or adding internal padding */
+export const tapTarget = ({ x, y } = { x: '.1rem', y: '.1rem' }) => css`
+  &:after {
+    position: absolute;
+    content: "";
+    top: -${y};
+    right: -${x};
+    bottom: -${y};
+    left: -${x};
+  }
+`;
+
+export const fullWidthBg = css`
+  padding-left: calc(50% - ${unit.siteMaxWidth});
+  padding-right: calc(50% - ${unit.siteMaxWidth});
+`;
 
 export const sectionSpacing = css`
-  margin-top: ${units.md};
-  margin-bottom: ${units.md};
+  margin-top: ${unit.md};
+  margin-bottom: ${unit.md};
 
   ${media('min').lg`
-    margin-top: ${units.lg};
-    margin-bottom: ${units.lg};
+    margin-top: ${unit.lg};
+    margin-bottom: ${unit.lg};
   `}
 `;
 
 export const sectionGutters = css`
-  max-width: ${units.siteMaxWidth};
+  max-width: ${unit.siteMaxWidth};
   margin-left: auto;
   margin-right: auto;
-  padding-left: ${units.sm};
-  padding-right: ${units.sm};
+  padding-left: ${unit.sm};
+  padding-right: ${unit.sm};
 
   ${media('min').md`
-    padding-left: ${units.md};
-    padding-right: ${units.md};
+    padding-left: ${unit.md};
+    padding-right: ${unit.md};
   `}
 `;
 
@@ -95,13 +111,6 @@ export const wordwrap = `
   -ms-word-break: break-all;
   word-break: break-word;
   hyphens: auto;
-`;
-
-export const flexcenter = `
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
 `;
 
 export const visuallyhidden = `

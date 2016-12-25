@@ -11,10 +11,9 @@ import {
 
 describe('ReviewInfo actions', () => {
   describe('#toggleVocabInfo', () => {
-    it(`has a type of ${TOGGLE_VOCAB_INFO} and a payload`, () => {
+    it(`has a type of ${TOGGLE_VOCAB_INFO}`, () => {
       const expected = {
         type: TOGGLE_VOCAB_INFO,
-        payload: {},
       };
       expect(toggleVocabInfo()).toEqual(expected);
     });

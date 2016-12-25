@@ -5,7 +5,7 @@ import { createStructuredSelector } from 'reselect';
 import {
   selectPercentCorrect,
   selectPercentCompleted,
-  selectReviewsRemaining,
+  selectRemainingCount,
   selectCompletedCount,
 } from './selectors';
 
@@ -16,33 +16,34 @@ import StatsList from './StatsList';
 
 export class ReviewHeader extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
+    const { percentCompleted, percentCorrect, reviewsCompleted, reviewsRemaining } = this.props;
     return (
-      <div>
-        <ProgressBar value={this.props.percentCompleted} />
+      <header>
+        <ProgressBar value={percentCompleted} />
         <StatsWrapper>
           <ViewSummaryLink />
           <StatsList
-            correctness={this.props.percentCorrect}
-            completed={this.props.reviewsCompleted}
-            remaining={this.props.reviewsRemaining}
+            correctness={percentCorrect}
+            completed={reviewsCompleted}
+            remaining={reviewsRemaining}
           />
         </StatsWrapper>
-      </div>
+      </header>
     );
   }
 }
 
 ReviewHeader.propTypes = {
-  percentCorrect: PropTypes.number,
-  percentCompleted: PropTypes.number,
-  reviewsRemaining: PropTypes.number,
-  reviewsCompleted: PropTypes.number,
+  percentCorrect: PropTypes.number.isRequired,
+  percentCompleted: PropTypes.number.isRequired,
+  reviewsRemaining: PropTypes.number.isRequired,
+  reviewsCompleted: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   percentCorrect: selectPercentCorrect(),
   percentCompleted: selectPercentCompleted(),
-  reviewsRemaining: selectReviewsRemaining(),
+  reviewsRemaining: selectRemainingCount(),
   reviewsCompleted: selectCompletedCount(),
 });
 

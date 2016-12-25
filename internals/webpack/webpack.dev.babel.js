@@ -9,7 +9,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const logger = require('../../server/logger');
 const cheerio = require('cheerio');
-const pkg = require(path.resolve(process.cwd(), 'package.json'));
+
+const pkg = require(path.resolve(process.cwd(), 'package.json')); // eslint-disable-line import/no-dynamic-require
 const dllPlugin = pkg.dllPlugin;
 
 const plugins = [
@@ -52,7 +53,7 @@ module.exports = require('./webpack.base.babel')({
   },
 
   // Emit a source map for easier debugging
-  devtool: 'cheap-module-eval-source-map',
+  devtool: '#inline-source-map',
 });
 
 /**
@@ -99,7 +100,7 @@ function dependencyHandlers() {
     return [
       new webpack.DllReferencePlugin({
         context: process.cwd(),
-        manifest: require(manifestPath), // eslint-disable-line global-require
+        manifest: require(manifestPath), // eslint-disable-line global-require, import/no-dynamic-require
       }),
     ];
   }
@@ -120,7 +121,7 @@ function dependencyHandlers() {
 
     return new webpack.DllReferencePlugin({
       context: process.cwd(),
-      manifest: require(manifestPath), // eslint-disable-line global-require
+      manifest: require(manifestPath), // eslint-disable-line global-require, import/no-dynamic-require
     });
   });
 }
@@ -130,9 +131,7 @@ function dependencyHandlers() {
  * DLL Javascript files are loaded in script tags and available to our application.
  */
 function templateContent() {
-  const html = fs.readFileSync(
-    path.resolve(process.cwd(), 'app/index.html')
-  ).toString();
+  const html = fs.readFileSync(path.resolve(process.cwd(), 'app/index.html')).toString();
 
   if (!dllPlugin) { return html; }
 

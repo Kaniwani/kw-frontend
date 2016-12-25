@@ -4,11 +4,13 @@ import { createStructuredSelector } from 'reselect';
 
 import blockEvent from 'utils/blockEvent';
 import { getShortcutAction } from './utils';
-import { selectCurrentStreakName } from 'containers/ReviewPage/selectors';
+import { selectCurrentStreakName } from 'containers/ReviewSession/selectors';
 import AnswerInput from 'containers/AnswerInput';
-import { showModal } from 'containers/Modal/actions';
-import { ADD_SYNONYM_MODAL } from 'containers/Modal/constants';
-import { toggleVocabInfo } from 'containers/ReviewInfo/actions';
+import {
+  toggleInfoPanels,
+  toggleInfoDepth,
+  toggleNewSynonymPanel,
+ } from 'containers/ReviewInfo/actions';
 
 import {
   selectAnswerMarked,
@@ -23,11 +25,7 @@ import {
   processAnswer,
 } from './actions';
 
-
 import Form from './Form';
-import StreakIcon from './StreakIcon';
-import SubmitButton from './SubmitButton';
-import IgnoreButton from './IgnoreButton';
 
 class ReviewAnswer extends React.PureComponent {
   componentDidMount() {
@@ -67,46 +65,40 @@ class ReviewAnswer extends React.PureComponent {
     }
   }
 
-  _toggleKanaInfo = () => {
-    this.props.toggleVocabInfo({ kana: true });
+  _toggleInfoPanels = () => {
+    this.props.toggleInfoPanels();
   }
 
-  _toggleCharInfo = () => {
-    this.props.toggleVocabInfo({ characters: true });
+  _toggleInfoDepth = () => {
+    this.props.toggleInfoDepth();
   }
 
-  _toggleVocabInfo = () => {
-    this.props.toggleVocabInfo({ characters: true, kana: true });
+  _showNewSynonymPanel = () => {
+    this.props.showNewSynonymPanel();
   }
 
-  _showSynonymModal = () => {
-    const { disabled, matches } = this.props;
-    // only allow on incorrect answers
-    if (disabled && !matches) {
-      this.props.showSynonymModal();
+  // TODO: could use a selector instead than 3 unused props
+  _getMarkClassname = ({ marked, valid, matches }) => {
+    switch (true) {
+      case (valid != null && !valid): return 'is-invalid';
+      case (marked && valid && !matches): return 'is-marked is-incorrect';
+      case (marked && valid && matches): return 'is-marked is-correct';
+      default: return '';
     }
-  }
+  };
 
   render() {
-    const { streakName, marked, valid, matches, disabled } = this.props; // eslint-disable-line no-shadow
+    const { streakName, disabled } = this.props; // eslint-disable-line no-shadow
+
     return (
       <Form
+        className={this._getMarkClassname(this.props)}
         innerRef={(node) => { this.answerForm = node; }}
-        marked={marked}
-        valid={valid}
         onSubmit={disabled ? this._processAnswer : this._checkAnswer}
         tabIndex={-1}
       >
         {/* TODO: <StreakAnimation /> */}
-        <StreakIcon streak={streakName} />
-        <AnswerInput
-          disabled={disabled}
-          marked={marked}
-          matches={matches}
-          valid={valid}
-        />
-        { disabled && <IgnoreButton onIgnoreClick={this._ignoreAnswer} />}
-        <SubmitButton />
+        <AnswerInput streakName={streakName} onIgnore={this._ignoreAnswer} disabled={disabled} />
       </Form>
     );
   }
@@ -125,8 +117,9 @@ function mapDispatchToProps(dispatch) {
     checkAnswer: () => dispatch(checkAnswer()),
     processAnswer: () => dispatch(processAnswer()),
     ignoreAnswer: (isCorrect) => dispatch(markIgnored(isCorrect)),
-    toggleVocabInfo: (options) => dispatch(toggleVocabInfo(options)),
-    showSynonymModal: (options) => dispatch(showModal({ modalType: ADD_SYNONYM_MODAL, ...options })),
+    toggleInfoPanels: () => dispatch(toggleInfoPanels()),
+    toggleInfoDepth: () => dispatch(toggleInfoDepth()),
+    showNewSynonymPanel: (options) => dispatch(toggleNewSynonymPanel({ show: true })),
   };
 }
 
@@ -142,8 +135,9 @@ ReviewAnswer.propTypes = {
   checkAnswer: PropTypes.func.isRequired,
   processAnswer: PropTypes.func.isRequired,
   ignoreAnswer: PropTypes.func.isRequired,
-  toggleVocabInfo: PropTypes.func.isRequired,
-  showSynonymModal: PropTypes.func.isRequired,
+  toggleInfoPanels: PropTypes.func.isRequired,
+  toggleInfoDepth: PropTypes.func.isRequired,
+  showNewSynonymPanel: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReviewAnswer);

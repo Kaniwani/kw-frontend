@@ -4,6 +4,7 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import { LOAD_USERDATA } from 'containers/App/constants';
 import { userDataLoaded, userDataLoadingError } from 'containers/App/actions';
 import shapeUserData from './utils/shapeUserData';
+import addSynonymSagas from 'containers/AddSynonymForm/sagas';
 
 import request from 'utils/request';
 
@@ -45,4 +46,5 @@ export function* userData() {
 // Bootstrap sagas
 export default [
   userData,
+  ...addSynonymSagas,
 ];

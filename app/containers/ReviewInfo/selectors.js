@@ -1,50 +1,45 @@
 import { createSelector } from 'reselect';
-import {
+import selectSessionDomain, {
   selectCurrentVocab,
-  selectCurrentReadings,
-} from 'containers/ReviewPage/selectors';
+} from 'containers/ReviewSession/selectors';
 
 import {
-  selectAnswerValid,
-  selectAnswerMarked,
   selectAnswerMatches,
 } from 'containers/AnswerInput/selectors';
 
-const selectReviewInfoDomain = () => (state) => state.getIn(['review', 'reviewInfo']);
+import { getDetailLevelName } from './utils';
 
-const selectCharactersVisible = () => createSelector(
+const selectReviewInfoDomain = () => createSelector(
+  selectSessionDomain(),
+  (session) => session.get('reviewInfo'),
+);
+
+const selectInfoPanelsVisible = () => createSelector(
   selectReviewInfoDomain(),
-  (substate) => substate.get('charactersVisible'),
+  (substate) => substate.get('panelsVisible'),
 );
 
-const selectKanaVisible = () => createSelector(
+const selectInfoAddSynonymVisible = () => createSelector(
   selectReviewInfoDomain(),
-  (substate) => substate.get('kanaVisible'),
+  (substate) => substate.get('newSynonymPanelVisible'),
 );
 
-const selectInfoVisible = () => createSelector(
-  selectAnswerMarked(),
-  selectAnswerValid(),
-  (marked, valid) => marked && valid,
+const selectInfoDetailLevel = () => createSelector(
+  selectReviewInfoDomain(),
+  (substate) => substate.get('detailLevel'),
 );
 
-const selectCharacters = () => createSelector(
-  selectCurrentReadings(),
-  (substate) => substate.map((entry) => entry.get('character')),
-);
-
-const selectKana = () => createSelector(
-  selectCurrentReadings(),
-  (substate) => substate.map((entry) => entry.get('kana')),
+const selectInfoDetailLevelName = () => createSelector(
+  selectInfoDetailLevel(),
+  (level) => getDetailLevelName(level),
 );
 
 export default selectReviewInfoDomain;
 export {
   selectCurrentVocab,
-  selectCharacters,
-  selectKana,
   selectAnswerMatches,
-  selectInfoVisible,
-  selectKanaVisible,
-  selectCharactersVisible,
+  selectInfoPanelsVisible,
+  selectInfoAddSynonymVisible,
+  selectInfoDetailLevel,
+  selectInfoDetailLevelName,
 };

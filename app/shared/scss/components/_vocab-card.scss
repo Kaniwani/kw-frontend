@@ -29,7 +29,7 @@
 
       .ja {
         @include flexcenter;
-        flex-flow: column nowrap;
+        flex-direction: column;
         flex: 0 1 auto;
       }
 

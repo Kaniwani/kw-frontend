@@ -38,6 +38,20 @@ module.exports = {
               common: false,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 1,
         incorrect: 0,
@@ -57,6 +71,20 @@ module.exports = {
         vocabulary: {
           meaning: 'times (suffix)',
           readings: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
             {
               character: '〜回',
               kana: '〜かい',
@@ -101,6 +129,20 @@ module.exports = {
               common: false,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 1,
         incorrect: 0,
@@ -130,6 +172,20 @@ module.exports = {
               sentence_ja: '滞りのない優雅な仕草でグラスに水を注ぎ込んだ',
               jlpt: 'JLPT N1',
               common: false,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
             },
           ],
         },
@@ -163,6 +219,20 @@ module.exports = {
               common: false,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 2,
@@ -192,6 +262,20 @@ module.exports = {
               sentence_ja: '滞りのない優雅な仕草でグラスに水を注ぎ込んだ',
               jlpt: 'JLPT N1',
               common: false,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
             },
           ],
         },
@@ -225,6 +309,20 @@ module.exports = {
               common: false,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 1,
         incorrect: 0,
@@ -254,6 +352,20 @@ module.exports = {
               sentence_ja: '滞りのない優雅な仕草でグラスに水を注ぎ込んだ',
               jlpt: 'JLPT N1',
               common: false,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
             },
           ],
         },
@@ -287,6 +399,20 @@ module.exports = {
               common: false,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 1,
         incorrect: 4,
@@ -316,6 +442,20 @@ module.exports = {
               sentence_ja: '滞りのない優雅な仕草でグラスに水を注ぎ込んだ',
               jlpt: 'JLPT N1',
               common: false,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
             },
           ],
         },
@@ -349,6 +489,20 @@ module.exports = {
               common: false,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 2,
         incorrect: 1,
@@ -378,6 +532,20 @@ module.exports = {
               sentence_ja: '滞りのない優雅な仕草でグラスに水を注ぎ込んだ',
               jlpt: 'JLPT N1',
               common: false,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
             },
           ],
         },
@@ -411,6 +579,20 @@ module.exports = {
               common: false,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 2,
         incorrect: 1,
@@ -440,6 +622,20 @@ module.exports = {
               sentence_ja: '滞りのない優雅な仕草でグラスに水を注ぎ込んだ',
               jlpt: 'JLPT N1',
               common: false,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
             },
           ],
         },
@@ -473,6 +669,20 @@ module.exports = {
               common: false,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 1,
         incorrect: 1,
@@ -502,6 +712,20 @@ module.exports = {
               sentence_ja: '滞りのない優雅な仕草でグラスに水を注ぎ込んだ',
               jlpt: 'JLPT N1',
               common: false,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
             },
           ],
         },
@@ -535,6 +759,20 @@ module.exports = {
               common: false,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 2,
@@ -566,6 +804,20 @@ module.exports = {
               common: false,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 2,
         incorrect: 0,
@@ -595,6 +847,20 @@ module.exports = {
               sentence_ja: '滞りのない優雅な仕草でグラスに水を注ぎ込んだ',
               jlpt: 'JLPT N1',
               common: false,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
             },
           ],
         },
@@ -639,6 +905,20 @@ module.exports = {
               common: false,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 1,
@@ -668,6 +948,20 @@ module.exports = {
               sentence_ja: '滞りのない優雅な仕草でグラスに水を注ぎ込んだ',
               jlpt: 'JLPT N1',
               common: false,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
             },
           ],
         },
@@ -701,6 +995,20 @@ module.exports = {
               common: false,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 1,
         incorrect: 0,
@@ -730,6 +1038,20 @@ module.exports = {
               sentence_ja: '滞りのない優雅な仕草でグラスに水を注ぎ込んだ',
               jlpt: 'JLPT N1',
               common: false,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
             },
           ],
         },
@@ -763,6 +1085,20 @@ module.exports = {
               common: false,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 2,
@@ -792,6 +1128,20 @@ module.exports = {
               sentence_ja: '滞りのない優雅な仕草でグラスに水を注ぎ込んだ',
               jlpt: 'JLPT N1',
               common: false,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
             },
           ],
         },
@@ -825,6 +1175,20 @@ module.exports = {
               common: false,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 1,
         incorrect: 0,
@@ -854,6 +1218,20 @@ module.exports = {
               sentence_ja: '滞りのない優雅な仕草でグラスに水を注ぎ込んだ',
               jlpt: 'JLPT N1',
               common: false,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
             },
           ],
         },
@@ -887,6 +1265,20 @@ module.exports = {
               common: false,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 1,
@@ -916,6 +1308,20 @@ module.exports = {
               sentence_ja: '滞りのない優雅な仕草でグラスに水を注ぎ込んだ',
               jlpt: 'JLPT N1',
               common: false,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
             },
           ],
         },
@@ -949,6 +1355,20 @@ module.exports = {
               common: false,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 2,
@@ -978,6 +1398,20 @@ module.exports = {
               sentence_ja: '滞りのない優雅な仕草でグラスに水を注ぎ込んだ',
               jlpt: 'JLPT N1',
               common: false,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
             },
           ],
         },
@@ -1011,6 +1445,20 @@ module.exports = {
               common: false,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 1,
         incorrect: 1,
@@ -1042,6 +1490,20 @@ module.exports = {
               common: false,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 1,
         incorrect: 0,
@@ -1071,6 +1533,20 @@ module.exports = {
               sentence_ja: '滞りのない優雅な仕草でグラスに水を注ぎ込んだ',
               jlpt: 'JLPT N1',
               common: false,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
             },
           ],
         },
@@ -1115,6 +1591,20 @@ module.exports = {
               common: false,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 1,
@@ -1144,6 +1634,20 @@ module.exports = {
               sentence_ja: '滞りのない優雅な仕草でグラスに水を注ぎ込んだ',
               jlpt: 'JLPT N1',
               common: false,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
             },
           ],
         },
@@ -1177,6 +1681,20 @@ module.exports = {
               common: false,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 1,
         incorrect: 1,
@@ -1199,6 +1717,20 @@ module.exports = {
               character: '演ずる',
               kana: 'えんずる',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -1239,6 +1771,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -1261,6 +1807,20 @@ module.exports = {
               character: '牛乳',
               kana: 'ぎゅうにゅう',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -1301,6 +1861,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 1,
         incorrect: 0,
@@ -1332,6 +1906,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -1354,6 +1942,20 @@ module.exports = {
               character: '停止',
               kana: 'ていし',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -1405,6 +2007,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -1436,6 +2052,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -1458,6 +2088,20 @@ module.exports = {
               character: '優勝',
               kana: 'ゆうしょう',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -1520,6 +2164,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -1542,6 +2200,20 @@ module.exports = {
               character: '無職',
               kana: 'むしょく',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -1582,6 +2254,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -1613,6 +2299,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -1635,6 +2335,20 @@ module.exports = {
               character: '挙げる',
               kana: 'あげる',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -1679,6 +2393,20 @@ module.exports = {
               level: 22,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -1701,6 +2429,20 @@ module.exports = {
               character: '経済学',
               kana: 'けいざいがく',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -1741,6 +2483,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 1,
         incorrect: 0,
@@ -1763,6 +2519,20 @@ module.exports = {
               character: '領収書',
               kana: 'りょうしゅうしょ',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -1814,6 +2584,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -1836,6 +2620,20 @@ module.exports = {
               character: '弁護士',
               kana: 'べんごし',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -1887,6 +2685,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -1909,6 +2721,20 @@ module.exports = {
               character: '基準',
               kana: 'きじゅん',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -1949,6 +2775,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -1971,6 +2811,20 @@ module.exports = {
               character: '俳句',
               kana: 'はいく',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -2011,6 +2865,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -2033,6 +2901,20 @@ module.exports = {
               character: '求職',
               kana: 'きゅうしょく',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -2073,6 +2955,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -2104,6 +3000,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -2126,6 +3036,20 @@ module.exports = {
               character: '長崎',
               kana: 'ながさき',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -2177,6 +3101,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -2199,6 +3137,20 @@ module.exports = {
               character: '責任感',
               kana: 'せきにんかん',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -2239,6 +3191,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -2261,6 +3227,20 @@ module.exports = {
               character: '役割',
               kana: 'やくわり',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -2301,6 +3281,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -2323,6 +3317,20 @@ module.exports = {
               character: '停電',
               kana: 'ていでん',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -2363,6 +3371,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -2385,6 +3407,20 @@ module.exports = {
               character: '済ます',
               kana: 'すます',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -2425,6 +3461,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 1,
         incorrect: 0,
@@ -2447,6 +3497,20 @@ module.exports = {
               character: '割合',
               kana: 'わりあい',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -2487,6 +3551,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -2509,6 +3587,20 @@ module.exports = {
               character: '優しい',
               kana: 'やさしい',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -2549,6 +3641,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -2571,6 +3677,20 @@ module.exports = {
               character: '看護師',
               kana: 'かんごし',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -2611,6 +3731,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -2633,6 +3767,20 @@ module.exports = {
               character: '一割',
               kana: 'いちわり',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -2673,6 +3821,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -2695,6 +3857,20 @@ module.exports = {
               character: '城',
               kana: 'しろ',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -2735,6 +3911,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -2757,6 +3947,20 @@ module.exports = {
               character: '備える',
               kana: 'そなえる',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -2797,6 +4001,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -2819,6 +4037,20 @@ module.exports = {
               character: '法則',
               kana: 'ほうそく',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -2859,6 +4091,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -2881,6 +4127,20 @@ module.exports = {
               character: '増やす',
               kana: 'ふやす',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -2921,6 +4181,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -2943,6 +4217,20 @@ module.exports = {
               character: '選挙する',
               kana: 'せんきょする',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -2983,6 +4271,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -3005,6 +4307,20 @@ module.exports = {
               character: '経済的',
               kana: 'けいざいてき',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -3045,6 +4361,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -3067,6 +4397,20 @@ module.exports = {
               character: '職員',
               kana: 'しょくいん',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -3107,6 +4451,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -3129,6 +4487,20 @@ module.exports = {
               character: '辞職',
               kana: 'じしょく',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],
@@ -3169,6 +4541,20 @@ module.exports = {
               common: true,
             },
           ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
         },
         correct: 0,
         incorrect: 0,
@@ -3191,6 +4577,20 @@ module.exports = {
               character: '革',
               kana: 'かわ',
               level: 23,
+              tags: [
+                'Noun', 'Suffix',
+              ],
+              sentence_en: 'Duck!',
+              sentence_ja: '頭を下げろ',
+              jlpt: null,
+              common: true,
+            },
+          ],
+          synonyms: [
+            {
+              character: '〜回',
+              kana: '〜かい',
+              level: 17,
               tags: [
                 'Noun', 'Suffix',
               ],

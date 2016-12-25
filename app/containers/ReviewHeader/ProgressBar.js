@@ -30,7 +30,7 @@ const Percentage = styled.span`
 function ProgressBar({ value }) {
   return (
     <Bar>
-      <Percentage value={value}></Percentage>
+      <Percentage value={value} />
     </Bar>
   );
 }

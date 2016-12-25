@@ -4,6 +4,10 @@ import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
 import kanawana from 'shared/kanawana/index';
 
+import StreakIcon from './StreakIcon';
+import SubmitButton from './SubmitButton';
+import IgnoreButton from './IgnoreButton';
+
 import { visuallyhidden } from 'shared/styles/utils';
 import Input from './Input';
 import Wrapper from './Wrapper';
@@ -18,20 +22,20 @@ export class AnswerInput extends React.PureComponent { // eslint-disable-line re
   componentDidMount() {
     kanawana.bind(this.inputField);
   }
+
   componentDidUpdate() {
     if (!this.props.disabled) this.inputField.focus();
   }
+
   componentWillUnmount() {
     kanawana.unbind(this.inputField);
   }
+
   render() {
-    const { text, disabled, marked, valid, matches, onChangeInput } = this.props;
+    const { text, streakName, onIgnore, disabled, onChangeInput } = this.props;
     return (
-      <Wrapper
-        marked={marked}
-        valid={valid}
-        matches={matches}
-      >
+      <Wrapper>
+        <StreakIcon streak={streakName} />
         <Label htmlFor="userAnswer">
           Vocabulary reading
         </Label>
@@ -50,6 +54,8 @@ export class AnswerInput extends React.PureComponent { // eslint-disable-line re
           autoComplete="off"
           spellCheck="false"
         />
+        { disabled && <IgnoreButton onIgnoreClick={onIgnore} />}
+        <SubmitButton />
       </Wrapper>
     );
   }
@@ -58,23 +64,17 @@ export class AnswerInput extends React.PureComponent { // eslint-disable-line re
 AnswerInput.propTypes = {
   text: PropTypes.string.isRequired,
   onChangeInput: PropTypes.func.isRequired,
+  onIgnore: PropTypes.func.isRequired,
+  streakName: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
-  marked: PropTypes.bool.isRequired,
-  valid: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.null,
-  ]),
-  matches: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   text: selectInputText(),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    onChangeInput: (event) => dispatch(updateInput(event.target.value)),
-  };
-}
+const mapDispatchToProps = (dispatch) => ({
+  onChangeInput: (event) => dispatch(updateInput(event.target.value)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(AnswerInput);

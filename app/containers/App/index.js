@@ -25,8 +25,9 @@ const AppWrapper = styled.div`
   min-height: 100%;
 `;
 
-class App extends React.PureComponent {
-  componentWillMount() {
+// FIXME: change all Components where viable to PureComponents before production
+class App extends React.Component {
+  componentDidMount() {
     this.props.loadUserData();
   }
 

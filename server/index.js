@@ -12,11 +12,13 @@ const app = express();
 
 const devData = require('./devData');
 
+const randDelay = (cb) => setTimeout(() => cb(), +(((Math.random() * 2000) / 1.5).toPrecision(3)));
+
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
 // NOTE:10 these are temporary routes during dev
-app.use('/api/reviews', (req, res) => res.json(devData.reviews));
-app.use('/api/profiles', (req, res) => res.json(devData.profiles));
-app.use('/api/', (req, res) => res.json(devData));
+app.use('/api/reviews', (req, res) => randDelay(() => res.json(devData.reviews)));
+app.use('/api/profiles', (req, res) => randDelay(() => res.json(devData.profiles)));
+app.use('/api/', (req, res) => randDelay(() => res.json(devData)));
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {

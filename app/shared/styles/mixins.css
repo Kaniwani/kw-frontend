@@ -14,18 +14,6 @@
   padding-right: calc(50% - maxwidth);
 }
 
-/* increases clickable/hoverable/tappable area for element without increasing size visually or adding internal padding */
-@define-mixin tap-target $y: .5em, $x: 1em {
-  &:after {
-    position: absolute;
-    content: "";
-    top: -$y;
-    bottom: -$y;
-    right: -$x;
-    left: -$x;
-  }
-}
-
 /* include under input {} */
 
 @define-mixin placeholder-color $clr: #444 {

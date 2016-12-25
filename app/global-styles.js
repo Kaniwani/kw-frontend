@@ -1,7 +1,7 @@
 import { injectGlobal } from 'styled-components';
 import { blackLight, blueLight, blueDark, greyDark } from 'shared/styles/colors';
 import { fluidType } from 'shared/styles/utils';
-import { units } from 'shared/styles/spacing';
+import { unit } from 'shared/styles/sizing';
 import {
   ffBody,
   ffHeading,
@@ -12,6 +12,8 @@ import {
 injectGlobal`
   html {
     box-sizing: border-box;
+    ${fluidType(14, 20, 400, 1400)}
+    line-height: 1.4;
   }
 
   *,
@@ -28,8 +30,6 @@ injectGlobal`
 
   body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    ${fluidType(14, 18, 400, 1400)}
-    line-height: 1.4;
     color: rgb(${blackLight});
   }
 
@@ -39,7 +39,7 @@ injectGlobal`
 
   [lang=ja] {
     font-family: ${ffJapanese};
-    word-break: keep-all;
+    word-break: break-word;
   }
 
   #app {
@@ -47,14 +47,14 @@ injectGlobal`
     min-width: 100%;
   }
 
-  *:focus {
-    outline: none;
+  *:not(input):focus {
+    outline: dashed 1px rgba(64, 64, 64, 0.3);
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: ${ffHeading};
     margin: 0;
-    margin-bottom: ${units.xs};
+    margin-bottom: ${unit.xs};
     color: rgb(${greyDark});
     line-height: 1.4;
   }

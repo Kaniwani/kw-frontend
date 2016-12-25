@@ -1,104 +1,66 @@
 import React, { PropTypes } from 'react';
+import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import scroll from 'bloody-scroll';
 import cuid from 'cuid';
-
-import { showModal } from 'containers/Modal/actions';
-import { ADD_SYNONYM_MODAL } from 'containers/Modal/constants';
-import { toggleVocabInfo } from 'containers/ReviewInfo/actions';
-import ReviewBackground from './ReviewBackground';
-import Wrapper from './Wrapper';
-import InfoWrapper from './InfoWrapper';
-import InfoRow from './InfoRow';
-import InfoButton from './InfoButton';
-import SynonymButton from './SynonymButton';
-import Entry from './Entry';
-
+import InfoPanel from './InfoPanel';
+import { Wrapper } from './UI';
+import AddSynonymPanel from './AddSynonymPanel';
 import {
-  selectCharacters,
-  selectKana,
-  selectAnswerMatches,
-  selectInfoVisible,
-  selectCharactersVisible,
-  selectKanaVisible,
+  selectInfoAddSynonymVisible,
+  selectInfoDetailLevel,
+  selectInfoPanelsVisible,
 } from './selectors';
 
-export class ReviewInfo extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+const renderPanels = ({ items, ...props }) =>
+  items.map((item) =>
+    <InfoPanel key={cuid()} item={item} {...props} />);
+
+export class ReviewInfo extends React.PureComponent {
   static propTypes = {
-    characters: PropTypes.object,
-    kana: PropTypes.object,
-    isInfoVisible: PropTypes.bool,
-    isCharactersVisible: PropTypes.bool.isRequired,
-    isKanaVisible: PropTypes.bool.isRequired,
-    isAnswerCorrect: PropTypes.bool.isRequired,
-    showSynonymModal: PropTypes.func.isRequired,
-    toggleInfo: PropTypes.func.isRequired,
+    readings: PropTypes.instanceOf(Immutable.Iterable).isRequired,
+    synonyms: PropTypes.instanceOf(Immutable.Iterable),
+    isAddSynonymVisible: PropTypes.bool.isRequired,
+    detailLevel: PropTypes.number.isRequired,
+    isPanelsVisible: PropTypes.bool.isRequired,
   }
 
-  _showSynonymModal = () => this.props.showSynonymModal({ modalType: ADD_SYNONYM_MODAL });
-  _toggleCharsInfo = () => this.props.toggleInfo({ characters: true })
-  _toggleKanaInfo = () => this.props.toggleInfo({ kana: true });
+  componentDidUpdate(prevProps) {
+    const nowVisible = !prevProps.isPanelsVisible && this.props.isPanelsVisible;
 
+    if (nowVisible) {
+      const { top: y } = this.wrapper.getBoundingClientRect();
+      setTimeout(() => scroll({ y }, 500), 500);
+    }
+  }
   render() {
-    const { characters, kana, isInfoVisible, isAnswerCorrect, isCharactersVisible, isKanaVisible } = this.props;
-    return (
-      <Wrapper>
-        {isInfoVisible && (
-        <InfoWrapper>
-          { !isAnswerCorrect && (
-            <SynonymButton
-              type="button"
-              onClick={this._showSynonymModal}
-            >
-              Add <strong>S</strong>ynonym
-            </SynonymButton>
-          )}
-          <InfoRow>
-            <InfoButton
-              type="button"
-              position="left"
-              onClick={this._toggleCharsInfo}
-            >
-              <strong>K</strong>anji
-            </InfoButton>
-            {isCharactersVisible && characters.map((entry) =>
-              <Entry lang="ja" key={cuid()}>{entry}</Entry>,
-            )}
-          </InfoRow>
-          <InfoRow>
-            <InfoButton
-              type="button"
-              position="right"
-              onClick={this._toggleKanaInfo}
-            >
-              <strong>P</strong>honetic
-            </InfoButton>
-            {isKanaVisible && kana.map((entry) =>
-              <Entry lang="ja" key={cuid()}>{entry}</Entry>,
-            )}
-          </InfoRow>
-        </InfoWrapper>
-        )}
-        <ReviewBackground />
-      </Wrapper>
-    );
+    const { readings, synonyms, isPanelsVisible, isAddSynonymVisible, detailLevel } = this.props;
+    let content = null;
+
+    if (isPanelsVisible) {
+      content = (
+        <Wrapper className={detailLevel === 1 && 'is-low-detail'} innerRef={(node) => { this.wrapper = node; }}>
+          {readings && renderPanels({ items: readings, category: 'Reading', detailLevel })}
+          {synonyms && renderPanels({ items: synonyms, category: 'Synonym', detailLevel })}
+        </Wrapper>
+      );
+    }
+    if (isAddSynonymVisible) {
+      content = (
+        <Wrapper>
+          <AddSynonymPanel addPadding={detailLevel > 2} />
+        </Wrapper>
+      );
+    }
+    return content;
   }
 }
 
 const mapStateToProps = createStructuredSelector({
-  characters: selectCharacters(),
-  kana: selectKana(),
-  isAnswerCorrect: selectAnswerMatches(),
-  isInfoVisible: selectInfoVisible(),
-  isKanaVisible: selectKanaVisible(),
-  isCharactersVisible: selectCharactersVisible(),
+  isAddSynonymVisible: selectInfoAddSynonymVisible(),
+  detailLevel: selectInfoDetailLevel(),
+  isPanelsVisible: selectInfoPanelsVisible(),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    toggleInfo: (payload) => dispatch(toggleVocabInfo(payload)),
-    showSynonymModal: (payload) => dispatch(showModal(payload)),
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewInfo);
+export default connect(mapStateToProps)(ReviewInfo);

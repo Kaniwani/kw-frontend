@@ -12,6 +12,7 @@ export const purple = '137, 12, 233'; // #890ce9
 export const purpleDark = '99, 49, 185'; // #6331b9
 export const blueLight = '0, 139, 209'; // #008bd1
 export const blue = '76, 129, 214'; // #4c81d6
+export const blueLogo = '48, 192, 249'; // #4c81d6
 export const blueDark = '46, 80, 220'; // #2e50dc
 export const pink = '255, 0, 195'; // #ff00c3
 export const red = '226, 50, 91'; // #e2325b
@@ -20,3 +21,5 @@ export const green = '127, 212, 104'; // #7fd468
 export const golden = '247, 247, 201'; // #f7f7c9
 export const yellow = '245, 216, 0'; // #f5d800
 export const tan = '226, 180, 106'; // #e2b46a
+// matches review background svg
+export const reviewBackground = '229, 229, 227'; // #e5e5e5

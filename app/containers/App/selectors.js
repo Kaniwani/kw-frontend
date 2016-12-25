@@ -37,11 +37,15 @@ const selectModal = () => createSelector(
   (globalState) => globalState.get('modal'),
 );
 
+const selectAddSynonym = () => createSelector(
+  selectGlobal(),
+  (globalState) => globalState.get('addSynonym'),
+);
+
 const selectUser = () => createSelector(
   selectGlobal(),
   (globalState) => globalState.get('user'),
 );
-
 
 const selectSettings = () => createSelector(
   selectUser(),
@@ -56,5 +60,6 @@ export {
   selectError,
   selectUser,
   selectModal,
+  selectAddSynonym,
   selectSettings,
 };

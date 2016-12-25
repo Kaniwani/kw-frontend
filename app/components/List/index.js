@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import Immutable from 'immutable';
 import cuid from 'cuid';
 
 import Ul from './Ul';
@@ -21,9 +22,13 @@ function List({ items, component, componentProps }) {
 }
 
 List.propTypes = {
-  component: React.PropTypes.func.isRequired,
-  componentProps: React.PropTypes.object,
-  items: React.PropTypes.array,
+  component: PropTypes.func.isRequired,
+  componentProps: PropTypes.object,
+  items: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.instanceOf(Immutable.Iterable),
+  ]),
 };
 
 export default List;
