@@ -1,25 +1,9 @@
-<div align="center">
-<!-- Slack status -->
-  <a href="https://rauchg-slackin-iurjmkotad.now.sh">
-    <img src="https://rauchg-slackin-iurjmkotad.now.sh/badge.svg" alt="Slack Status" />
-  </a>
-  <!-- Dependency Status -->
-  <a href="https://david-dm.org/Kaniwani/KanaWana">
-    <img src="https://img.shields.io/david/Kaniwani/KW-Frontend.svg" alt="Dependency Status" />
-  </a>
-  <!-- devDependency Status -->
-  <a href="https://david-dm.org/Kaniwani/KW-Frontend#info=devDependencies">
-    <img src="https://img.shields.io/david/dev/Kaniwani/KW-Frontend.svg" alt="devDependency Status" />
-  </a>
- <!-- Build Status -->
-  <a href="https://travis-ci.org/Kaniwani/KW-Frontend">
-    <img src="https://img.shields.io/travis/Kaniwani/KW-Frontend.svg" alt="Build Status" />
-  </a>
-  <!-- Test Coverage -->
-  <a href="https://coveralls.io/r/Kaniwani/KW-Frontend">
-    <img src="https://img.shields.io/coveralls/Kaniwani/KW-Frontend.svg" alt="Test Coverage" />
-  </a>
-</div>
+[![Slack Status](https://rauchg-slackin-iurjmkotad.now.sh/badge.svg)](https://rauchg-slackin-iurjmkotad.now.sh)
+[![Dependency Status](https://img.shields.io/david/Kaniwani/KW-Frontend.svg)](https://david-dm.org/Kaniwani/KanaWana)
+[![devDependency Status](https://img.shields.io/david/dev/Kaniwani/KW-Frontend.svg)](https://david-dm.org/Kaniwani/KW-Frontend#info=devDependencies)
+[![Build Status](https://img.shields.io/travis/Kaniwani/KW-Frontend.svg)](https://travis-ci.org/Kaniwani/KW-Frontend)
+[![Test Coverage](https://img.shields.io/coveralls/Kaniwani/KW-Frontend.svg)](https://coveralls.io/r/Kaniwani/KW-Frontend)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Kaniwani/KW-Frontend/master/app/shared/assets/img/logo.png" alt="kaniwani logo" width="100px" /><h1><strong>KaniWani Frontend</strong></h1>
