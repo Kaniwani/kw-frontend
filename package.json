@@ -37,7 +37,9 @@
     "test:clean": "rimraf ./coverage",
     "test": "cross-env NODE_ENV=test jest --coverage",
     "test:watch": "cross-env NODE_ENV=test jest --watchAll",
-    "coveralls": "cat ./coverage/lcov.info | coveralls"
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "lint-staged": {
     "*.js": "lint:eslint"
@@ -300,7 +302,8 @@
     "url-loader": "0.5.7",
     "webpack": "2.1.0-beta.25",
     "webpack-dev-middleware": "1.8.4",
-    "webpack-hot-middleware": "2.13.2"
+    "webpack-hot-middleware": "2.13.2",
+    "@kadira/storybook": "^2.21.0"
   },
   "czConfig": {
     "path": "node_modules/cz-conventional-changelog"
