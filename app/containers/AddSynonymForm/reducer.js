@@ -1,36 +1,50 @@
 import { fromJS } from 'immutable';
 import {
-  LOAD_JISHODATA,
-  LOAD_JISHODATA_SUCCESS,
-  LOAD_JISHODATA_ERROR,
+  // LOAD_JISHODATA,
+  // LOAD_JISHODATA_SUCCESS,
+  // LOAD_JISHODATA_ERROR,
+  ADD_SYNONYM_ERROR,
 } from './constants';
 
 export const addSynonymInitialState = fromJS({
-  input: {
-    characters: false, // don't constantly update, only on submit to check validity
-    kana: false, // don't constantly update, only on submit to check validity
-    isValid: false,
+  // jisho: {
+  //   data: null,
+  //   loading: false,
+  //   error: false,
+  // },
+  form: {
+    valid: true,
+    error: false,
   },
-  jisho: false,
-  loading: false,
-  error: false,
 });
 
 function addSynonymReducer(state = addSynonymInitialState, action) {
   switch (action.type) {
-    case LOAD_JISHODATA:
+    // case ADD_SYNONYM:
+    //   return state
+    //     .set('loading', true)
+    //     .set('error', false);
+    // case ADD_SYNONYM_SUCCESS: {
+    //   return state
+    //     .set('jisho', action.payload)
+    //     .set('loading', false);
+    // }
+    case ADD_SYNONYM_ERROR:
       return state
-        .set('loading', true)
-        .set('error', false);
-    case LOAD_JISHODATA_SUCCESS: {
-      return state
-        .set('jisho', action.payload)
-        .set('loading', false);
-    }
-    case LOAD_JISHODATA_ERROR:
-      return state
-        .set('error', action.payload)
-        .set('loading', false);
+        .setIn(['form', 'error'], action.payload)
+        .setIn(['form', 'loading'], false);
+    // case LOAD_JISHODATA:
+    //   return state
+    //     .setIn(['jisho', 'loading'], true)
+    //     .setIn(['jisho', 'error'], false);
+    // case LOAD_JISHODATA_SUCCESS:
+    //   return state
+    //     .setIn(['jisho', 'data'], action.payload)
+    //     .setIn(['jisho', 'loading'], false);
+    // case LOAD_JISHODATA_ERROR:
+    //   return state
+    //     .setIn(['jisho', 'error'], action.payload)
+    //     .setIn(['jisho', 'loading'], false);
     default:
       return state;
   }

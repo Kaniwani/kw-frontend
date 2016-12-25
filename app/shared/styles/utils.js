@@ -57,6 +57,18 @@ export function bgGradient(initialColor = 'grey', direction = 'bottom', percent 
   `;
 }
 
+/* increases clickable/hoverable/tappable area for element without increasing size visually or adding internal padding */
+export const tapTarget = ({ x, y } = { x: '.1rem', y: '.1rem' }) => css`
+  &:after {
+    position: absolute;
+    content: "";
+    top: -${y};
+    right: -${x};
+    bottom: -${y};
+    left: -${x};
+  }
+`;
+
 export const fullWidthBg = css`
   padding-left: calc(50% - ${unit.siteMaxWidth});
   padding-right: calc(50% - ${unit.siteMaxWidth});
@@ -99,13 +111,6 @@ export const wordwrap = `
   -ms-word-break: break-all;
   word-break: break-word;
   hyphens: auto;
-`;
-
-export const flexcenter = `
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
 `;
 
 export const visuallyhidden = `

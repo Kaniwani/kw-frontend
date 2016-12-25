@@ -39,6 +39,7 @@ export const Input = styled.input`
   appearance: none;
   line-height: 1.8; /* lowercase descenders are cut off otherwise */
   flex: 1 5 100px;
+  max-width: 500px;
   vertical-align: middle;
   padding: 0 .5rem;
   border: 1px solid rgba(${greyLight}, .3);

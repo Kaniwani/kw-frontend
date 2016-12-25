@@ -20,8 +20,10 @@ import {
   selectInfoPanelsVisible,
 } from 'containers/ReviewInfo/selectors';
 
-const Wrapper = styled.div`
+const Wrapper = styled.ul`
   display: flex;
+  margin: 0;
+  list-style: none;
   justify-content: center;
   background-color: transparent;
   padding: 0 .4rem .4rem;
@@ -36,7 +38,7 @@ const Wrapper = styled.div`
   `}
 `;
 
-const Toggle = styled.div`
+const Toggle = styled.li`
   text-align: center;
   position: relative;
   font-size: .7rem;

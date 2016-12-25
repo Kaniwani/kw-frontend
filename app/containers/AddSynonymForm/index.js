@@ -1,23 +1,20 @@
 import React, { PropTypes } from 'react';
-import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import blockEvent from 'utils/blockEvent';
 import kanawana from 'shared/kanawana';
 // import LoadingIndicator from 'components/LoadingIndicator';
+import JishoSearchLink from 'components/JishoSearchLink';
 
 import {
   selectInputText,
   selectAnswerType,
 } from 'containers/AnswerInput/selectors';
 
-// import {
-//   selectJishoData,
-// } from './selectors';
-//
-// import {
-//   loadJishoData,
-// } from './actions';
+import {
+  // loadJishoData,
+  addSynonym,
+} from './actions';
 
 import {
   Form,
@@ -32,6 +29,7 @@ export class AddSynonymForm extends React.Component { // eslint-disable-line rea
   static propTypes = {
     text: PropTypes.string.isRequired,
     answerType: PropTypes.string.isRequired,
+    addSynonym: PropTypes.func.isRequired,
     // jishoData: PropTypes.instanceOf(Immutable.Iterable),
     // loadJishoData: PropTypes.func.isRequired,
   }
@@ -57,16 +55,13 @@ export class AddSynonymForm extends React.Component { // eslint-disable-line rea
 
   _handleSubmit = (event) => {
     blockEvent(event);
-    // TODO: need to ensure all fields are valid
-    // IE: chars/kana are isKanjiKana() / isKana()
-    console.info('TODO: Implement saga to Add Synonym'); // eslint-disable-line no-alert
-    console.info('TODO: Implement saga watcher to close form & advance when synonym added/requested'); // eslint-disable-line no-alert
+    this.props.addSynonym(/* form data */);
   }
 
   render() {
     const { answerType, text /* , jishoData */ } = this.props;
     return (
-      <Form onSubmit={this._handleSubmit}>
+      <Form innerRef={(node) => { this.synonymForm = node; }} onSubmit={this._handleSubmit}>
         <Label htmlFor="newKana">
           <LabelText>Kana:</LabelText>
           <Input
@@ -76,6 +71,7 @@ export class AddSynonymForm extends React.Component { // eslint-disable-line rea
             innerRef={(node) => { this.kanaInput = node; }}
             defaultValue={this._determineTextValue('kanaInput', answerType, text)}
           />
+          { answerType !== 'kana' && <JishoSearchLink keyword={text} />}
         </Label>
         <Label htmlFor="newCharacters">
           <LabelText>Kanji:</LabelText>
@@ -86,6 +82,7 @@ export class AddSynonymForm extends React.Component { // eslint-disable-line rea
             innerRef={(node) => { this.charInput = node; }}
             defaultValue={this._determineTextValue('charInput', answerType, text)}
           />
+          { answerType !== 'mixed' && <JishoSearchLink keyword={text} />}
         </Label>
         <Validation>
           <p>
@@ -108,6 +105,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  addSynonym: (formData) => dispatch(addSynonym(formData)),
   // loadJishoData: (keyword) => dispatch(loadJishoData(keyword)),
 });
 

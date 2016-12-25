@@ -1,14 +1,11 @@
 /* eslint-disable no-console */
 /* eslint-disable no-constant-condition */
 
-
-// TODO: extract some of these into smaller sagas
-// at least for ReviewAnswer / ReviewInfo stuff, this file is LONG
-
 import { takeEvery, delay } from 'redux-saga';
-import { take, select, call, put, race } from 'redux-saga/effects';
+import { take, select, call, fork, put, race } from 'redux-saga/effects';
 import markAllAsDaemon from 'utils/markAllAsDaemon';
 import isEmpty from 'lodash/isEmpty';
+import post from 'utils/post';
 
 import {
   isHiragana,
@@ -125,31 +122,24 @@ export function* recordAnswer() {
     wrong_before: previouslyWrong,
   };
 
-  // TODO: implement post using fetch in main utils folder (use request.js as template)
-  /*
-  fetch('/path', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-  */
-  // yield fork(request, postURL, postData);
+  const postUrl = '/api/v1/';
 
   try {
     if (correct || (!correct && firstTimeWrong)) {
-      console.log('pretend record');
+      const response = yield fork(post, postUrl, postData);
       console.log(postData);
-      // put(recordAnswerSuccess())
+      console.log(response);
+      // if (response) put(recordAnswerSuccess());
     }
   } catch (err) {
     // TODO: catch errors and notify user answer not recorded but returned to queue instead
-    // put(recordAnswerFailure(message))
+    // put(recordAnswerError(message))
   } finally {
     // TODO: move to take(RECORD_ANSWER_SUCCESS)
     if (correct && !previouslyWrong) yield put(increaseSessionCorrect());
     if (!correct && !previouslyWrong) yield put(increaseSessionIncorrect());
 
-    // TODO: take(RECORD_ANSWER_FAILURE)
+    // TODO: take(RECORD_ANSWER_ERROR)
     yield [
       put(correct ? copyCurrentToCompleted() : returnCurrentToQueue()),
       call(resetReview),

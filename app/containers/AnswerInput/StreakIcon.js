@@ -8,7 +8,7 @@ const StyledIcon = styled(Icon)`
   position: absolute;
   transform: translateY(-50%);
   top: 50%;
-  left: .3em;
+  left: .35em;
   color: currentColor;
 `;
 
@@ -18,7 +18,7 @@ function StreakIcon({ streak }) {
     <StyledIcon
       tooltip={{ text: titleCase(streak), position: 'right', showDelay: 250 }}
       name={streak}
-      size="1.3em"
+      size="1.15em"
     />
   );
 }

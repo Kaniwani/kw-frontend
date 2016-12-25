@@ -32,6 +32,9 @@ export const PanelWrapper = styled.div`
     &:last-of-type {
       border-radius: 0 0 .3rem .3rem;
     }
+    &:only-child {
+      border-radius: .3rem;
+    }
   `}
 `;
 

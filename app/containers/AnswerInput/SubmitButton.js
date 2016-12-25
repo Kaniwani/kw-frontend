@@ -6,14 +6,20 @@ const Button = styled.button`
   &[type="submit"] {
     display: block;
     position: absolute;
-    height: 100%;
-    padding: 0;
+    height: auto;
+    align-self: center;
     transform: translateY(-50%);
     top: 50%;
     right: 0;
     cursor: pointer;
     color: currentColor;
     appearance: none;
+    padding: 0;
+    opacity: .9;
+    transition: opacity .3s ease-out;
+    &:hover {
+      opacity: 1;
+    }
   }
 `;
 
