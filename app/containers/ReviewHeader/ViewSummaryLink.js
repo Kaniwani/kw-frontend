@@ -7,9 +7,8 @@ const StyledLink = styled(Link)`
   display: block;
   cursor: pointer;
   color: currentColor;
-  /* magic numbers to make icon alignment more visually pleasing */
-  /*margin-top: 0.1em;
-  margin-left: -0.1em;*/
+  /* magic number to make icon alignment more visually pleasing */
+  transform: translateX(-.1rem);
 `;
 
 function ViewSummaryLink() {

@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
 export const Upper = styled.section`
   display: flex;
   flex-direction: column;
-  padding: .5rem .6rem;
+  padding: .4rem .3rem .5rem;
   background-color: #6a3bbc;
   background-image: linear-gradient(180deg, #774ac6, #5f35a9);
   background-repeat: repeat-x;
