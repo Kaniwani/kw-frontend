@@ -19,3 +19,17 @@ export const getRotatedLevel = (level = 1) => {
   const newLevel = level + 1;
   return newLevel > MAX_DETAIL_DEPTH ? 1 : newLevel;
 };
+
+/**
+ * Combines Common and JLPT with main tags (Parts of Speech)
+ * @param  {Array} tags [description]
+ * @param  {String} jlpt [description]
+ * @param  {Bool} common [description]
+ * @return {Array} [description]
+ */
+export const combineTags = (tags, jlpt, common) => {
+  let ret = tags.slice();
+  if (jlpt) ret = ret.push(jlpt);
+  if (common) ret = ret.push('Common');
+  return ret;
+};

@@ -4,24 +4,8 @@ import InfoHeading from './InfoHeading';
 import Divider from 'components/Divider';
 import Mark from 'components/Mark';
 import { PanelWrapper, Row, RowItem } from './UI';
-
-const combineTags = (tags, jlpt, common) => {
-  let ret = tags;
-  if (jlpt) ret = ret.push(jlpt);
-  if (common) ret = ret.push('Common');
-  return ret;
-};
-
-/**
- * Splits string at given delimiter but includes it at its location(s) in the result array
- * @param  {String} text
- * @param  {String} delimiter
- * @return {Array}
- */
-const splitKeepingDelimiter = (text, delimiter) => {
-  const delim = new RegExp(`(${delimiter})`, 'g');
-  return text.split(delim);
-};
+import splitKeepingDelimiter from 'utils/splitKeepingDelimiter';
+import combineTags from './utils';
 
 const InfoPanel = ({ item, category, detailLevel }) => {
   const char = /* item.get('character');*/ '仕草';
