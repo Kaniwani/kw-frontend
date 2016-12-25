@@ -4,26 +4,6 @@
 const path = require('path');
 const deepExtend = require('deep-extend');
 
-const customJSLoader = {
-  test: /\.jsx?$/,
-  loader: '/home/subrosa/Documents/projects/kw-frontend/node_modules/babel-loader/lib/index.js',
-  exclude: [path.resolve(__dirname, '../node_modules/')],
-  include: [
-    path.resolve(__dirname, '../app/'),
-    path.resolve(__dirname, '../'),
-  ],
-  query: {
-    babelrc: false,
-    cacheDirectory: '/home/subrosa/Documents/projects/kw-frontend/node_modules/.cache/react-storybook',
-    presets: ['/home/subrosa/Documents/projects/kw-frontend/node_modules/babel-preset-react-app/index.js'],
-    plugins: [[
-      '/home/subrosa/Documents/projects/kw-frontend/node_modules/babel-plugin-react-docgen/lib/index.js', {
-        DOC_GEN_COLLECTION_NAME: 'STORYBOOK_REACT_CLASSES',
-      },
-    ]],
-  },
-};
-
 const customLoaders = [
   {
     test: /\.css$/,
@@ -62,18 +42,25 @@ const customLoaders = [
     },
   },
 ];
+
 // load the default config generator.
 const genDefaultConfig = require('@kadira/storybook/dist/server/config/defaults/webpack.config.js');
 
 module.exports = (config, env) => {
   const customConfig = genDefaultConfig(config, env);
-  customConfig.module.loaders[0] = customJSLoader;
-  customConfig.module.loaders.push(customLoaders);
+  customConfig.module.loaders.push(...customLoaders);
 
   customConfig.resolve = deepExtend(customConfig.resolve, {
-    modules: [path.resolve(__dirname, 'app')],
+    modules: [path.resolve(__dirname, '..', 'app')],
     mainFields: ['browser', 'jsnext:main', 'main'],
+    // We're not using relative paths in our kw dev setup, alias these so we can resolve properly
+    alias: {
+      components: path.resolve(__dirname, '..', 'app/components'),
+      containers: path.resolve(__dirname, '..', 'app/containers'),
+      shared: path.resolve(__dirname, '..', 'app/shared'),
+      utils: path.resolve(__dirname, '..', 'app/utils'),
+    },
   });
-  // customConfig.module.loaders.forEach((loader) => console.log(loader, loader.plugins));
+
   return customConfig;
 };
