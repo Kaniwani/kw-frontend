@@ -13,7 +13,9 @@ import {
   selectInfoPanelsVisible,
 } from './selectors';
 
-const renderPanels = ({ items, ...props }) => items.map((item) => <InfoPanel key={cuid()} item={item} {...props} />);
+const renderPanels = ({ items, ...props }) =>
+  items.map((item) =>
+    <InfoPanel key={cuid()} item={item} {...props} />);
 
 export class ReviewInfo extends React.PureComponent {
   static propTypes = {

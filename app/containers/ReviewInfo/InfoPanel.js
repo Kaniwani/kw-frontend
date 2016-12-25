@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import Immutable from 'immutable';
 import InfoHeading from './InfoHeading';
 import Divider from 'components/Divider';
+import Mark from 'components/Mark';
 import { PanelWrapper, Row, RowItem } from './UI';
 
 const combineTags = (tags, jlpt, common) => {
@@ -11,13 +12,29 @@ const combineTags = (tags, jlpt, common) => {
   return ret;
 };
 
+/**
+ * Splits string at given delimiter but includes it at its location(s) in the result array
+ * @param  {String} text
+ * @param  {String} delimiter
+ * @return {Array}
+ */
+const splitKeepingDelimiter = (text, delimiter) => {
+  const delim = new RegExp(`(${delimiter})`, 'g');
+  return text.split(delim);
+};
+
 const InfoPanel = ({ item, category, detailLevel }) => {
-  const char = item.get('character');
+  const char = /* item.get('character');*/ '仕草';
   const kana = item.get('kana');
   const tags = item.get('tags');
   const jlpt = item.get('jlpt');
   const common = item.get('common');
-  const sentenceJA = item.get('sentence_ja');
+  let sentenceJA = splitKeepingDelimiter(item.get('sentence_ja'), char).map((s) => (s.length > 0 && s) || null);
+  sentenceJA = {
+    head: sentenceJA[0],
+    mark: sentenceJA[1],
+    tail: sentenceJA[2],
+  };
   const sentenceEN = item.get('sentence_en');
   const allTags = combineTags(tags, jlpt, common);
 
@@ -31,7 +48,11 @@ const InfoPanel = ({ item, category, detailLevel }) => {
       {(detailLevel > 2) && <Divider />}
       {(detailLevel > 2) && (
         <Row className="is-sentence-pair">
-          <RowItem lang="ja">{sentenceJA}</RowItem>
+          <RowItem lang="ja">
+            {sentenceJA.head && <span>{sentenceJA.head}</span>}
+            {sentenceJA.mark && <Mark>{sentenceJA.mark}</Mark>}
+            {sentenceJA.tail && <span>{sentenceJA.tail}</span>}
+          </RowItem>
           <RowItem>{sentenceEN}</RowItem>
         </Row>
       )}
