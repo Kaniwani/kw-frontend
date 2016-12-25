@@ -28,7 +28,7 @@ const Bar = styled.div`
   left: 0;
   height: 100%;
   transition: width .8s ease-in-out;
-  width: ${(props) => props.width}%; /* TODO: animate reactily */
+  width: ${(props) => props.width}%; /* TODO: animate reactily, currently no animation */
   z-index: 1;
   color: ${COLORS.white};
 `;
