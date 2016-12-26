@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import styled from 'styled-components';
-import { elementGutter, fullRowElement } from 'shared/styles/layout';
+import { elementGutter, bannerElement } from 'shared/styles/layout';
 
 const StyledDiv = styled.div`
-  ${(props) => props.fullRow ? fullRowElement : elementGutter}
+  ${(props) => props.fullRow ? bannerElement : elementGutter}
 `;
 
 const Element = ({ children, fullRow }) => (

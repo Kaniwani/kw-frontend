@@ -8,12 +8,6 @@ export const centerByPadding = `
   padding-right: calc(50% - ${siteMaxWidthpx});
 `;
 
-export const fullRowElement = `
-  overflow-x: hidden;
-  margin: 0 -${padding.outer.x}rem;
-  padding: ${padding.inner.y / 2}rem ${(padding.inner.x / 2) + padding.outer.x}rem;
-`;
-
 export const centerByMargin = `
   max-width: ${siteMaxWidthpx};
   margin-left: auto;
@@ -26,4 +20,14 @@ export const wrapperGutter = `
 
 export const elementGutter = `
   padding: ${padding.inner.y / 2}rem ${padding.inner.x / 2}rem;
+`;
+
+/**
+ * Uses negative margins to remove top and side padding (for a full width banner effect)
+ * Uses half paddings to align side gutters with other sibling elements still
+ */
+export const bannerElement = `
+  overflow-x: hidden;
+  margin: 0 -${padding.outer.x}rem;
+  padding: ${padding.inner.y / 2}rem ${(padding.inner.x / 2) + padding.outer.x}rem;
 `;
