@@ -15,7 +15,7 @@ const buttonStyles = css`
   cursor: pointer;
   outline: 0;
   border: 2px solid ${bgColor};
-  color: rgb(${bgColor});
+  color: ${bgColor};
 
   &:active {
     background: ${bgColor};

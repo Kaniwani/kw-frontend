@@ -27,6 +27,7 @@
     "start:tunnel": "cross-env NODE_ENV=development ENABLE_TUNNEL=true node server",
     "start:production": "yarn run build && yarn run start:prod",
     "start:prod": "cross-env NODE_ENV=production node server",
+    "storybook": "build-storybook -c .storybook -o .static-storybook",
     "pagespeed": "node ./internals/scripts/pagespeed.js",
     "generate": "plop --plopfile internals/generators/index.js",
     "lint": "yarn run lint:js",

@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import styled from 'styled-components';
-import { border } from 'shared/styles/sizing';
+import { borderRadius } from 'shared/styles/sizing';
 import * as COLORS from 'shared/styles/colors';
 import { fluidType } from 'shared/styles/utils';
 
@@ -16,7 +16,7 @@ const Li = styled.li`
   align-items: center;
   background-color: rgb(${(props) => COLORS[props.bgColor]});
   color: rgb(${(props) => COLORS[props.textColor]});
-  border-radius: ${border.radius};
+  border-radius: ${borderRadius};
 `;
 
 const Text = styled.span`

@@ -1,13 +1,12 @@
-export const unit = {
-  xs: '.75rem',
-  sm: '1rem',
-  md: '1.3rem',
-  lg: '2rem',
-  xl: '2.5rem',
-  siteMaxWidth: '1300px',
-};
+export const gutter = 0.5;
+export const siteMaxWidth = 1300;
 
-export const border = {
-  radius: '3px',
-  width: '2px',
-};
+export const minFontSize = 12;
+export const maxFontSize = 24;
+export const minFontRange = 420;
+export const maxFontRange = 1280;
+export const mobileMod = 1.2;
+export const desktopMod = 1.5;
+
+export const borderRadius = '.2em';
+export const borderWidth = '.1em';

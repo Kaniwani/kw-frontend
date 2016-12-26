@@ -1,7 +1,9 @@
 import { configure } from '@kadira/storybook';
 
+const req = require.context('../app/components', true, /.stories.js$/);
+
 function loadStories() {
-  require('../stories'); // eslint-disable-line global-require
+  req.keys().forEach((filename) => req(filename));
 }
 
 configure(loadStories, module);

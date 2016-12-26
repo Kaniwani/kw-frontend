@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import TagList from 'components/TagList';
 import { whiteLight, greyLight, greyDark, green, red } from 'shared/styles/colors';
-import { unit } from 'shared/styles/sizing';
+import { siteMaxWidth } from 'shared/styles/sizing';
 import { media } from 'shared/styles/media';
 
 export const Wrapper = styled.div`
@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   overflow: hidden;
   width: 100%;
   z-index: 2;
-  max-width: ${unit.siteMaxWidth};
+  max-width: ${siteMaxWidth};
   margin-left: auto;
   margin-right: auto;
   ${media('min').sm`
