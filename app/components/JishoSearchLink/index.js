@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 import Icon from 'components/Icon';
+import A from 'components/A';
 
-const Link = styled.a`
+const Link = styled(A)`
   display: block;
   padding: .2em .4em;
-  transform: scale(.9);
+  transform: scale(.95);
   transition: transform .15s ease-in;
   &:hover {
     transform: scale(1);
@@ -18,14 +19,8 @@ function JishoSearchLink({ keyword }) {
   const JISHO_URL = `http://jisho.org/search/${keyword}`;
 
   return (
-    <Link
-      href={JISHO_URL}
-      rel="external noopener noreferrer"
-      target="_blank"
-      title="Search Jisho"
-      tabindex="-1"
-    >
-      <Icon name="WORD_SEARCH" viewBox="0 0 100 100" size="2em" />
+    <Link href={JISHO_URL} external plainLink title="Search Jisho" tabindex="-1">
+      <Icon name="WORD_SEARCH" viewBox="0 0 100 100" size="1.8em" />
     </Link>
   );
 }

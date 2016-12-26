@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { link, linkHover } from 'shared/styles/colors';
 
 const plainStyles = css`
+  color: inherit;
   text-decoration: none;
 `;
 
@@ -19,10 +20,14 @@ const StyledAnchor = styled.a`
 `;
 
 const A = ({ href, children, external, ...props }) => {
-  const externalProps = external ? {} : {
-    rel: 'external noopener noreferrer',
-    target: '_blank',
-  };
+  let externalProps;
+  if (external) {
+    externalProps = {
+      rel: 'external noopener noreferrer',
+      target: '_blank',
+    };
+  }
+
   return (
     <StyledAnchor href={href} {...externalProps} {...props} >
       {children}
@@ -33,14 +38,12 @@ const A = ({ href, children, external, ...props }) => {
 A.propTypes = {
   href: PropTypes.string.isRequired,
   external: PropTypes.bool,
+  plainLink: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.array,
+    PropTypes.node,
     PropTypes.string,
   ]).isRequired,
-};
-
-A.defaultProps = {
-
 };
 
 export default A;
