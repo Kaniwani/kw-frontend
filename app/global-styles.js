@@ -1,5 +1,5 @@
 import { injectGlobal } from 'styled-components';
-import { blackLight, blueLight, blueDark, greyDark } from 'shared/styles/colors';
+import { blackLight, greyDark } from 'shared/styles/colors';
 import { fluidType } from 'shared/styles/utils';
 import {
   ffBody,
@@ -54,30 +54,7 @@ injectGlobal`
     margin: 0;
     margin-bottom: .2em;
     color: rgb(${greyDark});
-    line-height: 1.4;
-  }
-
-  a {
-    text-decoration: none;
-    transition: all .3s ease-out;
-    color: rgb(${greyDark});
-  }
-
-  p + p:last-child {
-    margin-bottom: 0;
-  }
-
-  p {
-    ${fluidType(14, 18, 400, 1400)}
-    margin-top: 0;
-    margin-bottom: .7em;
-  }
-
-  p > a {
-    color: rgb(${blueLight});
-    &:hover {
-      color: rgb(${blueDark});
-    }
+    line-height: 1.2;
   }
 
 `;

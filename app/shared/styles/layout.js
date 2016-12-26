@@ -1,24 +1,23 @@
-import { css } from 'styled-components';
-import { gutter, siteMaxWidth } from './sizing';
+import { gutter, siteMaxWidthpx } from './sizing';
 
 /**
  * Allows background to be 100% width whilst content is contained and centered
  */
-export const centerByPadding = css`
-  padding-left: calc(50% - ${siteMaxWidth});
-  padding-right: calc(50% - ${siteMaxWidth});
+export const centerByPadding = `
+  padding-left: calc(50% - ${siteMaxWidthpx});
+  padding-right: calc(50% - ${siteMaxWidthpx});
 `;
 
-export const centerByMargin = css`
-  max-width: ${siteMaxWidth};
+export const centerByMargin = `
+  max-width: ${siteMaxWidthpx};
   margin-left: auto;
   margin-right: auto;
 `;
 
-export const wrapperGutter = css`
+export const wrapperGutter = `
   padding: ${gutter / 2}rem;
 `;
 
-export const elementGutter = css`
+export const elementGutter = `
   padding: ${gutter / 2}rem;
 `;

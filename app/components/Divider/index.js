@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 const dividerColor = (props) => COLORS[props.color] || COLORS.grey;
 
-const Divider = styled.hr`
+// TODO: fullWidth && width prop to handle fade
+const Divider = styled.div`
   border: 0;
   margin: .5rem auto;
   max-width: 70%;

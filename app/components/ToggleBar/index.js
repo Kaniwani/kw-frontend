@@ -32,7 +32,7 @@ const Wrapper = styled.ul`
   ${media('min').sm`
     padding-left: .5rem;
     padding-right: .5rem;
-    max-width: ${siteMaxWidth};
+    max-width: ${siteMaxWidth}px;
     margin-left: auto;
     margin-right: auto;
   `}

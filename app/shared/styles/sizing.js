@@ -1,5 +1,6 @@
 export const gutter = 0.5;
 export const siteMaxWidth = 1300;
+export const siteMaxWidthpx = '1300px';
 
 export const minFontSize = 12;
 export const maxFontSize = 24;

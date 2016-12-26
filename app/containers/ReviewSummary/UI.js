@@ -73,7 +73,7 @@ export const InboxIcon = styled(Icon)`
 export const Main = styled.main`
   margin-left: auto;
   margin-right: auto;
-  max-width: ${siteMaxWidth};
+  max-width: ${siteMaxWidth}px;
 `;
 
 export const SectionHeader = styled.h2`

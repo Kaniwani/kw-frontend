@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import styled from 'styled-components';
+
 import {
   centerByPadding,
   centerByMargin,
@@ -20,23 +21,9 @@ const StyledSection = styled.section`
   }}
 `;
 
-const BackgroundImg = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-image: url(${(props) => props.img});
-  background-repeat: no-repeat;
-  background-position: bottom right;
-  background-size: cover;
-  align-self: stretch;
-  height: 100%;
-`;
-
-const Section = ({ children, backgroundImg }) => (
-  <StyledSection>
+const Section = ({ children, ...props }) => (
+  <StyledSection {...props}>
     {children}
-    {backgroundImg && <BackgroundImg img={backgroundImg} />}
   </StyledSection>
 );
 
@@ -45,7 +32,8 @@ Section.propTypes = {
     PropTypes.array,
     PropTypes.node,
   ]).isRequired,
-  backgroundImg: PropTypes.string,
+  fullWidth: PropTypes.bool,
+  fullWidthBg: PropTypes.bool,
 };
 
 export default Section;
