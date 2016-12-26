@@ -45,7 +45,7 @@ const InfoPanel = ({ item, category, detailLevel }) => {
         <RowItem lang="ja">{char}</RowItem>
         {(detailLevel > 1) && <RowItem lang="ja">{kana}</RowItem> }
       </Row>
-      {(detailLevel > 2) && <Divider />}
+      {(detailLevel > 2) && <Divider fade />}
       {(detailLevel > 2) && (
         <Row className="is-sentence-pair">
           <RowItem lang="ja">
