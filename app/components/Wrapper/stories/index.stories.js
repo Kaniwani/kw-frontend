@@ -1,11 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
-import { withCenterByMargin } from '../../../../.storybook/decorators';
 import Wrapper from '../index';
 import Element from 'components/Element';
 
 storiesOf('Wrapper', module)
-  .addDecorator(withCenterByMargin)
   .add('with Element child', () => (
     <Wrapper>
       <Element>Hello Wrapper</Element>

@@ -1,25 +1,26 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 import Element from '../index';
+import P from 'components/P';
 
 storiesOf('Element', module)
   .add('with paragraph child', () => (
-    <Element><p>Hello Element</p></Element>
+    <Element><P>Hello Element</P></Element>
   ))
   .add('with multiple children', () => (
     <Element>
-      <p>Hello Element 1</p>
-      <p>Hello Element 2</p>
-      <p>Hello Element 3</p>
+      <P>Hello Element 1</P>
+      <P>Hello Element 2</P>
+      <P>Hello Element 3</P>
     </Element>
   ))
-  .add('with paragraph child and no padding', () => (
-    <Element withPadding={false}><p>Hello Element</p></Element>
+  .add('with paragraph child and fullRow', () => (
+    <Element fullRow><P>Hello Element</P></Element>
   ))
-  .add('with multiple children and no padding', () => (
-    <Element withPadding={false}>
-      <p>Hello Element 1</p>
-      <p>Hello Element 2</p>
-      <p>Hello Element 3</p>
+  .add('with multiple children and fullRow', () => (
+    <Element fullRow>
+      <P>Hello Element 1</P>
+      <P>Hello Element 2</P>
+      <P>Hello Element 3</P>
     </Element>
   ));

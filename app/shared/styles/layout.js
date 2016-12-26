@@ -1,4 +1,4 @@
-import { gutter, siteMaxWidthpx } from './sizing';
+import { padding, siteMaxWidthpx } from './sizing';
 
 /**
  * Allows background to be 100% width whilst content is contained and centered
@@ -8,6 +8,12 @@ export const centerByPadding = `
   padding-right: calc(50% - ${siteMaxWidthpx});
 `;
 
+export const fullRowElement = `
+  overflow-x: hidden;
+  margin: 0 -${padding.outer.x}rem;
+  padding: ${padding.inner.y / 2}rem ${(padding.inner.x / 2) + padding.outer.x}rem;
+`;
+
 export const centerByMargin = `
   max-width: ${siteMaxWidthpx};
   margin-left: auto;
@@ -15,9 +21,9 @@ export const centerByMargin = `
 `;
 
 export const wrapperGutter = `
-  padding: ${gutter / 2}rem;
+  padding: ${padding.outer.y / 2}rem ${padding.outer.x / 2}rem;
 `;
 
 export const elementGutter = `
-  padding: ${gutter / 2}rem;
+  padding: ${padding.inner.y / 2}rem ${padding.inner.x / 2}rem;
 `;

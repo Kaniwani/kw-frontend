@@ -1,4 +1,14 @@
-export const gutter = 0.5;
+export const padding = {
+  outer: {
+    x: 0.5,
+    y: 0.5,
+  },
+  inner: {
+    x: 0.5,
+    y: 0.5,
+  },
+};
+
 export const siteMaxWidth = 1300;
 export const siteMaxWidthpx = '1300px';
 

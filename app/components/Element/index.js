@@ -1,28 +1,23 @@
 import React, { PropTypes } from 'react';
 import styled from 'styled-components';
-import { elementGutter } from 'shared/styles/layout';
+import { elementGutter, fullRowElement } from 'shared/styles/layout';
 
 const StyledDiv = styled.div`
-  ${(props) => props.padding ? elementGutter : ''}
+  ${(props) => props.fullRow ? fullRowElement : elementGutter}
 `;
 
-const Element = ({ children, withPadding }) => (
-  <StyledDiv padding={withPadding}>
+const Element = ({ children, fullRow }) => (
+  <StyledDiv fullRow={fullRow}>
     {children}
   </StyledDiv>
 );
 
 Element.propTypes = {
-  withPadding: PropTypes.bool,
+  fullRow: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.node,
   ]).isRequired,
-
-};
-
-Element.defaultProps = {
-  withPadding: true,
 };
 
 export default Element;

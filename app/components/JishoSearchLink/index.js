@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Icon from 'components/Icon';
 import A from 'components/A';
 
-const Link = styled(A)`
+const StyledAnchor = styled(A)`
   display: block;
   padding: .2em .4em;
   transform: scale(.95);
@@ -14,14 +14,13 @@ const Link = styled(A)`
   }
 `;
 
-
 function JishoSearchLink({ keyword }) {
   const JISHO_URL = `http://jisho.org/search/${keyword}`;
 
   return (
-    <Link href={JISHO_URL} external plainLink title="Search Jisho" tabindex="-1">
+    <StyledAnchor href={JISHO_URL} external plainLink title="Search Jisho" tabindex="-1">
       <Icon name="WORD_SEARCH" viewBox="0 0 100 100" size="1.8em" />
-    </Link>
+    </StyledAnchor>
   );
 }
 
