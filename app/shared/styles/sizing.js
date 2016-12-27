@@ -13,7 +13,7 @@ export const siteMaxWidth = 1300;
 export const siteMaxWidthpx = '1300px';
 
 export const minFontSize = 12;
-export const maxFontSize = 24;
+export const maxFontSize = 22;
 export const minFontRange = 420;
 export const maxFontRange = 1280;
 export const mobileMod = 1.2;

@@ -114,7 +114,19 @@
         2,
         "always-multiline"
       ],
-      "id-length": 0,
+      "id-length": [
+        0, {
+          "exceptions": [
+            "A",
+            "P",
+            "a",
+            "b",
+            "x",
+            "y"
+          ]
+        }
+      ]
+      ,
       "import/imports-first": 0,
       "import/newline-after-import": 0,
       "import/no-dynamic-require": 0,

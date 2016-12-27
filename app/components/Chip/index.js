@@ -9,8 +9,7 @@ const Li = styled.li`
   display: inline-flex;
   max-width: 100%;
   padding: .2em .6em .2em;
-  margin-top: .3em;
-  margin-right: .3em;
+  margin: .15em;
   text-decoration: none;
   vertical-align: middle;
   align-items: center;

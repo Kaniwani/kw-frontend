@@ -6,7 +6,7 @@ import { minFontSize, maxFontSize, minFontRange, maxFontRange } from 'shared/sty
  * Returns fallback, and media queried calc() font-sizes for responsive sizing
  * based on https://madebymike.com.au/writing/precise-control-responsive-typography/
  * @param  {Number} [minFont=12] Minimum font-size (px)
- * @param  {Number} [maxFont=24] Maximum font-size (px)
+ * @param  {Number} [maxFont=22] Maximum font-size (px)
  * @param  {Number} [minWidth=420] Minimum viewport size to begin scaling (px)
  * @param  {Number} [maxWidth=1280] Maximum viewport size to halt scaling (px)
  * @return {String} CSS font-size rules
