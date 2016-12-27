@@ -14,7 +14,8 @@ export const Form = styled.form`
 
 export const Label = styled.label`
   display: flex;
-  margin-top: .75rem;
+  max-width: 500px;
+  margin: .75rem auto 0;
   justify-content: center;
   align-items: center;
   align-content: center;
@@ -38,7 +39,6 @@ export const Input = styled.input`
   appearance: none;
   line-height: 1.8; /* lowercase descenders are cut off otherwise */
   flex: 1 5 100px;
-  max-width: 500px;
   vertical-align: middle;
   padding: 0 .5rem;
   border: 1px solid rgba(${greyLight}, .3);
