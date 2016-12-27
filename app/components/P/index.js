@@ -5,7 +5,9 @@ import { link, linkHover } from 'shared/styles/colors';
 /* eslint-disable id-length */
 const P = styled.p`
   max-width: 35em; /* constrain line-length to ~70 chars */
-  margin: 0;
+  margin: 0 ${({ align }) => align === 'center' ? 'auto' : 0};
+
+  text-align: ${({ align }) => align};
 
   &:not(:only-child) {
     ${fluidType(14, 20)}
@@ -25,5 +27,9 @@ const P = styled.p`
   }
 `;
 /* eslint-enable */
+
+P.defaultProps = {
+  align: 'left',
+};
 
 export default P;

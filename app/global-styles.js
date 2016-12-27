@@ -24,6 +24,8 @@ injectGlobal`
   body {
     height: 100%;
     width: 100%;
+    margin: 0;
+    padding: 0;
   }
 
   body {
@@ -41,8 +43,8 @@ injectGlobal`
   }
 
   #app {
-    min-height: 100vh;
-    min-width: 100vw;
+    min-height: 100%;
+    min-width: 100%;
   }
 
   *:not(input):focus {
