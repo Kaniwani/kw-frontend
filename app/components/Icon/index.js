@@ -7,6 +7,7 @@ import { ICONS } from './constants';
 const Wrapper = styled.span`
   display: inline-block;
   vertical-align: middle;
+  align-self: center;
   position: relative;
   width: ${({ iconSize }) => iconSize}; /*CSS instead of html width attr to support non-pixel units*/
   height: ${({ iconSize }) => iconSize}; /*Prevents scaling issue in IE*/

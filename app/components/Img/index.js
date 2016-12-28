@@ -6,10 +6,17 @@
  */
 
 import React, { PropTypes } from 'react';
+import styled from 'styled-components';
+
+const StyledImg = styled.img`
+  display: block;
+  max-width: 100%;
+  height: auto;
+`;
 
 function Img(props) {
   return (
-    <img className={props.className} src={props.src} alt={props.alt} />
+    <StyledImg className={props.className} src={props.src} alt={props.alt} />
   );
 }
 

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import TagList from 'components/TagList';
+import H3 from 'components/H3';
 import { whiteLight, greyLight, greyDark, green, red } from 'shared/styles/colors';
 import { siteMaxWidth } from 'shared/styles/sizing';
 import { media } from 'shared/styles/media';
@@ -38,7 +39,7 @@ export const PanelWrapper = styled.div`
   `}
 `;
 
-export const Heading = styled.div`
+export const HeadingWrapper = styled.div`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
@@ -47,14 +48,14 @@ export const Heading = styled.div`
   border-bottom: 1px solid rgb(${greyLight});
 `;
 
-export const H4 = styled.h4`
+export const Heading = styled(H3)`
   display: flex;
   margin: 0;
   margin-left: .2rem;
   opacity: .8;
   text-align: left;
   flex: 0 0 auto;
-  align-self: flex-start;
+  align-self: center;
 `;
 
 export const Tags = styled(TagList)`
@@ -87,7 +88,7 @@ export const Row = styled.div`
       font-size: 2.6em;
     }
     > div:not(:first-of-type) {
-      font-size: 1.3em;
+      font-size: 1.5em;
       color: rgb(${greyDark});
       transform: translateY(-.3rem);
     }
@@ -96,13 +97,13 @@ export const Row = styled.div`
     text-align: center;
     color: #666;
     > div {
-      max-width: 500px;
+      flex: 0 1 100%;
     }
     > div:first-of-type {
-      font-size: 1.4em;
+      font-size: 1.5em;
     }
     > div:not(:first-of-type) {
-      font-size: 1em;
+      font-size: 1.1em;
       font-style: italic;
     }
   }

@@ -13,6 +13,7 @@ const Button = styled.button`
     right: 0;
     cursor: pointer;
     color: currentColor;
+    background-color: inherit;
     appearance: none;
     padding: 0;
     opacity: .9;

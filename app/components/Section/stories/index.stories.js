@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
+import { withWrapper } from '../../../../.storybook/decorators';
 import Section from '../index';
 import Element from 'components/Element';
 import A from 'components/A';
@@ -8,6 +9,7 @@ import background from 'shared/assets/img/backgrounds/home.jpg';
 import BackgroundImg from 'components/BackgroundImg';
 
 storiesOf('Section', module)
+  .addDecorator(withWrapper)
   .add('with paragraph child', () => (
     <Section><P>Hello Section</P></Section>
   ))

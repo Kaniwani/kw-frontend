@@ -1,16 +1,16 @@
 import { injectGlobal } from 'styled-components';
 import { blackLight, greyDark } from 'shared/styles/colors';
-import { fluidType } from 'shared/styles/utils';
 import {
   ffBody,
   ffHeading,
   ffJapanese,
-} from 'shared/styles/fonts';
+  epsilon,
+  milli,
+} from 'shared/styles/typography';
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
   html {
-    ${fluidType()}
     box-sizing: border-box;
   }
 
@@ -31,6 +31,8 @@ injectGlobal`
   body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: rgb(${blackLight});
+    line-height: 1.4;
+    ${epsilon}
   }
 
   body.fontLoaded {
@@ -54,9 +56,12 @@ injectGlobal`
   h1, h2, h3, h4, h5, h6 {
     font-family: ${ffHeading};
     margin: 0;
-    margin-bottom: .2em;
     color: rgb(${greyDark});
     line-height: 1.2;
+  }
+
+  small {
+    ${milli}
   }
 
 `;

@@ -1,23 +1,32 @@
+export const siteMaxWidth = 1300; // For use with Math operations
+export const siteMaxWidthpx = '1300px';
+
+export const mod1 = 1.125; // major second (mobile)
+export const mod2 = 1.333; // perfect fourth (desktop)
+
 export const padding = {
-  outer: {
-    x: 0.5,
-    y: 0.5,
+  mobile: {
+    outer: {
+      x: (0.5 * mod1),
+      y: (0.5 * mod1),
+    },
+    inner: {
+      x: (0.5 * mod1),
+      y: (0.5 * mod1),
+    },
   },
-  inner: {
-    x: 0.5,
-    y: 0.5,
+  desktop: {
+    outer: {
+      x: (0.5 * mod2),
+      y: (0.5 * mod2),
+    },
+    inner: {
+      x: (0.5 * mod2),
+      y: (0.5 * mod2),
+    },
   },
 };
 
-export const siteMaxWidth = 1300;
-export const siteMaxWidthpx = '1300px';
-
-export const minFontSize = 12;
-export const maxFontSize = 22;
-export const minFontRange = 420;
-export const maxFontRange = 1280;
-export const mobileMod = 1.2;
-export const desktopMod = 1.5;
-
+// Borders
 export const borderRadius = '.2em';
 export const borderWidth = '.1em';

@@ -7,9 +7,8 @@ const StyledLink = styled(Link)`
   display: block;
   cursor: pointer;
   color: currentColor;
-  /* magic numbers to make icon alignment more visually pleasing */
-  /*margin-top: 0.1em;
-  margin-left: -0.1em;*/
+  /* svg doesn't reach viewbox edges, let's make the left alignment with gutter more visually pleasing */
+  transform: translateX(-0.1em)
 `;
 
 function ViewSummaryLink() {

@@ -1,5 +1,6 @@
 import { padding, siteMaxWidthpx } from './sizing';
-
+import { media } from './media';
+import { css } from 'styled-components';
 /**
  * Allows background to be 100% width whilst content is contained and centered
  */
@@ -14,20 +15,30 @@ export const centerByMargin = `
   margin-right: auto;
 `;
 
-export const wrapperGutter = `
-  padding: ${padding.outer.y / 2}rem ${padding.outer.x / 2}rem;
+export const wrapperGutter = css`
+  padding: ${padding.mobile.outer.y / 2}rem ${padding.mobile.outer.x / 2}rem;
+  ${media('min').sm`
+    padding: ${padding.desktop.outer.y / 2}rem ${padding.desktop.outer.x / 2}rem;
+  `}
 `;
 
-export const elementGutter = `
-  padding: ${padding.inner.y / 2}rem ${padding.inner.x / 2}rem;
+export const elementGutter = css`
+  padding: ${padding.mobile.inner.y / 2}rem ${padding.mobile.inner.x / 2}rem;
+  ${media('min').sm`
+    padding: ${padding.desktop.inner.y / 2}rem ${padding.desktop.inner.x / 2}rem;
+  `}
 `;
 
 /**
  * Uses negative margins to remove top and side padding (for a full width banner effect)
  * Uses half paddings to align side gutters with other sibling elements still
  */
-export const bannerElement = `
+export const bannerElement = css`
   overflow-x: hidden;
-  margin: 0 -${padding.outer.x}rem;
-  padding: ${padding.inner.y / 2}rem ${(padding.inner.x / 2) + padding.outer.x}rem;
+  margin: -${padding.mobile.outer.y / 2}rem -${padding.mobile.outer.x / 2}rem 0;
+  padding: 0 ${padding.mobile.inner.y / 2}rem ${padding.mobile.inner.y / 2}rem;
+  ${media('min').sm`
+    margin: -${padding.desktop.outer.y / 2}rem -${padding.desktop.outer.x / 2}rem 0;
+    padding: 0 ${padding.desktop.inner.y / 2}rem ${padding.desktop.inner.y / 2}rem;
+  `}
 `;

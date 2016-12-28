@@ -1,14 +1,14 @@
 import React, { PropTypes } from 'react';
 import styled from 'styled-components';
+import { fluidType } from 'shared/styles/utils';
 import { borderRadius } from 'shared/styles/sizing';
 import * as COLORS from 'shared/styles/colors';
-import { fluidType } from 'shared/styles/utils';
 
 const Li = styled.li`
-  ${fluidType(10, 14)}
+  ${fluidType(10, 16, 300, 1800)}
   display: inline-flex;
   max-width: 100%;
-  padding: .2em .6em .2em;
+  padding: .25em .6em;
   margin: .15em;
   text-decoration: none;
   vertical-align: middle;

@@ -10,7 +10,7 @@ const Wrapper = ({ children, withPadding }) => (
   <StyledDiv padding={withPadding}>
     {children}
   </StyledDiv>
-);
+  );
 
 Wrapper.propTypes = {
   withPadding: PropTypes.bool,

@@ -4,6 +4,7 @@ import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
 import { whiteLight, greyLight, grey, greyDark } from 'shared/styles/colors';
 import { siteMaxWidth } from 'shared/styles/sizing';
+import { milli } from 'shared/styles/typography';
 import { media } from 'shared/styles/media';
 import { shadowBox } from 'shared/styles/shadows';
 import {
@@ -41,7 +42,7 @@ const Wrapper = styled.ul`
 const Toggle = styled.li`
   text-align: center;
   position: relative;
-  font-size: .7rem;
+  ${milli}
   flex: 0 1 300px;
   cursor: pointer;
   padding: .2rem;
