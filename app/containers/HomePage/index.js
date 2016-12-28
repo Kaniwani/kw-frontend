@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import DashboardHeader from 'components/DashboardHeader';
-import Footer from 'components/Footer';
 import H2 from 'components/H2';
 import CenteredSection from './CenteredSection';
 import Section from './Section';
@@ -54,7 +53,6 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
           <p>You have {reviewCount} reviews waiting.</p>
           <p>You last synced with WK on {lastWkSyncDate}.</p>
         </Section>
-        <Footer />
       </div>
     );
   }

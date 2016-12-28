@@ -1,7 +1,9 @@
 import styled from 'styled-components';
+import { beta, headingRhythm } from 'shared/styles/typography';
 
 const H2 = styled.h2`
-  font-size: 1.5em;
+  ${beta}
+  ${headingRhythm}
 `;
 
 export default H2;

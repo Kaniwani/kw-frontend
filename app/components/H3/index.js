@@ -1,9 +1,9 @@
-import React from 'react';
+import styled from 'styled-components';
+import { gamma, headingRhythm } from 'shared/styles/typography';
 
-function H3(props) {
-  return (
-    <h3 {...props} />
-  );
-}
+const H3 = styled.h3`
+  ${gamma}
+  ${headingRhythm}
+`;
 
 export default H3;

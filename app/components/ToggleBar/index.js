@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
 import { whiteLight, greyLight, grey, greyDark } from 'shared/styles/colors';
-import { unit } from 'shared/styles/sizing';
+import { siteMaxWidth } from 'shared/styles/sizing';
+import { milli } from 'shared/styles/typography';
 import { media } from 'shared/styles/media';
 import { shadowBox } from 'shared/styles/shadows';
 import {
@@ -32,7 +33,7 @@ const Wrapper = styled.ul`
   ${media('min').sm`
     padding-left: .5rem;
     padding-right: .5rem;
-    max-width: ${unit.siteMaxWidth};
+    max-width: ${siteMaxWidth}px;
     margin-left: auto;
     margin-right: auto;
   `}
@@ -41,7 +42,7 @@ const Wrapper = styled.ul`
 const Toggle = styled.li`
   text-align: center;
   position: relative;
-  font-size: .7rem;
+  ${milli}
   flex: 0 1 300px;
   cursor: pointer;
   padding: .2rem;

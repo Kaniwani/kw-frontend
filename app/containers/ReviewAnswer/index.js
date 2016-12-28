@@ -119,7 +119,7 @@ function mapDispatchToProps(dispatch) {
     ignoreAnswer: (isCorrect) => dispatch(markIgnored(isCorrect)),
     toggleInfoPanels: () => dispatch(toggleInfoPanels()),
     toggleInfoDepth: () => dispatch(toggleInfoDepth()),
-    showNewSynonymPanel: (options) => dispatch(toggleNewSynonymPanel({ show: true })),
+    showNewSynonymPanel: () => dispatch(toggleNewSynonymPanel({ show: true })),
   };
 }
 

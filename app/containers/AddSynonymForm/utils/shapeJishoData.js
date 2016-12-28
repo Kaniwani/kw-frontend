@@ -9,13 +9,13 @@ export default function shapeJishoData(response) {
       common: item.common,
       notes: item.tags,
       readings: item.japanese.map((obj) => ({
-        characters: item.word,
-        kana: item.reading,
+        characters: obj.word,
+        kana: obj.reading,
       })),
       meaning: item.senses[0].english_definitions.join(', '),
       tags: item.senses[0].parts_of_speech,
       senses: item.senses[0],
-      sentences: item.senses.reduce((list, obj) => item.sentences ? list.concat(item.sentences) : list, []),
+      sentences: item.senses.reduce((list, obj) => obj.sentences ? list.concat(obj.sentences) : list, []),
     };
     return shapedItem;
   });

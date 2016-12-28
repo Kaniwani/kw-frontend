@@ -71,7 +71,7 @@ export class AddSynonymForm extends React.Component { // eslint-disable-line rea
             innerRef={(node) => { this.kanaInput = node; }}
             defaultValue={this._determineTextValue('kanaInput', answerType, text)}
           />
-          { answerType !== 'kana' && <JishoSearchLink keyword={text} />}
+          <JishoSearchLink keyword={text} visuallyHidden={answerType === 'kana'} />
         </Label>
         <Label htmlFor="newCharacters">
           <LabelText>Kanji:</LabelText>
@@ -82,7 +82,7 @@ export class AddSynonymForm extends React.Component { // eslint-disable-line rea
             innerRef={(node) => { this.charInput = node; }}
             defaultValue={this._determineTextValue('charInput', answerType, text)}
           />
-          { answerType !== 'mixed' && <JishoSearchLink keyword={text} />}
+          <JishoSearchLink keyword={text} visuallyHidden={answerType === 'mixed'} />
         </Label>
         <Validation>
           <p>

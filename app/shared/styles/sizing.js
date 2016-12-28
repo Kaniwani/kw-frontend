@@ -1,13 +1,32 @@
-export const unit = {
-  xs: '.75rem',
-  sm: '1rem',
-  md: '1.3rem',
-  lg: '2rem',
-  xl: '2.5rem',
-  siteMaxWidth: '1300px',
+export const siteMaxWidth = 1300; // For use with Math operations
+export const siteMaxWidthpx = '1300px';
+
+export const mod1 = 1.125; // major second (mobile)
+export const mod2 = 1.333; // perfect fourth (desktop)
+
+export const padding = {
+  mobile: {
+    outer: {
+      x: (0.5 * mod1),
+      y: (0.5 * mod1),
+    },
+    inner: {
+      x: (0.5 * mod1),
+      y: (0.5 * mod1),
+    },
+  },
+  desktop: {
+    outer: {
+      x: (0.5 * mod2),
+      y: (0.5 * mod2),
+    },
+    inner: {
+      x: (0.5 * mod2),
+      y: (0.5 * mod2),
+    },
+  },
 };
 
-export const border = {
-  radius: '3px',
-  width: '2px',
-};
+// Borders
+export const borderRadius = '.2em';
+export const borderWidth = '.1em';

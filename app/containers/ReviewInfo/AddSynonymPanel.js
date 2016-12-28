@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
 import AddSynonymForm from 'containers/AddSynonymForm';
-import { PanelWrapper, Heading, H4 } from './UI';
+import { PanelWrapper, HeadingWrapper, Heading } from './UI';
 
 const AddSynonymPanel = ({ addPadding }) => (
-  <PanelWrapper addPadding>
-    <Heading>
-      <H4>Add New Synonym</H4>
-    </Heading>
+  <PanelWrapper addPadding={addPadding}>
+    <HeadingWrapper>
+      <Heading>Add New Synonym</Heading>
+    </HeadingWrapper>
     <AddSynonymForm />
   </PanelWrapper>
 );

@@ -27,17 +27,20 @@
     "start:tunnel": "cross-env NODE_ENV=development ENABLE_TUNNEL=true node server",
     "start:production": "yarn run build && yarn run start:prod",
     "start:prod": "cross-env NODE_ENV=production node server",
+    "storybook": "build-storybook -c .storybook -o .static-storybook",
     "pagespeed": "node ./internals/scripts/pagespeed.js",
     "generate": "plop --plopfile internals/generators/index.js",
     "lint": "yarn run lint:js",
-    "lint:eslint": "eslint --ignore-path .gitignore --ignore-pattern internals/scripts",
+    "lint:eslint": "eslint --ignore-path .gitignore --ignore-pattern 'internals/scripts' --ignore-pattern '.storybook/'",
     "lint:js": "yarn run lint:eslint -- . ",
     "lint:staged": "lint-staged",
     "pretest": "yarn run test:clean && yarn run lint",
     "test:clean": "rimraf ./coverage",
     "test": "cross-env NODE_ENV=test jest --coverage",
     "test:watch": "cross-env NODE_ENV=test jest --watchAll",
-    "coveralls": "cat ./coverage/lcov.info | coveralls"
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "lint-staged": {
     "*.js": "lint:eslint"
@@ -111,6 +114,19 @@
         2,
         "always-multiline"
       ],
+      "id-length": [
+        0, {
+          "exceptions": [
+            "A",
+            "P",
+            "a",
+            "b",
+            "x",
+            "y"
+          ]
+        }
+      ]
+      ,
       "import/imports-first": 0,
       "import/newline-after-import": 0,
       "import/no-dynamic-require": 0,
@@ -299,7 +315,8 @@
     "url-loader": "0.5.7",
     "webpack": "2.1.0-beta.25",
     "webpack-dev-middleware": "1.8.4",
-    "webpack-hot-middleware": "2.13.2"
+    "webpack-hot-middleware": "2.13.2",
+    "@kadira/storybook": "^2.21.0"
   },
   "//": "This rule allows js-hyperclick (atom editor plugin) to resolve absolute imported modules properly",
   "moduleRoots": [

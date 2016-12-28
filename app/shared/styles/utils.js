@@ -1,19 +1,17 @@
 import { css } from 'styled-components';
-import { unit } from './sizing';
-import { media } from './media';
 import { convert } from 'css-color-function'; // https://github.com/postcss/postcss-color-function
 
 /**
  * Returns fallback, and media queried calc() font-sizes for responsive sizing
  * based on https://madebymike.com.au/writing/precise-control-responsive-typography/
- * @param  {Number} [minFont=12] Minimum font-size (px)
- * @param  {Number} [maxFont=21] Maximum font-size (px)
- * @param  {Number} [minWidth=420] Minimum viewport size to begin scaling (px)
- * @param  {Number} [maxWidth=1280] Maximum viewport size to halt scaling (px)
+ * @param  {Number} [minFont] Minimum font-size (px)
+ * @param  {Number} [maxFont] Maximum font-size (px)
+ * @param  {Number} [minWidth:600] Minimum viewport size to begin scaling (px)
+ * @param  {Number} [maxWidth:1280] Maximum viewport size to halt scaling (px)
  * @return {String} CSS font-size rules
  */
-export function fluidType(minFont = 12, maxFont = 21, minWidth = 420, maxWidth = 1280) {
-  return css`
+export function fluidType(minFont, maxFont, minWidth = 600, maxWidth = 1280) {
+  return `
     font-size: ${minFont}px;
     @media (min-width: ${minWidth}px) and (max-width: ${maxWidth}px) {
       font-size: calc(${minFont}px + (${maxFont} - ${minFont}) * ( (100vw - ${minWidth}px) / ( ${maxWidth} - ${minWidth}) ));
@@ -69,35 +67,7 @@ export const tapTarget = ({ x, y } = { x: '.1rem', y: '.1rem' }) => css`
   }
 `;
 
-export const fullWidthBg = css`
-  padding-left: calc(50% - ${unit.siteMaxWidth});
-  padding-right: calc(50% - ${unit.siteMaxWidth});
-`;
-
-export const sectionSpacing = css`
-  margin-top: ${unit.md};
-  margin-bottom: ${unit.md};
-
-  ${media('min').lg`
-    margin-top: ${unit.lg};
-    margin-bottom: ${unit.lg};
-  `}
-`;
-
-export const sectionGutters = css`
-  max-width: ${unit.siteMaxWidth};
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: ${unit.sm};
-  padding-right: ${unit.sm};
-
-  ${media('min').md`
-    padding-left: ${unit.md};
-    padding-right: ${unit.md};
-  `}
-`;
-
-export const clearfix = `
+export const clearfix = css`
   &:after {
     content: "";
     display: block;
@@ -105,7 +75,7 @@ export const clearfix = `
   }
 `;
 
-export const wordwrap = `
+export const wordwrap = css`
   overflow-wrap: break-word;
   word-wrap: break-word;
   -ms-word-break: break-all;
@@ -113,7 +83,7 @@ export const wordwrap = `
   hyphens: auto;
 `;
 
-export const visuallyhidden = `
+export const visuallyhidden = css`
   position: absolute;
   height: 1px !important;
   width: 1px !important;
@@ -126,14 +96,14 @@ export const visuallyhidden = `
   line-height: 0;
 `;
 
-export const resetList = `
+export const resetList = css`
   list-style: none;
   margin-top: 0;
   margin-bottom: 0;
   padding-left: 0;
 `;
 
-export const resetButton = `
+export const resetButton = css`
   background: none;
   border: 0;
   color: inherit;
@@ -153,12 +123,12 @@ export const resetButton = `
   }
 `;
 
-export const hidden = `
+export const hidden = css`
   display: none !important;
 `;
 
-/* hidden but still takes up space, used with icons generally */
-export const ghost = `
+/* hidden but still takes up space, to be used with inline icons generally */
+export const ghost = css`
   opacity: 0 !important;
   pointer-events: none !important;
   cursor: none !important;

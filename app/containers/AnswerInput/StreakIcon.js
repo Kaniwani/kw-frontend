@@ -10,6 +10,7 @@ const StyledIcon = styled(Icon)`
   top: 50%;
   left: .35em;
   color: currentColor;
+  background-color: inherit;
 `;
 
 

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { fluidType } from 'shared/styles/utils';
 import { innerMedium } from 'shared/styles/shadows';
 import * as COLORS from 'shared/styles/colors';
 
@@ -9,8 +8,7 @@ const Input = styled.input`
   margin: 0;
   outline: none;
   border: 0;
-  ${fluidType(22, 50, 300, 2000)}
-  line-height: 2.5;
+  line-height: 2;
   text-align: center;
   color: currentColor;
   box-shadow: ${innerMedium};

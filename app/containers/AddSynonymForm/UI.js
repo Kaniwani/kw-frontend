@@ -1,27 +1,27 @@
 import styled from 'styled-components';
 import { media } from 'shared/styles/media';
-import { unit } from 'shared/styles/sizing';
 import { fluidType } from 'shared/styles/utils';
 import { greyLight, black } from 'shared/styles/colors';
 
 export const Form = styled.form`
   text-align: center;
-  margin: ${unit.sm} auto 0;
+  margin: .75rem auto 0;
   padding: 0 5%;
   ${media('min').md`
-    margin-top: ${unit.lg};
+    margin-top: 1.5rem;
   `}
 `;
 
 export const Label = styled.label`
   display: flex;
-  margin-top: ${unit.sm};
+  max-width: 500px;
+  margin: .75rem auto 0;
   justify-content: center;
   align-items: center;
   align-content: center;
 
   ${media('min').lg`
-    margin-top: ${unit.md};
+    margin-top: 1rem;
   `}
 `;
 
@@ -39,7 +39,6 @@ export const Input = styled.input`
   appearance: none;
   line-height: 1.8; /* lowercase descenders are cut off otherwise */
   flex: 1 5 100px;
-  max-width: 500px;
   vertical-align: middle;
   padding: 0 .5rem;
   border: 1px solid rgba(${greyLight}, .3);
@@ -48,14 +47,14 @@ export const Input = styled.input`
 `;
 
 export const Validation = styled.div`
-  margin-top: ${unit.sm};
+  margin-top: .75rem;
   padding: 0 1.2em;
   & > p {
     font-size: .8em;
     font-style: italic;
   }
   ${media('min').md`
-    margin-top: ${unit.md};
+    margin-top: 1rem;
   `}
 `;
 
@@ -65,7 +64,7 @@ export const SubmitButton = styled.button`
   border: 1px solid rgb(${greyLight});
 
   ${media('min').md`
-    margin-top: ${unit.md};
-    margin-bottom: ${unit.md};
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   `}
 `;

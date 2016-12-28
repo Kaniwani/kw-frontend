@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import TagList from 'components/TagList';
 import { white, purpleDark } from 'shared/styles/colors';
-import { fluidType } from 'shared/styles/utils';
+import { giga } from 'shared/styles/typography';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
   justify-content: space-between;
   width: 100%;
   text-align: center;
+  flex: 1 1 100%;
 `;
 
 export const MeaningWrapper = styled.div`
@@ -19,13 +20,13 @@ export const MeaningWrapper = styled.div`
 `;
 
 export const Meaning = styled.h1`
-  ${fluidType(22, 50, 300, 2000)}
+  ${giga}
   color: rgb(${white});
   margin: 0;
   font-weight: 700;
-  letter-spacing: -1px;
-  text-shadow: 1px 2px 4px rgb(${purpleDark});
-  padding: 10vh 5vw;
+  letter-spacing: -0.05em;
+  text-shadow: .1em .2em .4em rgb(${purpleDark});
+  padding: 2em .5em;
 `;
 
 export const Tags = styled(TagList)`

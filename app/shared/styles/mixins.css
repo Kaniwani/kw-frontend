@@ -1,18 +1,5 @@
 @value site-max-width, bp-md, bp-lg, unit-md, unit-lg from './variables.css';
 
-/* limits width and centers item */
-@define-mixin container $width: 1260px {
-  max-width: $width;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* allows background to be 100% width whilst content is contained and centered. */
-@define-mixin constrainer $maxwidth: 1260px {
-  @value maxwidth: $maxwidth / 2;
-  padding-left: calc(50% - maxwidth);
-  padding-right: calc(50% - maxwidth);
-}
 
 /* include under input {} */
 

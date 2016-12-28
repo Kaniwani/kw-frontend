@@ -1,8 +1,9 @@
 import styled from 'styled-components';
+import { alpha, headingRhythm } from 'shared/styles/typography';
 
 const H1 = styled.h1`
-  font-size: 2em;
-  margin-bottom: 0.25em;
+  ${alpha}
+  ${headingRhythm}
 `;
 
 export default H1;

@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { white, black } from 'shared/styles/colors';
-import { fluidType } from 'shared/styles/utils';
+import { mega } from 'shared/styles/typography';
 import { media } from 'shared/styles/media';
 
 const Form = styled.form`
   position: relative;
   max-width: 100%;
-  ${fluidType(22, 50, 300, 2000)}
+  ${mega}
   color: rgb(${black});
   background-color: transparent;
   margin: 0 0 .5rem;
