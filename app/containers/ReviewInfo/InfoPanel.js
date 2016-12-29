@@ -5,7 +5,7 @@ import Divider from 'components/Divider';
 import Mark from 'components/Mark';
 import { PanelWrapper, Row, RowItem } from './UI';
 import splitKeepingDelimiter from 'utils/splitKeepingDelimiter';
-import combineTags from './utils';
+import { combineTags } from './utils';
 
 const InfoPanel = ({ item, category, detailLevel }) => {
   const char = /* item.get('character');*/ '仕草';

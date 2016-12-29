@@ -111,7 +111,7 @@ export const resetButton = css`
   line-height: normal;
   overflow: visible;
   padding: 0;
-  -webkit-appearance: button;
+  appearance: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;

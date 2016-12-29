@@ -5,7 +5,7 @@ import { css } from 'styled-components';
  * IE: media('min').xl`css: rule;`;
  * @type {Object}
  */
-export const sizes = {
+export const breakpoints = {
   xs: 400,
   sm: 600,
   md: 900,
@@ -21,10 +21,10 @@ export const sizes = {
  * @param  {String} direction 'min' or 'max' to apply min-width or max-width
  * @return {String} css wrapped in media query
  */
-export const media = (direction) => Object.keys(sizes).reduce((accumulator, label) => {
+export const media = (direction) => Object.keys(breakpoints).reduce((accumulator, label) => {
   const acc = accumulator;
   acc[label] = (...args) => {
-    let size = sizes[label];
+    let size = breakpoints[label];
     // to ensure (max-width: 599px) versus (min-width: 600px) [the next size up]
     if (direction === 'max') size -= 1;
 

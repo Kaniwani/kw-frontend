@@ -1,10 +1,14 @@
 import React, { PropTypes } from 'react';
 import Immutable from 'immutable';
+import styled from 'styled-components';
+import { resetList } from 'shared/styles/utils';
 import cuid from 'cuid';
 
-import Ul from './Ul';
+const Ul = styled.ul`
+  ${resetList}
+`;
 
-function List({ items, component, componentProps }) {
+function List({ items, className, component, componentProps }) {
   const ComponentToRender = component;
   let content = (<div />);
 
@@ -18,12 +22,13 @@ function List({ items, component, componentProps }) {
     content = (<ComponentToRender />);
   }
 
-  return <Ul>{content}</Ul>;
+  return <Ul className={className}>{content}</Ul>;
 }
 
 List.propTypes = {
   component: PropTypes.func.isRequired,
   componentProps: PropTypes.object,
+  className: PropTypes.string,
   items: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,

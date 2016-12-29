@@ -6,8 +6,8 @@ const StyledDiv = styled.div`
   ${(props) => props.padding ? wrapperGutter : ''}
 `;
 
-const Wrapper = ({ children, withPadding }) => (
-  <StyledDiv padding={withPadding}>
+const Wrapper = ({ children, withPadding, ...rest }) => (
+  <StyledDiv padding={withPadding} {...rest}>
     {children}
   </StyledDiv>
   );

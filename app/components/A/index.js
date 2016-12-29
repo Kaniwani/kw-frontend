@@ -1,13 +1,17 @@
 import React, { PropTypes } from 'react';
+import Immutable from 'immutable';
+import isEmpty from 'lodash/isEmpty';
+import invariant from 'invariant';
 import styled, { css } from 'styled-components';
+import { Link } from 'react-router';
 import { link, linkHover } from 'shared/styles/colors';
 
-const plainStyles = css`
+const plainStyles = `
   color: inherit;
   text-decoration: none;
 `;
 
-const linkStyles = css`
+const linkStyles = `
   transition: all .3s ease-out;
   color: rgb(${link});
   &:hover {
@@ -15,35 +19,61 @@ const linkStyles = css`
   }
 `;
 
-const StyledAnchor = styled.a`
+const styles = css`
   ${(props) => props.plainLink ? plainStyles : linkStyles}
+  cursor: pointer;
+  &[disabled] {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: .6;
+  }
 `;
 
-const A = ({ href, children, external, ...props }) => {
-  let externalProps;
+const StyledAnchor = styled.a`${styles}`;
+const StyledLink = styled(Link)`${styles}`;
+
+
+const A = ({ href, to, external, plainLink, activeClassName, ...rest }) => {
+  let content;
+  let props = rest;
   if (external) {
-    externalProps = {
-      rel: 'external noopener noreferrer',
-      target: '_blank',
-    };
+    props = Object.assign({}, rest, { target: '_blank', rel: 'external noopener noreferrer' });
+  }
+  if (href) {
+    content = <StyledAnchor href={href} plainLink={plainLink} {...props} />;
+  } else if (to) {
+    content = <StyledLink to={to} plainLink={plainLink} activeClassName={activeClassName} {...props} />;
+  } else {
+    invariant(
+      isEmpty(to) && isEmpty(href),
+      '(app/components/A/index.js) <A/>: Expected either "to" or "href" prop to be supplied to <A/>',
+    );
   }
 
-  return (
-    <StyledAnchor href={href} {...externalProps} {...props} >
-      {children}
-    </StyledAnchor>
-  );
+  return content;
 };
 
 A.propTypes = {
-  href: PropTypes.string.isRequired,
+  href: PropTypes.string,
+  to: PropTypes.string,
   external: PropTypes.bool,
+  disabled: PropTypes.bool,
   plainLink: PropTypes.bool,
+  activeClassName: PropTypes.string,
   children: PropTypes.oneOfType([
+    PropTypes.instanceOf(Immutable.Iterable),
     PropTypes.array,
     PropTypes.node,
     PropTypes.string,
   ]).isRequired,
+};
+
+A.defaultProps = {
+  href: null,
+  to: null,
+  external: false,
+  disabled: false,
+  plainLink: false,
 };
 
 export default A;

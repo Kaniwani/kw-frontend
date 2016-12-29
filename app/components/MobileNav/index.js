@@ -1,0 +1,46 @@
+import React, { PropTypes } from 'react';
+import Immutable from 'immutable';
+import { Nav, Li, MobileNavLink, Text, Count, OffCanvasMenu } from './styles';
+
+import List from 'components/List';
+import NavToggle from './NavToggle';
+
+function MobileNav({ links, visible, handleToggleClick, ...props }) {
+  const mainItems = links.slice(0, 1);
+  const offCanvasItems = links.slice(1);
+  return (
+    <Nav>
+      <List items={mainItems} component={NavItem} componentProps={props} />
+      <OffCanvasMenu className={visible ? 'is-visible' : ''} items={offCanvasItems} component={NavItem} componentProps={props} />
+      <NavToggle active={visible} onClick={handleToggleClick} />
+    </Nav>
+  );
+}
+
+MobileNav.propTypes = {
+  links: PropTypes.instanceOf(Immutable.Iterable).isRequired,
+  visible: PropTypes.bool.isRequired,
+  handleToggleClick: PropTypes.func.isRequired,
+};
+
+function NavItem({ item }) {
+  return (
+    <Li>
+      <MobileNavLink href={item.get('href')} to={item.get('to')} disabled={item.get('isDisabled')} activeClassName="is-active" plainLink>
+        <Text className="NavLink__Text">
+          {item.get('text')}
+          {item.get('count') && <Count>{item.get('count')}</Count>}
+        </Text>
+      </MobileNavLink>
+    </Li>
+  );
+}
+
+NavItem.propTypes = {
+  item: PropTypes.oneOfType([
+    PropTypes.instanceOf(Immutable.Iterable),
+    PropTypes.object,
+  ]),
+};
+
+export default MobileNav;

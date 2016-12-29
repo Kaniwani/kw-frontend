@@ -2,12 +2,11 @@ import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 import Immutable from 'immutable';
 import { media } from 'shared/styles/media';
-import { fluidType } from 'shared/styles/utils';
+import { fluidType, resetList } from 'shared/styles/utils';
 import { borderRadius } from 'shared/styles/sizing';
 import cuid from 'cuid';
 import Chip from 'components/Chip';
 import Icon from 'components/Icon';
-import Ul from 'components/List/Ul';
 
 const selectColor = (item) => {
   if (/common/i.test(item)) {
@@ -24,7 +23,8 @@ const selectColor = (item) => {
   return {};
 };
 
-const StyledUl = styled(Ul)`
+const StyledUl = styled.ul`
+  ${resetList}
   ${media('min').md`
     & > .expand-toggle {
       transition: all 200ms ease-in;

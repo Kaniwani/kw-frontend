@@ -56,6 +56,7 @@ module.exports = (config, env) => {
     // We're not using relative paths in our kw dev setup, alias these so we can resolve properly
     alias: {
       components: path.resolve(__dirname, '..', 'app/components'),
+      containers: path.resolve(__dirname, '..', 'app/containers'),
       shared: path.resolve(__dirname, '..', 'app/shared'),
       utils: path.resolve(__dirname, '..', 'app/utils'),
     },
