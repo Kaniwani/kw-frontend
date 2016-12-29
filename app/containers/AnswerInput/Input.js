@@ -27,6 +27,9 @@ const Input = styled.input`
   &::-ms-clear {
     display: none;
   }
+  &:focus {
+    outline: none;
+  }
   &[disabled] {
     color: rgb(${COLORS.white}); /* Override Android / IE font color change */
     -webkit-opacity: 1; /* Override iOS opacity change affecting text & background color */

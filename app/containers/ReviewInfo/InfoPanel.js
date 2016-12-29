@@ -8,7 +8,7 @@ import splitKeepingDelimiter from 'utils/splitKeepingDelimiter';
 import { combineTags } from './utils';
 
 const InfoPanel = ({ item, category, detailLevel }) => {
-  const char = /* item.get('character');*/ '仕草';
+  const char = item.get('character');
   const kana = item.get('kana');
   const tags = item.get('tags');
   const jlpt = item.get('jlpt');
