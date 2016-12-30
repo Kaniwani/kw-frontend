@@ -17,24 +17,24 @@ injectGlobal`
     color: rgb(${COLORS.white})
     ${fluidType(14, 16)}
   }
-    .vocab-tip__list {
-      margin:0;
-      padding: .4em .8em .5em;
+  .vocab-tip__list {
+    margin:0;
+    padding: .4em .8em .5em;
+  }
+  .vocab-tip__list-item {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: table-row;
+    > * {
+      display: table-cell;
+      padding: 0 3px;
     }
-      .vocab-tip__list-item {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        display: table-row;
-        > * {
-          display: table-cell;
-          padding: 0 3px;
-        }
-      }
-        .vocab-tip__tag {
-          font-size: .95em;
-          color: rgb(${COLORS.grey});
-        }
+  }
+  .vocab-tip__tag {
+    font-size: .95em;
+    color: rgb(${COLORS.grey});
+  }
 `;
 /* eslint-enable */
 
@@ -47,7 +47,7 @@ const ChipWrapper = styled.li`
   background-color: ${(props) => `rgb(${COLORS[props.bgColor]})`};
   box-shadow: 2px 2px 0 rgba(0,0,0, .1);
   border-radius: ${borderRadius};
-  color: #fff;
+  color: rgb(${COLORS.whiteLight});
   font-size: 1.2em;
   max-width: 100%;
   text-decoration: none;
