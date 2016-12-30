@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import styled from 'styled-components';
-import { bgGradient } from 'shared/styles/utils';
+import { bgGradient, lightness } from 'shared/styles/utils';
 import * as COLORS from 'shared/styles/colors';
 import { gamma } from 'shared/styles/typography';
 import Element from 'components/Element';
@@ -18,6 +18,7 @@ const Text = styled.h1`
   color: white;
   margin: 0;
   z-index: 2;
+  text-shadow: 0.05em 0.05em 0.1em ${lightness(COLORS.purple, 10, '-')};
 `;
 
 const Bar = styled.div`
@@ -29,7 +30,6 @@ const Bar = styled.div`
   transition: width .8s ease-in-out;
   width: ${(props) => props.width}%; /* TODO: animate reactily, currently no animation */
   z-index: 1;
-  color: ${COLORS.white};
 `;
 
 const PercentageBar = ({ percent }) => (

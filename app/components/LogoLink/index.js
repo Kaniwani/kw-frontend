@@ -18,7 +18,7 @@ const StyledImg = styled(Img)`
 
 // FIXME: svg using <Icon /> with hover fill color change
 const LogoLink = ({ to, size }) => (
-  <StyledLink to={to} size={size}>
+  <StyledLink to={to} size={size} title="Return Home">
     <StyledImg src={Logo} alt="kaniwani - Logo" />
   </StyledLink>
 );

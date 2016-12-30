@@ -24,7 +24,7 @@ export const Meaning = styled.h1`
   color: rgb(${white});
   margin: 0;
   font-weight: 700;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.03em;
   text-shadow: .1em .2em .4em rgb(${purpleDark});
   padding: 2em .5em;
 `;

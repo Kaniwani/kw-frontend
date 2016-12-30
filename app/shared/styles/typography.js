@@ -21,6 +21,7 @@ const generateFontSize = (exponent) => {
 
 export const headingRhythm = `
   line-height: 1.2;
+  letter-spacing: -1px;
   margin-top: 0;
   margin-bottom: 0;
   &:not(:first-child) {

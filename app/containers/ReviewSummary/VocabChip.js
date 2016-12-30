@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
 import styled, { injectGlobal } from 'styled-components';
 import * as COLORS from 'shared/styles/colors';
-import { fluidType } from 'shared/styles/utils';
+import { borderRadius } from 'shared/styles/sizing';
+import { fluidType, lightness } from 'shared/styles/utils';
 
 import calculatePercentage from 'utils/calculatePercentage';
 import titleCase from 'utils/titleCase';
@@ -40,14 +41,14 @@ injectGlobal`
 const ChipWrapper = styled.li`
   display: inline-flex;
   align-items: center;
+  line-height: 1;
   margin-right: .2em;
   margin-bottom: .2em;
   background-color: ${(props) => `rgb(${COLORS[props.bgColor]})`};
   box-shadow: 2px 2px 0 rgba(0,0,0, .1);
-  border-radius: .3rem;
+  border-radius: ${borderRadius};
   color: #fff;
-  font-size: 1.2rem;
-  line-height: 1;
+  font-size: 1.2em;
   max-width: 100%;
   text-decoration: none;
   vertical-align: middle;
@@ -62,8 +63,8 @@ const ChipText = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  ${fluidType(18, 28)}
-  text-shadow: 1px 1px 0 rgba(0, 0, 0, .1);
+  ${fluidType(20, 30)}
+  text-shadow: 1px 1px 0 ${({ shadowColor }) => lightness(COLORS[shadowColor], 20, '-')};
 `;
 
 /**
@@ -94,7 +95,7 @@ const VocabChip = ({ item, color }) => {
       `}
     >
       <ChipLink plainLink to={`/vocabulary/:${id}`}>
-        <ChipText lang="ja">{ character }</ChipText>
+        <ChipText shadowColor={color} lang="ja">{ character }</ChipText>
       </ChipLink>
     </ChipWrapper>
   );

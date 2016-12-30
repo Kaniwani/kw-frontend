@@ -55,6 +55,12 @@ export function bgGradient(initialColor = 'grey', direction = 'bottom', percent 
   `;
 }
 
+export function lightness(color, percent, operand = '+') {
+  return css`
+    ${convert(`color(rgb(${color}) lightness(${operand} ${percent}%))`)}
+  `;
+}
+
 /* increases clickable/hoverable/tappable area for element without increasing size visually or adding internal padding */
 export const tapTarget = ({ x, y } = { x: '.1rem', y: '.1rem' }) => css`
   &:after {

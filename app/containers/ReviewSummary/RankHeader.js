@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { white, grey } from 'shared/styles/colors';
 
 const Header = styled.h3`
-  margin: 0 0 1.5em;
+  margin: 0 0 1.25em;
   color: rgba(${grey}, .9);
   font-weight: 400;
   line-height: 1.2;

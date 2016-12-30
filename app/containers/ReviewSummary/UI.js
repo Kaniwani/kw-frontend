@@ -3,6 +3,7 @@ import Icon from 'components/Icon';
 import Wrapper from 'components/Wrapper';
 import H1 from 'components/H1';
 import * as COLORS from 'shared/styles/colors';
+import { lightness } from 'shared/styles/utils';
 
 export const StyledWrapper = styled(Wrapper)`
   display: flex;
@@ -63,5 +64,6 @@ export const SectionHeader = styled.h2`
   margin: 0;
   padding: 1rem;
   color: white;
-  background-color: rgb(${(props) => COLORS[props.color]});
+  background-color: rgba(${({ color }) => COLORS[color]}, .95);
+  text-shadow: 0.05em 0.05em 0.1em ${({ color }) => lightness(COLORS[color], 20, '-')};
 `;
