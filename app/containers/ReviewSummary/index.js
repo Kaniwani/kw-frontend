@@ -59,19 +59,27 @@ export class ReviewSummary extends React.Component { // eslint-disable-line reac
         <Section>
           <Wrapper>
             <ReactTooltip id="vocabCardTip" place="bottom" html />
-            <PercentageBar percent={percentCorrect} />
-            <SummarySection items={incorrectItems} count={incorrectItems.count} correct={false} />
-            <SummarySection items={correctItems} count={correctItems.count} correct />
+            <Element>
+              <PercentageBar percent={percentCorrect} />
+            </Element>
+            <Element>
+              <SummarySection items={incorrectItems} count={incorrectItems.count} correct={false} />
+            </Element>
+            <Element>
+              <SummarySection items={correctItems} count={correctItems.count} correct />
+            </Element>
             {criticalItems.length > 0 &&
-            <div>
+            <Element>
               {/* FIXME: SectionHeader as percentage bar!!! then animate! */}
               <SectionHeader color="orange">{criticalItems.length} Critical Items:</SectionHeader>
-              <Section color="orange">
-                <List items={criticalItems} component={VocabChip} componentProps={{ color: 'orange' }} />
-              </Section>
-            </div>
+              <Wrapper>
+                <Element>
+                  <List items={criticalItems} component={VocabChip} componentProps={{ color: 'orange' }} />
+                </Element>
+              </Wrapper>
+            </Element>
               }
-            { ignoredCount > 0 && <h4>{ignoredCount} Items ignored.</h4>}
+            { ignoredCount > 0 && <Element><h4>{ignoredCount} Items ignored.</h4></Element>}
           </Wrapper>
         </Section>
      );

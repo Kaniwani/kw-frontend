@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { wrapperGutter } from 'shared/styles/layout';
 
 const StyledDiv = styled.div`
-  ${({ padding }) => padding ? wrapperGutter : ''}
+  ${({ withPadding }) => withPadding ? wrapperGutter : ''}
+  ${({ marginTop }) => marginTop ? `margin-top: ${marginTop};` : ''}
   ${({ flexRow, flexCol, flexWrap, flexCenter }) => {
     if (flexRow || flexCol) {
       return `
@@ -26,14 +27,15 @@ const StyledDiv = styled.div`
   ${({ alignSelf }) => alignSelf ? `align-self:${alignSelf};` : ''}
 `;
 
-const Wrapper = ({ children, withPadding, ...rest }) => (
-  <StyledDiv padding={withPadding} {...rest}>
+const Wrapper = ({ children, ...rest }) => (
+  <StyledDiv {...rest}>
     {children}
   </StyledDiv>
   );
 
 Wrapper.propTypes = {
   withPadding: PropTypes.bool,
+  marginTop: PropTypes.string,
   flexRow: PropTypes.bool,
   flexCol: PropTypes.bool,
   flexWrap: PropTypes.bool,
