@@ -29,9 +29,13 @@ const styles = css`
   }
 `;
 
-const StyledAnchor = styled.a`${styles}`;
-const StyledLink = styled(Link)`${styles}`;
+// Styled Components has some issues passing props, this is a painful workaround at the moment
+// to prevent plainLink (used only in styles) from being added to <a> & <Link> as (disallowed) props
 
+/* eslint-disable jsx-a11y/anchor-has-content, no-unused-vars */
+const StyledAnchor = styled(({ plainLink, children, ...rest }) => <a {...rest}>{children}</a>)`${styles}`;
+const StyledLink = styled(({ plainLink, children, ...rest }) => <Link {...rest}>{children}</Link>)`${styles}`;
+/* eslint-enable */
 
 const A = ({ href, to, external, plainLink, activeClassName, ...rest }) => {
   let content;

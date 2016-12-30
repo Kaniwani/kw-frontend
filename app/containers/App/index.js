@@ -12,7 +12,7 @@ import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
 
-import Modal from 'containers/Modal';
+// import Modal from 'containers/Modal';
 import SiteHeader from 'containers/SiteHeader';
 import LoadingIndicator from 'components/LoadingIndicator';
 import { selectLoading, selectError } from 'containers/App/selectors';
@@ -34,6 +34,7 @@ class App extends React.Component {
 
   render() {
     let appContent = null;
+    const isReviewRoute = /review/.test(this.props.router.getCurrentLocation().pathname);
 
     // Show a loading indicator when we're loading
     if (this.props.loading) {
@@ -60,8 +61,8 @@ class App extends React.Component {
           ]}
         />
 
-        <Modal />
-        {!/review/.test(this.props.router.getCurrentLocation().pathname) && <SiteHeader />}
+        {/* <Modal /> */}
+        {!isReviewRoute && <SiteHeader />}
         {appContent}
 
       </AppWrapper>

@@ -12,7 +12,7 @@ const app = express();
 
 const devData = require('./devData');
 
-const randDelay = (cb) => setTimeout(() => cb(), +(((Math.random() * 2000) / 1.5).toPrecision(3)));
+const randDelay = (cb) => setTimeout(() => cb(), +(((Math.random() * /* 2000*/ 1000) / 1.5).toPrecision(3)));
 
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
 // NOTE:10 these are temporary routes during dev

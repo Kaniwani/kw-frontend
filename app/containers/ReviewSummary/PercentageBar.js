@@ -1,23 +1,22 @@
 import React, { PropTypes } from 'react';
 import styled from 'styled-components';
-import { bgGradient, fluidType } from 'shared/styles/utils';
+import { bgGradient } from 'shared/styles/utils';
 import * as COLORS from 'shared/styles/colors';
+import { gamma } from 'shared/styles/typography';
+import Element from 'components/Element';
 
-const Wrapper = styled.div`
+const StyledElement = styled(Element)`
   ${bgGradient(`rgba(${COLORS.purpleDark}, 0.1)`, 'left')}
-  ${fluidType(18, 26)} /* TODO: change all these to reference HEADINGS.MEGA etc in sizing instead */
+  ${gamma}
   position: relative;
-  display: flex;
   height: 2.5em;
   border-radius: 3px;
 `;
 
 const Text = styled.h1`
-  align-self: center;
   font-size: 1.5em;
   color: white;
   margin: 0;
-  padding: .1em 1rem;
   z-index: 2;
 `;
 
@@ -34,10 +33,12 @@ const Bar = styled.div`
 `;
 
 const PercentageBar = ({ percent }) => (
-  <Wrapper>
-    <Text>{percent}% Accuracy</Text>
+  <StyledElement flexRow>
+    <Element flexRow flexCenter>
+      <Text>{percent}% Accuracy</Text>
+    </Element>
     <Bar width={percent} />
-  </Wrapper>
+  </StyledElement>
 );
 
 PercentageBar.propTypes = {

@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import Immutable, { fromJS } from 'immutable';
+import debounce from 'lodash/debounce';
 import { breakpoints } from 'shared/styles/media';
 import { StyledHeader, StyledWrapper } from './styles';
 
@@ -9,7 +10,7 @@ import MobileNav from 'components/MobileNav';
 import LogoLink from 'components/LogoLink';
 
 
-const tempLinks = fromJS([
+const siteLinks = fromJS([
   {
     text: 'Reviews',
     to: '/review',
@@ -17,6 +18,9 @@ const tempLinks = fromJS([
   }, {
     text: 'Vocabulary',
     to: '/vocabulary',
+  }, {
+    text: 'Settings',
+    to: '/settings',
   }, {
     text: 'About',
     to: '/about',
@@ -36,33 +40,53 @@ class SiteHeader extends React.PureComponent {
   }
 
   static defaultProps = {
-    routes: tempLinks, // FIXME: mapStateToProps
+    routes: siteLinks, // FIXME: mapStateToProps
   }
 
   constructor(props) {
     super(props);
     this.state = {
       windowWidth: window.innerWidth,
-      mobileNavVisible: true, // change to redux state so MenuToggle can dispatch action
+      headerHeight: 70, // ballpark fallback
+      mobileNavVisible: false,
     };
   }
 
-  // FIXME: debounce these
-  componentDidMount = () => window.addEventListener('resize', this._handleResize)
-  componentWillUnmount = () => window.removeEventListener('resize', this._handleResize)
+  componentDidMount = () => {
+    // debounce(() => this.setState({ headerHeight: this.header.clientHeight }), 200);
+    window.addEventListener('resize', debounce(this._handleResize, 50));
+  }
 
-  _handleResize = () => this.setState({ windowWidth: window.innerWidth });
-  _handleToggleClick = () => this.setState({ mobileNavVisible: true });
+  componentWillUnmount = () => window.removeEventListener('resize', this._handleResize);
+
+  _handleResize = () => {
+    this.setState({
+      windowWidth: window.innerWidth,
+      headerHeight: this.header.clientHeight,
+    });
+  }
+
+  _handleToggleClick = () => {
+    this.setState({ mobileNavVisible: !this.state.mobileNavVisible });
+  }
 
   renderNavigation() {
-    return this.state.windowWidth <= breakpoints.sm ?
-      <MobileNav links={this.props.routes} visible={this.state.mobileNavVisible} handleToggleClick={this._handleToggleClick} /> :
-      <DesktopNav links={this.props.routes} />;
+    if (this.state.windowWidth <= breakpoints.sm) {
+      return (
+        <MobileNav
+          links={this.props.routes}
+          offsetTop={this.state.headerHeight}
+          visible={this.state.mobileNavVisible}
+          handleToggleClick={this._handleToggleClick}
+        />
+      );
+    }
+    return <DesktopNav links={this.props.routes} />;
   }
 
   render() {
     return (
-      <StyledHeader>
+      <StyledHeader innerRef={(node) => { this.header = node; }}>
         <Section>
           <StyledWrapper>
             <LogoLink size="4em" />

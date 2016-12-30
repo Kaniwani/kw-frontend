@@ -1,40 +1,40 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
-import Icon from 'components/Icon';
+import A from 'components/A';
 import LogoLink from 'components/LogoLink';
+import Element from 'components/Element';
 import {
-  Header,
+  StyledWrapper,
   Title,
   SummaryNav,
   AlignToIcon,
   LinkBlock,
-  LogoWrapper,
   InboxIcon,
 } from './UI';
 
 const SummaryHeader = ({ remainingReviews }) => (
-  <Header>
-    <Title>
-      <Icon name="CHECK_CIRCLE" />
-      <AlignToIcon>Review Summary</AlignToIcon>
-    </Title>
-    <SummaryNav>
-      <LogoWrapper title="Return to Dashboard">
-        <LogoLink size="50px" />
-      </LogoWrapper>
-      <LinkBlock>
-        <Link to="/review/">
-          Continue Session
-        </Link>
-        <span title="Remaining reviews">
-          <span>
-            <InboxIcon name="ASSIGNMENT_INBOX" color="white" size="1.2em" />
-            <AlignToIcon>{remainingReviews}</AlignToIcon>
+  <StyledWrapper>
+    <Element flexCol flexCenter>
+      <LogoLink size="3em" />
+    </Element>
+    <Element flexCol flexCenter flex="0 1 auto">
+      <Title>Review Summary</Title>
+    </Element>
+    <Element flexCol justifyContent="center" alignItems="flex-end" flex="1 0 auto">
+      <SummaryNav>
+        <LinkBlock>
+          <A to="/review/" plainLink>
+            Continue Session
+          </A>
+          <span title="Remaining reviews">
+            <span>
+              <InboxIcon name="ASSIGNMENT_INBOX" color="white" size="1.2em" />
+              <AlignToIcon>{remainingReviews}</AlignToIcon>
+            </span>
           </span>
-        </span>
-      </LinkBlock>
-    </SummaryNav>
-  </Header>
+        </LinkBlock>
+      </SummaryNav>
+    </Element>
+  </StyledWrapper>
 );
 
 SummaryHeader.propTypes = {

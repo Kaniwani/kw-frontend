@@ -104,22 +104,25 @@ export const resetList = css`
 `;
 
 export const resetButton = css`
-  background: none;
-  border: 0;
-  color: inherit;
-  font: inherit;
-  line-height: normal;
-  overflow: visible;
-  padding: 0;
-  appearance: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-
-  &::-moz-focus-inner,
-  &::-moz-focus-inner {
+  &[type="button"],
+  &[type="submit"] {
+    background: none;
     border: 0;
+    color: inherit;
+    font: inherit;
+    line-height: normal;
+    overflow: visible;
     padding: 0;
+    appearance: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+
+    &::-moz-focus-inner,
+    &::-moz-focus-inner {
+      border: 0;
+      padding: 0;
+    }
   }
 `;
 

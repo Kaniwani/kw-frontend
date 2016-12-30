@@ -50,8 +50,8 @@ injectGlobal`
     min-width: 100%;
   }
 
-  *:not(input):focus {
-    outline: dashed 1px rgba(64, 64, 64, 0.3);
+  *:focus {
+    outline: none;
   }
 
   h1, h2, h3, h4, h5, h6 {

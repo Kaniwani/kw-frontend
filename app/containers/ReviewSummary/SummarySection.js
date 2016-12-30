@@ -5,10 +5,11 @@ import cuid from 'cuid';
 
 import H1 from 'components/H1';
 import List from 'components/List';
+import Section from 'components/Section';
 import RankHeader from './RankHeader';
 import VocabChip from './VocabChip';
+
 import {
-  Section,
   SectionHeader,
 } from './UI';
 

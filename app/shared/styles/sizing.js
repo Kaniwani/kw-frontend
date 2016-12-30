@@ -4,11 +4,12 @@ export const siteMaxWidthpx = '1300px';
 export const mod1 = 1.125; // major second (mobile)
 export const mod2 = 1.333; // perfect fourth (desktop)
 
+// Currently the same, but we could change outer to make (wrapper) gutters different to inner (element) gutters
 export const padding = {
   mobile: {
     outer: {
-      x: (0.5 * mod1),
-      y: (0.5 * mod1),
+      x: (1 * mod1),
+      y: (1 * mod1),
     },
     inner: {
       x: (0.5 * mod1),
@@ -17,8 +18,8 @@ export const padding = {
   },
   desktop: {
     outer: {
-      x: (0.5 * mod2),
-      y: (0.5 * mod2),
+      x: (1 * mod2),
+      y: (1 * mod2),
     },
     inner: {
       x: (0.5 * mod2),

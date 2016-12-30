@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import List from 'components/List';
 import { Nav, Li, NavLink, Text, Count } from 'components/DesktopNav/styles';
-import { headerHeight } from 'containers/SiteHeader/constants';
 import { resetButton, tapTarget } from 'shared/styles/utils';
 import { black, white, whiteDark, greyDark } from 'shared/styles/colors';
 
@@ -11,7 +10,6 @@ export {
   Text,
   Count,
 };
-
 
 // prefer no hover states on touch devices
 export const MobileNavLink = styled(NavLink)`
@@ -26,7 +24,7 @@ export const OffCanvasMenu = styled(List)`
   width: 180px;
   background: rgb(${white});
   height: auto;
-  top: ${headerHeight};
+  top: ${(props) => props.offsetTop}px;
   right: -180px;
   z-index: 10;
   transition: right 400ms cubic-bezier(0.55, 0, 0.1, 1);

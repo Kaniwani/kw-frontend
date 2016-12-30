@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
+import ColorBlock from '../../../../.storybook/ColorBlock';
 import Element from '../index';
 import Wrapper from 'components/Wrapper';
 import P from 'components/P';
@@ -12,12 +13,52 @@ storiesOf('Element', module)
       <Element><P>Hello Element</P></Element>
     </Wrapper>
   ))
-  .add('with multiple children', () => (
+  .add('as multiple children', () => (
     <Wrapper>
       <Element>
         <P>Hello Element 1</P>
+      </Element>
+      <Element>
         <P>Hello Element 2</P>
+      </Element>
+      <Element>
         <P>Hello Element 3</P>
+      </Element>
+    </Wrapper>
+  ))
+  .add('with multiple children and flexRow', () => (
+    <Wrapper>
+      <Element flexRow>
+        <ColorBlock />
+        <ColorBlock />
+        <ColorBlock />
+      </Element>
+    </Wrapper>
+  ))
+  .add('with multiple children and flexCol', () => (
+    <Wrapper>
+      <Element flexCol>
+        <ColorBlock />
+        <ColorBlock />
+        <ColorBlock />
+      </Element>
+    </Wrapper>
+  ))
+  .add('with multiple children and flexRow + flexCenter', () => (
+    <Wrapper>
+      <Element flexRow flexCenter>
+        <ColorBlock />
+        <ColorBlock />
+        <ColorBlock />
+      </Element>
+    </Wrapper>
+  ))
+  .add('with multiple children and flexCol + flexCenter', () => (
+    <Wrapper>
+      <Element flexCol flexCenter>
+        <ColorBlock />
+        <ColorBlock />
+        <ColorBlock />
       </Element>
     </Wrapper>
   ))

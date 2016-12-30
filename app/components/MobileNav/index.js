@@ -5,14 +5,20 @@ import { Nav, Li, MobileNavLink, Text, Count, OffCanvasMenu } from './styles';
 import List from 'components/List';
 import NavToggle from './NavToggle';
 
-function MobileNav({ links, visible, handleToggleClick, ...props }) {
+function MobileNav({ links, visible, handleToggleClick, offsetTop, ...props }) {
   const mainItems = links.slice(0, 1);
   const offCanvasItems = links.slice(1);
   return (
     <Nav>
       <List items={mainItems} component={NavItem} componentProps={props} />
-      <OffCanvasMenu className={visible ? 'is-visible' : ''} items={offCanvasItems} component={NavItem} componentProps={props} />
-      <NavToggle active={visible} onClick={handleToggleClick} />
+      <OffCanvasMenu
+        offsetTop={offsetTop}
+        className={visible ? 'is-visible' : ''}
+        items={offCanvasItems}
+        component={NavItem}
+        componentProps={props}
+      />
+      <NavToggle active={visible} handleClick={handleToggleClick} />
     </Nav>
   );
 }
@@ -20,13 +26,20 @@ function MobileNav({ links, visible, handleToggleClick, ...props }) {
 MobileNav.propTypes = {
   links: PropTypes.instanceOf(Immutable.Iterable).isRequired,
   visible: PropTypes.bool.isRequired,
+  offsetTop: PropTypes.number.isRequired,
   handleToggleClick: PropTypes.func.isRequired,
 };
 
 function NavItem({ item }) {
   return (
     <Li>
-      <MobileNavLink href={item.get('href')} to={item.get('to')} disabled={item.get('isDisabled')} activeClassName="is-active" plainLink>
+      <MobileNavLink
+        href={item.get('href')}
+        to={item.get('to')}
+        disabled={item.get('isDisabled')}
+        activeClassName="is-active"
+        plainLink
+      >
         <Text className="NavLink__Text">
           {item.get('text')}
           {item.get('count') && <Count>{item.get('count')}</Count>}
