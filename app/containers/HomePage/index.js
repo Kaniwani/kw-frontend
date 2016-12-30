@@ -32,7 +32,6 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
     return (
       <div>
-        <DashboardHeader />
         <Helmet
           title="Dashboard"
           meta={[

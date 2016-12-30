@@ -17,19 +17,19 @@ const StyledImg = styled(Img)`
 
 
 // FIXME: svg using <Icon /> with hover fill color change
-const LogoLink = ({ urlPath, size }) => (
-  <StyledLink to={urlPath} size={size}>
+const LogoLink = ({ to, size }) => (
+  <StyledLink to={to} size={size}>
     <StyledImg src={Logo} alt="kaniwani - Logo" />
   </StyledLink>
 );
 
 LogoLink.propTypes = {
-  urlPath: PropTypes.string,
+  to: PropTypes.string,
   size: PropTypes.string,
 };
 
 LogoLink.defaultProps = {
-  urlPath: '/',
+  to: '/',
   size: '1em',
 };
 
