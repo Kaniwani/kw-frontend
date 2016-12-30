@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import titleCase from 'utils/titleCase';
 import cuid from 'cuid';
 
-import H1 from 'components/H1';
+import H2 from 'components/H2';
 import List from 'components/List';
 import Wrapper from 'components/Wrapper';
 import Element from 'components/Element';
@@ -35,10 +35,19 @@ VocabList.propTypes = {
 
 const PlaceHolder = ({ correct }) => (
   <Wrapper>
-    { !correct ?
-      <H1 style={{ fontWeight: 'normal' }}><span lang="ja">満点！ </span> (๑•̀ㅂ•́)و</H1> :
-      <H1 style={{ fontWeight: 'normal' }}><span lang="ja">零点... 残念だよ </span> (๑◕︵◕๑)</H1>
-    }
+    <Element>
+      { !correct ? (
+        <H2 style={{ fontWeight: 'normal' }}>
+          <span lang="ja">満点！ </span>
+          <span>(๑•̀ㅂ•́)و</span>
+        </H2>
+      ) : (
+        <H2 style={{ fontWeight: 'normal' }}>
+          <span lang="ja">零点... 残念だよ </span>
+          <span>(๑◕︵◕๑)</span>
+        </H2>
+      )}
+    </Element>
   </Wrapper>
 );
 

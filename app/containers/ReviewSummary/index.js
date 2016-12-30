@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import ReactTooltip from 'react-tooltip';
+import pluralize from 'utils/pluralize';
+
 import H2 from 'components/H2';
 import { StyledHeader } from 'containers/SiteHeader/styles';
 import Section from 'components/Section';
@@ -71,7 +73,7 @@ export class ReviewSummary extends React.Component { // eslint-disable-line reac
             {criticalItems.length > 0 &&
             <Element>
               {/* FIXME: SectionHeader as percentage bar!!! then animate! */}
-              <SectionHeader color="orange">{criticalItems.length} Critical Items:</SectionHeader>
+              <SectionHeader color="orange">{pluralize('Critical Item', criticalItems.length)}:</SectionHeader>
               <Wrapper>
                 <Element>
                   <List items={criticalItems} component={VocabChip} componentProps={{ color: 'orange' }} />
