@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import A from 'components/A';
 import LogoLink from 'components/LogoLink';
+import Container from 'components/Container';
 import Element from 'components/Element';
 import {
-  StyledWrapper,
   Title,
   SummaryNav,
   AlignToIcon,
@@ -12,7 +12,7 @@ import {
 } from './UI';
 
 const SummaryHeader = ({ remainingReviews }) => (
-  <StyledWrapper>
+  <Container flexRow justifyContent="center">
     <Element flexCol flexCenter>
       <LogoLink size="3em" />
     </Element>
@@ -34,7 +34,7 @@ const SummaryHeader = ({ remainingReviews }) => (
         </LinkBlock>
       </SummaryNav>
     </Element>
-  </StyledWrapper>
+  </Container>
 );
 
 SummaryHeader.propTypes = {

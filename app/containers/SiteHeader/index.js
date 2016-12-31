@@ -1,46 +1,27 @@
 import React, { PropTypes } from 'react';
-import Immutable, { fromJS } from 'immutable';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import Immutable from 'immutable';
 import debounce from 'lodash/debounce';
 import { breakpoints } from 'shared/styles/media';
-import { StyledHeader, StyledWrapper } from './styles';
+import { StyledHeader } from './styles';
+import { navRoutes } from './constants';
 
-import Section from 'components/Section';
+import {
+  selectReviewCount,
+} from 'containers/HomePage/selectors';
+
+import Element from 'components/Element';
+import Wrapper from 'components/Wrapper';
 import DesktopNav from 'components/DesktopNav';
 import MobileNav from 'components/MobileNav';
 import LogoLink from 'components/LogoLink';
 
 
-const siteLinks = fromJS([
-  {
-    text: 'Reviews',
-    to: '/review',
-    count: 23,
-  }, {
-    text: 'Vocabulary',
-    to: '/vocabulary',
-  }, {
-    text: 'Settings',
-    to: '/settings',
-  }, {
-    text: 'About',
-    to: '/about',
-  }, {
-    text: 'Contact',
-    to: '/contact',
-  }, {
-    text: 'Logout',
-    to: '/logout',
-  },
-]);
-
-
 class SiteHeader extends React.PureComponent {
   static propTypes = {
-    routes: PropTypes.instanceOf(Immutable.Iterable).isRequired,
-  }
-
-  static defaultProps = {
-    routes: siteLinks, // FIXME: mapStateToProps
+    navRoutes: PropTypes.instanceOf(Immutable.Iterable).isRequired,
+    reviewCount: PropTypes.number,
   }
 
   constructor(props) {
@@ -53,7 +34,7 @@ class SiteHeader extends React.PureComponent {
   }
 
   componentDidMount = () => {
-    // debounce(() => this.setState({ headerHeight: this.header.clientHeight }), 200);
+    debounce(() => this.setState({ headerHeight: this.header.clientHeight }), 200);
     window.addEventListener('resize', debounce(this._handleResize, 50));
   }
 
@@ -74,32 +55,34 @@ class SiteHeader extends React.PureComponent {
     if (this.state.windowWidth <= breakpoints.sm) {
       return (
         <MobileNav
-          links={this.props.routes}
+          reviewCount={this.props.reviewCount}
+          links={this.props.navRoutes}
           offsetTop={this.state.headerHeight}
           visible={this.state.mobileNavVisible}
           handleToggleClick={this._handleToggleClick}
         />
       );
     }
-    return <DesktopNav links={this.props.routes} />;
+    return <DesktopNav reviewCount={this.props.reviewCount} links={this.props.navRoutes} />;
   }
 
   render() {
     return (
       <StyledHeader innerRef={(node) => { this.header = node; }}>
-        <Section>
-          <StyledWrapper>
+        <Wrapper>
+          <Element flexRow justifyContent="space-between" alignItems="center">
             <LogoLink size="4em" />
             {this.renderNavigation()}
-          </StyledWrapper>
-        </Section>
+          </Element>
+        </Wrapper>
       </StyledHeader>
     );
   }
 }
 
-// const mapStateToProps = createStructuredSelector({
-//   routes: selectNavLinks(),
-// });
+const mapStateToProps = createStructuredSelector({
+  reviewCount: selectReviewCount(),
+  navRoutes: () => navRoutes,
+});
 
-export default/* connect(mapStateToProps)(*/SiteHeader/* )*/;
+export default connect(mapStateToProps)(SiteHeader);

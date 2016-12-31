@@ -2,17 +2,19 @@ import React, { PropTypes } from 'react';
 import Immutable from 'immutable';
 import List from 'components/List';
 import { Nav, Li, NavLink, Text, Count } from './styles';
+import { addReviewCount } from 'containers/SiteHeader/utils';
 
-function DesktopNav({ links, ...props }) {
+function DesktopNav({ links, reviewCount, ...props }) {
   return (
     <Nav>
-      <List items={links} component={NavItem} componentProps={props} />
+      <List items={addReviewCount(links, reviewCount)} component={NavItem} componentProps={props} />
     </Nav>
   );
 }
 
 DesktopNav.propTypes = {
   links: PropTypes.instanceOf(Immutable.Iterable),
+  reviewCount: PropTypes.number,
 };
 
 function NavItem({ item }) {

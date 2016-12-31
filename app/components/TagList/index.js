@@ -33,7 +33,7 @@ const StyledUl = styled.ul`
     }
     &:hover > .expand-toggle {
       transition: all 150ms ease-out;
-      transform: translateX(.4em) rotate(90deg);
+      transform: translateX(0) rotate(90deg);
       opacity: 1;
     }
   `}
@@ -44,7 +44,9 @@ const ExpandToggle = styled.li`
   ${fluidType(10, 16, 300, 1800)}
   border-radius: ${borderRadius};
   transform: rotate(90deg);
-  padding: .4em .25em;
+  padding: .25em;
+  margin-left: 4px;
+  align-self: flex-end; /* no stretch! */
   cursor: pointer;
   &:hover {
     background-color: rgba(0,0,0, .2);

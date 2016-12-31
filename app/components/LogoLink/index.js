@@ -2,24 +2,35 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import styled from 'styled-components';
 import Img from 'components/Img';
-import Logo from 'shared/assets/img/logo.png';
+import Logo from 'shared/assets/svg/logo.svg';
+import { logoBackground, purpleLight } from 'shared/styles/colors';
 
 const StyledLink = styled(Link)`
   display: block;
   width: ${(props) => props.size};
   height: auto;
+  color: rgb(${logoBackground});
+  transition: color .7s ease;
+  &:hover {
+    transition: color .8s ease-out;
+    color: rgb(${purpleLight});
+  }
 `;
 
-const StyledImg = styled(Img)`
-  display: block;
-  max-width: 100%;
-`;
+const StyledSvg = styled.svg`
+  width: 100%;
+  height: 100%;
 
+  .bg {
+    color: inherit;
+    fill: currentColor;
+  }
+`;
 
 // FIXME: svg using <Icon /> with hover fill color change
 const LogoLink = ({ to, size }) => (
   <StyledLink to={to} size={size} title="Return Home">
-    <StyledImg src={Logo} alt="kaniwani - Logo" />
+    <StyledSvg />
   </StyledLink>
 );
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 import Divider from '../index';
 import Wrapper from 'components/Wrapper';
-import Section from 'components/Section';
+import Container from 'components/Container';
 import P from 'components/P';
 
 storiesOf('Divider', module)
@@ -13,10 +13,10 @@ storiesOf('Divider', module)
   .add('single with fullWidth & fade', () => <Divider fullWidth fade />)
   .add('between paragraphs with fullWidth', () => (
     <Wrapper>
-      <Section>
+      <Container>
         <P align="center">Text center</P>
         <Divider fullWidth />
         <P align="left">Text left</P>
-      </Section>
+      </Container>
     </Wrapper>
   ));

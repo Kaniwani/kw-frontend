@@ -1,51 +1,42 @@
 import React, { PropTypes } from 'react';
-import styled from 'styled-components';
-import { wrapperGutter } from 'shared/styles/layout';
+import styled, { css } from 'styled-components';
 
-const StyledDiv = styled.div`
-  ${({ withPadding }) => withPadding ? wrapperGutter : ''}
-  ${({ marginTop }) => marginTop ? `margin-top: ${marginTop};` : ''}
-  ${({ flexRow, flexCol, flexWrap, flexCenter }) => {
-    if (flexRow || flexCol) {
+import {
+  centerByPadding,
+  centerByMargin,
+} from 'shared/styles/layout';
+
+const wrapperStyle = css`
+  ${(props) => {
+    if (props.fullWidth) {
+      return 'width: 100%;';
+    }
+    if (props.fullWidthBg) {
       return `
-        display: flex;
-        flex-flow: ${(flexRow && 'row') || 'column'} ${(flexWrap && 'wrap') || ''};
-        ${flexCenter ? `
-            justify-content: center;
-            align-content: center;
-            align-items: center;
-        ` : ''}
+        position: relative;
+        ${centerByPadding}
       `;
     }
-    return '';
+    return centerByMargin;
   }}
-  ${({ justifyContent }) => justifyContent ? `justify-content: ${justifyContent};` : ''}
-  ${({ alignContent }) => alignContent ? `align-content: ${alignContent};` : ''}
-  ${({ alignItems }) => alignItems ? `align-items: ${alignItems};` : ''}
-  ${({ textAlign }) => textAlign ? `text-align: ${textAlign};` : ''};
-  ${({ flex }) => flex ? `flex:${flex};` : ''}
-  ${({ alignSelf }) => alignSelf ? `align-self:${alignSelf};` : ''}
 `;
 
-const Wrapper = ({ children, ...rest }) => (
-  <StyledDiv {...rest}>
-    {children}
-  </StyledDiv>
-  );
+/* eslint-disable no-unused-vars */
+const StyledWrapper = styled(({ tag, children, fullWidth, fullWidthBg, ...props }) => React.createElement(
+  tag,
+  props,
+  children,
+))`${wrapperStyle}`;
+/* eslint-enable */
+
+const Wrapper = ({ tag, children, ...props }) =>
+  <StyledWrapper tag={tag} {...props}>{children}</StyledWrapper>;
+
 
 Wrapper.propTypes = {
-  withPadding: PropTypes.bool,
-  marginTop: PropTypes.string,
-  flexRow: PropTypes.bool,
-  flexCol: PropTypes.bool,
-  flexWrap: PropTypes.bool,
-  flexCenter: PropTypes.bool,
-  textAlign: PropTypes.string,
-  justifyContent: PropTypes.string,
-  alignContent: PropTypes.string,
-  alignItems: PropTypes.string,
-  flex: PropTypes.string,
-  alignSelf: PropTypes.string,
+  fullWidth: PropTypes.bool,
+  fullWidthBg: PropTypes.bool,
+  tag: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.node,
@@ -53,7 +44,7 @@ Wrapper.propTypes = {
 };
 
 Wrapper.defaultProps = {
-  withPadding: true,
+  tag: 'div',
 };
 
 export default Wrapper;

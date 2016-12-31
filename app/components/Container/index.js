@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
 import styled, { css } from 'styled-components';
-import { elementGutter, bannerElement } from 'shared/styles/layout';
+import { containerGutter } from 'shared/styles/layout';
 
-const elementStyle = css`
-  ${({ fullRow }) => fullRow ? bannerElement : elementGutter}
+const containerStyle = css`
+  ${({ withPadding }) => withPadding ? containerGutter : ''}
+  ${({ marginTop }) => marginTop ? `margin-top: ${marginTop};` : ''}
   ${({ flexRow, flexCol, flexWrap, flexCenter }) => {
     if (flexRow || flexCol) {
       return `
@@ -27,7 +28,8 @@ const elementStyle = css`
 `;
 
 /* eslint-disable no-unused-vars */
-const StyledElement = styled(({
+// A bit crazytown, but this way we can pass the tag as a prop to dynamically choose 'div', 'section', 'header' etc
+const StyledContainer = styled(({
   tag,
   children,
   fullRow,
@@ -41,15 +43,20 @@ const StyledElement = styled(({
   alignItems,
   flex,
   alignSelf,
- ...props }) => React.createElement(tag, props, children))`${elementStyle}`;
-/* eslint-enble */
+  withPadding,
+ ...props }) => React.createElement(
+  tag,
+  props,
+  children,
+))`${containerStyle}`;
+/* eslint-enable */
 
-const Element = ({ tag, children, ...props }) =>
-  <StyledElement tag={tag} {...props}>{children}</StyledElement>;
+const Container = ({ tag, children, ...props }) =>
+  <StyledContainer tag={tag} {...props}>{children}</StyledContainer>;
 
-
-Element.propTypes = {
-  fullRow: PropTypes.bool,
+Container.propTypes = {
+  withPadding: PropTypes.bool,
+  marginTop: PropTypes.string,
   flexRow: PropTypes.bool,
   flexCol: PropTypes.bool,
   flexWrap: PropTypes.bool,
@@ -67,8 +74,9 @@ Element.propTypes = {
   ]).isRequired,
 };
 
-Element.defaultProps = {
+Container.defaultProps = {
   tag: 'div',
+  withPadding: true,
 };
 
-export default Element;
+export default Container;

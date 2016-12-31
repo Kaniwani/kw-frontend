@@ -9,8 +9,8 @@ import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import Section from 'components/Section';
 import Wrapper from 'components/Wrapper';
+import Container from 'components/Container';
 import Element from 'components/Element';
 import H2 from 'components/H2';
 import H3 from 'components/H3';
@@ -41,8 +41,8 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
             { name: 'description', content: 'Kaniwani Dashboard' },
           ]}
         />
-        <Section>
-          <Wrapper flexRow justifyContent="space-between">
+        <Wrapper>
+          <Container flexRow justifyContent="space-between">
             <Element>
               <H2>Welcome Back {name}.</H2>
               <P>You are level {level}.</P>
@@ -55,8 +55,8 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
               <P>Announcement 2</P>
               <P>Announcement 3</P>
             </Element>
-          </Wrapper>
-        </Section>
+          </Container>
+        </Wrapper>
       </div>
     );
   }

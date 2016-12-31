@@ -4,7 +4,7 @@ import cuid from 'cuid';
 
 import H2 from 'components/H2';
 import List from 'components/List';
-import Wrapper from 'components/Wrapper';
+import Container from 'components/Container';
 import Element from 'components/Element';
 import RankHeader from './RankHeader';
 import VocabChip from './VocabChip';
@@ -14,7 +14,7 @@ import {
 } from './UI';
 
 const VocabList = ({ ranks, correct }) => (
-  <Wrapper>
+  <Container>
     {Object.entries(ranks).map(([rank, vocabItems]) => {
       const count = vocabItems.length;
       return (count > 0) && (
@@ -24,7 +24,7 @@ const VocabList = ({ ranks, correct }) => (
         </Element>
       );
     })}
-  </Wrapper>
+  </Container>
 );
 
 
@@ -34,7 +34,7 @@ VocabList.propTypes = {
 };
 
 const PlaceHolder = ({ correct }) => (
-  <Wrapper>
+  <Container>
     <Element>
       { !correct ? (
         <H2 style={{ fontWeight: 'normal' }}>
@@ -48,7 +48,7 @@ const PlaceHolder = ({ correct }) => (
         </H2>
       )}
     </Element>
-  </Wrapper>
+  </Container>
 );
 
 PlaceHolder.propTypes = {

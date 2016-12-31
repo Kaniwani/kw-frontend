@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import Icon from 'components/Icon';
-import Wrapper from 'components/Wrapper';
+import Container from 'components/Container';
 import H1 from 'components/H1';
 import * as COLORS from 'shared/styles/colors';
 import { lightness } from 'shared/styles/utils';
 
-export const StyledWrapper = styled(Wrapper)`
+export const StyledContainer = styled(Container)`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;

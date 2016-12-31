@@ -15,7 +15,7 @@ export const centerByMargin = `
   margin-right: auto;
 `;
 
-export const wrapperGutter = css`
+export const containerGutter = css`
   padding: ${padding.mobile.outer.y / 2}rem ${padding.mobile.outer.x / 2}rem;
   ${media('min').sm`
     padding: ${padding.desktop.outer.y / 2}rem ${padding.desktop.outer.x / 2}rem;

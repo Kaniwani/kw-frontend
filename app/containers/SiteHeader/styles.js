@@ -1,17 +1,12 @@
 import styled from 'styled-components';
-import { white } from 'shared/styles/colors';
+import { white, whiteDark } from 'shared/styles/colors';
 import { bottomLight } from 'shared/styles/shadows';
-import Wrapper from 'components/Wrapper';
 
+/* eslint-disable import/prefer-default-export */
 export const StyledHeader = styled.header`
   position: relative;
-  background: rgb(${white});
+  background-color: rgb(${white});
   box-shadow: ${bottomLight};
+  border-bottom: 1px solid rgba(${whiteDark}, .5);
 `;
-
-export const StyledWrapper = styled(Wrapper)`
-  display: flex;
-  height: auto;
-  justify-content: space-between;
-  align-items: center;
-`;
+/* eslint-enable */
