@@ -3,9 +3,11 @@ import Immutable from 'immutable';
 import InfoHeading from './InfoHeading';
 import Divider from 'components/Divider';
 import Mark from 'components/Mark';
-import { PanelWrapper, Row, RowItem } from './styles';
 import splitKeepingDelimiter from 'utils/splitKeepingDelimiter';
+import { stripKana } from 'kanawana/src/utils';
+import { TILDE_JA } from 'containers/ReviewAnswer/constants';
 import { combineTags } from './utils';
+import { PanelWrapper, Row, RowItem } from './styles';
 
 const InfoPanel = ({ item, category, detailLevel }) => {
   const char = item.get('character');
@@ -13,7 +15,8 @@ const InfoPanel = ({ item, category, detailLevel }) => {
   const tags = item.get('tags');
   const jlpt = item.get('jlpt');
   const common = item.get('common');
-  const matchTarget = char.replace(/~|する/gi, '');
+  const matchTarget = stripKana(char).replace(new RegExp(TILDE_JA, 'g'), '');
+  // TODO: could improve this to match full char, stripped char, the reading (some are kana only in sentences), and a stripped char that keeps kana between kanji (like 踏み込む currently becomes 踏込 but we want 踏み込 for matching)
   let sentenceJA = splitKeepingDelimiter(item.get('sentence_ja'), matchTarget).map((s) => (s.length > 0 && s) || null);
   sentenceJA = {
     head: sentenceJA[0],
