@@ -11,8 +11,9 @@ import {
   selectReviewCount,
 } from 'containers/HomePage/selectors';
 
-import Element from 'components/Element';
+import Container from 'components/Container';
 import Wrapper from 'components/Wrapper';
+import Element from 'components/Element';
 import DesktopNav from 'components/DesktopNav';
 import MobileNav from 'components/MobileNav';
 import LogoLink from 'components/LogoLink';
@@ -70,7 +71,9 @@ class SiteHeader extends React.PureComponent {
       <StyledHeader innerRef={(node) => { this.header = node; }}>
         <Wrapper>
           <Element flexRow justifyContent="space-between" alignItems="center">
-            <LogoLink size="4em" />
+            <Container withPadding={false}>
+              <LogoLink size="4em" />
+            </Container>
             {this.renderNavigation()}
           </Element>
         </Wrapper>
