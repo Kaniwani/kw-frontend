@@ -12,7 +12,7 @@ const Question = ({ meaning, tags }) => (
     <MeaningWrapper>
       <Meaning>{meaning}</Meaning>
     </MeaningWrapper>
-    {tags && <Tags items={tags} withToggle />}
+    {tags && <Tags items={tags} />}
   </Wrapper>
   );
 
