@@ -1,25 +1,38 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import styled from 'styled-components';
-import Img from 'components/Img';
-import Logo from 'shared/assets/svg/logo.svg';
-import { logoBackground, purpleLight } from 'shared/styles/colors';
+import Logo from '-!babel!svg-react!shared/assets/svg/logo.svg'; // eslint-disable-line import/no-webpack-loader-syntax, import/extensions
+import { blueLight, purpleLight, pink } from 'shared/styles/colors';
+import { media } from 'shared/styles/media';
+import { padding } from 'shared/styles/sizing';
+
 
 const StyledLink = styled(Link)`
   display: block;
   width: ${(props) => props.size};
   height: auto;
-  color: rgb(${logoBackground});
+  color: rgb(${blueLight});
   transition: color .7s ease;
   &:hover {
-    transition: color .8s ease-out;
+    transition: color .4s ease-out;
     color: rgb(${purpleLight});
+  }
+  &:active {
+    transition: color .1s ease-out;
+    color: rgb(${pink});
   }
 `;
 
-const StyledSvg = styled.svg`
+const StyledSvg = styled(Logo)`
   width: 100%;
   height: 100%;
+  /* Slim down top/bottom margins since the svg logo already has a lot of padding inherently */
+  margin-top: -${padding.mobile.inner.y / 2}rem;
+  margin-bottom: -${padding.mobile.inner.y / 2}rem;
+  ${media('min').sm`
+    margin-top: -${padding.desktop.inner.y / 2}rem;
+    margin-bottom: -${padding.desktop.inner.y / 2}rem;
+  `}
 
   .bg {
     color: inherit;
@@ -27,7 +40,6 @@ const StyledSvg = styled.svg`
   }
 `;
 
-// FIXME: svg using <Icon /> with hover fill color change
 const LogoLink = ({ to, size }) => (
   <StyledLink to={to} size={size} title="Return Home">
     <StyledSvg />

@@ -27,7 +27,7 @@
     "start:tunnel": "cross-env NODE_ENV=development ENABLE_TUNNEL=true node server",
     "start:production": "yarn run build && yarn run start:prod",
     "start:prod": "cross-env NODE_ENV=production node server",
-    "storybook": "build-storybook -c .storybook -o .static-storybook",
+    "storybook": "start-storybook -p 6006",
     "pagespeed": "node ./internals/scripts/pagespeed.js",
     "generate": "plop --plopfile internals/generators/index.js",
     "lint": "yarn run lint:js",
@@ -39,7 +39,6 @@
     "test": "cross-env NODE_ENV=test jest --coverage",
     "test:watch": "cross-env NODE_ENV=test jest --watchAll",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
   "lint-staged": {
@@ -115,7 +114,8 @@
         "always-multiline"
       ],
       "id-length": [
-        0, {
+        0,
+        {
           "exceptions": [
             "A",
             "P",
@@ -125,8 +125,7 @@
             "y"
           ]
         }
-      ]
-      ,
+      ],
       "import/imports-first": 0,
       "import/newline-after-import": 0,
       "import/no-dynamic-require": 0,
@@ -263,6 +262,7 @@
     "whatwg-fetch": "2.0.1"
   },
   "devDependencies": {
+    "@kadira/storybook": "^2.21.0",
     "babel-cli": "6.18.0",
     "babel-core": "6.18.2",
     "babel-eslint": "7.1.1",
@@ -312,11 +312,11 @@
     "rimraf": "2.5.4",
     "shelljs": "0.7.5",
     "style-loader": "0.13.1",
+    "svg-react-loader": "^0.3.7",
     "url-loader": "0.5.7",
     "webpack": "2.1.0-beta.25",
     "webpack-dev-middleware": "1.8.4",
-    "webpack-hot-middleware": "2.13.2",
-    "@kadira/storybook": "^2.21.0"
+    "webpack-hot-middleware": "2.13.2"
   },
   "//": "This rule allows js-hyperclick (atom editor plugin) to resolve absolute imported modules properly",
   "moduleRoots": [

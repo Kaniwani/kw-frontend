@@ -10,9 +10,8 @@ export const blackDark = '20, 20, 20'; // #141414
 export const purpleLight = '133, 35, 231'; // #8523e7
 export const purple = '137, 12, 233'; // #890ce9
 export const purpleDark = '99, 49, 185'; // #6331b9
-export const blueLight = '48, 192, 249'/* '0, 139, 209'*/; // #008bd1
+export const blueLight = '48, 192, 249'; // #30c0f9
 export const blue = '76, 129, 214'; // #4c81d6
-export const blueLogo = '48, 192, 249'; // #4c81d6
 export const blueDark = '46, 80, 220'; // #2e50dc
 export const pink = '255, 0, 195'; // #ff00c3
 export const red = '226, 50, 91'; // #e2325b
@@ -24,7 +23,6 @@ export const tan = '226, 180, 106'; // #e2b46a
 
 // matches review background svg
 export const reviewBackground = '229, 229, 227'; // #e5e5e5
-export const logoBackground = '48, 192, 249'; // #30c0f9
 
 export const link = blueLight;
 export const linkHover = blueDark;
