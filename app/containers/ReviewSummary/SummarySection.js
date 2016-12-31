@@ -11,7 +11,7 @@ import VocabChip from './VocabChip';
 
 import {
   SectionHeader,
-} from './UI';
+} from './styles';
 
 const VocabList = ({ ranks, correct }) => (
   <Container>

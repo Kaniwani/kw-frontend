@@ -5,7 +5,7 @@ import {
   MeaningWrapper,
   Meaning,
   Tags,
-} from './UI';
+} from './styles';
 
 const Question = ({ meaning, tags }) => (
   <Wrapper>

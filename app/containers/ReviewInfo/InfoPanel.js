@@ -3,7 +3,7 @@ import Immutable from 'immutable';
 import InfoHeading from './InfoHeading';
 import Divider from 'components/Divider';
 import Mark from 'components/Mark';
-import { PanelWrapper, Row, RowItem } from './UI';
+import { PanelWrapper, Row, RowItem } from './styles';
 import splitKeepingDelimiter from 'utils/splitKeepingDelimiter';
 import { combineTags } from './utils';
 
@@ -13,7 +13,8 @@ const InfoPanel = ({ item, category, detailLevel }) => {
   const tags = item.get('tags');
   const jlpt = item.get('jlpt');
   const common = item.get('common');
-  let sentenceJA = splitKeepingDelimiter(item.get('sentence_ja'), char).map((s) => (s.length > 0 && s) || null);
+  const matchTarget = char.replace(/~|する/gi, '');
+  let sentenceJA = splitKeepingDelimiter(item.get('sentence_ja'), matchTarget).map((s) => (s.length > 0 && s) || null);
   sentenceJA = {
     head: sentenceJA[0],
     mark: sentenceJA[1],

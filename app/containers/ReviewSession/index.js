@@ -15,7 +15,7 @@ import {
   Upper,
   Lower,
   ReviewBackground,
-} from './UI';
+} from './styles';
 
 import {
  selectLoading,

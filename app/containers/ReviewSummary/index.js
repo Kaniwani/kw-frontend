@@ -27,7 +27,7 @@ import SummarySection from './SummarySection';
 import VocabChip from './VocabChip';
 import {
   SectionHeader,
-} from './UI';
+} from './styles';
 
 export class ReviewSummary extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {

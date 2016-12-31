@@ -5,7 +5,7 @@ import { createStructuredSelector } from 'reselect';
 import scroll from 'bloody-scroll';
 import cuid from 'cuid';
 import InfoPanel from './InfoPanel';
-import { Wrapper } from './UI';
+import { Wrapper } from './styles';
 import AddSynonymPanel from './AddSynonymPanel';
 import {
   selectInfoAddSynonymVisible,

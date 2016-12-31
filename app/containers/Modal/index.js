@@ -9,7 +9,7 @@ import {
   ContentWrapper,
   Content,
   CloseButton,
-} from './UI';
+} from './styles';
 import {
   selectVisible,
   selectContentProps,

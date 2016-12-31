@@ -23,7 +23,7 @@ import {
   Input,
   Validation,
   SubmitButton,
-} from './UI';
+} from './styles';
 
 export class AddSynonymForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {

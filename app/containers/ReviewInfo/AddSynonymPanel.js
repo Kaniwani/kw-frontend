@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import AddSynonymForm from 'containers/AddSynonymForm';
-import { PanelWrapper, HeadingWrapper, Heading } from './UI';
+import { PanelWrapper, HeadingWrapper, Heading } from './styles';
 
 const AddSynonymPanel = ({ addPadding }) => (
   <PanelWrapper addPadding={addPadding}>

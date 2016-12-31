@@ -1,25 +1,12 @@
 import styled from 'styled-components';
 import Icon from 'components/Icon';
-import Container from 'components/Container';
 import H1 from 'components/H1';
 import * as COLORS from 'shared/styles/colors';
 import { lightness } from 'shared/styles/utils';
 
-export const StyledContainer = styled(Container)`
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  width: 100%;
-`;
-
 export const Title = styled(H1)`
   &:not(:first-child) { margin-top: 0; } /* hmm... this is irritating */
   align-self: flex-start;
-`;
-
-export const SummaryNav = styled.nav`
-  display: flex;
-  flex: 1 0 2em;
 `;
 
 export const AlignToIcon = styled.span`
@@ -29,6 +16,7 @@ export const AlignToIcon = styled.span`
 
 export const LinkBlock = styled.div`
   display: inline-flex;
+  height: 2.6em;
 
   > * {
     display: flex;

@@ -23,7 +23,6 @@ export const NavLink = styled(A)`
   align-items: center;
 
   &:hover,
-  &:active,
   &.is-active {
     > .NavLink__Text:after {
       opacity: 1;

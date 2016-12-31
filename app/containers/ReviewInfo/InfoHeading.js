@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Immutable from 'immutable';
 import Icon from 'components/Icon';
-import { HeadingWrapper, Heading, Tags, RemoveButton } from './UI';
+import { HeadingWrapper, Heading, Tags, RemoveButton } from './styles';
 
 const InfoHeading = ({ category, tags }) => (
   <HeadingWrapper>
