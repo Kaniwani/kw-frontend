@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
-import kanawana from 'shared/kanawana/index';
+import { bind, unbind } from 'kanawana/src/core';
 
 import StreakIcon from './StreakIcon';
 import SubmitButton from './SubmitButton';
@@ -20,7 +20,7 @@ const Label = styled.label`
 
 export class AnswerInput extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentDidMount() {
-    kanawana.bind(this.inputField);
+    bind(this.inputField);
   }
 
   componentDidUpdate() {
@@ -28,7 +28,7 @@ export class AnswerInput extends React.PureComponent { // eslint-disable-line re
   }
 
   componentWillUnmount() {
-    kanawana.unbind(this.inputField);
+    unbind(this.inputField);
   }
 
   render() {

@@ -18,7 +18,7 @@ module.exports = {
   },
   messages: [],
   reviews: {
-    count: 7,
+    count: 109,
     results: [
       {
         id: 1,

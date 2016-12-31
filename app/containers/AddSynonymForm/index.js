@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import blockEvent from 'utils/blockEvent';
-import kanawana from 'shared/kanawana';
+import { bind, unbind } from 'kanawana/src/core';
 // import LoadingIndicator from 'components/LoadingIndicator';
 import JishoSearchLink from 'components/JishoSearchLink';
 
@@ -35,16 +35,16 @@ export class AddSynonymForm extends React.Component { // eslint-disable-line rea
   }
 
   componentDidMount() {
-    kanawana.bind(this.kanaInput);
-    kanawana.bind(this.charInput);
+    bind(this.charInput);
+    bind(this.kanaInput);
     // TODO: jisho api won't do cross-origin at the moment, revisit this when/if api gets the long-awaited upgrade
     // this.props.loadJishoData(this.props.text);
     this[(this.props.answerType === 'kana' ? 'charInput' : 'kanaInput')].focus();
   }
 
   componentWillUnmount() {
-    kanawana.unbind(this.kanaInput);
-    kanawana.unbind(this.charInput);
+    unbind(this.charInput);
+    unbind(this.kanaInput);
   }
 
   _determineTextValue = (field, answerType, text) => {

@@ -11,7 +11,7 @@ import {
   isHiragana,
   isKatakana,
   isKanjiKana,
-} from 'shared/kanawana/core';
+} from 'kanawana';
 
 import {
   selectSettings,

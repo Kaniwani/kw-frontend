@@ -242,6 +242,7 @@
     "immutable": "3.8.1",
     "invariant": "2.2.2",
     "ip": "1.1.4",
+    "kanawana": "1.0.3",
     "lodash": "4.17.2",
     "minimist": "1.2.0",
     "react": "15.4.1",

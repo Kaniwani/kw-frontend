@@ -15,7 +15,7 @@ injectGlobal`
   .vocab-tip {
     padding: 0 !important;
     color: rgb(${COLORS.white})
-    ${fluidType(14, 18)}
+    ${fluidType(15, 18)}
   }
   .vocab-tip__list {
     margin:0;
