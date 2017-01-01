@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
-import { bind, unbind } from 'kanawana/src/core';
+import { bind, unbind } from 'kanawana';
 
 import StreakIcon from './StreakIcon';
 import SubmitButton from './SubmitButton';

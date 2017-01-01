@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import blockEvent from 'utils/blockEvent';
-import { bind, unbind } from 'kanawana/src/core';
+import { bind, unbind } from 'kanawana';
 // import LoadingIndicator from 'components/LoadingIndicator';
 import JishoSearchLink from 'components/JishoSearchLink';
 

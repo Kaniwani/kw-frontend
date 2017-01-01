@@ -24,9 +24,6 @@ module.exports = require('./webpack.base.babel')({
       async: true,
     }),
 
-    // Merge all duplicate modules
-    // NOTE: this wasn't in rbp - added by @DJTB
-    // should confirm nothing odd is introduced by this
     new webpack.optimize.DedupePlugin(),
 
     // Minify and optimize the index.html
