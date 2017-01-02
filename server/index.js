@@ -11,6 +11,7 @@ const resolve = require('path').resolve;
 const app = express();
 
 const devData = require('./devData');
+const devVocabData = require('./devVocabData');
 
 const randDelay = (cb) => setTimeout(() => cb(), +(((Math.random() * /* 2000*/ 1000) / 1.5).toPrecision(3)));
 
@@ -18,6 +19,7 @@ const randDelay = (cb) => setTimeout(() => cb(), +(((Math.random() * /* 2000*/ 1
 // NOTE:10 these are temporary routes during dev
 app.use('/api/reviews', (req, res) => randDelay(() => res.json(devData.reviews)));
 app.use('/api/profiles', (req, res) => randDelay(() => res.json(devData.profiles)));
+app.use('/api/vocabulary', (req, res) => randDelay(() => res.json(devVocabData)));
 app.use('/api/', (req, res) => randDelay(() => res.json(devData)));
 
 // In production we need to pass these values in instead of relying on webpack
