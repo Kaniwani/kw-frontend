@@ -23,12 +23,13 @@ import {
 
 /**
  * Load the reviewData, this action starts the request saga
- *
+ * @param {boolean} [indicate=true] - false to prevent showing loading placeholder, for background loading
  * @return {object} An action object with a type of LOAD_REVIEWDATA
  */
-export function loadReviewData() {
+export function loadReviewData(indicate = true) {
   return {
     type: LOAD_REVIEWDATA,
+    showIndicator: indicate,
   };
 }
 
@@ -36,7 +37,6 @@ export function loadReviewData() {
  * Dispatched when the review data is loaded by the request saga
  *
  * @param  {object} reviewData The review data
- *
  * @return {object} An action object with a type of LOAD_REVIEWDATA_SUCCESS passing the review data
  */
 export function reviewDataLoaded(data) {

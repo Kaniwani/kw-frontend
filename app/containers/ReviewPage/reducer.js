@@ -36,23 +36,23 @@ export const initialState = fromJS({
 
 function reviewReducer(state = initialState, action) {
   switch (action.type) {
-    // FIXME: loading:true is problematic when loading additional reviews, perhaps we can simply check for meaning && queue in review component to see if we need to show a loading symbol?
     case Review.LOAD_REVIEWDATA:
       return state
-        .set('loading', true)
+        .set('loading', action.showIndicator)
         .set('error', false);
     case Review.LOAD_REVIEWDATA_SUCCESS: {
       // FIXME: these checks should be unneccesary if we're paginating getReviews correctly
-      const completedIDs = state.get('completed').map((x) => x.get('id'));
-      const queueIDs = state.get('queue').map((x) => x.get('id'));
-      const currentID = state.getIn(['current', 'id']);
-      const reviews = action.payload.reviews
-        .filter(({ id }) => !completedIDs.includes(id) && !queueIDs.includes(id) && id !== currentID);
+      // const completedIDs = state.get('completed').map((x) => x.get('id'));
+      // const queueIDs = state.get('queue').map((x) => x.get('id'));
+      // const currentID = state.getIn(['current', 'id']);
+      // const reviews = action.payload.reviews
+      //   .filter(({ id }) => !completedIDs.includes(id) && !queueIDs.includes(id) && id !== currentID);
 
       return state
         .set('total', action.payload.count)
         .set('loading', false)
-        .mergeIn(['queue'], fromJS(reviews));
+        .set('error', false)
+        .set('queue', state.get('queue').concat(fromJS(action.payload.reviews)));
     }
     case Review.LOAD_REVIEWDATA_ERROR:
       return state

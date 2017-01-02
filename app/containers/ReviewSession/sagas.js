@@ -284,7 +284,7 @@ export function* copyCurrentToCompletedWatcher() {
     // );
     if (needMoreReviews) {
       console.log('fetching more reviews...');
-      yield put(loadReviewData());
+      yield put(loadReviewData(false));
       console.log('fetched more reviews!');
     }
     if (queueCompleted) {
