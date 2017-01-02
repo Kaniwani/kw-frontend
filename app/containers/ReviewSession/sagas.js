@@ -3,6 +3,7 @@
 
 import { takeEvery, delay } from 'redux-saga';
 import { take, select, call, fork, put, race } from 'redux-saga/effects';
+import { history } from 'app';
 import markAllAsDaemon from 'utils/markAllAsDaemon';
 import isEmpty from 'lodash/isEmpty';
 import post from 'utils/post';
@@ -116,7 +117,6 @@ export function* recordAnswer() {
   ];
 
   const postData = {
-    csrfmiddlewaretoken: 'csrf here',
     user_specific_id: id,
     user_correct: correct,
     wrong_before: previouslyWrong,
@@ -127,7 +127,7 @@ export function* recordAnswer() {
   try {
     if (correct || (!correct && firstTimeWrong)) {
       const response = yield fork(post, postUrl, postData);
-      console.log(postData);
+      // console.log(postData);
       console.log(response);
       // if (response) put(recordAnswerSuccess());
     }
@@ -167,11 +167,10 @@ export function* checkAnswer() {
     select(selectInputText()),
   ];
 
+  readings = readings.toJS();
+
   let answer = inputText.trim();
   const hasContent = !isEmpty(answer);
-  // TODO: map over immutable instead
-  // convert fix/answers/keysinlist etc to work with immutable api
-  readings = readings.toJS();
 
   if (hasContent) {
     answer = fixTerminalN(answer);
@@ -289,8 +288,8 @@ export function* copyCurrentToCompletedWatcher() {
       console.log('fetched more reviews!');
     }
     if (queueCompleted) {
-      console.log('all reviews complete, show summary page now');
-      // TODO: stop quiz and show summary page -> showSummary() action
+      // TODO: clear flag regarding localstorage { session: 'active' }
+      yield history.push('/review/summary');
     }
   }
 }

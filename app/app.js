@@ -53,7 +53,7 @@ const store = configureStore(initialState, browserHistory);
 // must be provided for resolving how to retrieve the "route" in the state
 import { selectLocationState } from 'containers/App/selectors';
 
-const history = syncHistoryWithStore(browserHistory, store, {
+export const history = syncHistoryWithStore(browserHistory, store, { // eslint-disable-line import/prefer-default-export
   selectLocationState: selectLocationState(),
 });
 
