@@ -256,8 +256,6 @@
     "redux": "3.6.0",
     "redux-immutable": "^3.0.9",
     "redux-saga": "^0.14.0",
-    "redux-storage": "latest",
-    "redux-storage-engine-localforage": "latest",
     "reselect": "2.5.4",
     "sanitize.css": "4.1.0",
     "styled-components": "^1.2.1",
