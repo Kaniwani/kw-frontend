@@ -27,7 +27,8 @@ function checkStatus(response) {
 export default function post(url, data, options = { asJSON: false }) {
   let mergedOptions = Object.assign({
     method: 'POST',
-    body: data, // must already be: new FormData(data)
+    body: data, // might need to already be: new FormData(data)
+    credentials: 'include',
   }, options);
 
   if (options.asJSON) {
