@@ -4121,7 +4121,7 @@ immediate@~3.0.5:
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/immediate/-/immediate-3.0.6.tgz#9db1dbd0faf8de6fbe0f5dd5e56bb606280de69b"
 
-immutable@3.8.1, immutable@^3.8.1:
+immutable@3.8.1, immutable@^3.7.6, immutable@^3.8.1:
   version "3.8.1"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.1.tgz#200807f11ab0f72710ea485542de088075f68cd2"
 
@@ -5274,6 +5274,10 @@ lodash.get@^3.7.0:
     lodash._baseget "^3.0.0"
     lodash._topath "^3.0.0"
 
+lodash.get@^4.1.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
+
 lodash.indexof@^4.0.5:
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/lodash.indexof/-/lodash.indexof-4.0.5.tgz#53714adc2cddd6ed87638f893aa9b6c24e31ef3c"
@@ -5286,6 +5290,10 @@ lodash.isarray@^3.0.0:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/lodash.isarray/-/lodash.isarray-3.0.4.tgz#79e4eb88c36a8122af86f844aa9bcd851b5fbb55"
 
+lodash.isarray@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/lodash.isarray/-/lodash.isarray-4.0.0.tgz#2aca496b28c4ca6d726715313590c02e6ea34403"
+
 lodash.isempty@^4.2.1:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.isempty/-/lodash.isempty-4.4.0.tgz#6f86cbedd8be4ec987be9aaf33c9684db1b31e7e"
@@ -5294,7 +5302,7 @@ lodash.isequal@^4.0.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.4.0.tgz#6295768e98e14dc15ce8d362ef6340db82852031"
 
-lodash.isfunction@^3.0.8:
+lodash.isfunction@^3.0.7, lodash.isfunction@^3.0.8:
   version "3.0.8"
   resolved "https://registry.yarnpkg.com/lodash.isfunction/-/lodash.isfunction-3.0.8.tgz#4db709fc81bc4a8fd7127a458a5346c5cdce2c6b"
 
@@ -5338,7 +5346,7 @@ lodash.pickby@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/lodash.pickby/-/lodash.pickby-4.6.0.tgz#7dea21d8c18d7703a27c704c15d3b84a67e33aff"
 
-lodash.reduce@^4.4.0:
+lodash.reduce@^4.3.0, lodash.reduce@^4.4.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/lodash.reduce/-/lodash.reduce-4.6.0.tgz#f1ab6b839299ad48f784abbf476596f03b914d3b"
 
@@ -5349,6 +5357,10 @@ lodash.reject@^4.4.0:
 lodash.restparam@^3.0.0:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/lodash.restparam/-/lodash.restparam-3.6.1.tgz#936a4e309ef330a7645ed4145986c85ae5b20805"
+
+lodash.set@^4.0.0:
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/lodash.set/-/lodash.set-4.3.2.tgz#d8757b1da807dde24816b0d6a84bea1a76230b23"
 
 lodash.some@^4.4.0:
   version "4.6.0"
@@ -5374,6 +5386,10 @@ lodash.templatesettings@^3.0.0:
   dependencies:
     lodash._reinterpolate "^3.0.0"
     lodash.escape "^3.0.0"
+
+lodash.unset@^4.1.0:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/lodash.unset/-/lodash.unset-4.5.2.tgz#370d1d3e85b72a7e1b0cdf2d272121306f23e4ed"
 
 lodash@4.16.3:
   version "4.16.3"
@@ -7118,11 +7134,38 @@ redux-saga@^0.14.0:
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/redux-saga/-/redux-saga-0.14.0.tgz#7792bcc9dc57e9ed2484daa95794b154ee472b24"
 
+redux-storage-decorator-filter@^1.1.8:
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/redux-storage-decorator-filter/-/redux-storage-decorator-filter-1.1.8.tgz#c0b7b5563b8ba138ce79c03ad54a2878a3a53ee5"
+  dependencies:
+    lodash.get "^4.1.2"
+    lodash.isfunction "^3.0.7"
+    lodash.isobject "^3.0.2"
+    lodash.reduce "^4.3.0"
+    lodash.set "^4.0.0"
+    lodash.unset "^4.1.0"
+
+redux-storage-decorator-immutablejs@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/redux-storage-decorator-immutablejs/-/redux-storage-decorator-immutablejs-1.0.4.tgz#8d90df6cfa1b465a33686b085d641e1709ab5aeb"
+  dependencies:
+    immutable "^3.7.6"
+
 redux-storage-engine-localforage@latest:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/redux-storage-engine-localforage/-/redux-storage-engine-localforage-2.0.0.tgz#c6516b8068fa123aa72a73cbee56514de64f6401"
   dependencies:
     localforage "^1.4.0"
+
+redux-storage-merger-immutablejs@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/redux-storage-merger-immutablejs/-/redux-storage-merger-immutablejs-1.0.5.tgz#7d189357daa1a9485c5e9114c2228f5561ca39e3"
+  dependencies:
+    immutable "^3.7.6"
+    lodash.isarray "^4.0.0"
+    lodash.isfunction "^3.0.8"
+    lodash.isobject "^3.0.2"
+    lodash.merge "^4.3.1"
 
 redux-storage-merger-simple@^1.0.2:
   version "1.0.5"

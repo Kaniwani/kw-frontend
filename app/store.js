@@ -6,17 +6,24 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { fromJS } from 'immutable';
 import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
+import * as storage from 'redux-storage';
+import createEngine from 'redux-storage-engine-localforage';
+
+const engine = createEngine('kwStorage', { name: 'kaniwani' });
+
 import createReducer from './reducers';
 
 const sagaMiddleware = createSagaMiddleware();
 
 export default function configureStore(initialState = {}, history) {
-  // Create the store with two middlewares
+  // Create the store with three middlewares
   // 1. sagaMiddleware: Makes redux-sagas work
   // 2. routerMiddleware: Syncs the location/URL path to the state
+  // 2. storageMiddleware: Persist state to localStorage
   const middlewares = [
     sagaMiddleware,
     routerMiddleware(history),
+    storage.createMiddleware(engine),
   ];
 
   const enhancers = [
@@ -33,7 +40,7 @@ export default function configureStore(initialState = {}, history) {
   /* eslint-enable */
 
   const store = createStore(
-    createReducer(),
+    storage.reducer(createReducer()),
     fromJS(initialState),
     composeEnhancers(...enhancers),
   );
@@ -55,6 +62,13 @@ export default function configureStore(initialState = {}, history) {
       });
     });
   }
+
+  const loadFromStorage = storage.createLoader(engine);
+// Notice that our load function will return a promise that can also be used
+// to respond to the restore event.
+  loadFromStorage(store)
+    .then((newState) => console.log('Loaded state:', newState))
+    .catch(() => console.log('Failed to load previous state'));
 
   return store;
 }
