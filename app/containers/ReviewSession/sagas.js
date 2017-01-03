@@ -12,6 +12,7 @@ import {
   isHiragana,
   isKatakana,
   isKanjiKana,
+  isKanji,
 } from 'kanawana';
 
 import {
@@ -174,7 +175,7 @@ export function* checkAnswer() {
 
   if (hasContent) {
     answer = fixTerminalN(answer);
-    if (answersContainTilde(readings)) {
+    if (isKanji(answer) && answersContainTilde(readings)) {
       answer = fixStartingTilde(answer);
     }
   }
