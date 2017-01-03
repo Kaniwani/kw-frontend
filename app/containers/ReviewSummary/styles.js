@@ -33,9 +33,9 @@ export const LinkBlock = styled.div`
   & > *:first-child {
     transition: background-color 0.2s ease-in;
     border-radius: 3px 0 0 3px;
-    background-color: rgb(${COLORS.blue});
+    background-color: rgb(${COLORS.blueLight});
     &:hover {
-      background-color: rgb(${COLORS.blueLight});
+      background-color: rgb(${COLORS.blue});
     }
   }
 

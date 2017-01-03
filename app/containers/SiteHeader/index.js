@@ -70,12 +70,14 @@ class SiteHeader extends React.PureComponent {
     return (
       <StyledHeader innerRef={(node) => { this.header = node; }}>
         <Wrapper>
-          <Element flexRow justifyContent="space-between" alignItems="center">
-            <Container withPadding={false}>
+          <Container flexRow justifyContent="space-between" alignItems="center">
+            <Element flexCol flexCenter>
               <LogoLink size="4em" />
-            </Container>
-            {this.renderNavigation()}
-          </Element>
+            </Element>
+            <Element>
+              {this.renderNavigation()}
+            </Element>
+          </Container>
         </Wrapper>
       </StyledHeader>
     );

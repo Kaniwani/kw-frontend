@@ -17,9 +17,10 @@ import {
 } from './actions';
 
 export function* getReviewData() {
-  const requestURL = 'api/reviews/';
+  // const requestURL = 'api/reviews/';
+  const requestURL = 'http://localhost:8000/api/v1/review/';
   try {
-    const data = yield call(request, requestURL);
+    const data = yield call(request, requestURL, { credentials: 'include' });
     const shapedData = shapeReviewData(data);
     yield put(reviewDataLoaded(shapedData));
   } catch (err) {
