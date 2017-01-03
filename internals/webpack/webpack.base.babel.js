@@ -91,6 +91,10 @@ module.exports = (options) => ({
       'jsnext:main',
       'main',
     ],
+    // reference localforage that can import correctly in prod build
+    alias: {
+      'redux-storage-engine-localforage': 'redux-storage-engine-localforage/build/index.js',
+    },
   },
   devtool: options.devtool,
   target: 'web', // Make web variables accessible to webpack, e.g. window
