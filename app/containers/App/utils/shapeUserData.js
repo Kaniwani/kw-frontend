@@ -6,7 +6,7 @@
 export default function shapeUserData(data) { // eslint-disable-line import/prefer-default-export
   const shapedData = {
     name: data.name,
-    reviewCount: data.review_count,
+    reviewCount: data.reviews_count,
     apiKey: data.api_key,
     apiValid: data.api_valid,
     joinDate: new Date(data.join_date),
@@ -23,6 +23,5 @@ export default function shapeUserData(data) { // eslint-disable-line import/pref
       vacationDate: (data.vacation_date != null) ? new Date(data.vacation_date) : null,
     },
   };
-
   return shapedData;
 }

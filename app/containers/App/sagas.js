@@ -12,12 +12,13 @@ import request from 'utils/request';
  * userData request/response handler
  */
 export function* getUserData() {
-  const requestURL = 'api/profiles';
+  // const requestURL = 'api/profiles';
+  const requestURL = 'http://localhost:8000/api/v1/profiles';
 
   try {
     // Call our request helper (see 'utils/request')
     const data = yield call(request, requestURL);
-    yield put(userDataLoaded(shapeUserData(data)));
+    yield put(userDataLoaded(shapeUserData(data.results[0])));
   } catch (err) {
     yield put(userDataLoadingError(err));
   }

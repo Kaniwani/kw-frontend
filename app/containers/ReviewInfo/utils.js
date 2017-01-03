@@ -75,14 +75,26 @@ export function stripLeadingTilde(text) {
  */
 export function splitSentenceByMatch(sentence, chars, kana) {
   const [cleanChars, cleanKana] = [stripLeadingTilde(chars), stripLeadingTilde(kana)];
+  // TODO: splitOkurigana instead, so we can then use the removed okurigana to strip that from the kana.
+  // We should attempt to partial match kana like we do with chars, since some sentences are:
+  // "つく" -> "何かがついた"
+  // stripOkurigana however won't work on kana since it relies on stopping at the first kanji
   const strippedChars = stripOkurigana(cleanChars);
 
   const re = new RegExp(`(.*?)(${strippedChars}|${cleanChars}|${cleanKana})(.*)`, 'gi');
-  const [, head, match, tail] = re.exec(sentence);
-
+  const matches = re.exec(sentence);
+  if (matches.length > 3) {
+    const [, head, match, tail] = matches;
+    return {
+      head,
+      match,
+      tail,
+    };
+  }
+  console.log(matches);
   return {
-    head,
-    match,
-    tail,
+    head: matches[1],
+    match: '',
+    tail: matches[3],
   };
 }
