@@ -30,6 +30,7 @@ const AppWrapper = styled.div`
 class App extends React.Component {
   componentDidMount() {
     console.log('syncNeeded', this.props.syncNeeded);
+    // FIXME: move loading to occur on take('LOAD_STORAGE')
     if (this.props.syncNeeded) {
       this.props.loadUserData();
     }

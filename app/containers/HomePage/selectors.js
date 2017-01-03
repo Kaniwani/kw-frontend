@@ -7,7 +7,6 @@ import { selectUser } from 'containers/App/selectors';
 import format from 'date-fns/format';
 import { DATE_IN_WORDS } from 'shared/constants';
 
-
 const selectHomeDomain = () => (state) => state.get('home');
 
 const selectName = () => createSelector(
@@ -22,11 +21,20 @@ const selectReviewCount = () => createSelector(
   selectUser(),
   (substate) => substate.get('reviewCount'),
 );
+
 const selectLastWkSyncDate = () => createSelector(
   selectUser(),
   (substate) => {
     const syncDate = substate.get('lastWkSyncDate');
-    return syncDate != null ? format(syncDate, DATE_IN_WORDS) : 'No recent sync data.';
+    return syncDate != null ? format(syncDate, DATE_IN_WORDS) : '... ¯\\_(ツ)_/¯'; // eslint-disable-line no-useless-escape
+  },
+);
+
+const selectLastKwSyncDate = () => createSelector(
+  selectUser(),
+  (substate) => {
+    const syncDate = substate.get('lastKwSyncDate');
+    return syncDate != null ? format(syncDate, DATE_IN_WORDS) : '... ¯\\_(ツ)_/¯'; // eslint-disable-line no-useless-escape
   },
 );
 
@@ -37,4 +45,5 @@ export {
   selectLevel,
   selectReviewCount,
   selectLastWkSyncDate,
+  selectLastKwSyncDate,
 };

@@ -21,6 +21,7 @@ import {
   selectLevel,
   selectReviewCount,
   selectLastWkSyncDate,
+  selectLastKwSyncDate,
 } from 'containers/HomePage/selectors';
 
 export class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -30,6 +31,7 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
       level,
       reviewCount,
       lastWkSyncDate,
+      lastKwSyncDate,
     } = this.props;
 
     return (
@@ -46,7 +48,8 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
               <H2>Welcome Back {name}.</H2>
               <P>You are level {level}.</P>
               <P>You have {reviewCount} reviews waiting.</P>
-              <P>You last synced with WK on {lastWkSyncDate}.</P>
+              <P>You last synced with WK on {lastWkSyncDate}</P>
+              <P>You last synced with KW on {lastKwSyncDate}</P>
             </Element>
             <Element>
               <H3>Announcements</H3>
@@ -62,10 +65,11 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
 }
 
 HomePage.propTypes = {
-  name: PropTypes.string,
-  level: PropTypes.number,
-  reviewCount: PropTypes.number,
-  lastWkSyncDate: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  level: PropTypes.number.isRequired,
+  reviewCount: PropTypes.number.isRequired,
+  lastWkSyncDate: PropTypes.string.isRequired,
+  lastKwSyncDate: PropTypes.string.isRequired,
 };
 
 // export function mapDispatchToProps(dispatch) {
@@ -79,6 +83,7 @@ const mapStateToProps = createStructuredSelector({
   level: selectLevel(),
   reviewCount: selectReviewCount(),
   lastWkSyncDate: selectLastWkSyncDate(),
+  lastKwSyncDate: selectLastKwSyncDate(),
 });
 
 // Wrap the component to inject dispatch and state into it

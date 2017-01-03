@@ -11,9 +11,10 @@ import {
 } from './selectors';
 
 export class ReviewPage extends React.Component {
-  // FIXME: move to review session - this is loading on summary page hits etc
+  // FIXME: move loading to occur if queue size < 10 on take('LOAD_STORAGE')
   componentDidMount() {
-    if (this.props.queue.size < 5) this.props.loadReviewData();
+    console.log('queue size', this.props.queue.size);
+    if (this.props.queue.size < 10) this.props.loadReviewData();
   }
   render() {
     return React.Children.only(this.props.children);

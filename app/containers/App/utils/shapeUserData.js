@@ -4,7 +4,6 @@
  * @return {object} Modified user data
  */
 export default function shapeUserData(data) { // eslint-disable-line import/prefer-default-export
-  console.log(data);
   const shapedData = {
     name: data.name,
     reviewCount: data.reviews_count,
@@ -12,7 +11,7 @@ export default function shapeUserData(data) { // eslint-disable-line import/pref
     apiValid: data.api_valid,
     joinDate: new Date(data.join_date),
     lastWkSyncDate: (data.last_wanikani_sync_date != null) ? new Date(data.last_wanikani_sync_date) : null,
-    lastKwSyncDate: Date.now(),
+    lastKwSyncDate: new Date(),
     level: data.level,
     unlockedLevels: data.unlocked_levels,
     settings: {

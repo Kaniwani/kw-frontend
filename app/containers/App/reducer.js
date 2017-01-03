@@ -25,14 +25,14 @@ export const initialState = fromJS({
   modal: modalInitialState,
   addSynonym: addSynonymInitialState,
   user: {
-    name: null,
-    reviewCount: null,
-    apiKey: null,
+    name: '',
+    reviewCount: 0,
+    apiKey: '',
     apiValid: null,
     joinDate: null,
     lastWkSyncDate: null,
     lastKwSyncDate: null,
-    level: null,
+    level: 0,
     unlockedLevels: null,
     settings: {
       followMe: null,
