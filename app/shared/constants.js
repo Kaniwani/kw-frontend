@@ -1,6 +1,49 @@
+
+import { RESET_ANSWER } from 'containers/ReviewAnswer/constants';
+import { LOAD_USERDATA_SUCCESS } from 'containers/App/constants';
+import { LOAD_REVIEWDATA_SUCCESS } from 'containers/ReviewPage/constants';
+
 /**
- * Maps srs rank levels to english names for rank
- * @type {Object} 'ONE': 'APPRENTICE'
+ * Actions that we want redux-storage to trigger a save
+ * @type {Array}
+ */
+export const PERSISTENCE_ACTION_WHITELIST = [
+  LOAD_USERDATA_SUCCESS,
+  LOAD_REVIEWDATA_SUCCESS,
+  RESET_ANSWER,
+];
+
+/**
+ * State keys that we want redux-storage to persist
+ * @type {Array}
+ */
+export const PERSISTENCE_STATE_WHITELIST = [
+  'global',
+  'review',
+];
+
+/**
+* The maximum amount of minutes passed since last sync allowed
+* @type {Number}
+*/
+export const MINUTES_SINCE_LAST_SYNC_LIMIT = 5;
+
+/**
+ * Format string for use with 'date-fns/format'
+ * @type {String}
+ * @example
+ * import format from 'date-fns/format'
+ * format(new Date(2014, 6, 2), DATE_IN_WORDS)
+ * // => Wednesday 2 July 2014
+ */
+export const DATE_IN_WORDS = 'dddd D MMMM YYYY';
+
+/**
+ * Maps srs rank levels to english descriptors
+ * @type {Object}
+ * @example
+ * SRS_RANKS['ONE']
+ * // => 'APPRENTICE'
  */
 export const SRS_RANKS = {
   ONE: 'APPRENTICE',
@@ -11,10 +54,13 @@ export const SRS_RANKS = {
 };
 
 /**
- * event.which keycodes
- * @type {Object} K_LOWERCASE: 75
+ * Maps english names of keys to event.which keycodes { P_LOWERCASE: 80 }
+ * @type {Object}
+ * @example
+ * KEYCODES.ENTER
+ * // => 13
  */
-export const KEYS = {
+export const KEYCODES = {
   P_LOWERCASE: 80,
   P_UPPERCASE: 112,
   K_LOWERCASE: 75,

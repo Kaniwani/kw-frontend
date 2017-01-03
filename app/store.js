@@ -8,22 +8,31 @@ import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import * as storage from 'redux-storage';
 import createEngine from 'redux-storage-engine-localforage';
-
-const engine = createEngine('kwStorage', { name: 'kaniwani' });
-
+import immutableEngineFilter from 'redux-storage-decorator-immutable-filter';
 import createReducer from './reducers';
+
+import {
+  PERSISTENCE_ACTION_WHITELIST,
+  PERSISTENCE_STATE_WHITELIST,
+} from 'shared/constants';
+
+// redux-storage
+const engine = immutableEngineFilter(
+  createEngine('kwStorage', { name: 'kaniwani' }),
+  PERSISTENCE_STATE_WHITELIST,
+);
 
 const sagaMiddleware = createSagaMiddleware();
 
 export default function configureStore(initialState = {}, history) {
   // Create the store with three middlewares
-  // 1. sagaMiddleware: Makes redux-sagas work
-  // 2. routerMiddleware: Syncs the location/URL path to the state
-  // 2. storageMiddleware: Persist state to localStorage
+  // 1. storage.createMiddleware(engine): persist state to localstorage with blacklist array of actions *not* to trigger save
+  // 2. sagaMiddleware: Makes redux-sagas work
+  // 3. routerMiddleware: Syncs the location/URL path to the state
   const middlewares = [
+    storage.createMiddleware(engine, [], PERSISTENCE_ACTION_WHITELIST),
     sagaMiddleware,
     routerMiddleware(history),
-    storage.createMiddleware(engine),
   ];
 
   const enhancers = [
@@ -40,7 +49,7 @@ export default function configureStore(initialState = {}, history) {
   /* eslint-enable */
 
   const store = createStore(
-    storage.reducer(createReducer()),
+    createReducer(),
     fromJS(initialState),
     composeEnhancers(...enhancers),
   );
@@ -63,12 +72,13 @@ export default function configureStore(initialState = {}, history) {
     });
   }
 
-  const loadFromStorage = storage.createLoader(engine);
-// Notice that our load function will return a promise that can also be used
-// to respond to the restore event.
-  loadFromStorage(store)
-    .then((newState) => console.log('Loaded state:', newState))
-    .catch(() => console.log('Failed to load previous state'));
+  const loadFromLocalStorage = storage.createLoader(engine);
+  // Notice that our load function will return a promise that can also be used
+  // to respond to the restore event.
+  loadFromLocalStorage(store)
+    // TODO: remove logs when happy all is safe
+    .then((newState) => console.info('Loaded state:', newState))
+    .catch((err) => console.error('Failed to load previous state:', err));
 
   return store;
 }

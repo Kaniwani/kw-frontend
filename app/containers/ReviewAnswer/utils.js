@@ -1,7 +1,7 @@
 import isEmpty from 'lodash/isEmpty';
 // TODO: move tildes to kanawana imo
 import { TILDE_EN, TILDE_JA } from './constants';
-import { KEYS } from 'shared/constants';
+import { KEYCODES } from 'shared/constants';
 
 /**
  * Handles key events occuring in ReviewAnswer component
@@ -10,13 +10,13 @@ import { KEYS } from 'shared/constants';
  */
 export function getShortcutAction(keyCode, disabled) {
   const handlers = {
-    [KEYS.ENTER]: '_processAnswer',
-    [KEYS.SPACE]: '_toggleInfoDepth',
-    [KEYS.F_LOWERCASE]: '_toggleInfoPanels',
-    [KEYS.S_LOWERCASE]: '_showNewSynonymPanel',
-    [KEYS.I_LOWERCASE]: '_ignoreAnswer',
-    [KEYS.BACKSPACE]: '_ignoreAnswer',
-    [KEYS.FORWARD_SLASH]: '_ignoreAnswer',
+    [KEYCODES.ENTER]: '_processAnswer',
+    [KEYCODES.SPACE]: '_toggleInfoDepth',
+    [KEYCODES.F_LOWERCASE]: '_toggleInfoPanels',
+    [KEYCODES.S_LOWERCASE]: '_showNewSynonymPanel',
+    [KEYCODES.I_LOWERCASE]: '_ignoreAnswer',
+    [KEYCODES.BACKSPACE]: '_ignoreAnswer',
+    [KEYCODES.FORWARD_SLASH]: '_ignoreAnswer',
   };
   let action;
   if (disabled) action = handlers[keyCode];

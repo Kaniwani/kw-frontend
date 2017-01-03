@@ -15,7 +15,6 @@ export const initialState = fromJS({
   queue: [],
   completed: [],
   session: {
-    shortcutsEnabled: false, // FIME: action, constant, usage in shortcut handling function
     correct: 0,
     incorrect: 0,
     ignored: 0,

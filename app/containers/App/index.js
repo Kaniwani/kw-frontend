@@ -15,7 +15,7 @@ import styled from 'styled-components';
 // import Modal from 'containers/Modal';
 import SiteHeader from 'containers/SiteHeader';
 import LoadingIndicator from 'components/LoadingIndicator';
-import { selectLoading, selectError } from 'containers/App/selectors';
+import { selectLoading, selectError, selectIsSyncNeeded } from 'containers/App/selectors';
 import { loadUserData } from 'containers/App/actions';
 
 const AppWrapper = styled.div`
@@ -29,7 +29,10 @@ const AppWrapper = styled.div`
 // FIXME: change all Components where viable to PureComponents before production
 class App extends React.Component {
   componentDidMount() {
-    this.props.loadUserData();
+    console.log('syncNeeded', this.props.syncNeeded);
+    if (this.props.syncNeeded) {
+      this.props.loadUserData();
+    }
   }
 
   render() {
@@ -79,6 +82,7 @@ App.propTypes = {
   children: PropTypes.node,
   loadUserData: PropTypes.func.isRequired,
   router: PropTypes.object.isRequired,
+  syncNeeded: PropTypes.bool,
 };
 
 export function mapDispatchToProps(dispatch) {
@@ -90,6 +94,7 @@ export function mapDispatchToProps(dispatch) {
 const mapStateToProps = createStructuredSelector({
   loading: selectLoading(),
   error: selectError(),
+  syncNeeded: selectIsSyncNeeded(),
 });
 
 // Wrap the component to inject dispatch and state into it

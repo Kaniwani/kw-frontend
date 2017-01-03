@@ -9,6 +9,15 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
+/*
+ * No prefix since the action type format is set by redux-storage
+ */
+export const STORAGE_SAVE = 'REDUX_STORAGE_SAVE';
+export const STORAGE_LOAD = 'REDUX_STORAGE_LOAD';
+
+/*
+ * Our action types
+ */
 export const LOAD_USERDATA = 'kw/App/LOAD_USERDATA';
 export const LOAD_USERDATA_SUCCESS = 'kw/App/LOAD_USERDATA_SUCCESS';
 export const LOAD_USERDATA_ERROR = 'kw/App/LOAD_USERDATA_ERROR';

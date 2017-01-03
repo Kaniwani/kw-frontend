@@ -11,6 +11,7 @@ import {
 } from './selectors';
 
 export class ReviewPage extends React.Component {
+  // FIXME: move to review session - this is loading on summary page hits etc
   componentDidMount() {
     if (this.props.queue.size < 5) this.props.loadReviewData();
   }

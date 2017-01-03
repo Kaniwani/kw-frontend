@@ -4,6 +4,9 @@
 
 import { createSelector } from 'reselect';
 import { selectUser } from 'containers/App/selectors';
+import format from 'date-fns/format';
+import { DATE_IN_WORDS } from 'shared/constants';
+
 
 const selectHomeDomain = () => (state) => state.get('home');
 
@@ -21,7 +24,10 @@ const selectReviewCount = () => createSelector(
 );
 const selectLastWkSyncDate = () => createSelector(
   selectUser(),
-  (substate) => substate.get('lastWkSyncDate').toDateString(),
+  (substate) => {
+    const syncDate = substate.get('lastWkSyncDate');
+    return syncDate != null ? format(syncDate, DATE_IN_WORDS) : 'No recent sync data.';
+  },
 );
 
 export default selectHomeDomain;

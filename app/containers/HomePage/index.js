@@ -25,7 +25,6 @@ import {
 
 export class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
-    // TODO: to handle time information try out https://date-fns.org
     const {
       name,
       level,

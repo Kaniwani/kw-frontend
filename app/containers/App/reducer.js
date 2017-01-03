@@ -11,6 +11,7 @@
  */
 
 import { fromJS } from 'immutable';
+import isEmpty from 'lodash/isEmpty';
 import modalReducer, { modalInitialState } from 'containers/Modal/reducer';
 import addSynonymReducer, { addSynonymInitialState } from 'containers/AddSynonymForm/reducer';
 import * as AddSynonym from 'containers/AddSynonymForm/constants';
@@ -29,7 +30,8 @@ export const initialState = fromJS({
     apiKey: null,
     apiValid: null,
     joinDate: null,
-    lastWkSyncDate: new Date(),
+    lastWkSyncDate: null,
+    lastKwSyncDate: null,
     level: null,
     unlockedLevels: null,
     settings: {
@@ -46,6 +48,11 @@ export const initialState = fromJS({
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
+    case App.STORAGE_LOAD: {
+      const loadedState = action.payload;
+      console.log('empty:', isEmpty(loadedState), loadedState);
+      return isEmpty(loadedState) ? state : state.set(action.payload);
+    }
     case App.LOAD_USERDATA:
       return state
         .set('loading', true)

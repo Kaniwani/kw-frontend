@@ -3,6 +3,8 @@
  */
 
 import { createSelector } from 'reselect';
+import { MINUTES_SINCE_LAST_SYNC_LIMIT } from 'shared/constants';
+import differenceInMinutes from 'date-fns/difference_in_minutes';
 
 const selectGlobal = () => (state) => state.get('global');
 
@@ -47,6 +49,15 @@ const selectUser = () => createSelector(
   (globalState) => globalState.get('user'),
 );
 
+const selectIsSyncNeeded = () => createSelector(
+  selectUser(),
+  (userState) => {
+    const lastSync = userState.get('lastKwSyncDate');
+    if (lastSync == null) return true;
+    return differenceInMinutes(Date.now(), lastSync) > MINUTES_SINCE_LAST_SYNC_LIMIT;
+  },
+);
+
 const selectSettings = () => createSelector(
   selectUser(),
   (substate) => substate.get('settings'),
@@ -59,6 +70,7 @@ export {
   selectLoading,
   selectError,
   selectUser,
+  selectIsSyncNeeded,
   selectModal,
   selectAddSynonym,
   selectSettings,

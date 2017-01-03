@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
-import { KEYS } from 'shared/constants';
+import { KEYCODES } from 'shared/constants';
 import Icon from 'components/Icon';
 import { modals } from './constants';
 import {
@@ -42,7 +42,7 @@ import {
 export class Modal extends React.PureComponent {
   // Hide the modal if the `Esc` key was pressed.
   hideOnEscapeKeyDown = (event) => {
-    if (event.which === KEYS.ESCAPE) this.props.closeModal();
+    if (event.which === KEYCODES.ESCAPE) this.props.closeModal();
   };
 
   // Hide the modal if the overlay was clicked.
