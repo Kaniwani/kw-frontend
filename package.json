@@ -206,7 +206,8 @@
       "!app/**/*.test.{js,jsx}",
       "!app/*/RbGenerated*/*.{js,jsx}",
       "!app/app.js",
-      "!app/routes.js"
+      "!app/routes.js",
+      "!app/shared/styles/*.js"
     ],
     "coverageThreshold": {
       "global": {
