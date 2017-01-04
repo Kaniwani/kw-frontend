@@ -5,7 +5,7 @@ import Container from '../index';
 import Element from 'components/Element';
 import A from 'components/A';
 import P from 'components/P';
-import background from 'shared/assets/img/backgrounds/home.jpg';
+import background from 'shared/assets/img/home.jpg';
 import BackgroundImg from 'components/BackgroundImg';
 
 storiesOf('Container', module)
