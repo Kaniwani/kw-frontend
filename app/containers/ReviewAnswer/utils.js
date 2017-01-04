@@ -75,7 +75,6 @@ export function fixTerminalN(input) {
   return endsWith(input, 'n') ? `${input.slice(0, -1)}ん` : input;
 }
 
-// TODO: refactor for more general use
 /**
  * Check if any strings in readings array start with Japanese tilde character
  * @param  {array} readings Japanese readings

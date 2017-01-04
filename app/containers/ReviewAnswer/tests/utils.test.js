@@ -88,8 +88,9 @@ describe('fixTerminalN', () => {
 });
 
 describe('answersContainTilde', () => {
-  it('needs to be refactored', () =>
-    expect(utils.answersContainTilde()).toBe(true),
+  it('determines if starting tilde is present', () =>
+    expect(utils.answersContainTilde([{ character: '犬' }, { character: '〜回' }])).toBe(true),
+    expect(utils.answersContainTilde([{ character: '犬' }, { character: '回' }])).toBe(false),
   );
 });
 
