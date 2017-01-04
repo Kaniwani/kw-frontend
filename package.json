@@ -206,7 +206,8 @@
       "!app/**/*.test.{js,jsx}",
       "!app/*/RbGenerated*/*.{js,jsx}",
       "!app/app.js",
-      "!app/routes.js"
+      "!app/routes.js",
+      "!app/shared/styles/*.js"
     ],
     "coverageThreshold": {
       "global": {
@@ -243,8 +244,8 @@
     "immutable": "3.8.1",
     "invariant": "2.2.2",
     "ip": "1.1.4",
-    "kanawana": "latest",
-    "lodash": "4.17.4",
+    "kanawana": "^1.1.2",
+    "lodash": "^4.17.4",
     "minimist": "1.2.0",
     "react": "15.4.1",
     "react-dom": "15.4.1",

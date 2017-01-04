@@ -7,15 +7,10 @@ import React from 'react';
 const src = 'test.png';
 const alt = 'test';
 const renderComponent = (props = {}) => shallow(
-  <Img src={src} alt={alt} {...props} />
+  <Img src={src} alt={alt} {...props} />,
 );
 
 describe('<Img />', () => {
-  it('should render an <img> tag', () => {
-    const renderedComponent = renderComponent();
-    expect(renderedComponent.is('img')).toBe(true);
-  });
-
   it('should have an src attribute', () => {
     const renderedComponent = renderComponent();
     expect(renderedComponent.prop('src')).toEqual(src);

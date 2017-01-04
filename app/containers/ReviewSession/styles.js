@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { white, reviewBackground } from 'shared/styles/colors';
-import bg from 'shared/assets/img/backgrounds/reviews.svg';
+import bg from 'shared/assets/img/reviews.svg';
 
 export const Wrapper = styled.div`
   display: flex;

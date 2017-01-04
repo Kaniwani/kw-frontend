@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import styled from 'styled-components';
-import Logo from '-!babel!svg-react!shared/assets/svg/logo.svg'; // eslint-disable-line import/no-webpack-loader-syntax, import/extensions
+import Logo from '-!babel!svg-react!shared/assets/img/logo.svg'; // eslint-disable-line import/no-webpack-loader-syntax, import/extensions
 import { linkStyles, logoStyles } from './styles';
 
 const StyledLink = styled(Link)`${linkStyles}`;

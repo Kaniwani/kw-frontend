@@ -5,7 +5,7 @@ import Element from '../index';
 import Container from 'components/Container';
 import P from 'components/P';
 import Img from 'components/Img';
-import homeImg from 'shared/assets/img/backgrounds/home.jpg';
+import homeImg from 'shared/assets/img/home.jpg';
 
 storiesOf('Element', module)
   .add('with paragraph child', () => (
