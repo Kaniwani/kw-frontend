@@ -12,15 +12,10 @@ const children = (<h1>Test</h1>);
 const renderComponent = (props = {}) => shallow(
   <A href={href} {...props}>
     {children}
-  </A>
+  </A>,
 );
 
 describe('<A />', () => {
-  it('should render an <a> tag', () => {
-    const renderedComponent = renderComponent();
-    expect(renderedComponent.type()).toEqual('a');
-  });
-
   it('should have an href attribute', () => {
     const renderedComponent = renderComponent();
     expect(renderedComponent.prop('href')).toEqual(href);
@@ -29,12 +24,6 @@ describe('<A />', () => {
   it('should have children', () => {
     const renderedComponent = renderComponent();
     expect(renderedComponent.contains(children)).toBe(true);
-  });
-
-  it('should have a className attribute', () => {
-    const className = 'test';
-    const renderedComponent = renderComponent({ className });
-    expect(renderedComponent.find('a').hasClass(className)).toBe(true);
   });
 
   it('should adopt a target attribute', () => {
