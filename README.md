@@ -29,6 +29,11 @@
 Now you're ready to rumble!
 
 ## Debugging / Developing
+Browser Testing generously provided by  
+<a title"browserstack" href="https://www.browserstack.com/" target="_blank" rel="external noopener noreferrer">
+  <img alt="browser stack logo" src="https://raw.githubusercontent.com/Kaniwani/KW-Frontend/master/app/shared/assets/img/browserstack.png"/>
+</a>
+
 The following Chrome extensions will allow you to explore the app structure while developing
 - [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd)
 - [React DevTools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
@@ -41,11 +46,11 @@ The following Chrome extensions will allow you to explore the app structure whil
 - [Styling](docs/css): How to work with the CSS tooling
 - [Your app](docs/js): Supercharging your app with Routing, Redux, simple
   asynchronicity helpers, etc.
-  
+
 ## Help
 - Visit our [Issues](https://github.com/Kaniwani/KW-Frontend/issues) page
 - Join us on [Slack](https://rauchg-slackin-iurjmkotad.now.sh)
-  
+
 ## License
 
 This project is licensed under the MIT license, Copyright (c) 2016 Duncan Bay. For more information see `LICENSE.md`.
