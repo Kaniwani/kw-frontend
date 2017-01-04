@@ -2,7 +2,7 @@
 [![Dependency Status](https://img.shields.io/david/Kaniwani/KW-Frontend.svg)](https://david-dm.org/Kaniwani/KanaWana)
 [![devDependency Status](https://img.shields.io/david/dev/Kaniwani/KW-Frontend.svg)](https://david-dm.org/Kaniwani/KW-Frontend#info=devDependencies)
 [![Build Status](https://img.shields.io/travis/Kaniwani/KW-Frontend.svg)](https://travis-ci.org/Kaniwani/KW-Frontend)
-[![Test Coverage](https://img.shields.io/coveralls/Kaniwani/KW-Frontend.svg)](https://coveralls.io/r/Kaniwani/KW-Frontend)
+[![Test Coverage](https://img.shields.io/coveralls/Kaniwani/KW-Frontend.svg)](https://coveralls.io/github/Kaniwani/KW-Frontend)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 <div align="center">
