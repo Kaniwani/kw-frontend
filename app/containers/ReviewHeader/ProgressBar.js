@@ -14,14 +14,14 @@ const Bar = styled.div`
   left: 0;
   width: 100%;
   height: 5px;
-  background-color: rgb(${blackLight});
+  background-color: ${blackLight};
   opacity: .75;
   overflow: hidden;
 `;
 
 const Percentage = styled.span`
   display: block;
-  background-color: rgb(${whiteLight});
+  background-color: ${whiteLight};
   transition: width .15s ease-out;
   width: ${(props) => props.value}%;
   height: 100%;

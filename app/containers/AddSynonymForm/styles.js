@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { media } from 'shared/styles/media';
-import { fluidType } from 'shared/styles/utils';
+import { adjustColor, fluidType } from 'shared/styles/utils';
 import { greyLight, black } from 'shared/styles/colors';
 
 export const Form = styled.form`
@@ -41,9 +41,9 @@ export const Input = styled.input`
   flex: 1 5 100px;
   vertical-align: middle;
   padding: 0 .5rem;
-  border: 1px solid rgba(${greyLight}, .3);
+  border: 1px solid ${adjustColor(greyLight, 'alpha(0.3)')};
   border-radius: 3px;
-  box-shadow: inset 0 3px 20px -8px rgba(${black}, 0.3);
+  box-shadow: inset 0 3px 20px -8px ${adjustColor(black, 'alpha(0.3)')};
 `;
 
 export const Validation = styled.div`
@@ -61,7 +61,7 @@ export const Validation = styled.div`
 export const SubmitButton = styled.button`
   margin: .5rem auto 0;
   text-align: center;
-  border: 1px solid rgb(${greyLight});
+  border: 1px solid ${greyLight};
 
   ${media('min').md`
     margin-top: 1rem;

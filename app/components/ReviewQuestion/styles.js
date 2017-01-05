@@ -21,11 +21,11 @@ export const MeaningWrapper = styled.div`
 
 export const Meaning = styled.h1`
   ${giga}
-  color: rgb(${white});
+  color: ${white};
   margin: 0;
   font-weight: 700;
   letter-spacing: -0.03em;
-  text-shadow: .1em .2em .4em rgb(${purpleDark});
+  text-shadow: .1em .2em .4em ${purpleDark};
   padding: 2em .5em;
 `;
 

@@ -2,6 +2,22 @@ import { css } from 'styled-components';
 import { convert } from 'css-color-function'; // https://github.com/postcss/postcss-color-function
 
 /**
+ * Utility for inline use with styled-components
+ * Converts a given color by the adjuster functions passed
+ * https://github.com/postcss/postcss-color-function#list-of-color-adjuster
+ * @param  {String} color - color as css color name or hex
+ * @param  {String} adjustments - string of adjuster functions
+ * @return {String} converted color
+ * @example
+ * adjustColor('#b4d455', 'lightness(- 20%) saturation(10%)');
+ * // => 'rgb(102, 107, 87)'
+ */
+export function adjustColor(color, adjustments) {
+  const conversionString = `color(${color} ${adjustments})`;
+  return css`${convert(conversionString)}`;
+}
+
+/**
  * Returns fallback, and media queried calc() font-sizes for responsive sizing
  * based on https://madebymike.com.au/writing/precise-control-responsive-typography/
  * @param  {Number} [minFont] Minimum font-size (px)
@@ -52,12 +68,6 @@ export function bgGradient(initialColor = 'grey', direction = 'bottom', percent 
     background-color: ${initialColor}; /* fallback */
     background-image: linear-gradient(to ${direction}, ${fromColor}, ${toColor});
     background-repeat: repeat-x;
-  `;
-}
-
-export function lightness(color, percent, operand = '+') {
-  return css`
-    ${convert(`color(rgb(${color}) lightness(${operand} ${percent}%))`)}
   `;
 }
 

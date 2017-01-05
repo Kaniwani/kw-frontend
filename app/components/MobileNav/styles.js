@@ -1,8 +1,8 @@
 import styled from 'styled-components';
+import { adjustColor, resetButton, tapTarget } from 'shared/styles/utils';
+import { black, white, whiteDark, greyDark } from 'shared/styles/colors';
 import List from 'components/List';
 import { Nav, Li, NavLink, Text, Count } from 'components/DesktopNav/styles';
-import { resetButton, tapTarget } from 'shared/styles/utils';
-import { black, white, whiteDark, greyDark } from 'shared/styles/colors';
 
 export {
   Nav,
@@ -22,13 +22,13 @@ export const MobileNavLink = styled(NavLink)`
 export const OffCanvasMenu = styled(List)`
   position: absolute;
   width: 180px;
-  background: rgb(${white});
+  background: ${white};
   height: auto;
   top: ${(props) => props.offsetTop}px;
   right: -180px;
   z-index: 10;
   transition: right 400ms cubic-bezier(0.55, 0, 0.1, 1);
-  border-top: 1px solid rgba(${whiteDark}, .5);
+  border-top: 1px solid ${adjustColor(whiteDark, 'alpha(0.5)')};
   border-bottom-left-radius: 10px;
 
   display: flex;
@@ -36,12 +36,12 @@ export const OffCanvasMenu = styled(List)`
 
   &.is-visible {
     right: -1px; /* -1px avoids potential subpixel gap >_< */
-    box-shadow: -1px 1px 3px rgba(${black}, .2);
+    box-shadow: -1px 1px 3px ${adjustColor(black, 'alpha(0.2)')};
   }
 
   & > li {
     flex: 1 0 100%;
-    border-bottom: 1px solid rgba(${whiteDark}, .75);
+    border-bottom: 1px solid ${adjustColor(whiteDark, 'alpha(0.75)')};
 
     > a {
       padding: .7rem 1rem .6rem;
@@ -79,7 +79,7 @@ export const ToggleDot = styled.span`
   margin: auto;
   pointer-events: none;
   border-radius: 50%;
-  background-color: rgb(${greyDark});
+  background-color: ${greyDark};
 
   &:nth-of-type(1) {
     top: 0;

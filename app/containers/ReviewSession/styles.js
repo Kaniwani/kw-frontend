@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: rgb(${reviewBackground});
+  background-color: ${reviewBackground};
 `;
 
 export const Upper = styled.section`
@@ -17,7 +17,7 @@ export const Upper = styled.section`
   background-color: #6a3bbc;
   background-image: linear-gradient(180deg, #774ac6, #5f35a9);
   background-repeat: repeat-x;
-  color: rgb(${white});
+  color: ${white};
 `;
 
 export const Lower = styled.section`
@@ -25,7 +25,7 @@ export const Lower = styled.section`
   display: flex;
   flex-direction: column;
   flex: 1 0 100%;
-  background-color: rgb(${reviewBackground});
+  background-color: ${reviewBackground};
 `;
 
 export const ReviewBackground = styled.div`

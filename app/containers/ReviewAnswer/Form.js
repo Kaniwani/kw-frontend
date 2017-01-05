@@ -7,7 +7,7 @@ const Form = styled.form`
   position: relative;
   max-width: 100%;
   ${mega}
-  color: rgb(${black});
+  color: ${black};
   background-color: transparent;
   margin: 0 0 .5rem;
   ${media('min').sm`
@@ -19,7 +19,7 @@ const Form = styled.form`
   appearance: none;
   z-index: 2;
   &.is-marked {
-    color: rgb(${white});
+    color: ${white};
   }
 `;
 

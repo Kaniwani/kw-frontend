@@ -3,8 +3,8 @@ import { call } from 'redux-saga/effects';
 import markAllAsDaemon from 'utils/markAllAsDaemon';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
-function* log() {
-  yield call(console.log, 'you have left summary page summarysaga'); // eslint-disable-line no-console
+function* log(...args) {
+  yield call(console.log, 'location change!', args); // eslint-disable-line no-console
 }
 
 function* defaultSaga() {

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Icon from 'components/Icon';
 import H1 from 'components/H1';
 import * as COLORS from 'shared/styles/colors';
-import { lightness } from 'shared/styles/utils';
+import { adjustColor } from 'shared/styles/utils';
 
 export const Title = styled(H1)`
   &:not(:first-child) { margin-top: 0; } /* hmm... this is irritating */
@@ -33,9 +33,9 @@ export const LinkBlock = styled.div`
   & > *:first-child {
     transition: background-color 0.2s ease-in;
     border-radius: 3px 0 0 3px;
-    background-color: rgb(${COLORS.blue});
+    background-color: ${COLORS.blue};
     &:hover {
-      background-color: rgb(${COLORS.blueLight});
+      background-color: ${COLORS.blueLight};
     }
   }
 
@@ -52,6 +52,6 @@ export const SectionHeader = styled.h2`
   margin: 0;
   padding: 1rem;
   color: white;
-  background-color: rgba(${({ color }) => COLORS[color]}, .95);
-  text-shadow: 0.05em 0.05em 0.1em ${({ color }) => lightness(COLORS[color], 20, '-')};
+  background-color: ${({ color }) => adjustColor(COLORS[color], 'alpha(0.95)')};
+  text-shadow: 0.05em 0.05em 0.1em ${({ color }) => adjustColor(COLORS[color], 'lightness(- 20%)')};
 `;

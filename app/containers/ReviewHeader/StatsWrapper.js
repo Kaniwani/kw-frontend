@@ -4,7 +4,7 @@ import { white } from 'shared/styles/colors';
 
 const Wrapper = styled.div`
   width: 100%;
-  color: rgb(${white})
+  color: ${white}
   ${fluidType(16, 24)}
   line-height: 1;
   display: flex;

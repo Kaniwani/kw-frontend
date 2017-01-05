@@ -1,4 +1,5 @@
 import * as COLORS from 'shared/styles/colors';
+import { adjustColor } from 'shared/styles/utils';
 import styled from 'styled-components';
 
 const dividerStyle = (props) => {
@@ -7,12 +8,12 @@ const dividerStyle = (props) => {
     return `
       border-image: linear-gradient(
         90deg,
-        rgba(${dividerColor}, 0),
-        rgba(${dividerColor}, 1) 50%,
-        rgba(${dividerColor}, 0) 100%) 0 0 100%;
+        ${adjustColor(dividerColor, 'alpha(0)')},
+        ${adjustColor(dividerColor, 'alpha(1)')} 50%,
+        ${adjustColor(dividerColor, 'alpha(0)')} 100%) 0 0 100%;
     `;
   }
-  return `border-color: rgb(${dividerColor})`;
+  return `border-color: ${dividerColor}`;
 };
 
 const Divider = styled.div`
@@ -20,7 +21,7 @@ const Divider = styled.div`
   margin: .5rem auto;
   max-width: ${(props) => props.fullWidth ? '100%' : '70%'};
   background-position: 50%;
-  color: rgb(${(props) => COLORS[props.color] || COLORS.grey});
+  color: ${(props) => COLORS[props.color] || COLORS.grey};
   background-color: transparent;
   border-width: 0 0 1px;
   border-style: solid;

@@ -13,8 +13,8 @@ const Li = styled.li`
   text-decoration: none;
   vertical-align: middle;
   align-items: center;
-  background-color: rgb(${(props) => COLORS[props.bgColor]});
-  color: rgb(${(props) => COLORS[props.textColor]});
+  background-color: ${(props) => COLORS[props.bgColor]};
+  color: ${(props) => COLORS[props.textColor]};
   border-radius: ${borderRadius};
 `;
 

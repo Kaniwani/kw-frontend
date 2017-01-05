@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import styled, { injectGlobal } from 'styled-components';
 import * as COLORS from 'shared/styles/colors';
 import { borderRadius } from 'shared/styles/sizing';
-import { fluidType, lightness } from 'shared/styles/utils';
+import { fluidType, adjustColor } from 'shared/styles/utils';
 
 import calculatePercentage from 'utils/calculatePercentage';
 import titleCase from 'utils/titleCase';
@@ -14,7 +14,7 @@ import A from 'components/A';
 injectGlobal`
   .vocab-tip {
     padding: 0 !important;
-    color: rgb(${COLORS.white})
+    color: ${COLORS.white}
     ${fluidType(15, 18)}
   }
   .vocab-tip__list {
@@ -33,7 +33,7 @@ injectGlobal`
   }
   .vocab-tip__tag {
     font-size: .95em;
-    color: rgb(${COLORS.grey});
+    color: ${COLORS.grey};
   }
 `;
 /* eslint-enable */
@@ -44,10 +44,10 @@ const ChipWrapper = styled.li`
   line-height: 1;
   margin-right: .2em;
   margin-bottom: .2em;
-  background-color: ${(props) => `rgb(${COLORS[props.bgColor]})`};
+  background-color: ${(props) => COLORS[props.bgColor]};
   box-shadow: 2px 2px 0 rgba(0,0,0, .1);
   border-radius: ${borderRadius};
-  color: rgb(${COLORS.whiteLight});
+  color: ${COLORS.whiteLight};
   font-size: 1.2em;
   max-width: 100%;
   text-decoration: none;
@@ -64,7 +64,7 @@ const ChipText = styled.span`
   text-overflow: ellipsis;
   white-space: nowrap;
   ${fluidType(20, 30)}
-  text-shadow: 1px 1px 0 ${({ shadowColor }) => lightness(COLORS[shadowColor], 20, '-')};
+  text-shadow: 1px 1px 0 ${({ shadowColor }) => adjustColor(COLORS[shadowColor], 'lightness(- 20%)')};
 `;
 
 /**

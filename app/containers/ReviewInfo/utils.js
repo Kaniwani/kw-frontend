@@ -79,6 +79,8 @@ export function splitSentenceByMatch(sentence, chars, kana) {
   // We should attempt to partial match kana like we do with chars, since some sentences are:
   // "つく" -> "何かがついた"
   // stripOkurigana however won't work on kana since it relies on stopping at the first kanji
+  // FINALLY: try matching katakana since some sentences that are kana only should actually be kata
+  // for example: 白熊 needs to match シロクマ
   const strippedChars = stripOkurigana(cleanChars);
 
   const re = new RegExp(`(.*?)(${strippedChars}|${cleanChars}|${cleanKana})(.*)`, 'gi');

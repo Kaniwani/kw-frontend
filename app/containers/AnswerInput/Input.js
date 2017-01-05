@@ -12,16 +12,7 @@ const Input = styled.input`
   text-align: center;
   color: currentColor;
   box-shadow: ${innerMedium};
-  background-color: rgb(${COLORS.whiteLight});
-  .is-invalid & {
-    background-color: rgb(${COLORS.yellow});
-  }
-  .is-incorrect & {
-    background-color: rgb(${COLORS.red});
-  }
-  .is-correct & {
-    background-color: rgb(${COLORS.green});
-  }
+  background-color: inherit;
 
   /*hide stupid X on IE*/
   &::-ms-clear {
@@ -31,12 +22,12 @@ const Input = styled.input`
     outline: none;
   }
   &[disabled] {
-    color: rgb(${COLORS.white}); /* Override Android / IE font color change */
+    color: ${COLORS.white}; /* Override Android / IE font color change */
     -webkit-opacity: 1; /* Override iOS opacity change affecting text & background color */
-    &::-webkit-input-placeholder { color: rgb(${COLORS.white}); }
-    &::-moz-placeholder { color: rgb(${COLORS.white}); }
-    &:-ms-input-placeholder { color: rgb(${COLORS.white}); }
-    &:placeholder-shown { color: rgb(${COLORS.white}); }
+    &::-webkit-input-placeholder { color: ${COLORS.white}; }
+    &::-moz-placeholder { color: ${COLORS.white}; }
+    &:-ms-input-placeholder { color: ${COLORS.white}; }
+    &:placeholder-shown { color: ${COLORS.white}; }
   }
 `;
 

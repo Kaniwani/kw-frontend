@@ -13,9 +13,9 @@ const plainStyles = `
 
 const linkStyles = `
   transition: all .3s ease-out;
-  color: rgb(${link});
+  color: ${link};
   &:hover {
-    color: rgb(${linkHover});
+    color: ${linkHover};
   }
 `;
 

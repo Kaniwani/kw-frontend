@@ -56,13 +56,13 @@ export const Text = styled.span`
     left: 50%;
     opacity: 0;
     height: 3px;
-    background: rgb(${purple});
+    background: ${purple};
     transition: all .3s ease-out;
     transform: translateX(-50%);
   }
 `;
 
 export const Count = styled.span`
-  color: rgb(${blueLight});
+  color: ${blueLight};
   margin-left: .3em;
 `;

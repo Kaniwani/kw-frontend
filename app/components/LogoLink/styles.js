@@ -10,17 +10,17 @@ export const linkStyles = css`
   height: ${({ size }) => size}; /*Prevents scaling issue in IE*/
   background-repeat: no-repeat;
   transition: all 200ms ease-in-out;
-  color: rgb(${blueLight});
+  color: ${blueLight};
   transition: color .7s ease;
 
   &:hover {
     transition: color .4s ease-out;
-    color: rgb(${purpleLight});
+    color: ${purpleLight};
   }
 
   &:active {
     transition: color .1s ease-out;
-    color: rgb(${pink});
+    color: ${pink};
   }
 `;
 

@@ -14,24 +14,18 @@ import ProgressBar from './ProgressBar';
 import ViewSummaryLink from './ViewSummaryLink';
 import StatsList from './StatsList';
 
-export class ReviewHeader extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  render() {
-    const { percentCompleted, percentCorrect, reviewsCompleted, reviewsRemaining } = this.props;
-    return (
-      <header>
-        <ProgressBar value={percentCompleted} />
-        <StatsWrapper>
-          <ViewSummaryLink />
-          <StatsList
-            correctness={percentCorrect}
-            completed={reviewsCompleted}
-            remaining={reviewsRemaining}
-          />
-        </StatsWrapper>
-      </header>
-    );
-  }
-}
+const ReviewHeader = ({ percentCompleted, percentCorrect, reviewsCompleted, reviewsRemaining }) =>
+  <header>
+    <ProgressBar value={percentCompleted} />
+    <StatsWrapper>
+      <ViewSummaryLink />
+      <StatsList
+        correctness={percentCorrect}
+        completed={reviewsCompleted}
+        remaining={reviewsRemaining}
+      />
+    </StatsWrapper>
+  </header>;
 
 ReviewHeader.propTypes = {
   percentCorrect: PropTypes.number.isRequired,

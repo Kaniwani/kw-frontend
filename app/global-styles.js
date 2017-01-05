@@ -31,7 +31,7 @@ injectGlobal`
 
   body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    color: rgb(${blackLight});
+    color: ${blackLight};
     line-height: 1.4;
     ${epsilon}
   }
@@ -57,7 +57,7 @@ injectGlobal`
   h1, h2, h3, h4, h5, h6 {
     font-family: ${ffHeading};
     margin: 0;
-    color: rgb(${greyDark});
+    color: ${greyDark};
     line-height: 1.2;
   }
 

@@ -20,7 +20,7 @@ export const Wrapper = styled.div`
 
 export const PanelWrapper = styled.div`
   padding: .4rem;
-  background-color: rgb(${whiteLight});
+  background-color: ${whiteLight};
   &:last-of-type {
     padding-bottom: ${(props) => props.addPadding ? '1.2rem' : '.4rem'};
   }
@@ -45,7 +45,7 @@ export const HeadingWrapper = styled.div`
   justify-content: space-between;
   padding: .2rem 0 .4rem;
   margin-bottom: .2rem;
-  border-bottom: 1px solid rgb(${greyLight});
+  border-bottom: 1px solid ${greyLight};
 `;
 
 export const Heading = styled(H3)`
@@ -89,7 +89,7 @@ export const Row = styled.div`
     }
     > div:not(:first-of-type) {
       font-size: 1.5em;
-      color: rgb(${greyDark});
+      color: ${greyDark};
       transform: translateY(-.3rem);
     }
   }
@@ -133,7 +133,7 @@ const IconButton = styled.button`
 export const AddButton = styled(IconButton)`
   &[type="button"] {
     background-color: transparent;
-    color: rgb(${green});
+    color: ${green};
     opacity: .9;
     margin-left: .2rem; /* icon size is larger in this button */
   }
@@ -141,8 +141,8 @@ export const AddButton = styled(IconButton)`
 
 export const RemoveButton = styled(IconButton)`
   &[type="button"] {
-    color: rgb(${whiteLight});
-    background-color: rgb(${red});
+    color: ${whiteLight};
+    background-color: ${red};
     opacity: .6;
   }
 `;

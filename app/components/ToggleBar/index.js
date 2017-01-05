@@ -48,10 +48,10 @@ const Toggle = styled.li`
   padding: .2rem;
   margin: 0 .2rem;
   ${shadowBox}
-  background-color: rgb(${whiteLight});
-  color: rgb(${greyLight});
+  background-color: ${whiteLight};
+  color: ${greyLight};
   &.is-active {
-    color: rgb(${greyDark});
+    color: ${greyDark};
     /* Triangle pointer */
     &:after {
       content: '';
@@ -63,7 +63,7 @@ const Toggle = styled.li`
       margin-left: -.9rem;
       border-style: solid;
       border-width: 0 .8rem .8rem .8rem;
-      border-color: transparent transparent rgb(${whiteLight}) transparent;
+      border-color: transparent transparent ${whiteLight} transparent;
       z-index: 10;
     }
   }
@@ -75,7 +75,7 @@ const Toggle = styled.li`
 `;
 
 const DetailToggle = styled(Toggle)`
-  color: rgb(${grey});
+  color: ${grey};
 `;
 
 function ToggleBar({
