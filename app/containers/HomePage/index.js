@@ -24,45 +24,39 @@ import {
   selectLastKwSyncDate,
 } from 'containers/HomePage/selectors';
 
-export class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  render() {
-    const {
-      name,
-      level,
-      reviewCount,
-      lastWkSyncDate,
-      lastKwSyncDate,
-    } = this.props;
-
-    return (
-      <div>
-        <Helmet
-          title="Dashboard"
-          meta={[
-            { name: 'description', content: 'Kaniwani Dashboard' },
-          ]}
-        />
-        <Wrapper>
-          <Container flexRow justifyContent="space-between">
-            <Element>
-              <H2>Welcome Back {name}.</H2>
-              <P>You are level {level}.</P>
-              <P>You have {reviewCount} reviews waiting.</P>
-              <P>You last synced with WK on {lastWkSyncDate}</P>
-              <P>You last synced with KW on {lastKwSyncDate}</P>
-            </Element>
-            <Element>
-              <H3>Announcements</H3>
-              <P>Announcement 1</P>
-              <P>Announcement 2</P>
-              <P>Announcement 3</P>
-            </Element>
-          </Container>
-        </Wrapper>
-      </div>
-    );
-  }
-}
+const HomePage = ({
+  name,
+  level,
+  reviewCount,
+  lastWkSyncDate,
+  lastKwSyncDate,
+}) => (
+  <div>
+    <Helmet
+      title="Dashboard"
+      meta={[
+        { name: 'description', content: 'Kaniwani Dashboard' },
+      ]}
+    />
+    <Wrapper>
+      <Container flexRow justifyContent="space-between">
+        <Element>
+          <H2>Welcome Back {name}.</H2>
+          <P>You are level {level}.</P>
+          <P>You have {reviewCount} reviews waiting.</P>
+          <P>You last synced with WK on {lastWkSyncDate}</P>
+          <P>You last synced with KW on {lastKwSyncDate}</P>
+        </Element>
+        <Element>
+          <H3>Announcements</H3>
+          <P>Announcement 1</P>
+          <P>Announcement 2</P>
+          <P>Announcement 3</P>
+        </Element>
+      </Container>
+    </Wrapper>
+  </div>
+);
 
 HomePage.propTypes = {
   name: PropTypes.string.isRequired,

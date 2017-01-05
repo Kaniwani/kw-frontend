@@ -30,20 +30,21 @@ class SiteHeader extends React.PureComponent {
       headerHeight: 70, // ballpark fallback
       mobileNavVisible: false,
     };
+    this._handleResize = debounce(() => {
+      this.setState({
+        windowWidth: window.innerWidth,
+        headerHeight: this.header.clientHeight,
+      });
+    }, 100).bind(this);
   }
 
   componentDidMount = () => {
     debounce(() => this.setState({ headerHeight: this.header.clientHeight }), 200);
-    window.addEventListener('resize', debounce(this._handleResize, 50));
+    window.addEventListener('resize', this._handleResize);
   }
 
-  componentWillUnmount = () => window.removeEventListener('resize', this._handleResize);
-
-  _handleResize = () => {
-    this.setState({
-      windowWidth: window.innerWidth,
-      headerHeight: this.header.clientHeight,
-    });
+  componentWillUnmount = () => {
+    window.removeEventListener('resize', this._handleResize);
   }
 
   _handleToggleClick = () => {

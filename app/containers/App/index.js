@@ -26,8 +26,7 @@ const AppWrapper = styled.div`
   min-height: 100%;
 `;
 
-// FIXME: change all Components where viable to PureComponents before production
-class App extends React.Component {
+class App extends React.PureComponent {
   componentDidMount() {
     console.log('syncNeeded', this.props.syncNeeded);
     // FIXME: move loading to occur on take('LOAD_STORAGE')
