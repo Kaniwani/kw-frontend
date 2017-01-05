@@ -7,7 +7,6 @@ const P = styled.p`
   max-width: 35em; /* constrain line-length to ~70 chars */
   margin-left: ${({ align }) => align === 'center' ? 'auto' : 0};
   margin-right: ${({ align }) => align === 'center' ? 'auto' : 0};
-  text-align: ${({ align }) => align};
   ${epsilon}
   ${bodyRhythm}
 

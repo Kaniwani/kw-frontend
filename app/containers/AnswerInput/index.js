@@ -11,7 +11,7 @@ import { Input, Wrapper, Label, ButtonContainer } from './styles';
 import { updateInput } from './actions';
 import { selectInputText } from './selectors';
 
-export class AnswerInput extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class AnswerInput extends React.PureComponent {
   componentDidMount() {
     bind(this.inputField);
   }
