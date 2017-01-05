@@ -8,22 +8,22 @@ export const mod2 = 1.333; // perfect fourth (desktop)
 export const padding = {
   mobile: {
     outer: {
-      x: (1 * mod1),
-      y: (1 * mod1),
+      x: (1 * mod1) / 2,
+      y: (1 * mod1) / 2,
     },
     inner: {
-      x: (0.5 * mod1),
-      y: (0.5 * mod1),
+      x: (0.5 * mod1) / 2,
+      y: (0.5 * mod1) / 2,
     },
   },
   desktop: {
     outer: {
-      x: (1 * mod2),
-      y: (1 * mod2),
+      x: (1 * mod2) / 2,
+      y: (1 * mod2) / 2,
     },
     inner: {
-      x: (0.5 * mod2),
-      y: (0.5 * mod2),
+      x: (0.5 * mod2) / 2,
+      y: (0.5 * mod2) / 2,
     },
   },
 };

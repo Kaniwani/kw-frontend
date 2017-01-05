@@ -9,8 +9,6 @@ const StyledIcon = styled(Icon)`
   transform: translateY(-50%);
   top: 50%;
   left: .35em;
-  color: currentColor;
-  background-color: inherit;
 `;
 
 

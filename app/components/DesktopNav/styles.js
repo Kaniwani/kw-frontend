@@ -18,19 +18,14 @@ export const Li = styled.li`
 
 export const NavLink = styled(A)`
   display: flex;
-  padding: 0 .8em;
+  font-size: 0.95em;
+  padding: 0 .75em;
   justify-content: center;
   align-items: center;
 
   &:hover,
+  &:focus,
   &.is-active {
-    > .NavLink__Text:after {
-      opacity: 1;
-      width: 100%;
-    }
-  }
-
-  &:focus {
     > .NavLink__Text:after {
       opacity: 1;
       width: 100%;
@@ -41,6 +36,7 @@ export const NavLink = styled(A)`
 export const Text = styled.span`
   position: relative;
   padding-bottom: 4px;
+  bottom: -4px;
 
   &:not(:only-child) {
     padding-right: .4em;

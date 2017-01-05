@@ -4,14 +4,13 @@ import { createStructuredSelector } from 'reselect';
 import Immutable from 'immutable';
 import debounce from 'lodash/debounce';
 import { breakpoints } from 'shared/styles/media';
-import { StyledHeader } from './styles';
+import { StyledHeader, StyledElement, StyledContainer } from './styles';
 import { navRoutes } from './constants';
 
 import {
   selectReviewCount,
 } from 'containers/HomePage/selectors';
 
-import Container from 'components/Container';
 import Wrapper from 'components/Wrapper';
 import Element from 'components/Element';
 import DesktopNav from 'components/DesktopNav';
@@ -70,14 +69,14 @@ class SiteHeader extends React.PureComponent {
     return (
       <StyledHeader innerRef={(node) => { this.header = node; }}>
         <Wrapper>
-          <Container flexRow justifyContent="space-between" alignItems="center">
-            <Element flexCol flexCenter>
+          <StyledContainer flexRow justifyContent="space-between" alignItems="center">
+            <StyledElement flexCol flexCenter>
               <LogoLink size="4em" />
-            </Element>
+            </StyledElement>
             <Element>
               {this.renderNavigation()}
             </Element>
-          </Container>
+          </StyledContainer>
         </Wrapper>
       </StyledHeader>
     );
