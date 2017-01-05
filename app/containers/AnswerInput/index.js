@@ -11,7 +11,7 @@ import { Input, Wrapper, Label, ButtonContainer } from './styles';
 import { updateInput } from './actions';
 import { selectInputText } from './selectors';
 
-export class AnswerInput extends React.PureComponent {
+export class AnswerInput extends React.Component {
   componentDidMount() {
     bind(this.inputField);
   }

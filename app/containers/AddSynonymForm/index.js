@@ -25,7 +25,7 @@ import {
   SubmitButton,
 } from './styles';
 
-export class AddSynonymForm extends React.PureComponent {
+export class AddSynonymForm extends React.Component {
   static propTypes = {
     text: PropTypes.string.isRequired,
     answerType: PropTypes.string.isRequired,

@@ -17,7 +17,7 @@ const renderPanels = ({ items, ...props }) =>
   items.map((item) =>
     <InfoPanel key={cuid()} item={item} {...props} />);
 
-export class ReviewInfo extends React.PureComponent {
+export class ReviewInfo extends React.Component {
   static propTypes = {
     readings: PropTypes.instanceOf(Immutable.Iterable).isRequired,
     synonyms: PropTypes.instanceOf(Immutable.Iterable),

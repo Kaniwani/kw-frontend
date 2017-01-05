@@ -17,7 +17,6 @@ module.exports = (options) => ({
       loader: 'babel',
       exclude: [
         /node_modules/,
-        /reference-quiz/,
       ],
       query: options.babelQuery,
     }, {

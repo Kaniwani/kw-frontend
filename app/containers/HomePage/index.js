@@ -81,4 +81,4 @@ const mapStateToProps = createStructuredSelector({
 });
 
 // Wrap the component to inject dispatch and state into it
-export default connect(mapStateToProps)(HomePage);
+export default connect(mapStateToProps/* , mapDispatchToProps */)(HomePage);

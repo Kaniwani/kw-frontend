@@ -27,7 +27,7 @@ import {
 
 import Form from './Form';
 
-class ReviewAnswer extends React.PureComponent {
+export class ReviewAnswer extends React.Component {
   componentDidMount() {
     this.answerForm.addEventListener('keydown', this._handleKeyDown);
   }

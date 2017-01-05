@@ -26,7 +26,9 @@ const AppWrapper = styled.div`
   min-height: 100%;
 `;
 
-class App extends React.PureComponent {
+// FIXME: find/replace all React.Component with React.PureComponent for production!
+// TODO: force a find replace before build?
+export class App extends React.Component {
   componentDidMount() {
     console.log('syncNeeded', this.props.syncNeeded);
     // FIXME: move loading to occur on take('LOAD_STORAGE')

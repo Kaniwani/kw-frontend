@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { containerGutter } from 'shared/styles/layout';
 
 const containerStyle = css`
+  position: relative; /* catch any absolute children */
   ${({ withPadding }) => withPadding ? containerGutter : ''}
   ${({ marginTop }) => marginTop ? `margin-top: ${marginTop};` : ''}
   ${({ flexRow, flexCol, flexWrap, flexCenter }) => {
