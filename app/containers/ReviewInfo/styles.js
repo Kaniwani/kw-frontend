@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 import TagList from 'components/TagList';
 import H3 from 'components/H3';
-import { whiteLight, greyLight, greyDark, green, red } from 'shared/styles/colors';
+import P from 'components/P';
+import { whiteLight, greyDark, green, red } from 'shared/styles/colors';
 import { siteMaxWidth } from 'shared/styles/sizing';
+import { resetButton } from 'shared/styles/utils';
+import { containerGutter, elementGutter } from 'shared/styles/layout';
 import { media } from 'shared/styles/media';
 
 export const Wrapper = styled.div`
@@ -19,18 +22,15 @@ export const Wrapper = styled.div`
 `;
 
 export const PanelWrapper = styled.div`
-  padding: .4rem;
+  ${containerGutter}
   background-color: ${whiteLight};
-  &:last-of-type {
-    padding-bottom: ${(props) => props.addPadding ? '1.2rem' : '.4rem'};
-  }
   ${media('min').sm`
     margin-left: .6rem;
     margin-right: .6rem;
-    &:first-of-type {
+    &:first-child {
       border-radius: .3rem .3rem 0 0;
     }
-    &:last-of-type {
+    &:last-child {
       border-radius: 0 0 .3rem .3rem;
     }
     &:only-child {
@@ -43,15 +43,12 @@ export const HeadingWrapper = styled.div`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  padding: .2rem 0 .4rem;
-  margin-bottom: .2rem;
-  border-bottom: 1px solid ${greyLight};
 `;
 
 export const Heading = styled(H3)`
+  ${elementGutter}
   display: flex;
   margin: 0;
-  margin-left: .2rem;
   opacity: .8;
   text-align: left;
   flex: 0 0 auto;
@@ -59,18 +56,51 @@ export const Heading = styled(H3)`
 `;
 
 export const Tags = styled(TagList)`
+  ${elementGutter}
   display: flex;
   flex: 1 1 70%;
   align-self: center;
   flex-flow: row wrap;
   justify-content: flex-end;
+  /* negate chip margin */
+  margin-top: -.15em;
+  margin-bottom: -.15em;
 `;
 
-export const RowItem = styled.div`
+export const RowItem = styled(P)`
+  ${elementGutter}
   flex: 0 1 auto;
   margin: 0 1rem;
-  padding: 0;
   text-align: center;
+  .is-reading-pair & {
+    line-height: 1;
+    flex: 0 1 100%;
+
+    &:first-child { /* kanji */
+      font-size: 2.6em;
+    }
+
+    &:not(:first-child) { /* kana */
+      font-size: 1.5em;
+      margin-top: 0; /* overwrite <P> style */
+      color: ${greyDark};
+    }
+  }
+  .is-sentence-pair & {
+    text-align: center;
+    color: #666;
+    flex: 0 1 100%;
+
+    &:first-child {
+      font-size: 1.5em; /* always prefer Japanese chars larger */
+    }
+
+    &:not(:first-child) {
+      font-size: 1em;
+      margin-top: 0; /* overwrite <P> style */
+      font-style: italic;
+    }
+  }
 `;
 
 export const Row = styled.div`
@@ -80,39 +110,12 @@ export const Row = styled.div`
   align-content: center;
   align-items: center;
   text-align: center;
-  &.is-reading-pair{
-    > div {
-      flex: 0 1 100%;
-    }
-    > div:first-of-type {
-      font-size: 2.6em;
-    }
-    > div:not(:first-of-type) {
-      font-size: 1.5em;
-      color: ${greyDark};
-      transform: translateY(-.3rem);
-    }
-  }
-  &.is-sentence-pair {
-    text-align: center;
-    color: #666;
-    > div {
-      flex: 0 1 100%;
-    }
-    > div:first-of-type {
-      font-size: 1.5em;
-    }
-    > div:not(:first-of-type) {
-      font-size: 1.1em;
-      font-style: italic;
-    }
-  }
 `;
 
 const IconButton = styled.button`
-  &[type="button"] {
+  & {
+    ${resetButton}
     display: block;
-    appearance: none;
     border-radius: 5px;
     align-self: center;
     transform: translateY(1px);
@@ -131,7 +134,8 @@ const IconButton = styled.button`
 `;
 
 export const AddButton = styled(IconButton)`
-  &[type="button"] {
+  & {
+    ${resetButton}
     background-color: transparent;
     color: ${green};
     opacity: .9;
@@ -140,7 +144,8 @@ export const AddButton = styled(IconButton)`
 `;
 
 export const RemoveButton = styled(IconButton)`
-  &[type="button"] {
+  & {
+    ${resetButton}
     color: ${whiteLight};
     background-color: ${red};
     opacity: .6;

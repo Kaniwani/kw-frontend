@@ -20,6 +20,7 @@ const InfoPanel = ({ item, category, detailLevel }) => {
   return (
     <PanelWrapper addPadding={detailLevel > 2}>
       {(detailLevel > 2) && <InfoHeading category={category} tags={allTags} />}
+      {(detailLevel > 2) && <Divider fullWidth fade />}
       <Row className="is-reading-pair">
         <RowItem lang="ja">{chars}</RowItem>
         {(detailLevel > 1) && <RowItem lang="ja">{kana}</RowItem> }

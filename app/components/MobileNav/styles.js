@@ -39,33 +39,40 @@ export const OffCanvasMenu = styled(List)`
     box-shadow: -1px 1px 3px ${adjustColor(black, 'alpha(0.2)')};
   }
 
+  /* override central! :cocktail: */
   & > li {
     flex: 1 0 100%;
     border-bottom: 1px solid ${adjustColor(whiteDark, 'alpha(0.75)')};
 
     > a {
       padding: .7rem 1rem .6rem;
+
+      > span {
+         bottom: 0; /* different centering to base navlink when in vertical list */
+       }
     }
   }
 
 `;
 
 export const Toggle = styled.button`
-  ${resetButton}
-  ${tapTarget()}
-  position: relative;
-  z-index: 1;
-  width: 3em;
-  height: 1.5em;
-  cursor: pointer;
-  align-self: center;
-  padding-bottom: 4px; /* other items in nav have bottom padding for hover underlines */
-  transition: transform 400ms cubic-bezier(0.55, 0, 0.1, 1);
-  transform: rotate(-180deg);
+  & {
+    ${resetButton}
+    ${tapTarget()}
+    position: relative;
+    z-index: 1;
+    width: 3em;
+    height: 1.5em;
+    cursor: pointer;
+    align-self: center;
+    padding-bottom: 4px; /* other items in nav have bottom padding for hover underlines */
+    transition: transform 400ms cubic-bezier(0.55, 0, 0.1, 1);
+    transform: rotate(-180deg);
 
-  /* Kebab icon when off-screen nav is open */
-  &.is-active {
-    transform: rotate(-90deg);
+    /* Kebab icon when off-screen nav is open */
+    &.is-active {
+      transform: rotate(-90deg);
+    }
   }
 `;
 

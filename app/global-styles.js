@@ -40,9 +40,13 @@ injectGlobal`
     font-family: ${ffBody};
   }
 
-  [lang=ja] {
+  /* intentional specificity otherwise any <P> components get 1.4 line height*/
+  [lang=ja],
+  p[lang=ja],
+  span[lang=ja] {
     font-family: ${ffJapanese};
     word-break: break-word;
+    line-height: 1.18;
   }
 
   #app {
@@ -51,7 +55,7 @@ injectGlobal`
   }
 
   *:focus {
-    outline: none;
+    outline: #c8c8c8 auto 3px;
   }
 
   h1, h2, h3, h4, h5, h6 {

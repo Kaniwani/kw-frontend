@@ -1,6 +1,8 @@
+import styled from 'styled-components';
 import * as COLORS from 'shared/styles/colors';
 import { adjustColor } from 'shared/styles/utils';
-import styled from 'styled-components';
+import { media } from 'shared/styles/media';
+import { padding } from 'shared/styles/sizing';
 
 const dividerStyle = (props) => {
   const dividerColor = COLORS[props.color] || COLORS.grey;
@@ -18,7 +20,10 @@ const dividerStyle = (props) => {
 
 const Divider = styled.div`
   border: 0;
-  margin: .5rem auto;
+  ${`margin: ${padding.mobile.inner.y}rem auto;`}
+  ${media('min').sm`
+    margin: ${padding.desktop.inner.y}rem auto;
+  `}
   max-width: ${(props) => props.fullWidth ? '100%' : '70%'};
   background-position: 50%;
   color: ${(props) => COLORS[props.color] || COLORS.grey};

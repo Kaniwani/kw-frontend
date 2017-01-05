@@ -16,16 +16,16 @@ export const centerByMargin = `
 `;
 
 export const containerGutter = css`
-  padding: ${padding.mobile.outer.y / 2}rem ${padding.mobile.outer.x / 2}rem;
+  padding: ${padding.mobile.outer.y}rem ${padding.mobile.outer.x}rem;
   ${media('min').sm`
-    padding: ${padding.desktop.outer.y / 2}rem ${padding.desktop.outer.x / 2}rem;
+    padding: ${padding.desktop.outer.y}rem ${padding.desktop.outer.x}rem;
   `}
 `;
 
 export const elementGutter = css`
-  padding: ${padding.mobile.inner.y / 2}rem ${padding.mobile.inner.x / 2}rem;
+  padding: ${padding.mobile.inner.y}rem ${padding.mobile.inner.x}rem;
   ${media('min').sm`
-    padding: ${padding.desktop.inner.y / 2}rem ${padding.desktop.inner.x / 2}rem;
+    padding: ${padding.desktop.inner.y}rem ${padding.desktop.inner.x}rem;
   `}
 `;
 
@@ -35,10 +35,10 @@ export const elementGutter = css`
  */
 export const bannerElement = css`
   overflow-x: hidden;
-  margin: -${padding.mobile.outer.y / 2}rem -${padding.mobile.outer.x / 2}rem 0;
-  padding: 0 ${padding.mobile.inner.y / 2}rem ${padding.mobile.inner.y / 2}rem;
+  margin: -${padding.mobile.outer.y}rem -${padding.mobile.outer.x}rem 0;
+  padding: 0 ${padding.mobile.inner.y}rem ${padding.mobile.inner.y}rem;
   ${media('min').sm`
-    margin: -${padding.desktop.outer.y / 2}rem -${padding.desktop.outer.x / 2}rem 0;
-    padding: 0 ${padding.desktop.inner.y / 2}rem ${padding.desktop.inner.y / 2}rem;
+    margin: -${padding.desktop.outer.y}rem -${padding.desktop.outer.x}rem 0;
+    padding: 0 ${padding.desktop.inner.y}rem ${padding.desktop.inner.y}rem;
   `}
 `;

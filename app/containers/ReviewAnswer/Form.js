@@ -9,9 +9,9 @@ const Form = styled.form`
   ${mega}
   color: ${black};
   background-color: transparent;
-  margin: 0 0 .5rem;
+  margin: 0 0 .4rem;
   ${media('min').sm`
-    margin: .5rem .6rem;
+    margin: .4rem .6rem;
   `}
   border: 0;
   border-radius: 0;
