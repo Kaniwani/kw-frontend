@@ -10,7 +10,7 @@ import {
   selectQueue,
 } from './selectors';
 
-export class ReviewPage extends React.PureComponent {
+export class ReviewPage extends React.Component {
   // FIXME: move loading to occur if queue size < 10 on take('LOAD_STORAGE')
   componentDidMount() {
     console.log('queue size', this.props.queue.size);

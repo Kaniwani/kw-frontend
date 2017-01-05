@@ -10,25 +10,11 @@ import ReviewAnswer from 'containers/ReviewAnswer';
 import ReviewInfo from 'containers/ReviewInfo';
 import ToggleBar from 'components/ToggleBar';
 
-import {
-  Wrapper,
-  Upper,
-  Lower,
-  ReviewBackground,
-} from './styles';
+import { Wrapper, Upper, Lower, ReviewBackground } from './styles';
+import { selectLoading, selectError } from 'containers/ReviewPage/selectors';
+import { selectCurrentMeaning, selectCurrentReadings, selectCurrentSynonyms } from './selectors';
 
-import {
- selectLoading,
- selectError,
-} from 'containers/ReviewPage/selectors';
-
-import {
-  selectCurrentMeaning,
-  selectCurrentReadings,
-  selectCurrentSynonyms,
-} from './selectors';
-
-export class ReviewSession extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class ReviewSession extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     loading: PropTypes.bool.isRequired,
     error: PropTypes.oneOfType([
@@ -64,9 +50,7 @@ export class ReviewSession extends React.PureComponent { // eslint-disable-line 
       <Wrapper>
         <Helmet
           title="Review Session"
-          meta={[
-            { name: 'description', content: 'Kaniwani Review Session' },
-          ]}
+          meta={[{ name: 'description', content: 'Kaniwani Review Session' }]}
         />
         <Upper>
           <ReviewHeader />

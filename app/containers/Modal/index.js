@@ -39,7 +39,7 @@ import {
   .leaveActive .overlay {opacity: 0; }
  */
 
-export class Modal extends React.PureComponent {
+export class Modal extends React.Component {
   // Hide the modal if the `Esc` key was pressed.
   hideOnEscapeKeyDown = (event) => {
     if (event.which === KEYCODES.ESCAPE) this.props.closeModal();

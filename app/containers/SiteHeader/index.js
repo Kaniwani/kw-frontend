@@ -17,7 +17,7 @@ import DesktopNav from 'components/DesktopNav';
 import MobileNav from 'components/MobileNav';
 import LogoLink from 'components/LogoLink';
 
-class SiteHeader extends React.PureComponent {
+export class SiteHeader extends React.Component {
   static propTypes = {
     navRoutes: PropTypes.instanceOf(Immutable.Iterable).isRequired,
     reviewCount: PropTypes.number,

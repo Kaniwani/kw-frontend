@@ -26,8 +26,21 @@ const AppWrapper = styled.div`
   min-height: 100%;
 `;
 
-// FIXME: change all Components where viable to PureComponents before production
-class App extends React.Component {
+// FIXME: find/replace all React.Component with React.PureComponent for production!
+// TODO: force a find replace before build?
+export class App extends React.Component {
+  static propTypes = {
+    loading: PropTypes.bool,
+    error: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.bool,
+    ]),
+    children: PropTypes.node,
+    loadUserData: PropTypes.func.isRequired,
+    router: PropTypes.object.isRequired,
+    syncNeeded: PropTypes.bool,
+  }
+
   componentDidMount() {
     console.log('syncNeeded', this.props.syncNeeded);
     // FIXME: move loading to occur on take('LOAD_STORAGE')
@@ -73,18 +86,6 @@ class App extends React.Component {
     );
   }
 }
-
-App.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.bool,
-  ]),
-  children: PropTypes.node,
-  loadUserData: PropTypes.func.isRequired,
-  router: PropTypes.object.isRequired,
-  syncNeeded: PropTypes.bool,
-};
 
 export function mapDispatchToProps(dispatch) {
   return {
