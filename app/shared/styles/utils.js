@@ -4,6 +4,7 @@ import { convert } from 'css-color-function'; // https://github.com/postcss/post
 /**
  * Utility for inline use with styled-components
  * Converts a given color by the adjuster functions passed
+ * Quick-refrence: hue, saturation, lightness, whiteness, blackness, tint, shade, blend, contrast
  * https://github.com/postcss/postcss-color-function#list-of-color-adjuster
  * @param  {String} color - color as css color name or hex
  * @param  {String} adjustments - string of adjuster functions
@@ -14,7 +15,7 @@ import { convert } from 'css-color-function'; // https://github.com/postcss/post
  */
 export function adjustColor(color, adjustments) {
   const conversionString = `color(${color} ${adjustments})`;
-  return css`${convert(conversionString)}`;
+  return `${convert(conversionString)}`;
 }
 
 /**
@@ -44,6 +45,7 @@ export function fluidType(minFont, maxFont, minWidth = 600, maxWidth = 1280) {
  * @param {any} right  Value to set if this.props.position is 'right'
  * @param {any} fallback  Value to set if this.props.position is neither left nor right
  * @return {Function} Function waiting to receive `this.props`
+ * @todo this is pretty worthless, should remove if we're honest with ourselves
  */
 export const setLeftRight = (left, right, fallback) => ({ position }) => {
   if (position === 'left') return left;
@@ -53,7 +55,7 @@ export const setLeftRight = (left, right, fallback) => ({ position }) => {
 
 
 /**
- * Creates a background gradient shiftin between x% of a given color
+ * Creates a background gradient shifting between x% of a given color
  * @param  {String} [initialColor='grey'] Color to blend between
  * @param  {String} [direction='bottom'] Direction of gradient
  * @param  {Number} [percent=20] Color change between points
@@ -61,8 +63,8 @@ export const setLeftRight = (left, right, fallback) => ({ position }) => {
  */
 export function bgGradient(initialColor = 'grey', direction = 'bottom', percent = 5) {
   // using css-color-function to reach parity with future css
-  const fromColor = convert(`color(${initialColor} lightness(+ ${percent}%))`);
-  const toColor = convert(`color(${initialColor} lightness(- ${percent}%))`);
+  const fromColor = adjustColor(initialColor, `lightness(+ ${percent}%)`);
+  const toColor = adjustColor(initialColor, `lightness(- ${percent}%)`);
 
   return css`
     background-color: ${initialColor}; /* fallback */
@@ -71,8 +73,13 @@ export function bgGradient(initialColor = 'grey', direction = 'bottom', percent 
   `;
 }
 
-/* increases clickable/hoverable/tappable area for element without increasing size visually or adding internal padding */
-export const tapTarget = ({ x, y } = { x: '.1rem', y: '.1rem' }) => css`
+/**
+ * Increases clickable/hoverable/tappable area for element
+ * without increasing size visually or adding internal padding
+ * @param  {Object} config - option config of {x:String, y:String} to set axis size
+ * @return {String} css as string
+ */
+export const tapTarget = ({ x, y } = { x: '.1rem', y: '.1rem' }) => `
   &:after {
     position: absolute;
     content: "";
@@ -83,7 +90,7 @@ export const tapTarget = ({ x, y } = { x: '.1rem', y: '.1rem' }) => css`
   }
 `;
 
-export const clearfix = css`
+export const clearfix = `
   &:after {
     content: "";
     display: block;
@@ -91,7 +98,7 @@ export const clearfix = css`
   }
 `;
 
-export const wordwrap = css`
+export const wordwrap = `
   overflow-wrap: break-word;
   word-wrap: break-word;
   -ms-word-break: break-all;
@@ -99,7 +106,7 @@ export const wordwrap = css`
   hyphens: auto;
 `;
 
-export const visuallyhidden = css`
+export const visuallyhidden = `
   position: absolute;
   height: 1px !important;
   width: 1px !important;
@@ -112,14 +119,14 @@ export const visuallyhidden = css`
   line-height: 0;
 `;
 
-export const resetList = css`
+export const resetList = `
   list-style: none;
   margin-top: 0;
   margin-bottom: 0;
   padding-left: 0;
 `;
 
-export const resetButton = css`
+export const resetButton = `
   background: none;
   border: 0;
   color: inherit;
@@ -139,12 +146,12 @@ export const resetButton = css`
   }
 `;
 
-export const hidden = css`
+export const hidden = `
   display: none !important;
 `;
 
 /* hidden but still takes up space, to be used with inline icons generally */
-export const ghost = css`
+export const ghost = `
   opacity: 0 !important;
   pointer-events: none !important;
   cursor: none !important;
