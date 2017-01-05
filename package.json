@@ -22,6 +22,7 @@
     "build": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js --color -p --progress",
     "build:clean": "yarn run test:clean",
     "build:dll": "node ./internals/scripts/dependencies.js",
+    "check-todos": "leasot app/**/**/*.js",
     "commit": "git-cz",
     "start": "cross-env NODE_ENV=development node server",
     "start:tunnel": "cross-env NODE_ENV=development ENABLE_TUNNEL=true node server",
@@ -44,7 +45,9 @@
   "lint-staged": {
     "*.js": "lint:eslint"
   },
-  "pre-commit": "lint:staged",
+  "pre-commit": [
+    "lint:staged"
+  ],
   "babel": {
     "presets": [
       [
@@ -309,6 +312,7 @@
     "imports-loader": "^0.7.0",
     "jest-cli": "17.0.3",
     "json-loader": "0.5.4",
+    "leasot": "^4.3.0",
     "lint-staged": "^3.2.5",
     "ngrok": "2.2.4",
     "null-loader": "0.1.1",
