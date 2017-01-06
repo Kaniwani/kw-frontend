@@ -45,6 +45,7 @@
   "lint-staged": {
     "*.js": "lint:eslint"
   },
+  "//": "This rule allows js-hyperclick (atom editor plugin) to resolve absolute imported modules properly",
   "pre-commit": [
     "lint:staged"
   ],
@@ -259,6 +260,7 @@
     "react-router-scroll": "0.4.1",
     "react-tooltip": "3.2.2",
     "redux": "3.6.0",
+    "redux-form": "^6.4.3",
     "redux-immutable": "3.0.9",
     "redux-saga": "0.14.0",
     "redux-storage": "latest",
@@ -329,7 +331,6 @@
     "webpack-dev-middleware": "^1.9.0",
     "webpack-hot-middleware": "^2.14.0"
   },
-  "//": "This rule allows js-hyperclick (atom editor plugin) to resolve absolute imported modules properly",
   "moduleRoots": [
     "app"
   ],

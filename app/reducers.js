@@ -6,6 +6,7 @@
 import { fromJS } from 'immutable';
 import { combineReducers } from 'redux-immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
+import { reducer as formReducer } from 'redux-form/immutable';
 
 import * as storage from 'redux-storage';
 import merger from 'redux-storage-merger-immutablejs';
@@ -51,6 +52,7 @@ export default function createReducer(asyncReducers) {
   return wrapWithLocalStoragePersistence(combineReducers({
     route: routeReducer,
     global: globalReducer,
+    form: formReducer,
     ...asyncReducers,
   }));
 }
