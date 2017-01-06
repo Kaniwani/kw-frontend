@@ -18,11 +18,11 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => {
 };
 
 renderField.propTypes = {
-  input: PropTypes.string.isRequired,
+  input: PropTypes.object.isRequired,
   label: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   meta: PropTypes.shape({
-    touched: PropTypes.string,
+    touched: PropTypes.bool,
     error: PropTypes.string,
   }).isRequired,
 };
@@ -45,7 +45,7 @@ const ImmutableForm = (props) => {
 ImmutableForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,
-  reset: PropTypes.bool.isRequired,
+  reset: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
 };
 
