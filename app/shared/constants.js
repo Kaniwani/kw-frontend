@@ -18,7 +18,7 @@ export const PERSISTENCE_ACTION_WHITELIST = [
  * @type {Array}
  */
 export const PERSISTENCE_STATE_WHITELIST = [
-  'global',
+  ['global', 'user'],
   'review',
 ];
 

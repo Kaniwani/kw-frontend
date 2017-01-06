@@ -17,6 +17,7 @@ export default function shapeUserData(data) { // eslint-disable-line import/pref
     settings: {
       followMe: data.follow_me,
       autoAdvanceCorrect: data.auto_advance_on_success,
+      autoAdvanceDelay: 3000,
       autoExpandCorrect: data.auto_expand_answer_on_success,
       autoExpandIncorrect: data.auto_expand_answer_on_failure,
       burnedOnly: data.only_review_burned,

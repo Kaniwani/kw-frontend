@@ -1,11 +1,36 @@
-import { take, takeLatest, call, put, fork, cancel } from 'redux-saga/effects';
-import { LOCATION_CHANGE } from 'react-router-redux';
-import { LOAD_USERDATA } from 'containers/App/constants';
-import { userDataLoaded, userDataLoadingError } from 'containers/App/actions';
-import shapeUserData from './utils/shapeUserData';
-import addSynonymSagas from 'containers/AddSynonymForm/sagas';
-
+// import { LOCATION_CHANGE } from 'react-router-redux';
+import { takeLatest, select, call, put, fork } from 'redux-saga/effects';
 import request from 'utils/request';
+import shapeUserData from './utils/shapeUserData';
+import { LOAD } from 'redux-storage';
+import { LOAD_USERDATA } from 'containers/App/constants';
+import { selectIsUserSyncNeeded } from 'containers/App/selectors';
+import { selectIsReviewSyncNeeded } from 'containers/ReviewPage/selectors';
+import {
+  loadUserData,
+  userDataLoaded,
+  userDataLoadingError,
+} from 'containers/App/actions';
+import {
+  loadReviewData,
+  // reviewDataLoaded,
+} from 'containers/ReviewPage/actions';
+
+export function* storageLoad() {
+  const needUserSync = yield select(selectIsUserSyncNeeded());
+  const needReviewSync = yield select(selectIsReviewSyncNeeded());
+
+  if (needUserSync && needReviewSync) {
+    yield [
+      put(loadUserData(false)),
+      put(loadReviewData(false)),
+    ];
+  } else if (needUserSync) {
+    yield put(loadUserData(false));
+  } else if (needReviewSync) {
+    yield put(loadReviewData(false));
+  }
+}
 
 /**
  * userData request/response handler
@@ -28,23 +53,29 @@ export function* getUserData() {
  * By using `takeLatest` only the result of the latest API call is applied.
  */
 export function* getUserDataWatcher() {
-  yield fork(takeLatest, LOAD_USERDATA, getUserData);
+  yield takeLatest(LOAD_USERDATA, getUserData);
+}
+
+export function* storageLoadWatcher() {
+  yield takeLatest(LOAD, storageLoad);
 }
 
 /**
  * Root saga manages watcher lifecycle
  */
-export function* userData() {
+export function* rootSaga() {
   // Fork watcher so we can continue execution
-  const watcher = yield fork(getUserDataWatcher);
+  /*  const watchers = */ yield [
+    fork(getUserDataWatcher),
+    fork(storageLoadWatcher),
+  ];
 
-  // Suspend execution until location changes
-  yield take(LOCATION_CHANGE);
-  yield cancel(watcher);
+  // Can't image we ever want to cancel these watchers really, since app is root level anyway
+  // yield take(LOCATION_CHANGE);
+  // yield cancel(...watchers);
 }
 
 // Bootstrap sagas
 export default [
-  userData,
-  ...addSynonymSagas,
+  rootSaga,
 ];

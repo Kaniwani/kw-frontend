@@ -25,6 +25,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import FontFaceObserver from 'fontfaceobserver';
 import { useScroll } from 'react-router-scroll';
 import configureStore from './store';
+import { loadFromLocalStorage } from './storageEngine';
 
 // Import the CSS reset & global styles, which HtmlWebpackPlugin transfers to the build folder
 import 'sanitize.css/sanitize.css';
@@ -85,6 +86,9 @@ const render = () => {
 
 // Initial render
 render();
+// Rehydrate data
+loadFromLocalStorage(store)
+  .catch((err) => console.error('Failed to load previous state:', err)); // eslint-disable-line no-console
 
 // Install ServiceWorker and AppCache in the end since
 // it's not most important operation and if main code fails,

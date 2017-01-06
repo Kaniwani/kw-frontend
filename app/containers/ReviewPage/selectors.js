@@ -43,6 +43,19 @@ const selectTotalCount = () => createSelector(
   (substate) => substate.get('total'),
 );
 
+const selectIsReviewSyncNeeded = () => createSelector(
+  selectQueueCount(),
+  selectCompletedCount(),
+  selectTotalCount(),
+  (queue, completed, total) => (queue < 10) && (queue + completed < total),
+);
+
+const selectIsQueueComplete = () => createSelector(
+  selectCompletedCount(),
+  selectTotalCount(),
+  (completed, total) => completed === total,
+);
+
 export default selectReviewDomain;
 
 export {
@@ -53,4 +66,6 @@ export {
   selectQueueCount,
   selectTotalCount,
   selectCompletedCount,
+  selectIsReviewSyncNeeded,
+  selectIsQueueComplete,
 };

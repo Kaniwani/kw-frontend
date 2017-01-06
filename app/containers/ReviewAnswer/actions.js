@@ -32,13 +32,13 @@ export function resetAnswer() {
 
 /**
 * Updates answer state
- * @param {object} payload Answer state updates
+ * @param {object} updates Answer state updates
  * @return {object} An action object with a type of UPDATE_ANSWER and updated data
  */
-export function updateAnswer(payload) {
+export function updateAnswer(updates) {
   return {
     type: UPDATE_ANSWER,
-    payload,
+    payload: updates,
   };
 }
 
@@ -56,9 +56,10 @@ export function processAnswer() {
  * Starts a saga that will process answer after a delay
  * @return {object} An action object with a type of START_AUTO_ADVANCE
  */
-export function startAutoAdvance() {
+export function startAutoAdvance(delay) {
   return {
     type: START_AUTO_ADVANCE,
+    payload: delay,
   };
 }
 

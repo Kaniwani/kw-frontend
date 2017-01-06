@@ -24,10 +24,10 @@ function checkStatus(response) {
  * @param  {object} [options] The options we want to pass to "fetch"
  * @return {object}           The response data
  */
-export default function post(url, data, options = { asJSON: false }) {
+export default function post(url, data, options = { asJSON: true }) {
   let mergedOptions = Object.assign({
     method: 'POST',
-    body: data, // might need to already be: new FormData(data)
+    body: Object.assign({}, data), // might need to already be: new FormData(data)
     credentials: 'include',
   }, options);
 

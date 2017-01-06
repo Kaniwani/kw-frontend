@@ -11,19 +11,24 @@
  */
 
 import { fromJS } from 'immutable';
+import { SAVE, LOAD } from 'redux-storage';
 import isEmpty from 'lodash/isEmpty';
-import modalReducer, { modalInitialState } from 'containers/Modal/reducer';
-import addSynonymReducer, { addSynonymInitialState } from 'containers/AddSynonymForm/reducer';
-import * as AddSynonym from 'containers/AddSynonymForm/constants';
-import * as Modal from 'containers/Modal/constants';
+// import modalReducer, { modalInitialState } from 'containers/Modal/reducer';
+// import addSynonymReducer, { addSynonymInitialState } from 'containers/AddSynonymForm/reducer';
+// import * as AddSynonym from 'containers/AddSynonymForm/constants';
+// import * as Modal from 'containers/Modal/constants';
 import * as App from './constants';
 
 // The initial state of the App
 export const initialState = fromJS({
+  storage: {
+    loaded: null,
+    empty: null,
+  },
   loading: false,
   error: false,
-  modal: modalInitialState,
-  addSynonym: addSynonymInitialState,
+  // modal: modalInitialState,
+  // addSynonym: addSynonymInitialState,
   user: {
     name: '',
     reviewCount: 0,
@@ -37,6 +42,7 @@ export const initialState = fromJS({
     settings: {
       followMe: null,
       autoAdvanceCorrect: null,
+      autoAdvanceDelay: 3000,
       autoExpandCorrect: null,
       autoExpandIncorrect: null,
       burnedOnly: null,
@@ -48,14 +54,18 @@ export const initialState = fromJS({
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
-    case App.STORAGE_LOAD: {
+    case LOAD: {
       const loadedState = action.payload;
-      console.log('empty:', isEmpty(loadedState), loadedState);
-      return isEmpty(loadedState) ? state : state.set(action.payload);
+      return isEmpty(loadedState) ?
+        state.set('storage', fromJS({ loaded: true, empty: true })) :
+        state.set(action.payload).set('storage', fromJS({ loaded: true, empty: true }));
     }
+    case SAVE:
+      console.info('Storage saved!'); // eslint-disable-line no-console
+      return state;
     case App.LOAD_USERDATA:
       return state
-        .set('loading', true)
+        .set('loading', action.showIndicator)
         .set('error', false);
     case App.LOAD_USERDATA_SUCCESS:
       return state
@@ -65,13 +75,13 @@ function appReducer(state = initialState, action) {
       return state
         .set('error', action.error)
         .set('loading', false);
-    case AddSynonym.LOAD_JISHODATA:
-    case AddSynonym.LOAD_JISHODATA_SUCCESS:
-    case AddSynonym.LOAD_JISHODATA_ERROR:
-      return state.set('addSynonym', fromJS(addSynonymReducer(state.get('addSynonym'), action)));
-    case Modal.SHOW_MODAL:
-    case Modal.HIDE_MODAL:
-      return state.set('modal', fromJS(modalReducer(state.get('modal'), action)));
+    // case AddSynonym.LOAD_JISHODATA:
+    // case AddSynonym.LOAD_JISHODATA_SUCCESS:
+    // case AddSynonym.LOAD_JISHODATA_ERROR:
+    //   return state.set('addSynonym', fromJS(addSynonymReducer(state.get('addSynonym'), action)));
+    // case Modal.SHOW_MODAL:
+    // case Modal.HIDE_MODAL:
+    //   return state.set('modal', fromJS(modalReducer(state.get('modal'), action)));
     default:
       return state;
   }

@@ -49,12 +49,22 @@ const selectUser = () => createSelector(
   (globalState) => globalState.get('user'),
 );
 
-const selectIsSyncNeeded = () => createSelector(
+const selectStorage = () => createSelector(
+  selectGlobal(),
+  (globalState) => globalState.get('storage'),
+);
+
+const selectIsUserSyncNeeded = () => createSelector(
   selectUser(),
-  (userState) => {
-    const lastSync = userState.get('lastKwSyncDate');
-    if (lastSync == null) return true;
-    return differenceInMinutes(Date.now(), lastSync) > MINUTES_SINCE_LAST_SYNC_LIMIT;
+  selectStorage(),
+  (user, storage) => {
+    const lastSync = user.get('lastKwSyncDate');
+    const storageEmpty = storage.get('empty');
+    if (storageEmpty || lastSync == null) return true;
+
+    const needReviews = user.get('reviewCount') < 1;
+    const timeLimitElapsed = differenceInMinutes(Date.now(), lastSync) > MINUTES_SINCE_LAST_SYNC_LIMIT;
+    return (needReviews && timeLimitElapsed);
   },
 );
 
@@ -70,7 +80,7 @@ export {
   selectLoading,
   selectError,
   selectUser,
-  selectIsSyncNeeded,
+  selectIsUserSyncNeeded,
   selectModal,
   selectAddSynonym,
   selectSettings,

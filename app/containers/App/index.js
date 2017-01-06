@@ -12,11 +12,14 @@ import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
 
-// import Modal from 'containers/Modal';
 import SiteHeader from 'containers/SiteHeader';
 import LoadingIndicator from 'components/LoadingIndicator';
-import { selectLoading, selectError, selectIsSyncNeeded } from 'containers/App/selectors';
-import { loadUserData } from 'containers/App/actions';
+import { selectLoading, selectError } from 'containers/App/selectors';
+
+
+import Container from 'components/Container';
+import Element from 'components/Element';
+import P from 'components/P';
 
 const AppWrapper = styled.div`
   display: flex;
@@ -27,8 +30,7 @@ const AppWrapper = styled.div`
 `;
 
 // FIXME: find/replace all React.Component with React.PureComponent for production!
-// TODO: force a find replace before build?
-export class App extends React.Component {
+export class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     loading: PropTypes.bool,
     error: PropTypes.oneOfType([
@@ -36,17 +38,7 @@ export class App extends React.Component {
       PropTypes.bool,
     ]),
     children: PropTypes.node,
-    loadUserData: PropTypes.func.isRequired,
     router: PropTypes.object.isRequired,
-    syncNeeded: PropTypes.bool,
-  }
-
-  componentDidMount() {
-    console.log('syncNeeded', this.props.syncNeeded);
-    // FIXME: move loading to occur on take('LOAD_STORAGE')
-    if (this.props.syncNeeded) {
-      this.props.loadUserData();
-    }
   }
 
   render() {
@@ -60,7 +52,11 @@ export class App extends React.Component {
     // Show an error if there is one
     } else if (this.props.error !== false) {
       const ErrorComponent = () => (
-        <p>Something went wrong, please try again!</p>
+        <Container>
+          <Element>
+            <P>Something went wrong, please try again!</P>
+          </Element>
+        </Container>
       );
       appContent = (<ErrorComponent />);
     } else {
@@ -78,7 +74,6 @@ export class App extends React.Component {
           ]}
         />
 
-        {/* <Modal /> */}
         {!isReviewRoute && <SiteHeader />}
         {appContent}
 
@@ -87,17 +82,10 @@ export class App extends React.Component {
   }
 }
 
-export function mapDispatchToProps(dispatch) {
-  return {
-    loadUserData: () => dispatch(loadUserData()),
-  };
-}
-
 const mapStateToProps = createStructuredSelector({
   loading: selectLoading(),
   error: selectError(),
-  syncNeeded: selectIsSyncNeeded(),
 });
 
 // Wrap the component to inject dispatch and state into it
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

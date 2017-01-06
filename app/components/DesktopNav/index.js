@@ -13,17 +13,23 @@ function DesktopNav({ links, reviewCount, ...props }) {
 }
 
 DesktopNav.propTypes = {
-  links: PropTypes.instanceOf(Immutable.Iterable),
-  reviewCount: PropTypes.number,
+  links: PropTypes.instanceOf(Immutable.Iterable).isRequired,
+  reviewCount: PropTypes.number.isRequired,
 };
 
 function NavItem({ item }) {
   return (
     <Li>
-      <NavLink href={item.get('href')} to={item.get('to')} disabled={item.get('isDisabled')} activeClassName="is-active" plainLink>
+      <NavLink
+        href={item.get('href')}
+        to={item.get('to')}
+        disabled={item.get('isDisabled')}
+        activeClassName="is-active"
+        plainLink
+      >
         <Text className="NavLink__Text">
           {item.get('text')}
-          {item.get('count') && <Count>{item.get('count')}</Count>}
+          {(item.get('count') > 0) && <Count>{item.get('count')}</Count>}
         </Text>
       </NavLink>
     </Li>

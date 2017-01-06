@@ -6,21 +6,8 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { fromJS } from 'immutable';
 import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
-import * as storage from 'redux-storage';
-import createEngine from 'redux-storage-engine-localforage';
-import immutableEngineFilter from 'redux-storage-decorator-immutable-filter';
 import createReducer from './reducers';
-
-import {
-  PERSISTENCE_ACTION_WHITELIST,
-  PERSISTENCE_STATE_WHITELIST,
-} from 'shared/constants';
-
-// redux-storage
-const engine = immutableEngineFilter(
-  createEngine('kwStorage', { name: 'kaniwani' }),
-  PERSISTENCE_STATE_WHITELIST,
-);
+import { storageMiddleware } from './storageEngine';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -30,7 +17,7 @@ export default function configureStore(initialState = {}, history) {
   // 2. sagaMiddleware: Makes redux-sagas work
   // 3. routerMiddleware: Syncs the location/URL path to the state
   const middlewares = [
-    storage.createMiddleware(engine, [], PERSISTENCE_ACTION_WHITELIST),
+    storageMiddleware,
     sagaMiddleware,
     routerMiddleware(history),
   ];
@@ -71,14 +58,6 @@ export default function configureStore(initialState = {}, history) {
       });
     });
   }
-
-  const loadFromLocalStorage = storage.createLoader(engine);
-  // Notice that our load function will return a promise that can also be used
-  // to respond to the restore event.
-  loadFromLocalStorage(store)
-    // TODO: remove logs when happy all is safe
-    .then((newState) => console.info('Loaded state:', newState))
-    .catch((err) => console.error('Failed to load previous state:', err));
 
   return store;
 }

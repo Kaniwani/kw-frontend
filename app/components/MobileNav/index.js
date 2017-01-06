@@ -44,7 +44,7 @@ function NavItem({ item }) {
       >
         <Text className="NavLink__Text">
           {item.get('text')}
-          {item.get('count') && <Count>{item.get('count')}</Count>}
+          {(item.get('count') > 0) && <Count>{item.get('count')}</Count>}
         </Text>
       </MobileNavLink>
     </Li>

@@ -12,7 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import Wrapper from 'components/Wrapper';
 import Container from 'components/Container';
 import Element from 'components/Element';
-import Form from 'components/Form';
+// import Form from 'components/Form';
 import H2 from 'components/H2';
 import H3 from 'components/H3';
 import P from 'components/P';
@@ -54,7 +54,7 @@ const HomePage = ({
           <P>Announcement 2</P>
           <P>Announcement 3</P>
         </Element>
-        <Form />
+        {/* <Form /> */}
       </Container>
     </Wrapper>
   </div>
