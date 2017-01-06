@@ -12,6 +12,7 @@ import * as storage from 'redux-storage';
 import merger from 'redux-storage-merger-immutablejs';
 
 import globalReducer from 'containers/App/reducer';
+import reviewReducer from 'containers/ReviewPage/reducer';
 
 /*
  * routeReducer
@@ -53,6 +54,7 @@ export default function createReducer(asyncReducers) {
     route: routeReducer,
     global: globalReducer,
     form: formReducer,
+    review: reviewReducer,
     ...asyncReducers,
   }));
 }
