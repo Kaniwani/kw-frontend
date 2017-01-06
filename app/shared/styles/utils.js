@@ -79,7 +79,7 @@ export function bgGradient(initialColor = 'grey', direction = 'bottom', percent 
  * @param  {Object} config - option config of {x:String, y:String} to set axis size
  * @return {String} css as string
  */
-export const tapTarget = ({ x, y } = { x: '.1rem', y: '.1rem' }) => `
+export const tapTarget = ({ x, y } = { x: '.1rem', y: '.1rem' }) => css`
   &:after {
     position: absolute;
     content: "";
@@ -90,7 +90,7 @@ export const tapTarget = ({ x, y } = { x: '.1rem', y: '.1rem' }) => `
   }
 `;
 
-export const clearfix = `
+export const clearfix = css`
   &:after {
     content: "";
     display: block;
@@ -126,7 +126,7 @@ export const resetList = `
   padding-left: 0;
 `;
 
-export const resetButton = `
+export const resetButton = css`
   background: none;
   border: 0;
   color: inherit;

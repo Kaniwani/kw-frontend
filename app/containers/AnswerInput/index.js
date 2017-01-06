@@ -11,7 +11,16 @@ import { Input, Wrapper, Label, ButtonContainer } from './styles';
 import { updateInput } from './actions';
 import { selectInputText } from './selectors';
 
+
 export class AnswerInput extends React.Component {
+  static propTypes = {
+    text: PropTypes.string.isRequired,
+    onChangeInput: PropTypes.func.isRequired,
+    onIgnore: PropTypes.func.isRequired,
+    streakName: PropTypes.string.isRequired,
+    disabled: PropTypes.bool.isRequired,
+  }
+
   componentDidMount() {
     bind(this.inputField);
   }
@@ -55,14 +64,6 @@ export class AnswerInput extends React.Component {
     );
   }
 }
-
-AnswerInput.propTypes = {
-  text: PropTypes.string.isRequired,
-  onChangeInput: PropTypes.func.isRequired,
-  onIgnore: PropTypes.func.isRequired,
-  streakName: PropTypes.string.isRequired,
-  disabled: PropTypes.bool.isRequired,
-};
 
 const mapStateToProps = createStructuredSelector({
   text: selectInputText(),
