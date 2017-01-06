@@ -1,5 +1,4 @@
-import { takeLatest } from 'redux-saga';
-import { put, fork } from 'redux-saga/effects';
+import { put, fork, takeLatest } from 'redux-saga/effects';
 import markAllAsDaemon from 'utils/markAllAsDaemon';
 // import request from 'utils/request';
 import post from 'utils/post';

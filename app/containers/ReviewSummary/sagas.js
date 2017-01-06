@@ -1,5 +1,4 @@
-import { takeLatest } from 'redux-saga';
-import { call } from 'redux-saga/effects';
+import { takeLatest, call } from 'redux-saga/effects';
 import markAllAsDaemon from 'utils/markAllAsDaemon';
 import { LOCATION_CHANGE } from 'react-router-redux';
 

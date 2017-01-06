@@ -1,5 +1,4 @@
-import { takeLatest } from 'redux-saga';
-import { take, call, put, fork, cancel } from 'redux-saga/effects';
+import { take, takeLatest, call, put, fork, cancel } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { LOAD_USERDATA } from 'containers/App/constants';
 import { userDataLoaded, userDataLoadingError } from 'containers/App/actions';
