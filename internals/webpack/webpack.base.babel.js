@@ -87,8 +87,8 @@ module.exports = (options) => ({
     ],
     mainFields: [
       'browser',
-      'jsnext:main',
       'main',
+      'jsnext:main',
     ],
     // reference localforage that can import correctly in prod build
     alias: {
