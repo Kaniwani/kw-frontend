@@ -1,4 +1,7 @@
 import 'whatwg-fetch';
+import Cookies from 'js-cookie';
+
+const CSRF_TOKEN = Cookies.get('csrftoken');
 
 /**
  * Checks if a network request came back fine, and throws an error if not
@@ -24,21 +27,16 @@ function checkStatus(response) {
  * @param  {object} [options] The options we want to pass to "fetch"
  * @return {object}           The response data
  */
-export default function post(url, data, options = { asJSON: true }) {
-  let mergedOptions = Object.assign({
+export default function post(url, data, options = {}) {
+  const mergedOptions = Object.assign({
     method: 'POST',
-    body: Object.assign({}, data), // might need to already be: new FormData(data)
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': CSRF_TOKEN,
+    },
+    body: JSON.stringify(data),
     credentials: 'include',
   }, options);
-
-  if (options.asJSON) {
-    mergedOptions = Object.assign(mergedOptions, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-  }
 
   return fetch(url, mergedOptions).then(checkStatus);
 }

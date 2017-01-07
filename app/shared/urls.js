@@ -20,6 +20,13 @@ export function createRequestUrl(path = '', id = '') {
   return `${API_BASE_URL}${path}/${id ? `${id}/` : ''}`;
 }
 
+
+/**
+* Creates a url for obtaining an auth token
+* @return {String} url
+*/
+export const createAuthTokenUrl = () => createRequestUrl('token-auth');
+
 /**
  * Creates a url for profile endpoint requests
  * @param  {String} [id=''] - optional user id for specific profile requests

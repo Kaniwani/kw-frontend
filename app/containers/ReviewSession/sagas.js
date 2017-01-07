@@ -103,9 +103,9 @@ import {
 
 
 export function* getReviewData() {
-  const requestURL = createReviewUrl();
+  const requestURL = createReviewUrl(null, { category: 'current' });
   try {
-    const data = yield call(request, requestURL, { credentials: 'include' });
+    const data = yield call(request, requestURL);
     const shapedData = shapeReviewData(data);
     yield put(reviewDataLoaded(shapedData));
   } catch (err) {
@@ -150,7 +150,7 @@ export function* recordAnswer() {
     if (correct || (!correct && firstTimeWrong)) {
       const correctness = correct ? 'correct' : 'incorrect';
       const postUrl = createReviewUrl(id, { correctness });
-      yield fork(post, postUrl, postData, { method: 'OPTIONS' /* wth ? */});
+      yield fork(post, postUrl, postData);
     }
   } catch (err) {
     // TODO: catch errors and notify user answer not recorded but added to an answersQueue for submission next time they're online
