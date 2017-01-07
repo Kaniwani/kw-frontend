@@ -29,7 +29,6 @@
     "start:production": "yarn run build && yarn run start:prod",
     "start:prod": "cross-env NODE_ENV=production node server",
     "storybook": "start-storybook -p 6006",
-    "pagespeed": "node ./internals/scripts/pagespeed.js",
     "generate": "plop --plopfile internals/generators/index.js",
     "lint": "yarn run lint:js",
     "lint:eslint": "eslint --ignore-path .gitignore --ignore-pattern 'internals/scripts' --ignore-pattern '.storybook/'",
