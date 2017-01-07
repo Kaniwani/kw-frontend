@@ -6,14 +6,18 @@ import debounce from 'redux-storage-decorator-debounce';
 import {
   PERSISTENCE_ACTION_WHITELIST,
   PERSISTENCE_STATE_WHITELIST,
+  PERSISTENCE_STATE_BLACKLIST,
 } from 'shared/constants';
 
 const filteredEngine = immutableEngineFilter(
   createEngine('kwStorage', { name: 'kaniwani' }),
   PERSISTENCE_STATE_WHITELIST,
+  PERSISTENCE_STATE_BLACKLIST,
 );
 
-export const engine = debounce(filteredEngine, 5000);
+const FIFTEEN_SECONDS = 15000;
+
+export const engine = debounce(filteredEngine, FIFTEEN_SECONDS);
 export const storageMiddleware = storage.createMiddleware(engine, [], PERSISTENCE_ACTION_WHITELIST);
 /**
  * Action that returns a promise and loaded storage data

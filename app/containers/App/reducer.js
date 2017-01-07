@@ -12,19 +12,12 @@
 
 import { fromJS } from 'immutable';
 import { SAVE, LOAD } from 'redux-storage';
-import isEmpty from 'lodash/isEmpty';
-// import modalReducer, { modalInitialState } from 'containers/Modal/reducer';
+import * as App from './constants';
 // import addSynonymReducer, { addSynonymInitialState } from 'containers/AddSynonymForm/reducer';
 // import * as AddSynonym from 'containers/AddSynonymForm/constants';
-// import * as Modal from 'containers/Modal/constants';
-import * as App from './constants';
 
 // The initial state of the App
 export const initialState = fromJS({
-  storage: {
-    loaded: null,
-    empty: null,
-  },
   loading: false,
   error: false,
   // modal: modalInitialState,
@@ -54,14 +47,9 @@ export const initialState = fromJS({
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
-    case LOAD: {
-      const loadedState = action.payload;
-      return isEmpty(loadedState) ?
-        state.set('storage', fromJS({ loaded: true, empty: true })) :
-        state.set(action.payload).set('storage', fromJS({ loaded: true, empty: true }));
-    }
+    case LOAD: return state.set(action.payload);
     case SAVE:
-      console.info('Storage saved!'); // eslint-disable-line no-console
+      console.info('%cStorage saved!', 'color: blue'); // eslint-disable-line no-console
       return state;
     case App.LOAD_USERDATA:
       return state
@@ -79,9 +67,6 @@ function appReducer(state = initialState, action) {
     // case AddSynonym.LOAD_JISHODATA_SUCCESS:
     // case AddSynonym.LOAD_JISHODATA_ERROR:
     //   return state.set('addSynonym', fromJS(addSynonymReducer(state.get('addSynonym'), action)));
-    // case Modal.SHOW_MODAL:
-    // case Modal.HIDE_MODAL:
-    //   return state.set('modal', fromJS(modalReducer(state.get('modal'), action)));
     default:
       return state;
   }

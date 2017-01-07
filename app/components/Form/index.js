@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form/immutable'; // <--- immutable import
 import validate from './utils/validate';
 
-const FORM_NAME = 'immutable-form'; // must be unique per component
+const FORM_NAME = 'add-synonym-form'; // must be unique per component
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => {
   const INPUT_ID = `${FORM_NAME}-${label}`;

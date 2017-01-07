@@ -3,8 +3,6 @@
  */
 
 import { createSelector } from 'reselect';
-import { MINUTES_SINCE_LAST_SYNC_LIMIT } from 'shared/constants';
-import differenceInMinutes from 'date-fns/difference_in_minutes';
 
 const selectGlobal = () => (state) => state.get('global');
 
@@ -14,7 +12,6 @@ const selectLocationState = () => {
 
   return (state) => {
     const routingState = state.get('route'); // or state.route
-
     if (!routingState.equals(prevRoutingState)) {
       prevRoutingState = routingState;
       prevRoutingStateJS = routingState.toJS();
@@ -34,11 +31,6 @@ const selectError = () => createSelector(
   (globalState) => globalState.get('error'),
 );
 
-const selectModal = () => createSelector(
-  selectGlobal(),
-  (globalState) => globalState.get('modal'),
-);
-
 const selectAddSynonym = () => createSelector(
   selectGlobal(),
   (globalState) => globalState.get('addSynonym'),
@@ -47,25 +39,6 @@ const selectAddSynonym = () => createSelector(
 const selectUser = () => createSelector(
   selectGlobal(),
   (globalState) => globalState.get('user'),
-);
-
-const selectStorage = () => createSelector(
-  selectGlobal(),
-  (globalState) => globalState.get('storage'),
-);
-
-const selectIsUserSyncNeeded = () => createSelector(
-  selectUser(),
-  selectStorage(),
-  (user, storage) => {
-    const lastSync = user.get('lastKwSyncDate');
-    const storageEmpty = storage.get('empty');
-    if (storageEmpty || lastSync == null) return true;
-
-    const needReviews = user.get('reviewCount') < 1;
-    const timeLimitElapsed = differenceInMinutes(Date.now(), lastSync) > MINUTES_SINCE_LAST_SYNC_LIMIT;
-    return (needReviews && timeLimitElapsed);
-  },
 );
 
 const selectSettings = () => createSelector(
@@ -80,8 +53,6 @@ export {
   selectLoading,
   selectError,
   selectUser,
-  selectIsUserSyncNeeded,
-  selectModal,
   selectAddSynonym,
   selectSettings,
 };

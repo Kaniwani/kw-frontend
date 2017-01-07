@@ -40,13 +40,7 @@ function reviewReducer(state = initialState, action) {
         .set('loading', action.showIndicator)
         .set('error', false);
     case Review.LOAD_REVIEWDATA_SUCCESS: {
-      // FIXME: these checks should be unneccesary if we're paginating getReviews correctly
-      // const completedIDs = state.get('completed').map((x) => x.get('id'));
-      // const queueIDs = state.get('queue').map((x) => x.get('id'));
-      // const currentID = state.getIn(['current', 'id']);
-      // const reviews = action.payload.reviews
-      //   .filter(({ id }) => !completedIDs.includes(id) && !queueIDs.includes(id) && id !== currentID);
-
+      // FIXME: make queue an Immutable Set()
       return state
         .set('total', action.payload.count)
         .set('loading', false)

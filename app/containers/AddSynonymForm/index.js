@@ -1,112 +1,80 @@
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import blockEvent from 'utils/blockEvent';
-import { bind, unbind } from 'kanawana';
-// import LoadingIndicator from 'components/LoadingIndicator';
-import JishoSearchLink from 'components/JishoSearchLink';
+// import { connect } from 'react-redux';
+// import { createStructuredSelector } from 'reselect';
+// import blockEvent from 'utils/blockEvent';
+// import { bind, unbind } from 'kanawana';
+import { Field, reduxForm } from 'redux-form/immutable';
+import validate from './utils/validate';
 
-import {
-  selectInputText,
-  selectAnswerType,
-} from 'containers/AnswerInput/selectors';
+const FORM_NAME = 'add-synonym-form'; // must be unique per component
 
-import {
-  // loadJishoData,
-  addSynonym,
-} from './actions';
+// import JishoSearchLink from 'components/JishoSearchLink';
+//
+// import {
+//   selectInputText,
+//   selectAnswerType,
+// } from 'containers/AnswerInput/selectors';
+//
+// import {
+//   // loadJishoData,
+//   addSynonym,
+// } from './actions';
+//
+// import {
+//   Form,
+//   Label,
+//   LabelText,
+//   Input,
+//   Validation,
+//   SubmitButton,
+// } from './styles';
 
-import {
-  Form,
-  Label,
-  LabelText,
-  Input,
-  Validation,
-  SubmitButton,
-} from './styles';
+const renderField = ({ input, label, type, meta: { touched, error } }) => {
+  const INPUT_ID = `${FORM_NAME}-${label}`;
+  return (
+    <div>
+      <label htmlFor={INPUT_ID}>{label}</label>
+      <div>
+        <input id={INPUT_ID} {...input} type={type} placeholder={label} />
+        {touched && error && <span>{error}</span>}
+      </div>
+    </div>
+  );
+};
 
-export class AddSynonymForm extends React.Component {
-  static propTypes = {
-    text: PropTypes.string.isRequired,
-    answerType: PropTypes.string.isRequired,
-    addSynonym: PropTypes.func.isRequired,
-    // jishoData: PropTypes.instanceOf(Immutable.Iterable),
-    // loadJishoData: PropTypes.func.isRequired,
-  }
+renderField.propTypes = {
+  input: PropTypes.object.isRequired,
+  label: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  meta: PropTypes.shape({
+    touched: PropTypes.bool,
+    error: PropTypes.string,
+  }).isRequired,
+};
 
-  componentDidMount() {
-    bind(this.charInput);
-    bind(this.kanaInput);
-    // TODO: jisho api won't do cross-origin at the moment, revisit this when/if api gets the long-awaited upgrade
-    // this.props.loadJishoData(this.props.text);
-    this[(this.props.answerType === 'kana' ? 'charInput' : 'kanaInput')].focus();
-  }
+const ImmutableForm = (props) => {
+  const { handleSubmit, pristine, reset, submitting } = props;
+  return (
+    <form onSubmit={handleSubmit}>
+      <Field name="username" type="text" component={renderField} label="Username" />
+      <Field name="email" type="email" component={renderField} label="Email" />
+      <Field name="age" type="number" component={renderField} label="Age" />
+      <div>
+        <button type="submit" disabled={submitting}>Submit</button>
+        <button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values</button>
+      </div>
+    </form>
+  );
+};
 
-  componentWillUnmount() {
-    unbind(this.charInput);
-    unbind(this.kanaInput);
-  }
+ImmutableForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  pristine: PropTypes.bool.isRequired,
+  reset: PropTypes.func.isRequired,
+  submitting: PropTypes.bool.isRequired,
+};
 
-  _determineTextValue = (field, answerType, text) => {
-    if (answerType === 'kana' && field === 'kanaInput') return text;
-    if (answerType === 'mixed' && field === 'charInput') return text;
-    return '';
-  }
-
-  _handleSubmit = (event) => {
-    blockEvent(event);
-    this.props.addSynonym(/* form data */);
-  }
-
-  render() {
-    const { answerType, text /* , jishoData */ } = this.props;
-    return (
-      <Form innerRef={(node) => { this.synonymForm = node; }} onSubmit={this._handleSubmit}>
-        <Label htmlFor="newKana">
-          <LabelText>Kana:</LabelText>
-          <Input
-            id="newKana"
-            type="text"
-            lang="ja"
-            innerRef={(node) => { this.kanaInput = node; }}
-            defaultValue={this._determineTextValue('kanaInput', answerType, text)}
-          />
-          <JishoSearchLink keyword={text} visuallyHidden={answerType === 'kana'} />
-        </Label>
-        <Label htmlFor="newCharacters">
-          <LabelText>Kanji:</LabelText>
-          <Input
-            id="newCharacters"
-            type="text"
-            lang="ja"
-            innerRef={(node) => { this.charInput = node; }}
-            defaultValue={this._determineTextValue('charInput', answerType, text)}
-          />
-          <JishoSearchLink keyword={text} visuallyHidden={answerType === 'mixed'} />
-        </Label>
-        <Validation>
-          <p>
-            Please provide both Kana and Kanji.
-            If there is no associated Kanji for the word (IE.<span lang="ja">アメリカ</span>)
-            – use Hiragana for the Kanji field.
-          </p>
-        </Validation>
-        {/* {jishoData ? <div>jishoData</div> : <LoadingIndicator />} */}
-        <SubmitButton type="submit">Submit</SubmitButton>
-      </Form>
-    );
-  }
-}
-
-const mapStateToProps = createStructuredSelector({
-  text: selectInputText(),
-  answerType: selectAnswerType(),
-  // jishoData: selectJishoData(),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  addSynonym: (formData) => dispatch(addSynonym(formData)),
-  // loadJishoData: (keyword) => dispatch(loadJishoData(keyword)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddSynonymForm);
+export default reduxForm({
+  form: FORM_NAME,  // a unique identifier for this form
+  validate,
+})(ImmutableForm);

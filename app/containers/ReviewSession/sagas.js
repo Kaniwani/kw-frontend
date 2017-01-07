@@ -2,12 +2,20 @@
 /* eslint-disable no-constant-condition */
 
 import { delay } from 'redux-saga';
-import { take, takeEvery, select, call, fork, put, race } from 'redux-saga/effects';
+import { take, takeEvery, takeLatest, select, call, fork, put, race } from 'redux-saga/effects';
 import { history } from 'app';
-import markAllAsDaemon from 'utils/markAllAsDaemon';
 import isEmpty from 'lodash/isEmpty';
-import post from 'utils/post';
+import markAllAsDaemon from 'utils/markAllAsDaemon';
 import { createReviewUrl } from 'shared/urls';
+import request from 'utils/request';
+import post from 'utils/post';
+import shapeReviewData from './utils/shapeReviewData';
+import {
+  answersContainTilde,
+  fixStartingTilde,
+  fixTerminalN,
+  keysInListMatch,
+} from 'containers/ReviewAnswer/utils';
 
 import {
   isHiragana,
@@ -15,18 +23,6 @@ import {
   isKanjiKana,
   isKanji,
 } from 'kanawana';
-
-import {
-  selectSettings,
-} from 'containers/App/selectors';
-
-import {
-  resetUserDataReviewCount,
-} from 'containers/App/actions';
-
-import {
-  selectInputText,
-} from 'containers/AnswerInput/selectors';
 
 import {
   CHECK_ANSWER,
@@ -37,6 +33,40 @@ import {
   MARK_INCORRECT,
   MARK_IGNORED,
 } from 'containers/ReviewAnswer/constants';
+
+import {
+  LOAD_REVIEWDATA,
+  LOAD_REVIEWDATA_SUCCESS,
+} from 'containers/ReviewPage/constants';
+
+import {
+  COPY_CURRENT_TO_COMPLETED,
+} from './constants';
+
+
+import {
+  selectSettings,
+} from 'containers/App/selectors';
+
+import {
+  selectInputText,
+} from 'containers/AnswerInput/selectors';
+
+import {
+  selectIsReviewSyncNeeded,
+  selectIsQueueComplete,
+  selectQueueCount,
+} from 'containers/ReviewPage/selectors';
+
+import {
+  selectCurrent,
+  selectCurrentMeaning,
+  selectCurrentReadings,
+} from './selectors';
+
+import {
+  resetUserDataReviewCount,
+} from 'containers/App/actions';
 
 import {
   markCorrect,
@@ -55,23 +85,10 @@ import {
 } from 'containers/ReviewInfo/actions';
 
 import {
-  answersContainTilde,
-  fixStartingTilde,
-  fixTerminalN,
-  keysInListMatch,
-} from 'containers/ReviewAnswer/utils';
-
-import {
   loadReviewData,
+  reviewDataLoaded,
+  reviewDataLoadingError,
 } from 'containers/ReviewPage/actions';
-
-import {
-  LOAD_REVIEWDATA_SUCCESS,
-} from 'containers/ReviewPage/constants';
-
-import {
-  COPY_CURRENT_TO_COMPLETED,
-} from './constants';
 
 import {
   returnCurrentToQueue,
@@ -84,17 +101,21 @@ import {
   increaseSessionIncorrect,
 } from './actions';
 
-import {
-  selectIsReviewSyncNeeded,
-  selectIsQueueComplete,
-  selectQueueCount,
-} from 'containers/ReviewPage/selectors';
 
-import {
-  selectCurrent,
-  selectCurrentMeaning,
-  selectCurrentReadings,
-} from './selectors';
+export function* getReviewData() {
+  const requestURL = createReviewUrl();
+  try {
+    const data = yield call(request, requestURL, { credentials: 'include' });
+    const shapedData = shapeReviewData(data);
+    yield put(reviewDataLoaded(shapedData));
+  } catch (err) {
+    yield put(reviewDataLoadingError(err));
+  }
+}
+
+export function* getReviewDataWatcher() {
+  yield takeLatest(LOAD_REVIEWDATA, getReviewData);
+}
 
 export function* loadReviewDataSuccessWatcher() {
   while (true) {
@@ -119,9 +140,7 @@ export function* recordAnswer() {
     current.getIn(['session', 'incorrect']) === 1,
   ];
 
-  // const token = document.cookie.match(/csrftoken=.*;/)[0];
   const postData = {
-    // csrf_token: token,
     user_specific_id: id,
     user_correct: correct,
     wrong_before: previouslyWrong,
@@ -292,6 +311,7 @@ export function* copyCurrentToCompletedWatcher() {
 
 const watchers = markAllAsDaemon([
   loadReviewDataSuccessWatcher,
+  getReviewDataWatcher,
   checkAnswerWatcher,
   markAnswerWatcher,
   processAnswerWatcher,

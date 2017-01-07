@@ -7,7 +7,7 @@ import { LOAD_REVIEWDATA_SUCCESS } from 'containers/ReviewPage/constants';
  * The base url for all KW api requests
  * @type {String}
  */
-export const API_BASE_URL = '//localhost:8000/api/v1';
+export const API_BASE_URL = '//localhost:8000/api/v1/';
 
 /**
  * Actions that we want redux-storage to trigger a save
@@ -28,6 +28,18 @@ export const PERSISTENCE_STATE_WHITELIST = [
   'review',
 ];
 
+
+/**
+* State keys that we don't want redux-storage to persist
+* @type {Array}
+*/
+export const PERSISTENCE_STATE_BLACKLIST = [
+  ['global', 'loading'],
+  ['global', 'error'],
+  ['review', 'loading'],
+  ['review', 'error'],
+];
+
 /**
 * The maximum amount of minutes passed since last sync allowed
 * @type {Number}
@@ -42,7 +54,7 @@ export const MINUTES_SINCE_LAST_SYNC_LIMIT = 5;
  * format(new Date(2014, 6, 2), DATE_IN_WORDS)
  * // => Wednesday 2 July 2014
  */
-export const DATE_IN_WORDS = 'dddd D MMMM YYYY';
+export const DATE_IN_WORDS = '[at] hh:mm A[, on the] Do [of] MMM[,] YYYY';
 
 /**
  * Maps srs rank levels to english descriptors

@@ -1,12 +1,13 @@
-// import { LOCATION_CHANGE } from 'react-router-redux';
+import { LOCATION_CHANGE } from 'react-router-redux';
 import { takeLatest, select, call, put, fork } from 'redux-saga/effects';
 import request from 'utils/request';
 import shapeUserData from './utils/shapeUserData';
 import { LOAD } from 'redux-storage';
 import { LOAD_USERDATA } from 'containers/App/constants';
 import { createProfileUrl } from 'shared/urls';
-import { selectIsUserSyncNeeded } from 'containers/App/selectors';
+import { selectUser } from 'containers/App/selectors';
 import { selectIsReviewSyncNeeded } from 'containers/ReviewPage/selectors';
+import { selectCurrentMeaning } from 'containers/ReviewSession/selectors';
 import {
   loadUserData,
   userDataLoaded,
@@ -14,22 +15,52 @@ import {
 } from 'containers/App/actions';
 import {
   loadReviewData,
-  // reviewDataLoaded,
 } from 'containers/ReviewPage/actions';
+import {
+  setNewCurrent,
+} from 'containers/ReviewSession/actions';
 
-export function* storageLoad() {
-  const needUserSync = yield select(selectIsUserSyncNeeded());
-  const needReviewSync = yield select(selectIsReviewSyncNeeded());
+import { MINUTES_SINCE_LAST_SYNC_LIMIT } from 'shared/constants';
+import differenceInMinutes from 'date-fns/difference_in_minutes';
 
-  if (needUserSync && needReviewSync) {
-    yield [
-      put(loadUserData(false)),
-      put(loadReviewData(false)),
-    ];
-  } else if (needUserSync) {
-    yield put(loadUserData(false));
-  } else if (needReviewSync) {
-    yield put(loadReviewData(false));
+function* isUserSyncNeeded() {
+  const user = yield select(selectUser());
+  const lastSync = user.get('lastKwSyncDate');
+  if (lastSync == null) return true;
+
+  const needReviews = user.get('reviewCount') < 1;
+  const timeDifference = differenceInMinutes(new Date(), new Date(lastSync));
+  const timeLimitElapsed = timeDifference >= MINUTES_SINCE_LAST_SYNC_LIMIT;
+  return needReviews || timeLimitElapsed;
+}
+
+export function* checkSync({ payload }) {
+  const [needUserSync, needReviewSync, currentMeaning, location] = yield [
+    call(isUserSyncNeeded),
+    select(selectIsReviewSyncNeeded()),
+    select(selectCurrentMeaning()),
+    window.location.pathname || payload.pathname,
+  ];
+  const needsNewCurrent = currentMeaning === '';
+
+  console.group('Syncing');
+  console.log('usersync?', needUserSync);
+  console.log('reviewsync?', needReviewSync);
+  console.groupEnd('Syncing');
+
+  if (location === '/') {
+    if (needUserSync) yield put(loadUserData());
+    // if (needReviewSync) yield put(loadReviewData(false)); // zzz not present in app reducer yet
+  }
+  if (/review/.test(location)) {
+    if (needReviewSync) {
+      yield put(loadReviewData());
+    } else if (needsNewCurrent) {
+      yield put(setNewCurrent());
+    }
+    if (needUserSync) {
+      yield put(loadUserData(false));
+    }
   }
 }
 
@@ -37,7 +68,7 @@ export function* storageLoad() {
  * userData request/response handler
  */
 export function* getUserData() {
-  const requestURL = createProfileUrl(/* pk? */);
+  const requestURL = createProfileUrl();
 
   try {
     // Call our request helper (see 'utils/request')
@@ -56,8 +87,18 @@ export function* getUserDataWatcher() {
   yield takeLatest(LOAD_USERDATA, getUserData);
 }
 
+/**
+ * Runs sync checks when storage is loaded
+ */
 export function* storageLoadWatcher() {
-  yield takeLatest(LOAD, storageLoad);
+  yield takeLatest(LOAD, checkSync);
+}
+
+/**
+ * Runs sync checks when location changes
+ */
+export function* locationChangeWatcher() {
+  yield takeLatest(LOCATION_CHANGE, checkSync);
 }
 
 /**
@@ -68,6 +109,7 @@ export function* rootSaga() {
   /*  const watchers = */ yield [
     fork(getUserDataWatcher),
     fork(storageLoadWatcher),
+    fork(locationChangeWatcher),
   ];
 
   // Can't image we ever want to cancel these watchers really, since app is root level anyway

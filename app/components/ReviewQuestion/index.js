@@ -14,7 +14,7 @@ const Question = ({ meaning, tags }) => (
     </MeaningWrapper>
     {tags && <Tags items={tags} />}
   </Wrapper>
-  );
+);
 
 Question.propTypes = {
   meaning: PropTypes.string.isRequired,

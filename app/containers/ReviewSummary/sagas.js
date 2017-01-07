@@ -3,7 +3,7 @@ import markAllAsDaemon from 'utils/markAllAsDaemon';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 function* log(...args) {
-  yield call(console.log, 'location change!', args); // eslint-disable-line no-console
+  yield call(console.log, 'location changed!', args); // eslint-disable-line no-console
 }
 
 function* defaultSaga() {

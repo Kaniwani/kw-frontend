@@ -31,7 +31,7 @@ export class ReviewSession extends React.Component { // eslint-disable-line reac
     let content = meaning;
 
     // Show a loading indicator when we're loading
-    if (loading) {
+    if (loading || !meaning.length) {
       content = (<LoadingIndicator color="white" />);
     // Show an error if there is one
     } else if (error !== false) {

@@ -1,42 +1,11 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
-import markAllAsDaemon from 'utils/markAllAsDaemon';
-import request from 'utils/request';
-import { createReviewUrl } from 'shared/urls';
+// This saga is loaded async whenever we hit a route that is nested under /review/
+// So its only purpose is to collect child sagas
 
 import reviewSessionSagas from 'containers/ReviewSession/sagas';
 import reviewSummarySagas from 'containers/ReviewSummary/sagas';
 
-import shapeReviewData from './utils/shapeReviewData';
-
-import {
-  LOAD_REVIEWDATA,
-} from './constants';
-import {
-  reviewDataLoaded,
-  reviewDataLoadingError,
-} from './actions';
-
-export function* getReviewData() {
-  const requestURL = createReviewUrl();
-  try {
-    const data = yield call(request, requestURL, { credentials: 'include' });
-    const shapedData = shapeReviewData(data);
-    yield put(reviewDataLoaded(shapedData));
-  } catch (err) {
-    yield put(reviewDataLoadingError(err));
-  }
-}
-
-export function* getReviewDataWatcher() {
-  yield takeLatest(LOAD_REVIEWDATA, getReviewData);
-}
-
-// Mark watchers to only run once on route entry
-const watchers = markAllAsDaemon([getReviewDataWatcher]);
-
 // Bootstrap sagas
 export default [
-  ...watchers,
   ...reviewSessionSagas,
   ...reviewSummarySagas,
 ];
