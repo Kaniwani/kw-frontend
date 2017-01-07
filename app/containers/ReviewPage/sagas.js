@@ -1,6 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import markAllAsDaemon from 'utils/markAllAsDaemon';
 import request from 'utils/request';
+import { createReviewUrl } from 'shared/urls';
 
 import reviewSessionSagas from 'containers/ReviewSession/sagas';
 import reviewSummarySagas from 'containers/ReviewSummary/sagas';
@@ -16,8 +17,7 @@ import {
 } from './actions';
 
 export function* getReviewData() {
-  // const requestURL = 'api/reviews/';
-  const requestURL = 'http://localhost:8000/api/v1/review/';
+  const requestURL = createReviewUrl();
   try {
     const data = yield call(request, requestURL, { credentials: 'include' });
     const shapedData = shapeReviewData(data);

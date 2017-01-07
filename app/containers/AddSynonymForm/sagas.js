@@ -2,6 +2,7 @@ import { put, fork, takeLatest } from 'redux-saga/effects';
 import markAllAsDaemon from 'utils/markAllAsDaemon';
 // import request from 'utils/request';
 import post from 'utils/post';
+// import { createJishoUrl } from 'shared/urls';
 
 // import shapeJishoData from './utils/shapeJishoData';
 
@@ -18,7 +19,7 @@ import {
 } from './actions';
 
 // export function* getJishoData({ payload }) {
-//   const requestURL = `http://jisho.org/api/v1/search/words?keyword=${payload}`;
+//   const requestURL = createJishoUrl(payload);
 //   const requestOptions = { mode: 'no-cors' };
 //   try {
 //     const data = yield call(request, requestURL, requestOptions);
@@ -30,7 +31,7 @@ import {
 // }
 
 export function* postNewSynonym({ payload }) {
-  const postUrl = '/api/v1'; // TODO: update url
+  const postUrl = '/api/v1'; // TODO:  createAddSynonymUrl()
   try {
     yield fork(post, postUrl, payload);
     yield put(addSynonymSuccess());

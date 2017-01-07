@@ -7,6 +7,7 @@ import { history } from 'app';
 import markAllAsDaemon from 'utils/markAllAsDaemon';
 import isEmpty from 'lodash/isEmpty';
 import post from 'utils/post';
+import { createReviewUrl } from 'shared/urls';
 
 import {
   isHiragana,
@@ -128,7 +129,8 @@ export function* recordAnswer() {
 
   try {
     if (correct || (!correct && firstTimeWrong)) {
-      const postUrl = `http://localhost:8000/api/v1/review/${id}/${correct ? 'correct' : 'incorrect'}/`;
+      const correctness = correct ? 'correct' : 'incorrect';
+      const postUrl = createReviewUrl(id, { correctness });
       yield fork(post, postUrl, postData, { method: 'OPTIONS' /* wth ? */});
     }
   } catch (err) {

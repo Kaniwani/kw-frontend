@@ -4,6 +4,7 @@ import request from 'utils/request';
 import shapeUserData from './utils/shapeUserData';
 import { LOAD } from 'redux-storage';
 import { LOAD_USERDATA } from 'containers/App/constants';
+import { createProfileUrl } from 'shared/urls';
 import { selectIsUserSyncNeeded } from 'containers/App/selectors';
 import { selectIsReviewSyncNeeded } from 'containers/ReviewPage/selectors';
 import {
@@ -36,8 +37,7 @@ export function* storageLoad() {
  * userData request/response handler
  */
 export function* getUserData() {
-  // const requestURL = 'api/profiles';
-  const requestURL = 'http://localhost:8000/api/v1/profiles';
+  const requestURL = createProfileUrl(/* pk? */);
 
   try {
     // Call our request helper (see 'utils/request')

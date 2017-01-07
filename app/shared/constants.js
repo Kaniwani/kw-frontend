@@ -4,6 +4,12 @@ import { LOAD_USERDATA_SUCCESS } from 'containers/App/constants';
 import { LOAD_REVIEWDATA_SUCCESS } from 'containers/ReviewPage/constants';
 
 /**
+ * The base url for all KW api requests
+ * @type {String}
+ */
+export const API_BASE_URL = '//localhost:8000/api/v1';
+
+/**
  * Actions that we want redux-storage to trigger a save
  * @type {Array}
  */
