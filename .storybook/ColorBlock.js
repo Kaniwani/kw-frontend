@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import styled from 'styled-components';
-
-const randomHexColor = () => `#${Math.floor(Math.random()*16777215).toString(16)}`;
+import randomHexColor from 'utils/randomHexColor';
 
 const Block = styled.div`
   width: ${({ size }) => size};
@@ -10,7 +9,7 @@ const Block = styled.div`
   margin: ${({ margin }) => margin};
 `;
 
-const ColorBlock = ({ color, ...rest }) => <Block color={color ? color : randomHexColor()} {...rest} />;
+const ColorBlock = ({ color, ...rest }) => <Block color={color || randomHexColor()} {...rest} />;
 
 ColorBlock.propTypes = {
   color: PropTypes.string,
