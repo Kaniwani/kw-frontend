@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 // import { connect } from 'react-redux';
 // import { createStructuredSelector } from 'reselect';
 // import blockEvent from 'utils/blockEvent';
-// import { bind, unbind } from 'kanawana';
+import { bind, unbind } from 'kanawana';
 import { Field, reduxForm } from 'redux-form/immutable';
 import validate from './utils/validate';
 
@@ -29,17 +29,66 @@ const FORM_NAME = 'add-synonym-form'; // must be unique per component
 //   SubmitButton,
 // } from './styles';
 
-const renderField = ({ input, label, type, meta: { touched, error } }) => {
+class JapaneseInput extends React.Component {
+  componentDidMount() {
+    bind(this.imeInput);
+  }
+
+  componentWillUnmount() {
+    unbind(this.imeInput);
+  }
+
+  render() {
+    const { id, type, label, input } = this.props;
+    return (
+      <input
+        ref={(node) => { this.imeInput = node; }}
+        lang="ja"
+        id={id}
+        type={type}
+        placeholder={label}
+        {...input}
+      />
+    );
+  }
+}
+
+JapaneseInput.propTypes = {
+  id: PropTypes.string.isRequired,
+  input: PropTypes.object.isRequired,
+  label: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+};
+
+const EnglishInput = ({ id, type, label, input }) =>
+  <input id={id} type={type} placeholder={label} {...input} />;
+
+EnglishInput.propTypes = {
+  id: PropTypes.string.isRequired,
+  input: PropTypes.object.isRequired,
+  label: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+};
+
+
+const renderField = ({ input, label, type, meta: { touched, error }, isJapanese }) => {
   const INPUT_ID = `${FORM_NAME}-${label}`;
   return (
     <div>
       <label htmlFor={INPUT_ID}>{label}</label>
       <div>
-        <input id={INPUT_ID} {...input} type={type} placeholder={label} />
+        {isJapanese ?
+          <JapaneseInput id={INPUT_ID} type={type} label={label} input={input} /> :
+          <EnglishInput id={INPUT_ID} type={type} label={label} input={input} />
+        }
         {touched && error && <span>{error}</span>}
       </div>
     </div>
   );
+};
+
+renderField.defaultProps = {
+  isJapanese: false,
 };
 
 renderField.propTypes = {
@@ -50,15 +99,15 @@ renderField.propTypes = {
     touched: PropTypes.bool,
     error: PropTypes.string,
   }).isRequired,
+  isJapanese: PropTypes.bool,
 };
 
 const ImmutableForm = (props) => {
   const { handleSubmit, pristine, reset, submitting } = props;
   return (
     <form onSubmit={handleSubmit}>
-      <Field name="username" type="text" component={renderField} label="Username" />
-      <Field name="email" type="email" component={renderField} label="Email" />
-      <Field name="age" type="number" component={renderField} label="Age" />
+      <Field isJapanese name="chars" type="text" component={renderField} label="chars" />
+      <Field isJapanese name="kana" type="text" component={renderField} label="kana" />
       <div>
         <button type="submit" disabled={submitting}>Submit</button>
         <button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values</button>
