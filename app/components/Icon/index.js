@@ -26,6 +26,7 @@ const SVG = styled.svg`
   right: 0;
   bottom: 0;
   left: 0;
+  fill: currentColor;
 `;
 
 const tooltipDefaults = {
@@ -34,6 +35,7 @@ const tooltipDefaults = {
   hideDelay: 0,
 };
 
+// TODO: create HoC as "withTooltip" to simplify this icon component
 const Icon = ({ color, size, name, className, tooltip, ...rest }) => {
   // NOTE: <ReactTooltip /> must be present in a parent component (pref root) for tooltips to show!
   const tooltipOptions = Object.assign(
@@ -58,9 +60,10 @@ const Icon = ({ color, size, name, className, tooltip, ...rest }) => {
         title={name}
         width="100%"
         height="100%"
+        viewBox={ICONS[name].viewBox}
         {...rest}
       >
-        <path d={ICONS[name]} />
+        {ICONS[name].path}
       </SVG>
     </Wrapper>
   );
@@ -69,13 +72,12 @@ const Icon = ({ color, size, name, className, tooltip, ...rest }) => {
 Icon.propTypes = {
   name: PropTypes.oneOf(Object.keys(ICONS)).isRequired,
   className: PropTypes.string,
-  color: PropTypes.string,
+  color: PropTypes.string.isRequired,
   size: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-  ]),
-  viewBox: PropTypes.string,
-  preserveAspectRatio: PropTypes.string,
+  ]).isRequired,
+  preserveAspectRatio: PropTypes.string.isRequired,
   tooltip: PropTypes.shape({
     text: PropTypes.string.isRequired,
     position: PropTypes.string,
@@ -87,7 +89,6 @@ Icon.propTypes = {
 Icon.defaultProps = {
   color: 'currentColor',
   size: '1em',
-  viewBox: '0 0 24 24', // polymer default
   preserveAspectRatio: 'xMidYMid meet',
 };
 
