@@ -88,22 +88,28 @@ function reviewReducer(state = initialState, action) {
         .updateIn(['session', 'ignored'], add(1))
         .updateIn(['session', 'current', 'session', action.payload ? 'correct' : 'incorrect'], subtract(1))
         .updateIn(['session', 'current', 'session', 'ignored'], add(1));
+    /* TODO: these could all just be UPDATE_SESSION with a payload to merge... */
     case ReviewSession.INCREASE_SESSION_CORRECT:
       return state.updateIn(['session', 'correct'], add(1));
     case ReviewSession.INCREASE_SESSION_INCORRECT:
       return state.updateIn(['session', 'incorrect'], add(1));
+    /* TODO: these could all just be UPDATE_CURRENT with a payload to merge... */
     case ReviewSession.INCREASE_CURRENT_STREAK:
       return state.updateIn(['session', 'current', 'session', 'streak'], add(1));
     case ReviewSession.DECREASE_CURRENT_STREAK:
       return state.updateIn(['session', 'current', 'session', 'streak'], getDecreasedStreak);
     case ReviewSession.RESET_CURRENT_STREAK:
       return state.setIn(['session', 'current', 'session', 'streak'], state.getIn(['session', 'current', 'history', 'streak']));
+    case ReviewSession.ADD_SYNONYM_TO_CURRENT:
+      return state.mergeIn(['session', 'current', 'vocabulary', 'synonyms'], [action.payload]);
     case ReviewAnswer.RESET_ANSWER:
       return state.setIn(['session', 'answer'], answerInitialState);
+    // TODO: uggh... really? too many nested separations with these
     case ReviewAnswer.UPDATE_ANSWER:
       return state.mergeIn(['session', 'answer'], action.payload);
     case AnswerInput.UPDATE_INPUT:
       return state.mergeIn(['session', 'answer'], answerInputReducer(state.getIn(['session', 'answer']), action));
+    // TODO: can just move to top level as well... reviewInfo will never live independently of a review...
     case ReviewInfo.TOGGLE_INFO_PANELS:
     case ReviewInfo.TOGGLE_NEW_SYNONYM_PANEL:
     case ReviewInfo.TOGGLE_INFO_DEPTH:

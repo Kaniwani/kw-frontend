@@ -1,73 +1,41 @@
 import React, { PropTypes } from 'react';
-// import { connect } from 'react-redux';
-// import { createStructuredSelector } from 'reselect';
-// import blockEvent from 'utils/blockEvent';
-// import { bind, unbind } from 'kanawana';
 import { Field, reduxForm } from 'redux-form/immutable';
-import validate from './utils/validate';
+import AddSynonymField from './AddSynonymField';
+import { required, onlyKanjiOrKana, onlyKana } from 'shared/validations';
+import Button from 'components/Button';
+import Element from 'components/Element';
+import { Form } from './styles';
 
 const FORM_NAME = 'add-synonym-form'; // must be unique per component
 
-// import JishoSearchLink from 'components/JishoSearchLink';
-//
-// import {
-//   selectInputText,
-//   selectAnswerType,
-// } from 'containers/AnswerInput/selectors';
-//
-// import {
-//   // loadJishoData,
-//   addSynonym,
-// } from './actions';
-//
-// import {
-//   Form,
-//   Label,
-//   LabelText,
-//   Input,
-//   Validation,
-//   SubmitButton,
-// } from './styles';
-
-const renderField = ({ input, label, type, meta: { touched, error } }) => {
-  const INPUT_ID = `${FORM_NAME}-${label}`;
+const AddSynonymForm = (props) => {
+  const { handleSubmit, submitting, ...rest } = props;
   return (
-    <div>
-      <label htmlFor={INPUT_ID}>{label}</label>
-      <div>
-        <input id={INPUT_ID} {...input} type={type} placeholder={label} />
-        {touched && error && <span>{error}</span>}
-      </div>
-    </div>
+    <Form onSubmit={handleSubmit}>
+      <Field
+        name="Kanji"
+        type="text"
+        component={AddSynonymField}
+        label="Kanji"
+        validate={[required, onlyKanjiOrKana]}
+        {...rest}
+      />
+      <Field
+        name="Kana"
+        type="text"
+        component={AddSynonymField}
+        label="Kana"
+        validate={[required, onlyKana]}
+        {...rest}
+      />
+      <Element>
+        <Button handleRoute={() => {}} type="submit" disabled={submitting}>Submit</Button>
+      </Element>
+    </Form>
   );
 };
 
-renderField.propTypes = {
-  input: PropTypes.object.isRequired,
-  label: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  meta: PropTypes.shape({
-    touched: PropTypes.bool,
-    error: PropTypes.string,
-  }).isRequired,
-};
-
-const ImmutableForm = (props) => {
-  const { handleSubmit, pristine, reset, submitting } = props;
-  return (
-    <form onSubmit={handleSubmit}>
-      <Field name="username" type="text" component={renderField} label="Username" />
-      <Field name="email" type="email" component={renderField} label="Email" />
-      <Field name="age" type="number" component={renderField} label="Age" />
-      <div>
-        <button type="submit" disabled={submitting}>Submit</button>
-        <button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values</button>
-      </div>
-    </form>
-  );
-};
-
-ImmutableForm.propTypes = {
+AddSynonymForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,
   reset: PropTypes.func.isRequired,
@@ -76,5 +44,4 @@ ImmutableForm.propTypes = {
 
 export default reduxForm({
   form: FORM_NAME,  // a unique identifier for this form
-  validate,
-})(ImmutableForm);
+})(AddSynonymForm);

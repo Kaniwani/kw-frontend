@@ -20,7 +20,6 @@ export function createRequestUrl(path = '', id = '') {
   return `${API_BASE_URL}${path}/${id ? `${id}/` : ''}`;
 }
 
-
 /**
 * Creates a url for obtaining an auth token
 * @return {String} url
@@ -37,6 +36,7 @@ export const createProfileUrl = (id = '') => createRequestUrl('profiles', id);
 
 /**
  * Creates a url for synonym endpoint requests
+ * NOTE: adding synonym uses POST method, removing uses DELETE
  * @param  {String} [id=''] - optional user id for specific synonym requests
  * @return {String} url
  */
