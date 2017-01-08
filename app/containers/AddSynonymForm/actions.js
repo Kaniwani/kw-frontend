@@ -4,7 +4,6 @@ import {
   LOAD_JISHODATA_SUCCESS,
   LOAD_JISHODATA_ERROR,
   ADD_SYNONYM,
-  ADD_SYNONYM_SUCCESS,
   ADD_SYNONYM_ERROR,
 } from './constants';
 
@@ -36,11 +35,6 @@ export function addSynonym(data) {
   };
 }
 
-export function addSynonymSuccess() {
-  return {
-    type: ADD_SYNONYM_SUCCESS,
-  };
-}
 
 export function addSynonymError(error) {
   return {

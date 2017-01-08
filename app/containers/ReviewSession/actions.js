@@ -19,6 +19,7 @@ import {
   SET_NEW_CURRENT,
   RETURN_CURRENT_TO_QUEUE,
   COPY_CURRENT_TO_COMPLETED,
+  ADD_SYNONYM_TO_CURRENT,
   INCREASE_SESSION_CORRECT,
   INCREASE_SESSION_INCORRECT,
   INCREASE_CURRENT_STREAK,
@@ -46,9 +47,10 @@ export function returnCurrentToQueue() {
     type: RETURN_CURRENT_TO_QUEUE,
   };
 }
+
 /**
- * Inserts current review back into the reviews queue at a random insertion point
- * @return {object} An action object with a type of RETURN_CURRENT_TO_QUEUE
+ * Copies current review item to completed list
+ * @return {object} An action object with a type of COPY_CURRENT_TO_COMPLETED
  */
 export function copyCurrentToCompleted() {
   return {
@@ -56,6 +58,17 @@ export function copyCurrentToCompleted() {
   };
 }
 
+/**
+ * Adds new synonym to current review's vocabulary
+ * @param {object} synonymData - synonym information to be added
+ * @return {object} An action object with a type of ADD_SYNONYM_TO_CURRENT and a payload of synonymData
+ */
+export function addSynonymToCurrent(synonymData) {
+  return {
+    type: ADD_SYNONYM_TO_CURRENT,
+    payload: synonymData,
+  };
+}
 
 /**
  * Increases the session streak count by 1 on the current review item

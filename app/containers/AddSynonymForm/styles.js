@@ -1,70 +1,35 @@
 import styled from 'styled-components';
-import { media } from 'shared/styles/media';
-import { adjustColor, fluidType } from 'shared/styles/utils';
-import { greyLight, black } from 'shared/styles/colors';
+import { elementGutter, containerGutterVertical } from 'shared/styles/layout';
 
 export const Form = styled.form`
+  ${elementGutter}
   text-align: center;
-  margin: .75rem auto 0;
-  padding: 0 5%;
-  ${media('min').md`
-    margin-top: 1.5rem;
-  `}
 `;
 
 export const Label = styled.label`
+  ${elementGutter}
   display: flex;
-  max-width: 500px;
-  margin: .75rem auto 0;
+  flex-flow: row wrap;
   justify-content: center;
   align-items: center;
   align-content: center;
-
-  ${media('min').lg`
-    margin-top: 1rem;
-  `}
 `;
 
 export const LabelText = styled.span`
+  ${elementGutter}
   display: inline-block;
   flex: 0 1 auto;
-  padding: 0;
-  padding-right: .6em;
   text-align: right;
+  & { padding-right: .6em; } /* extra specificity since elementGutter has media queries which would trump this */
 `;
 
-export const Input = styled.input`
-  display: inline-block;
-  ${fluidType(16, 28)}
-  appearance: none;
-  line-height: 1.8; /* lowercase descenders are cut off otherwise */
-  flex: 1 5 100px;
-  vertical-align: middle;
-  padding: 0 .5rem;
-  border: 1px solid ${adjustColor(greyLight, 'alpha(0.3)')};
-  border-radius: 3px;
-  box-shadow: inset 0 3px 20px -8px ${adjustColor(black, 'alpha(0.3)')};
-`;
-
-export const Validation = styled.div`
-  margin-top: .75rem;
-  padding: 0 1.2em;
+export const ValidationMessage = styled.div`
+  ${elementGutter}
+  ${containerGutterVertical}
+  flex: 1 0 100%;
   & > p {
+    max-width: 100%;
     font-size: .8em;
     font-style: italic;
   }
-  ${media('min').md`
-    margin-top: 1rem;
-  `}
-`;
-
-export const SubmitButton = styled.button`
-  margin: .5rem auto 0;
-  text-align: center;
-  border: 1px solid ${greyLight};
-
-  ${media('min').md`
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  `}
 `;
