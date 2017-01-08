@@ -1,6 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-constant-condition */
-
 import { delay } from 'redux-saga';
 import { take, takeEvery, takeLatest, select, call, fork, put, race } from 'redux-saga/effects';
 import { history } from 'app';
@@ -117,6 +114,7 @@ export function* getReviewDataWatcher() {
   yield takeLatest(LOAD_REVIEWDATA, getReviewData);
 }
 
+/* eslint-disable no-constant-condition */
 export function* loadReviewDataSuccessWatcher() {
   while (true) {
     yield take(LOAD_REVIEWDATA_SUCCESS);
@@ -154,8 +152,8 @@ export function* recordAnswer() {
     }
   } catch (err) {
     // TODO: catch errors and notify user answer not recorded but added to an answersQueue for submission next time they're online
-    console.error(err);
-    // put(recordAnswerError(message))
+    console.error(err); // eslint-disable-line no-console
+    // put(notifyError(message))
   } finally {
     if (correct && !previouslyWrong) yield put(increaseSessionCorrect());
     if (!correct && !previouslyWrong) yield put(increaseSessionIncorrect());
@@ -167,8 +165,6 @@ export function* recordAnswer() {
     ];
   }
 }
-
-// TODO: takeEvery(RECORD_ANSWER_ERROR)
 
 /**
  * Hides vocab info, sets new current question, and resets answer input
@@ -227,7 +223,6 @@ export function* autoAdvance(wait) {
 export function* autoAdvanceWatcher() {
   while (true) {
     const action = yield take(START_AUTO_ADVANCE);
-    console.log(action);
     const wait = action.payload;
     yield race({
       task: call(autoAdvance, wait),
@@ -297,9 +292,9 @@ export function* copyCurrentToCompletedWatcher() {
     ];
 
     if (needMoreReviews) {
-      console.log('fetching more reviews...');
+      console.log('fetching more reviews...'); // eslint-disable-line no-console
       yield put(loadReviewData(false));
-      console.log('fetched more reviews!');
+      console.log('fetched more reviews!'); // eslint-disable-line no-console
     }
 
     if (queueCompleted) {
