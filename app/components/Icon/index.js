@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 import ReactTooltip from 'react-tooltip';
 import cuid from 'cuid';
-import { ICONS } from './constants';
+import ICONS from './constants';
 
 const Wrapper = styled.span`
   display: inline-block;
