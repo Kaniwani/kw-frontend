@@ -1,21 +1,21 @@
-import { put, fork, takeLatest } from 'redux-saga/effects';
+import { takeLatest, put, fork, select } from 'redux-saga/effects';
+import { createSynonymUrl } from 'shared/urls';
 import markAllAsDaemon from 'utils/markAllAsDaemon';
-// import request from 'utils/request';
 import post from 'utils/post';
+// import request from 'utils/request';
 // import { createJishoUrl } from 'shared/urls';
-
 // import shapeJishoData from './utils/shapeJishoData';
+// import { LOAD_JISHODATA } from './constants';
+import { ADD_SYNONYM } from './constants';
+
+import { addSynonymToCurrent } from 'containers/ReviewSession/actions';
+import { selectCurrent } from 'containers/ReviewSession/selectors';
+import { markIgnored } from 'containers/ReviewAnswer/actions';
 
 import {
-  // LOAD_JISHODATA,
-  ADD_SYNONYM,
-} from './constants';
-
-import {
+  addSynonymError,
   // jishoDataLoaded,
   // jishoDataLoadingError,
-  addSynonymSuccess,
-  addSynonymError,
 } from './actions';
 
 // export function* getJishoData({ payload }) {
@@ -31,14 +31,23 @@ import {
 // }
 
 export function* postNewSynonym({ payload }) {
-  const postUrl = '/api/v1'; // TODO:  createAddSynonymUrl()
+  const current = yield select(selectCurrent());
+  const synonym = {
+    character: payload.get('Kanji'),
+    kana: payload.get('Kana'),
+  };
+  const postData = { id: current.get('id'), ...synonym };
+  const postUrl = createSynonymUrl();
+
   try {
-    yield fork(post, postUrl, payload);
-    yield put(addSynonymSuccess());
+    yield fork(post, postUrl, postData);
   } catch (err) {
     yield put(addSynonymError(err)); // TODO: use toasts for api errors
   } finally {
-    // TODO: add synonym to current, ignore current
+    yield [
+      put(addSynonymToCurrent(synonym)),
+      put(markIgnored(true)),
+    ];
   }
 }
 

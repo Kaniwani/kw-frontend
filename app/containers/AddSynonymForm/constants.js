@@ -3,5 +3,4 @@
  export const LOAD_JISHODATA_ERROR = 'kw/AddSynonymForm/LOAD_JISHODATA_ERROR';
 
  export const ADD_SYNONYM = 'kw/AddSynonymForm/ADD_SYNONYM';
- export const ADD_SYNONYM_SUCCESS = 'kw/AddSynonymForm/ADD_SYNONYM_SUCCESS';
  export const ADD_SYNONYM_ERROR = 'kw/AddSynonymForm/ADD_SYNONYM_ERROR';

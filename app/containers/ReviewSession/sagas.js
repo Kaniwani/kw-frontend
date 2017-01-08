@@ -3,6 +3,7 @@ import { take, takeEvery, takeLatest, select, call, fork, put, race } from 'redu
 import { history } from 'app';
 import isEmpty from 'lodash/isEmpty';
 import markAllAsDaemon from 'utils/markAllAsDaemon';
+import addSynonymSagas from 'containers/AddSynonymForm/sagas';
 import { createReviewUrl } from 'shared/urls';
 import request from 'utils/request';
 import post from 'utils/post';
@@ -198,7 +199,7 @@ export function* checkAnswer() {
   }
 
   const allJapanese = isKanjiKana(answer);
-  const answerType = (isHiragana(answer) || isKatakana(answer) ? 'kana' : 'mixed');
+  const answerType = (isHiragana(answer) || isKatakana(answer) ? 'kana' : 'kanji');
   const valid = hasContent && allJapanese;
   const matches = keysInListMatch(readings, ['kana', 'character'], answer);
   const correct = valid && matches;
@@ -316,4 +317,5 @@ const watchers = markAllAsDaemon([
 
 export default [
   ...watchers,
+  ...addSynonymSagas,
 ];
