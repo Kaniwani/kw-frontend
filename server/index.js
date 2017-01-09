@@ -18,7 +18,7 @@ const randDelay = (cb) => setTimeout(() => cb(), +(((Math.random() * /* 2000*/ 1
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
 // NOTE:10 these are temporary routes during dev
 app.use('/api/reviews', (req, res) => randDelay(() => res.json(devData.reviews)));
-app.use('/api/profiles', (req, res) => randDelay(() => res.json(devData.profiles)));
+app.use('/api/user', (req, res) => randDelay(() => res.json(devData.user)));
 app.use('/api/vocabulary', (req, res) => randDelay(() => res.json(devVocabData)));
 app.use('/api/', (req, res) => randDelay(() => res.json(devData)));
 

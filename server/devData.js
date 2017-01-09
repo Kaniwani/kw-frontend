@@ -1,5 +1,5 @@
 module.exports = {
-  profiles: {
+  user: {
     name: 'duncantest10',
     review_count: 33,
     api_key: '5fa2d9c257dda131a54018f5c3f5ff90',

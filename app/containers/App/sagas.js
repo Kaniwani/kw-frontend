@@ -4,7 +4,7 @@ import request from 'utils/request';
 import shapeUserData from './utils/shapeUserData';
 import { LOAD } from 'redux-storage';
 import { LOAD_USERDATA } from 'containers/App/constants';
-import { createProfileUrl } from 'shared/urls';
+import { createUserUrl } from 'shared/urls';
 import { selectUser } from 'containers/App/selectors';
 import { selectIsReviewSyncNeeded } from 'containers/ReviewPage/selectors';
 import { selectCurrentMeaning } from 'containers/ReviewSession/selectors';
@@ -68,7 +68,7 @@ export function* checkSync({ payload }) {
  * userData request/response handler
  */
 export function* getUserData() {
-  const requestURL = createProfileUrl();
+  const requestURL = createUserUrl();
 
   try {
     // Call our request helper (see 'utils/request')

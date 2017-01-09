@@ -13,7 +13,7 @@ import { API_BASE_URL } from 'shared/constants';
 /**
  * Creates a url for endpoint requests
  * @param  {String} [path=''] - optional path to build endpoint
- * @param  {String} [id=''] - optional user id for specific profile requests
+ * @param  {String} [id=''] - optional id for specific requests
  * @return {String} url
  */
 export function createRequestUrl(path = '', id = '') {
@@ -27,12 +27,10 @@ export function createRequestUrl(path = '', id = '') {
 export const createAuthTokenUrl = () => createRequestUrl('token-auth');
 
 /**
- * Creates a url for profile endpoint requests
- * @param  {String} [id=''] - optional user id for specific profile requests
+ * Creates a url for user endpoint requests
  * @return {String} url
  */
-
-export const createProfileUrl = (id = '') => createRequestUrl('profiles', id);
+export const createUserUrl = () => createRequestUrl('user');
 
 /**
  * Creates a url for synonym endpoint requests
@@ -82,7 +80,7 @@ export function createLevelLockUrl(id, lock = true) {
 
 /**
  * Creates a url for review endpoint requests
- * @param  {String} [id=''] - optional user id for specific profile requests
+ * @param  {String} [id=''] - optional user id for specific requests
  * @param  {Object} [config={}] - additional paths or params
  * @return {String} url
  * @example
