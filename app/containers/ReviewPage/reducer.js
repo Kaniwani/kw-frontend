@@ -33,7 +33,7 @@ export const initialState = fromJS({
   },
 });
 
-function reviewReducer(state = initialState, action) {
+function reviewReducer(state = initialState, action = {}) {
   switch (action.type) {
     case Review.LOAD_REVIEWDATA:
       return state

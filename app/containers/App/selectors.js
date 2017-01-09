@@ -31,11 +31,6 @@ const selectError = () => createSelector(
   (globalState) => globalState.get('error'),
 );
 
-const selectAddSynonym = () => createSelector(
-  selectGlobal(),
-  (globalState) => globalState.get('addSynonym'),
-);
-
 const selectUser = () => createSelector(
   selectGlobal(),
   (globalState) => globalState.get('user'),
@@ -53,6 +48,5 @@ export {
   selectLoading,
   selectError,
   selectUser,
-  selectAddSynonym,
   selectSettings,
 };

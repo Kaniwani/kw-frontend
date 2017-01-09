@@ -16,10 +16,11 @@ import SiteHeader from 'containers/SiteHeader';
 import LoadingIndicator from 'components/LoadingIndicator';
 import { selectLoading, selectError } from 'containers/App/selectors';
 
-
 import Container from 'components/Container';
 import Element from 'components/Element';
 import P from 'components/P';
+
+import Notifications from 'containers/Notifications';
 
 const AppWrapper = styled.div`
   display: flex;
@@ -73,10 +74,9 @@ export class App extends React.Component { // eslint-disable-line react/prefer-s
             { name: 'description', content: 'Kaniwani, An English to Japanese SRS Quiz' },
           ]}
         />
-
+        <Notifications />
         {!isReviewRoute && <SiteHeader />}
         {appContent}
-
       </AppWrapper>
     );
   }

@@ -112,16 +112,14 @@ const mapStateToProps = createStructuredSelector({
   disabled: selectInputDisabled(),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    checkAnswer: () => dispatch(checkAnswer()),
-    processAnswer: () => dispatch(processAnswer()),
-    ignoreAnswer: (isCorrect) => dispatch(markIgnored(isCorrect)),
-    toggleInfoPanels: () => dispatch(toggleInfoPanels()),
-    toggleInfoDepth: () => dispatch(toggleInfoDepth()),
-    showNewSynonymPanel: () => dispatch(toggleNewSynonymPanel({ show: true })),
-  };
-}
+const mapDispatchToProps = (dispatch) => ({
+  checkAnswer: () => dispatch(checkAnswer()),
+  processAnswer: () => dispatch(processAnswer()),
+  ignoreAnswer: (isCorrect) => dispatch(markIgnored(isCorrect)),
+  toggleInfoPanels: () => dispatch(toggleInfoPanels()),
+  toggleInfoDepth: () => dispatch(toggleInfoDepth()),
+  showNewSynonymPanel: () => dispatch(toggleNewSynonymPanel({ show: true })),
+});
 
 ReviewAnswer.propTypes = {
   streakName: PropTypes.string.isRequired,

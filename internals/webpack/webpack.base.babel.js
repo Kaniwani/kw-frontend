@@ -15,9 +15,7 @@ module.exports = (options) => ({
     loaders: [{
       test: /\.js$/, // Transform all .js files required somewhere with Babel
       loader: 'babel',
-      exclude: [
-        /node_modules/,
-      ],
+      exclude: /node_modules(?!\/react-redux-toastr)/, // however, r-r-t *does* need to be transpiled
       query: options.babelQuery,
     }, {
       // Do not transform vendor's CSS with CSS-modules

@@ -55,7 +55,7 @@ export function userDataLoaded(data) {
 export function userDataLoadingError(error) {
   return {
     type: LOAD_USERDATA_ERROR,
-    error,
+    payload: error,
   };
 }
 
