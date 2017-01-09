@@ -11,17 +11,13 @@
  */
 
 import { fromJS } from 'immutable';
-import { SAVE, LOAD } from 'redux-storage';
 import * as App from './constants';
-// import addSynonymReducer, { addSynonymInitialState } from 'containers/AddSynonymForm/reducer';
-// import * as AddSynonym from 'containers/AddSynonymForm/constants';
+import * as Storage from 'redux-storage';
 
 // The initial state of the App
 export const initialState = fromJS({
   loading: false,
   error: false,
-  // modal: modalInitialState,
-  // addSynonym: addSynonymInitialState,
   user: {
     name: '',
     reviewCount: 0,
@@ -47,8 +43,9 @@ export const initialState = fromJS({
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
-    case LOAD: return state.set(action.payload);
-    case SAVE:
+    case Storage.LOAD:
+      return state.set(action.payload);
+    case Storage.SAVE:
       console.info('%cStorage saved!', 'color: blue'); // eslint-disable-line no-console
       return state;
     case App.LOAD_USERDATA:
@@ -63,10 +60,6 @@ function appReducer(state = initialState, action) {
       return state
         .set('error', action.error)
         .set('loading', false);
-    // case AddSynonym.LOAD_JISHODATA:
-    // case AddSynonym.LOAD_JISHODATA_SUCCESS:
-    // case AddSynonym.LOAD_JISHODATA_ERROR:
-    //   return state.set('addSynonym', fromJS(addSynonymReducer(state.get('addSynonym'), action)));
     default:
       return state;
   }
