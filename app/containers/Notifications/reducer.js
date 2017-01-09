@@ -7,9 +7,9 @@ export default function Notifications(state = List(), action = {}) {
       const { type, ...rest } = action; // eslint-disable-line no-unused-vars
       return state.push({ ...rest, uid: action.uid });
     }
-    case HIDE_NOTIFICATION: {
+    case HIDE_NOTIFICATION:
       return state.filter((notification) => notification.uid !== action.uid);
-    }
+    default:
+      return state;
   }
-  return state;
 }
