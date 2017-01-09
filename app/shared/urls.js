@@ -28,9 +28,10 @@ export const createAuthTokenUrl = () => createRequestUrl('token-auth');
 
 /**
  * Creates a url for user endpoint requests
+ * @param {String|Number} [id='me'] - defaults to current user, in future maybe access to other user profiles by id
  * @return {String} url
  */
-export const createUserUrl = () => createRequestUrl('user');
+export const createUserUrl = (id = 'me') => createRequestUrl('user', id);
 
 /**
  * Creates a url for synonym endpoint requests
