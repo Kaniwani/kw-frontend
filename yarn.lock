@@ -6909,6 +6909,12 @@ react-modal@^1.2.0, react-modal@^1.2.1:
     exenv "1.2.0"
     lodash.assign "^4.2.0"
 
+react-notification-system@^0.2.11:
+  version "0.2.11"
+  resolved "https://registry.yarnpkg.com/react-notification-system/-/react-notification-system-0.2.11.tgz#c954ab7f3c355b34ca5f85d6b3fc4236070e7788"
+  dependencies:
+    object-assign "^4.0.1"
+
 react-proxy@^1.1.7:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/react-proxy/-/react-proxy-1.1.8.tgz#9dbfd9d927528c3aa9f444e4558c37830ab8c26a"

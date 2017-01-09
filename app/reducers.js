@@ -7,6 +7,7 @@ import { fromJS } from 'immutable';
 import { combineReducers } from 'redux-immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form/immutable';
+import notificationsReducer from 'containers/Notifications/reducer';
 
 import * as storage from 'redux-storage';
 import merger from 'redux-storage-merger-immutablejs';
@@ -54,6 +55,9 @@ export default function createReducer(asyncReducers) {
     route: routeReducer,
     global: globalReducer,
     form: formReducer,
+    notifications: notificationsReducer,
+    // Review is actually async, but providing it here so when storage rehydrates
+    // there is some initial empty state to overwrite even if user has never visited review before
     review: reviewReducer,
     ...asyncReducers,
   }));
