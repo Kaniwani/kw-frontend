@@ -1,10 +1,10 @@
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { takeLatest, select, call, put, fork } from 'redux-saga/effects';
+import { takeLatest, takeEvery, select, call, put, fork } from 'redux-saga/effects';
 import request from 'utils/request';
 import shapeUserData from './utils/shapeUserData';
 import { LOAD } from 'redux-storage';
-import { LOAD_USERDATA } from 'containers/App/constants';
-import { createProfileUrl } from 'shared/urls';
+import { LOAD_USERDATA, LOAD_USERDATA_ERROR } from 'containers/App/constants';
+import { createUserUrl } from 'shared/urls';
 import { selectUser } from 'containers/App/selectors';
 import { selectIsReviewSyncNeeded } from 'containers/ReviewPage/selectors';
 import { selectCurrentMeaning } from 'containers/ReviewSession/selectors';
@@ -16,6 +16,7 @@ import {
 import {
   loadReviewData,
 } from 'containers/ReviewPage/actions';
+import * as Notification from 'containers/Notifications/actions';
 import {
   setNewCurrent,
 } from 'containers/ReviewSession/actions';
@@ -68,15 +69,21 @@ export function* checkSync({ payload }) {
  * userData request/response handler
  */
 export function* getUserData() {
-  const requestURL = createProfileUrl();
+  const requestURL = createUserUrl();
 
   try {
-    // Call our request helper (see 'utils/request')
     const data = yield call(request, requestURL);
     yield put(userDataLoaded(shapeUserData(data.results[0])));
   } catch (err) {
-    yield put(userDataLoadingError(err));
+    console.error(err);
+    yield put(userDataLoadingError({ title: 'Connection error', message: err.message }));
   }
+}
+
+export function* notifyError({ payload: { title, message } }) {
+  yield put(Notification.error({ title, message }));
+  // TODO: log errors to server, perhaps include a 'type' (api, misc etc) in payload and filter by that
+  // yield call(ServerLog, { title, message });
 }
 
 /**
@@ -86,6 +93,12 @@ export function* getUserData() {
 export function* getUserDataWatcher() {
   yield takeLatest(LOAD_USERDATA, getUserData);
 }
+
+export function* errorsWatcher() {
+  // TODO: take all errors from any error constant
+  yield takeEvery(LOAD_USERDATA_ERROR, notifyError);
+}
+
 
 /**
  * Runs sync checks when storage is loaded
@@ -110,6 +123,7 @@ export function* rootSaga() {
     fork(getUserDataWatcher),
     fork(storageLoadWatcher),
     fork(locationChangeWatcher),
+    fork(errorsWatcher),
   ];
 
   // Can't image we ever want to cancel these watchers really, since app is root level anyway
