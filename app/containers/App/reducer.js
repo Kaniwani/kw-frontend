@@ -58,7 +58,7 @@ function appReducer(state = initialState, action) {
         .set('loading', false);
     case App.LOAD_USERDATA_ERROR:
       return state
-        .set('error', action.error)
+        .set('error', action.payload)
         .set('loading', false);
     default:
       return state;

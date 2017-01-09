@@ -212,7 +212,6 @@
       "!app/routes.js",
       "!app/shared/styles/*.js"
     ],
-    "//": "// FIXME: revert to high thresholds once testing!",
     "coverageThreshold": {
       "global": {
         "statements": 5,

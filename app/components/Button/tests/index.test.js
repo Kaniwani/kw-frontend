@@ -13,7 +13,7 @@ const children = (<h1>Test</h1>);
 const renderComponent = (props = {}) => mount(
   <Button href={href} {...props}>
     {children}
-  </Button>
+  </Button>,
 );
 
 describe('<Button />', () => {
@@ -50,9 +50,9 @@ describe('<Button />', () => {
     expect(renderedComponent.find('a').prop('type')).toBeUndefined();
   });
 
-  it('should not adopt a type attribute when rendering a button', () => {
+  it('should adopt a type attribute when rendering a button', () => {
     const type = 'submit';
     const renderedComponent = renderComponent({ handleRoute, type });
-    expect(renderedComponent.find('button').prop('type')).toBeUndefined();
+    expect(renderedComponent.find('button').prop('type')).toBeDefined();
   });
 });

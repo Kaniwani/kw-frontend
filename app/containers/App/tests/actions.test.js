@@ -15,6 +15,7 @@ describe('App Actions', () => {
     it('should return the correct type', () => {
       const expectedResult = {
         type: LOAD_USERDATA,
+        showIndicator: true,
       };
 
       expect(loadUserData()).toEqual(expectedResult);
@@ -36,11 +37,12 @@ describe('App Actions', () => {
   describe('userDataLoadingError', () => {
     it('should return the correct type and the error', () => {
       const fixture = {
-        msg: 'Something went wrong!',
+        title: 'Connection error!',
+        message: '403 forbidden',
       };
       const expectedResult = {
         type: LOAD_USERDATA_ERROR,
-        error: fixture,
+        payload: fixture,
       };
 
       expect(userDataLoadingError(fixture)).toEqual(expectedResult);
