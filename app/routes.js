@@ -94,6 +94,66 @@ export default function createRoutes(store) {
       ],
     },
     {
+      path: '/vocabulary',
+      name: 'vocabularyPage',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/VocabularyPage/reducer'),
+          System.import('containers/VocabularyPage/sagas'),
+          System.import('containers/VocabularyPage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('vocabularyPage', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
+      path: '/settings',
+      name: 'settingsPage',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/SettingsPage/reducer'),
+          System.import('containers/SettingsPage/sagas'),
+          System.import('containers/SettingsPage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('settingsPage', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
+      path: '/about',
+      name: 'aboutPage',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/AboutPage/reducer'),
+          System.import('containers/AboutPage/sagas'),
+          System.import('containers/AboutPage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('aboutPage', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

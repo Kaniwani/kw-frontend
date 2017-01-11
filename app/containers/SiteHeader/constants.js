@@ -14,9 +14,6 @@ export const navRoutes = fromJS([
     text: 'About',
     to: '/about',
   }, {
-    text: 'Contact',
-    to: '/contact',
-  }, {
     text: 'Logout',
     to: '/logout',
   },
