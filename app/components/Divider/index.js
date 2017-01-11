@@ -27,7 +27,7 @@ const Divider = styled.div`
   max-width: ${(props) => props.fullWidth ? '100%' : '70%'};
   background-position: 50%;
   color: ${(props) => COLORS[props.color] || COLORS.grey};
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
   border-width: 0 0 1px;
   border-style: solid;
   ${(props) => dividerStyle(props)}

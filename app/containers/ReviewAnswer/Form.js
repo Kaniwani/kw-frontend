@@ -8,7 +8,7 @@ const Form = styled.form`
   max-width: 100%;
   ${mega}
   color: ${black};
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
   margin: 0 0 .4rem;
   ${media('min').sm`
     margin: .4rem .6rem;

@@ -70,7 +70,7 @@ export const ButtonContainer = styled.div`
     align-self: center;
     cursor: pointer;
     color: currentColor;
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0);
     transition: opacity .3s ease-out;
     &:hover {
       opacity: 1;

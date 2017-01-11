@@ -12,7 +12,7 @@ const Wrapper = styled.span`
   width: ${({ iconSize }) => iconSize}; /*CSS instead of html width attr to support non-pixel units*/
   height: ${({ iconSize }) => iconSize}; /*Prevents scaling issue in IE*/
   background-repeat: no-repeat;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
   transition: all 200ms ease-in-out;
   color: ${({ iconColor }) => iconColor};
 `;

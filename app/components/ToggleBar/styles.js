@@ -12,7 +12,7 @@ export const Wrapper = styled.section`
   margin: 0;
   list-style: none;
   justify-content: center;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
   padding: 0 .4rem .4rem;
   width: 100%;
   z-index: 2;
@@ -51,7 +51,7 @@ export const Toggle = styled.button`
         margin-left: -.9rem;
         border-style: solid;
         border-width: 0 .8rem .8rem .8rem;
-        border-color: transparent transparent ${whiteLight} transparent;
+        border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) ${whiteLight} rgba(0, 0, 0, 0);
         z-index: 10;
       }
     }

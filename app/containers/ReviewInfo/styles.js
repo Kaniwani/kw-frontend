@@ -9,7 +9,7 @@ import { containerGutter, elementGutter } from 'shared/styles/layout';
 import { media } from 'shared/styles/media';
 
 export const Wrapper = styled.div`
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
   overflow: hidden;
   width: 100%;
   z-index: 2;
@@ -123,7 +123,7 @@ const IconButton = styled.button`
     line-height: 1;
     margin-left: .4rem;
     font-size: .75em;
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0);
     color: currentColor;
     cursor: pointer;
     transition: opacity .2s ease-in-out;
@@ -136,7 +136,7 @@ const IconButton = styled.button`
 export const AddButton = styled(IconButton)`
   & {
     ${resetButton}
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0);
     color: ${green};
     opacity: .9;
     margin-left: .2rem; /* icon size is larger in this button */
