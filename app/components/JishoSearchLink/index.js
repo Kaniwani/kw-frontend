@@ -11,7 +11,7 @@ function JishoSearchLink({ keyword, visuallyHidden }) {
       visuallyHidden={visuallyHidden}
       href={createJishoUrl(keyword)}
       title="Search Jisho"
-      tabIndex={visuallyHidden ? '-1' : '0'}
+      tabIndex="-1"
       external
       plainLink
     >

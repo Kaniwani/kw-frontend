@@ -1,4 +1,4 @@
-import { takeLatest, put, fork, select } from 'redux-saga/effects';
+import { takeLatest, put, call, select } from 'redux-saga/effects';
 import { createSynonymUrl } from 'shared/urls';
 import markAllAsDaemon from 'utils/markAllAsDaemon';
 import post from 'utils/post';
@@ -36,17 +36,24 @@ export function* postNewSynonym({ payload }) {
     character: payload.get('Kanji'),
     kana: payload.get('Kana'),
   };
-  const postData = { id: current.get('id'), ...synonym };
   const postUrl = createSynonymUrl();
+  const postData = {
+    id: current.get('id'),
+    ...synonym,
+  };
 
   try {
-    yield fork(post, postUrl, postData);
+    yield call(post, postUrl, postData);
   } catch (err) {
-    yield put(addSynonymError(err)); // TODO: use toasts for api errors
+    console.error(err);
+    yield put(addSynonymError({
+      title: 'Connection error',
+      message: `Unable to add synonym on server: ${err.message}`,
+    }));
   } finally {
     yield [
       put(addSynonymToCurrent(synonym)),
-      put(markIgnored(true)),
+      put(markIgnored()),
     ];
   }
 }

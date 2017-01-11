@@ -1,6 +1,5 @@
 import { css } from 'styled-components';
-
-const bgColor = '#41addd';
+import { blue, blueDark, whiteLight } from 'shared/styles/colors';
 
 const buttonStyles = css`
   display: inline-block;
@@ -14,14 +13,20 @@ const buttonStyles = css`
   user-select: none;
   cursor: pointer;
   outline: 0;
-  border: 2px solid ${bgColor};
-  color: ${bgColor};
+  border: 2px solid ${blue};
+  color: ${blue};
 
-  &:active {
-    background: ${bgColor};
-    color: #fff;
+  &:active,
+  &:focus,
+  &:hover {
+    background: ${blue};
+    color: ${whiteLight};
   }
 
+  &:active {
+    background: ${blueDark};
+    border-color: ${blueDark};
+  }
 `;
 
 export default buttonStyles;

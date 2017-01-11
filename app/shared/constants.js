@@ -1,7 +1,7 @@
 
-import { RESET_ANSWER } from 'containers/ReviewAnswer/constants';
 import { LOAD_USERDATA_SUCCESS } from 'containers/App/constants';
-import { LOAD_REVIEWDATA_SUCCESS } from 'containers/ReviewPage/constants';
+// import { RESET_ANSWER } from 'containers/ReviewAnswer/constants';
+// import { LOAD_REVIEWDATA_SUCCESS } from 'containers/ReviewPage/constants';
 
 /**
  * The base url for all KW api requests
@@ -15,8 +15,8 @@ export const API_BASE_URL = '//localhost:8000/api/v1/';
  */
 export const PERSISTENCE_ACTION_WHITELIST = [
   LOAD_USERDATA_SUCCESS,
-  LOAD_REVIEWDATA_SUCCESS,
-  RESET_ANSWER,
+  // LOAD_REVIEWDATA_SUCCESS,
+  // RESET_ANSWER,
 ];
 
 /**

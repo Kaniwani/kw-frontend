@@ -14,6 +14,9 @@ import {
   userDataLoadingError,
 } from 'containers/App/actions';
 import {
+  ADD_SYNONYM_ERROR,
+} from 'containers/AddSynonymForm/constants';
+import {
   loadReviewData,
 } from 'containers/ReviewPage/actions';
 import * as Notification from 'containers/Notifications/actions';
@@ -77,7 +80,10 @@ export function* getUserData() {
     yield put(userDataLoaded(shapeUserData(data)));
   } catch (err) {
     console.error(err);
-    yield put(userDataLoadingError({ title: 'Connection error', message: err.message }));
+    yield put(userDataLoadingError({
+      title: 'Connection error',
+      message: `Unable to fetch user data from server: ${err.message}`,
+    }));
   }
 }
 
@@ -97,7 +103,10 @@ export function* getUserDataWatcher() {
 
 export function* errorsWatcher() {
   // TODO: take all errors from any error constant
-  yield takeEvery(LOAD_USERDATA_ERROR, notifyError);
+  yield [
+    takeEvery(LOAD_USERDATA_ERROR, notifyError),
+    takeEvery(ADD_SYNONYM_ERROR, notifyError),
+  ];
 }
 
 

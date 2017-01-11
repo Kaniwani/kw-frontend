@@ -17,7 +17,7 @@ function MobileNav({ links, reviewCount, visible, handleToggleClick, offsetTop, 
         className={visible ? 'is-visible' : ''}
         items={offCanvasLinks}
         component={NavItem}
-        componentProps={props}
+        componentProps={{ handleToggleClick, ...props }}
       />
       <NavToggle active={visible} handleClick={handleToggleClick} />
     </Nav>
@@ -32,7 +32,7 @@ MobileNav.propTypes = {
   handleToggleClick: PropTypes.func.isRequired,
 };
 
-function NavItem({ item }) {
+function NavItem({ item, handleToggleClick }) {
   return (
     <Li>
       <MobileNavLink
@@ -40,6 +40,7 @@ function NavItem({ item }) {
         to={item.get('to')}
         disabled={item.get('isDisabled')}
         activeClassName="is-active"
+        onClick={handleToggleClick}
         plainLink
       >
         <Text className="NavLink__Text">
@@ -56,6 +57,7 @@ NavItem.propTypes = {
     PropTypes.instanceOf(Immutable.Iterable),
     PropTypes.object,
   ]),
+  handleToggleClick: PropTypes.func.isRequired,
 };
 
 export default MobileNav;

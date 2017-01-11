@@ -5,10 +5,11 @@ import { KEYCODES } from 'shared/constants';
 
 /**
  * Handles key events occuring in ReviewAnswer component
- * @param  {object} event
+ * @param  {number} event keycode
+ * @param  {boolean} whether answer input is disabled or not
  * @return {string|false} function to call if match else false
  */
-export function getShortcutAction(keyCode, disabled) {
+export function getShortcutAction(keyCode, inputDisabled) {
   const handlers = {
     [KEYCODES.ENTER]: '_processAnswer',
     [KEYCODES.SPACE]: '_toggleInfoDepth',
@@ -19,7 +20,7 @@ export function getShortcutAction(keyCode, disabled) {
     [KEYCODES.FORWARD_SLASH]: '_ignoreAnswer',
   };
   let action;
-  if (disabled) action = handlers[keyCode];
+  if (inputDisabled) action = handlers[keyCode];
   return action || false;
 }
 

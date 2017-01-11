@@ -38,23 +38,27 @@ export const Toggle = styled.button`
     ${shadowBox}
     background-color: ${whiteLight};
     color: ${greyLight};
-    &.is-active {
+
+    &.is-active,
+    &:hover {
       color: ${greyDark};
-      /* Triangle pointer */
-      &:after {
-        content: '';
-        position: absolute;
-        width: 0;
-        height: 0;
-        bottom: -.6rem;
-        left: 50%;
-        margin-left: -.9rem;
-        border-style: solid;
-        border-width: 0 .8rem .8rem .8rem;
-        border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) ${whiteLight} rgba(0, 0, 0, 0);
-        z-index: 10;
-      }
     }
+    /* Triangle pointer */
+
+    &.is-active:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      bottom: -.6rem;
+      left: 50%;
+      margin-left: -.9rem;
+      border-style: solid;
+      border-width: 0 .8rem .8rem .8rem;
+      border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) ${whiteLight} rgba(0, 0, 0, 0);
+      z-index: 10;
+    }
+    
     &.is-disabled {
       opacity: .7;
       cursor: not-allowed;

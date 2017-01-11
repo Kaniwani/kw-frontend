@@ -7,7 +7,10 @@ export default function shapeReviewData(data) {
   const shapedReviews = data.results.map((item) => {
     const shapedItem = {
       id: item.id,
-      vocabulary: item.vocabulary,
+      vocabulary: {
+        synonyms: [],
+        ...item.vocabulary,
+      },
       history: {
         correct: item.correct,
         incorrect: item.incorrect,

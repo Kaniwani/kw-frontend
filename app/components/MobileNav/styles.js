@@ -41,7 +41,7 @@ export const OffCanvasMenu = styled(List)`
 
   /* override central! :cocktail: */
   & > li {
-    flex: 1 0 100%;
+    flex: 1 0 auto;
     border-bottom: 1px solid ${adjustColor(whiteDark, 'alpha(0.75)')};
 
     > a {

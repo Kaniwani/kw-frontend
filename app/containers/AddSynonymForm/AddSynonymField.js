@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
-import { Label, LabelText, ValidationMessage } from './styles';
+import { LabelText, ValidationMessage } from './styles';
 import { ANSWER_TYPES } from 'containers/AnswerInput/constants';
 import JishoSearchLink from 'components/JishoSearchLink';
 import JapaneseInput from 'components/ReduxForm/JapaneseInput';
-import P from 'components/P';
+import Element from 'components/Element';
 
 const AddSynonymField = ({
   userAnswer,
@@ -17,24 +17,28 @@ const AddSynonymField = ({
   const isSameAsAnswerType = answerType === label.toLowerCase();
   const japanesePlaceholder = ANSWER_TYPES[answerType];
   return (
-    <Label>
-      <LabelText>{label}</LabelText>
-      <JapaneseInput
-        id={`addSynonynm-${label}`}
-        type={type}
-        label={label}
-        input={input}
-        placeholder={japanesePlaceholder}
-        autoFocus={!isSameAsAnswerType}
-        {...rest}
-      />
-      <JishoSearchLink keyword={userAnswer} visuallyHidden={isSameAsAnswerType} />
+    <div>
+      <Element tag="label" flexRow flexCenter>
+        <LabelText>{label}</LabelText>
+        <JapaneseInput
+          id={`addSynonynm-${label}`}
+          type={type}
+          label={label}
+          input={input}
+          placeholder={japanesePlaceholder}
+          autoFocus={!isSameAsAnswerType}
+          {...rest}
+        />
+        <JishoSearchLink keyword={userAnswer} visuallyHidden={isSameAsAnswerType} />
+      </Element>
       {touched && error && (
-        <ValidationMessage>
-          <P style={{ color: 'crimson' }}>{error}</P>
-        </ValidationMessage>
+        <Element textAlign="center">
+          <ValidationMessage>
+            {error}
+          </ValidationMessage>
+        </Element>
       )}
-    </Label>
+    </div>
   );
 };
 
