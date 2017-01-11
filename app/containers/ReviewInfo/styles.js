@@ -25,8 +25,8 @@ export const PanelWrapper = styled.div`
   ${containerGutter}
   background-color: ${whiteLight};
   ${media('min').sm`
-    margin-left: .6rem;
-    margin-right: .6rem;
+    margin-left: .4rem;
+    margin-right: .4rem;
     &:first-child {
       border-radius: .3rem .3rem 0 0;
     }

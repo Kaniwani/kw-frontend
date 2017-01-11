@@ -11,7 +11,7 @@ const Form = styled.form`
   background-color: rgba(0, 0, 0, 0);
   margin: 0 0 .4rem;
   ${media('min').sm`
-    margin: .4rem .6rem;
+    margin: .4rem;
   `}
   border: 0;
   border-radius: 0;

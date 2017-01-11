@@ -17,8 +17,8 @@ export const Wrapper = styled.section`
   width: 100%;
   z-index: 2;
   ${media('min').sm`
-    padding-left: .45rem;
-    padding-right: .45rem;
+    padding-left: .2rem; /* toggles have .2rem side margins */
+    padding-right: .2rem;
     max-width: ${siteMaxWidth}px;
     margin-left: auto;
     margin-right: auto;
