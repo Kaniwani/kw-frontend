@@ -24,6 +24,7 @@ export const initialState = fromJS({
     apiKey: '',
     apiValid: null,
     joinDate: null,
+    lastLogin: null,
     lastWkSyncDate: null,
     lastKwSyncDate: null,
     level: 0,

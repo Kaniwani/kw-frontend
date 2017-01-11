@@ -55,6 +55,7 @@ export function* checkSync({ payload }) {
   }
   if (/review/.test(location)) {
     if (needReviewSync) {
+      // FIXME: review saga not async loaded when this gets called if navigating from dashboard...
       yield put(loadReviewData());
     } else if (needsNewCurrent) {
       yield put(setNewCurrent());
@@ -73,7 +74,7 @@ export function* getUserData() {
 
   try {
     const data = yield call(request, requestURL);
-    yield put(userDataLoaded(shapeUserData(data.results[0])));
+    yield put(userDataLoaded(shapeUserData(data)));
   } catch (err) {
     console.error(err);
     yield put(userDataLoadingError({ title: 'Connection error', message: err.message }));

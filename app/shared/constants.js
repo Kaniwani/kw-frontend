@@ -25,7 +25,7 @@ export const PERSISTENCE_ACTION_WHITELIST = [
  */
 export const PERSISTENCE_STATE_WHITELIST = [
   ['global', 'user'],
-  'review',
+  // 'review',
 ];
 
 

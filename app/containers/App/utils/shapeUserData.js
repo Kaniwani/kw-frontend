@@ -5,24 +5,28 @@
  */
 export default function shapeUserData(data) { // eslint-disable-line import/prefer-default-export
   const shapedData = {
-    name: data.name,
-    reviewCount: data.reviews_count,
-    apiKey: data.api_key,
-    apiValid: data.api_valid,
-    joinDate: new Date(data.join_date),
-    lastWkSyncDate: (data.last_wanikani_sync_date != null) ? new Date(data.last_wanikani_sync_date) : null,
+    name: data.profile.name,
+    email: data.email, // kw
+    userId: data.id,
+    lastLogin: new Date(data.last_login),
+    joinDate: new Date(data.date_joined),
+    isActive: data.is_active,
+    reviewCount: data.profile.reviews_count,
+    apiKey: data.profile.api_key,
+    apiValid: data.profile.api_valid,
+    lastWkSyncDate: (data.profile.last_wanikani_sync_date != null) ? new Date(data.profile.last_wanikani_sync_date) : null,
     lastKwSyncDate: new Date(),
-    level: data.level,
-    unlockedLevels: data.unlocked_levels,
+    level: data.profile.level,
+    unlockedLevels: data.profile.unlocked_levels,
     settings: {
-      followMe: data.follow_me,
-      autoAdvanceCorrect: data.auto_advance_on_success,
+      followMe: data.profile.follow_me,
+      autoAdvanceCorrect: data.profile.auto_advance_on_success,
       autoAdvanceDelay: 3000,
-      autoExpandCorrect: data.auto_expand_answer_on_success,
-      autoExpandIncorrect: data.auto_expand_answer_on_failure,
-      burnedOnly: data.only_review_burned,
-      onVacation: data.on_vacation,
-      vacationDate: (data.vacation_date != null) ? new Date(data.vacation_date) : null,
+      autoExpandCorrect: data.profile.auto_expand_answer_on_success,
+      autoExpandIncorrect: data.profile.auto_expand_answer_on_failure,
+      burnedOnly: data.profile.only_review_burned,
+      onVacation: data.profile.on_vacation,
+      vacationDate: (data.profile.vacation_date != null) ? new Date(data.profile.vacation_date) : null,
     },
   };
   return shapedData;
