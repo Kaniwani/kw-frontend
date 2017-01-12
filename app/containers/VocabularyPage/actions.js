@@ -1,29 +1,57 @@
-/*
- *
- * VocabularyPage actions
- *
- */
+import * as VOCAB from './constants';
 
-import {
-  LOAD_VOCAB_LEVELDATA,
-  LOAD_VOCAB_LEVELDATA_SUCCESS,
-  LOAD_VOCAB_LEVELDATA_ERROR,
-} from './constants';
-
-export function getVocabularyLevels() { // eslint-disable-line import/prefer-default-export
+export function getLevels() {
   return {
-    type: LOAD_VOCAB_LEVELDATA,
+    type: VOCAB.LOAD_LEVELS,
   };
 }
-export function vocabularyLevelsDataLoaded(data) { // eslint-disable-line import/prefer-default-export
+export function levelsLoaded(data) {
   return {
-    type: LOAD_VOCAB_LEVELDATA_SUCCESS,
+    type: VOCAB.LOAD_LEVELS_SUCCESS,
     payload: data,
   };
 }
-export function vocabularyLevelsDataLoadingError(error) { // eslint-disable-line import/prefer-default-export
+export function levelsLoadingError(error) {
   return {
-    type: LOAD_VOCAB_LEVELDATA_ERROR,
+    type: VOCAB.LOAD_LEVELS_ERROR,
+    payload: error,
+  };
+}
+
+export function getItems(level) {
+  return {
+    type: VOCAB.LOAD_ITEMS,
+    payload: level,
+  };
+}
+export function itemsLoaded(data) {
+  return {
+    type: VOCAB.LOAD_ITEMS_SUCCESS,
+    payload: data,
+  };
+}
+export function itemsLoadingError(error) {
+  return {
+    type: VOCAB.LOAD_ITEMS_ERROR,
+    payload: error,
+  };
+}
+
+export function getItem(id) {
+  return {
+    type: VOCAB.LOAD_ITEM,
+    payload: id,
+  };
+}
+export function itemLoaded(data) {
+  return {
+    type: VOCAB.LOAD_ITEM_SUCCESS,
+    payload: data,
+  };
+}
+export function itemLoadingError(error) {
+  return {
+    type: VOCAB.LOAD_ITEM_ERROR,
     payload: error,
   };
 }

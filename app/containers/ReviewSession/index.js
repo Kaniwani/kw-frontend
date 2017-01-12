@@ -35,6 +35,7 @@ export class ReviewSession extends React.Component { // eslint-disable-line reac
       content = (<LoadingIndicator color="white" />);
     // Show an error if there is one
     } else if (error !== false) {
+      // TODO: remove this and use Notifications
       content = `Something went wrong: "${error.msg}". Please contact us or try again!`;
     // If we're not loading, don't have an error and there is review data, show the review data
     } else if (!loading && !error && meaning.length) {

@@ -95,7 +95,7 @@ export default function createRoutes(store) {
     },
     {
       path: '/vocabulary',
-      name: 'vocabularyPage',
+      name: 'vocabulary',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/VocabularyPage/reducer'),
@@ -106,7 +106,49 @@ export default function createRoutes(store) {
         const renderRoute = loadModule(cb);
 
         importModules.then(([reducer, sagas, component]) => {
-          injectReducer('vocabularyPage', reducer.default);
+          injectReducer('vocabulary', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
+      path: '/vocabulary/:level',
+      name: 'vocabulary level',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/VocabularyPage/reducer'),
+          System.import('containers/VocabularyPage/sagas'),
+          System.import('containers/VocabularyLevel'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('vocabulary', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },
+    {
+      path: '/vocabulary/:level/:id',
+      name: 'vocabulary detail',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/VocabularyPage/reducer'),
+          System.import('containers/VocabularyPage/sagas'),
+          System.import('containers/VocabularyDetail'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('vocabulary', reducer.default);
           injectSagas(sagas.default);
           renderRoute(component);
         });

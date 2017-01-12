@@ -11,12 +11,11 @@ const Ul = styled.ul`
 function List({ items, className, component, componentProps }) {
   const ComponentToRender = component;
   let content = (<div />);
-
   // If we have items, render them
   if (items) {
     content = items.map((item) => (
       <ComponentToRender key={cuid()} item={item} {...componentProps} />
-    ));
+      ));
   } else {
     // Otherwise render a single component
     content = (<ComponentToRender />);

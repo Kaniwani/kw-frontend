@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 import { API_BASE_URL } from 'shared/constants';
 
-// TODO: add 3{Endpoint}Request() that accept data as well
+// TODO: add ${Endpoint}Request() that accept data as well
 // For Example, synonym endpoint expects the following in request body:
 //  id: IntegerField
 //  character: CharField
@@ -57,11 +57,19 @@ export const createFaqUrl = (id = '') => createRequestUrl('faq', id);
 
 /**
  * Creates a url for vocabulary endpoint requests
+ * Possible queries:
+ * level {number}
+ * srs_level {string} ????? to be added
+ * meaning__contains
+ * readings__kana__contains
+ * readings__character__contains
  * @param  {String} [id=''] - optional user id for specific vocabulary requests
  * @return {String} url
  */
-export const createVocabularyUrl = (id = '') => createRequestUrl('vocabulary', id);
-
+export const createVocabularyUrl = (id = '', queries = '') => {
+  if (!id) return `${createRequestUrl('vocabulary', null)}${queries}`;
+  return createRequestUrl('vocabulary', id);
+};
 /**
  * Creates a url for reading endpoint requests
  * @param  {String} [id=''] - optional user id for specific reading requests
@@ -78,6 +86,8 @@ export const createLevelUrl = (id = '') => createRequestUrl('level', id);
 
 /**
  * Creates a url for (vocabulary) level lock/unlock endpoint requests
+ * Possible queries:
+ * count {number} (number of items to unlock)
  * @param  {Boolean} [lock=true] - whether to lock or unlock
  * @return {String} url
  */

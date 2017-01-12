@@ -1,20 +1,31 @@
 import { createSelector } from 'reselect';
 
 /**
- * Direct selector to the vocabularyPage state domain
+ * Direct selector to the vocabulary state domain
  */
-const selectVocabularyPageDomain = () => (state) => state.get('vocabularyPage');
+const selectVocabularyDomain = () => (state) => state.get('vocabulary');
 
 /**
  * Other specific selectors
  */
 const selectVocabularyLevels = () => createSelector(
-   selectVocabularyPageDomain(),
+   selectVocabularyDomain(),
    (substate) => substate.get('levels'),
  );
 
+const selectVocabularyItems = () => createSelector(
+   selectVocabularyDomain(),
+   (substate) => substate.get('items'),
+ );
 
-export default selectVocabularyPageDomain;
+const selectVocabularyDetail = () => createSelector(
+   selectVocabularyDomain(),
+   (substate) => substate.get('item'),
+ );
+
+export default selectVocabularyDomain;
 export {
   selectVocabularyLevels,
+  selectVocabularyItems,
+  selectVocabularyDetail,
 };

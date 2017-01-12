@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import Helmet from 'react-helmet';
 import { selectVocabularyLevels } from './selectors';
-import { getVocabularyLevels } from './actions';
+import { getLevels } from './actions';
 import Container from 'components/Container';
 import Element from 'components/Element';
 import List from 'components/List';
@@ -16,8 +16,7 @@ const Level = ({ item }) => (
     <Element>level:{item.get('level')}</Element>
     <Element>{`${item.get('unlocked') ? 'un' : ''}locked`}</Element>
     <Element>count:{item.get('count')}</Element>
-    {/* // TODO: make child route for /vocabulary/level/:levelId */}
-    <A to={`/vocabulary/:${item.get('id')}`}>View Item</A>
+    <A to={`/vocabulary/${item.get('level')}`} key={item.get('level')}>View Item</A>
   </Container>
   );
 
@@ -27,12 +26,12 @@ Level.propTypes = {
 
 export class VocabularyPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
-    getVocabularyLevels: PropTypes.func.isRequired,
+    getLevels: PropTypes.func.isRequired,
     levels: PropTypes.instanceOf(Immutable.Iterable).isRequired,
   }
 
   componentDidMount() {
-    this.props.getVocabularyLevels();
+    this.props.getLevels();
   }
 
   render() {
@@ -42,7 +41,7 @@ export class VocabularyPage extends React.Component { // eslint-disable-line rea
           title="Vocabulary"
           meta={[{ name: 'description', content: 'KaniWani Vocabulary' }]}
         />
-        {/* TODO: react-router breadcrumbs */}
+        {/* TODO: breadcrumbs */}
         <Container>
           <H1>Vocabulary</H1>
           <List items={this.props.levels} component={Level} />
@@ -57,7 +56,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getVocabularyLevels: () => dispatch(getVocabularyLevels()),
+  getLevels: () => dispatch(getLevels()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VocabularyPage);

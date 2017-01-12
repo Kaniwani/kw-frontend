@@ -1,35 +1,53 @@
-/*
- *
- * VocabularyPage reducer
- *
- */
-
 import { fromJS } from 'immutable';
-import {
-  LOAD_VOCAB_LEVELDATA,
-  LOAD_VOCAB_LEVELDATA_SUCCESS,
-  LOAD_VOCAB_LEVELDATA_ERROR,
-} from './constants';
+import * as VOCAB from './constants';
 
+// TODO: try a record?
 const initialState = fromJS({
   loading: false,
   error: null,
   levels: [],
+  items: [],
+  item: {},
 });
 
 function vocabularyPageReducer(state = initialState, action) {
   switch (action.type) {
-    case LOAD_VOCAB_LEVELDATA:
+    case VOCAB.LOAD_LEVELS:
       return state
-        .set('loading', action.showIndicator)
+        .set('loading', true)
         .set('error', false);
-    case LOAD_VOCAB_LEVELDATA_SUCCESS: {
+    case VOCAB.LOAD_LEVELS_SUCCESS:
       return state
         .set('loading', false)
         .set('error', false)
         .mergeIn(['levels'], action.payload);
-    }
-    case LOAD_VOCAB_LEVELDATA_ERROR:
+    case VOCAB.LOAD_LEVELS_ERROR:
+      return state
+        .set('error', action.payload)
+        .set('loading', false);
+    case VOCAB.LOAD_ITEMS:
+      return state
+        .set('loading', true)
+        .set('error', false);
+    case VOCAB.LOAD_ITEMS_SUCCESS:
+      return state
+        .set('loading', false)
+        .set('error', false)
+        .mergeIn(['items'], action.payload.items);
+    case VOCAB.LOAD_ITEMS_ERROR:
+      return state
+        .set('error', action.payload)
+        .set('loading', false);
+    case VOCAB.LOAD_ITEM:
+      return state
+        .set('loading', true)
+        .set('error', false);
+    case VOCAB.LOAD_ITEM_SUCCESS:
+      return state
+        .set('loading', false)
+        .set('error', false)
+        .mergeIn(['item'], action.payload);
+    case VOCAB.LOAD_ITEM_ERROR:
       return state
         .set('error', action.payload)
         .set('loading', false);
