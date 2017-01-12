@@ -1,29 +1,30 @@
 import * as utils from '../utils';
+import { fromJS } from 'immutable';
 import { TILDE_EN, TILDE_JA } from '../constants';
 
-describe('keyInListMatches', () => {
-  const list = [{ obj: 'one' }, { obj: 'two', come_on: 'fhqhwqgads' }];
+describe('keyInIterableMatches', () => {
+  const list = fromJS([{ obj: 'one' }, { obj: 'two', come_on: 'fhqhwqgads' }]);
   const key = 'come_on';
   const target = 'fhqhwqgads';
   it('returns true if item exists', () => {
-    expect(utils.keyInListMatches(list, key, target)).toBe(true);
+    expect(utils.keyInIterableMatches(list, key, target)).toBe(true);
   });
   it("returns false if target doesn't exist", () => {
-    expect(utils.keyInListMatches(list, key, target)).toBe(true);
+    expect(utils.keyInIterableMatches(list, key, target)).toBe(true);
   });
   it('returns false if list is empty', () => {
-    expect(utils.keyInListMatches([], key, target)).toBe(false);
+    expect(utils.keyInIterableMatches([], key, target)).toBe(false);
   });
   it("returns false if key doesn't exist", () => {
-    expect(utils.keyInListMatches(list, 'everybody_to_the_limit', target)).toBe(false);
+    expect(utils.keyInIterableMatches(list, 'everybody_to_the_limit', target)).toBe(false);
   });
   it("returns false if target isn't present at key", () => {
-    expect(utils.keyInListMatches(list, key, 'come_on_fhqhwqgads')).toBe(false);
+    expect(utils.keyInIterableMatches(list, key, 'come_on_fhqhwqgads')).toBe(false);
   });
 });
 
 describe('keysInListMatch', () => {
-  const list = [{ kana: 'foo' }, { character: 'bar' }];
+  const list = fromJS([{ kana: 'foo' }, { character: 'bar' }]);
   let keys = ['kana', 'character'];
   let target = 'bar';
   it('returns true if item exists in one of the keys', () => {
