@@ -36,7 +36,7 @@ export function loadReviewData(indicate = true) {
 /**
  * Dispatched when the review data is loaded by the request saga
  *
- * @param  {object} reviewData The review data
+ * @param  {object} payload - payload containing {data, title, and message}
  * @return {object} An action object with a type of LOAD_REVIEWDATA_SUCCESS passing the review data
  */
 export function reviewDataLoaded(data) {

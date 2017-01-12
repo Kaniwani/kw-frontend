@@ -1,5 +1,5 @@
 import isEmpty from 'lodash/isEmpty';
-// TODO: move tildes to kanawana imo
+// TODO: take tildes from kanawana imo!
 import { TILDE_EN, TILDE_JA } from './constants';
 import { KEYCODES } from 'shared/constants';
 
@@ -26,13 +26,13 @@ export function getShortcutAction(keyCode, inputDisabled) {
 
 /**
  * Checks an array of objects to see if a particular key's value matches a target
- * @param  {Object[]} list - List of objects to check
+ * @param  {Object[]} iterable - Iterable containing objects to check
  * @param  {string} key - Key in each object to check value against target
  * @param  {any} target Target - value to test for
  * @return {boolean} True if a match was found
  */
-export function keyInListMatches(list = [], key, target) {
-  return list.some((obj) => obj[key] === target);
+export function keyInIterableMatches(iterable = [], key, target) {
+  return iterable.some((item) => item.get(key) === target);
 }
 
 /**
@@ -42,7 +42,7 @@ export function keyInListMatches(list = [], key, target) {
  * @return {boolean} True if a match was found
  */
 export function keysInListMatch(list = [], keys = [], target) {
-  return keys.some((key) => keyInListMatches(list, key, target));
+  return keys.some((key) => keyInIterableMatches(list, key, target));
 }
 
 /**

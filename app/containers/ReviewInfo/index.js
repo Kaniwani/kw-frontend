@@ -6,6 +6,7 @@ import cuid from 'cuid';
 import InfoPanel from './InfoPanel';
 import { Wrapper } from './styles';
 import AddSynonymPanel from './AddSynonymPanel';
+
 import {
   selectInfoAddSynonymVisible,
   selectInfoDetailLevel,

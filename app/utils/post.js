@@ -4,6 +4,16 @@ import Cookies from 'js-cookie';
 const CSRF_TOKEN = Cookies.get('csrftoken');
 
 /**
+ * Parses the JSON returned by a network request
+ *
+ * @param  {object} response A response from a network request
+ * @return {object}          The parsed JSON from the request
+ */
+function parseJSON(response) {
+  return response.statusText === 'No Content' ? response : response.json();
+}
+
+/**
  * Checks if a network request came back fine, and throws an error if not
  *
  * @param  {object} response   A response from a network request
@@ -11,6 +21,7 @@ const CSRF_TOKEN = Cookies.get('csrftoken');
  */
 function checkStatus(response) {
   const status = (response.status || response.meta.status || 404);
+  console.log(response);
   if (status >= 200 && status < 300) {
     return response;
   }
@@ -38,5 +49,7 @@ export default function post(url, data, options = {}) {
     credentials: 'include',
   }, options);
 
-  return fetch(url, mergedOptions).then(checkStatus);
+  return fetch(url, mergedOptions)
+    .then(checkStatus)
+    .then(parseJSON);
 }

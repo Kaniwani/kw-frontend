@@ -5,7 +5,7 @@ import cuid from 'cuid';
 import ICONS from './constants';
 
 const Wrapper = styled.span`
-  display: inline-block;
+  display: ${({ inline }) => inline ? 'inline-' : ''}block;
   vertical-align: middle;
   align-self: center;
   position: relative;
@@ -36,7 +36,7 @@ const tooltipDefaults = {
 };
 
 // TODO: create HoC as "withTooltip" to simplify this icon component
-const Icon = ({ color, size, name, className, tooltip, ...rest }) => {
+const Icon = ({ color, size, name, className, tooltip, inline, ...rest }) => {
   // NOTE: <ReactTooltip /> must be present in a parent component (pref root) for tooltips to show!
   const tooltipOptions = Object.assign(
     {},
@@ -46,6 +46,7 @@ const Icon = ({ color, size, name, className, tooltip, ...rest }) => {
   );
   return (
     <Wrapper
+      inline={inline}
       className={className}
       iconColor={color}
       iconSize={size}
@@ -84,12 +85,14 @@ Icon.propTypes = {
     showDelay: PropTypes.number,
     hideDelay: PropTypes.number,
   }),
+  inline: PropTypes.bool,
 };
 
 Icon.defaultProps = {
   color: 'currentColor',
   size: '1em',
   preserveAspectRatio: 'xMidYMid meet',
+  inline: true,
 };
 
 export default Icon;

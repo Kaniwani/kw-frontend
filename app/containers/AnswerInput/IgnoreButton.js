@@ -11,7 +11,7 @@ const Button = styled.button`
 function IgnoreButton({ onIgnoreClick }) {
   return (
     <Button type="button" title="Ignore answer" onClick={onIgnoreClick}>
-      <Icon name="CLOSE" size="1.4em" />
+      <Icon name="CLOSE" size="1.4em" inline={false} />
     </Button>
   );
 }

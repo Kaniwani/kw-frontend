@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 import { API_BASE_URL } from 'shared/constants';
 
-// TODO: add create{Endpoint}Request() that accept data as well
+// TODO: add 3{Endpoint}Request() that accept data as well
 // For Example, synonym endpoint expects the following in request body:
 //  id: IntegerField
 //  character: CharField
@@ -32,14 +32,17 @@ export const createAuthTokenUrl = () => createRequestUrl('token-auth');
  * /user/me/ <-- always just shows self
  * /user/sync/ < -- POST to sync to WK
  * /user/srs/ <-- POST to perform SRS (edited)
- * @param {String|Number} [id='me'] - defaults to current user, in future maybe access to other user profiles by id
+ * @param {String|Number} [path='me'] - path or user id
  * @return {String} url
  */
-export const createUserUrl = (id = 'me') => createRequestUrl('user', id);
+export const createUserUrl = (path = 'me') => createRequestUrl('user', path);
 
 /**
  * Creates a url for synonym endpoint requests
- * NOTE: adding synonym uses POST method, removing uses DELETE
+ * add -> /api/v1/synonym [POST]
+ * remove -> /api/v1/synonym/{pk}/ [DELETE]
+ * get one -> /api/v1/synonym/{PK} [GET]
+ * get all -> /api/v1/synonym/ [GET]
  * @param  {String} [id=''] - optional user id for specific synonym requests
  * @return {String} url
  */

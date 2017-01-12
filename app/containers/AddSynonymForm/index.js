@@ -4,7 +4,6 @@ import AddSynonymField from './AddSynonymField';
 import noop from 'lodash/noop';
 import { required, onlyKanjiOrKana, onlyKana } from 'shared/validations';
 import Element from 'components/Element';
-import Divider from 'components/Divider';
 import Button from 'components/Button';
 import { Heading } from 'containers/ReviewInfo/styles';
 
@@ -13,7 +12,6 @@ const FORM_NAME = 'add-synonym-form'; // must be unique per component
 const AddSynonymForm = ({ handleSubmit, submitting, userAnswer, answerType }) => (
   <form onSubmit={handleSubmit}>
     <Heading>Add New Synonym</Heading>
-    <Divider fullWidth fade />
     <Field
       name="Kanji"
       type="text"
@@ -33,7 +31,7 @@ const AddSynonymForm = ({ handleSubmit, submitting, userAnswer, answerType }) =>
       answerType={answerType}
     />
     <Element flexRow flexCenter>
-      <Button handleRoute={noop} type="submit" disabled={submitting}>Submit</Button>
+      <Button handleRoute={noop} type="submit" active={submitting} disabled={submitting}>Submit</Button>
     </Element>
   </form>
 );

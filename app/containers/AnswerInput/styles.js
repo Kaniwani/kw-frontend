@@ -75,8 +75,5 @@ export const ButtonContainer = styled.div`
     &:hover {
       opacity: 1;
     }
-    & > span {
-      display: block;
-    }
   }
 `;

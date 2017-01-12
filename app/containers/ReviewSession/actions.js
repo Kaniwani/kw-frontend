@@ -20,6 +20,7 @@ import {
   RETURN_CURRENT_TO_QUEUE,
   COPY_CURRENT_TO_COMPLETED,
   ADD_SYNONYM_TO_CURRENT,
+  REMOVE_SYNONYM_FROM_CURRENT,
   INCREASE_SESSION_CORRECT,
   INCREASE_SESSION_INCORRECT,
   INCREASE_CURRENT_STREAK,
@@ -67,6 +68,18 @@ export function addSynonymToCurrent(synonymData) {
   return {
     type: ADD_SYNONYM_TO_CURRENT,
     payload: synonymData,
+  };
+}
+
+/**
+ * Removes a synonym from current review's vocabulary
+ * @param {number} id - synonym id
+ * @return {object} An action object with a type of REMOVE_SYNONYM_FROM_CURRENT and a payload of id
+ */
+export function removeSynonymFromCurrent(id) {
+  return {
+    type: REMOVE_SYNONYM_FROM_CURRENT,
+    payload: id,
   };
 }
 

@@ -5,6 +5,7 @@ export const SET_NEW_CURRENT = 'kw/ReviewSession/SET_NEW_CURRENT';
 export const RETURN_CURRENT_TO_QUEUE = 'kw/ReviewSession/RETURN_CURRENT_TO_QUEUE';
 export const COPY_CURRENT_TO_COMPLETED = 'kw/ReviewSession/COPY_CURRENT_TO_COMPLETED';
 export const ADD_SYNONYM_TO_CURRENT = 'kw/ReviewSession/ADD_SYNONYM_TO_CURRENT';
+export const REMOVE_SYNONYM_FROM_CURRENT = 'kw/ReviewSession/REMOVE_SYNONYM_FROM_CURRENT';
 export const INCREASE_CURRENT_STREAK = 'kw/ReviewSession/INCREASE_CURRENT_STREAK';
 export const DECREASE_CURRENT_STREAK = 'kw/ReviewSession/DECREASE_CURRENT_STREAK';
 export const RESET_CURRENT_STREAK = 'kw/ReviewSession/RESET_CURRENT_STREAK';

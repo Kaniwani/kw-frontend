@@ -14,7 +14,9 @@ import {
   userDataLoadingError,
 } from 'containers/App/actions';
 import {
+  ADD_SYNONYM_SUCCESS,
   ADD_SYNONYM_ERROR,
+  REMOVE_SYNONYM_ERROR,
 } from 'containers/AddSynonymForm/constants';
 import {
   loadReviewData,
@@ -73,7 +75,7 @@ export function* checkSync({ payload }) {
  * userData request/response handler
  */
 export function* getUserData() {
-  const requestURL = createUserUrl();
+  const requestURL = createUserUrl('me');
 
   try {
     const data = yield call(request, requestURL);
@@ -93,6 +95,14 @@ export function* notifyError({ payload: { title, message } }) {
   // yield call(ServerLog, { title, message });
 }
 
+export function* notifySuccess({ payload: { title, message } }) {
+  yield put(Notification.success({ title, message }));
+}
+
+export function* notifyInfo({ payload: { title, message } }) {
+  yield put(Notification.info({ title, message }));
+}
+
 /**
  * Watches for LOAD_USERDATA actions and calls getUserData when one comes in.
  * By using `takeLatest` only the result of the latest API call is applied.
@@ -101,14 +111,15 @@ export function* getUserDataWatcher() {
   yield takeLatest(LOAD_USERDATA, getUserData);
 }
 
-export function* errorsWatcher() {
+export function* notificationWatcher() {
   // TODO: take all errors from any error constant
   yield [
+    takeEvery(ADD_SYNONYM_SUCCESS, notifySuccess),
     takeEvery(LOAD_USERDATA_ERROR, notifyError),
     takeEvery(ADD_SYNONYM_ERROR, notifyError),
+    takeEvery(REMOVE_SYNONYM_ERROR, notifyError),
   ];
 }
-
 
 /**
  * Runs sync checks when storage is loaded
@@ -133,7 +144,7 @@ export function* rootSaga() {
     fork(getUserDataWatcher),
     fork(storageLoadWatcher),
     fork(locationChangeWatcher),
-    fork(errorsWatcher),
+    fork(notificationWatcher),
   ];
 
   // Can't image we ever want to cancel these watchers really, since app is root level anyway

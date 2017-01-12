@@ -4,7 +4,10 @@ import {
   LOAD_JISHODATA_SUCCESS,
   LOAD_JISHODATA_ERROR,
   ADD_SYNONYM,
+  ADD_SYNONYM_SUCCESS,
   ADD_SYNONYM_ERROR,
+  REMOVE_SYNONYM,
+  REMOVE_SYNONYM_ERROR,
 } from './constants';
 
 export function loadJishoData(keyword) {
@@ -35,10 +38,30 @@ export function addSynonym(data) {
   };
 }
 
+export function addSynonymSuccess(message) {
+  return {
+    type: ADD_SYNONYM_SUCCESS,
+    payload: message,
+  };
+}
 
 export function addSynonymError(error) {
   return {
     type: ADD_SYNONYM_ERROR,
+    payload: error,
+  };
+}
+
+export function removeSynonym(id) {
+  return {
+    type: REMOVE_SYNONYM,
+    payload: id,
+  };
+}
+
+export function removeSynonymError(error) {
+  return {
+    type: REMOVE_SYNONYM_ERROR,
     payload: error,
   };
 }

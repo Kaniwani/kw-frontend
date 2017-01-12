@@ -11,7 +11,7 @@ const Button = styled.button`
 function SubmitButton() {
   return (
     <Button type="submit" title="Submit answer">
-      <Icon name="ARROW_RIGHT" size="1.75em" />
+      <Icon name="ARROW_RIGHT" size="1.75em" inline={false} />
     </Button>
   );
 }

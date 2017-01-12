@@ -58,8 +58,8 @@ import {
 
 import {
   selectCurrent,
+  selectCurrentVocab,
   selectCurrentMeaning,
-  selectCurrentReadings,
 } from './selectors';
 
 import {
@@ -181,27 +181,28 @@ export function* resetReview() {
 }
 
 export function* checkAnswer() {
-  let [readings, inputText] = yield [ // eslint-disable-line prefer-const
-    select(selectCurrentReadings()),
+  let [vocab, inputText] = yield [ // eslint-disable-line prefer-const
+    select(selectCurrentVocab()),
     select(selectInputText()),
   ];
-
-  readings = readings.toJS();
+  const readings = vocab.get('readings');
+  const synonyms = vocab.get('synonyms');
+  const possibleAnswers = readings.concat(synonyms);
 
   let answer = inputText.trim();
   const hasContent = !isEmpty(answer);
 
   if (hasContent) {
     answer = fixTerminalN(answer);
-    if (isKanji(answer) && answersContainTilde(readings)) {
-      answer = fixStartingTilde(answer);
+    if (isKanji(answer) && answersContainTilde(readings)) { // currently only checks for starting tilde
+      answer = fixStartingTilde(answer); // FIXME: what about ending tildes?
     }
   }
 
   const allJapanese = isKanjiKana(answer);
   const answerType = (isHiragana(answer) || isKatakana(answer) ? 'kana' : 'kanji');
   const valid = hasContent && allJapanese;
-  const matches = keysInListMatch(readings, ['kana', 'character'], answer);
+  const matches = keysInListMatch(possibleAnswers, ['kana', 'character'], answer);
   const correct = valid && matches;
 
   yield put(updateAnswer({
@@ -293,9 +294,7 @@ export function* copyCurrentToCompletedWatcher() {
     ];
 
     if (needMoreReviews) {
-      console.log('fetching more reviews...'); // eslint-disable-line no-console
       yield put(loadReviewData(false));
-      console.log('fetched more reviews!'); // eslint-disable-line no-console
     }
 
     if (queueCompleted) {

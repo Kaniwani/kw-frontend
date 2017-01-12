@@ -1,4 +1,4 @@
-import { takeLatest, put, call, select } from 'redux-saga/effects';
+import { takeEvery, put, call, select } from 'redux-saga/effects';
 import { createSynonymUrl } from 'shared/urls';
 import markAllAsDaemon from 'utils/markAllAsDaemon';
 import post from 'utils/post';
@@ -6,14 +6,16 @@ import post from 'utils/post';
 // import { createJishoUrl } from 'shared/urls';
 // import shapeJishoData from './utils/shapeJishoData';
 // import { LOAD_JISHODATA } from './constants';
-import { ADD_SYNONYM } from './constants';
+import { ADD_SYNONYM, REMOVE_SYNONYM } from './constants';
 
-import { addSynonymToCurrent } from 'containers/ReviewSession/actions';
+import { addSynonymToCurrent, removeSynonymFromCurrent } from 'containers/ReviewSession/actions';
 import { selectCurrent } from 'containers/ReviewSession/selectors';
-import { markIgnored } from 'containers/ReviewAnswer/actions';
+import { checkAnswer } from 'containers/ReviewAnswer/actions';
 
 import {
   addSynonymError,
+  addSynonymSuccess,
+  removeSynonymError,
   // jishoDataLoaded,
   // jishoDataLoadingError,
 } from './actions';
@@ -38,37 +40,62 @@ export function* postNewSynonym({ payload }) {
   };
   const postUrl = createSynonymUrl();
   const postData = {
-    id: current.get('id'),
+    review: current.get('id'),
     ...synonym,
   };
 
   try {
-    yield call(post, postUrl, postData);
+    const synonymData = yield call(post, postUrl, postData);
+    yield put(addSynonymSuccess({
+      title: 'Add Synonym',
+      message: `Synonym “${synonymData.character}” successfully added.`,
+    }));
+    yield put(addSynonymToCurrent(synonymData));
+    yield put(checkAnswer());
   } catch (err) {
     console.error(err);
     yield put(addSynonymError({
       title: 'Connection error',
       message: `Unable to add synonym on server: ${err.message}`,
     }));
-  } finally {
-    yield [
-      put(addSynonymToCurrent(synonym)),
-      put(markIgnored()),
-    ];
   }
 }
+
+// TODO: not really relevant to synonymForm at all
+// move to app level since vocab will use it?
+// same goes for addSynonym really
+export function* removeSynonym({ payload }) {
+  const id = payload;
+  const url = createSynonymUrl(id);
+
+  try {
+    yield call(post, url, null, { method: 'DELETE' });
+    yield put(removeSynonymFromCurrent(id));
+  } catch (err) {
+    console.error(err);
+    yield put(removeSynonymError({
+      title: 'Connection error',
+      message: `Unable to remove synonym on server: ${err.message}`,
+    }));
+  }
+}
+
 
 // export function* getJishoDataWatcher() {
 //   yield takeLatest(LOAD_JISHODATA, getJishoData);
 // }
 
 export function* addSynonymWatcher() {
-  yield takeLatest(ADD_SYNONYM, postNewSynonym);
+  yield takeEvery(ADD_SYNONYM, postNewSynonym);
+}
+export function* removeSynonymWatcher() {
+  yield takeEvery(REMOVE_SYNONYM, removeSynonym);
 }
 
 // Mark watchers to only run once on route entry
 const watchers = markAllAsDaemon([
   addSynonymWatcher,
+  removeSynonymWatcher,
 /* getJishoDataWatcher, */
 ]);
 

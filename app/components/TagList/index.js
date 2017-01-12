@@ -24,18 +24,18 @@ const StyledUl = styled.ul`
   ${resetList}
 `;
 
-const TagList = ({ className, items }) => (
+const TagList = ({ className, items }) => (items && (
   <StyledUl className={className} >
     {items.map((item) => <Chip key={cuid()} item={item} {...selectColor(item)} />)}
   </StyledUl>
-);
+)) || null;
 
 TagList.propTypes = {
   className: PropTypes.string,
   items: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.instanceOf(Immutable.Iterable),
-  ]).isRequired,
+  ]),
 };
 
 export default TagList;

@@ -102,6 +102,11 @@ function reviewReducer(state = initialState, action = {}) {
       return state.setIn(['session', 'current', 'session', 'streak'], state.getIn(['session', 'current', 'history', 'streak']));
     case ReviewSession.ADD_SYNONYM_TO_CURRENT:
       return state.mergeIn(['session', 'current', 'vocabulary', 'synonyms'], [action.payload]);
+    case ReviewSession.REMOVE_SYNONYM_FROM_CURRENT: {
+      const newSynonyms = state.getIn(['session', 'current', 'vocabulary', 'synonyms'])
+        .filter((item) => item.get('id') !== action.payload);
+      return state.setIn(['session', 'current', 'vocabulary', 'synonyms'], newSynonyms);
+    }
     case ReviewAnswer.RESET_ANSWER:
       return state.setIn(['session', 'answer'], answerInitialState);
     // TODO: uggh... really? too many nested separations with these
