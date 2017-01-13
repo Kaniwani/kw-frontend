@@ -45,7 +45,6 @@ export class ReviewAnswer extends React.Component {
     if (action) {
       blockEvent(event);
       this[action]();
-      console.log('handleKeyDown calling: ', action); // eslint-disable-line no-console
     }
   }
 

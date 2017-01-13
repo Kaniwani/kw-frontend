@@ -32,7 +32,6 @@ export class VocabularyDetail extends React.Component { // eslint-disable-line r
   }
 
   componentDidMount() {
-    console.log('vlevel', this.props.params);
     this.props.getItem(this.props.params.id);
   }
 

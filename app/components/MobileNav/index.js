@@ -57,7 +57,7 @@ NavItem.propTypes = {
     PropTypes.instanceOf(Immutable.Iterable),
     PropTypes.object,
   ]),
-  handleToggleClick: PropTypes.func.isRequired,
+  handleToggleClick: PropTypes.func,
 };
 
 export default MobileNav;

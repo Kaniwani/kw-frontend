@@ -49,11 +49,6 @@ export function* checkSync({ payload }) {
   ];
   const needsNewCurrent = currentMeaning === '';
 
-  console.group('Syncing');
-  console.log('usersync?', needUserSync);
-  console.log('reviewsync?', needReviewSync);
-  console.groupEnd('Syncing');
-
   if (location === '/') {
     if (needUserSync) yield put(loadUserData());
     // if (needReviewSync) yield put(loadReviewData(false)); // zzz not present in app reducer yet

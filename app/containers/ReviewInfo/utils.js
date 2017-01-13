@@ -93,7 +93,7 @@ export function splitSentenceByMatch(sentence, chars, kana) {
       tail,
     };
   }
-  console.log(matches);
+
   return {
     head: matches[1],
     match: '',

@@ -21,7 +21,6 @@ function parseJSON(response) {
  */
 function checkStatus(response) {
   const status = (response.status || response.meta.status || 404);
-  console.log(response);
   if (status >= 200 && status < 300) {
     return response;
   }
