@@ -6,9 +6,10 @@ import cuid from 'cuid';
 
 const Ul = styled.ul`
   ${resetList}
+  ${({ cssStyle }) => cssStyle || ''}
 `;
 
-function List({ items, className, component, componentProps }) {
+function List({ items, cssStyle, component, componentProps }) {
   const ComponentToRender = component;
   let content = (<div />);
   // If we have items, render them
@@ -21,13 +22,13 @@ function List({ items, className, component, componentProps }) {
     content = (<ComponentToRender />);
   }
 
-  return <Ul className={className}>{content}</Ul>;
+  return <Ul cssStyle={cssStyle}>{content}</Ul>;
 }
 
 List.propTypes = {
   component: PropTypes.func.isRequired,
   componentProps: PropTypes.object,
-  className: PropTypes.string,
+  cssStyle: PropTypes.string,
   items: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,

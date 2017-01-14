@@ -1,5 +1,5 @@
-
-import { LOAD_USERDATA_SUCCESS } from 'containers/App/constants';
+// import { LOAD_USERDATA_SUCCESS } from 'containers/App/constants';
+// import { LOAD_LEVELS_SUCCESS } from 'containers/VocabularyPage/constants';
 // import { RESET_ANSWER } from 'containers/ReviewAnswer/constants';
 // import { LOAD_REVIEWDATA_SUCCESS } from 'containers/ReviewPage/constants';
 
@@ -14,7 +14,8 @@ export const API_BASE_URL = '//localhost:8000/api/v1/';
  * @type {Array}
  */
 export const PERSISTENCE_ACTION_WHITELIST = [
-  LOAD_USERDATA_SUCCESS,
+  // LOAD_USERDATA_SUCCESS,
+  // LOAD_LEVELS_SUCCESS,
   // LOAD_REVIEWDATA_SUCCESS,
   // RESET_ANSWER,
 ];
@@ -25,6 +26,7 @@ export const PERSISTENCE_ACTION_WHITELIST = [
  */
 export const PERSISTENCE_STATE_WHITELIST = [
   ['global', 'user'],
+  // ['vocabulary'],
   // 'review',
 ];
 

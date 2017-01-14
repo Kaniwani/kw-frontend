@@ -13,12 +13,12 @@ import H1 from 'components/H1';
 
 const Level = ({ item }) => (
   <Container tag="li" style={{ border: '1px solid grey' }}>
-    <Element>level:{item.get('level')}</Element>
-    <Element>{`${item.get('unlocked') ? 'un' : ''}locked`}</Element>
-    <Element>count:{item.get('count')}</Element>
-    <A to={`/vocabulary/${item.get('level')}`} key={item.get('level')}>View Item</A>
+    <Element>level:{item.level}</Element>
+    <Element>{item.getLockedText()}</Element>
+    <Element>count:{item.count}</Element>
+    {!item.isLocked && <A to={`/vocabulary/${item.level}`}>View Item</A>}
   </Container>
-  );
+);
 
 Level.propTypes = {
   item: PropTypes.instanceOf(Immutable.Iterable),
@@ -44,7 +44,7 @@ export class VocabularyPage extends React.Component { // eslint-disable-line rea
         {/* TODO: breadcrumbs */}
         <Container>
           <H1>Vocabulary</H1>
-          <List items={this.props.levels} component={Level} />
+          {(this.props.levels.size > 0) && <List items={this.props.levels} component={Level} />}
         </Container>
       </div>
     );

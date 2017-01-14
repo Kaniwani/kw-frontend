@@ -1,56 +1,37 @@
 import { fromJS } from 'immutable';
+import { VocabEntry } from 'shared/models';
 import * as VOCAB from './constants';
 
-// TODO: try a record?
 const initialState = fromJS({
   loading: false,
   error: null,
   levels: [],
   items: [],
-  item: {},
+  item: new VocabEntry({}),
 });
 
 function vocabularyPageReducer(state = initialState, action) {
   switch (action.type) {
     case VOCAB.LOAD_LEVELS:
-      return state
-        .set('loading', true)
-        .set('error', false);
+    case VOCAB.LOAD_ITEMS:
+    case VOCAB.LOAD_ITEM:
+      return state.merge({ loading: true, error: false });
+    case VOCAB.LOAD_LEVELS_ERROR:
+    case VOCAB.LOAD_ITEMS_ERROR:
+    case VOCAB.LOAD_ITEM_ERROR:
+      return state.merge({ loading: false, error: action.payload });
     case VOCAB.LOAD_LEVELS_SUCCESS:
       return state
-        .set('loading', false)
-        .set('error', false)
+        .merge({ loading: false, error: false })
         .mergeIn(['levels'], action.payload);
-    case VOCAB.LOAD_LEVELS_ERROR:
-      return state
-        .set('error', action.payload)
-        .set('loading', false);
-    case VOCAB.LOAD_ITEMS:
-      return state
-        .set('loading', true)
-        .set('error', false);
     case VOCAB.LOAD_ITEMS_SUCCESS:
       return state
-        .set('loading', false)
-        .set('error', false)
-        .mergeIn(['items'], action.payload.items);
-    case VOCAB.LOAD_ITEMS_ERROR:
-      return state
-        .set('error', action.payload)
-        .set('loading', false);
-    case VOCAB.LOAD_ITEM:
-      return state
-        .set('loading', true)
-        .set('error', false);
+        .merge({ loading: false, error: false })
+        .mergeIn(['items'], action.payload);
     case VOCAB.LOAD_ITEM_SUCCESS:
       return state
-        .set('loading', false)
-        .set('error', false)
+        .merge({ loading: false, error: false })
         .mergeIn(['item'], action.payload);
-    case VOCAB.LOAD_ITEM_ERROR:
-      return state
-        .set('error', action.payload)
-        .set('loading', false);
     default:
       return state;
   }

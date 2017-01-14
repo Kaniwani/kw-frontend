@@ -76,18 +76,19 @@ export function* getUserData() {
     const data = yield call(request, requestURL);
     yield put(userDataLoaded(shapeUserData(data)));
   } catch (err) {
-    console.error(err);
     yield put(userDataLoadingError({
       title: 'Connection error',
       message: `Unable to fetch user data from server: ${err.message}`,
+      error: err,
     }));
   }
 }
 
-export function* notifyError({ payload: { title, message } }) {
+export function* notifyError({ payload: { title, message, err } }) {
+  console.error(err); // eslint-disable-line no-console
   yield put(Notification.error({ title, message }));
   // TODO: log errors to server, perhaps include a 'type' (api, misc etc) in payload and filter by that
-  // yield call(ServerLog, { title, message });
+  // yield call(ServerLog, { title, message, err });
 }
 
 export function* notifySuccess({ payload: { title, message } }) {

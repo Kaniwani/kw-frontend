@@ -30,6 +30,7 @@ export class ReviewInfo extends React.Component {
     const { readings, synonyms, isPanelsVisible, isAddSynonymVisible, detailLevel } = this.props;
     let content = null;
 
+    // TODO: scroll to panel like WK does (componentDidUpdate -> isVisible)
     if (isPanelsVisible) {
       content = (
         <Wrapper className={detailLevel === 1 && 'is-low-detail'} >
@@ -38,6 +39,7 @@ export class ReviewInfo extends React.Component {
         </Wrapper>
       );
     }
+    // TODO: scroll to panel like WK does (componentDidUpdate -> isVisible)
     if (isAddSynonymVisible) {
       content = (
         <Wrapper>

@@ -14,6 +14,7 @@ import merger from 'redux-storage-merger-immutablejs';
 
 import globalReducer from 'containers/App/reducer';
 import reviewReducer from 'containers/ReviewPage/reducer';
+import vocabularyReducer from 'containers/VocabularyPage/reducer';
 
 /*
  * routeReducer
@@ -56,9 +57,11 @@ export default function createReducer(asyncReducers) {
     global: globalReducer,
     form: formReducer,
     notifications: notificationsReducer,
-    // Review is actually async, but providing it here so when storage rehydrates
-    // there is some initial empty state to overwrite even if user has never visited review before
+    // The following are actually async, but providing them here so when storage rehydrates
+    // there is some initial empty state to overwrite even if user has never visited review before.
+    // Otherwise redux-immutable throws "unexpected property" errors
     review: reviewReducer,
+    vocabulary: vocabularyReducer,
     ...asyncReducers,
   }));
 }

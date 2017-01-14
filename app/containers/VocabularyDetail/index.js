@@ -1,33 +1,18 @@
 import React, { PropTypes } from 'react';
-import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import Helmet from 'react-helmet';
+import { VocabEntry } from 'shared/models';
+import Container from 'components/Container';
+import H1 from 'components/H1';
 import { selectVocabularyDetail } from 'containers/VocabularyPage/selectors';
 import { getItem } from 'containers/VocabularyPage/actions';
-import Container from 'components/Container';
-// import Element from 'components/Element';
-// import List from 'components/List';
-// import A from 'components/A';
-import H1 from 'components/H1';
-
-// const Detail = ({ item }) => (
-//   <Container tag="li" style={{ border: '1px solid grey' }}>
-//     <Element>level:{item.get('level')}</Element>
-//     <Element>{`${item.get('unlocked') ? 'un' : ''}locked`}</Element>
-//     <Element>count:{item.get('count')}</Element>
-//     <A to={`/vocabulary/${item.get('level')}`} key={item.get('level')}>View Item</A>
-//   </Container>
-//   );
-
-// Detail.propTypes = {
-//   item: PropTypes.instanceOf(Immutable.Iterable),
-// };
+import Entry from 'containers/VocabularyPage/Entry';
 
 export class VocabularyDetail extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     getItem: PropTypes.func.isRequired,
-    item: PropTypes.instanceOf(Immutable.Iterable).isRequired,
+    item: PropTypes.instanceOf(VocabEntry),
     params: PropTypes.object.isRequired,
   }
 
@@ -36,6 +21,7 @@ export class VocabularyDetail extends React.Component { // eslint-disable-line r
   }
 
   render() {
+    const { item, params: { level } } = this.props;
     return (
       <div>
         <Helmet
@@ -45,7 +31,7 @@ export class VocabularyDetail extends React.Component { // eslint-disable-line r
         {/* TODO: breadcrumbs */}
         <Container>
           <H1>Vocabulary</H1>
-          <p>{JSON.stringify(this.props.item)}</p>
+          <Entry item={item} level={level} />
         </Container>
       </div>
     );
@@ -57,7 +43,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getItem: () => dispatch(getItem()),
+  getItem: (id) => dispatch(getItem(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VocabularyDetail);

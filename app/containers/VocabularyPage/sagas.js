@@ -1,6 +1,6 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 import markAllAsDaemon from 'utils/markAllAsDaemon';
-import { createLevelUrl, createVocabularyUrl } from 'shared/urls';
+import { createLevelUrl, createReviewUrl } from 'shared/urls';
 import shapeVocabularyLevelsData from './utils/shapeVocabularyLevelsData';
 import shapeVocabularyItemsData from './utils/shapeVocabularyItemsData';
 import shapeVocabularyItemData from './utils/shapeVocabularyItemData';
@@ -22,7 +22,7 @@ export function* getVocabLevels() {
 
 export function* getVocabItems({ payload }) {
   const level = payload;
-  const requestURL = createVocabularyUrl(null, `?limit=150&level=${level}`);
+  const requestURL = `${createReviewUrl()}?limit=150&level=${level}`;
   try {
     const data = yield call(request, requestURL);
     const shapedData = shapeVocabularyItemsData(data);
@@ -34,7 +34,9 @@ export function* getVocabItems({ payload }) {
 
 export function* getVocabItem({ payload }) {
   const itemId = payload;
-  const requestURL = createVocabularyUrl(itemId);
+  // TODO: try selecting item from items using ID.
+  // if that fails, then request for item from server
+  const requestURL = createReviewUrl(itemId);
   try {
     const data = yield call(request, requestURL);
     const shapedData = shapeVocabularyItemData(data);

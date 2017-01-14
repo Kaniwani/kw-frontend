@@ -53,10 +53,10 @@ export function* postNewSynonym({ payload }) {
     yield put(addSynonymToCurrent(synonymData));
     yield put(checkAnswer());
   } catch (err) {
-    console.error(err);
     yield put(addSynonymError({
       title: 'Connection error',
       message: `Unable to add synonym on server: ${err.message}`,
+      error: err,
     }));
   }
 }
@@ -72,10 +72,10 @@ export function* removeSynonym({ payload }) {
     yield call(post, url, null, { method: 'DELETE' });
     yield put(removeSynonymFromCurrent(id));
   } catch (err) {
-    console.error(err);
     yield put(removeSynonymError({
       title: 'Connection error',
       message: `Unable to remove synonym on server: ${err.message}`,
+      error: err,
     }));
   }
 }

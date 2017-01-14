@@ -115,6 +115,8 @@ export default function createRoutes(store) {
       },
     },
     {
+      // FIXME: these should be child routes like review,
+      // otherwise the entire page is re-rendered from scratch when navigating
       path: '/vocabulary/:level',
       name: 'vocabulary level',
       getComponent(nextState, cb) {
