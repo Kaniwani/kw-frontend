@@ -13,3 +13,4 @@ after_success: 'yarn run coveralls'
 
 cache:
   yarn: true
+  # don't cache node_modules or pngquant-bin will fail to compile!
