@@ -10,10 +10,10 @@ import { Heading } from 'containers/ReviewInfo/styles';
 const FORM_NAME = 'add-synonym-form'; // must be unique per component
 
 const AddSynonymForm = ({ handleSubmit, submitting, userAnswer, answerType }) => (
-  <form onSubmit={handleSubmit}>
+  <form onSubmit={handleSubmit} >
     <Heading>Add New Synonym</Heading>
     <Field
-      name="Kanji"
+      name="character"
       type="text"
       component={AddSynonymField}
       label="Kanji"
@@ -22,7 +22,7 @@ const AddSynonymForm = ({ handleSubmit, submitting, userAnswer, answerType }) =>
       answerType={answerType}
     />
     <Field
-      name="Kana"
+      name="kana"
       type="text"
       component={AddSynonymField}
       label="Kana"

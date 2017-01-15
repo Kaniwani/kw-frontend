@@ -1,17 +1,13 @@
 import React, { PropTypes } from 'react';
-import Immutable from 'immutable';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import { createStructuredSelector, createSelector } from 'reselect';
 import cuid from 'cuid';
 import InfoPanel from './InfoPanel';
-import { Wrapper } from './styles';
+import { Wrapper, PanelWrapper } from './styles';
 import AddSynonymPanel from './AddSynonymPanel';
-
-import {
-  selectInfoAddSynonymVisible,
-  selectInfoDetailLevel,
-  selectInfoPanelsVisible,
-} from './selectors';
+import { ReviewEntryRecord, PanelsRecord } from 'shared/models';
+import { PANELS } from 'shared/constants';
+import { selectPanels } from 'containers/ReviewSession/selectors';
 
 const renderPanels = ({ items, ...props }) =>
   items.map((item) =>
@@ -19,31 +15,51 @@ const renderPanels = ({ items, ...props }) =>
 
 export class ReviewInfo extends React.Component {
   static propTypes = {
-    readings: PropTypes.instanceOf(Immutable.Iterable).isRequired,
-    synonyms: PropTypes.instanceOf(Immutable.Iterable),
-    isAddSynonymVisible: PropTypes.bool.isRequired,
-    detailLevel: PropTypes.number.isRequired,
-    isPanelsVisible: PropTypes.bool.isRequired,
+    item: PropTypes.instanceOf(ReviewEntryRecord),
+    panels: PropTypes.instanceOf(PanelsRecord),
+    panelToShow: PropTypes.oneOf(Object.values(PANELS)),
+  }
+
+  static defaultProps = {
+    detailLevel: 1,
   }
 
   render() {
-    const { readings, synonyms, isPanelsVisible, isAddSynonymVisible, detailLevel } = this.props;
+    const { panelToShow, panels: { info } } = this.props;
     let content = null;
-
-    // TODO: scroll to panel like WK does (componentDidUpdate -> isVisible)
-    if (isPanelsVisible) {
+    if (panelToShow === PANELS.NOTES) {
       content = (
-        <Wrapper className={detailLevel === 1 && 'is-low-detail'} >
-          {readings && renderPanels({ items: readings, category: 'Reading', detailLevel })}
-          {synonyms && renderPanels({ items: synonyms, category: 'Synonym', detailLevel })}
+        <Wrapper >
+          <PanelWrapper>
+            <p>Hello Notes</p>
+          </PanelWrapper>
         </Wrapper>
       );
     }
-    // TODO: scroll to panel like WK does (componentDidUpdate -> isVisible)
-    if (isAddSynonymVisible) {
+    // TODO: scroll to panel like WK does (componentDidUpdate -> visible)
+    if (panelToShow === PANELS.INFO) {
+      const { item: { vocabulary: { readings, synonyms } } } = this.props;
+      content = (
+        <Wrapper className={info.detail === 1 && 'is-low-detail'} >
+          {readings && renderPanels({ items: readings, category: 'Reading', detailLevel: info.detail })}
+          {synonyms && renderPanels({ items: synonyms, category: 'Synonym', detailLevel: info.detail })}
+        </Wrapper>
+      );
+    }
+    if (panelToShow === PANELS.SETTINGS) {
+      content = (
+        <Wrapper >
+          <PanelWrapper>
+            <p>Hello Settings</p>
+          </PanelWrapper>
+        </Wrapper>
+      );
+    }
+    // TODO: scroll to panel like WK does (componentDidUpdate -> visible)
+    if (panelToShow === PANELS.SYNONYM) {
       content = (
         <Wrapper>
-          <AddSynonymPanel addPadding={detailLevel > 2} />
+          <AddSynonymPanel addPadding={info.detail > 2} />
         </Wrapper>
       );
     }
@@ -52,9 +68,8 @@ export class ReviewInfo extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  isAddSynonymVisible: selectInfoAddSynonymVisible(),
-  detailLevel: selectInfoDetailLevel(),
-  isPanelsVisible: selectInfoPanelsVisible(),
+  panels: selectPanels,
+  panelToShow: createSelector([selectPanels], (panels) => panels.show),
 });
 
 export default connect(mapStateToProps)(ReviewInfo);

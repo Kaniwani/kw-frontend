@@ -1,84 +1,131 @@
 import { createSelector } from 'reselect';
-import getSrsRankName from 'utils/getSrsRankName';
+import { getDetailLevelName, getStreakName } from './utils';
+import { selectReviews, selectSession } from 'containers/App/selectors';
 import selectReviewDomain from 'containers/ReviewPage/selectors';
 
-/**
- * Direct selector to the review state domain
- */
-const selectReviewSession = () => createSelector(
-  selectReviewDomain(),
-  (substate) => substate.get('session'),
+export const selectQueue = createSelector(
+  selectSession,
+  (session) => session.queue,
 );
 
-const selectCurrent = () => createSelector(
-  selectReviewSession(),
-  (substate) => substate.get('current'),
+export const selectQueueCount = createSelector(
+  selectQueue,
+  (queue) => queue.size,
 );
 
-const selectCurrentVocab = () => createSelector(
-  selectCurrent(),
-  (substate) => substate.get('vocabulary'),
+export const selectComplete = createSelector(
+  selectSession,
+  (session) => session.complete,
 );
 
-const selectCurrentReadings = () => createSelector(
-  selectCurrentVocab(),
-  (substate) => substate.get('readings'),
+export const selectCompleteCount = createSelector(
+  selectComplete,
+  (complete) => complete.size,
 );
 
-const selectCurrentSynonyms = () => createSelector(
-  selectCurrentVocab(),
-  (substate) => substate.get('synonyms'),
+export const selectTotalCount = createSelector(
+  selectSession,
+  (session) => session.total,
 );
 
-const selectCurrentMeaning = () => createSelector(
-  selectCurrentVocab(),
-  (substate) => substate.get('meaning'),
+export const selectIsReviewSyncNeeded = createSelector(
+  selectQueueCount,
+  selectCompleteCount,
+  selectTotalCount,
+  (queue, complete, total) => (queue < 10) && (queue + complete < total),
 );
 
-const selectCurrentStreak = () => createSelector(
-  selectCurrent(),
-  (substate) => substate.getIn(['session', 'streak']),
+export const selectIsQueueComplete = createSelector(
+  selectCompleteCount,
+  selectTotalCount,
+  (complete, total) => complete === total,
 );
 
-const selectCurrentStreakName = () => createSelector(
-  selectCurrentStreak(),
-  (streakNum) => getSrsRankName(streakNum),
+export const selectCurrentId = createSelector(
+  selectSession,
+  (session) => session.currentId,
 );
 
-const selectCorrectCount = () => createSelector(
-  selectReviewSession(),
-  (substate) => substate.get('correct'),
+export const selectCurrent = createSelector(
+  [selectReviews, selectCurrentId],
+  (reviews, id) => reviews.get(id),
 );
 
-const selectIncorrectCount = () => createSelector(
-  selectReviewSession(),
-  (substate) => substate.get('incorrect'),
+export const selectCurrentIsCorrect = createSelector(
+  [selectCurrent],
+  ({ session }) => session.correct >= 1,
 );
 
-const selectIgnoredCount = () => createSelector(
-  selectReviewSession(),
-  (substate) => substate.get('ignored'),
+export const selectCurrentIsFirsTimeIncorrect = createSelector(
+  [selectCurrent],
+  ({ session }) => session.correct === 0 && session.incorrect <= 1,
 );
 
-const selectAnsweredCount = () => createSelector(
-  selectCorrectCount(),
-  selectIncorrectCount(),
+export const selectCurrentIsPreviouslyIncorrect = createSelector(
+  [selectCurrent],
+  ({ session }) => session.incorrect > 1,
+);
+
+export const selectCurrentStreak = createSelector(
+  [selectCurrent],
+  ({ session }) => session.streak,
+);
+
+export const selectCurrentStreakName = createSelector(
+  [selectCurrentStreak],
+  (streak) => getStreakName(streak),
+);
+
+export const selectCorrectCount = createSelector(
+  selectSession,
+  (session) => session.correct.size,
+);
+
+export const selectIncorrectCount = createSelector(
+  selectSession,
+  (session) => session.incorrect.size,
+);
+
+export const selectAnsweredCount = createSelector(
+  [selectCorrectCount, selectIncorrectCount],
   (correct, incorrect) => correct + incorrect,
 );
 
-export default selectReviewSession;
+export const selectQueueOffset = createSelector(
+  [selectTotalCount, selectQueueCount, selectAnsweredCount],
+  (total, queue, answered) => total - (queue + answered),
+);
 
-export {
-  selectReviewSession,
-  selectCurrent,
-  selectCurrentVocab,
-  selectCurrentMeaning,
-  selectCurrentReadings,
-  selectCurrentSynonyms,
-  selectCurrentStreak,
-  selectCurrentStreakName,
-  selectAnsweredCount,
-  selectCorrectCount,
-  selectIncorrectCount,
-  selectIgnoredCount,
-};
+export const selectPanels = createSelector(
+  selectReviewDomain,
+  (review) => review.panels,
+);
+export const selectPanelToShow = createSelector(
+  [selectPanels],
+  (panels) => panels.show,
+);
+
+export const selectInfoDetailName = createSelector(
+  selectPanels,
+  (panels) => getDetailLevelName(panels.info.detail),
+);
+
+export const selectAnswer = createSelector(
+  selectReviewDomain,
+  (review) => review.answer,
+);
+
+export const selectAnswerInput = createSelector(
+  selectAnswer,
+  (answer) => answer.input,
+);
+
+export const selectAnswerType = createSelector(
+  selectAnswer,
+  (answer) => answer.type,
+);
+
+export const selectAnswerMarked = createSelector(
+  selectAnswer,
+  (answer) => answer.marked,
+);

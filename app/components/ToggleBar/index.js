@@ -1,48 +1,49 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Wrapper, Toggle, DetailToggle } from './styles';
+import { Wrapper, Toggle } from './styles';
+
+import actions from 'containers/ReviewSession/actions';
+import { PANELS } from 'shared/constants';
 
 import {
-  toggleNewSynonymPanel,
-  toggleInfoPanels,
-  toggleInfoDepth,
- } from 'containers/ReviewInfo/actions';
-
-import { selectAnswerMarked } from 'containers/AnswerInput/selectors';
-
-import {
-  selectInfoAddSynonymVisible,
-  selectInfoDetailLevelName,
-  selectInfoPanelsVisible,
-} from 'containers/ReviewInfo/selectors';
+  selectAnswerMarked,
+  selectPanelToShow,
+  selectInfoDetailName,
+} from 'containers/ReviewSession/selectors';
 
 function ToggleBar({
-  _toggleNewSynonymPanel,
-  _toggleInfoPanels,
-  _toggleInfoDepth,
-  isAddSynonymVisible,
-  isPanelsVisible,
   isAnswerMarked,
+  panelToShow,
   detailLevelName,
+  handleInfoClick,
+  showSettingsPanel,
+  showNotesPanel,
+  showSynonymPanel,
 }) {
   return (
     <Wrapper>
-      <DetailToggle
-        className={(!isAnswerMarked && 'is-disabled')}
-        onClick={_toggleInfoDepth}
-      >
-        Detail: {detailLevelName}
-      </DetailToggle>
       <Toggle
-        className={(!isAnswerMarked && 'is-disabled') || (isPanelsVisible && 'is-active')}
-        onClick={_toggleInfoPanels}
+        className={(!isAnswerMarked && 'is-disabled') || (panelToShow === PANELS.SETTINGS && 'is-active')}
+        onClick={showSettingsPanel}
       >
-        Info Panel
+        Settings
       </Toggle>
       <Toggle
-        className={(!isAnswerMarked && 'is-disabled') || (isAddSynonymVisible && 'is-active')}
-        onClick={_toggleNewSynonymPanel}
+        className={(!isAnswerMarked && 'is-disabled') || (panelToShow === PANELS.INFO && 'is-active')}
+        onClick={() => handleInfoClick(panelToShow)}
+      >
+        Info: {detailLevelName}
+      </Toggle>
+      <Toggle
+        className={(!isAnswerMarked && 'is-disabled') || (panelToShow === PANELS.NOTES && 'is-active')}
+        onClick={showNotesPanel}
+      >
+        Notes
+      </Toggle>
+      <Toggle
+        className={(!isAnswerMarked && 'is-disabled') || (panelToShow === PANELS.SYNONYM && 'is-active')}
+        onClick={showSynonymPanel}
       >
         New Synonym
       </Toggle>
@@ -51,26 +52,27 @@ function ToggleBar({
 }
 
 ToggleBar.propTypes = {
-  _toggleNewSynonymPanel: PropTypes.func.isRequired,
-  _toggleInfoPanels: PropTypes.func.isRequired,
-  _toggleInfoDepth: PropTypes.func.isRequired,
+  showSettingsPanel: PropTypes.func.isRequired,
+  showNotesPanel: PropTypes.func.isRequired,
+  showSynonymPanel: PropTypes.func.isRequired,
+  handleInfoClick: PropTypes.func.isRequired,
   detailLevelName: PropTypes.string.isRequired,
-  isAddSynonymVisible: PropTypes.bool.isRequired,
-  isPanelsVisible: PropTypes.bool.isRequired,
   isAnswerMarked: PropTypes.bool.isRequired,
+  panelToShow: PropTypes.oneOf(Object.values(PANELS)),
 };
 
 const mapStateToProps = createStructuredSelector({
-  isAnswerMarked: selectAnswerMarked(),
-  isAddSynonymVisible: selectInfoAddSynonymVisible(),
-  isPanelsVisible: selectInfoPanelsVisible(),
-  detailLevelName: selectInfoDetailLevelName(),
+  isAnswerMarked: selectAnswerMarked,
+  panelToShow: selectPanelToShow,
+  detailLevelName: selectInfoDetailName,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  _toggleNewSynonymPanel: () => dispatch(toggleNewSynonymPanel()),
-  _toggleInfoPanels: () => dispatch(toggleInfoPanels()),
-  _toggleInfoDepth: () => dispatch(toggleInfoDepth()),
+  showNotesPanel: () => dispatch(actions.showPanel(PANELS.NOTES)),
+  showSettingsPanel: () => dispatch(actions.showPanel(PANELS.SETTINGS)),
+  showSynonymPanel: () => dispatch(actions.showPanel(PANELS.SYNONYM)),
+  handleInfoClick: (shownPanel) =>
+    dispatch(shownPanel === PANELS.INFO ? actions.cycleInfoDetail() : actions.showPanel(PANELS.INFO)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ToggleBar);

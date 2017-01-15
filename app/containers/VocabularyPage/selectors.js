@@ -3,23 +3,23 @@ import { createSelector } from 'reselect';
 /**
  * Direct selector to the vocabulary state domain
  */
-const selectVocabularyDomain = () => (state) => state.get('vocabulary');
+const selectVocabularyDomain = (state) => state.get('vocabulary');
 
 /**
  * Other specific selectors
  */
-const selectVocabularyLevels = () => createSelector(
-   selectVocabularyDomain(),
+const selectVocabularyLevels = createSelector(
+   selectVocabularyDomain,
    (substate) => substate.get('levels'),
  );
 
-const selectVocabularyItems = () => createSelector(
-   selectVocabularyDomain(),
+const selectVocabularyItems = createSelector(
+   selectVocabularyDomain,
    (substate) => substate.get('items'),
  );
 
-const selectVocabularyDetail = () => createSelector(
-   selectVocabularyDomain(),
+const selectVocabularyDetail = createSelector(
+   selectVocabularyDomain,
    (substate) => substate.get('item'),
  );
 

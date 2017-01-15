@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import Helmet from 'react-helmet';
-import { VocabEntry } from 'shared/models';
+import { ReviewEntryRecord } from 'shared/models';
 import Container from 'components/Container';
 import H1 from 'components/H1';
 import { selectVocabularyDetail } from 'containers/VocabularyPage/selectors';
@@ -12,7 +12,7 @@ import Entry from 'containers/VocabularyPage/Entry';
 export class VocabularyDetail extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     getItem: PropTypes.func.isRequired,
-    item: PropTypes.instanceOf(VocabEntry),
+    item: PropTypes.instanceOf(ReviewEntryRecord),
     params: PropTypes.object.isRequired,
   }
 
@@ -39,7 +39,7 @@ export class VocabularyDetail extends React.Component { // eslint-disable-line r
 }
 
 const mapStateToProps = createStructuredSelector({
-  item: selectVocabularyDetail(),
+  item: selectVocabularyDetail,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -24,7 +24,7 @@ const SummaryHeader = ({ remainingReviews }) => (
           Continue Session
         </A>
         <span title="Remaining reviews">
-          <span>
+          <span style={{ lineHeight: 1 }}>
             <InboxIcon name="ASSIGNMENT_INBOX" color="white" size="1.2em" />
             <AlignToIcon>{remainingReviews}</AlignToIcon>
           </span>

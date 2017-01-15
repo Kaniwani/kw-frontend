@@ -4,7 +4,7 @@ import selectGlobal, {
   selectLoading,
   selectError,
   selectUser,
-  selectLocationState,
+  makeSelectLocationState,
 } from '../selectors';
 
 
@@ -16,7 +16,7 @@ describe('selectLocationState', () => {
     const mockedState = fromJS({
       route,
     });
-    expect(selectLocationState()(mockedState)).toEqual(route.toJS());
+    expect(makeSelectLocationState()(mockedState)).toEqual(route.toJS());
   });
 });
 
@@ -27,7 +27,7 @@ describe('selectGlobal', () => {
     const mockedState = fromJS({
       global: globalState,
     });
-    expect(selectGlobal()(mockedState)).toEqual(globalState);
+    expect(selectGlobal(mockedState)).toEqual(globalState);
   });
 });
 
@@ -39,7 +39,7 @@ describe('selectLoading', () => {
         loading,
       },
     });
-    expect(selectLoading()(mockedState)).toEqual(loading);
+    expect(selectLoading(mockedState)).toEqual(loading);
   });
 });
 
@@ -51,7 +51,7 @@ describe('selectError', () => {
         error,
       },
     });
-    expect(selectError()(mockedState)).toEqual(error);
+    expect(selectError(mockedState)).toEqual(error);
   });
 });
 
@@ -63,6 +63,6 @@ describe('selectUser', () => {
         user,
       },
     });
-    expect(selectUser()(mockedState)).toEqual(user);
+    expect(selectUser(mockedState)).toEqual(user);
   });
 });

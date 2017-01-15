@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { whiteLight, greyLight, grey, greyDark } from 'shared/styles/colors';
+import { whiteLight, greyLight, greyDark } from 'shared/styles/colors';
 import { siteMaxWidth } from 'shared/styles/sizing';
 import { micro } from 'shared/styles/typography';
 import { resetButton } from 'shared/styles/utils';
@@ -58,15 +58,11 @@ export const Toggle = styled.button`
       border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) ${whiteLight} rgba(0, 0, 0, 0);
       z-index: 10;
     }
-    
+
     &.is-disabled {
       opacity: .7;
       cursor: not-allowed;
       pointer-events: none;
     }
   }
-`;
-
-export const DetailToggle = styled(Toggle)`
-  color: ${grey};
 `;

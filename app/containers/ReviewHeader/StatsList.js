@@ -22,16 +22,16 @@ const Label = styled.span`
   margin-left: .15em;
 `;
 
-function StatsList({ correctness, completed, remaining }) {
+function StatsList({ correctness, complete, remaining }) {
   return (
     <Wrapper>
       <Stat title="Correctness">
         <Icon name="CHECK" />
         <Label>{`${correctness}%`}</Label>
       </Stat>
-      <Stat title="Reviews completed">
+      <Stat title="Reviews complete">
         <Icon name="ASSIGNMENT_CHECK" />
-        <Label>{completed}</Label>
+        <Label>{complete}</Label>
       </Stat>
       <Stat title="Reviews remaining">
         <Icon name="ASSIGNMENT_INBOX" />
@@ -43,7 +43,7 @@ function StatsList({ correctness, completed, remaining }) {
 
 StatsList.propTypes = {
   correctness: PropTypes.number.isRequired,
-  completed: PropTypes.number.isRequired,
+  complete: PropTypes.number.isRequired,
   remaining: PropTypes.number.isRequired,
 };
 

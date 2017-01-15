@@ -1,25 +1,21 @@
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import { bind, unbind } from 'kanawana';
 
 import StreakIcon from './StreakIcon';
 import SubmitButton from './SubmitButton';
 import IgnoreButton from './IgnoreButton';
-
 import { Input, Wrapper, Label, ButtonContainer } from './styles';
-import { updateInput } from './actions';
-import { selectInputText } from './selectors';
 
 
 export class AnswerInput extends React.Component {
   static propTypes = {
-    text: PropTypes.string.isRequired,
+    text: PropTypes.string,
+    focus: PropTypes.bool.isRequired,
+    streakName: PropTypes.string,
+    disabled: PropTypes.bool,
     onChangeInput: PropTypes.func.isRequired,
     onIgnore: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
-    streakName: PropTypes.string.isRequired,
-    disabled: PropTypes.bool.isRequired,
   }
 
   componentDidMount() {
@@ -27,7 +23,7 @@ export class AnswerInput extends React.Component {
   }
 
   componentDidUpdate() {
-    if (!this.props.disabled) this.inputField.focus();
+    if (this.props.focus) this.inputField.focus();
   }
 
   componentWillUnmount() {
@@ -66,12 +62,4 @@ export class AnswerInput extends React.Component {
   }
 }
 
-const mapStateToProps = createStructuredSelector({
-  text: selectInputText(),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onChangeInput: (event) => dispatch(updateInput(event.target.value)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AnswerInput);
+export default AnswerInput;

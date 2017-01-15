@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import Immutable from 'immutable';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -10,9 +9,12 @@ import ReviewAnswer from 'containers/ReviewAnswer';
 import ReviewInfo from 'containers/ReviewInfo';
 import ToggleBar from 'components/ToggleBar';
 
+import { ReviewEntryRecord } from 'shared/models';
 import { Wrapper, Upper, Lower, ReviewBackground } from './styles';
+import globalActions from 'containers/App/actions';
+import actions from './actions';
 import { selectLoading, selectError } from 'containers/ReviewPage/selectors';
-import { selectCurrentMeaning, selectCurrentReadings, selectCurrentSynonyms } from './selectors';
+import { selectQueueCount, selectCurrent } from './selectors';
 
 export class ReviewSession extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
@@ -21,32 +23,25 @@ export class ReviewSession extends React.Component { // eslint-disable-line reac
       PropTypes.object,
       PropTypes.bool,
     ]).isRequired,
-    meaning: PropTypes.string.isRequired,
-    readings: PropTypes.instanceOf(Immutable.Iterable).isRequired,
-    synonyms: PropTypes.instanceOf(Immutable.Iterable),
+    current: PropTypes.instanceOf(ReviewEntryRecord),
+    queueCount: PropTypes.number.isRequired,
+    loadData: PropTypes.func.isRequired,
+    setNewCurrent: PropTypes.func.isRequired,
+  }
+
+  componentDidMount() {
+    const { queueCount, current, loadData, setNewCurrent } = this.props;
+    if (queueCount < 10) {
+      loadData(!!queueCount); // show loading indicator if nothing in queue
+    } if (queueCount && !current) {
+      setNewCurrent();
+    }
   }
 
   render() {
-    const { loading, error, meaning, readings, synonyms } = this.props;
-    let content = meaning;
-
-    // Show a loading indicator when we're loading
-    if (loading || !meaning.length) {
-      content = (<LoadingIndicator color="white" />);
-    // Show an error if there is one
-    } else if (error !== false) {
-      // TODO: remove this and use Notifications
-      content = `Something went wrong: "${error.msg}". Please contact us or try again!`;
-    // If we're not loading, don't have an error and there is review data, show the review data
-    } else if (!loading && !error && meaning.length) {
-      content = (
-        <ReviewQuestion
-          meaning={meaning}
-          tags={readings && readings.getIn([0, 'tags'])}
-        />
-      );
-    }
-
+    const { loading, error, current } = this.props;
+    const isLoading = loading || !current;
+    const isLoaded = !loading && !error && current != null;
     return (
       <Wrapper>
         <Helmet
@@ -55,12 +50,18 @@ export class ReviewSession extends React.Component { // eslint-disable-line reac
         />
         <Upper>
           <ReviewHeader />
-          {content}
+          {isLoading && <LoadingIndicator color="white" />}
+          {isLoaded &&
+            <ReviewQuestion
+              meaning={current.vocabulary.meanings.join(', ')}
+              tags={current.vocabulary.readings.first().tags}
+            />
+          }
         </Upper>
         <Lower>
-          <ReviewAnswer />
-          <ToggleBar />
-          <ReviewInfo readings={readings} synonyms={synonyms} />
+          {isLoaded && <ReviewAnswer /> }
+          {isLoaded && <ToggleBar /> }
+          {isLoaded && <ReviewInfo item={current} /> }
           <ReviewBackground />
         </Lower>
       </Wrapper>
@@ -69,11 +70,15 @@ export class ReviewSession extends React.Component { // eslint-disable-line reac
 }
 
 const mapStateToProps = createStructuredSelector({
-  loading: selectLoading(),
-  error: selectError(),
-  meaning: selectCurrentMeaning(),
-  readings: selectCurrentReadings(),
-  synonyms: selectCurrentSynonyms(),
+  loading: selectLoading,
+  error: selectError,
+  queueCount: selectQueueCount,
+  current: selectCurrent,
 });
 
-export default connect(mapStateToProps)(ReviewSession);
+const mapDispatchToProps = (dispatch) => ({
+  loadData: (payload) => dispatch(globalActions.loadReviewsRequest(payload)),
+  setNewCurrent: () => dispatch(actions.setNewCurrent()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewSession);

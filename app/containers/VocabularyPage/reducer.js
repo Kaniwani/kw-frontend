@@ -1,5 +1,5 @@
 import { fromJS } from 'immutable';
-import { VocabEntry } from 'shared/models';
+import { ReviewEntryRecord } from 'shared/models';
 import * as VOCAB from './constants';
 
 const initialState = fromJS({
@@ -7,7 +7,7 @@ const initialState = fromJS({
   error: null,
   levels: [],
   items: [],
-  item: new VocabEntry({}),
+  item: new ReviewEntryRecord({}),
 });
 
 function vocabularyPageReducer(state = initialState, action) {

@@ -4,7 +4,7 @@ import * as COLORS from 'shared/styles/colors';
 import { borderRadius } from 'shared/styles/sizing';
 import { fluidType, adjustColor } from 'shared/styles/utils';
 
-import calculatePercentage from 'utils/calculatePercentage';
+import getCorrectRatio from './utils/getCorrectRatio';
 import titleCase from 'utils/titleCase';
 
 import A from 'components/A';
@@ -73,13 +73,9 @@ const ChipText = styled.span`
  * @param {String} color Background color to set, must be one of shared/styles/colors
  */
 const VocabChip = ({ item, color }) => {
-  // TODO: redo to accept immutable object instead
-  const { history, session, id } = item;
-  const correct = history.correct + session.correct;
-  const incorrect = history.incorrect + session.incorrect;
-  const meaning = titleCase(item.vocabulary.meaning.split(',')[0]);
-  const { kana, character } = item.vocabulary.readings[0];
-  const correctness = calculatePercentage(correct, correct + incorrect);
+  const meaning = titleCase(item.vocabulary.meanings.first());
+  const { kana, character } = item.vocabulary.readings.first();
+  const correctness = getCorrectRatio(item) * 100;
 
   return (
     <ChipWrapper
@@ -94,7 +90,7 @@ const VocabChip = ({ item, color }) => {
         </ul>
       `}
     >
-      <ChipLink plainLink to={`/vocabulary/:${id}`}>
+      <ChipLink plainLink to={`/vocabulary/${item.level}/${item.id}`}>
         <ChipText shadowColor={color} lang="ja">{ character }</ChipText>
       </ChipLink>
     </ChipWrapper>

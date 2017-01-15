@@ -4,9 +4,9 @@ import { createStructuredSelector } from 'reselect';
 
 import {
   selectPercentCorrect,
-  selectPercentCompleted,
+  selectPercentComplete,
   selectRemainingCount,
-  selectCompletedCount,
+  selectCompleteCount,
 } from './selectors';
 
 import StatsWrapper from './StatsWrapper';
@@ -16,15 +16,15 @@ import StatsList from './StatsList';
 
 export class ReviewHeader extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { percentCompleted, percentCorrect, reviewsCompleted, reviewsRemaining } = this.props;
+    const { percentComplete, percentCorrect, reviewsComplete, reviewsRemaining } = this.props;
     return (
       <header>
-        <ProgressBar value={percentCompleted} />
+        <ProgressBar value={percentComplete} />
         <StatsWrapper>
           <ViewSummaryLink />
           <StatsList
             correctness={percentCorrect}
-            completed={reviewsCompleted}
+            complete={reviewsComplete}
             remaining={reviewsRemaining}
           />
         </StatsWrapper>
@@ -35,16 +35,16 @@ export class ReviewHeader extends React.Component { // eslint-disable-line react
 
 ReviewHeader.propTypes = {
   percentCorrect: PropTypes.number.isRequired,
-  percentCompleted: PropTypes.number.isRequired,
+  percentComplete: PropTypes.number.isRequired,
   reviewsRemaining: PropTypes.number.isRequired,
-  reviewsCompleted: PropTypes.number.isRequired,
+  reviewsComplete: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  percentCorrect: selectPercentCorrect(),
-  percentCompleted: selectPercentCompleted(),
-  reviewsRemaining: selectRemainingCount(),
-  reviewsCompleted: selectCompletedCount(),
+  percentCorrect: selectPercentCorrect,
+  percentComplete: selectPercentComplete,
+  reviewsRemaining: selectRemainingCount,
+  reviewsComplete: selectCompleteCount,
 });
 
 export default connect(mapStateToProps)(ReviewHeader);

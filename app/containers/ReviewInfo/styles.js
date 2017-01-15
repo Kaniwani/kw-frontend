@@ -52,7 +52,7 @@ export const Heading = styled(H3)`
   opacity: .8;
   text-align: left;
   flex: 0 0 auto;
-  align-self: center;
+  align-self: flex-start;
 `;
 
 export const Tags = styled(TagList)`

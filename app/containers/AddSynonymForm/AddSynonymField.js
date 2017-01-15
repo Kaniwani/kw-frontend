@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { LabelText, ValidationMessage } from './styles';
-import { ANSWER_TYPES } from 'containers/AnswerInput/constants';
+import { ANSWER_TYPES } from 'shared/constants';
 import JishoSearchLink from 'components/JishoSearchLink';
 import JapaneseInput from 'components/ReduxForm/JapaneseInput';
 import Element from 'components/Element';

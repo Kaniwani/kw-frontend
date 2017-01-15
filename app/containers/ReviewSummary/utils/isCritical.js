@@ -1,3 +1,5 @@
+import getCorrectRatio, { calcAnsweredTotal } from './getCorrectRatio';
+
 /**
  * Determines if review item is critical by comparing correct answers against total times answered
  * @param  {object} review Item to check
@@ -6,11 +8,7 @@
  * @return {boolean} True if item is below critical threshold
  */
 function isCritical(review, threshold = 0.75, minimum = 3) { // eslint-disable-line no-unused-vars
-  const correctTotal = review.getIn(['history', 'correct']) + review.getIn(['session', 'correct']);
-  const answeredTotal = review.getIn(['history', 'incorrect']) + review.getIn(['session', 'incorrect']) + correctTotal;
-  const correctRatio = correctTotal / answeredTotal;
-
-  return (answeredTotal > minimum) && (correctRatio < threshold);
+  return (calcAnsweredTotal(review) > minimum) && (getCorrectRatio(review) < threshold);
 }
 
 export default isCritical;

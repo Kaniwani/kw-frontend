@@ -22,6 +22,7 @@ export class VocabularyLevel extends React.Component { // eslint-disable-line re
   }
 
   render() {
+    const { items, params: { level } } = this.props;
     return (
       <div>
         <Helmet
@@ -29,10 +30,14 @@ export class VocabularyLevel extends React.Component { // eslint-disable-line re
           meta={[{ name: 'description', content: 'KaniWani Vocabulary' }]}
         />
         {/* TODO: breadcrumbs */}
-        {this.props.items.size > 0 && (
+        {items.size > 0 && (
           <Container>
             <H1>Vocabulary</H1>
-            <List items={this.props.items} component={Entry} componentProps={{ level: this.props.params.level }} />
+            <List
+              items={items}
+              component={Entry}
+              componentProps={{ level }}
+            />
           </Container>
         )}
       </div>
@@ -41,7 +46,7 @@ export class VocabularyLevel extends React.Component { // eslint-disable-line re
 }
 
 const mapStateToProps = createStructuredSelector({
-  items: selectVocabularyItems(),
+  items: selectVocabularyItems,
 });
 
 const mapDispatchToProps = (dispatch) => ({

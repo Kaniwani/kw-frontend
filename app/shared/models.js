@@ -1,7 +1,34 @@
-import { Record, List } from 'immutable';
-import { SRS_RANKS } from 'shared/constants';
+import { Record, List, Set } from 'immutable';
 
-export const VocabReadingRecord = Record({
+export const SessionRecord = new Record({
+  currentId: null,
+  total: null,
+  queue: new Set(),
+  correct: new Set(),
+  incorrect: new Set(),
+  complete: new Set(),
+  // use selectors to compile ignored / critical etc
+});
+
+export const SynonymRecord = new Record({
+  id: null,
+  review: null,
+  character: '',
+  kana: '',
+});
+
+export const AnswerRecord = new Record({
+  input: '',
+  type: '',
+  marked: false,
+  disabled: false,
+  focus: false,
+  correct: false,
+  incorrect: false,
+  valid: false,
+});
+
+export const ReadingRecord = Record({
   id: null,
   character: '',
   kana: '',
@@ -13,29 +40,43 @@ export const VocabReadingRecord = Record({
   common: null,
 });
 
-export class VocabReading extends VocabReadingRecord {
-  getAllTags() {
-    let allTags = this.tags;
-    if (this.jlpt) allTags = allTags.concat(this.jlpt);
-    if (this.common) allTags = allTags.concat(this.common);
-    return allTags;
-  }
-}
-
-export const VocabRecord = Record({
-  id: null,
-  meanings: new List(),
-  synonyms: new List(),
-  readings: new List(),
-});
-
 export const VocabEntryRecord = Record({
   id: null,
+  meanings: new List(),
+  readings: new List(),
+  synonyms: new List(),
+});
+
+const HistoryRecord = Record({
+  streak: 0,
   correct: 0,
   incorrect: 0,
+});
+const EntrySessionRecord = Record({
   streak: 0,
-  notes: '',
-  vocabulary: new VocabRecord({}),
+  correct: 0,
+  incorrect: 0,
+  ignored: 0,
+});
+const WkRecord = Record({
+  streak: 0,
+  isBurned: false,
+});
+
+export const StubbedReviewEntryRecord = Record({
+  id: null,
+  history: new HistoryRecord(),
+  session: new EntrySessionRecord(),
+  notes: null,
+  vocabulary: new VocabEntryRecord(),
+});
+
+export const ReviewEntryRecord = Record({
+  id: null,
+  history: new HistoryRecord(),
+  session: new EntrySessionRecord(),
+  notes: null,
+  vocabulary: new VocabEntryRecord(),
   needsReview: false,
   isBurned: false,
   isHidden: false,
@@ -43,33 +84,48 @@ export const VocabEntryRecord = Record({
   lastReviewDate: null,
   unlockDate: null,
   nextReviewDate: null,
-  wanikani: {
-    streak: 0,
-    streakName: '',
-    isBurned: false,
-  },
+  wanikani: new WkRecord(),
 });
 
-export class VocabEntry extends VocabEntryRecord {
-  getStreakName() {
-    switch (true) {
-      case (this.streak > 8): return SRS_RANKS.FIVE;
-      case (this.streak > 7): return SRS_RANKS.FOUR;
-      case (this.streak > 6): return SRS_RANKS.THREE;
-      case (this.streak > 4): return SRS_RANKS.TWO;
-      default: return SRS_RANKS.ONE;
-    }
-  }
-}
+export const InfoPanelRecord = Record({
+  detail: 1,
+});
+
+export const PanelsRecord = Record({
+  show: 'none',
+  info: new InfoPanelRecord(),
+});
+
+export const SettingsRecord = Record({
+  autoAdvanceDelay: 3000,
+  infoDetailLevel: 3,
+  followMe: false,
+  autoAdvanceCorrect: false,
+  autoExpandCorrect: true,
+  autoExpandIncorrect: true,
+  burnedOnly: false,
+  onVacation: false,
+  vacationDate: null,
+});
+
+export const UserProfileRecord = Record({
+  name: '無名',
+  email: null,
+  id: null,
+  lastLogin: null,
+  joinDate: null,
+  isActive: null,
+  apiKey: null,
+  apiValid: null,
+  lastWkSyncDate: null,
+  lastKwSyncDate: null,
+  level: null,
+  unlockedLevels: new Set(),
+  settings: new SettingsRecord(),
+});
 
 export const VocabLevelRecord = Record({
   level: '',
-  isLocked: true,
   count: 0,
+  isLocked: true,
 });
-
-export class VocabLevel extends VocabLevelRecord {
-  getLockedText() {
-    return this.isLocked ? 'locked' : 'unlocked';
-  }
-}

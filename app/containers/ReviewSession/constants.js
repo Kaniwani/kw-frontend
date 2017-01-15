@@ -1,13 +1,69 @@
-export const RECORD_ANSWER = 'kw/ReviewSession/RECORD_ANSWER';
-export const RECORD_ANSWER_SUCCESS = 'kw/ReviewSession/RECORD_ANSWER_SUCCESS';
-export const RECORD_ANSWER_FAILURE = 'kw/ReviewSession/RECORD_ANSWER_FAILURE';
-export const SET_NEW_CURRENT = 'kw/ReviewSession/SET_NEW_CURRENT';
-export const RETURN_CURRENT_TO_QUEUE = 'kw/ReviewSession/RETURN_CURRENT_TO_QUEUE';
-export const COPY_CURRENT_TO_COMPLETED = 'kw/ReviewSession/COPY_CURRENT_TO_COMPLETED';
-export const ADD_SYNONYM_TO_CURRENT = 'kw/ReviewSession/ADD_SYNONYM_TO_CURRENT';
-export const REMOVE_SYNONYM_FROM_CURRENT = 'kw/ReviewSession/REMOVE_SYNONYM_FROM_CURRENT';
-export const INCREASE_CURRENT_STREAK = 'kw/ReviewSession/INCREASE_CURRENT_STREAK';
-export const DECREASE_CURRENT_STREAK = 'kw/ReviewSession/DECREASE_CURRENT_STREAK';
-export const RESET_CURRENT_STREAK = 'kw/ReviewSession/RESET_CURRENT_STREAK';
-export const INCREASE_SESSION_CORRECT = 'kw/ReviewSession/INCREASE_SESSION_CORRECT';
-export const INCREASE_SESSION_INCORRECT = 'kw/ReviewSession/INCREASE_SESSION_INCORRECT';
+import actionTypeCreator, { SYNC, ASYNC } from 'redux-action-types-creator';
+
+const actionType = actionTypeCreator('KW/REVIEWSESSION');
+
+const types = actionType({
+  ANSWER: {
+    UPDATE: SYNC,
+    INPUT: SYNC,
+    RESET: SYNC,
+    CHECK: SYNC,
+    RECORD: ASYNC,
+    MARK: {
+      CORRECT: SYNC,
+      INCORRECT: SYNC,
+      VALID: SYNC,
+      INVALID: SYNC,
+      IGNORED: SYNC,
+    },
+  },
+  CURRENT: {
+    SET_NEW: SYNC,
+    ADD_TO: {
+      QUEUE: SYNC,
+      COMPLETE: SYNC,
+      CORRECT: SYNC,
+      INCORRECT: SYNC,
+    },
+    REMOVE_FROM: {
+      QUEUE: SYNC,
+      COMPLETE: SYNC,
+      CORRECT: SYNC,
+      INCORRECT: SYNC,
+    },
+    SYNONYM: {
+      ADD: SYNC,
+      REMOVE: SYNC,
+    },
+    STREAK: {
+      INCREASE: SYNC,
+      DECREASE: SYNC,
+      REVERT: SYNC,
+    },
+    CORRECT: {
+      INCREASE: SYNC,
+      DECREASE: SYNC,
+    },
+    INCORRECT: {
+      INCREASE: SYNC,
+      DECREASE: SYNC,
+    },
+    IGNORED: {
+      INCREASE: SYNC,
+    },
+  },
+  AUTO_ADVANCE: {
+    START: SYNC,
+    CANCEL: SYNC,
+  },
+  PANELS: {
+    UPDATE: SYNC,
+    SHOW: SYNC,
+    HIDE: SYNC,
+    DETAIL: {
+      CYCLE: SYNC,
+    },
+  },
+});
+
+export default types;

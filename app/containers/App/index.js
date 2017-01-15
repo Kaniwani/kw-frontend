@@ -44,6 +44,7 @@ export class App extends React.Component { // eslint-disable-line react/prefer-s
 
   render() {
     let appContent = null;
+    // We don't want to show site header on review pages
     const isReviewRoute = /review/.test(this.props.router.getCurrentLocation().pathname);
 
     // Show a loading indicator when we're loading
@@ -83,8 +84,8 @@ export class App extends React.Component { // eslint-disable-line react/prefer-s
 }
 
 const mapStateToProps = createStructuredSelector({
-  loading: selectLoading(),
-  error: selectError(),
+  loading: selectLoading,
+  error: selectError,
 });
 
 // Wrap the component to inject dispatch and state into it

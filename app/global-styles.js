@@ -48,6 +48,9 @@ injectGlobal`
     word-break: break-word;
     line-height: 1.18;
   }
+  p[lang=ja] {
+    letter-spacing: 0.01em;
+  }
 
   #app {
     min-height: 100%;

@@ -1,168 +1,84 @@
 import { delay } from 'redux-saga';
-import { take, takeEvery, takeLatest, select, call, fork, put, race } from 'redux-saga/effects';
+import { take, takeEvery, select, call, fork, put, race } from 'redux-saga/effects';
 import { history } from 'app';
 import isEmpty from 'lodash/isEmpty';
 import markAllAsDaemon from 'utils/markAllAsDaemon';
 import addSynonymSagas from 'containers/AddSynonymForm/sagas';
 import { createReviewUrl } from 'shared/urls';
-import request from 'utils/request';
 import post from 'utils/post';
-import shapeReviewData from './utils/shapeReviewData';
-import {
-  answersContainTilde,
-  fixStartingTilde,
-  fixTerminalN,
-  keysInListMatch,
-} from 'containers/ReviewAnswer/utils';
+import { getTildePosition, fixStartingTilde, fixEndingTilde, fixTerminalN } from './utils';
+import { isHiragana, isKatakana, isKanjiKana } from 'kanawana';
+import types from './constants';
+import globalTypes from 'containers/App/constants';
+import synonymFormTypes from 'containers/AddSynonymForm/constants';
+import globalActions from 'containers/App/actions';
+import actions from './actions';
+import * as selectors from './selectors';
+import { selectUserSettings } from 'containers/App/selectors';
 
-import {
-  isHiragana,
-  isKatakana,
-  isKanjiKana,
-  isKanji,
-} from 'kanawana';
-
-import {
-  CHECK_ANSWER,
-  PROCESS_ANSWER,
-  START_AUTO_ADVANCE,
-  CANCEL_AUTO_ADVANCE,
-  MARK_CORRECT,
-  MARK_INCORRECT,
-  MARK_IGNORED,
-} from 'containers/ReviewAnswer/constants';
-
-import {
-  LOAD_REVIEWDATA,
-  LOAD_REVIEWDATA_SUCCESS,
-} from 'containers/ReviewPage/constants';
-
-import {
-  COPY_CURRENT_TO_COMPLETED,
-} from './constants';
-
-
-import {
-  selectSettings,
-} from 'containers/App/selectors';
-
-import {
-  selectInputText,
-} from 'containers/AnswerInput/selectors';
-
-import {
-  selectIsReviewSyncNeeded,
-  selectIsQueueComplete,
-  selectQueueCount,
-} from 'containers/ReviewPage/selectors';
-
-import {
-  selectCurrent,
-  selectCurrentVocab,
-  selectCurrentMeaning,
-} from './selectors';
-
-import {
-  resetUserDataReviewCount,
-} from 'containers/App/actions';
-
-import {
-  markCorrect,
-  markIncorrect,
-  updateAnswer,
-  resetAnswer,
-  processAnswer,
-  startAutoAdvance,
-  cancelAutoAdvance,
-} from 'containers/ReviewAnswer/actions';
-
-import {
-  toggleInfoPanels,
-  toggleNewSynonymPanel,
-  toggleInfoDepth,
-} from 'containers/ReviewInfo/actions';
-
-import {
-  loadReviewData,
-  reviewDataLoaded,
-  reviewDataLoadingError,
-} from 'containers/ReviewPage/actions';
-
-import {
-  returnCurrentToQueue,
-  copyCurrentToCompleted,
-  setNewCurrent,
-  increaseCurrentStreak,
-  decreaseCurrentStreak,
-  resetCurrentStreak,
-  increaseSessionCorrect,
-  increaseSessionIncorrect,
-} from './actions';
-
-
-export function* getReviewData() {
-  const requestURL = createReviewUrl(null, { category: 'current' });
-  try {
-    const data = yield call(request, requestURL);
-    const shapedData = shapeReviewData(data);
-    yield put(reviewDataLoaded(shapedData));
-  } catch (err) {
-    yield put(reviewDataLoadingError(err));
-  }
-}
-
-export function* getReviewDataWatcher() {
-  yield takeLatest(LOAD_REVIEWDATA, getReviewData);
-}
 
 /* eslint-disable no-constant-condition */
-export function* loadReviewDataSuccessWatcher() {
+// NOTE: this is different to the watcher in app saga
+// that one handles loading the data, this one starts the quiz
+export function* loadReviewsSuccessWatcher() {
   while (true) {
-    yield take(LOAD_REVIEWDATA_SUCCESS);
-    const [meaning, queueCount] = yield [
-      select(selectCurrentMeaning()),
-      select(selectQueueCount()),
+    yield take(globalTypes.REVIEWS.LOAD.SUCCESS);
+    const [current, queueCount] = yield [
+      select(selectors.selectCurrent),
+      select(selectors.selectQueueCount),
     ];
-    if (isEmpty(meaning) && queueCount !== 0) {
-      yield put(setNewCurrent());
+    const noCurrentReview = current == null;
+    if (queueCount && noCurrentReview) {
+      yield put(actions.setNewCurrent());
     }
   }
 }
 
-export function* recordAnswer() {
-  const current = yield select(selectCurrent());
-
-  const [id, correct, previouslyWrong, firstTimeWrong] = [
-    current.get('id'),
-    current.getIn(['session', 'correct']) >= 1,
-    current.getIn(['session', 'incorrect']) > 1,
-    current.getIn(['session', 'incorrect']) === 1,
+export function* recordAnswerRequest() {
+  const [id, correct, firstTimeIncorrect, previouslyIncorrect] = yield [
+    select(selectors.selectCurrentId),
+    select(selectors.selectCurrentIsCorrect),
+    select(selectors.selectCurrentIsFirsTimeIncorrect),
+    select(selectors.selectCurrentIsPreviouslyIncorrect),
   ];
 
   const postData = {
     user_specific_id: id,
     user_correct: correct,
-    wrong_before: previouslyWrong,
+    wrong_before: previouslyIncorrect,
   };
 
   try {
-    if (correct || (!correct && firstTimeWrong)) {
+    if (correct || (!correct && firstTimeIncorrect)) {
       const correctness = correct ? 'correct' : 'incorrect';
       const postUrl = createReviewUrl(id, { correctness });
       yield fork(post, postUrl, postData);
     }
   } catch (err) {
-    // TODO: catch errors and notify user answer not recorded but added to an answersQueue for submission next time they're online
-    console.error(err); // eslint-disable-line no-console
-    // put(notifyError(message))
+    // TODO: catch errors and notify user answer not recorded - halt session with "refresh?"
+    yield put(actions.recordAnswerFailure({
+      title: 'Connection Error',
+      message: `Unable to record
+      answer: ${err.message}`,
+      error: err,
+    }));
   } finally {
-    if (correct && !previouslyWrong) yield put(increaseSessionCorrect());
-    if (!correct && !previouslyWrong) yield put(increaseSessionIncorrect());
-
+    if (correct && !previouslyIncorrect) {
+      yield [
+        put(actions.increaseCurrentCorrect()),
+        put(actions.addCurrentToCorrect()),
+      ];
+    }
+    if (!correct && !previouslyIncorrect) {
+      yield [
+        put(actions.increaseCurrentIncorrect()),
+        put(actions.addCurrentToIncorrect()),
+      ];
+    }
     yield [
-      put(correct ? copyCurrentToCompleted() : returnCurrentToQueue()),
+      put(correct ? actions.addCurrentToComplete() : actions.addCurrentToQueue()),
       call(resetReview),
-      put(cancelAutoAdvance()),
+      put(actions.cancelAutoAdvance()),
     ];
   }
 }
@@ -171,147 +87,169 @@ export function* recordAnswer() {
  * Hides vocab info, sets new current question, and resets answer input
  */
 export function* resetReview() {
+  const { infoDetailLevel } = yield select(selectUserSettings);
   yield [
-    put(toggleInfoPanels({ hide: true })),
-    put(toggleNewSynonymPanel({ hide: true })),
-    put(toggleInfoDepth({ level: 1 })),
-    put(setNewCurrent()),
-    put(resetAnswer()),
+    put(actions.updatePanels({ info: { detail: infoDetailLevel } })),
+    put(actions.hidePanels()),
+    put(actions.resetAnswer()),
+    put(actions.setNewCurrent()),
   ];
 }
 
 export function* checkAnswer() {
-  let [vocab, inputText] = yield [ // eslint-disable-line prefer-const
-    select(selectCurrentVocab()),
-    select(selectInputText()),
+  let [current, input] = yield [ // eslint-disable-line prefer-const
+    select(selectors.selectCurrent),
+    select(selectors.selectAnswerInput),
   ];
-  const readings = vocab.get('readings');
-  const synonyms = vocab.get('synonyms');
+  const { readings, synonyms } = current.vocabulary;
   const possibleAnswers = readings.concat(synonyms);
 
-  let answer = inputText.trim();
+  let answer = input.trim();
   const hasContent = !isEmpty(answer);
 
   if (hasContent) {
     answer = fixTerminalN(answer);
-    if (isKanji(answer) && answersContainTilde(readings)) { // currently only checks for starting tilde
-      answer = fixStartingTilde(answer); // FIXME: what about ending tildes?
+    const tildePosition = getTildePosition(readings);
+    if (tildePosition) {
+      if (tildePosition === 'start') answer = fixStartingTilde(answer);
+      if (tildePosition === 'end') answer = fixEndingTilde(answer);
     }
   }
-
   const allJapanese = isKanjiKana(answer);
-  const answerType = (isHiragana(answer) || isKatakana(answer) ? 'kana' : 'kanji');
+  const type = (hasContent && (isHiragana(answer) || isKatakana(answer) ? 'kana' : 'kanji')) || '';
   const valid = hasContent && allJapanese;
-  const matches = keysInListMatch(possibleAnswers, ['kana', 'character'], answer);
+  const matches = possibleAnswers.some((vocabulary) => vocabulary.includes(answer));
   const correct = valid && matches;
+  const incorrect = valid && !matches;
 
-  yield put(updateAnswer({
+  yield put(actions.updateAnswer({
+    input: valid ? answer : input,
+    marked: true,
+    type,
     valid,
-    matches,
-    answerType,
-    inputText: (valid ? answer : inputText),
   }));
-  if (correct) yield put(markCorrect());
-  if (valid && !matches) yield put(markIncorrect());
+  if (correct) yield put(actions.markCorrect({ correct, marked: true, disabled: true }));
+  if (incorrect) yield put(actions.markIncorrect({ incorrect, marked: true, disabled: true }));
 }
 
 export function* autoAdvance(wait) {
   while (true) {
     yield call(delay, wait);
-    yield put(processAnswer());
+    yield put(actions.recordAnswerRequest());
   }
 }
 
 export function* autoAdvanceWatcher() {
   while (true) {
-    const action = yield take(START_AUTO_ADVANCE);
-    const wait = action.payload;
+    const action = yield take(types.AUTO_ADVANCE.START);
+    const wait = action.payload.delay;
     yield race({
       task: call(autoAdvance, wait),
-      cancel: take(CANCEL_AUTO_ADVANCE),
+      cancel: take(types.AUTO_ADVANCE.CANCEL),
     });
   }
 }
 
-export function* processAnswerWatcher() {
-  yield takeEvery(PROCESS_ANSWER, recordAnswer);
+export function* recordAnswerRequestWatcher() {
+  yield takeEvery(types.ANSWER.RECORD.REQUEST, recordAnswerRequest);
 }
 
 export function* checkAnswerWatcher() {
-  yield takeEvery(CHECK_ANSWER, checkAnswer);
+  yield takeEvery(types.ANSWER.CHECK, checkAnswer);
 }
 
 export function* markAnswerWatcher() {
   while (true) {
     const { correct, incorrect, ignored } = yield race({
-      correct: take(MARK_CORRECT),
-      incorrect: take(MARK_INCORRECT),
-      ignored: take(MARK_IGNORED),
+      correct: take(types.ANSWER.MARK.CORRECT),
+      incorrect: take(types.ANSWER.MARK.INCORRECT),
+      ignored: take(types.ANSWER.MARK.IGNORED),
     });
 
-    const [current, settings] = yield [
-      select(selectCurrent()),
-      select(selectSettings()),
+    const [settings, firstTimeIncorrect, previouslyIncorrect] = yield [
+      select(selectUserSettings),
+      select(selectors.selectCurrentIsFirsTimeIncorrect),
+      select(selectors.selectCurrentIsPreviouslyIncorrect),
     ];
 
-    const autoAdvanceCorrect = settings.get('autoAdvanceCorrect');
-    const autoAdvanceDelay = settings.get('autoAdvanceDelay');
-    const autoExpandCorrect = settings.get('autoExpandCorrect');
-    const autoExpandIncorrect = settings.get('autoExpandIncorrect');
-    const currentIncorrectCount = current.getIn(['session', 'incorrect']);
-    const previouslyWrong = currentIncorrectCount >= 1;
-    const firstTimeWrong = currentIncorrectCount === 1;
+    const {
+      autoAdvanceDelay,
+      autoExpandCorrect,
+      autoExpandIncorrect,
+      autoAdvanceCorrect,
+    } = settings;
 
     if (correct) {
-      if (!previouslyWrong) yield put(increaseCurrentStreak());
-      if (autoExpandCorrect) yield put(toggleInfoPanels({ show: true }));
-      if (autoAdvanceCorrect) yield put(startAutoAdvance(autoAdvanceDelay));
+      if (!previouslyIncorrect) {
+        yield [
+          put(actions.increaseCurrentStreak()),
+          put(actions.increaseCurrentCorrect()),
+        ];
+      }
+      if (autoExpandCorrect) yield put(actions.showPanel('info'));
+      if (autoAdvanceCorrect) yield put(actions.startAutoAdvance(autoAdvanceDelay));
     }
-
     if (incorrect) {
-      if (autoExpandIncorrect) yield put(toggleInfoPanels({ show: true }));
-      if (firstTimeWrong) yield put(decreaseCurrentStreak());
+      if (firstTimeIncorrect) {
+        yield [
+          put(actions.decreaseCurrentStreak()),
+          put(actions.increaseCurrentIncorrect()),
+        ];
+      }
+      if (autoExpandIncorrect) yield put(actions.showPanel('info'));
     }
 
     if (ignored) {
       yield [
-        put(cancelAutoAdvance()),
-        put(resetCurrentStreak()),
-        put(returnCurrentToQueue()),
+        put(actions.cancelAutoAdvance()),
+        put(actions.revertCurrentStreak()),
+        put(actions.addCurrentToQueue()),
+        put(ignored.payload.correct ?
+          actions.decreaseCurrentCorrect() :
+          actions.decreaseCurrentIncorrect(),
+        ),
         call(resetReview),
       ];
     }
   }
 }
 
-export function* copyCurrentToCompletedWatcher() {
+export function* addCurrentToCompleteWatcher() {
   while (true) {
-    yield take(COPY_CURRENT_TO_COMPLETED);
+    yield take(types.CURRENT.ADD_TO.COMPLETE);
 
-    const [needMoreReviews, queueCompleted] = yield [
-      select(selectIsReviewSyncNeeded()),
-      select(selectIsQueueComplete()),
+    const [needMoreReviews, queueComplete] = yield [
+      select(selectors.selectIsReviewSyncNeeded),
+      select(selectors.selectIsQueueComplete),
     ];
 
     if (needMoreReviews) {
-      yield put(loadReviewData(false));
+      yield put(globalActions.loadReviews(false));
     }
 
-    if (queueCompleted) {
-      yield put(resetUserDataReviewCount());
+    if (queueComplete) {
+      // TODO: might need to reset user profile reviews count now
       yield history.push('/review/summary');
     }
   }
 }
 
+export function* addSynonymWatcher() {
+  yield takeEvery(synonymFormTypes.ADD.SUCCESS, addSynonym);
+}
+
+function* addSynonym() {
+  yield put(actions.markIgnored(false));
+}
+
 const watchers = markAllAsDaemon([
-  loadReviewDataSuccessWatcher,
-  getReviewDataWatcher,
+  addSynonymWatcher,
   checkAnswerWatcher,
+  loadReviewsSuccessWatcher,
   markAnswerWatcher,
-  processAnswerWatcher,
+  recordAnswerRequestWatcher,
   autoAdvanceWatcher,
-  copyCurrentToCompletedWatcher,
+  addCurrentToCompleteWatcher,
 ]);
 
 export default [

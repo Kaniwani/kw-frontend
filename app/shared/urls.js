@@ -3,6 +3,8 @@
 //-----------------------------------------------------------------------------
 import { API_BASE_URL } from 'shared/constants';
 
+// TODO: better url creation https://github.com/jfromaniello/url-join !
+
 // TODO: add ${Endpoint}Request() that accept data as well
 // For Example, synonym endpoint expects the following in request body:
 //  id: IntegerField

@@ -1,59 +1,24 @@
-import { takeEvery, put, call, select } from 'redux-saga/effects';
+import { takeEvery, put, call } from 'redux-saga/effects';
 import { createSynonymUrl } from 'shared/urls';
 import markAllAsDaemon from 'utils/markAllAsDaemon';
 import post from 'utils/post';
-// import request from 'utils/request';
-// import { createJishoUrl } from 'shared/urls';
-// import shapeJishoData from './utils/shapeJishoData';
-// import { LOAD_JISHODATA } from './constants';
-import { ADD_SYNONYM, REMOVE_SYNONYM } from './constants';
+import types from './constants';
+import actions from './actions';
+import reviewActions from 'containers/ReviewSession/actions';
 
-import { addSynonymToCurrent, removeSynonymFromCurrent } from 'containers/ReviewSession/actions';
-import { selectCurrent } from 'containers/ReviewSession/selectors';
-import { checkAnswer } from 'containers/ReviewAnswer/actions';
-
-import {
-  addSynonymError,
-  addSynonymSuccess,
-  removeSynonymError,
-  // jishoDataLoaded,
-  // jishoDataLoadingError,
-} from './actions';
-
-// export function* getJishoData({ payload }) {
-//   const requestURL = createJishoUrl(payload);
-//   const requestOptions = { mode: 'no-cors' };
-//   try {
-//     const data = yield call(request, requestURL, requestOptions);
-//     const shapedData = shapeJishoData(data);
-//     yield put(jishoDataLoaded(shapedData));
-//   } catch (err) {
-//     yield put(jishoDataLoadingError(err));
-//   }
-// }
-
-export function* postNewSynonym({ payload }) {
-  const current = yield select(selectCurrent());
-  const synonym = {
-    character: payload.get('Kanji'),
-    kana: payload.get('Kana'),
-  };
+export function* requestAddSynonym({ payload: { synonym } }) {
   const postUrl = createSynonymUrl();
-  const postData = {
-    review: current.get('id'),
-    ...synonym,
-  };
-
+  const postData = synonym.toJS();
   try {
-    const synonymData = yield call(post, postUrl, postData);
-    yield put(addSynonymSuccess({
+    const { id } = yield call(post, postUrl, postData);
+    const synonymWithId = synonym.set('id', id);
+    yield put(reviewActions.addSynonymToCurrent(synonymWithId));
+    yield put(actions.addSynonymSuccess(synonym, {
       title: 'Add Synonym',
-      message: `Synonym “${synonymData.character}” successfully added.`,
+      message: `Synonym “${synonym.character}” successfully added.`,
     }));
-    yield put(addSynonymToCurrent(synonymData));
-    yield put(checkAnswer());
   } catch (err) {
-    yield put(addSynonymError({
+    yield put(actions.addSynonymFailure({
       title: 'Connection error',
       message: `Unable to add synonym on server: ${err.message}`,
       error: err,
@@ -61,42 +26,35 @@ export function* postNewSynonym({ payload }) {
   }
 }
 
-// TODO: not really relevant to synonymForm at all
-// move to app level since vocab will use it?
-// same goes for addSynonym really
-export function* removeSynonym({ payload }) {
-  const id = payload;
-  const url = createSynonymUrl(id);
-
+export function* requestRemoveSynonym({ payload: { synonym } }) {
+  const url = createSynonymUrl(synonym.id);
   try {
     yield call(post, url, null, { method: 'DELETE' });
-    yield put(removeSynonymFromCurrent(id));
+    yield put(reviewActions.removeSynonymFromCurrent(synonym));
+    yield put(actions.removeSynonymSuccess(synonym, {
+      title: 'Remove Synonym',
+      message: `Synonym “${synonym.character}” successfully removed.`,
+    }));
   } catch (err) {
-    yield put(removeSynonymError({
+    yield put(actions.removeSynonymFailure({
       title: 'Connection error',
-      message: `Unable to remove synonym on server: ${err.message}`,
+      message: `Unable to remove synonym “${synonym.character}” on server: ${err.message}`,
       error: err,
     }));
   }
 }
 
-
-// export function* getJishoDataWatcher() {
-//   yield takeLatest(LOAD_JISHODATA, getJishoData);
-// }
-
-export function* addSynonymWatcher() {
-  yield takeEvery(ADD_SYNONYM, postNewSynonym);
+export function* addSynonymRequestWatcher() {
+  yield takeEvery(types.ADD.REQUEST, requestAddSynonym);
 }
-export function* removeSynonymWatcher() {
-  yield takeEvery(REMOVE_SYNONYM, removeSynonym);
+export function* removeSynonymRequestWatcher() {
+  yield takeEvery(types.REMOVE.REQUEST, requestRemoveSynonym);
 }
 
 // Mark watchers to only run once on route entry
 const watchers = markAllAsDaemon([
-  addSynonymWatcher,
-  removeSynonymWatcher,
-/* getJishoDataWatcher, */
+  addSynonymRequestWatcher,
+  removeSynonymRequestWatcher,
 ]);
 
 // Bootstrap sagas

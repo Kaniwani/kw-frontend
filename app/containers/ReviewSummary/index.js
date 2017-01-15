@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+import Immutable from 'immutable';
 import { createStructuredSelector } from 'reselect';
 import ReactTooltip from 'react-tooltip';
 import pluralize from 'utils/pluralize';
@@ -17,21 +18,14 @@ import VocabChip from './VocabChip';
 import { StyledHeader } from 'containers/SiteHeader/styles';
 import { SectionHeader } from './styles';
 
-import {
-  selectCorrectCategorized,
-  selectIncorrectCategorized,
-  selectCriticalItems,
-  selectPercentCorrect,
-  selectIgnoredCount,
-  selectRemainingCount,
-} from './selectors';
+import * as selectors from './selectors';
 
 const ReviewSummary = ({
   correctItems,
   incorrectItems,
   criticalItems,
   percentCorrect,
-  ignoredCount,
+  ignoredItems,
   remainingCount,
 }) => {
   let content;
@@ -63,10 +57,12 @@ const ReviewSummary = ({
           <Element>
             <SummarySection items={correctItems} count={correctItems.count} correct />
           </Element>
-          {criticalItems.length > 0 &&
+          {criticalItems.size > 0 &&
           <Element>
             {/* FIXME: SectionHeader as percentage bar!!! then animate! */}
-            <SectionHeader color="orange">{pluralize('Critical Item', criticalItems.length)}:</SectionHeader>
+            <SectionHeader color="orange">
+              {criticalItems.size} {pluralize('Critical Word', criticalItems.size)}
+            </SectionHeader>
             <Container>
               <Element>
                 <List items={criticalItems} component={VocabChip} componentProps={{ color: 'orange' }} />
@@ -74,7 +70,9 @@ const ReviewSummary = ({
             </Container>
           </Element>
         }
-          { ignoredCount > 0 && <Element><h4>{ignoredCount} Items ignored.</h4></Element>}
+          {ignoredItems.size > 0 && <Element><h4>
+            {ignoredItems.size} {pluralize('Ignored Word', ignoredItems.size)}
+          </h4></Element>}
         </Container>
       </Wrapper>
    );
@@ -99,21 +97,21 @@ const ReviewSummary = ({
 };
 
 ReviewSummary.propTypes = {
-  correctItems: PropTypes.object,
-  incorrectItems: PropTypes.object,
-  criticalItems: PropTypes.array,
-  ignoredCount: PropTypes.number,
+  correctItems: PropTypes.instanceOf(Immutable.Iterable),
+  incorrectItems: PropTypes.instanceOf(Immutable.Iterable),
+  criticalItems: PropTypes.instanceOf(Immutable.Iterable),
+  ignoredItems: PropTypes.instanceOf(Immutable.Iterable),
   percentCorrect: PropTypes.number,
   remainingCount: PropTypes.number,
 };
 
 const mapStateToProps = createStructuredSelector({
-  correctItems: selectCorrectCategorized(),
-  incorrectItems: selectIncorrectCategorized(),
-  remainingCount: selectRemainingCount(),
-  criticalItems: selectCriticalItems(),
-  ignoredCount: selectIgnoredCount(),
-  percentCorrect: selectPercentCorrect(),
+  correctItems: selectors.selectCorrectCategorized,
+  incorrectItems: selectors.selectIncorrectCategorized,
+  remainingCount: selectors.selectRemainingCount,
+  criticalItems: selectors.selectCriticalItems,
+  ignoredItems: selectors.selectIgnoredItems,
+  percentCorrect: selectors.selectPercentCorrect,
 });
 
 function mapDispatchToProps(dispatch) {

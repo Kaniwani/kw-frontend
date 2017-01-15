@@ -15,7 +15,7 @@ describe('App Actions', () => {
     it('should return the correct type', () => {
       const expectedResult = {
         type: LOAD_USERDATA,
-        showIndicator: true,
+        payload: true,
       };
 
       expect(loadUserData()).toEqual(expectedResult);

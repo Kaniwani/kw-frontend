@@ -11,10 +11,12 @@ import List from 'components/List';
 import A from 'components/A';
 import H1 from 'components/H1';
 
+const getLockedText = (item) => item.isLocked ? 'locked' : 'unlocked';
+
 const Level = ({ item }) => (
   <Container tag="li" style={{ border: '1px solid grey' }}>
     <Element>level:{item.level}</Element>
-    <Element>{item.getLockedText()}</Element>
+    <Element>{getLockedText(item)}</Element>
     <Element>count:{item.count}</Element>
     {!item.isLocked && <A to={`/vocabulary/${item.level}`}>View Item</A>}
   </Container>
@@ -52,7 +54,7 @@ export class VocabularyPage extends React.Component { // eslint-disable-line rea
 }
 
 const mapStateToProps = createStructuredSelector({
-  levels: selectVocabularyLevels(),
+  levels: selectVocabularyLevels,
 });
 
 const mapDispatchToProps = (dispatch) => ({

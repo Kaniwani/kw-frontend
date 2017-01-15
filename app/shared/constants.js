@@ -1,7 +1,6 @@
-// import { LOAD_USERDATA_SUCCESS } from 'containers/App/constants';
+import types from 'containers/App/constants';
 // import { LOAD_LEVELS_SUCCESS } from 'containers/VocabularyPage/constants';
-// import { RESET_ANSWER } from 'containers/ReviewAnswer/constants';
-// import { LOAD_REVIEWDATA_SUCCESS } from 'containers/ReviewPage/constants';
+import reviewTypes from 'containers/ReviewSession/constants';
 
 /**
  * The base url for all KW api requests
@@ -14,10 +13,9 @@ export const API_BASE_URL = '//localhost:8000/api/v1/';
  * @type {Array}
  */
 export const PERSISTENCE_ACTION_WHITELIST = [
-  // LOAD_USERDATA_SUCCESS,
-  // LOAD_LEVELS_SUCCESS,
-  // LOAD_REVIEWDATA_SUCCESS,
-  // RESET_ANSWER,
+  types.USER.LOAD.SUCCESS,
+  types.REVIEWS.LOAD.SUCCESS,
+  reviewTypes.ANSWER.RESET,
 ];
 
 /**
@@ -26,8 +24,9 @@ export const PERSISTENCE_ACTION_WHITELIST = [
  */
 export const PERSISTENCE_STATE_WHITELIST = [
   ['global', 'user'],
-  // ['vocabulary'],
-  // 'review',
+  ['global', 'reviewCount'],
+  ['global', 'reviews'],
+  // ['global', 'session'], // TODO: maybe we should store this, in case user connection drops, but clear it if 15 minutes have passed
 ];
 
 
@@ -65,6 +64,15 @@ export const DATE_IN_WORDS = '[at] hh:mm A[, on the] Do [of] MMM[,] YYYY';
  * SRS_RANKS['ONE']
  * // => 'APPRENTICE'
  */
+
+export const PANELS = {
+  INFO: 'info',
+  NOTES: 'notes',
+  SETTINGS: 'settings',
+  SYNONYM: 'synonym',
+  NONE: 'none',
+};
+
 export const SRS_RANKS = {
   ONE: 'APPRENTICE',
   TWO: 'GURU',
@@ -72,6 +80,16 @@ export const SRS_RANKS = {
   FOUR: 'ENLIGHTENED',
   FIVE: 'BURNED',
 };
+
+export const MAX_DETAIL_DEPTH = 3;
+export const DETAIL_LEVELS = ['Low', 'Medium', 'High'];
+export const ANSWER_TYPES = {
+  character: '漢字',
+  kana: 'かな',
+};
+export const TILDE_JA = '〜';
+export const TILDE_EN = '~';
+
 
 /**
  * Maps english names of keys to event.which keycodes { P_LOWERCASE: 80 }
@@ -81,16 +99,12 @@ export const SRS_RANKS = {
  * // => 13
  */
 export const KEYCODES = {
-  P_LOWERCASE: 80,
-  P_UPPERCASE: 112,
-  K_LOWERCASE: 75,
-  K_UPPERCASE: 107,
   F_LOWERCASE: 70,
-  F_UPPERCASE: 102,
+  K_LOWERCASE: 75,
+  N_LOWERCASE: 78,
+  P_LOWERCASE: 80,
   S_LOWERCASE: 83,
-  S_UPPERCASE: 115,
   I_LOWERCASE: 73,
-  I_UPPERCASE: 105,
   BACKSPACE: 8,
   FORWARD_SLASH: 191,
   BACK_SLASH: 220,

@@ -1,13 +1,18 @@
-/*
- * HomePage
- *
- * This is the first thing users see of our App, at the '/' route
- */
-
  import React, { PropTypes } from 'react';
  import Helmet from 'react-helmet';
  import { connect } from 'react-redux';
  import { createStructuredSelector } from 'reselect';
+
+ import { UserProfileRecord } from 'shared/models';
+ import actions from 'containers/App/actions';
+ import {
+   selectLoading,
+   selectUser,
+   selectLastKwSyncDate,
+   selectLastWkSyncDate,
+   selectUserSyncNeeded,
+   selectReviewSyncNeeded,
+} from 'containers/App/selectors';
 
  import Wrapper from 'components/Wrapper';
  import LoadingIndicator from 'components/LoadingIndicator';
@@ -17,87 +22,74 @@
  import H3 from 'components/H3';
  import P from 'components/P';
 
- import { selectLoading } from 'containers/App/selectors';
+ class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
+   static propTypes = {
+     loading: PropTypes.bool,
+     user: PropTypes.instanceOf(UserProfileRecord),
+     lastWkSyncDate: PropTypes.string.isRequired,
+     lastKwSyncDate: PropTypes.string.isRequired,
+   }
 
- import {
-   selectName,
-   selectLevel,
-   selectReviewCount,
-   selectLastWkSyncDate,
-   selectLastKwSyncDate,
- } from 'containers/HomePage/selectors';
+   render() {
+     const { user, loading, lastWkSyncDate, lastKwSyncDate } = this.props;
 
- const HomePage = ({
-   name,
-   loading,
-   level,
-   reviewCount,
-   lastWkSyncDate,
-   lastKwSyncDate,
- }) => {
-   // TODO: create a container for re-use that shows loading or children based on a "loading" prop
-   let content;
-   if (loading) {
-     content = (
-       <Container>
-         <LoadingIndicator />;
-       </Container>
-     );
-   } else {
-     content = (
-       <Container flexRow justifyContent="space-between">
-         <Element>
-           <H2>Welcome Back {name}.</H2>
-           <P>You are level {level}.</P>
-           <P>You have {reviewCount} reviews waiting.</P>
-           <P>You last synced with WK {lastWkSyncDate}</P>
-           <P>You last synced with KW {lastKwSyncDate}</P>
-         </Element>
-         <Element>
-           <H3>Announcements</H3>
-           <P>Announcement 1</P>
-           <P>Announcement 2</P>
-           <P>Announcement 3</P>
-         </Element>
-       </Container>
+     // TODO: create a container for re-use that shows loading or children based on a "loading" prop
+     let content;
+     if (loading) {
+       content = (
+         <Container>
+           <LoadingIndicator />;
+         </Container>
+       );
+     } else {
+       content = (
+         <Container flexRow justifyContent="space-between">
+           <Element>
+             <H2>Welcome Back {user.name}.</H2>
+             <P>You are level {user.level}.</P>
+             <P>You have {user.reviewCount} reviews waiting.</P>
+             <P>You last synced with WK {lastWkSyncDate}</P>
+             <P>You last synced with KW {lastKwSyncDate}</P>
+           </Element>
+           <Element>
+             <H3>Announcements</H3>
+             <P>Announcement 1</P>
+             <P>Announcement 2</P>
+             <P>Announcement 3</P>
+           </Element>
+         </Container>
+       );
+     }
+
+     return (
+       <div>
+         <Helmet
+           title="Dashboard"
+           meta={[{ name: 'description', content: 'Kaniwani Dashboard' }]}
+         />
+         <Wrapper>
+           {content}
+         </Wrapper>
+       </div>
      );
    }
-   return (
-     <div>
-       <Helmet
-         title="Dashboard"
-         meta={[{ name: 'description', content: 'Kaniwani Dashboard' }]}
-       />
-       <Wrapper>
-         {content}
-       </Wrapper>
-     </div>
-   );
- };
+ }
 
- HomePage.propTypes = {
-   name: PropTypes.string.isRequired,
-   loading: PropTypes.bool,
-   level: PropTypes.number.isRequired,
-   reviewCount: PropTypes.number.isRequired,
-   lastWkSyncDate: PropTypes.string.isRequired,
-   lastKwSyncDate: PropTypes.string.isRequired,
- };
-
- // export function mapDispatchToProps(dispatch) {
- //   return {
- //     loadUserData: () => dispatch(loadUserData()),
- //   };
- // }
+ export function mapDispatchToProps(dispatch) {
+   return {
+     loadUserData: (indicateLoading) => dispatch(actions.loadUserRequest(indicateLoading)),
+     loadReviewsData: (indicateLoading) => dispatch(actions.loadReviewsRequest(indicateLoading)),
+   };
+ }
 
  const mapStateToProps = createStructuredSelector({
-   name: selectName(),
-   level: selectLevel(),
-   loading: selectLoading(),
-   reviewCount: selectReviewCount(),
-   lastWkSyncDate: selectLastWkSyncDate(),
-   lastKwSyncDate: selectLastKwSyncDate(),
+   loading: selectLoading,
+   user: selectUser,
+   lastKwSyncDate: selectLastKwSyncDate,
+   lastWkSyncDate: selectLastWkSyncDate,
+   isUserSyncNeeded: selectUserSyncNeeded,
+   isReviewSyncNeeded: selectReviewSyncNeeded,
  });
 
  // Wrap the component to inject dispatch and state into it
- export default connect(mapStateToProps/* , mapDispatchToProps */)(HomePage);
+ export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

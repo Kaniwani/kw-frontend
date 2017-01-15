@@ -1,82 +1,57 @@
-import { LOCATION_CHANGE } from 'react-router-redux';
 import { takeLatest, takeEvery, select, call, put, fork } from 'redux-saga/effects';
 import request from 'utils/request';
-import shapeUserData from './utils/shapeUserData';
-import { LOAD } from 'redux-storage';
-import { LOAD_USERDATA, LOAD_USERDATA_ERROR } from 'containers/App/constants';
-import { createUserUrl } from 'shared/urls';
-import { selectUser } from 'containers/App/selectors';
-import { selectIsReviewSyncNeeded } from 'containers/ReviewPage/selectors';
-import { selectCurrentMeaning } from 'containers/ReviewSession/selectors';
-import {
-  loadUserData,
-  userDataLoaded,
-  userDataLoadingError,
-} from 'containers/App/actions';
-import {
-  ADD_SYNONYM_SUCCESS,
-  ADD_SYNONYM_ERROR,
-  REMOVE_SYNONYM_ERROR,
-} from 'containers/AddSynonymForm/constants';
-import {
-  loadReviewData,
-} from 'containers/ReviewPage/actions';
+import post from 'utils/post';
+import { userProfileSerializer, reviewEntriesSerializer } from 'shared/serializers';
+import { createUserUrl, createReviewUrl } from 'shared/urls';
+import * as storageTypes from 'redux-storage';
+import types from 'containers/App/constants';
+import synonymFormTypes from 'containers/AddSynonymForm/constants';
+import reviewTypes from 'containers/ReviewSession/constants';
+import { selectQueueOffset } from 'containers/ReviewSession/selectors';
+import actions from 'containers/App/actions';
 import * as Notification from 'containers/Notifications/actions';
-import {
-  setNewCurrent,
-} from 'containers/ReviewSession/actions';
+import { selectUserSyncNeeded, selectReviewCount } from './selectors';
 
-import { MINUTES_SINCE_LAST_SYNC_LIMIT } from 'shared/constants';
-import differenceInMinutes from 'date-fns/difference_in_minutes';
-
-function* isUserSyncNeeded() {
-  const user = yield select(selectUser());
-  const lastSync = user.get('lastKwSyncDate');
-  if (lastSync == null) return true;
-
-  const needReviews = user.get('reviewCount') < 1;
-  const timeDifference = differenceInMinutes(new Date(), new Date(lastSync));
-  const timeLimitElapsed = timeDifference >= MINUTES_SINCE_LAST_SYNC_LIMIT;
-  return needReviews || timeLimitElapsed;
-}
-
-export function* checkSync({ payload }) {
-  const [needUserSync, needReviewSync, currentMeaning, location] = yield [
-    call(isUserSyncNeeded),
-    select(selectIsReviewSyncNeeded()),
-    select(selectCurrentMeaning()),
-    window.location.pathname || payload.pathname,
-  ];
-  const needsNewCurrent = currentMeaning === '';
-
-  if (location === '/') {
-    if (needUserSync) yield put(loadUserData());
-    // if (needReviewSync) yield put(loadReviewData(false)); // zzz not present in app reducer yet
-  }
-  if (/review/.test(location)) {
-    if (needReviewSync) {
-      // FIXME: review saga not async loaded when this gets called if navigating from dashboard...
-      yield put(loadReviewData());
-    } else if (needsNewCurrent) {
-      yield put(setNewCurrent());
-    }
-    if (needUserSync) {
-      yield put(loadUserData(false));
-    }
+export function* handleLoad() {
+  const userSync = yield select(selectUserSyncNeeded);
+  yield put(actions.srsRequest());
+  if (userSync) {
+    yield put(actions.loadUserRequest({ indicate: true }));
+  } else {
+    yield put(actions.updateGlobal({ loading: false }));
   }
 }
 
-/**
- * userData request/response handler
- */
-export function* getUserData() {
-  const requestURL = createUserUrl('me');
-
+export function* srsRequest() {
   try {
-    const data = yield call(request, requestURL);
-    yield put(userDataLoaded(shapeUserData(data)));
+    const clientCount = yield select(selectReviewCount);
+    const postUrl = createUserUrl('srs');
+    const { review_count: serverCount } = yield call(post, postUrl);
+    if (clientCount !== serverCount) {
+      yield [
+        put(actions.updateGlobal({ reviewCount: serverCount })),
+        put(actions.loadReviewsRequest({ indicate: false })),
+        put(actions.srsRequestSuccess(serverCount, {
+          title: 'Review sync',
+          message: `You have ${serverCount} reviews ready. Gotta view ’em all!`,
+        })),
+      ];
+    }
   } catch (err) {
-    yield put(userDataLoadingError({
+    yield put(actions.srsRequestFailure({
+      title: 'Connection error',
+      message: `Unable to sync review count from server: ${err.message}`,
+      error: err,
+    }));
+  }
+}
+
+export function* loadUserRequest() {
+  try {
+    const data = yield call(request, createUserUrl('me'));
+    yield put(actions.loadUserSuccess(userProfileSerializer(data)));
+  } catch (err) {
+    yield put(actions.loadUserFailure({
       title: 'Connection error',
       message: `Unable to fetch user data from server: ${err.message}`,
       error: err,
@@ -84,66 +59,72 @@ export function* getUserData() {
   }
 }
 
-export function* notifyError({ payload: { title, message, err } }) {
-  console.error(err); // eslint-disable-line no-console
-  yield put(Notification.error({ title, message }));
-  // TODO: log errors to server, perhaps include a 'type' (api, misc etc) in payload and filter by that
-  // yield call(ServerLog, { title, message, err });
+export function* loadReviewsRequest() {
+  const offset = yield select(selectQueueOffset);
+  console.log('offset', offset);
+  const requestURL = `${createReviewUrl(null, { category: 'current' })}?offset=${offset}`;
+  try {
+    const data = yield call(request, requestURL);
+    yield put(actions.loadReviewsSuccess({
+      total: data.count,
+      ...reviewEntriesSerializer(data.results),
+    }));
+  } catch (err) {
+    yield put(actions.loadReviewsFailure(err));
+  }
 }
 
-export function* notifySuccess({ payload: { title, message } }) {
-  yield put(Notification.success({ title, message }));
-}
-
-export function* notifyInfo({ payload: { title, message } }) {
-  yield put(Notification.info({ title, message }));
-}
-
-/**
- * Watches for LOAD_USERDATA actions and calls getUserData when one comes in.
- * By using `takeLatest` only the result of the latest API call is applied.
- */
-export function* getUserDataWatcher() {
-  yield takeLatest(LOAD_USERDATA, getUserData);
-}
-
-export function* notificationWatcher() {
-  // TODO: take all errors from any error constant
+export function* requestsWatcher() {
   yield [
-    takeEvery(ADD_SYNONYM_SUCCESS, notifySuccess),
-    takeEvery(LOAD_USERDATA_ERROR, notifyError),
-    takeEvery(ADD_SYNONYM_ERROR, notifyError),
-    takeEvery(REMOVE_SYNONYM_ERROR, notifyError),
+    takeLatest(storageTypes.LOAD, handleLoad),
+    takeLatest(types.SRS.REQUEST, srsRequest),
+    takeLatest(types.REVIEWS.LOAD.REQUEST, loadReviewsRequest),
+    takeLatest(types.USER.LOAD.REQUEST, loadUserRequest),
   ];
 }
 
-/**
- * Runs sync checks when storage is loaded
- */
-export function* storageLoadWatcher() {
-  yield takeLatest(LOAD, checkSync);
+export function* notifyError({ payload: { notification } }) {
+  console.error(notification.err); // eslint-disable-line no-console
+  yield put(Notification.error({ ...notification, autoDismiss: 0 }));
+  // TODO: log errors to server, perhaps include a 'type' (api, misc etc) in payload and filter by that
+  // yield call(ServerLog, { title, message, err });
+  // https://rollbar.com/
 }
 
-/**
- * Runs sync checks when location changes
- */
-export function* locationChangeWatcher() {
-  yield takeLatest(LOCATION_CHANGE, checkSync);
+export function* notifySuccess({ payload: { notification } }) {
+  yield put(Notification.success({ ...notification, autoDismiss: 2 }));
+}
+
+export function* notifyInfo({ payload: { notification } }) {
+  yield put(Notification.info({ ...notification, autoDismiss: 5 }));
+}
+
+export function* notificationsWatcher() {
+  yield [
+    takeEvery(types.SRS.SUCCESS, notifyInfo),
+    takeEvery(types.SRS.FAILURE, notifyError),
+    takeEvery(types.USER.LOAD.FAILURE, notifyError),
+    takeEvery(types.REVIEWS.LOAD.FAILURE, notifyError),
+    takeEvery(synonymFormTypes.ADD.SUCCESS, notifySuccess),
+    takeEvery(synonymFormTypes.ADD.FAILURE, notifyError),
+    takeEvery(synonymFormTypes.REMOVE.SUCCESS, notifySuccess),
+    takeEvery(synonymFormTypes.REMOVE.FAILURE, notifyError),
+    takeEvery(reviewTypes.ANSWER.RECORD.FAILURE, notifyError),
+  ];
 }
 
 /**
  * Root saga manages watcher lifecycle
  */
 export function* rootSaga() {
-  // Fork watcher so we can continue execution
-  /*  const watchers = */ yield [
-    fork(getUserDataWatcher),
-    fork(storageLoadWatcher),
-    fork(locationChangeWatcher),
-    fork(notificationWatcher),
+  // Fork watchers so we can continue execution
+  yield [
+    // fork(locationChangeWatcher),
+    fork(requestsWatcher),
+    fork(notificationsWatcher),
   ];
 
-  // Can't image we ever want to cancel these watchers really, since app is root level anyway
+  // NOTE: we shouldn't ever want to cancel these watchers, since app sagas should always be available
   // yield take(LOCATION_CHANGE);
   // yield cancel(...watchers);
 }

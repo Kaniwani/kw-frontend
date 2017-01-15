@@ -1,43 +1,6 @@
 import * as utils from '../utils';
-import { fromJS } from 'immutable';
-import { TILDE_EN, TILDE_JA } from '../constants';
-
-describe('keyInIterableMatches', () => {
-  const list = fromJS([{ obj: 'one' }, { obj: 'two', come_on: 'fhqhwqgads' }]);
-  const key = 'come_on';
-  const target = 'fhqhwqgads';
-  it('returns true if item exists', () => {
-    expect(utils.keyInIterableMatches(list, key, target)).toBe(true);
-  });
-  it("returns false if target doesn't exist", () => {
-    expect(utils.keyInIterableMatches(list, key, target)).toBe(true);
-  });
-  it('returns false if list is empty', () => {
-    expect(utils.keyInIterableMatches([], key, target)).toBe(false);
-  });
-  it("returns false if key doesn't exist", () => {
-    expect(utils.keyInIterableMatches(list, 'everybody_to_the_limit', target)).toBe(false);
-  });
-  it("returns false if target isn't present at key", () => {
-    expect(utils.keyInIterableMatches(list, key, 'come_on_fhqhwqgads')).toBe(false);
-  });
-});
-
-describe('keysInListMatch', () => {
-  const list = fromJS([{ kana: 'foo' }, { character: 'bar' }]);
-  let keys = ['kana', 'character'];
-  let target = 'bar';
-  it('returns true if item exists in one of the keys', () => {
-    expect(utils.keysInListMatch(list, keys, target)).toBe(true);
-  });
-  it('returns false if item does not exist in one of the keys', () => {
-    target = 'qux';
-    expect(utils.keysInListMatch(list, keys, target)).toBe(false);
-    target = 'bar';
-    keys = ['fuz', 'jag'];
-    expect(utils.keysInListMatch(list, keys, target)).toBe(false);
-  });
-});
+// import { ReadingRecord } from 'shared/models';
+import { TILDE_EN, TILDE_JA } from 'shared/constants';
 
 describe('endsWith', () => {
   it('works as intended', () => {
@@ -87,13 +50,39 @@ describe('fixTerminalN', () => {
     expect(utils.fixTerminalN('wana')).toBe('wana');
   });
 });
-
-describe('answersContainTilde', () => {
-  it('determines if starting tilde is present', () =>
-    expect(utils.answersContainTilde([{ character: '犬' }, { character: '〜回' }])).toBe(true),
-    expect(utils.answersContainTilde([{ character: '犬' }, { character: '回' }])).toBe(false),
-  );
-});
+//
+// describe('getTildePosition', () => {
+//   it('determines if tilde is at start on kana', () =>
+//     expect(utils.getTildePosition([
+//       new ReadingRecord({ character: '犬' }),
+//       new ReadingRecord({ kana: '〜回' }),
+//     ])).toBe('start'),
+//   );
+//   it('determines if tilde is at end on kana', () =>
+//     expect(utils.getTildePosition([
+//       new ReadingRecord({ character: '犬' }),
+//       new ReadingRecord({ kana: '回〜' }),
+//     ])).toBe('end'),
+//   );
+//   it('determines if tilde is at end on character', () =>
+//     expect(utils.getTildePosition([
+//       new ReadingRecord({ character: '犬〜' }),
+//       new ReadingRecord({ kana: '回' }),
+//     ])).toBe('end'),
+//   );
+//   it('determines if tilde is at start on chracter', () =>
+//     expect(utils.getTildePosition([
+//       new ReadingRecord({ character: '〜犬' }),
+//       new ReadingRecord({ kana: '回' }),
+//     ])).toBe('start'),
+//   );
+//   it('returns false if tilde is not present', () =>
+//     expect(utils.getTildePosition([
+//       new ReadingRecord({ character: '犬' }),
+//       new ReadingRecord({ kana: '回' }),
+//     ])).toBe(false),
+//   );
+// });
 
 describe('fixStartingTilde', () => {
   it('replaces romaji tilde with japanese tilde on strings', () => {
@@ -104,5 +93,17 @@ describe('fixStartingTilde', () => {
   });
   it('passes through strings that already start with japanese tilde', () => {
     expect(utils.fixStartingTilde(`${TILDE_JA}わん`)).toBe(`${TILDE_JA}わん`);
+  });
+});
+
+describe('fixEndingTilde', () => {
+  it('replaces romaji tilde with japanese tilde on strings', () => {
+    expect(utils.fixEndingTilde(`わん${TILDE_EN}`)).toBe(`わん${TILDE_JA}`);
+  });
+  it('adds japanese tilde to strings that do not already end with it', () => {
+    expect(utils.fixEndingTilde('わん')).toBe(`わん${TILDE_JA}`);
+  });
+  it('passes through strings that already ends with japanese tilde', () => {
+    expect(utils.fixEndingTilde(`わん${TILDE_JA}`)).toBe(`わん${TILDE_JA}`);
   });
 });

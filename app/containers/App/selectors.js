@@ -3,10 +3,14 @@
  */
 
 import { createSelector } from 'reselect';
+import format from 'date-fns/format';
+import { MINUTES_SINCE_LAST_SYNC_LIMIT, DATE_IN_WORDS } from 'shared/constants';
+import differenceInMinutes from 'date-fns/difference_in_minutes';
 
-const selectGlobal = () => (state) => state.get('global');
+const selectGlobal = (state) => state.get('global');
+export default selectGlobal;
 
-const selectLocationState = () => {
+export const makeSelectLocationState = () => {
   let prevRoutingState;
   let prevRoutingStateJS;
 
@@ -21,32 +25,77 @@ const selectLocationState = () => {
   };
 };
 
-const selectLoading = () => createSelector(
-  selectGlobal(),
-  (globalState) => globalState.get('loading'),
+export const selectLoading = createSelector(
+  selectGlobal,
+  (globalState) => globalState.loading,
 );
 
-const selectError = () => createSelector(
-  selectGlobal(),
-  (globalState) => globalState.get('error'),
+export const selectError = createSelector(
+  selectGlobal,
+  (globalState) => globalState.error,
 );
 
-const selectUser = () => createSelector(
-  selectGlobal(),
-  (globalState) => globalState.get('user'),
+export const selectUser = createSelector(
+  selectGlobal,
+  (globalState) => globalState.user,
 );
 
-const selectSettings = () => createSelector(
-  selectUser(),
-  (substate) => substate.get('settings'),
-);
-
-export default selectGlobal;
-
-export {
-  selectLocationState,
-  selectLoading,
-  selectError,
+export const selectUserSettings = createSelector(
   selectUser,
-  selectSettings,
-};
+  (globalState) => globalState.settings,
+);
+
+export const selectReviews = createSelector(
+  selectGlobal,
+  (globalState) => globalState.reviews,
+);
+
+export const selectSession = createSelector(
+  selectGlobal,
+  (globalState) => globalState.session,
+);
+
+export const selectReviewCount = createSelector(
+  selectGlobal,
+  (substate) => substate.reviewCount,
+);
+
+export const selectLastWkSyncDate = createSelector(
+  selectUser,
+  (substate) => {
+    const syncDate = substate.lastWkSyncDate;
+    return syncDate != null ? format(syncDate, DATE_IN_WORDS) : '... ¯\\_(ツ)_/¯'; // eslint-disable-line no-useless-escape
+  },
+);
+
+export const selectLastKwSyncDate = createSelector(
+  selectUser,
+  (substate) => {
+    const syncDate = substate.lastKwSyncDate;
+    return syncDate != null ? format(syncDate, DATE_IN_WORDS) : '... ¯\\_(ツ)_/¯'; // eslint-disable-line no-useless-escape
+  },
+);
+
+
+// Ideally, this should be linked in with the next reviews countdown timer
+export const selectUserSyncNeeded = createSelector(
+  [selectLastKwSyncDate, selectReviewCount],
+  (lastSync, reviewCount) => {
+    if (lastSync == null) return true;
+    const needReviews = reviewCount < 1;
+    const timeDifference = differenceInMinutes(new Date(), new Date(lastSync));
+    const timeLimitElapsed = timeDifference >= MINUTES_SINCE_LAST_SYNC_LIMIT;
+    return needReviews || timeLimitElapsed;
+  },
+);
+
+export const selectReviewSyncNeeded = createSelector(
+  [selectLastKwSyncDate, selectReviewCount],
+  (lastSync, reviewCount) => {
+    if (lastSync == null) return true;
+    const needReviews = reviewCount < 1;
+    const timeDifference = differenceInMinutes(new Date(), new Date(lastSync));
+    const timeLimitElapsed = timeDifference >= MINUTES_SINCE_LAST_SYNC_LIMIT;
+    return needReviews || timeLimitElapsed;
+  },
+);

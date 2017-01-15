@@ -50,12 +50,12 @@ const initialState = {};
 const store = configureStore(initialState, browserHistory);
 
 // Sync history and store, as the react-router-redux reducer
-// is under the non-default key ("routing"), selectLocationState
+// is under the non-default key ("routing"), makeSelectLocationState
 // must be provided for resolving how to retrieve the "route" in the state
-import { selectLocationState } from 'containers/App/selectors';
+import { makeSelectLocationState } from 'containers/App/selectors';
 
 export const history = syncHistoryWithStore(browserHistory, store, { // eslint-disable-line import/prefer-default-export
-  selectLocationState: selectLocationState(),
+  selectLocationState: makeSelectLocationState(),
 });
 
 // Set up the router, wrapping all Routes in the App component
@@ -88,7 +88,9 @@ const render = () => {
 render();
 // Rehydrate data
 loadFromLocalStorage(store)
-  .catch((err) => console.error('Failed to load previous state:', err)); // eslint-disable-line no-console
+  .catch((err) => {
+    console.error('Failed to load previous state:', err);
+  }); // eslint-disable-line no-console
 
 // Install ServiceWorker and AppCache in the end since
 // it's not most important operation and if main code fails,

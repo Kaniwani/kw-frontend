@@ -6,10 +6,7 @@ import debounce from 'lodash/debounce';
 import { breakpoints } from 'shared/styles/media';
 import { StyledHeader, StyledElement, StyledContainer } from './styles';
 import { navRoutes } from './constants';
-
-import {
-  selectReviewCount,
-} from 'containers/HomePage/selectors';
+import { selectReviewCount } from 'containers/App/selectors';
 
 import Wrapper from 'components/Wrapper';
 import Element from 'components/Element';
@@ -85,7 +82,7 @@ export class SiteHeader extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  reviewCount: selectReviewCount(),
+  reviewCount: selectReviewCount,
   navRoutes: () => navRoutes,
 });
 

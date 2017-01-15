@@ -1,9 +1,7 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 import markAllAsDaemon from 'utils/markAllAsDaemon';
 import { createLevelUrl, createReviewUrl } from 'shared/urls';
-import shapeVocabularyLevelsData from './utils/shapeVocabularyLevelsData';
-import shapeVocabularyItemsData from './utils/shapeVocabularyItemsData';
-import shapeVocabularyItemData from './utils/shapeVocabularyItemData';
+import { vocabularyLevelSerializer, reviewEntriesSerializer, reviewEntrySerializer } from 'shared/serializers';
 import request from 'utils/request';
 
 import * as CONSTANTS from './constants';
@@ -13,7 +11,7 @@ export function* getVocabLevels() {
   const requestURL = createLevelUrl();
   try {
     const data = yield call(request, requestURL);
-    const shapedData = shapeVocabularyLevelsData(data);
+    const shapedData = vocabularyLevelSerializer(data);
     yield put(ACTIONS.levelsLoaded(shapedData));
   } catch (err) {
     yield put(ACTIONS.levelsLoadingError(err));
@@ -25,7 +23,7 @@ export function* getVocabItems({ payload }) {
   const requestURL = `${createReviewUrl()}?limit=150&level=${level}`;
   try {
     const data = yield call(request, requestURL);
-    const shapedData = shapeVocabularyItemsData(data);
+    const shapedData = reviewEntriesSerializer(data);
     yield put(ACTIONS.itemsLoaded(shapedData));
   } catch (err) {
     yield put(ACTIONS.itemsLoadingError(err));
@@ -39,7 +37,7 @@ export function* getVocabItem({ payload }) {
   const requestURL = createReviewUrl(itemId);
   try {
     const data = yield call(request, requestURL);
-    const shapedData = shapeVocabularyItemData(data);
+    const shapedData = reviewEntrySerializer(data);
     yield put(ACTIONS.itemLoaded(shapedData));
   } catch (err) {
     yield put(ACTIONS.itemLoadingError(err));

@@ -7,6 +7,7 @@ import List from 'components/List';
 import NavToggle from './NavToggle';
 
 function MobileNav({ links, reviewCount, visible, handleToggleClick, offsetTop, ...props }) {
+  // TODO: make part of global state with a record, use first() and rest()
   const reviewLinkOnly = addReviewCount(links.slice(0, 1), reviewCount);
   const offCanvasLinks = links.slice(1);
   return (

@@ -1,3 +1,0 @@
-export const LOAD_REVIEWDATA = 'kw/ReviewPage/LOAD_REVIEWDATA';
-export const LOAD_REVIEWDATA_SUCCESS = 'kw/ReviewPage/LOAD_REVIEWDATA_SUCCESS';
-export const LOAD_REVIEWDATA_ERROR = 'kw/ReviewPage/LOAD_REVIEWDATA_ERROR';
