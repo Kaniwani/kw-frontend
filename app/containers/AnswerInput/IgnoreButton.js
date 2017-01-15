@@ -8,16 +8,16 @@ const Button = styled.button`
   }
 `;
 
-function IgnoreButton({ onIgnoreClick }) {
+function IgnoreButton({ handleClick }) {
   return (
-    <Button type="button" title="Ignore answer" onClick={onIgnoreClick}>
+    <Button type="button" title="Ignore answer" onClick={handleClick}>
       <Icon name="CLOSE" size="1.4em" inline={false} />
     </Button>
   );
 }
 
 IgnoreButton.propTypes = {
-  onIgnoreClick: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default IgnoreButton;

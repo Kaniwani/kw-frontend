@@ -88,16 +88,21 @@ export class ReviewAnswer extends React.Component {
 
   render() {
     const { streakName, disabled } = this.props; // eslint-disable-line no-shadow
-
+    const handleSubmit = disabled ? this._processAnswer : this._checkAnswer;
     return (
       <Form
         className={this._getMarkClassname(this.props)}
         innerRef={(node) => { this.answerForm = node; }}
-        onSubmit={disabled ? this._processAnswer : this._checkAnswer}
+        onSubmit={handleSubmit}
         tabIndex={-1}
       >
         {/* TODO: <StreakAnimation /> */}
-        <AnswerInput streakName={streakName} onIgnore={this._ignoreAnswer} disabled={disabled} />
+        <AnswerInput
+          streakName={streakName}
+          onIgnore={this._ignoreAnswer}
+          onSubmit={handleSubmit}
+          disabled={disabled}
+        />
       </Form>
     );
   }

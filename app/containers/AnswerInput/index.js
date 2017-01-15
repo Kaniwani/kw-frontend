@@ -17,6 +17,7 @@ export class AnswerInput extends React.Component {
     text: PropTypes.string.isRequired,
     onChangeInput: PropTypes.func.isRequired,
     onIgnore: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
     streakName: PropTypes.string.isRequired,
     disabled: PropTypes.bool.isRequired,
   }
@@ -34,7 +35,7 @@ export class AnswerInput extends React.Component {
   }
 
   render() {
-    const { text, streakName, onIgnore, disabled, onChangeInput } = this.props;
+    const { text, streakName, onIgnore, onSubmit, disabled, onChangeInput } = this.props;
     return (
       <Wrapper>
         <StreakIcon streak={streakName} />
@@ -57,8 +58,8 @@ export class AnswerInput extends React.Component {
           spellCheck="false"
         />
         <ButtonContainer>
-          { disabled && <IgnoreButton onIgnoreClick={onIgnore} />}
-          <SubmitButton />
+          { disabled && <IgnoreButton handleClick={onIgnore} />}
+          <SubmitButton handleClick={onSubmit} />
         </ButtonContainer>
       </Wrapper>
     );
