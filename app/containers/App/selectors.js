@@ -35,6 +35,11 @@ export const selectError = createSelector(
   (globalState) => globalState.error,
 );
 
+export const selectAuthToken = createSelector(
+  selectGlobal,
+  (globalState) => globalState.token,
+);
+
 export const selectUser = createSelector(
   selectGlobal,
   (globalState) => globalState.user,

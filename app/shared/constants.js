@@ -3,12 +3,6 @@ import types from 'containers/App/constants';
 import reviewTypes from 'containers/ReviewSession/constants';
 
 /**
- * The base url for all KW api requests
- * @type {String}
- */
-export const API_BASE_URL = '//localhost:8000/api/v1/';
-
-/**
  * Actions that we want redux-storage to trigger a save
  * @type {Array}
  */

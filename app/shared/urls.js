@@ -1,130 +1,71 @@
 //-----------------------------------------------------------------------------
 //  KW API
 //-----------------------------------------------------------------------------
-import { API_BASE_URL } from 'shared/constants';
+import urljoin from 'url-join';
 
-// TODO: better url creation https://github.com/jfromaniello/url-join !
+const BASE_URL = '//localhost:8000';
+const AUTH_BASE = urljoin(BASE_URL, 'auth');
+const API_BASE = urljoin(BASE_URL, 'api', 'v1');
 
-// TODO: add ${Endpoint}Request() that accept data as well
-// For Example, synonym endpoint expects the following in request body:
-//  id: IntegerField
-//  character: CharField
-//  kana: CharField R
-//  review: PrimaryKeyRelatedField
+//-----------------------------------------------------------------------------
+//  AUTHORIZATION
+//-----------------------------------------------------------------------------
+export const auth = urljoin(AUTH_BASE);
+export const userLogin = urljoin(API_BASE, 'auth', 'login');
+export const userCredentials = urljoin(auth, 'me'); // GET / PATCH
+export const register = urljoin(auth, 'register'); // POST
+export const activate = urljoin(auth, 'activate'); // POST
+export const username = urljoin(auth, 'username'); // POST
+export const password = urljoin(auth, 'password'); // POST
+export const passwordReset = urljoin(password, 'reset'); // POST
+export const passwordConfirm = urljoin(passwordReset, 'confirm'); // POST
 
-/**
- * Creates a url for endpoint requests
- * @param  {String} [path=''] - optional path to build endpoint
- * @param  {String} [id=''] - optional id for specific requests
- * @return {String} url
- */
-export function createRequestUrl(path = '', id = '') {
-  return `${API_BASE_URL}${path}/${id ? `${id}/` : ''}`;
-}
+//-----------------------------------------------------------------------------
+//  USER
+//-----------------------------------------------------------------------------
+export const user = urljoin(API_BASE, 'user'); // GET all users (if admin, else 'me')
+export const userProfile = urljoin(user, 'me'); // GET user profile
+export const userSrs = urljoin(user, 'srs'); // POST to get review count
+export const userSync = urljoin(user, 'sync'); // POST to sync with WK
 
-/**
-* Creates a url for obtaining an auth token
-* @return {String} url
-*/
-export const createAuthTokenUrl = () => createRequestUrl('token-auth');
+//-----------------------------------------------------------------------------
+//  REVIEWS
+//-----------------------------------------------------------------------------
+export const reviews = urljoin(API_BASE, 'review'); // GET all ready reviews
+export const criticalReviews = urljoin(reviews, 'critical'); // GET critical
+export const currentReviews = urljoin(reviews, 'current'); // GET current review queue
+export const reviewEntry = (id) => urljoin(reviews, id); // GET single
+export const reviewCorrect = (id) => urljoin(reviewEntry(id), 'correct'); // POST correct answer
+export const reviewIncorrect = (id) => urljoin(reviewEntry(id), 'incorrect'); // POST incorrect answer
+export const hideReview = (id) => urljoin(reviewEntry(id), 'hide'); // POST
+export const unhideReview = (id) => urljoin(reviewEntry(id), 'unhide'); // POST
 
-/**
- * Creates a url for user endpoint requests
- * /user/ <-- if admin, will list all users. If NON-admin, will list only self
- * /user/me/ <-- always just shows self
- * /user/sync/ < -- POST to sync to WK
- * /user/srs/ <-- POST to perform SRS (edited)
- * @param {String|Number} [path='me'] - path or user id
- * @return {String} url
- */
-export const createUserUrl = (path = 'me') => createRequestUrl('user', path);
+//-----------------------------------------------------------------------------
+//  SYNONYMS
+//-----------------------------------------------------------------------------
+export const synonym = urljoin(API_BASE, 'synonym'); // POST add, GET get all
+export const synonymEntry = (id) => urljoin(synonym, id); // DELETE remove, GET one
 
-/**
- * Creates a url for synonym endpoint requests
- * add -> /api/v1/synonym [POST]
- * remove -> /api/v1/synonym/{pk}/ [DELETE]
- * get one -> /api/v1/synonym/{PK} [GET]
- * get all -> /api/v1/synonym/ [GET]
- * @param  {String} [id=''] - optional user id for specific synonym requests
- * @return {String} url
- */
-export const createSynonymUrl = (id = '') => createRequestUrl('synonym', id);
+//-----------------------------------------------------------------------------
+//  VOCABULARY
+//-----------------------------------------------------------------------------
+export const vocabulary = urljoin(API_BASE, 'vocabulary'); // GET everything!
+export const vocabularyEntry = (id) => urljoin(vocabulary, id); // GET one
+export const reading = urljoin(API_BASE, 'reading'); // Get all
+export const readingEntry = (id) => urljoin(reading, id); // GET one
+export const level = urljoin(API_BASE, 'level'); // GET all
+export const levelEntry = (id) => urljoin(level, id); // GET one
+export const lockLevel = (id) => urljoin(levelEntry(id), 'lock'); // POST lock
+export const unlockLevel = (id) => urljoin(levelEntry(id), 'unlock'); // POST unlock
 
-/**
- * Creates a url for faq endpoint requests
- * @param  {String} [id=''] - optional user id for specific faq requests
- * @return {String} url
- */
-export const createFaqUrl = (id = '') => createRequestUrl('faq', id);
-
-/**
- * Creates a url for vocabulary endpoint requests
- * Possible queries:
- * level {number}
- * srs_level {string} ????? to be added
- * meaning__contains
- * readings__kana__contains
- * readings__character__contains
- * @param  {String} [id=''] - optional user id for specific vocabulary requests
- * @return {String} url
- */
-export const createVocabularyUrl = (id = '', queries = '') => {
-  if (!id) return `${createRequestUrl('vocabulary', null)}${queries}`;
-  return createRequestUrl('vocabulary', id);
-};
-/**
- * Creates a url for reading endpoint requests
- * @param  {String} [id=''] - optional user id for specific reading requests
- * @return {String} url
- */
-export const createReadingUrl = (id = '') => createRequestUrl('reading', id);
-
-/**
- * Creates a url for (vocabulary) level endpoint requests
- * @param  {String} [id=''] - optional user id for specific level requests
- * @return {String} url
- */
-export const createLevelUrl = (id = '') => createRequestUrl('level', id);
-
-/**
- * Creates a url for (vocabulary) level lock/unlock endpoint requests
- * Possible queries:
- * count {number} (number of items to unlock)
- * @param  {Boolean} [lock=true] - whether to lock or unlock
- * @return {String} url
- */
-export function createLevelLockUrl(id, lock = true) {
-  const action = lock ? 'lock' : 'unlock';
-  return `${createLevelUrl(id)}${action}/`;
-}
-
-/**
- * Creates a url for review endpoint requests
- * @param  {String} [id=''] - optional user id for specific requests
- * @param  {Object} [config={}] - additional paths or params
- * @return {String} url
- * @example
- * createReviewUrl(22, { correctness: 'incorrect' });
- * // => '//localhost:8000/api/v1/review/22/incorrect/'
- *
- * createReviewUrl({ category: 'critical' });
- * // => '//localhost:8000/api/v1/review/critical/'
- */
-export function createReviewUrl(id = '', config = {}) {
-  let url = createRequestUrl('review', id);
-  const { correctness, visibility, category } = config;
-
-  // individual item updates
-  if (correctness) url = `${url}${correctness}/`;
-  if (visibility) url = `${url}${visibility}/`;
-
-  // critical or current list requests
-  if (category) {
-    url = `${url}${category}/`;
-  }
-  return url;
-}
-
+//-----------------------------------------------------------------------------
+//  GENERAL
+//-----------------------------------------------------------------------------
+export const faq = urljoin(API_BASE, 'faq');
+export const faqEntry = (id) => urljoin(faq, id);
+export const announcement = urljoin(API_BASE, 'announcement');
+export const announcementEntry = (id) => urljoin(announcement, id);
+export const contact = urljoin(API_BASE, 'contact');
 
 //-----------------------------------------------------------------------------
 //  EXTERNAL

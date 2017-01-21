@@ -111,7 +111,6 @@ export const SettingsRecord = Record({
 export const UserProfileRecord = Record({
   name: '無名',
   email: null,
-  id: null,
   lastLogin: null,
   joinDate: null,
   isActive: null,

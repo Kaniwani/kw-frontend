@@ -3,9 +3,12 @@ import types from './constants';
 
 const actions = {
   updateGlobal: actionCreator(types.GLOBAL.UPDATE, 'globalState'),
-  srsRequest: actionCreator(types.SRS.REQUEST),
-  srsRequestSuccess: actionCreator(types.SRS.SUCCESS, 'count', 'notification'),
-  srsRequestFailure: actionCreator(types.SRS.FAILURE, 'notification'),
+  loginRequest: actionCreator(types.AUTH.LOGIN.REQUEST),
+  loginRequestSuccess: actionCreator(types.AUTH.LOGIN.SUCCESS, 'token'),
+  loginRequestFailure: actionCreator(types.AUTH.LOGIN.FAILURE, 'notification'),
+  srsRequest: actionCreator(types.USER.SRS.REQUEST),
+  srsRequestSuccess: actionCreator(types.USER.SRS.SUCCESS, 'count', 'notification'),
+  srsRequestFailure: actionCreator(types.USER.SRS.FAILURE, 'notification'),
   loadUserRequest: actionCreator(types.USER.LOAD.REQUEST, 'loading'),
   loadUserSuccess: actionCreator(types.USER.LOAD.SUCCESS, 'data'),
   loadUserFailure: actionCreator(types.USER.LOAD.FAILURE, 'notification'),

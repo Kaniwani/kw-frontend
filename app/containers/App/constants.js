@@ -6,8 +6,11 @@ const types = actionType({
   GLOBAL: {
     UPDATE: SYNC,
   },
-  SRS: ASYNC,
+  AUTH: {
+    LOGIN: ASYNC,
+  },
   USER: {
+    SRS: ASYNC,
     LOAD: ASYNC,
   },
   REVIEWS: {

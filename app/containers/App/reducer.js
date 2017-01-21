@@ -8,6 +8,7 @@ import { add, subtract, getDecreasedStreak } from 'containers/ReviewSession/util
 const StateRecord = Record({
   loading: true,
   error: false,
+  token: '',
   user: new UserProfileRecord(),
   reviewCount: 0,
   reviews: new Map(),
@@ -21,6 +22,9 @@ function appReducer(state = initialState, action) {
   switch (action.type) {
     case types.GLOBAL.UPDATE:
       return state.mergeDeep(action.payload.globalState);
+
+    case types.AUTH.LOGIN.SUCCESS:
+      return state.merge({ token: action.payload.token });
 
     case types.USER.LOAD.REQUEST:
       return state.merge({

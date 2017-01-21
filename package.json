@@ -328,6 +328,7 @@
     "shelljs": "0.7.5",
     "style-loader": "0.13.1",
     "svg-react-loader": "0.3.7",
+    "url-join": "^1.1.0",
     "url-loader": "0.5.7",
     "voca": "^1.2.0",
     "webpack": "2.1.0-beta.25",

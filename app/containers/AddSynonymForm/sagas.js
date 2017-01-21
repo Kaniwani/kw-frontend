@@ -1,16 +1,14 @@
 import { takeEvery, put, call } from 'redux-saga/effects';
-import { createSynonymUrl } from 'shared/urls';
+import * as api from 'shared/api';
 import markAllAsDaemon from 'utils/markAllAsDaemon';
-import post from 'utils/post';
 import types from './constants';
 import actions from './actions';
 import reviewActions from 'containers/ReviewSession/actions';
 
 export function* requestAddSynonym({ payload: { synonym } }) {
-  const postUrl = createSynonymUrl();
-  const postData = synonym.toJS();
+  const body = synonym.toJS();
   try {
-    const { id } = yield call(post, postUrl, postData);
+    const { id } = yield call(api.addSynonym, body);
     const synonymWithId = synonym.set('id', id);
     yield put(reviewActions.addSynonymToCurrent(synonymWithId));
     yield put(actions.addSynonymSuccess(synonym, {
@@ -27,9 +25,8 @@ export function* requestAddSynonym({ payload: { synonym } }) {
 }
 
 export function* requestRemoveSynonym({ payload: { synonym } }) {
-  const url = createSynonymUrl(synonym.id);
   try {
-    yield call(post, url, null, { method: 'DELETE' });
+    yield call(api.removeSynonym, { id: synonym.id });
     yield put(reviewActions.removeSynonymFromCurrent(synonym));
     yield put(actions.removeSynonymSuccess(synonym, {
       title: 'Remove Synonym',

@@ -1,8 +1,6 @@
 import { takeLatest, takeEvery, select, call, put, fork } from 'redux-saga/effects';
-import request from 'utils/request';
-import post from 'utils/post';
 import { userProfileSerializer, reviewEntriesSerializer } from 'shared/serializers';
-import { createUserUrl, createReviewUrl } from 'shared/urls';
+import * as api from 'shared/api';
 import * as storageTypes from 'redux-storage';
 import types from 'containers/App/constants';
 import synonymFormTypes from 'containers/AddSynonymForm/constants';
@@ -10,61 +8,79 @@ import reviewTypes from 'containers/ReviewSession/constants';
 import { selectQueueOffset } from 'containers/ReviewSession/selectors';
 import actions from 'containers/App/actions';
 import * as Notification from 'containers/Notifications/actions';
-import { selectUserSyncNeeded, selectReviewCount } from './selectors';
+import { selectUserSyncNeeded, selectReviewCount, selectAuthToken } from './selectors';
 
 export function* handleLoad() {
+  yield call(loginRequest);
   const userSync = yield select(selectUserSyncNeeded);
-  yield put(actions.srsRequest());
   if (userSync) {
-    yield put(actions.loadUserRequest({ indicate: true }));
+    yield [
+      put(actions.srsRequest()),
+      put(actions.loadUserRequest({ indicate: true })),
+    ];
   } else {
     yield put(actions.updateGlobal({ loading: false }));
   }
 }
 
 export function* srsRequest() {
+  const token = yield select(selectAuthToken);
+  const clientCount = yield select(selectReviewCount);
   try {
-    const clientCount = yield select(selectReviewCount);
-    const postUrl = createUserUrl('srs');
-    const { review_count: serverCount } = yield call(post, postUrl);
+    const { review_count: serverCount } = yield call(api.syncKw, { token });
     if (clientCount !== serverCount) {
       yield [
         put(actions.updateGlobal({ reviewCount: serverCount })),
         put(actions.loadReviewsRequest({ indicate: false })),
         put(actions.srsRequestSuccess(serverCount, {
           title: 'Review sync',
-          message: `You have ${serverCount} reviews ready. Gotta view ’em all!`,
+          message: `${serverCount} reviews ready.`,
         })),
       ];
     }
   } catch (err) {
     yield put(actions.srsRequestFailure({
       title: 'Connection error',
-      message: `Unable to sync review count from server: ${err.message}`,
+      message: `Unable to sync review count from server: “${err.message}”`,
       error: err,
     }));
   }
 }
 
-export function* loadUserRequest() {
+export function* loginRequest() {
   try {
-    const data = yield call(request, createUserUrl('me'));
+    const { token } = yield call(api.loginUser, {
+      username: 'duncantest',
+      password: 'dadedade',
+    });
+    yield put(actions.loginRequestSuccess(token));
+  } catch (err) {
+    yield put(actions.loginRequestFailure({
+      title: 'Login error',
+      message: `Unable to obtain authentication token: “${err.message}”`,
+      error: err,
+    }));
+  }
+}
+export function* loadUserRequest() {
+  const token = yield select(selectAuthToken);
+  try {
+    const data = yield call(api.getUserProfile, { token });
     yield put(actions.loadUserSuccess(userProfileSerializer(data)));
   } catch (err) {
     yield put(actions.loadUserFailure({
       title: 'Connection error',
-      message: `Unable to fetch user data from server: ${err.message}`,
+      message: `Unable to fetch user data from server: “${err.message}”`,
       error: err,
     }));
   }
 }
 
 export function* loadReviewsRequest() {
+  const token = yield select(selectAuthToken);
   const offset = yield select(selectQueueOffset);
-  console.log('offset', offset);
-  const requestURL = `${createReviewUrl(null, { category: 'current' })}?offset=${offset}`;
   try {
-    const data = yield call(request, requestURL);
+    const data = yield call(api.getCurrentReviews, { token, offset /* limit */ });
     yield put(actions.loadReviewsSuccess({
       total: data.count,
       ...reviewEntriesSerializer(data.results),
@@ -77,9 +93,10 @@ export function* loadReviewsRequest() {
 export function* requestsWatcher() {
   yield [
     takeLatest(storageTypes.LOAD, handleLoad),
-    takeLatest(types.SRS.REQUEST, srsRequest),
-    takeLatest(types.REVIEWS.LOAD.REQUEST, loadReviewsRequest),
+    takeLatest(types.AUTH.LOGIN.REQUEST, loginRequest),
+    takeLatest(types.USER.SRS.REQUEST, srsRequest),
     takeLatest(types.USER.LOAD.REQUEST, loadUserRequest),
+    takeLatest(types.REVIEWS.LOAD.REQUEST, loadReviewsRequest),
   ];
 }
 
@@ -101,8 +118,9 @@ export function* notifyInfo({ payload: { notification } }) {
 
 export function* notificationsWatcher() {
   yield [
-    takeEvery(types.SRS.SUCCESS, notifyInfo),
-    takeEvery(types.SRS.FAILURE, notifyError),
+    takeEvery(types.AUTH.LOGIN.FAILURE, notifyError),
+    takeEvery(types.USER.SRS.SUCCESS, notifyInfo),
+    takeEvery(types.USER.SRS.FAILURE, notifyError),
     takeEvery(types.USER.LOAD.FAILURE, notifyError),
     takeEvery(types.REVIEWS.LOAD.FAILURE, notifyError),
     takeEvery(synonymFormTypes.ADD.SUCCESS, notifySuccess),

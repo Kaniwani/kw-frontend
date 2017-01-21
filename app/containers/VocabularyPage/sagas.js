@@ -1,16 +1,14 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 import markAllAsDaemon from 'utils/markAllAsDaemon';
-import { createLevelUrl, createReviewUrl } from 'shared/urls';
+import * as api from 'shared/api';
 import { vocabularyLevelSerializer, reviewEntriesSerializer, reviewEntrySerializer } from 'shared/serializers';
-import request from 'utils/request';
 
 import * as CONSTANTS from './constants';
 import * as ACTIONS from './actions';
 
 export function* getVocabLevels() {
-  const requestURL = createLevelUrl();
   try {
-    const data = yield call(request, requestURL);
+    const data = yield call(api.getLevels);
     const shapedData = vocabularyLevelSerializer(data);
     yield put(ACTIONS.levelsLoaded(shapedData));
   } catch (err) {
@@ -18,11 +16,9 @@ export function* getVocabLevels() {
   }
 }
 
-export function* getVocabItems({ payload }) {
-  const level = payload;
-  const requestURL = `${createReviewUrl()}?limit=150&level=${level}`;
+export function* getVocabItems({ payload: { level } }) {
   try {
-    const data = yield call(request, requestURL);
+    const data = yield call(api.getLevelEntry, { level });
     const shapedData = reviewEntriesSerializer(data);
     yield put(ACTIONS.itemsLoaded(shapedData));
   } catch (err) {
@@ -30,13 +26,11 @@ export function* getVocabItems({ payload }) {
   }
 }
 
-export function* getVocabItem({ payload }) {
-  const itemId = payload;
-  // TODO: try selecting item from items using ID.
+export function* getVocabItem({ payload: { id } }) {
+  // TODO: try selecting item from persisted reviews using ID.
   // if that fails, then request for item from server
-  const requestURL = createReviewUrl(itemId);
   try {
-    const data = yield call(request, requestURL);
+    const data = yield call(api.getReviewEntry, { id });
     const shapedData = reviewEntrySerializer(data);
     yield put(ACTIONS.itemLoaded(shapedData));
   } catch (err) {

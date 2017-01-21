@@ -1,6 +1,50 @@
 import 'whatwg-fetch';
 
 /**
+ * Makes a request!
+ * @param  {Object) config {url, method, body, headers}
+ * @param  {Boolean) authToken - JWT token
+ * @return {Object} response
+ */
+function request(config) {
+  let requestUrl = config.url;
+  let requestBody = {};
+  let requestHeaders = {
+    ...config.headers,
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  };
+  if (config.body.token) {
+    requestHeaders = {
+      ...requestHeaders,
+      Authorization: `JWT ${config.body.token}`,
+    };
+    delete config.body.token; // eslint-disable-line no-param-reassign
+  }
+
+  if (['GET', 'DELETE'].includes(config.method)) {
+    requestUrl += `${config.body ? `/?${getQueryString(config.body)}` : '/'}`; // NOTE: DRF requires trailing slashes
+  } else { // POST, PUT, PATCH
+    requestUrl += '/'; // NOTE: DRF requires trailing slashes
+    requestBody = JSON.stringify(config.body);
+  }
+
+  return fetch(requestUrl, { method: config.method, headers: requestHeaders, body: requestBody })
+    .then(checkStatus)
+    .then(parseJSON);
+    // .catch(console.error); // dev only
+}
+
+export default {
+  get: (config) => request({ ...config, method: 'GET' }),
+  post: (config) => request({ ...config, method: 'POST' }),
+  put: (config) => request({ ...config, method: 'PUT' }),
+  patch: (config) => request({ ...config, method: 'PATCH' }),
+  delete: (config) => request({ ...config, method: 'DELETE' }),
+};
+
+
+/**
  * Parses the JSON returned by a network request
  *
  * @param  {object} response A response from a network request
@@ -12,67 +56,25 @@ function parseJSON(response) {
 
 /**
  * Checks if a network request came back fine, and throws an error if not
- *
+
  * @param  {object} response   A response from a network request
  * @return {object|undefined} Returns either the response, or throws an error
  */
-function checkStatus(response) {
-  const status = (response.status || response.meta.status || 404); // jisho api uses response.meta
-  if (status >= 200 && status < 300) {
-    return response;
-  }
-
+function checkStatus(response = { status: 404, statusText: 'No response!' }) {
+  if (response.status >= 200 && response.status < 300) return response;
   const error = new Error(response.statusText);
   error.response = response;
   throw error;
 }
 
 /**
- * Requests a URL, returning a promise
- *
- * @param  {string} url       The URL we want to request
- * @param  {object} [options] The options we want to pass to "fetch"
- * @return {object}           The response data
+ * Creates a properly formatted querystring from provided object
+ * @param  {Object} params key/value pairs
+ * @return {String} querystring
  */
-export default function request(url, options) {
-  const config = Object.assign({ credentials: 'include' }, options);
-  return fetch(url, config)
-    .then(checkStatus)
-    .then(parseJSON);
-}
-
-/*
-TODO: beef up request with an api
 function getQueryString(params) {
-   var esc = encodeURIComponent;
-   return Object.keys(params)
-     .map(k => esc(k) + '=' + esc(params[k]))
+  const esc = encodeURIComponent;
+  return Object.keys(params)
+     .map((key) => `${esc(key)}=${esc(params[key])}`)
      .join('&');
- }
-
- function request(params) {
-   var method = params.method || 'GET';
-   var qs = '';
-   var body;
-   var headers = params.headers || {
-     'Accept': 'application/json',
-     'Content-Type': 'application/json',
-   };
-
-   if (['GET', 'DELETE'].indexOf(method) > -1)
-     qs = '?' + getQueryString(params.data);
-   else // POST or PUT
-     body = JSON.stringify(params.data);
-
-   var url = params.url + qs;
-
-   return fetch(url, { method, headers, body });
- }
-
- export default {
-   get: params => request(Object.assign({ method: 'GET' }, params)),
-   post: params => request(Object.assign({ method: 'POST' }, params)),
-   put: params => request(Object.assign({ method: 'PUT' }, params)),
-   delete: params => request(Object.assign({ method: 'DELETE' }, params))
- };
- */
+}

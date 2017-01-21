@@ -4,8 +4,7 @@ import { history } from 'app';
 import isEmpty from 'lodash/isEmpty';
 import markAllAsDaemon from 'utils/markAllAsDaemon';
 import addSynonymSagas from 'containers/AddSynonymForm/sagas';
-import { createReviewUrl } from 'shared/urls';
-import post from 'utils/post';
+import * as api from 'shared/api';
 import { getTildePosition, fixStartingTilde, fixEndingTilde, fixTerminalN } from './utils';
 import { isHiragana, isKatakana, isKanjiKana } from 'kanawana';
 import types from './constants';
@@ -42,17 +41,16 @@ export function* recordAnswerRequest() {
     select(selectors.selectCurrentIsPreviouslyIncorrect),
   ];
 
-  const postData = {
-    user_specific_id: id,
-    user_correct: correct,
-    wrong_before: previouslyIncorrect,
-  };
 
   try {
     if (correct || (!correct && firstTimeIncorrect)) {
-      const correctness = correct ? 'correct' : 'incorrect';
-      const postUrl = createReviewUrl(id, { correctness });
-      yield fork(post, postUrl, postData);
+      const body = {
+        id,
+        user_specific_id: id,
+        user_correct: correct,
+        wrong_before: previouslyIncorrect,
+      };
+      yield fork(correct ? api.reviewCorrect : api.reviewIncorrect, body);
     }
   } catch (err) {
     // TODO: catch errors and notify user answer not recorded - halt session with "refresh?"
