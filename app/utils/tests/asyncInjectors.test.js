@@ -5,7 +5,7 @@
 import { memoryHistory } from 'react-router';
 import { put } from 'redux-saga/effects';
 
-import configureStore from '../../store';
+import configureStore from 'store';
 
 import {
   injectAsyncReducer,
@@ -65,7 +65,7 @@ describe('asyncInjectors', () => {
         result = err.name === 'Invariant Violation';
       }
 
-      expect(result).toBe(true);
+      expect(result).toEqual(true);
     });
   });
 
@@ -112,7 +112,7 @@ describe('asyncInjectors', () => {
           result = err.name === 'Invariant Violation';
         }
 
-        expect(result).toBe(true);
+        expect(result).toEqual(true);
       });
 
       it('should throw if passed invalid reducer', () => {
@@ -132,7 +132,7 @@ describe('asyncInjectors', () => {
           result = err.name === 'Invariant Violation';
         }
 
-        expect(result).toBe(true);
+        expect(result).toEqual(true);
       });
     });
 
@@ -165,7 +165,7 @@ describe('asyncInjectors', () => {
           result = err.name === 'Invariant Violation';
         }
 
-        expect(result).toBe(true);
+        expect(result).toEqual(true);
       });
     });
   });

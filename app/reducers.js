@@ -6,7 +6,6 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
-import globalReducer from 'containers/App/reducer';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 
 /**
@@ -15,7 +14,6 @@ import languageProviderReducer from 'containers/LanguageProvider/reducer';
 export default function createReducer(asyncReducers) {
   return combineReducers({
     routing: routerReducer,
-    global: globalReducer,
     language: languageProviderReducer,
     ...asyncReducers,
   });
