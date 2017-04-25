@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import NotifySystem from 'react-notification-system';
@@ -10,6 +9,11 @@ import style from './styles';
 import * as actions from './actions';
 
 class Notifications extends React.PureComponent {
+  static propTypes = {
+    notifications: PropTypes.array.isRequired,
+    hideNotification: PropTypes.func.isRequired,
+  }
+
   componentWillReceiveProps(nextProps) {
     const { notifications } = nextProps;
     const notificationIds = notifications.map((notification) => notification.uid);
@@ -49,11 +53,6 @@ class Notifications extends React.PureComponent {
     );
   }
 }
-
-Notifications.propTypes = {
-  notifications: PropTypes.instanceOf(Immutable.Iterable).isRequired,
-  hideNotification: PropTypes.func.isRequired,
-};
 
 // Tie actions to Notifications component instance
 // so they can be called by Notifications.show() etc.

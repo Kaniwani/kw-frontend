@@ -26,19 +26,27 @@ export function show(opts = {}, level = 'success') {
 }
 
 export function success(opts) {
-  return show(opts, 'success');
-}
-
-export function error(opts) {
-  return show(opts, 'error');
-}
-
-export function warning(opts) {
-  return show(opts, 'warning');
+  return show({ ...opts, autoDismiss: 2 }, 'success');
 }
 
 export function info(opts) {
-  return show(opts, 'info');
+  return show({ ...opts, autoDismiss: 4 }, 'info');
+}
+
+export function error(opts) {
+  // TODO: log errors to server, perhaps include a 'type' (api, misc etc) in payload and filter by that
+  // yield call(ServerLog, { title, message, error });
+  // https://rollbar.com/
+  console.error(opts.error); // eslint-disable-line no-console
+  return show({ ...opts, autoDismiss: 0 }, 'error');
+}
+
+export function warning(opts) {
+  // TODO: log errors to server, perhaps include a 'type' (api, misc etc) in payload and filter by that
+  // yield call(ServerLog, { title, message, error });
+  // https://rollbar.com/
+  console.warning(opts.warning); // eslint-disable-line no-console
+  return show({ ...opts, autoDismiss: 8 }, 'warning');
 }
 
 export function hide(uid) {
