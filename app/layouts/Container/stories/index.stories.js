@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
-import Element from 'components/Element';
+import Element from 'layouts/Element';
 import Container from '../index';
 
 storiesOf('Container', module)

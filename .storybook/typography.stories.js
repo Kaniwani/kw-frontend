@@ -7,7 +7,7 @@ import H4 from 'components/H4';
 import H5 from 'components/H5';
 import H6 from 'components/H6';
 import P from 'components/P';
-import Container from 'components/Container';
+import Container from 'layouts/Container';
 
 /* eslint-disable max-len */
 storiesOf('Typography', module)

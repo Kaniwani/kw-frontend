@@ -1,8 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 import randomHexColor from 'utils/randomHexColor';
-import Container from 'components/Container';
-import Element from 'components/Element';
+import Container from 'layouts/Container';
+import Element from 'layouts/Element';
 
 import Icon from '../index';
 import ICONS from '../constants';

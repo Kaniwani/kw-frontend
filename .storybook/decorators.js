@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Wrapper from 'components/Wrapper';
-import Container from 'components/Container';
-import Element from 'components/Element';
+import Wrapper from 'layouts/Wrapper';
+import Container from 'layouts/Container';
+import Element from 'layouts/Element';
 
 export const withWrapper = (story) => <Wrapper>{story()}</Wrapper>;
 export const withContainer = (story) => <Container>{story()}</Container>;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
-import Element from 'components/Element';
+import Element from 'layouts/Element';
 import A from 'components/A';
 import P from 'components/P';
 import background from 'shared/assets/img/home.jpg';
