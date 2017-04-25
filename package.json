@@ -193,5 +193,9 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  }
+  },
+  "//": "This rule allows js-hyperclick (atom editor plugin) to resolve absolute imported modules properly",
+  "moduleRoots": [
+    "app"
+  ]
 }
