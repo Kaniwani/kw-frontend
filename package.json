@@ -1,7 +1,7 @@
 {
   "name": "KW-Frontend",
   "version": "2.0.0",
-  "description": "Rework of KaniWani frontend with react, redux, immutable, reselect, and redux-saga",
+  "description": "Rework of KaniWani frontend with react, redux, reselect, and redux-saga",
   "repository": {
     "type": "git",
     "url": "git://github.com/Kaniwani/KW-Frontend.git"

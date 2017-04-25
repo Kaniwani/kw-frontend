@@ -1,5 +1,10 @@
 {
-  "name": "React Boilerplate",
+  "name": "Kaniwani",
+  "theme_color": "#b1624d",
+  "background_color": "#fafafa",
+  "start_url": "/",
+  "display": "standalone",
+  "splash_pages": null,
   "icons": [
     {
       "src": "favicon.png",
@@ -25,9 +30,5 @@
       "type": "image/png",
       "density": 4.0
     }
-  ],
-  "start_url": "index.html",
-  "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#FFFFFF"
+  ]
 }
