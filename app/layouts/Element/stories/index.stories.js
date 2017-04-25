@@ -5,7 +5,7 @@ import P from 'base/P';
 import Img from 'base/Img';
 import homeImg from 'shared/assets/img/home.jpg';
 import Element from '../index';
-import ColorBlock from '../../../../.storybook/ColorBlock';
+import ColorBlock from '../../../../.storybook/utils/ColorBlock'; // relatively painful
 
 storiesOf('Element', module)
   .add('with paragraph child', () => (

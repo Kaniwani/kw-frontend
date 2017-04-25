@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`branch second value should be null if not provided 1`] = `null`;
+
+exports[`branch should choose first value if predicate is true 1`] = `1`;
+
+exports[`branch should choose second value if predicate is false 1`] = `2`;
+
+exports[`branch should throw if predicate is not defined 1`] = `"branch predicateFn was undefined!"`;
