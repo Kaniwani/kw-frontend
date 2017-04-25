@@ -12,8 +12,9 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, browserHistory } from 'react-router';
+import { applyRouterMiddleware, Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
+import useScroll from 'react-router-scroll/lib/useScroll';
 import 'sanitize.css/sanitize.css';
 
 // Import root app
@@ -26,8 +27,8 @@ import LanguageProvider from 'containers/LanguageProvider';
 /* eslint-disable import/no-unresolved, import/extensions */
 import '!file-loader?name=[name].[ext]!./favicon.ico';
 import '!file-loader?name=[name].[ext]!./manifest.json';
-import 'file-loader?name=[name].[ext]!./.htaccess';
-/* eslint-enable import/no-unresolved, import/extensions */
+import 'file-loader?name=[name].[ext]!./.htaccess'; // eslint-disable-line import/extensions
+/* eslint-enable import/no-webpack-loader-syntax */
 
 import configureStore from './store';
 
@@ -60,7 +61,12 @@ const render = (messages) => {
   ReactDOM.render(
     <Provider store={store}>
       <LanguageProvider messages={messages}>
-        <Router history={history} routes={rootRoute} />
+        <Router
+          history={history}
+          routes={rootRoute}
+          // Scroll to top when going to a new page, imitating default browser behaviour
+          render={applyRouterMiddleware(useScroll())}
+        />
       </LanguageProvider>
     </Provider>,
     document.getElementById('app')
