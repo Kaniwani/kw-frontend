@@ -17,7 +17,6 @@ This is what a standard (generated) route looks like for a container:
 ```JS
 {
   path: '/',
-  name: 'home',
   getComponent(nextState, cb) {
     const importModules = Promise.all([
       import('containers/HomePage')
@@ -51,7 +50,6 @@ For example, if you have a route called `about` at `/about` and want to make a c
 /* your app's other routes would already be in this array */
 {
   path: '/about',
-  name: 'about',
   getComponent(nextState, cb) {
     const importModules = Promise.all([
       import('containers/AboutPage'),
@@ -68,7 +66,6 @@ For example, if you have a route called `about` at `/about` and want to make a c
   childRoutes: [
     {
       path: '/about/our-team',
-      name: 'team',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           import('containers/TeamPage'),
@@ -94,7 +91,6 @@ To add an index route, use the following pattern:
 ```JS
 {
   path: '/',
-  name: 'home',
   getComponent(nextState, cb) {
     const importModules = Promise.all([
       import('containers/HomePage')
@@ -132,7 +128,6 @@ To go to a dynamic route such as 'post/:slug' eg 'post/cool-new-post', firstly a
 
 ```JS
 path: '/posts/:slug',
-name: 'post',
 getComponent(nextState, cb) {
  const importModules = Promise.all([
    import('containers/Post/reducer'),
@@ -195,7 +190,7 @@ export function* getXhrPodcast(slug) {
 }
 ```
 
-Wait (`take`) for the LOAD_POST constant, which contains the slug payload from the `getPost()` function in actions.js. 
+Wait (`take`) for the LOAD_POST constant, which contains the slug payload from the `getPost()` function in actions.js.
 
 When the action is fired then dispatch the `getXhrPodcast()` function to get the response from your api. On success dispatch the `postLoaded()` action (`yield put`) which sends back the response and can be added into the reducer state.
 
