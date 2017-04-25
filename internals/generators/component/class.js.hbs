@@ -1,23 +1,16 @@
-/**
-*
-* {{ properCase name }}
-*
-*/
-
 import React from 'react';
-// import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 
 {{#if wantMessages}}
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
+
 {{/if}}
+class {{ properCase name }} extends {{{ type }}} { // eslint-disable-line react/prefer-stateless-function
+  static {{ properCase name }}.propTypes = {
 
-{{ properCase name }}.propTypes = {
+  }
 
-};
-
-class {{ properCase name }} extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <div>
