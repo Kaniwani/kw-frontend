@@ -92,6 +92,7 @@
       ".*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/image.js"
     },
     "setupTestFrameworkScriptFile": "<rootDir>/internals/testing/test-bundler.js",
+    "snapshotSerializers": ["enzyme-to-json/serializer"],
     "testRegex": "tests/.*\\.test\\.js$"
   },
   "dependencies": {
@@ -177,6 +178,7 @@
     "plop": "1.7.4",
     "pre-commit": "1.2.2",
     "prop-types": "15.5.8",
+    "react-test-renderer": "~15.5.4",
     "redux-freeze": "0.1.5",
     "rimraf": "2.6.1",
     "shelljs": "0.7.7",

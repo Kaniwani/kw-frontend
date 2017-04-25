@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Ruby /> should render a Ruby tag with RB and RT children when passed furi prop 1`] = `
+<ruby>
+  <rb>
+    漢字
+  </rb>
+  <rt>
+    かんじ
+  </rt>
+</ruby>
+`;
+
+exports[`<Ruby /> should render a span when no furi prop is passed 1`] = `
+<span>
+  Plain ol span
+</span>
+`;

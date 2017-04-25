@@ -1,7 +1,3 @@
-/**
- * Test the request function
- */
-
 import request from '../request';
 
 describe('request', () => {

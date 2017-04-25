@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<A /> should match snapshot 1`] = `
+<Styled(Component)
+  disabled={false}
+  href="http://google.com/"
+  plainLink={false}
+>
+  <h1>
+    Test
+  </h1>
+</Styled(Component)>
+`;

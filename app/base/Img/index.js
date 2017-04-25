@@ -21,9 +21,9 @@ Img.defaultProps = {
   className: '',
 };
 
-function Img(props) {
+function Img({ className, src, alt }) {
   return (
-    <StyledImg className={props.className} src={props.src} alt={props.alt} />
+    <StyledImg className={className} src={src} alt={alt} />
   );
 }
 

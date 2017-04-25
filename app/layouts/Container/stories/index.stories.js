@@ -4,7 +4,7 @@ import { storiesOf } from '@kadira/storybook';
 import Element from 'layouts/Element';
 import Container from '../index';
 
-storiesOf('Container', module)
+storiesOf('layouts.Container', module)
   .add('with Element child', () => (
     <Container>
       <Element>Hello Container</Element>

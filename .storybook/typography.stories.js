@@ -11,7 +11,7 @@ import H6 from 'base/H6';
 import P from 'base/P';
 
 /* eslint-disable max-len */
-storiesOf('Typography', module)
+storiesOf('base.Typography', module)
   .add('headings', () => (
     <Container>
       <H1>H1 along this line.</H1>

@@ -10,6 +10,11 @@ const renderComponent = (props = {}) => shallow(
 );
 
 describe('<Img />', () => {
+  it('should match snapshot', () => {
+    const renderedComponent = renderComponent();
+    expect(renderedComponent).toMatchSnapshot();
+  });
+
   it('should have an src attribute', () => {
     const renderedComponent = renderComponent();
     expect(renderedComponent.prop('src')).toEqual(src);
@@ -22,7 +27,7 @@ describe('<Img />', () => {
 
   it('should not have a className attribute', () => {
     const renderedComponent = renderComponent();
-    expect(renderedComponent.prop('className')).toBeUndefined();
+    expect(renderedComponent.prop('className')).toBe('');
   });
 
   it('should adopt a className attribute', () => {

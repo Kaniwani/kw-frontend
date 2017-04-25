@@ -7,7 +7,7 @@ import homeImg from 'shared/assets/img/home.jpg';
 import Element from '../index';
 import ColorBlock from '../../../../.storybook/utils/ColorBlock'; // relatively painful
 
-storiesOf('Element', module)
+storiesOf('layouts.Element', module)
   .add('with paragraph child', () => (
     <Container>
       <Element><P>Hello Element</P></Element>

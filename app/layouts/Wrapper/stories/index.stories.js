@@ -7,7 +7,7 @@ import P from 'base/P';
 import BackgroundImg from 'components/BackgroundImg';
 import Wrapper from '../index';
 
-storiesOf('Wrapper', module)
+storiesOf('layouts.Wrapper', module)
   .add('with paragraph child', () => (
     <Wrapper>
       <P>Hello Wrapper</P>

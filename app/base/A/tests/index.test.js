@@ -1,14 +1,9 @@
-/**
- * Testing our link component
- */
-
 import { shallow } from 'enzyme';
 import React from 'react';
 
 import A from '../index';
 
-
-const href = 'http://mxstbr.com/';
+const href = 'http://google.com/';
 const children = (<h1>Test</h1>);
 const renderComponent = (props = {}) => shallow(
   <A href={href} {...props}>
@@ -17,6 +12,11 @@ const renderComponent = (props = {}) => shallow(
 );
 
 describe('<A />', () => {
+  it('should match snapshot', () => {
+    const renderedComponent = renderComponent();
+    expect(renderedComponent).toMatchSnapshot();
+  });
+
   it('should have an href attribute', () => {
     const renderedComponent = renderComponent();
     expect(renderedComponent.prop('href')).toEqual(href);
