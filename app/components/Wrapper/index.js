@@ -4,7 +4,6 @@ import styled, { css } from 'styled-components';
 
 import { centerByPadding, centerByMargin } from 'shared/styles/layout';
 
-/* eslint-disable react/require-default-props */
 Wrapper.propTypes = {
   fullWidth: PropTypes.bool,
   fullWidthBg: PropTypes.bool,
@@ -14,10 +13,11 @@ Wrapper.propTypes = {
     PropTypes.node,
   ]).isRequired,
 };
-/* eslint-enable */
 
 Wrapper.defaultProps = {
   tag: 'div',
+  fullWidth: false,
+  fullWidthBg: false,
 };
 
 function Wrapper({ tag, children, ...props }) {

@@ -11,12 +11,12 @@ import Wrapper from '../index';
 storiesOf('Wrapper', module)
   .addDecorator(withWrapper)
   .add('with paragraph child', () => (
-    <Wrapper tag="header">
+    <Wrapper>
       <P>Hello Wrapper</P>
     </Wrapper>
   ))
   .add('with multiple children', () => (
-    <Wrapper tag="main">
+    <Wrapper>
       <P>Hello Wrapper 1</P>
       <P>Hello <A href="//google.com" external>Wrapper 2</A></P>
       <P>Hello Wrapper 3</P>

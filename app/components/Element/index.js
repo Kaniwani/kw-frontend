@@ -1,64 +1,64 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
-import { elementGutter, bannerElement } from 'shared/styles/layout';
-
-Element.defaultProps = {
-  tag: 'div',
-  fullRow: false,
-  flexRow: false,
-  flexCol: false,
-  flexWrap: false,
-  flexCenter: false,
-  textAlign: '',
-  justifyContent: '',
-  alignContent: '',
-  alignItems: '',
-  flex: '',
-  alignSelf: '',
-};
+import {
+  alignContentMixin,
+  alignItemsMixin,
+  alignSelfMixin,
+  flexCenterMixin,
+  flexMixin,
+  flexShorthandMixin,
+  fullRowMixin,
+  justifyContentMixin,
+  textAlignMixin,
+} from 'shared/styles/layout';
 
 Element.propTypes = {
-  fullRow: PropTypes.bool,
-  flexRow: PropTypes.bool,
-  flexCol: PropTypes.bool,
-  flexWrap: PropTypes.bool,
-  flexCenter: PropTypes.bool,
-  textAlign: PropTypes.string,
-  justifyContent: PropTypes.string,
-  alignContent: PropTypes.string,
-  alignItems: PropTypes.string,
-  flex: PropTypes.string,
-  alignSelf: PropTypes.string,
   tag: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.node,
   ]).isRequired,
+  alignContent: PropTypes.string,
+  alignItems: PropTypes.string,
+  alignSelf: PropTypes.string,
+  flex: PropTypes.string,
+  flexCenter: PropTypes.bool,
+  flexCol: PropTypes.bool,
+  flexDisplay: PropTypes.string,
+  flexRow: PropTypes.bool,
+  flexWrap: PropTypes.bool,
+  fullRow: PropTypes.bool,
+  justifyContent: PropTypes.string,
+  textAlign: PropTypes.string,
+};
+
+Element.defaultProps = {
+  tag: 'div',
+  alignContent: '',
+  alignItems: '',
+  alignSelf: '',
+  flex: '',
+  flexCenter: false,
+  flexCol: false,
+  flexDisplay: '', // defaults to 'flex', alternative is to pass 'inline-flex'
+  flexRow: false,
+  flexWrap: false,
+  fullRow: false,
+  justifyContent: '',
+  textAlign: '',
 };
 
 const elementStyle = css`
-  ${({ fullRow }) => fullRow ? bannerElement : elementGutter}
-  ${({ flexRow, flexCol, flexWrap, flexCenter }) => {
-    if (flexRow || flexCol) {
-      return `
-        display: flex;
-        flex-flow: ${(flexRow && 'row') || 'column'} ${(flexWrap && 'wrap') || ''};
-        ${flexCenter ? `
-            justify-content: center;
-            align-content: center;
-            align-items: center;
-        ` : ''}
-      `;
-    }
-    return '';
-  }}
-  ${({ justifyContent }) => justifyContent ? `justify-content: ${justifyContent};` : ''}
-  ${({ alignContent }) => alignContent ? `align-content: ${alignContent};` : ''}
-  ${({ alignItems }) => alignItems ? `align-items: ${alignItems};` : ''}
-  ${({ textAlign }) => textAlign ? `text-align: ${textAlign};` : ''};
-  ${({ flex }) => flex ? `flex:${flex};` : ''}
-  ${({ alignSelf }) => alignSelf ? `align-self:${alignSelf};` : ''}
+  ${fullRowMixin}
+  ${flexMixin}
+  ${flexCenterMixin}
+  ${flexShorthandMixin}
+  ${alignContentMixin}
+  ${alignItemsMixin}
+  ${alignSelfMixin}
+  ${justifyContentMixin}
+  ${textAlignMixin}
 `;
 
 /* eslint-disable no-unused-vars */
@@ -77,7 +77,7 @@ const StyledElement = styled(({
   flex,
   alignSelf,
  ...props }) => React.createElement(tag, props, children))`${elementStyle}`;
-/* eslint-enble */
+/* eslint-enable */
 
 function Element({ tag, children, ...props }) {
   return (

@@ -57,14 +57,6 @@ export const tapTarget = ({ x, y } = { x: '.1rem', y: '.1rem' }) => css`
   }
 `;
 
-export const wordwrap = `
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  -ms-word-break: break-all;
-  word-break: break-word;
-  hyphens: auto;
-`;
-
 export const visuallyhidden = `
   position: absolute;
   height: 1px !important;

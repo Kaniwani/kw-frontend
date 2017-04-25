@@ -1,5 +1,3 @@
-import { css } from 'styled-components';
-
 import { padding, siteMaxWidthpx } from './sizing';
 import { media } from './media';
 
@@ -18,21 +16,21 @@ export const centerByMargin = `
   margin-right: auto;
 `;
 
-export const containerGutter = css`
+export const containerGutter = `
   padding: ${padding.mobile.outer.y}rem ${padding.mobile.outer.x}rem;
   ${media('min').sm`
     padding: ${padding.desktop.outer.y}rem ${padding.desktop.outer.x}rem;
   `}
 `;
 
-export const elementGutter = css`
+export const elementGutter = `
   padding: ${padding.mobile.inner.y}rem ${padding.mobile.inner.x}rem;
   ${media('min').sm`
     padding: ${padding.desktop.inner.y}rem ${padding.desktop.inner.x}rem;
   `}
 `;
 
-export const containerGutterHorizontal = css`
+export const containerGutterHorizontal = `
   padding-left: ${padding.mobile.outer.x}rem;
   padding-right: ${padding.mobile.outer.x}rem;
   ${media('min').sm`
@@ -41,7 +39,7 @@ export const containerGutterHorizontal = css`
   `}
 `;
 
-export const elementGutterHorizontal = css`
+export const elementGutterHorizontal = `
   padding-left: ${padding.mobile.inner.x}rem;
   padding-right: ${padding.mobile.inner.x}rem;
   ${media('min').sm`
@@ -50,7 +48,7 @@ export const elementGutterHorizontal = css`
   `}
 `;
 
-export const containerGutterVertical = css`
+export const containerGutterVertical = `
   padding-top: ${padding.mobile.outer.y}rem;
   padding-bottom: ${padding.mobile.outer.y}rem;
   ${media('min').sm`
@@ -59,7 +57,7 @@ export const containerGutterVertical = css`
   `}
 `;
 
-export const elementGutterVertical = css`
+export const elementGutterVertical = `
   padding-top: ${padding.mobile.inner.y}rem;
   padding-bottom: ${padding.mobile.inner.y}rem;
   ${media('min').sm`
@@ -72,7 +70,7 @@ export const elementGutterVertical = css`
  * Uses negative margins to remove top and side padding (for a full width banner effect)
  * Uses half paddings to align side gutters with other sibling elements still
  */
-export const bannerElement = css`
+export const bannerElement = `
   overflow-x: hidden;
   margin: -${padding.mobile.outer.y}rem -${padding.mobile.outer.x}rem 0;
   padding: 0 ${padding.mobile.inner.y}rem ${padding.mobile.inner.y}rem;
@@ -80,4 +78,25 @@ export const bannerElement = css`
     margin: -${padding.desktop.outer.y}rem -${padding.desktop.outer.x}rem 0;
     padding: 0 ${padding.desktop.inner.y}rem ${padding.desktop.inner.y}rem;
   `}
+`;
+
+
+/**
+ * styled-components mixins, expecting `props` as argument
+ */
+export const fullRowMixin = ({ fullRow }) => fullRow ? bannerElement : elementGutter;
+export const textAlignMixin = ({ textAlign }) => textAlign && `text-align: ${textAlign};`;
+export const flexCenterMixin = ({ flexCenter }) => flexCenter && `
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+`;
+export const justifyContentMixin = ({ justifyContent }) => justifyContent && `justify-content: ${justifyContent};`;
+export const alignContentMixin = ({ alignContent }) => alignContent && `align-content: ${alignContent};`;
+export const alignItemsMixin = ({ alignItems }) => alignItems && `align-items: ${alignItems};`;
+export const alignSelfMixin = ({ alignSelf }) => alignSelf && `align-self:${alignSelf};`;
+export const flexShorthandMixin = ({ flex }) => flex && `flex:${flex};`;
+export const flexMixin = ({ flexDisplay, flexRow, flexCol, flexWrap }) => (flexRow || flexCol) && `
+  display: ${flexDisplay || 'flex'};
+  flex-flow: ${(flexRow && 'row') || 'column'} ${(flexWrap && 'wrap') || ''};
 `;

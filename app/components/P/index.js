@@ -14,8 +14,8 @@ P.defaultProps = {
 };
 
 const StyledP = styled.p`
-  max-width: 35em; /* constrain line-length to ~70 chars */
   ${epsilon}
+  max-width: 35em; /* constrain line-length to ~70 chars */
   text-align: ${({ textAlign }) => textAlign};
   margin-left: ${({ align }) => align === 'center' ? 'auto' : 0};
   margin-right: ${({ align }) => align === 'center' ? 'auto' : 0};

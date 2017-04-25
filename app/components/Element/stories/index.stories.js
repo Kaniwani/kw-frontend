@@ -64,7 +64,7 @@ storiesOf('Element', module)
   ))
   .add('with padding false and img child ', () => (
     <Container withPadding={false}>
-      <Img src={homeImg} alt="Some nice Maple" />
+      <Img fullRow src={homeImg} alt="Some nice Maple" />
     </Container>
   ))
   .add('in a Container with img child as fullRow and sibling Elements', () => (

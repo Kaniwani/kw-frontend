@@ -1,7 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
-import { containerGutter } from 'shared/styles/layout';
+import {
+  alignContentMixin,
+  alignItemsMixin,
+  alignSelfMixin,
+  containerGutter,
+  flexCenterMixin,
+  flexMixin,
+  flexShorthandMixin,
+  justifyContentMixin,
+  textAlignMixin,
+} from 'shared/styles/layout';
 
 Container.propTypes = {
   tag: PropTypes.string,
@@ -11,58 +21,47 @@ Container.propTypes = {
   ]).isRequired,
   withPadding: PropTypes.bool,
   marginTop: PropTypes.string,
-  flexRow: PropTypes.bool,
-  flexCol: PropTypes.bool,
-  flexWrap: PropTypes.bool,
-  flexCenter: PropTypes.bool,
-  textAlign: PropTypes.string,
-  justifyContent: PropTypes.string,
   alignContent: PropTypes.string,
   alignItems: PropTypes.string,
-  flex: PropTypes.string,
   alignSelf: PropTypes.string,
+  flex: PropTypes.string,
+  flexCenter: PropTypes.bool,
+  flexCol: PropTypes.bool,
+  flexRow: PropTypes.bool,
+  flexWrap: PropTypes.bool,
+  justifyContent: PropTypes.string,
+  textAlign: PropTypes.string,
 };
 
 Container.defaultProps = {
   tag: 'div',
   withPadding: true,
   marginTop: '',
-  flexRow: false,
-  flexCol: false,
-  flexWrap: false,
-  flexCenter: false,
-  textAlign: '',
-  justifyContent: '',
   alignContent: '',
   alignItems: '',
-  flex: '',
   alignSelf: '',
+  flex: '',
+  flexCenter: false,
+  flexCol: false,
+  flexDisplay: '', // defaults to 'flex', alternative is to pass 'inline-flex'
+  flexRow: false,
+  flexWrap: false,
+  justifyContent: '',
+  textAlign: '',
 };
 
 const containerStyle = css`
   position: relative; /* catch any absolute children */
-  ${({ withPadding }) => withPadding ? containerGutter : ''}
-  ${({ marginTop }) => marginTop ? `margin-top: ${marginTop};` : ''}
-  ${({ flexRow, flexCol, flexWrap, flexCenter }) => {
-    if (flexRow || flexCol) {
-      return `
-        display: flex;
-        flex-flow: ${(flexRow && 'row') || 'column'} ${(flexWrap && 'wrap') || ''};
-        ${flexCenter ? `
-            justify-content: center;
-            align-content: center;
-            align-items: center;
-        ` : ''}
-      `;
-    }
-    return '';
-  }}
-  ${({ justifyContent }) => justifyContent ? `justify-content: ${justifyContent};` : ''}
-  ${({ alignContent }) => alignContent ? `align-content: ${alignContent};` : ''}
-  ${({ alignItems }) => alignItems ? `align-items: ${alignItems};` : ''}
-  ${({ textAlign }) => textAlign ? `text-align: ${textAlign};` : ''};
-  ${({ flex }) => flex ? `flex:${flex};` : ''}
-  ${({ alignSelf }) => alignSelf ? `align-self:${alignSelf};` : ''}
+  ${({ withPadding }) => withPadding && containerGutter}
+  ${({ marginTop }) => marginTop && `margin-top: ${marginTop};`}
+  ${flexMixin}
+  ${flexCenterMixin}
+  ${flexShorthandMixin}
+  ${alignContentMixin}
+  ${alignItemsMixin}
+  ${alignSelfMixin}
+  ${justifyContentMixin}
+  ${textAlignMixin}
 `;
 
 /* eslint-disable no-unused-vars */
@@ -83,11 +82,8 @@ const StyledContainer = styled(({
   alignItems,
   flex,
   alignSelf,
- ...props }) => React.createElement(
-  tag,
-  props,
-  children,
-))`${containerStyle}`;
+ ...props
+}) => React.createElement(tag, props, children))`${containerStyle}`;
 /* eslint-enable */
 
 function Container({ tag, children, ...props }) {
