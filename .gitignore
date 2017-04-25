@@ -4,6 +4,9 @@ build
 node_modules
 stats.json
 
+# Don't check in generated storybook (yet)
+.static-storybook
+
 # Cruft
 .DS_Store
 npm-debug.log

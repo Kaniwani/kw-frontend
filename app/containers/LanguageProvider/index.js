@@ -24,8 +24,8 @@ export class LanguageProvider extends React.PureComponent { // eslint-disable-li
 }
 
 LanguageProvider.propTypes = {
-  locale: React.PropTypes.string,
-  messages: React.PropTypes.object,
+  locale: React.PropTypes.string.isRequired,
+  messages: React.PropTypes.object.isRequired,
   children: React.PropTypes.element.isRequired,
 };
 
