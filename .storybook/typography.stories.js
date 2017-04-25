@@ -1,13 +1,14 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
-import H1 from 'components/H1';
-import H2 from 'components/H2';
-import H3 from 'components/H3';
-import H4 from 'components/H4';
-import H5 from 'components/H5';
-import H6 from 'components/H6';
-import P from 'components/P';
 import Container from 'layouts/Container';
+import A from 'base/A';
+import H1 from 'base/H1';
+import H2 from 'base/H2';
+import H3 from 'base/H3';
+import H4 from 'base/H4';
+import H5 from 'base/H5';
+import H6 from 'base/H6';
+import P from 'base/P';
 
 /* eslint-disable max-len */
 storiesOf('Typography', module)
@@ -38,5 +39,8 @@ storiesOf('Typography', module)
       <H6>H6 Lorem ipsum dolor sit amet, consectetur.</H6>
       <P>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus nostrum sed cum assumenda officia ea et distinctio eum quasi. Pariatur, ipsum, vel!</P>
     </Container>
+  ))
+  .add('paragraph with inline link', () => (
+    <P>This has an <A href="nowhere.com">an inline link</A></P>
   ));
 /* eslint-enable */

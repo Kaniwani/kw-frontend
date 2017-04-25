@@ -1,8 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 import Container from 'layouts/Container';
-import P from 'components/P';
-import Img from 'components/Img';
+import P from 'base/P';
+import Img from 'base/Img';
 import homeImg from 'shared/assets/img/home.jpg';
 import Element from '../index';
 import ColorBlock from '../../../../.storybook/ColorBlock';

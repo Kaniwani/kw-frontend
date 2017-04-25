@@ -3,7 +3,7 @@
 // For more information refer the docs: https://getstorybook.io/docs/configurations/custom-webpack-config
 const path = require('path');
 const deepExtend = require('deep-extend');
-//
+// // for reference if we need
 // const customLoaders = [
 //   {
 //     test: /\.css$/,
@@ -55,9 +55,10 @@ module.exports = (config, env) => {
     mainFields: ['browser', 'jsnext:main', 'main'],
     // We're not using relative paths in our kw dev setup, alias these so we can resolve properly
     alias: {
-      layouts: path.resolve(__dirname, '..', 'app/layouts'),
+      base: path.resolve(__dirname, '..', 'app/base'),
       components: path.resolve(__dirname, '..', 'app/components'),
       containers: path.resolve(__dirname, '..', 'app/containers'),
+      layouts: path.resolve(__dirname, '..', 'app/layouts'),
       shared: path.resolve(__dirname, '..', 'app/shared'),
       utils: path.resolve(__dirname, '..', 'app/utils'),
     },

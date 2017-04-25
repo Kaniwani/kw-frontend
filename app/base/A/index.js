@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Immutable from 'immutable';
 import isEmpty from 'lodash/isEmpty';
 import invariant from 'invariant';
 import styled, { css } from 'styled-components';
@@ -65,6 +66,7 @@ A.propTypes = {
   plainLink: PropTypes.bool,
   activeClassName: PropTypes.string,
   children: PropTypes.oneOfType([
+    PropTypes.instanceOf(Immutable.Iterable),
     PropTypes.array,
     PropTypes.node,
     PropTypes.string,
