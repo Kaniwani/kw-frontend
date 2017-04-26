@@ -38,6 +38,7 @@
     "import/no-extraneous-dependencies": 0,
     "import/no-named-as-default": 0,
     "import/no-unresolved": 2,
+    "import/no-webpack-loader-syntax": 0,
     "import/prefer-default-export": 0,
     "indent": [
       2,
@@ -72,7 +73,7 @@
     "redux-saga/no-yield-in-race": 2,
     "redux-saga/yield-effects": 2,
     "require-yield": 0,
-    "import/no-webpack-loader-syntax": 0
+    "valid-jsdoc": 1,
   },
   "settings": {
     "import/resolver": {
