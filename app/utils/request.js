@@ -2,34 +2,33 @@ import 'whatwg-fetch';
 
 /**
  * Makes a request!
- * @param  {Object) config {url, method, body, headers}
- * @param  {Boolean) authToken - JWT token
- * @return {Object} response
+ * @param  {Object} config {url='', method='GET', headers={}, body={}}
+ * @return {Promise} response
  */
-function request(config) {
-  let requestUrl = config.url;
+function request({ url = '', method = 'GET', headers = {}, body = {} } = {}) {
+  let requestUrl = url;
   let requestBody = {};
   let requestHeaders = {
-    ...config.headers,
+    ...headers,
     'Accept': 'application/json', // eslint-disable-line quote-props
     'Content-Type': 'application/json',
   };
-  if (config.body.token) {
+  if (body.token) {
     requestHeaders = {
       ...requestHeaders,
-      Authorization: `JWT ${config.body.token}`,
+      Authorization: `JWT ${body.token}`,
     };
-    delete config.body.token; // eslint-disable-line no-param-reassign
+    delete body.token; // eslint-disable-line no-param-reassign
   }
 
-  if (['GET', 'DELETE'].includes(config.method)) {
-    requestUrl += `${Object.keys(config.body).length ? `/?${getQueryString(config.body)}` : '/'}`; // NOTE: DRF requires trailing slashes
+  if (['GET', 'DELETE'].includes(method)) {
+    requestUrl += `${Object.keys(body).length ? `/?${getQueryString(body)}` : '/'}`; // NOTE: DRF requires trailing slashes
   } else { // POST, PUT, PATCH
     requestUrl += '/'; // NOTE: DRF requires trailing slashes
-    requestBody = JSON.stringify(config.body);
+    requestBody = JSON.stringify(body);
   }
 
-  return fetch(requestUrl, { method: config.method, headers: requestHeaders, body: requestBody })
+  return fetch(requestUrl, { method, headers: requestHeaders, body: requestBody })
     .then(checkStatus)
     .then(parseJSON);
     // .catch(console.error); // dev only
@@ -40,7 +39,7 @@ export default {
   post: (config) => request({ ...config, method: 'POST' }),
   put: (config) => request({ ...config, method: 'PUT' }),
   patch: (config) => request({ ...config, method: 'PATCH' }),
-  delete: (config) => request({ ...config, method: 'DELETE' }),
+  delete: (config) => request({ ...config, method: 'DELETE' }), // delete is a reserved word in JS
 };
 
 

@@ -80,10 +80,10 @@ export const bannerElement = `
   `}
 `;
 
-
 /**
  * styled-components mixins, expecting `props` as argument
  */
+
 export const fullRowMixin = ({ fullRow }) => fullRow ? bannerElement : elementGutter;
 export const textAlignMixin = ({ textAlign }) => textAlign && `text-align: ${textAlign};`;
 export const flexCenterMixin = ({ flexCenter }) => flexCenter && `

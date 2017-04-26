@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<H1 /> should render its text 1`] = `
+<h1
+  className="fTMgrM"
+>
+  Text
+</h1>
+`;

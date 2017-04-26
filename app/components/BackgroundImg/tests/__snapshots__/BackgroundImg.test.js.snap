@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render with an imgSrc prop 1`] = `
+<styled.div
+  imgSrc="http://fillmurray.com/400/800"
+/>
+`;

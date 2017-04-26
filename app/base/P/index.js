@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { epsilon, bodyRhythm } from 'shared/styles/typography';
 
 P.propTypes = {
@@ -13,13 +13,19 @@ P.defaultProps = {
   align: 'left',
 };
 
-const StyledP = styled.p`
-  ${epsilon}
-  max-width: 35em; /* constrain line-length to ~70 chars */
-  text-align: ${({ textAlign }) => textAlign};
+export const lineLengthMixin = css`
+  max-width: 35em;
   margin-left: ${({ align }) => align === 'center' ? 'auto' : 0};
   margin-right: ${({ align }) => align === 'center' ? 'auto' : 0};
+`;
+
+const textAlignMixin = ({ textAlign }) => textAlign && `text-align: ${textAlign};`;
+
+const StyledP = styled.p`
+  ${epsilon}
   ${bodyRhythm}
+  ${textAlignMixin}
+  ${lineLengthMixin}
 `;
 
 function P({ textAlign, align, ...props }) {

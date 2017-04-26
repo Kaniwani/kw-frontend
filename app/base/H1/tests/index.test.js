@@ -17,6 +17,6 @@ describe('<H1 />', () => {
     const renderedComponent = shallow(
       <H1>{children}</H1>
     );
-    expect(renderedComponent.contains(children)).toBe(true);
+    expect(renderedComponent).toMatchSnapshot();
   });
 });

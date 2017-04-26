@@ -20,7 +20,7 @@ describe('request', () => {
     });
 
     it('should format the response correctly', (done) => {
-      request('/thisurliscorrect')
+      request.get({ url: '/thisurliscorrect' })
         .catch(done)
         .then((json) => {
           expect(json.hello).toBe('world');
@@ -44,7 +44,7 @@ describe('request', () => {
     });
 
     it('should catch errors', (done) => {
-      request('/thisdoesntexist')
+      request.get({ url: '/thisdoesntexist' })
         .catch((err) => {
           expect(err.response.status).toBe(404);
           expect(err.response.statusText).toBe('Not Found');

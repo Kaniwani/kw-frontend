@@ -5,6 +5,7 @@ import styled from 'styled-components';
 /**
  * Requires a parent with position: relative
  */
+
 const StyledDiv = styled.div`
   position: absolute;
   bottom: 0;
