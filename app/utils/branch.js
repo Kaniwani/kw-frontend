@@ -1,9 +1,9 @@
 /**
  * Choose component based on predicateFn result
  * Second component is optional, to replicate {predicateFn && Comp1 || null}
- * @param  {function} predicateFn
- * @param  {function} Comp1
- * @param  {function} [Comp2=null]
+ * @param  {function} predicateFn function returning Boolean
+ * @param  {function} Comp1 component if pred true
+ * @param  {function} [Comp2=null] component if pred false
  * @return {function} react component
  */
 function branch(predicateFn, Comp1, Comp2 = null) {

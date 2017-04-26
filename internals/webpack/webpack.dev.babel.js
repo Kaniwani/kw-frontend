@@ -69,6 +69,7 @@ module.exports = require('./webpack.base.babel')({
  * will be used.
  *
  */
+
 function dependencyHandlers() {
   // Don't do anything during the DLL Build step
   if (process.env.BUILDING_DLL) { return []; }
@@ -132,6 +133,7 @@ function dependencyHandlers() {
  * We dynamically generate the HTML content in development so that the different
  * DLL Javascript files are loaded in script tags and available to our application.
  */
+
 function templateContent() {
   const html = fs.readFileSync(
     path.resolve(process.cwd(), 'app/index.html')

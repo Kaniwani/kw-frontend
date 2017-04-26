@@ -4,10 +4,10 @@ import { lighten, darken } from 'polished';
 /**
  * Returns fallback, and media queried calc() font-sizes for responsive sizing
  * based on https://madebymike.com.au/writing/precise-control-responsive-typography/
- * @param  {Number} [minFont] Minimum font-size (px)
- * @param  {Number} [maxFont] Maximum font-size (px)
- * @param  {Number} [minWidth:600] Minimum viewport size to begin scaling (px)
- * @param  {Number} [maxWidth:1280] Maximum viewport size to halt scaling (px)
+ * @param  {Number} minFont Minimum font-size (px)
+ * @param  {Number} maxFont Maximum font-size (px)
+ * @param  {Number} [minWidth=600] Minimum viewport size to begin scaling (px)
+ * @param  {Number} [maxWidth=1280] Maximum viewport size to halt scaling (px)
  * @return {String} CSS font-size rules
  */
 export function fluidType(minFont, maxFont, minWidth = 600, maxWidth = 1280) {

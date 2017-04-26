@@ -2,7 +2,7 @@
  * Returns type of provided value with normalized strings.
  * IE 'array' instead of '[object Array]' for [].
  *
- * @param  {} value
+ * @param {Any} value value to test
  * @return {String} type (number, nan, object, array, map, set, regexp, date, function etc)
  */
 export default function typeOf(value) {

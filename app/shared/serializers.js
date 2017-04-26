@@ -178,7 +178,7 @@ export function vocabularyEntriesSerializer(data) {
 /**
  * Creates a dictionary of reviews keyed by their ids
  * As well as a unique set of those ids for reference
- * @param  {object} data
+ * @param  {Object} data api response
  * @return {{reviews: Map, ids: Set}} serialized result
  */
 export function reviewEntriesSerializer(data) {

@@ -2,6 +2,7 @@
  * Smooth scroll to window Y position
  * @param  {Number} [scrollTargetY=0] the target scrollY property of the window
  * @param  {Number} [speed=2000] time in pixels per second
+ * @returns {Undefined} scrolls on global window, returns nothing
  */
 export default function smoothScrollY(scrollTargetY = 0, speed = 2000) {
   const { requestAnimationFrame, scrollY, scrollTo } = window;
