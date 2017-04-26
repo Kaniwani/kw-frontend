@@ -78,10 +78,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "statements": 95,
-        "branches": 90,
-        "functions": 95,
-        "lines": 90
+        "statements": 75,
+        "branches": 75,
+        "functions": 75,
+        "lines": 75
       }
     },
     "moduleDirectories": [
@@ -93,7 +93,9 @@
       ".*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/image.js"
     },
     "setupTestFrameworkScriptFile": "<rootDir>/internals/testing/test-bundler.js",
-    "snapshotSerializers": ["enzyme-to-json/serializer"],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
     "testRegex": "tests/.*\\.test\\.js$"
   },
   "dependencies": {
@@ -133,7 +135,7 @@
     "babel-plugin-transform-es2015-modules-commonjs": "6.24.1",
     "babel-plugin-transform-react-constant-elements": "6.23.0",
     "babel-plugin-transform-react-inline-elements": "6.22.0",
-    "babel-plugin-transform-react-remove-prop-types": "0.4.1",
+    "babel-plugin-transform-react-remove-prop-types": "0.4.2",
     "babel-preset-env": "1.4.0",
     "babel-preset-react": "6.24.1",
     "babel-preset-react-hmre": "1.1.1",
