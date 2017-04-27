@@ -1,16 +1,10 @@
-import { SRS_RANKS } from 'shared/constants';
 import getSrsRankName from '../getSrsRankName';
 
 describe('getSrsRankName', () => {
   it('should default to rank one with no params', () =>
-    expect(getSrsRankName()).toBe(SRS_RANKS.ONE));
+    expect(getSrsRankName()).toMatchSnapshot());
 
   it('should return expected ranks for given streak numbers', () => {
-    expect(getSrsRankName(9)).toBe(SRS_RANKS.FIVE);
-    expect(getSrsRankName(8)).toBe(SRS_RANKS.FOUR);
-    expect(getSrsRankName(7)).toBe(SRS_RANKS.THREE);
-    expect(getSrsRankName(5)).toBe(SRS_RANKS.TWO);
-    expect(getSrsRankName(3)).toBe(SRS_RANKS.ONE);
-    expect(getSrsRankName(0)).toBe(SRS_RANKS.ONE);
+    [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].forEach((num) => expect(getSrsRankName(num)).toMatchSnapshot());
   });
 });

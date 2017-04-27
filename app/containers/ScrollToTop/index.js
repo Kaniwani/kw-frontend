@@ -33,7 +33,7 @@ class ScrollToTop extends React.PureComponent { // eslint-disable-line react/pre
   }, 250)
 
   scrollUp = () => {
-    if (window.pageYOffset > 0) {
+    if (!this.state.isScrolling) {
       this.setState(() => ({ isScrolling: true }));
       smoothScrollY(0, 2000);
     }

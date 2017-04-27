@@ -3,10 +3,10 @@
  * @type {String}
  * @example
  * import format from 'date-fns/format'
- * format(new Date(2014, 6, 2), DATE_IN_WORDS)
- * // => Wednesday 2 July 2014
+ * format(new Date(2014, 11, 2), DATE_IN_WORDS)
+ * // => 12:00am, Nov 2nd 2014
  */
-export const DATE_IN_WORDS = '[at] hh:mm A[, on the] Do [of] MMM[,] YYYY';
+export const DATE_IN_WORDS = 'hh:mma[,] MMM Do YYYY';
 
 export const MINUTES_SINCE_LAST_SYNC_LIMIT = 5;
 

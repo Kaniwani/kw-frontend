@@ -10,7 +10,7 @@
  * splitKeepingDelimiter('We want to split but keep WORD with this sentence', 'word', 'gi')
  * // => [ 'We want to split but keep ', 'WORD', ' with this sentence' ]
  */
-export default function splitKeepingDelimiter(text = '', delimiter = ',', flags = 'g') {
+export default function splitKeepingDelimiter(text, delimiter = ',', flags = 'g') {
   const delim = new RegExp(`(${delimiter})`, flags);
-  return text.split(delim);
+  return typeof text === 'string' ? text.split(delim) : [];
 }

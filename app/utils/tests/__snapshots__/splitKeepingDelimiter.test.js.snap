@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`splitKeepingDelimiter() should accept a custom delimiter 1`] = `
+Array [
+  "This",
+  ";",
+  "is",
+  ";",
+  "a",
+  ";",
+  "custom example",
+]
+`;
+
+exports[`splitKeepingDelimiter() should accept regex flags 1`] = `
+Array [
+  "Split ignoring ",
+  "WORD",
+  " case",
+]
+`;
+
+exports[`splitKeepingDelimiter() should split words by comma as default 1`] = `
+Array [
+  "This",
+  ",",
+  "is",
+  ",",
+  "a",
+  ",",
+  "default example",
+]
+`;

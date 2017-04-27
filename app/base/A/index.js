@@ -27,7 +27,6 @@ A.defaultProps = {
   plainLink: false,
 };
 
-
 function A({ href, to, external, plainLink, activeClassName, ...rest }) {
   let content;
   let props = rest;

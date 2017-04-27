@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getSrsRankName should default to rank one with no params 1`] = `"APPRENTICE"`;
+
+exports[`getSrsRankName should return expected ranks for given streak numbers 1`] = `"APPRENTICE"`;
+
+exports[`getSrsRankName should return expected ranks for given streak numbers 2`] = `"APPRENTICE"`;
+
+exports[`getSrsRankName should return expected ranks for given streak numbers 3`] = `"APPRENTICE"`;
+
+exports[`getSrsRankName should return expected ranks for given streak numbers 4`] = `"APPRENTICE"`;
+
+exports[`getSrsRankName should return expected ranks for given streak numbers 5`] = `"APPRENTICE"`;
+
+exports[`getSrsRankName should return expected ranks for given streak numbers 6`] = `"APPRENTICE"`;
+
+exports[`getSrsRankName should return expected ranks for given streak numbers 7`] = `"GURU"`;
+
+exports[`getSrsRankName should return expected ranks for given streak numbers 8`] = `"GURU"`;
+
+exports[`getSrsRankName should return expected ranks for given streak numbers 9`] = `"MASTER"`;
+
+exports[`getSrsRankName should return expected ranks for given streak numbers 10`] = `"ENLIGHTENED"`;
+
+exports[`getSrsRankName should return expected ranks for given streak numbers 11`] = `"BURNED"`;
+
+exports[`getSrsRankName should return expected ranks for given streak numbers 12`] = `"BURNED"`;

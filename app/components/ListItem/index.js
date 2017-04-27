@@ -2,7 +2,11 @@ import React from 'react';
 import { Li, Div } from './styles';
 
 ListItem.propTypes = {
-  item: React.PropTypes.any.isRequired,
+  item: React.PropTypes.any,
+};
+
+ListItem.defaultProps = {
+  item: null,
 };
 
 function ListItem({ item }) {
@@ -16,4 +20,3 @@ function ListItem({ item }) {
 }
 
 export default ListItem;
-

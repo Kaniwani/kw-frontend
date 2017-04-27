@@ -23,9 +23,9 @@ describe('<A />', () => {
     expect(renderedComponent).toMatchSnapshot();
   });
 
-  it('should add appropriate attributes for an external link', () => {
-    const renderedComponent = renderComponent({ href, external: true });
-    expect(renderedComponent).toMatchSnapshot();
+  it('should have children', () => {
+    const renderedComponent = renderComponent({ href });
+    expect(renderedComponent.contains(children)).toBe(true);
   });
 
   it('should have an href attribute when passed prop', () => {
@@ -38,9 +38,9 @@ describe('<A />', () => {
     expect(renderedComponent.prop('to')).toEqual(to);
   });
 
-  it('should have children', () => {
-    const renderedComponent = renderComponent({ href });
-    expect(renderedComponent.contains(children)).toBe(true);
+  it('should add appropriate attributes for an external link', () => {
+    const renderedComponent = renderComponent({ href, external: true });
+    expect(renderedComponent).toMatchSnapshot();
   });
 
   it('should adopt a target attribute', () => {
