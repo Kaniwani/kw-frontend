@@ -9,12 +9,12 @@ import { SVGWrapper, SVG } from './styles';
 Icon.propTypes = {
   name: PropTypes.oneOf(Object.keys(ICONS)).isRequired,
   className: PropTypes.string,
-  color: PropTypes.string.isRequired,
+  color: PropTypes.string,
   size: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-  ]).isRequired,
-  preserveAspectRatio: PropTypes.string.isRequired,
+  ]),
+  preserveAspectRatio: PropTypes.string,
   tooltip: PropTypes.shape({
     text: PropTypes.string.isRequired,
     position: PropTypes.string,
