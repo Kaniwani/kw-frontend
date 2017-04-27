@@ -73,6 +73,7 @@
       "app/**/*.{js}",
       "!app/**/*.test.{js}",
       "!app/**/*.stories.{js}",
+      "!app/**/styles.js",
       "!app/app.js",
       "!app/routes.js"
     ],

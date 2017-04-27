@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
 
-import { centerByPadding, centerByMargin } from 'shared/styles/layout';
+import { StyledWrapper } from './styles';
 
 Wrapper.propTypes = {
   fullWidth: PropTypes.bool,
@@ -20,31 +19,16 @@ Wrapper.defaultProps = {
   fullWidthBg: false,
 };
 
-function Wrapper({ tag, children, ...props }) {
-  return <StyledWrapper tag={tag} {...props}>{children}</StyledWrapper>;
+function Wrapper({ tag, children, fullWidth, fullWidthBg }) {
+  return (
+    <StyledWrapper
+      tag={tag}
+      fullWidth={fullWidth}
+      fullWidthBg={fullWidthBg}
+    >
+      {children}
+    </StyledWrapper>
+  );
 }
-
-const wrapperStyle = css`
-  ${(props) => {
-    if (props.fullWidth) {
-      return 'width: 100%;';
-    }
-    if (props.fullWidthBg) {
-      return `
-        position: relative;
-        ${centerByPadding}
-      `;
-    }
-    return centerByMargin;
-  }}
-`;
-
-/* eslint-disable no-unused-vars */
-const StyledWrapper = styled(({ tag, children, fullWidth, fullWidthBg, ...props }) => React.createElement(
-  tag,
-  props,
-  children,
-))`${wrapperStyle}`;
-/* eslint-enable */
 
 export default Wrapper;

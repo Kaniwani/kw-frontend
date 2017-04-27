@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ListItem /> should match baseline snapshot 1`] = `
+<styled.li>
+  <styled.div>
+    <div>
+      Hello world!
+    </div>
+  </styled.div>
+</styled.li>
+`;

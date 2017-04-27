@@ -1,34 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+
+import { Div } from './styles';
 
 /**
- * Requires a parent with position: relative
+ * Requires a parent with position: relative, and a valid height or min-height
+ * This component renders a div with position: absolute, height/width 100%
+ * expecting to fill its parent's container
  */
-
-const StyledDiv = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url(${({ imgSrc }) => imgSrc});
-  background-repeat: no-repeat;
-  background-position: bottom right;
-  background-size: cover;
-  z-index: -1;
-  /* If parent is a flex container */
-  flex: 1 1 100%;
-  align-self: stretch;
-`;
 
 BackgroundImg.propTypes = {
   imgSrc: PropTypes.string.isRequired,
+  bgSize: PropTypes.string,
+  bgPosition: PropTypes.string,
 };
 
-function BackgroundImg({ imgSrc }) {
+BackgroundImg.defaultProps = {
+  bgSize: 'cover',
+  bgPosition: 'center center',
+};
+
+function BackgroundImg({ imgSrc, bgSize, bgPosition }) {
   return (
-    <StyledDiv imgSrc={imgSrc} />
+    <Div imgSrc={imgSrc} bgSize={bgSize} bgPosition={bgPosition} />
   );
 }
 

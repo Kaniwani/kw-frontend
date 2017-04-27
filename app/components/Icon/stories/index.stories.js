@@ -8,7 +8,7 @@ import Icon from '../index';
 import ICONS from '../constants';
 
 /* eslint-disable react/no-array-index-key */
-storiesOf('Icons', module)
+storiesOf('components.Icons', module)
   .add('all icons', () => (
     <Container>
       {Object.keys(ICONS).map((name, index) => (

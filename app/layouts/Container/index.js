@@ -73,6 +73,7 @@ const StyledContainer = styled(({
   marginTop,
   fullRow,
   flexRow,
+  flexDisplay,
   flexCol,
   flexWrap,
   flexCenter,

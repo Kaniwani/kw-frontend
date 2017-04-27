@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should match baseline snapshot 1`] = `
+exports[`<Icon />  should match baseline snapshot 1`] = `
 <styled.span
   className=""
   data-delay-hide={0}
   data-delay-show={0}
-  data-for="cj20ciuu2000070xyey7ag93c"
+  data-for="cj20hewhe0000onxyysa66qmz"
   data-place="right"
   data-tip=""
   iconColor="currentColor"

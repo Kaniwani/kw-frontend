@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ChipList /> should adopt component props 1`] = `
+<styled.ul>
+  <Chip
+    bgColor="white"
+    textColor="purple"
+  >
+    chip1
+  </Chip>
+  <Chip
+    bgColor="white"
+    textColor="purple"
+  >
+    chip2
+  </Chip>
+</styled.ul>
+`;
+
+exports[`<ChipList /> should match baseline snapshot 1`] = `
+<styled.ul>
+  <Chip
+    bgColor="white"
+    textColor="blackLight"
+  >
+    chip1
+  </Chip>
+  <Chip
+    bgColor="white"
+    textColor="blackLight"
+  >
+    chip2
+  </Chip>
+</styled.ul>
+`;

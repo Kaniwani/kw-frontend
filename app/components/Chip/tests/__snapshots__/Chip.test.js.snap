@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Chip /> should match baseline snapshot 1`] = `
+<styled.li
+  bgColor="white"
+  textColor="blackLight"
+>
+  <styled.span>
+    text
+  </styled.span>
+</styled.li>
+`;

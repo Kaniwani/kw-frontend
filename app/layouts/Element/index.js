@@ -66,15 +66,16 @@ const StyledElement = styled(({
   tag,
   children,
   fullRow,
+  flexDisplay,
   flexRow,
   flexCol,
   flexWrap,
   flexCenter,
+  flex,
   textAlign,
   justifyContent,
   alignContent,
   alignItems,
-  flex,
   alignSelf,
  ...props }) => React.createElement(tag, props, children))`${elementStyle}`;
 /* eslint-enable */

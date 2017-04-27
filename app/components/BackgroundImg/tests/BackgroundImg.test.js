@@ -9,4 +9,16 @@ describe('<BackgroundImg />', () => {
     );
     expect(renderedComponent).toMatchSnapshot();
   });
+  it('should adopt a bgSize prop', () => {
+    const renderedComponent = shallow(
+      <BackgroundImg imgSrc={'http://fillmurray.com/400/800'} bgSize="contain" />
+    );
+    expect(renderedComponent).toMatchSnapshot();
+  });
+  it('should adopt a bgPosition prop', () => {
+    const renderedComponent = shallow(
+      <BackgroundImg imgSrc={'http://fillmurray.com/400/800'} bgPosition="bottom right" />
+    );
+    expect(renderedComponent).toMatchSnapshot();
+  });
 });

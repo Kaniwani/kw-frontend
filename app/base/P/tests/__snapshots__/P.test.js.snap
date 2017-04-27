@@ -1,19 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should adopt a textAlign prop 1`] = `
-<p
-  class="cFYKYD"
+<styled.p
+  align="left"
+  textAlign="center"
 >
   Centered text
-</p>
+</styled.p>
 `;
 
 exports[`should adopt an align prop 1`] = `
-<p
-  class="eXcYWy"
+<styled.p
+  align="center"
+  textAlign="left"
 >
   Centered element
-</p>
+</styled.p>
 `;
 
 exports[`should render its text 1`] = `
