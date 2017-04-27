@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { StyledP } from './styles';
 
 P.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
   textAlign: PropTypes.oneOf(['left', 'center', 'right']),
   align: PropTypes.oneOf(['left', 'center', 'right']),
 };

@@ -5,7 +5,7 @@ import * as COLORS from 'shared/styles/colors';
 import { Li, Span } from './styles';
 
 Chip.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
   textColor: PropTypes.oneOf(Object.keys(COLORS)),
   bgColor: PropTypes.oneOf(Object.keys(COLORS)),
 };

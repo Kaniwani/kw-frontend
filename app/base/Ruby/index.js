@@ -4,7 +4,7 @@ import branch from 'utils/branch';
 
 Ruby.propTypes = {
   furi: PropTypes.string,
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 Ruby.defaultProps = {
