@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router';
 import { link, linkHover } from 'shared/styles/colors';
+import { transitionAllEase } from 'shared/styles/animation';
 
 const plainStyles = `
   text-decoration: none;
@@ -9,15 +10,15 @@ const plainStyles = `
 `;
 
 const linkStyles = `
-  transition: all .3s ease-out;
+  ${transitionAllEase}
   color: ${link};
   &:hover {
     color: ${linkHover};
   }
 `;
 
-export const styles = css`
-  ${(props) => props.plainLink ? plainStyles : linkStyles}
+export const style = css`
+  ${({ plainLink }) => plainLink ? plainStyles : linkStyles}
   cursor: pointer;
   &[disabled] {
     pointer-events: none;
@@ -28,8 +29,8 @@ export const styles = css`
 
 /*
  * Styled Components has some issues passing props, this is a painful workaround at the moment
- * to prevent plainLink (used only in styles) from being added to <a> & <Link> as (disallowed) html attrs
+ * to prevent plainLink (used only in style) from being added to <a> & <Link> as (disallowed) html attrs
  */
 
-export const StyledAnchor = styled(({ plainLink, children, ...rest }) => <a {...rest}>{children}</a>)`${styles}`;
-export const StyledLink = styled(({ plainLink, children, ...rest }) => <Link {...rest}>{children}</Link>)`${styles}`;
+export const StyledAnchor = styled(({ plainLink, children, ...rest }) => <a {...rest}>{children}</a>)`${style}`;
+export const StyledLink = styled(({ plainLink, children, ...rest }) => <Link {...rest}>{children}</Link>)`${style}`;

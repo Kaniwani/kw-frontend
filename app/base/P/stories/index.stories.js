@@ -15,12 +15,8 @@ storiesOf('base.P', module)
       <P>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo recusandae voluptatem atque totam, laboriosam at voluptates quam tempore aut, eaque aspernatur? Amet debitis dolorum, sunt distinctio cupiditate officia architecto omnis temporibus unde.</P>
     </div>
   ))
-
   .add('with lang="ja"', () => (
     <P lang="ja">２８日夜、群馬県渋川市にある焼き肉店から火が出て、消防によりますと、８人が病院に搬送され、このうち１人が意識不明の重体になっているということです。警察と消防は詳しい状況の確認を進めています</P>
-  ))
-  .add('with lang="ja" and verticalRl prop', () => (
-    <P verticalRl lang="ja">２８日夜、群馬県渋川市にある焼き肉店から火が出て、消防によりますと、８人が病院に搬送され、このうち１人が意識不明の重体になっているということです。警察と消防は詳しい状況の確認を進めています</P>
   ))
   .add('with lang="ja" and nested Ruby', () => (
     <P lang="ja">

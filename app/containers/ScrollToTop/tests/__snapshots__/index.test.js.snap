@@ -7,17 +7,11 @@ exports[`<ScrollToTop /> should match the baseline snapshot 1`] = `
   type="button"
 >
   <Icon
-    className=""
     color="white"
-    inline={true}
+    display="inline-block"
     name="ARROW_UP"
     preserveAspectRatio="xMidYMid meet"
     size="2.5rem"
-    tooltip={
-      Object {
-        "text": "",
-      }
-    }
   />
 </styled.button>
 `;

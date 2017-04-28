@@ -2,16 +2,15 @@ import styled from 'styled-components';
 import { transparent } from 'shared/styles/colors';
 
 export const SVGWrapper = styled.span`
-  display: ${({ inline }) => inline ? 'inline-' : ''}block;
+  display: ${({ display }) => display};
   vertical-align: middle;
   align-self: center;
   position: relative;
-  width: ${({ iconSize }) => iconSize}; /*CSS instead of html width attr to support non-pixel units*/
-  height: ${({ iconSize }) => iconSize}; /*Prevents scaling issue in IE*/
+  width: ${({ size }) => size}; /*CSS instead of html width attr to support non-pixel units*/
+  height: ${({ size }) => size}; /*Prevents scaling issue in IE*/
   background-repeat: no-repeat;
   background-color: ${transparent};
-  transition: all 200ms ease-in-out;
-  color: ${({ iconColor }) => iconColor};
+  color: ${({ color }) => color};
 `;
 
 export const SVG = styled.svg`

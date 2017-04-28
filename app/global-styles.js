@@ -25,12 +25,12 @@ injectGlobal`
   }
 
   body {
+    ${epsilon}
     margin: 0;
     padding: 0;
     font-family: ${ffBody};
     color: ${blackLight};
     line-height: 1;
-    ${epsilon}
   }
 
   /* intentional specificity otherwise any <P> components get 1.4 line height*/

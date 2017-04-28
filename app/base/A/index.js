@@ -20,8 +20,8 @@ A.propTypes = {
 };
 
 A.defaultProps = {
-  href: null,
-  to: null,
+  href: '',
+  to: '',
   external: false,
   disabled: false,
   plainLink: false,
