@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Element /> should match baseline snapshot 1`] = `
+<Styled(Component)
+  alignContent=""
+  alignItems=""
+  alignSelf=""
+  flex=""
+  flexCenter={false}
+  flexCol={false}
+  flexDisplay=""
+  flexRow={false}
+  flexWrap={false}
+  fullRow={false}
+  justifyContent=""
+  tag="div"
+  textAlign=""
+>
+  text
+</Styled(Component)>
+`;

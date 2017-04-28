@@ -1,17 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
-import {
-  alignContentMixin,
-  alignItemsMixin,
-  alignSelfMixin,
-  flexCenterMixin,
-  flexMixin,
-  flexShorthandMixin,
-  fullRowMixin,
-  justifyContentMixin,
-  textAlignMixin,
-} from 'shared/styles/layout';
+
+import { StyledElement } from './styles';
 
 Element.propTypes = {
   tag: PropTypes.string,
@@ -48,37 +38,6 @@ Element.defaultProps = {
   justifyContent: '',
   textAlign: '',
 };
-
-const elementStyle = css`
-  ${fullRowMixin}
-  ${flexMixin}
-  ${flexCenterMixin}
-  ${flexShorthandMixin}
-  ${alignContentMixin}
-  ${alignItemsMixin}
-  ${alignSelfMixin}
-  ${justifyContentMixin}
-  ${textAlignMixin}
-`;
-
-/* eslint-disable no-unused-vars */
-const StyledElement = styled(({
-  tag,
-  children,
-  fullRow,
-  flexDisplay,
-  flexRow,
-  flexCol,
-  flexWrap,
-  flexCenter,
-  flex,
-  textAlign,
-  justifyContent,
-  alignContent,
-  alignItems,
-  alignSelf,
- ...props }) => React.createElement(tag, props, children))`${elementStyle}`;
-/* eslint-enable */
 
 function Element({ tag, children, ...props }) {
   return (

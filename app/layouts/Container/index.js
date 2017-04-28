@@ -1,17 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
-import {
-  alignContentMixin,
-  alignItemsMixin,
-  alignSelfMixin,
-  containerGutter,
-  flexCenterMixin,
-  flexMixin,
-  flexShorthandMixin,
-  justifyContentMixin,
-  textAlignMixin,
-} from 'shared/styles/layout';
+
+import { StyledContainer } from './styles';
 
 Container.propTypes = {
   tag: PropTypes.string,
@@ -49,43 +39,6 @@ Container.defaultProps = {
   justifyContent: '',
   textAlign: '',
 };
-
-const containerStyle = css`
-  position: relative; /* catch any absolute children */
-  ${({ withPadding }) => withPadding && containerGutter}
-  ${({ marginTop }) => marginTop && `margin-top: ${marginTop};`}
-  ${flexMixin}
-  ${flexCenterMixin}
-  ${flexShorthandMixin}
-  ${alignContentMixin}
-  ${alignItemsMixin}
-  ${alignSelfMixin}
-  ${justifyContentMixin}
-  ${textAlignMixin}
-`;
-
-/* eslint-disable no-unused-vars */
-// A bit crazytown, but this way we can pass the tag as a prop to dynamically choose 'div', 'section', 'header' etc
-const StyledContainer = styled(({
-  tag,
-  children,
-  withPadding,
-  marginTop,
-  fullRow,
-  flexRow,
-  flexDisplay,
-  flexCol,
-  flexWrap,
-  flexCenter,
-  textAlign,
-  justifyContent,
-  alignContent,
-  alignItems,
-  flex,
-  alignSelf,
- ...props
-}) => React.createElement(tag, props, children))`${containerStyle}`;
-/* eslint-enable */
 
 function Container({ tag, children, ...props }) {
   return <StyledContainer tag={tag} {...props}>{children}</StyledContainer>;
