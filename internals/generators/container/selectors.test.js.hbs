@@ -1,9 +1,9 @@
-// import { makeSelect{{ properCase name }}Domain } from '../selectors';
+import { makeSelect{{ properCase name }}Domain } from '../selectors';
 
-// const selector = makeSelect{{ properCase name}}Domain();
+const selectDomain = makeSelect{{ properCase name}}Domain();
 
-describe('makeSelect{{ properCase name }}Domain', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+describe('makeSelect{{ properCase name }}Domain', () => {  
+  it('selectDomain should match snapshot', () => {
+    expect(selectDomain).toMatchSnapshot;
   });
 });

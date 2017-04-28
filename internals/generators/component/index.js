@@ -30,8 +30,13 @@ module.exports = {
     },
   }, {
     type: 'confirm',
-    name: 'wantMessages',
+    name: 'wantStories',
     default: true,
+    message: 'Do you want storybook stories?',
+  }, {
+    type: 'confirm',
+    name: 'wantMessages',
+    default: false,
     message: 'Do you want i18n messages (i.e. will this component use text)?',
   }],
   actions: (data) => {
@@ -60,7 +65,15 @@ module.exports = {
       abortOnFail: true,
     }];
 
-    // If they want a i18n messages file
+    if (data.wantStories) {
+      actions.push({
+        type: 'add',
+        path: '../../app/components/{{properCase name}}/stories/index.stories.js',
+        templateFile: './component/stories.js.hbs',
+        abortOnFail: true,
+      });
+    }
+
     if (data.wantMessages) {
       actions.push({
         type: 'add',

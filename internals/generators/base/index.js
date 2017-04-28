@@ -23,9 +23,14 @@ module.exports = {
 
         return 'The name is required';
       },
+    }, {
+      type: 'confirm',
+      name: 'wantStories',
+      default: true,
+      message: 'Do you want storybook stories?',
     },
   ],
-  actions: () => {
+  actions: (data) => {
     // Generate index.js and index.test.js
     const baseTemplate = './base/stateless.js.hbs';
 
@@ -40,6 +45,15 @@ module.exports = {
       templateFile: './base/test.js.hbs',
       abortOnFail: true,
     }];
+
+    if (data.wantStories) {
+      actions.push({
+        type: 'add',
+        path: '../../app/base/{{properCase name}}/stories/index.stories.js',
+        templateFile: './base/stories.js.hbs',
+        abortOnFail: true,
+      });
+    }
 
     return actions;
   },

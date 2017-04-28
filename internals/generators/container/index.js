@@ -41,8 +41,13 @@ module.exports = {
     message: 'Do you want sagas for asynchronous flows? (e.g. fetching data)',
   }, {
     type: 'confirm',
-    name: 'wantMessages',
+    name: 'wantStories',
     default: true,
+    message: 'Do you want storybook stories?',
+  }, {
+    type: 'confirm',
+    name: 'wantMessages',
+    default: false,
     message: 'Do you want i18n messages (i.e. will this component use text)?',
   }],
   actions: (data) => {
@@ -70,6 +75,15 @@ module.exports = {
       templateFile: './container/test.js.hbs',
       abortOnFail: true,
     }];
+
+    if (data.wantStories) {
+      actions.push({
+        type: 'add',
+        path: '../../app/containers/{{properCase name}}/stories/index.stories.js',
+        templateFile: './container/stories.js.hbs',
+        abortOnFail: true,
+      });
+    }
 
     // If component wants messages
     if (data.wantMessages) {
