@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Element /> should match baseline snapshot 1`] = `
-<Styled(Component)
+<Element
   alignContent=""
   alignItems=""
   alignSelf=""
@@ -16,6 +16,43 @@ exports[`<Element /> should match baseline snapshot 1`] = `
   tag="div"
   textAlign=""
 >
-  text
-</Styled(Component)>
+  <Styled(Component)
+    alignContent=""
+    alignItems=""
+    alignSelf=""
+    flex=""
+    flexCenter={false}
+    flexCol={false}
+    flexDisplay=""
+    flexRow={false}
+    flexWrap={false}
+    fullRow={false}
+    justifyContent=""
+    tag="div"
+    textAlign=""
+  >
+    <Component
+      alignContent=""
+      alignItems=""
+      alignSelf=""
+      className="chnckK"
+      flex=""
+      flexCenter={false}
+      flexCol={false}
+      flexDisplay=""
+      flexRow={false}
+      flexWrap={false}
+      fullRow={false}
+      justifyContent=""
+      tag="div"
+      textAlign=""
+    >
+      <div
+        className="chnckK"
+      >
+        text
+      </div>
+    </Component>
+  </Styled(Component)>
+</Element>
 `;

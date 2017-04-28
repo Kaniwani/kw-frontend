@@ -1,10 +1,10 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import Container from '../index';
 
 describe('<Container />', () => {
   it('should match baseline snapshot', () => {
-    const renderedComponent = shallow(
+    const renderedComponent = mount(
       <Container>text</Container>
     );
     expect(renderedComponent).toMatchSnapshot();

@@ -1,11 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Wrapper /> should match baseline snapshot 1`] = `
-<Styled(Component)
+<Wrapper
   fullWidth={false}
   fullWidthBg={false}
   tag="div"
 >
-  text
-</Styled(Component)>
+  <Styled(Component)
+    fullWidth={false}
+    fullWidthBg={false}
+    tag="div"
+  >
+    <Component
+      className="xrKBM"
+      fullWidth={false}
+      fullWidthBg={false}
+      tag="div"
+    >
+      <div
+        className="xrKBM"
+      >
+        text
+      </div>
+    </Component>
+  </Styled(Component)>
+</Wrapper>
 `;
