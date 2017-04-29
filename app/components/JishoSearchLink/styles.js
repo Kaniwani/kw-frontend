@@ -7,6 +7,7 @@ import A from 'base/A';
 const style = css`
   display: block;
   margin: .2em .4em;
+  max-width: 4rem;
   transform: scale(.95);
   transition: transform .3s ${timingFunctions('easeInQuint')};
   &:hover {

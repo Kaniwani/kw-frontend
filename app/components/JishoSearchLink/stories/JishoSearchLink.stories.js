@@ -5,13 +5,15 @@ import Container from 'layouts/Container';
 import JishoSearchLink from '../index';
 
 storiesOf('components.JishoSearchLink', module)
-  .add('Searchlink', () => (
+  .add('JishoSearchLink', () => (
     <Container flexRow>
       <JishoSearchLink keyword="下着" />
     </Container>
   ))
-  .add('Searchlink visually hidden but still taking up space between two words', () => (
-    <div>
-      Two <JishoSearchLink keyword="下着" visuallyHidden /> Words
-    </div>
+  .add('JishoSearchLink visually hidden but still taking up space between two words', () => (
+    <Container flexRow>
+      <div>Two</div>
+      <JishoSearchLink keyword="下着" visuallyHidden />
+      <div>Words</div>
+    </Container>
   ));

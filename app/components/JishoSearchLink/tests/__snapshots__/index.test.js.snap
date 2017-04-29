@@ -14,7 +14,7 @@ exports[`<JishoSearchLink /> should match base snapshot 1`] = `
     display="inline-block"
     name="WORD_SEARCH"
     preserveAspectRatio="xMidYMid meet"
-    size="1.8em"
+    size="1.8rem"
   />
 </Styled(Component)>
 `;
