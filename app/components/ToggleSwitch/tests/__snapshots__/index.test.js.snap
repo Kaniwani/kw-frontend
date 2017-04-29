@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ToggleSwitch /> should adopt custom props 1`] = `
+<styled.input
+  height="4rem"
+  id="toggle2"
+  name="someToggle2"
+  onClick={[Function]}
+  toggleOffColor="tan"
+  toggleOnColor="purple"
+  type="checkbox"
+  value={false}
+  width="12rem"
+/>
+`;
+
+exports[`<ToggleSwitch /> should match baseline snapshot 1`] = `
+<styled.input
+  height="2rem"
+  id="toggle1"
+  name="someToggle1"
+  onClick={[Function]}
+  toggleOffColor="red"
+  toggleOnColor="green"
+  type="checkbox"
+  value={true}
+  width="6rem"
+/>
+`;
