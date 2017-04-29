@@ -22,12 +22,13 @@ Icon.defaultProps = {
   preserveAspectRatio: 'xMidYMid meet',
 };
 
-function Icon({ name, display, color, size, preserveAspectRatio }) {
+function Icon({ name, display, color, size, preserveAspectRatio, ...props }) {
   return (
     <SVGWrapper
       display={display}
       color={color}
       size={size}
+      {...props}
     >
       <SVG
         title={name}

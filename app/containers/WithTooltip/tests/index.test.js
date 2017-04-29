@@ -1,0 +1,39 @@
+import React from 'react';
+import { render } from 'enzyme';
+import WithTooltip from '../index';
+
+const SimpleDiv = ({ foo, ...props }) => <div {...props}>{foo}</div>; // eslint-disable-line react/prop-types
+const Enhanced = WithTooltip(SimpleDiv);
+
+describe('<WithTooltip />', () => {
+  it('should have default props', () => {
+    const RenderedComponent = render(
+      <Enhanced data-tip="I'm required" />
+    );
+    expect(RenderedComponent).toMatchSnapshot();
+  });
+
+  it('should adopt tooltip props', () => {
+    const RenderedComponent = render(
+      <Enhanced
+        data-tip="Hello there"
+        data-for="tooltipId"
+        data-place="left"
+        data-type="success"
+        data-delay-show={100}
+        data-delay-hide={200}
+      />
+    );
+    expect(RenderedComponent).toMatchSnapshot();
+  });
+
+  it('should adopt component props', () => {
+    const RenderedComponent = render(
+      <Enhanced
+        data-tip="Hello again"
+        foo="foo"
+      />
+    );
+    expect(RenderedComponent).toMatchSnapshot();
+  });
+});

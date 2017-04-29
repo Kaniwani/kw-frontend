@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<WithTooltip /> should adopt component props 1`] = `
+<div
+  data-for="globalTooltip"
+  data-tip="Hello again"
+>
+  foo
+</div>
+`;
+
+exports[`<WithTooltip /> should adopt tooltip props 1`] = `
+<div
+  data-delay-hide="200"
+  data-delay-show="100"
+  data-for="tooltipId"
+  data-place="left"
+  data-tip="Hello there"
+  data-type="success"
+/>
+`;
+
+exports[`<WithTooltip /> should have default props 1`] = `
+<div
+  data-for="globalTooltip"
+  data-tip="I'm required"
+/>
+`;
