@@ -5,6 +5,6 @@
  * randomHexColor()
  * // => '#ed6ae7'
  */
-const randomHexColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+const randomHexColor = () => `#${(Math.random() * 0xFFFFFF << 0).toString(16)}`; // eslint-disable-line no-bitwise
 
 export default randomHexColor;
