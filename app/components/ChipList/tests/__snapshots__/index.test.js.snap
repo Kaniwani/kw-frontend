@@ -3,14 +3,14 @@
 exports[`<ChipList /> should adopt component props 1`] = `
 <styled.ul>
   <Chip
-    bgColor="white"
-    textColor="purple"
+    bgColor="whiteLight"
+    color="purple"
   >
     chip1
   </Chip>
   <Chip
-    bgColor="white"
-    textColor="purple"
+    bgColor="whiteLight"
+    color="purple"
   >
     chip2
   </Chip>
@@ -21,13 +21,13 @@ exports[`<ChipList /> should match baseline snapshot 1`] = `
 <styled.ul>
   <Chip
     bgColor="white"
-    textColor="blackLight"
+    color="blackLight"
   >
     chip1
   </Chip>
   <Chip
     bgColor="white"
-    textColor="blackLight"
+    color="blackLight"
   >
     chip2
   </Chip>

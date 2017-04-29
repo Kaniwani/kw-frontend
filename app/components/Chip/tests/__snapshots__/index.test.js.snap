@@ -3,7 +3,7 @@
 exports[`<Chip /> should match baseline snapshot 1`] = `
 <styled.li
   bgColor="white"
-  textColor="blackLight"
+  color="blackLight"
 >
   <styled.span>
     text

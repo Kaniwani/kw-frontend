@@ -6,18 +6,18 @@ import { Li, Span } from './styles';
 
 Chip.propTypes = {
   children: PropTypes.node.isRequired,
-  textColor: PropTypes.oneOf(Object.keys(COLORS)),
+  color: PropTypes.oneOf(Object.keys(COLORS)),
   bgColor: PropTypes.oneOf(Object.keys(COLORS)),
 };
 
 Chip.defaultProps = {
-  textColor: 'blackLight',
+  color: 'blackLight',
   bgColor: 'white',
 };
 
-function Chip({ children, ...styleProps }) {
+function Chip({ color, bgColor, children }) {
   return (
-    <Li {...styleProps}>
+    <Li color={color} bgColor={bgColor}>
       <Span>{children}</Span>
     </Li>
   );

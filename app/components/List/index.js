@@ -25,7 +25,7 @@ function List({ items, component, componentProps, cssStyle }) {
   if (items.length) {
     content = items.map((item) => (
       <ComponentToRender key={cuid()} item={item} {...componentProps} />
-      ));
+    ));
   } else {
     // Otherwise render a single component
     content = (<ComponentToRender />);

@@ -13,7 +13,7 @@ describe('<ChipList />', () => {
 
   it('should adopt component props', () => {
     const renderedComponent = shallow(
-      <ChipList componentProps={{ textColor: 'purple' }} chips={['chip1', 'chip2']} />
+      <ChipList componentProps={{ color: 'purple', bgColor: 'whiteLight' }} chips={['chip1', 'chip2']} />
     );
     expect(renderedComponent).toMatchSnapshot();
   });

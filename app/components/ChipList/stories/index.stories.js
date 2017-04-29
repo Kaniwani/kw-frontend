@@ -10,6 +10,6 @@ storiesOf('components.ChipList', module)
   .add('multiple chips with component props', () => (
     <ChipList
       chips={generateTextArray('chip', 5)}
-      componentProps={{ textColor: 'white', bgColor: 'black' }}
+      componentProps={{ color: 'white', bgColor: 'black' }}
     />
   ));
