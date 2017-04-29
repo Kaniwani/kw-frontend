@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<JishoSearchLink /> should match base snapshot 1`] = `
+<Styled(Component)
+  external={true}
+  href="//jisho.org/search/かな"
+  plainLink={true}
+  tabIndex="-1"
+  title="Search Jisho"
+  visuallyHidden={false}
+>
+  <Icon
+    color="currentColor"
+    display="inline-block"
+    name="WORD_SEARCH"
+    preserveAspectRatio="xMidYMid meet"
+    size="1.8em"
+  />
+</Styled(Component)>
+`;

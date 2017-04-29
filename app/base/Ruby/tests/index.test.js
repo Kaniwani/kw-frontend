@@ -11,10 +11,11 @@ describe('<Ruby />', () => {
     expect(renderedComponent).toMatchSnapshot();
   });
 
-  it('should render a span when no furi prop is passed', () => {
+  it('should render a <span> tag when furi prop is empty', () => {
     const renderedComponent = shallow(
-      <Ruby>Plain ol span</Ruby>
+      <Ruby>Without rt</Ruby>
     );
+    expect(renderedComponent.find('ruby').exists()).toBe(false);
     expect(renderedComponent).toMatchSnapshot();
   });
 });

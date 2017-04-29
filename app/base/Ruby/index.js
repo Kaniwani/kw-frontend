@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import branch from 'utils/branch';
 
 Ruby.propTypes = {
   furi: PropTypes.string,
@@ -12,11 +11,9 @@ Ruby.defaultProps = {
 };
 
 function Ruby({ furi, children }) {
-  return branch(
-    furi,
-    <ruby><rb>{children}</rb><rt>{furi}</rt></ruby>,
-    <span>{children}</span>
-  );
+  return furi ?
+    <ruby lang="ja"><rb>{children}</rb><rt>{furi}</rt></ruby> :
+    <span lang="ja">{children}</span>;
 }
 
 export default Ruby;
