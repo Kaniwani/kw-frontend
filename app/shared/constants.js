@@ -26,6 +26,35 @@ export const SRS_RANKS = {
   FIVE: 'BURNED',
 };
 
+export const PARTS_OF_SPEECH = [
+  'JLPT N1',
+  'JLPT N2',
+  'JLPT N3',
+  'JLPT N4',
+  'JLPT N5',
+  'Common',
+  'Intransitive verb',
+  'Godan verb',
+  'Noun',
+  'Suru verb',
+  'Transitive verb',
+  'Ichidan verb',
+  'No adjective',
+  'Na adjective',
+  'Suffix',
+  'I adjective',
+  'Proper noun',
+  'Adjective',
+  'Adverb',
+  'Numeral',
+  'Expression',
+  'Prefix',
+  'Pronoun',
+  'Counter',
+  'Interjection',
+  'Conjunction',
+];
+
 export const MAX_DETAIL_DEPTH = 3;
 export const DETAIL_LEVELS = ['Low', 'Medium', 'High'];
 

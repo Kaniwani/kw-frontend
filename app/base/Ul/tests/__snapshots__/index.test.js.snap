@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Ul /> should adopt a plainList prop to reset list styles 1`] = `
+<styled.ul
+  plainList={true}
+>
+  <ul
+    className="INVEP"
+  />
+</styled.ul>
+`;
+
+exports[`<Ul /> should match baseline snapshot 1`] = `
+<ul
+  className="bMruvD"
+/>
+`;
+
+exports[`<Ul /> should render children 1`] = `
+<ul
+  className="bMruvD"
+>
+  <li>
+    One
+  </li>
+  <li>
+    Two
+  </li>
+</ul>
+`;

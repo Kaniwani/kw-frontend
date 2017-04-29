@@ -1,0 +1,189 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PartsOfSpeechList /> should match PARTS_OF_SPEECH constant 1`] = `
+<styled.ul
+  plainList={true}
+>
+  <Chip
+    bgColor="tan"
+    color="blackLight"
+  >
+    JLPT N1
+  </Chip>
+  <Chip
+    bgColor="tan"
+    color="blackLight"
+  >
+    JLPT N2
+  </Chip>
+  <Chip
+    bgColor="tan"
+    color="blackLight"
+  >
+    JLPT N3
+  </Chip>
+  <Chip
+    bgColor="tan"
+    color="blackLight"
+  >
+    JLPT N4
+  </Chip>
+  <Chip
+    bgColor="tan"
+    color="blackLight"
+  >
+    JLPT N5
+  </Chip>
+  <Chip
+    bgColor="blue"
+    color="whiteLight"
+  >
+    Common
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Intransitive verb
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Godan verb
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Noun
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Suru verb
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Transitive verb
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Ichidan verb
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    No adjective
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Na adjective
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Suffix
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    I adjective
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Proper noun
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Adjective
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Adverb
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Numeral
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Expression
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Prefix
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Pronoun
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Counter
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Interjection
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Conjunction
+  </Chip>
+</styled.ul>
+`;
+
+exports[`<PartsOfSpeechList /> should not render any children if no items provided 1`] = `
+<styled.ul
+  plainList={true}
+/>
+`;
+
+exports[`<PartsOfSpeechList /> should set colors for common and jlpt items 1`] = `
+<styled.ul
+  plainList={true}
+>
+  <Chip
+    bgColor="blue"
+    color="whiteLight"
+  >
+    Common
+  </Chip>
+  <Chip
+    bgColor="tan"
+    color="blackLight"
+  >
+    JLPT N1
+  </Chip>
+</styled.ul>
+`;
