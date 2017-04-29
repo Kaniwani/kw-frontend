@@ -3,5 +3,10 @@
 exports[`<HomePage /> should match the baseline snapshot 1`] = `
 <h1>
   Hello HomePage
+  <defaultProps(Icon)
+    data-for="globalTooltip"
+    data-tip="uhhh"
+    name="ADD"
+  />
 </h1>
 `;
