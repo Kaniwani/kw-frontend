@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LogoLink /> should match baseline snapshot 1`] = `
+<Styled(Link)
+  size="4rem"
+  title="Return Home"
+  to="/"
+>
+  <styled.IMAGE_MOCK
+    height="100%"
+    width="100%"
+  />
+</Styled(Link)>
+`;
