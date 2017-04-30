@@ -127,31 +127,31 @@ export function getCurrentReviews(body = {
   return request.get({ url, body });
 }
 
-export function getReviewEntry(body) {
+export function getReviewEntry(body = {}) {
   const url = urls.reviewEntry(body.id);
   delete body.id; // eslint-disable-line no-param-reassign
   return request.get({ url, body });
 }
 
-export function reviewCorrect(body) {
+export function reviewCorrect(body = {}) {
   const url = urls.reviewCorrect(body.id);
   delete body.id; // eslint-disable-line no-param-reassign
   return request.post({ url, body });
 }
 
-export function reviewIncorrect(body) {
+export function reviewIncorrect(body = {}) {
   const url = urls.reviewIncorrect(body.id);
   delete body.id; // eslint-disable-line no-param-reassign
   return request.post({ url, body });
 }
 
-export function hideReview(body) {
+export function hideReview(body = {}) {
   const url = urls.hideReview(body.id);
   delete body.id; // eslint-disable-line no-param-reassign
   return request.post({ url, body });
 }
 
-export function unhideReview(body) {
+export function unhideReview(body = {}) {
   const url = urls.unhideReview(body.id);
   delete body.id; // eslint-disable-line no-param-reassign
   return request.post({ url, body });
@@ -160,7 +160,7 @@ export function unhideReview(body) {
 //-----------------------------------------------------------------------------
 //  SYNONYMS
 //-----------------------------------------------------------------------------
-export function getSynonym(body) {
+export function getSynonym(body = {}) {
   const url = urls.synonymEntry(body.id);
   delete body.id; // eslint-disable-line no-param-reassign
   return request.get({ url, body });
@@ -176,7 +176,7 @@ export function addSynonym(body) {
   return request.post({ url, body });
 }
 
-export function removeSynonym(body) {
+export function removeSynonym(body = {}) {
   const url = urls.synonymEntry(body.id);
   delete body.id; // eslint-disable-line no-param-reassign
   return request.delete({ url, body });
