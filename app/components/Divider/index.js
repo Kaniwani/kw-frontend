@@ -4,15 +4,15 @@ import * as COLORS from 'shared/styles/colors';
 import { StyledDivider } from './styles';
 
 Divider.propTypes = {
-  fullWidth: PropTypes.bool,
   fade: PropTypes.bool,
-  color: PropTypes.oneOf[Object.keys(COLORS)],
+  fullWidth: PropTypes.bool,
+  color: PropTypes.oneOf(Object.keys(COLORS)),
 };
 
 Divider.defaultProps = {
-  fade: true,
+  fade: false,
   fullWidth: false,
-  color: COLORS.grey,
+  color: 'grey',
 };
 
 function Divider(props) {

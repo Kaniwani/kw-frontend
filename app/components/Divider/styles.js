@@ -20,6 +20,7 @@ const borderColorMixin = ({ color, fade }) => {
 };
 
 export const StyledDivider = styled.div`
+  ${fullWidthMixin}
   ${`margin: ${padding.mobile.inner.y}rem auto;`}
   ${media('min').sm`
     margin: ${padding.desktop.inner.y}rem auto;
@@ -30,6 +31,5 @@ export const StyledDivider = styled.div`
   border: 0;
   border-width: 0 0 1px;
   border-style: solid;
-  ${fullWidthMixin}
   ${borderColorMixin}
 `;

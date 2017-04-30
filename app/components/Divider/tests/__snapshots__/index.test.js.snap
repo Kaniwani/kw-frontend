@@ -2,8 +2,8 @@
 
 exports[`<Divider /> should match baseline snapshot 1`] = `
 <styled.div
-  color="#8c8c8c"
-  fade={true}
+  color="grey"
+  fade={false}
   fullWidth={false}
 />
 `;
