@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`URLS //localhost:8000/api/v1/announcement should match baseline snapshot 1`] = `"//localhost:8000/api/v1/announcement"`;
+
+exports[`URLS //localhost:8000/api/v1/auth should match baseline snapshot 1`] = `"//localhost:8000/api/v1/auth"`;
+
+exports[`URLS //localhost:8000/api/v1/auth/activate should match baseline snapshot 1`] = `"//localhost:8000/api/v1/auth/activate"`;
+
+exports[`URLS //localhost:8000/api/v1/auth/login should match baseline snapshot 1`] = `"//localhost:8000/api/v1/auth/login"`;
+
+exports[`URLS //localhost:8000/api/v1/auth/me should match baseline snapshot 1`] = `"//localhost:8000/api/v1/auth/me"`;
+
+exports[`URLS //localhost:8000/api/v1/auth/password should match baseline snapshot 1`] = `"//localhost:8000/api/v1/auth/password"`;
+
+exports[`URLS //localhost:8000/api/v1/auth/password/reset should match baseline snapshot 1`] = `"//localhost:8000/api/v1/auth/password/reset"`;
+
+exports[`URLS //localhost:8000/api/v1/auth/password/reset/confirm should match baseline snapshot 1`] = `"//localhost:8000/api/v1/auth/password/reset/confirm"`;
+
+exports[`URLS //localhost:8000/api/v1/auth/register should match baseline snapshot 1`] = `"//localhost:8000/api/v1/auth/register"`;
+
+exports[`URLS //localhost:8000/api/v1/auth/username should match baseline snapshot 1`] = `"//localhost:8000/api/v1/auth/username"`;
+
+exports[`URLS //localhost:8000/api/v1/contact should match baseline snapshot 1`] = `"//localhost:8000/api/v1/contact"`;
+
+exports[`URLS //localhost:8000/api/v1/faq should match baseline snapshot 1`] = `"//localhost:8000/api/v1/faq"`;
+
+exports[`URLS //localhost:8000/api/v1/level should match baseline snapshot 1`] = `"//localhost:8000/api/v1/level"`;
+
+exports[`URLS //localhost:8000/api/v1/reading should match baseline snapshot 1`] = `"//localhost:8000/api/v1/reading"`;
+
+exports[`URLS //localhost:8000/api/v1/review should match baseline snapshot 1`] = `"//localhost:8000/api/v1/review"`;
+
+exports[`URLS //localhost:8000/api/v1/review/critical should match baseline snapshot 1`] = `"//localhost:8000/api/v1/review/critical"`;
+
+exports[`URLS //localhost:8000/api/v1/review/current should match baseline snapshot 1`] = `"//localhost:8000/api/v1/review/current"`;
+
+exports[`URLS //localhost:8000/api/v1/synonym should match baseline snapshot 1`] = `"//localhost:8000/api/v1/synonym"`;
+
+exports[`URLS //localhost:8000/api/v1/user should match baseline snapshot 1`] = `"//localhost:8000/api/v1/user"`;
+
+exports[`URLS //localhost:8000/api/v1/user/me should match baseline snapshot 1`] = `"//localhost:8000/api/v1/user/me"`;
+
+exports[`URLS //localhost:8000/api/v1/user/srs should match baseline snapshot 1`] = `"//localhost:8000/api/v1/user/srs"`;
+
+exports[`URLS //localhost:8000/api/v1/user/sync should match baseline snapshot 1`] = `"//localhost:8000/api/v1/user/sync"`;
+
+exports[`URLS //localhost:8000/api/v1/vocabulary should match baseline snapshot 1`] = `"//localhost:8000/api/v1/vocabulary"`;
+
+exports[`URLS function announcementEntry(id) {return (0, _urlJoin2.default)(announcement, id);} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/announcement/testParam"`;
+
+exports[`URLS function createJishoApiUrl(keyword) {return '//jisho.org/api/v1/search/words?keyword=' + keyword;} should match baseline snapshot 1`] = `"//jisho.org/api/v1/search/words?keyword=testParam"`;
+
+exports[`URLS function createJishoUrl(keyword) {return '//jisho.org/search/' + keyword;} should match baseline snapshot 1`] = `"//jisho.org/search/testParam"`;
+
+exports[`URLS function faqEntry(id) {return (0, _urlJoin2.default)(faq, id);} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/faq/testParam"`;
+
+exports[`URLS function hideReview(id) {return (0, _urlJoin2.default)(reviewEntry(id), 'hide');} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/review/testParam/hide"`;
+
+exports[`URLS function levelEntry(level) {return (0, _urlJoin2.default)(levels, level);} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/level/testParam"`;
+
+exports[`URLS function lockLevel(level) {return (0, _urlJoin2.default)(levelEntry(level), 'lock');} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/level/testParam/lock"`;
+
+exports[`URLS function readingEntry(id) {return (0, _urlJoin2.default)(reading, id);} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/reading/testParam"`;
+
+exports[`URLS function reviewCorrect(id) {return (0, _urlJoin2.default)(reviewEntry(id), 'correct');} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/review/testParam/correct"`;
+
+exports[`URLS function reviewEntry(id) {return (0, _urlJoin2.default)(reviews, id);} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/review/testParam"`;
+
+exports[`URLS function reviewIncorrect(id) {return (0, _urlJoin2.default)(reviewEntry(id), 'incorrect');} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/review/testParam/incorrect"`;
+
+exports[`URLS function synonymEntry(id) {return (0, _urlJoin2.default)(synonym, id);} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/synonym/testParam"`;
+
+exports[`URLS function unhideReview(id) {return (0, _urlJoin2.default)(reviewEntry(id), 'unhide');} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/review/testParam/unhide"`;
+
+exports[`URLS function unlockLevel(level) {return (0, _urlJoin2.default)(levelEntry(level), 'unlock');} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/level/testParam/unlock"`;
+
+exports[`URLS function vocabularyEntry(id) {return (0, _urlJoin2.default)(vocabulary, id);} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/vocabulary/testParam"`;
