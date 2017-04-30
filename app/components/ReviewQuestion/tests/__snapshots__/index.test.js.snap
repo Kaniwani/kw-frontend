@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ReviewQuestion /> should match baseline snapshot 1`] = `
+<styled.div>
+  <styled.div>
+    <styled.h1>
+      large, round
+    </styled.h1>
+  </styled.div>
+  <Styled(PartsOfSpeechList)
+    items={
+      Array [
+        "JLPT N1",
+        "Noun",
+      ]
+    }
+  />
+</styled.div>
+`;

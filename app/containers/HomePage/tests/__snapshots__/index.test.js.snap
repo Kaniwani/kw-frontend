@@ -3,10 +3,20 @@
 exports[`<HomePage /> should match the baseline snapshot 1`] = `
 <h1>
   Hello HomePage
-  <defaultProps(Icon)
-    data-for="globalTooltip"
-    data-tip="uhhh"
-    name="ADD"
-  />
+  <label
+    htmlFor="derp"
+  >
+    toggle me
+    <ToggleSwitch
+      handleChange={[Function]}
+      height="2rem"
+      id="derp"
+      isChecked={false}
+      name="derp"
+      toggleOffColor="red"
+      toggleOnColor="green"
+      width="6rem"
+    />
+  </label>
 </h1>
 `;
