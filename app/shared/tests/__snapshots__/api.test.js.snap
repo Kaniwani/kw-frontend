@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`API activateUser() 1`] = `Promise {}`;
+
+exports[`API addAnnouncement() 1`] = `Promise {}`;
+
+exports[`API addFaqEntry() 1`] = `Promise {}`;
+
+exports[`API addSynonym() 1`] = `Promise {}`;
+
+exports[`API changePassword() 1`] = `Promise {}`;
+
+exports[`API changeUsername() 1`] = `Promise {}`;
+
+exports[`API contact() 1`] = `Promise {}`;
+
+exports[`API getAnnouncement() 1`] = `Promise {}`;
+
+exports[`API getAnnouncements() 1`] = `Promise {}`;
+
+exports[`API getCurrentReviews() 1`] = `Promise {}`;
+
+exports[`API getFaqEntry() 1`] = `Promise {}`;
+
+exports[`API getFaqs() 1`] = `Promise {}`;
+
+exports[`API getLevelVocabulary() 1`] = `Promise {}`;
+
+exports[`API getLevels() 1`] = `Promise {}`;
+
+exports[`API getReadingEntry() 1`] = `Promise {}`;
+
+exports[`API getReadings() 1`] = `Promise {}`;
+
+exports[`API getReviewEntry() 1`] = `Promise {}`;
+
+exports[`API getReviews() 1`] = `Promise {}`;
+
+exports[`API getSynonym() 1`] = `Promise {}`;
+
+exports[`API getSynonyms() 1`] = `Promise {}`;
+
+exports[`API getUserAuth() 1`] = `Promise {}`;
+
+exports[`API getUserProfile() 1`] = `Promise {}`;
+
+exports[`API getUsers() 1`] = `Promise {}`;
+
+exports[`API getVocabulary() 1`] = `Promise {}`;
+
+exports[`API getVocabularyEntry() 1`] = `Promise {}`;
+
+exports[`API hideReview() 1`] = `Promise {}`;
+
+exports[`API lockLevel() 1`] = `Promise {}`;
+
+exports[`API loginUser() 1`] = `Promise {}`;
+
+exports[`API passwordConfirm() 1`] = `Promise {}`;
+
+exports[`API passwordReset() 1`] = `Promise {}`;
+
+exports[`API registerUser() 1`] = `Promise {}`;
+
+exports[`API removeSynonym() 1`] = `Promise {}`;
+
+exports[`API reviewCorrect() 1`] = `Promise {}`;
+
+exports[`API reviewIncorrect() 1`] = `Promise {}`;
+
+exports[`API syncKw() 1`] = `Promise {}`;
+
+exports[`API syncWk() 1`] = `Promise {}`;
+
+exports[`API unhideReview() 1`] = `Promise {}`;
+
+exports[`API unlockLevel() 1`] = `Promise {}`;
+
+exports[`API updateUserAuth() 1`] = `Promise {}`;
