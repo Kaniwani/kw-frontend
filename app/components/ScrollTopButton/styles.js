@@ -3,7 +3,21 @@ import { resetButton } from 'shared/styles/utils';
 import { shadowBox } from 'shared/styles/shadows';
 import { blueLight, pink } from 'shared/styles/colors';
 
-export const ScrollButton = styled.button`
+const visibleMixin = ({ isVisible }) => isVisible && `
+  transition: transform .2s ease-in;
+  transform: scale(1);
+
+  &:hover {
+    opacity: 1;
+  }
+`;
+
+const scrollingMixin = ({ isScrolling }) => isScrolling && `
+  opacity: 1;
+  background-color: ${pink};
+`;
+
+export const StyledButton = styled.button`
   ${resetButton}
   ${shadowBox}
   position: fixed;
@@ -17,19 +31,10 @@ export const ScrollButton = styled.button`
   transition: all .2s ease-in-out;
   transition: transform .25s ease;
   z-index: 10;
-
-  &.isVisible {
-    transition: transform .2s ease-in;
-    transform: scale(1);
-
-    &:hover {
-      opacity: 1;
-    }
-
-    &:active,
-    &.isScrolling {
-      opacity: 1;
-      background-color: ${pink};
-    }
+  &:active {
+    opacity: 1;
+    background-color: ${pink};
   }
+  ${visibleMixin}
+  ${scrollingMixin}
 `;

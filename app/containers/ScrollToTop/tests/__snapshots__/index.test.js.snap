@@ -1,17 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<ScrollToTop /> should match the baseline snapshot 1`] = `
-<styled.button
-  className=""
+<ScrollTopButton
+  isScrolling={false}
+  isVisible={false}
   onClick={[Function]}
-  type="button"
->
-  <Icon
-    color="white"
-    display="inline-block"
-    name="ARROW_UP"
-    preserveAspectRatio="xMidYMid meet"
-    size="2.5rem"
-  />
-</styled.button>
+/>
 `;

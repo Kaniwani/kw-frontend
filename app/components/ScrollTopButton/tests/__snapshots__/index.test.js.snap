@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ScrollTopButton /> should adopt isVisible and isScrolling props 1`] = `
+<styled.button
+  isScrolling={true}
+  isVisible={true}
+  onClick={[Function]}
+  type="button"
+>
+  <Icon
+    color="white"
+    display="inline-block"
+    name="ARROW_UP"
+    preserveAspectRatio="xMidYMid meet"
+    size="2.5rem"
+  />
+</styled.button>
+`;
+
+exports[`<ScrollTopButton /> should match the baseline snapshot 1`] = `
+<styled.button
+  isScrolling={false}
+  isVisible={false}
+  onClick={[Function]}
+  type="button"
+>
+  <Icon
+    color="white"
+    display="inline-block"
+    name="ARROW_UP"
+    preserveAspectRatio="xMidYMid meet"
+    size="2.5rem"
+  />
+</styled.button>
+`;

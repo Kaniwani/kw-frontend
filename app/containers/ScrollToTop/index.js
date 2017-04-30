@@ -2,8 +2,7 @@ import React from 'react';
 import debounce from 'lodash/debounce';
 
 import smoothScrollY from 'utils/smoothScrollY';
-import Icon from 'components/Icon';
-import { ScrollButton } from './styles';
+import ScrollTopButton from 'components/ScrollTopButton';
 
 class ScrollToTop extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   state = {
@@ -40,19 +39,12 @@ class ScrollToTop extends React.PureComponent { // eslint-disable-line react/pre
   }
 
   render() {
-    let classNames = [];
-    if (this.state.isVisible) classNames.push('isVisible');
-    if (this.state.isScrolling) classNames.push('isScrolling');
-    classNames = classNames.join(' ');
-
     return (
-      <ScrollButton
-        type="button"
-        className={classNames}
+      <ScrollTopButton
         onClick={this.scrollUp}
-      >
-        <Icon name="ARROW_UP" size="2.5rem" color="white" />
-      </ScrollButton>
+        isVisible={this.state.isVisible}
+        isScrolling={this.state.isScrolling}
+      />
     );
   }
 }
