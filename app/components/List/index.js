@@ -2,22 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cuid from 'cuid';
 
-import { Ul } from './styles';
+import Ul from 'base/Ul';
 
 List.propTypes = {
   component: PropTypes.func.isRequired,
   items: PropTypes.array,
   componentProps: PropTypes.object,
-  cssStyle: PropTypes.string,
 };
 
 List.defaultProps = {
   items: [],
   componentProps: {},
-  cssStyle: '',
 };
 
-function List({ items, component, componentProps, cssStyle }) {
+function List({ items, component, componentProps }) {
   const ComponentToRender = component;
 
   let content = (<div />);
@@ -31,7 +29,7 @@ function List({ items, component, componentProps, cssStyle }) {
     content = (<ComponentToRender />);
   }
 
-  return <Ul cssStyle={cssStyle}>{content}</Ul>;
+  return <Ul plainList>{content}</Ul>;
 }
 
 export default List;
