@@ -9,7 +9,7 @@ class ToggleSwitch extends React.PureComponent {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     isChecked: PropTypes.bool.isRequired,
-    handleClick: PropTypes.func,
+    handleChange: PropTypes.func,
     width: PropTypes.string,
     height: PropTypes.string,
     toggleOnColor: PropTypes.oneOf(Object.keys(COLORS)),
@@ -17,7 +17,7 @@ class ToggleSwitch extends React.PureComponent {
   }
 
   static defaultProps = {
-    handleClick: () => {},
+    handleChange: () => {},
     width: '6rem',
     height: '2rem',
     toggleOnColor: 'green',
@@ -25,25 +25,23 @@ class ToggleSwitch extends React.PureComponent {
   }
 
   state = {
-    value: this.props.isChecked,
-  };
+    checked: this.props.isChecked,
+  }
 
-  onClick = () => {
-    this.setState((prevState) => ({
-      value: !prevState.value,
-    }));
-    this.props.handleClick(this.state.value);
+  onChange = () => {
+    this.setState((prevState) => ({ checked: !prevState.checked }));
+    this.props.handleChange(this.state.checked);
   }
 
   render() {
-    const { id, name, isChecked, handleClick, ...styleProps } = this.props;
+    const { id, name, isChecked, handleChange, ...styleProps } = this.props;
     return (
       <Input
         type="checkbox"
         id={id}
         name={name}
-        value={this.state.value}
-        onClick={this.onClick}
+        checked={this.state.checked}
+        onChange={this.onChange}
         {...styleProps}
       />
     );

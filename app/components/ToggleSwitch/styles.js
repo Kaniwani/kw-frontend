@@ -2,30 +2,38 @@ import styled from 'styled-components';
 import { darken, transparentize, timingFunctions } from 'polished';
 import * as COLORS from 'shared/styles/colors';
 
-const toggleBackgroundMixin = ({ on }) => ({ toggleOnColor, toggleOffColor }) => {
-  const color = on ? COLORS[toggleOnColor] : COLORS[toggleOffColor];
+// toggle background
+const beforeMixin = ({ checked, width, height, toggleOnColor, toggleOffColor }) => {
+  const position = `position: ${checked ? 'absolute' : 'relative'}`;
+  const bgColor = checked ? COLORS[toggleOnColor] : COLORS[toggleOffColor];
+  const boxShadow = checked && `
+    box-shadow: inset 0 0 8px -2px ${COLORS.greyDark},
+      0 -4px 8px -3px ${transparentize(0.3, COLORS.greyLight)},
+      0 2px 6px ${COLORS.whiteDark};
+  `;
   return `
-    background-color: ${color};
-    background: ${`linear-gradient(${darken(0.08, color)} 0%, ${color} 100%)`};
+    display: block;
+    visibility: visible;
+    content: "";
+    width: ${width};
+    height: ${height};
+    ${position}
+    ${boxShadow}
+    background-color: ${bgColor};
+    background: linear-gradient(${darken(0.08, bgColor)} 0%, ${bgColor} 100%);
+    border: 1px solid ${COLORS.greyDark};
+    border-radius: 50px;
+    transition: all .5s ${timingFunctions('easeOutQuint')};
   `;
 };
 
-// toggle background
-const sharedBeforeMixin = ({ width, height }) => `
-  display: block;
-  content: "";
-  width: ${width};
-  height: ${height};
-  transition: all .5s ${timingFunctions('easeOutQuint')};
-  border: 1px solid ${COLORS.greyDark};
-  border-radius: 50px;
-`;
-
 // toggle knob
-const sharedAfterMixin = ({ on }) => ({ width, height }) => {
-  const transform = `translateX(${on ? '2px' : `calc((${width} - (${width} /3)) + 2px)`})`;
+const afterMixin = ({ checked, width, height }) => {
+  const transform = `translateX(${checked ? '2px' : `calc((${width} - (${width} /3)) + 2px)`})`;
   return `
     display: block;
+    visibility: visible;
+    position: absolute;
     content: "";
     width: calc((${width} / 3) - 4px);
     height: calc((${height}) - 4px);
@@ -49,27 +57,15 @@ export const Input = styled.input`
   vertical-align: middle;
   visibility: hidden;
 
+  &:focus:before {
+    outline: 2px solid purple;
+  }
+
   &:before {
-    visibility: visible;
-    position: relative;
-    box-shadow: inset 0 0 8px -2px ${COLORS.greyDark},
-      0 -4px 8px -2px ${transparentize(0.3, COLORS.greyLight)},
-      0 2px 6px ${COLORS.whiteDark};
-    ${sharedBeforeMixin}
-    ${toggleBackgroundMixin({ on: true })}
+    ${beforeMixin}
   }
-  &:checked:before {
-    position: absolute;
-    ${sharedBeforeMixin}
-    ${toggleBackgroundMixin({ on: false })}
-  }
+
   &:after {
-    position: absolute;
-    visibility: visible;
-    ${sharedAfterMixin({ on: true })}
-  }
-  &:checked:after {
-    position: absolute;
-    ${sharedAfterMixin({ on: false })}
+    ${afterMixin}
   }
 `;

@@ -2,28 +2,28 @@
 
 exports[`<ToggleSwitch /> should adopt custom props 1`] = `
 <styled.input
+  checked={false}
   height="4rem"
   id="toggle2"
   name="someToggle2"
-  onClick={[Function]}
+  onChange={[Function]}
   toggleOffColor="tan"
   toggleOnColor="purple"
   type="checkbox"
-  value={false}
   width="12rem"
 />
 `;
 
 exports[`<ToggleSwitch /> should match baseline snapshot 1`] = `
 <styled.input
+  checked={true}
   height="2rem"
   id="toggle1"
   name="someToggle1"
-  onClick={[Function]}
+  onChange={[Function]}
   toggleOffColor="red"
   toggleOnColor="green"
   type="checkbox"
-  value={true}
   width="6rem"
 />
 `;

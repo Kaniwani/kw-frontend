@@ -8,7 +8,7 @@ storiesOf('components.ToggleSwitch', module)
     <ToggleSwitch
       id="toggle1"
       name="someToggle1"
-      handleClick={action('ToggleSwitch-click')}
+      handleChange={action('ToggleSwitch-change')}
       isChecked
     />
   ))
@@ -16,7 +16,7 @@ storiesOf('components.ToggleSwitch', module)
     <ToggleSwitch
       id="toggle2"
       name="someToggle2"
-      handleClick={action('ToggleSwitch-click')}
+      handleChange={action('ToggleSwitch-change')}
       isChecked={false}
       width="12rem"
       height="4rem"
