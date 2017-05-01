@@ -1,6 +1,9 @@
 import * as API from '../api';
 
 // TODO: real tests!
+// NOTE: these will all get called by actions/sagas,
+// so we could potentially let the testing be done there
+
 // http://facebook.git.skiphub.io/jest/docs/asynchronous.html#promises
 describe('API', () => {
   it.skip('getUserAuth()', () => API.getUserAuth().then((data) => {
