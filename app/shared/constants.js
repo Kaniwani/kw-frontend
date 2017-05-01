@@ -7,16 +7,7 @@
  * // => 12:00am, Nov 2nd 2014
  */
 export const DATE_IN_WORDS = 'hh:mma[,] MMM Do YYYY';
-
 export const MINUTES_SINCE_LAST_SYNC_LIMIT = 5;
-
-// FIXME: could just be an array
-export const PANELS = {
-  INFO: 'info',
-  NOTES: 'notes',
-  SYNONYM: 'synonym',
-  NONE: 'none',
-};
 
 export const SRS_RANKS = {
   ONE: 'APPRENTICE',
@@ -85,9 +76,6 @@ export const PARTS_OF_SPEECH = [
   'Godan verb with gu ending',
 ];
 
-export const MAX_DETAIL_DEPTH = 3;
-export const DETAIL_LEVELS = ['Low', 'Medium', 'High'];
-
 export const ANSWER_TYPES = {
   kanji: '漢字',
   kana: 'かな',
@@ -95,7 +83,6 @@ export const ANSWER_TYPES = {
 
 export const TILDE_JA = '〜';
 export const TILDE_EN = '~';
-
 
 /**
  * Maps names of keys to event.which keycodes { P_LOWERCASE: 80 }

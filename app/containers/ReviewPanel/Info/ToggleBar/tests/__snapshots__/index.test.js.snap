@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ToggleBar /> should adopt optional props 1`] = `
+<styled.section>
+  <Toggle
+    handleClick={[Function]}
+    isActive={true}
+    isDisabled={true}
+  >
+    Notes
+  </Toggle>
+  <Toggle
+    handleClick={[Function]}
+    isActive={false}
+    isDisabled={true}
+  >
+    Info: 
+    High
+  </Toggle>
+  <Toggle
+    handleClick={[Function]}
+    isActive={true}
+    isDisabled={true}
+  >
+    New Synonym
+  </Toggle>
+</styled.section>
+`;
+
+exports[`<ToggleBar /> should match baseline snapshot 1`] = `
+<styled.section>
+  <Toggle
+    handleClick={[Function]}
+    isActive={false}
+    isDisabled={false}
+  >
+    Notes
+  </Toggle>
+  <Toggle
+    handleClick={[Function]}
+    isActive={true}
+    isDisabled={false}
+  >
+    Info: 
+    Low
+  </Toggle>
+  <Toggle
+    handleClick={[Function]}
+    isActive={false}
+    isDisabled={false}
+  >
+    New Synonym
+  </Toggle>
+</styled.section>
+`;

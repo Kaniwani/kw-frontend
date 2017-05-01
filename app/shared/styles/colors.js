@@ -24,9 +24,6 @@ export const tan = '#e2b46a';
 // safer than transparent keyword since browser implementations are different
 export const transparent = 'rgba(0, 0, 0, 0)';
 
-// matches review background svg
-export const reviewBackground = '#e5e5e5';
-
 export const link = blueLight;
 export const linkHover = blueDark;
 
