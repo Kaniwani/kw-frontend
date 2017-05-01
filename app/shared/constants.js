@@ -45,6 +45,7 @@ export const PARTS_OF_SPEECH = [
   'I adjective',
   'Proper noun',
   'Adjective',
+  'Pre-noun adjectival',
   'Adverb',
   'Numeral',
   'Expression',
@@ -53,6 +54,35 @@ export const PARTS_OF_SPEECH = [
   'Counter',
   'Interjection',
   'Conjunction',
+  'No-adjective',
+  'Na-adjective',
+  // THESE ARE FROM jisho2json scrape
+  // TODO: Will have to sanitise during import
+  // FIXME: replace "Godan verb with x ending" to just "Godan verb"
+  // FIXME: replace "Noun - used as a prefix/suffix" to just "Prefix" & "Suffix"
+  // FIXME: replace "Noun or verb acting prenominally" with "Prenominal"
+  // FIXME: Titlecase "intransitive verb"
+  'Adverb taking the \'to\' particle',
+  'Noun - used as a suffix',
+  'intransitive verb',
+  'I-adjective',
+  'Kuru verb - special class',
+  'Full name',
+  'Suru verb - irregular',
+  'Noun - used as a prefix',
+  'Noun - used as a suffix',
+  'Adverbial noun',
+  'Temporal noun',
+  'Place',
+  'Auxiliary verb',
+  'Noun or verb acting prenominally',
+  'Taru-adjective',
+  'Godan verb with ru ending',
+  'Godan verb with u ending',
+  'Godan verb with ku ending',
+  'Godan verb with su ending',
+  'Godan verb with mu ending',
+  'Godan verb with gu ending',
 ];
 
 export const MAX_DETAIL_DEPTH = 3;

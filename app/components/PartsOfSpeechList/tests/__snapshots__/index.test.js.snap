@@ -116,6 +116,12 @@ exports[`<PartsOfSpeechList /> should match PARTS_OF_SPEECH constant 1`] = `
     bgColor="white"
     color="blackLight"
   >
+    Pre-noun adjectival
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
     Adverb
   </Chip>
   <Chip
@@ -159,6 +165,144 @@ exports[`<PartsOfSpeechList /> should match PARTS_OF_SPEECH constant 1`] = `
     color="blackLight"
   >
     Conjunction
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    No-adjective
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Na-adjective
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Adverb taking the 'to' particle
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Noun - used as a suffix
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    intransitive verb
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    I-adjective
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Kuru verb - special class
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Full name
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Suru verb - irregular
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Noun - used as a prefix
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Noun - used as a suffix
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Adverbial noun
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Temporal noun
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Place
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Auxiliary verb
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Noun or verb acting prenominally
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Taru-adjective
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Godan verb with ru ending
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Godan verb with u ending
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Godan verb with ku ending
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Godan verb with su ending
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Godan verb with mu ending
+  </Chip>
+  <Chip
+    bgColor="white"
+    color="blackLight"
+  >
+    Godan verb with gu ending
   </Chip>
 </styled.ul>
 `;
