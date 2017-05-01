@@ -2,7 +2,7 @@ import React from 'react';
 import debounce from 'lodash/debounce';
 
 import smoothScrollY from 'utils/smoothScrollY';
-import ScrollTopButton from 'components/ScrollTopButton';
+import ScrollTopButton from './ScrollTopButton';
 
 class ScrollToTop extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   state = {
