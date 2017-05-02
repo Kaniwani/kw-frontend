@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ReadingDetail /> should match baseline snapshot 1`] = `
+<styled.div>
+  <Styled(P)
+    lang="ja"
+  >
+    近
+  </Styled(P)>
+  <Styled(P)
+    lang="ja"
+  >
+    ちか
+    じか
+  </Styled(P)>
+</styled.div>
+`;
