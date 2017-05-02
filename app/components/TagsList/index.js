@@ -6,7 +6,6 @@ import { PARTS_OF_SPEECH } from 'shared/constants';
 import Ul from 'base/Ul';
 import Chip from 'components/Chip';
 
-
 const selectColors = (text) => {
   if (/common/i.test(text)) {
     return {
@@ -22,20 +21,20 @@ const selectColors = (text) => {
   return {};
 };
 
-PartsOfSpeechList.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.oneOf(PARTS_OF_SPEECH)),
+TagsList.propTypes = {
+  tags: PropTypes.arrayOf(PropTypes.oneOf(PARTS_OF_SPEECH)),
 };
 
-PartsOfSpeechList.defaultProps = {
-  items: [],
+TagsList.defaultProps = {
+  tags: [],
 };
 
-function PartsOfSpeechList({ items }) {
+function TagsList({ tags }) {
   return (
     <Ul plainList>
-      {items.map((text) => <Chip key={cuid()} {...selectColors(text)}>{text}</Chip>)}
+      {tags.map((text) => <Chip key={cuid()} {...selectColors(text)}>{text}</Chip>)}
     </Ul>
   );
 }
 
-export default PartsOfSpeechList;
+export default TagsList;
