@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SentencePair /> should match baseline snapshot 1`] = `
+<div>
+  <p
+    class="dbElpP biKqCc"
+    lang="ja"
+  >
+    <a
+      class="koXDKo"
+      href="http://jisho.org/search/その言葉の漢字は難しい"
+      rel="external noopener noreferrer"
+      target="_blank"
+      title="Deconstruct sentence at Jisho.org"
+    >
+      <span>
+        その言葉の
+      </span>
+      <mark
+        class="hMFuqV"
+      >
+        漢字
+      </mark>
+      <span>
+        は難しい
+      </span>
+    </a>
+  </p>
+  <p
+    class="dbElpP biKqCc"
+  >
+    This sentence's phrase is difficult
+  </p>
+</div>
+`;

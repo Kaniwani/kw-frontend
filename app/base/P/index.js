@@ -14,9 +14,9 @@ P.defaultProps = {
   align: 'left',
 };
 
-function P({ children, textAlign, align }) {
+function P({ children, textAlign, align, ...props }) {
   return (
-    <StyledP textAlign={textAlign} align={align}>
+    <StyledP textAlign={textAlign} align={align} {...props}>
       {children}
     </StyledP>
   );
