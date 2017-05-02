@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MarkedSentence /> should match baseline snapshot 1`] = `
+<p
+  class="dbElpP biKqCc"
+  lang="ja"
+>
+  <a
+    class="koXDKo"
+    href="http://jisho.org/search/その言葉の漢字は難しい"
+    rel="external noopener noreferrer"
+    target="_blank"
+    title="Deconstruct sentence at Jisho.org"
+  >
+    <span />
+    <mark
+      class="hMFuqV"
+    />
+    <span>
+      その言葉の漢字は難しい
+    </span>
+  </a>
+</p>
+`;
+
+exports[`<MarkedSentence /> should match character snapshot 1`] = `
+<p
+  class="dbElpP biKqCc"
+  lang="ja"
+>
+  <a
+    class="koXDKo"
+    href="http://jisho.org/search/その言葉の漢字は難しい"
+    rel="external noopener noreferrer"
+    target="_blank"
+    title="Deconstruct sentence at Jisho.org"
+  >
+    <span>
+      その言葉の
+    </span>
+    <mark
+      class="hMFuqV"
+    >
+      漢字
+    </mark>
+    <span>
+      は難しい
+    </span>
+  </a>
+</p>
+`;
+
+exports[`<MarkedSentence /> should match kana snapshot 1`] = `
+<p
+  class="dbElpP biKqCc"
+  lang="ja"
+>
+  <a
+    class="koXDKo"
+    href="http://jisho.org/search/その言葉の漢字は難しい"
+    rel="external noopener noreferrer"
+    target="_blank"
+    title="Deconstruct sentence at Jisho.org"
+  >
+    <span />
+    <mark
+      class="hMFuqV"
+    >
+      その
+    </mark>
+    <span>
+      言葉の漢字は難しい
+    </span>
+  </a>
+</p>
+`;
