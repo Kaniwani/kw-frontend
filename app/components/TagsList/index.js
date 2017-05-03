@@ -29,9 +29,9 @@ TagsList.defaultProps = {
   tags: [],
 };
 
-function TagsList({ tags }) {
+function TagsList({ tags, ...props }) {
   return (
-    <Ul plainList>
+    <Ul plainList {...props} >
       {tags.map((text) => <Chip key={cuid()} {...selectColors(text)}>{text}</Chip>)}
     </Ul>
   );

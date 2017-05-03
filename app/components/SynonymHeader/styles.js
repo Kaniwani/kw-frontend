@@ -10,7 +10,6 @@ import { transparent, whiteLight, red } from 'shared/styles/colors';
 export const Wrapper = styled.div`
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
 `;
 
 export const Heading = styled(H3)`
@@ -25,15 +24,9 @@ export const Heading = styled(H3)`
 
 export const Tags = styled(TagsList)`
   ${elementGutter}
-  padding-left: 1rem;
   display: flex;
   flex-flow: row wrap;
-  flex: 1 1 0%;
-  align-self: flex-end;
-  justify-content: flex-end;
-  /* negate chip margin */
-  margin-top: -.15em;
-  margin-bottom: -.15em;
+  align-self: center;
 `;
 
 export const IconButton = styled.button`
@@ -44,7 +37,8 @@ export const IconButton = styled.button`
   transform: translateY(1px);
   padding: 2px;
   line-height: 1;
-  margin-left: .4rem;
+  margin-left: .5em;
+  margin-right: .75em;
   font-size: .75em;
   background-color: ${transparent};
   color: currentColor;

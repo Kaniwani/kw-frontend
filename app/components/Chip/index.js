@@ -15,9 +15,9 @@ Chip.defaultProps = {
   bgColor: 'white',
 };
 
-function Chip({ color, bgColor, children }) {
+function Chip({ color, bgColor, children, ...props }) {
   return (
-    <Li color={color} bgColor={bgColor}>
+    <Li color={color} bgColor={bgColor} {...props} >
       <Span>{children}</Span>
     </Li>
   );

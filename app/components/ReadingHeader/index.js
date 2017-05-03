@@ -19,13 +19,13 @@ function ReadingHeader({ wkVocabLink, kwVocabLink, tags }) {
     <Wrapper>
       <Heading>
         Reading
-        <VocabLink href={wkVocabLink} title="View on WaniKani" external>
-          WK
-        </VocabLink>
-        <VocabLink to={kwVocabLink} title="View on KaniWani" target="_blank">
-          KW
-        </VocabLink>
       </Heading>
+      <VocabLink href={wkVocabLink} title="View on WaniKani" external>
+        WK
+      </VocabLink>
+      <VocabLink to={kwVocabLink} title="View on KaniWani" target="_blank">
+        KW
+      </VocabLink>
       <Tags tags={tags} />
     </Wrapper>
   );

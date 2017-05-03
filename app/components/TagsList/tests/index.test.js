@@ -8,9 +8,9 @@ describe('<TagsList />', () => {
     expect(shallow(<TagsList />)).toMatchSnapshot();
   });
   it('should match PARTS_OF_SPEECH constants', () => {
-    expect(shallow(<TagsList items={PARTS_OF_SPEECH} />)).toMatchSnapshot();
+    expect(shallow(<TagsList tags={PARTS_OF_SPEECH} />)).toMatchSnapshot();
   });
-  it('should set colors for common and jlpt items', () => {
-    expect(shallow(<TagsList items={['Common', 'JLPT N1']} />)).toMatchSnapshot();
+  it('should set colors for common and jlpt tags', () => {
+    expect(shallow(<TagsList tags={['Common', 'JLPT N1']} />)).toMatchSnapshot();
   });
 });

@@ -5,4 +5,4 @@ import { PARTS_OF_SPEECH } from 'shared/constants';
 import TagsList from '../index';
 
 storiesOf('components.TagsList', module)
-  .add('TagsList', () => <TagsList items={PARTS_OF_SPEECH} />);
+  .add('TagsList', () => <TagsList tags={PARTS_OF_SPEECH} />);

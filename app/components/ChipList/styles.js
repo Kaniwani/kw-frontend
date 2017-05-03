@@ -3,5 +3,5 @@ import { resetList } from 'shared/styles/utils';
 
 export const Ul = styled.ul`
   ${resetList}
-  /* TODO: any particular chiplist css style? */
+  margin: .15em;
 `;
