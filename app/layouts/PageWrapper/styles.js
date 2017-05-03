@@ -18,7 +18,7 @@ const style = css`
   }}
 `;
 
-export const StyledWrapper = styled(({
+export const Wrapper = styled(({
   tag,
   children,
   fullWidth,

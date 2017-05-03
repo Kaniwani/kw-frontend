@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { StyledWrapper } from './styles';
+import { Wrapper } from './styles';
 
-Wrapper.propTypes = {
+PageWrapper.propTypes = {
   fullWidth: PropTypes.bool,
   fullWidthBg: PropTypes.bool,
   tag: PropTypes.string,
@@ -13,22 +13,22 @@ Wrapper.propTypes = {
   ]).isRequired,
 };
 
-Wrapper.defaultProps = {
+PageWrapper.defaultProps = {
   tag: 'div',
   fullWidth: false,
   fullWidthBg: false,
 };
 
-function Wrapper({ tag, children, fullWidth, fullWidthBg }) {
+function PageWrapper({ tag, children, fullWidth, fullWidthBg }) {
   return (
-    <StyledWrapper
+    <Wrapper
       tag={tag}
       fullWidth={fullWidth}
       fullWidthBg={fullWidthBg}
     >
       {children}
-    </StyledWrapper>
+    </Wrapper>
   );
 }
 
-export default Wrapper;
+export default PageWrapper;
