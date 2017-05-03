@@ -4,10 +4,8 @@ import { transparentize } from 'polished';
 import P from 'base/P';
 
 import { transparent, greyDark, purpleLight } from 'shared/styles/colors';
-import { elementGutter } from 'shared/styles/sizing';
 
 export const Sentence = styled(P)`
-  ${elementGutter}
   line-height: 1;
   color: ${greyDark};
 

@@ -14,7 +14,7 @@ Element.propTypes = {
   alignSelf: PropTypes.string,
   flex: PropTypes.string,
   flexCenter: PropTypes.bool,
-  flexCol: PropTypes.bool,
+  flexColumn: PropTypes.bool,
   flexDisplay: PropTypes.string,
   flexRow: PropTypes.bool,
   flexWrap: PropTypes.bool,
@@ -30,7 +30,7 @@ Element.defaultProps = {
   alignSelf: '',
   flex: '',
   flexCenter: false,
-  flexCol: false,
+  flexColumn: false,
   flexDisplay: '', // defaults to 'flex', alternative is to pass 'inline-flex'
   flexRow: false,
   flexWrap: false,

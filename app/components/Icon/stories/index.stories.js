@@ -18,7 +18,7 @@ storiesOf('components.Icons', module)
             size="2rem"
             color={randomHexColor()}
           />
-          <span style={{ marginLeft: '.5em' }}>{name}</span>
+          <span style={{ marginLeft: '.5em', fontSize: '.7em' }}>{name}</span>
         </Element>
       ))}
     </Container>

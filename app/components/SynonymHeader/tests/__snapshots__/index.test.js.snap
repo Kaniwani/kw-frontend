@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SynonymHeader /> should match baseline snapshot 1`] = `
+<styled.div>
+  <styled.h3>
+    Synonym
+  </styled.h3>
+  <Styled(IconButton)
+    name="CLOSE"
+    onClick={[Function]}
+    size="1.3em"
+    title="Remove Synonym"
+    type="button"
+  />
+  <Styled(TagsList)
+    tags={
+      Array [
+        "JLPT N1",
+        "JLPT N2",
+        "JLPT N3",
+        "JLPT N4",
+        "JLPT N5",
+        "Common",
+        "Intransitive verb",
+        "Godan verb",
+        "Noun",
+        "Suru verb",
+      ]
+    }
+  />
+</styled.div>
+`;

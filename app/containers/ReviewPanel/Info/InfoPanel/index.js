@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import cuid from 'cuid';
+import { branch, renderNothing } from 'recompose';
 
-import { Wrapper } from '../styles';
+import { PanelWrapper } from '../styles';
+// import Readings from './Readings';
+// import { Synonyms } from './Synonyms';
 
 InfoPanel.propTypes = {
   reviewEntry: PropTypes.object.isRequired,
   detailLevel: PropTypes.string.isRequired,
 };
-
-const itemList = ({ items, ...props }) => items.map((item) => <InfoPanel key={cuid()} item={item} {...props} />);
 
 function InfoPanel({
   detailLevel,
@@ -21,10 +21,16 @@ function InfoPanel({
     },
   },
 }) {
+  // FIXME: padding adjustments at this stage using detailLevel, not lower!
   return (
-    <Wrapper detailLevel={detailLevel} >
-      {readings && itemList({ items: readings, category: 'Reading', id, detailLevel })}
-      {synonyms && itemList({ items: synonyms, category: 'Synonym', detailLevel })}
-    </Wrapper>
+    <PanelWrapper>
+      info go here
+      {/* <Readings reviewId={id} entries={readings} /> */}
+      {/* <Synonyms reviewId={id} entries={synonyms} /> */}
+    </PanelWrapper>
   );
 }
+
+const hideIfNotActive = branch(({ isActive }) => !isActive, renderNothing);
+
+export default hideIfNotActive(InfoPanel);

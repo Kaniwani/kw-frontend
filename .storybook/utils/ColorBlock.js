@@ -24,7 +24,7 @@ ColorBlock.propTypes = {
 
 ColorBlock.defaultProps = {
   size: '100px',
-  margin: '.5em',
+  margin: '.25em',
   color: false, // force randomHexColor() on render
 };
 

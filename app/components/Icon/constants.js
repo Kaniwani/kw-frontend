@@ -187,5 +187,5 @@ export const SRS_ICONS = {
   },
 };
 
-const ICONS = Object.assign(POLYMER_ICONS, NOUN_PROJECT_ICONS, SRS_ICONS);
+export const ICONS = Object.assign(POLYMER_ICONS, NOUN_PROJECT_ICONS, SRS_ICONS);
 export default ICONS;

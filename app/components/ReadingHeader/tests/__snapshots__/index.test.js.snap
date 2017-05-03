@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ReadingHeader /> should match baseline snapshot 1`] = `
+<styled.div>
+  <styled.h3>
+    Reading
+  </styled.h3>
+  <Styled(A)
+    external={true}
+    href="#"
+    title="View on WaniKani"
+  >
+    WK
+  </Styled(A)>
+  <Styled(A)
+    target="_blank"
+    title="View on KaniWani"
+    to="#"
+  >
+    KW
+  </Styled(A)>
+  <Styled(TagsList)
+    tags={
+      Array [
+        "JLPT N1",
+        "JLPT N2",
+        "JLPT N3",
+        "JLPT N4",
+        "JLPT N5",
+        "Common",
+        "Intransitive verb",
+        "Godan verb",
+        "Noun",
+        "Suru verb",
+      ]
+    }
+  />
+</styled.div>
+`;

@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<IconButton />  should match baseline snapshot of required props 1`] = `
+<styled.button
+  onClick={[Function]}
+  title="Does an action"
+  type="button"
+>
+  <Icon
+    color="currentColor"
+    display="block"
+    name="ADD"
+    size="1em"
+  />
+</styled.button>
+`;

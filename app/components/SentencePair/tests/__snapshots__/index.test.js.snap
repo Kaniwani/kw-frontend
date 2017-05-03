@@ -3,7 +3,7 @@
 exports[`<SentencePair /> should match baseline snapshot 1`] = `
 <div>
   <p
-    class="dbElpP biKqCc"
+    class="sMpVQ iFxjYr"
     lang="ja"
   >
     <a
@@ -27,7 +27,7 @@ exports[`<SentencePair /> should match baseline snapshot 1`] = `
     </a>
   </p>
   <p
-    class="dbElpP biKqCc"
+    class="sMpVQ iFxjYr"
   >
     This sentence's phrase is difficult
   </p>

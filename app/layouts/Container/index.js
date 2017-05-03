@@ -16,7 +16,7 @@ Container.propTypes = {
   alignSelf: PropTypes.string,
   flex: PropTypes.string,
   flexCenter: PropTypes.bool,
-  flexCol: PropTypes.bool,
+  flexColumn: PropTypes.bool,
   flexRow: PropTypes.bool,
   flexWrap: PropTypes.bool,
   justifyContent: PropTypes.string,
@@ -32,7 +32,7 @@ Container.defaultProps = {
   alignSelf: '',
   flex: '',
   flexCenter: false,
-  flexCol: false,
+  flexColumn: false,
   flexDisplay: '', // defaults to 'flex', alternative is to pass 'inline-flex'
   flexRow: false,
   flexWrap: false,

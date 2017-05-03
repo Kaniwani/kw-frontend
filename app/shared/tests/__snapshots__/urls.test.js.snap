@@ -46,32 +46,32 @@ exports[`URLS //localhost:8000/api/v1/user/sync should match baseline snapshot 1
 
 exports[`URLS //localhost:8000/api/v1/vocabulary should match baseline snapshot 1`] = `"//localhost:8000/api/v1/vocabulary"`;
 
-exports[`URLS function announcementEntry(id) {return (0, _urlJoin2.default)(announcement, id);} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/announcement/testParam"`;
+exports[`URLS function (id) {/* istanbul ignore next */++cov_2bph24mex.f[0];++cov_2bph24mex.s[19];return (/* istanbul ignore next */(0, _urlJoin2.default)(reviews, id));} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/review/testParam"`;
 
-exports[`URLS function createJishoApiUrl(keyword) {return '//jisho.org/api/v1/search/words?keyword=' + keyword;} should match baseline snapshot 1`] = `"//jisho.org/api/v1/search/words?keyword=testParam"`;
+exports[`URLS function (id) {/* istanbul ignore next */++cov_2bph24mex.f[1];++cov_2bph24mex.s[21];return (/* istanbul ignore next */(0, _urlJoin2.default)(reviewEntry(id), 'correct'));} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/review/testParam/correct"`;
 
-exports[`URLS function createJishoUrl(keyword) {return '//jisho.org/search/' + keyword;} should match baseline snapshot 1`] = `"//jisho.org/search/testParam"`;
+exports[`URLS function (id) {/* istanbul ignore next */++cov_2bph24mex.f[2];++cov_2bph24mex.s[23];return (/* istanbul ignore next */(0, _urlJoin2.default)(reviewEntry(id), 'incorrect'));} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/review/testParam/incorrect"`;
 
-exports[`URLS function faqEntry(id) {return (0, _urlJoin2.default)(faq, id);} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/faq/testParam"`;
+exports[`URLS function (id) {/* istanbul ignore next */++cov_2bph24mex.f[3];++cov_2bph24mex.s[25];return (/* istanbul ignore next */(0, _urlJoin2.default)(reviewEntry(id), 'hide'));} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/review/testParam/hide"`;
 
-exports[`URLS function hideReview(id) {return (0, _urlJoin2.default)(reviewEntry(id), 'hide');} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/review/testParam/hide"`;
+exports[`URLS function (id) {/* istanbul ignore next */++cov_2bph24mex.f[4];++cov_2bph24mex.s[27];return (/* istanbul ignore next */(0, _urlJoin2.default)(reviewEntry(id), 'unhide'));} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/review/testParam/unhide"`;
 
-exports[`URLS function levelEntry(level) {return (0, _urlJoin2.default)(levels, level);} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/level/testParam"`;
+exports[`URLS function (id) {/* istanbul ignore next */++cov_2bph24mex.f[5];++cov_2bph24mex.s[30];return (/* istanbul ignore next */(0, _urlJoin2.default)(synonym, id));} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/synonym/testParam"`;
 
-exports[`URLS function lockLevel(level) {return (0, _urlJoin2.default)(levelEntry(level), 'lock');} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/level/testParam/lock"`;
+exports[`URLS function (id) {/* istanbul ignore next */++cov_2bph24mex.f[6];++cov_2bph24mex.s[33];return (/* istanbul ignore next */(0, _urlJoin2.default)(vocabulary, id));} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/vocabulary/testParam"`;
 
-exports[`URLS function readingEntry(id) {return (0, _urlJoin2.default)(reading, id);} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/reading/testParam"`;
+exports[`URLS function (id) {/* istanbul ignore next */++cov_2bph24mex.f[7];++cov_2bph24mex.s[36];return (/* istanbul ignore next */(0, _urlJoin2.default)(reading, id));} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/reading/testParam"`;
 
-exports[`URLS function reviewCorrect(id) {return (0, _urlJoin2.default)(reviewEntry(id), 'correct');} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/review/testParam/correct"`;
+exports[`URLS function (id) {/* istanbul ignore next */++cov_2bph24mex.f[11];++cov_2bph24mex.s[46];return (/* istanbul ignore next */(0, _urlJoin2.default)(faq, id));} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/faq/testParam"`;
 
-exports[`URLS function reviewEntry(id) {return (0, _urlJoin2.default)(reviews, id);} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/review/testParam"`;
+exports[`URLS function (id) {/* istanbul ignore next */++cov_2bph24mex.f[12];++cov_2bph24mex.s[49];return (/* istanbul ignore next */(0, _urlJoin2.default)(announcement, id));} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/announcement/testParam"`;
 
-exports[`URLS function reviewIncorrect(id) {return (0, _urlJoin2.default)(reviewEntry(id), 'incorrect');} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/review/testParam/incorrect"`;
+exports[`URLS function (keyword) {/* istanbul ignore next */++cov_2bph24mex.f[13];++cov_2bph24mex.s[52];return (/* istanbul ignore next */'//jisho.org/api/v1/search/words?keyword=' + keyword);} should match baseline snapshot 1`] = `"//jisho.org/api/v1/search/words?keyword=testParam"`;
 
-exports[`URLS function synonymEntry(id) {return (0, _urlJoin2.default)(synonym, id);} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/synonym/testParam"`;
+exports[`URLS function (keyword) {/* istanbul ignore next */++cov_2bph24mex.f[14];++cov_2bph24mex.s[54];return (/* istanbul ignore next */'//jisho.org/search/' + keyword);} should match baseline snapshot 1`] = `"//jisho.org/search/testParam"`;
 
-exports[`URLS function unhideReview(id) {return (0, _urlJoin2.default)(reviewEntry(id), 'unhide');} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/review/testParam/unhide"`;
+exports[`URLS function (level) {/* istanbul ignore next */++cov_2bph24mex.f[8];++cov_2bph24mex.s[39];return (/* istanbul ignore next */(0, _urlJoin2.default)(levels, level));} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/level/testParam"`;
 
-exports[`URLS function unlockLevel(level) {return (0, _urlJoin2.default)(levelEntry(level), 'unlock');} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/level/testParam/unlock"`;
+exports[`URLS function (level) {/* istanbul ignore next */++cov_2bph24mex.f[9];++cov_2bph24mex.s[41];return (/* istanbul ignore next */(0, _urlJoin2.default)(levelEntry(level), 'lock'));} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/level/testParam/lock"`;
 
-exports[`URLS function vocabularyEntry(id) {return (0, _urlJoin2.default)(vocabulary, id);} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/vocabulary/testParam"`;
+exports[`URLS function (level) {/* istanbul ignore next */++cov_2bph24mex.f[10];++cov_2bph24mex.s[43];return (/* istanbul ignore next */(0, _urlJoin2.default)(levelEntry(level), 'unlock'));} should match baseline snapshot 1`] = `"//localhost:8000/api/v1/level/testParam/unlock"`;

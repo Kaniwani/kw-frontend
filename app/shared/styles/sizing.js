@@ -28,6 +28,23 @@ export const padding = {
   },
 };
 
+export const halfElementGutterMobile = `
+  ${padding.mobile.inner.y / 2}rem ${padding.mobile.inner.x / 2}rem
+`;
+
+export const halfElementGutterDesktop = `
+  ${padding.desktop.inner.y / 2}rem ${padding.desktop.inner.x / 2}rem
+`;
+
+export const halfContainerGutterMobile = `
+  ${padding.mobile.outer.y / 2}rem ${padding.mobile.outer.x / 2}rem
+`;
+
+export const halfContainerGutterDesktop = `
+  ${padding.desktop.outer.y / 2}rem ${padding.desktop.outer.x / 2}rem
+`;
+
+
 // Borders
 export const borderRadius = '.2em';
 export const borderRadiusSmall = '3px';

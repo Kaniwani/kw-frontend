@@ -11,7 +11,6 @@ exports[`<ScrollTopButton /> should adopt isVisible and isScrolling props 1`] = 
     color="white"
     display="inline-block"
     name="ARROW_UP"
-    preserveAspectRatio="xMidYMid meet"
     size="2.5rem"
   />
 </styled.button>
@@ -28,7 +27,6 @@ exports[`<ScrollTopButton /> should match the baseline snapshot 1`] = `
     color="white"
     display="inline-block"
     name="ARROW_UP"
-    preserveAspectRatio="xMidYMid meet"
     size="2.5rem"
   />
 </styled.button>

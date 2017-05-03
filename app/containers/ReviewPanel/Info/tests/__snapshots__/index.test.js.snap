@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ReviewInfo /> should match baseline snapshot 1`] = `
+<ReviewInfo
+  addSynonym={
+    Object {
+      "isActive": false,
+    }
+  }
+  detailLevel="LOW"
+  info={
+    Object {
+      "isActive": false,
+    }
+  }
+  isDisabled={true}
+  notes={
+    Object {
+      "isActive": false,
+    }
+  }
+>
+  <styled.div>
+    <div
+      className="cJTRcE"
+    >
+      <ToggleBar
+        addSynonym={
+          Object {
+            "isActive": false,
+          }
+        }
+        detailLevel="LOW"
+        handleInfoClick={[Function]}
+        handleNotesClick={[Function]}
+        handleSynonymClick={[Function]}
+        info={
+          Object {
+            "isActive": false,
+          }
+        }
+        isDisabled={true}
+        notes={
+          Object {
+            "isActive": false,
+          }
+        }
+      >
+        <styled.div>
+          <div
+            className="iVgsNn"
+          >
+            <Toggle
+              handleClick={[Function]}
+              isActive={false}
+              isDisabled={true}
+            >
+              <styled.button
+                disabled={true}
+                isActive={false}
+                onClick={[Function]}
+              >
+                <button
+                  className="iUdAFJ"
+                  disabled={true}
+                  onClick={[Function]}
+                >
+                  Notes
+                </button>
+              </styled.button>
+            </Toggle>
+            <Toggle
+              handleClick={[Function]}
+              isActive={false}
+              isDisabled={true}
+            >
+              <styled.button
+                disabled={true}
+                isActive={false}
+                onClick={[Function]}
+              >
+                <button
+                  className="iUdAFJ"
+                  disabled={true}
+                  onClick={[Function]}
+                >
+                  Info: 
+                  Low
+                </button>
+              </styled.button>
+            </Toggle>
+            <Toggle
+              handleClick={[Function]}
+              isActive={false}
+              isDisabled={true}
+            >
+              <styled.button
+                disabled={true}
+                isActive={false}
+                onClick={[Function]}
+              >
+                <button
+                  className="iUdAFJ"
+                  disabled={true}
+                  onClick={[Function]}
+                >
+                  New Synonym
+                </button>
+              </styled.button>
+            </Toggle>
+          </div>
+        </styled.div>
+      </ToggleBar>
+      <styled.div>
+        <div
+          className="htAkrB"
+        >
+          <branch(NotesPanel)
+            detailLevel="LOW"
+            isActive={false}
+          >
+            <Nothing
+              detailLevel="LOW"
+              isActive={false}
+            />
+          </branch(NotesPanel)>
+          <branch(InfoPanel)
+            detailLevel="LOW"
+            isActive={false}
+          >
+            <Nothing
+              detailLevel="LOW"
+              isActive={false}
+            />
+          </branch(InfoPanel)>
+          <branch(AddSynonymPanel)
+            addPadding={false}
+            isActive={false}
+          >
+            <Nothing
+              addPadding={false}
+              isActive={false}
+            />
+          </branch(AddSynonymPanel)>
+        </div>
+      </styled.div>
+    </div>
+  </styled.div>
+</ReviewInfo>
+`;

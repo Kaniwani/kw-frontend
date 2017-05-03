@@ -1,11 +1,13 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { lighten } from 'polished';
+import { epsilon } from 'shared/styles/typography';
 import { transitionAllEase } from 'shared/styles/animation';
 
 import A from 'base/A';
 
 const style = css`
+  ${epsilon}
   ${transitionAllEase}
   display: inline-block;
   box-sizing: border-box;

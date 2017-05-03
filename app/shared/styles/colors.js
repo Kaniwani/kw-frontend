@@ -13,13 +13,14 @@ export const purpleDark = '#6331b9';
 export const blueLight = '#30c0f9';
 export const blue = '#4c81d6';
 export const blueDark = '#2e50dc';
+export const green = '#7fd468';
 export const pink = '#ff00c3';
 export const red = '#e2325b';
 export const orange = '#f66f46';
-export const green = '#7fd468';
-export const golden = '#f7f7c9';
+export const yellowOrange = '#ff9800';
 export const yellow = '#f5d800';
 export const tan = '#e2b46a';
+export const golden = '#f7f7c9';
 
 // safer than transparent keyword since browser implementations are different
 export const transparent = 'rgba(0, 0, 0, 0)';

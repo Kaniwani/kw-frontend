@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
 import { mod1, mod2 } from 'shared/styles/sizing';
+import { elementGutter } from 'shared/styles/layout';
 import { fluidType } from 'shared/styles/utils';
 
 /* 300, 400, 700 weights available */
@@ -21,24 +22,22 @@ const generateFontSize = (exponent) => {
 };
 
 export const headingRhythm = `
-  line-height: 1.2;
-  letter-spacing: -1px;
+  ${elementGutter}
   margin-top: 0;
   margin-bottom: 0;
+  line-height: 1.2;
+  letter-spacing: -1px;
   &:not(:first-child) {
-    margin-top: ${0.5 * mod2}em;
+    margin-top: ${0.3 * mod2}em;
     margin-bottom: 0;
   }
 `;
 
 export const bodyRhythm = `
-  line-height: 1.4;
+  ${elementGutter}
   margin-top: 0;
   margin-bottom: 0;
-  &:not(:first-child) {
-    margin-top: .4em;
-    margin-bottom: 0;
-  }
+  line-height: 1.3;
 `;
 
 export const giga = fluidType(22, 48, 300, 2000);
@@ -61,7 +60,7 @@ export const gamma = css`
   ${generateFontSize(2)}
   letter-spacing: -0.02em;
 `;
-export const delta = generateFontSize(1);  // h4
+export const delta = generateFontSize(1.05);  // h4
 export const epsilon = generateFontSize(0.75);  // h5 & body
 export const zeta = generateFontSize(0.6);  // h6
 // Smaller

@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 
-import ListItem from 'components/ListItem';
+import ListItem from '../ListItem';
 import List from '../index';
 
 const generateTextArray = (text = '', count = 20) => Array.from({ length: count }).map((_, i) => `${text}${i}`);

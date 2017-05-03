@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { fromJS } from 'immutable';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import { branch, renderNothing } from 'recompose';
+// import { connect } from 'react-redux';
+// import { createStructuredSelector } from 'reselect';
 
 import blockEvent from 'utils/blockEvent';
 import { SynonymRecord } from 'shared/models';
-import { ANSWER_TYPES, KEYCODES, PANELS } from 'shared/constants';
-import AddSynonymForm from 'containers/AddSynonymForm';
+import { ANSWER_TYPES, KEYCODES } from 'shared/constants';
+// import AddSynonymForm from 'containers/AddSynonymForm';
 
-import { Wrapper, PanelWrapper } from '../styles';
+import { PanelWrapper } from '../styles';
 
 class AddSynonymPanel extends React.Component {
   static propTypes = {
@@ -57,25 +57,24 @@ class AddSynonymPanel extends React.Component {
     })));
 
   render() {
-    const { answerType, userAnswer } = this.props;
+    // const { answerType, userAnswer } = this.props;
     return (
-      <Wrapper>
-        <PanelWrapper innerRef={(node) => { this.panelNode = node; }}>
-          <AddSynonymForm
-            onSubmit={(synonym) => this.handleSubmit(synonym)}
-            userAnswer={userAnswer}
-            answerType={answerType}
-            initialValues={fromJS({
-              kanji: this.getInitialValue('kanji', answerType, userAnswer),
-              kana: this.getInitialValue('kana', answerType, userAnswer),
-            })}
-          />
-        </PanelWrapper>
-      </Wrapper>
+      <PanelWrapper innerRef={(node) => { this.panelNode = node; }}>
+        {/* <AddSynonymForm
+          onSubmit={(synonym) => this.handleSubmit(synonym)}
+          userAnswer={userAnswer}
+          answerType={answerType}
+          initialValues={{
+            kanji: this.getInitialValue('kanji', answerType, userAnswer),
+            kana: this.getInitialValue('kana', answerType, userAnswer),
+          }}
+        /> */}
+        synonyms yo
+      </PanelWrapper>
     );
   }
 }
-
+/*
 const mapStateToProps = createStructuredSelector({
   userAnswer: selectAnswerInput,
   answerType: selectAnswerType,
@@ -87,9 +86,10 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(synonymActions.addSynonymRequest(synonym)),
   handleClose: () => {
     dispatch(reviewActions.updateAnswer({ focus: true }));
-    dispatch(reviewActions.updatePanels({ show: PANELS.INFO }));
+    dispatch(reviewActions.updatePanels({ info: { isActive: true } }));
   },
-});
+});*/
 
+const hideIfNotActive = branch(({ isActive }) => !isActive, renderNothing);
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddSynonymPanel);
+export default hideIfNotActive(/* connect(mapStateToProps, mapDispatchToProps)(*/AddSynonymPanel)/* )*/;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import PartsOfSpeechList from 'components/PartsOfSpeechList';
+import TagsList from 'components/TagsList';
 import { white, purpleDark } from 'shared/styles/colors';
 import { giga } from 'shared/styles/typography';
 
@@ -29,7 +29,7 @@ export const Question = styled.h1`
   padding: 2em .5em;
 `;
 
-export const PartsOfSpeech = styled(PartsOfSpeechList)`
+export const Tags = styled(TagsList)`
   display: flex;
   align-self: flex-start;
   flex-flow: row wrap;

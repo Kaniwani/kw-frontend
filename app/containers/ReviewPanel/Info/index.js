@@ -1,41 +1,115 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { DETAIL_LEVELS } from './constants';
+import { cycleDetailLevel } from './utils';
 import ToggleBar from './ToggleBar';
 import InfoPanel from './InfoPanel';
 import NotesPanel from './NotesPanel';
 import AddSynonymPanel from './AddSynonymPanel';
 
-const PANELS = ['INFO', 'NOTES', 'ADDSYNONYM'];
+import { Wrapper, PanelsWrapper } from './styles';
 
-export class ReviewInfo extends React.PureComponent {
+class ReviewInfo extends React.PureComponent {
   static propTypes = {
     reviewEntry: PropTypes.object.isRequired,
-    detailLevel: PropTypes.number.isRequired,
-    panelToShow: PropTypes.oneOf(Object.values(PANELS)).isRequired,
+    detailLevel: PropTypes.string,
+    isDisabled: PropTypes.bool,
+    notes: PropTypes.shape({ isActive: PropTypes.bool }),
+    info: PropTypes.shape({ isActive: PropTypes.bool }),
+    addSynonym: PropTypes.shape({ isActive: PropTypes.bool }),
+  };
+
+  static defaultProps = {
+    detailLevel: DETAIL_LEVELS.LOW,
+    isDisabled: true,
+    notes: { isActive: false },
+    info: { isActive: false },
+    addSynonym: { isActive: false },
+  };
+
+  state = {
+    // start with user settings, then manage with state when mounted
+    detailLevel: this.props.detailLevel,
+    notes: this.props.notes,
+    info: this.props.info,
+    addSynonym: this.props.addSynonym,
+  }
+
+  handleNotesClick = () => {
+    this.setState({
+      notes: { isActive: true },
+      info: { isActive: false },
+      addSynonym: { isActive: false },
+    });
+  }
+
+  handleInfoClick = () => {
+    if (this.state.info.isActive) {
+      this.setState({
+        detailLevel: cycleDetailLevel(this.state.detailLevel),
+      });
+    } else {
+      this.setState({
+        notes: { isActive: false },
+        info: { isActive: true },
+        addSynonym: { isActive: false },
+      });
+    }
+  }
+
+  handleSynonymClick = () => {
+    this.setState({
+      info: { isActive: false },
+      notes: { isActive: false },
+      addSynonym: { isActive: true },
+    });
   }
 
   render() {
-    const { reviewEntry, panelToShow, detailLevel } = this.props;
-
-    const renderNotes = () => <NotesPanel reviewEntry={reviewEntry} />;
-    const renderInfo = () => <InfoPanel reviewEntry={reviewEntry} detailLevel={detailLevel} />;
-    const renderAddSynonym = () => <AddSynonymPanel addPadding={detailLevel !== 'LOW'} />;
+    const { reviewEntry, isDisabled } = this.props;
+    const { detailLevel, notes, info, addSynonym } = this.state;
 
     return (
-      <div>
-        <ToggleBar />
-        {panelToShow === PANELS.NOTES && renderNotes()}
-        {panelToShow === PANELS.INFO && renderInfo()}
-        {panelToShow === PANELS.ADDSYNONYM && renderAddSynonym()}
-      </div>
+      <Wrapper>
+        <ToggleBar
+          detailLevel={detailLevel}
+          isDisabled={isDisabled}
+          notes={notes}
+          info={info}
+          addSynonym={addSynonym}
+          handleNotesClick={this.handleNotesClick}
+          handleInfoClick={this.handleInfoClick}
+          handleSynonymClick={this.handleSynonymClick}
+        />
+        <PanelsWrapper>
+          <NotesPanel
+            isActive={notes.isActive}
+            reviewEntry={reviewEntry}
+            detailLevel={detailLevel}
+          />
+          <InfoPanel
+            isActive={info.isActive}
+            reviewEntry={reviewEntry}
+            detailLevel={detailLevel}
+          />
+          <AddSynonymPanel
+            isActive={addSynonym.isActive}
+            reviewEntry={reviewEntry}
+            addPadding={detailLevel !== DETAIL_LEVELS.LOW}
+          />
+        </PanelsWrapper>
+      </Wrapper>
     );
   }
 }
 
 // const mapStateToProps = createStructuredSelector({
 //   detailLevel: selectDetailLevel,
-//   panelToShow: createSelector([selectPanels], (panels) => panels.show),
+//   isDisabled: !selectAnswerMarked,
+//   info: selectInfoPanel
+//   notes: selectNotesPanel
+//   addSynonym: selectSynonymPanel
 // });
 
-export default /* connect(mapStateToProps)*/(ReviewInfo);
+export default ReviewInfo;

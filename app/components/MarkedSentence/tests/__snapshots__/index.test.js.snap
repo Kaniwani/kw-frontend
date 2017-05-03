@@ -2,7 +2,7 @@
 
 exports[`<MarkedSentence /> should match baseline snapshot 1`] = `
 <p
-  class="dbElpP biKqCc"
+  class="sMpVQ iFxjYr"
   lang="ja"
 >
   <a
@@ -25,7 +25,7 @@ exports[`<MarkedSentence /> should match baseline snapshot 1`] = `
 
 exports[`<MarkedSentence /> should match character snapshot 1`] = `
 <p
-  class="dbElpP biKqCc"
+  class="sMpVQ iFxjYr"
   lang="ja"
 >
   <a
@@ -52,7 +52,7 @@ exports[`<MarkedSentence /> should match character snapshot 1`] = `
 
 exports[`<MarkedSentence /> should match kana snapshot 1`] = `
 <p
-  class="dbElpP biKqCc"
+  class="sMpVQ iFxjYr"
   lang="ja"
 >
   <a

@@ -1,333 +1,440 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<PartsOfSpeechList /> should match PARTS_OF_SPEECH constant 1`] = `
+exports[`<TagsList /> should match PARTS_OF_SPEECH constants 1`] = `
 <styled.ul
-  plainList={true}
+  bgColor="grey"
+  color="whiteLight"
 >
-  <Chip
+  <styled.li
     bgColor="tan"
     color="blackLight"
   >
-    JLPT N1
-  </Chip>
-  <Chip
+    <styled.span>
+      JLPT N1
+    </styled.span>
+  </styled.li>
+  <styled.li
     bgColor="tan"
     color="blackLight"
   >
-    JLPT N2
-  </Chip>
-  <Chip
+    <styled.span>
+      JLPT N2
+    </styled.span>
+  </styled.li>
+  <styled.li
     bgColor="tan"
     color="blackLight"
   >
-    JLPT N3
-  </Chip>
-  <Chip
+    <styled.span>
+      JLPT N3
+    </styled.span>
+  </styled.li>
+  <styled.li
     bgColor="tan"
     color="blackLight"
   >
-    JLPT N4
-  </Chip>
-  <Chip
+    <styled.span>
+      JLPT N4
+    </styled.span>
+  </styled.li>
+  <styled.li
     bgColor="tan"
     color="blackLight"
   >
-    JLPT N5
-  </Chip>
-  <Chip
+    <styled.span>
+      JLPT N5
+    </styled.span>
+  </styled.li>
+  <styled.li
     bgColor="blue"
     color="whiteLight"
   >
-    Common
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Common
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Intransitive verb
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Intransitive verb
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Godan verb
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Godan verb
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Noun
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Noun
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Suru verb
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Suru verb
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Transitive verb
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Transitive verb
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Ichidan verb
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Ichidan verb
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    No adjective
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      No adjective
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Na adjective
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Na adjective
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Suffix
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Suffix
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    I adjective
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      I adjective
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Proper noun
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Proper noun
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Adjective
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Adjective
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Pre-noun adjectival
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Pre-noun adjectival
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Adverb
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Adverb
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Numeral
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Numeral
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Expression
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Expression
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Prefix
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Prefix
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Pronoun
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Pronoun
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Counter
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Counter
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Interjection
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Interjection
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Conjunction
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Conjunction
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    No-adjective
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      No-adjective
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Na-adjective
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Na-adjective
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Adverb taking the 'to' particle
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Adverb taking the 'to' particle
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Noun - used as a suffix
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Noun - used as a suffix
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    intransitive verb
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      intransitive verb
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    I-adjective
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      I-adjective
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Kuru verb - special class
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Kuru verb - special class
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Full name
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Full name
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Suru verb - irregular
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Suru verb - irregular
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Noun - used as a prefix
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Noun - used as a prefix
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Noun - used as a suffix
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Noun - used as a suffix
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Adverbial noun
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Adverbial noun
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Temporal noun
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Temporal noun
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Place
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Place
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Auxiliary verb
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Auxiliary verb
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Noun or verb acting prenominally
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Noun or verb acting prenominally
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Taru-adjective
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Taru-adjective
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Godan verb with ru ending
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Godan verb with ru ending
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Godan verb with u ending
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Godan verb with u ending
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Godan verb with ku ending
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Godan verb with ku ending
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Godan verb with su ending
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Godan verb with su ending
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Godan verb with mu ending
-  </Chip>
-  <Chip
-    bgColor="white"
-    color="blackLight"
+    <styled.span>
+      Godan verb with mu ending
+    </styled.span>
+  </styled.li>
+  <styled.li
+    bgColor="grey"
+    color="whiteLight"
   >
-    Godan verb with gu ending
-  </Chip>
+    <styled.span>
+      Godan verb with gu ending
+    </styled.span>
+  </styled.li>
 </styled.ul>
 `;
 
-exports[`<PartsOfSpeechList /> should not render any children if no items provided 1`] = `
+exports[`<TagsList /> should not render any children if no items provided 1`] = `
 <styled.ul
-  plainList={true}
+  bgColor="grey"
+  color="whiteLight"
 />
 `;
 
-exports[`<PartsOfSpeechList /> should set colors for common and jlpt items 1`] = `
+exports[`<TagsList /> should set colors for common and jlpt tags 1`] = `
 <styled.ul
-  plainList={true}
+  bgColor="grey"
+  color="whiteLight"
 >
-  <Chip
+  <styled.li
     bgColor="blue"
     color="whiteLight"
   >
-    Common
-  </Chip>
-  <Chip
+    <styled.span>
+      Common
+    </styled.span>
+  </styled.li>
+  <styled.li
     bgColor="tan"
     color="blackLight"
   >
-    JLPT N1
-  </Chip>
+    <styled.span>
+      JLPT N1
+    </styled.span>
+  </styled.li>
 </styled.ul>
 `;

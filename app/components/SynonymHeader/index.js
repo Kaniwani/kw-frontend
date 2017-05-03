@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Icon from 'components/Icon';
-
 import { Wrapper, Heading, Tags, RemoveButton } from './styles';
 
 // selectors will need
@@ -21,14 +19,14 @@ function SynonymHeader({ handleRemoveSynonym, tags }) {
     <Wrapper>
       <Heading>
         Synonym
-        <RemoveButton
-          title="Remove Synonym"
-          type="button"
-          onClick={handleRemoveSynonym}
-        >
-          <Icon name="CLOSE" inline={false} />
-        </RemoveButton>
       </Heading>
+      <RemoveButton
+        name="CLOSE"
+        title="Remove Synonym"
+        type="button"
+        size="1.3em"
+        onClick={handleRemoveSynonym}
+      />
       <Tags tags={tags} />
     </Wrapper>
   );

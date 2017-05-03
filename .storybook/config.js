@@ -1,4 +1,5 @@
 import { configure } from '@kadira/storybook';
+import '../app/global-styles';
 
 const reqBase = require.context('../app/base', true, /.stories.js$/);
 const reqLayouts = require.context('../app/layouts', true, /.stories.js$/);

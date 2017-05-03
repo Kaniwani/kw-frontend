@@ -32,7 +32,7 @@ export const StyledElement = styled(({
   fullRow,
   flexDisplay,
   flexRow,
-  flexCol,
+  flexColumn,
   flexWrap,
   flexCenter,
   flex,

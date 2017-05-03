@@ -1,12 +1,15 @@
+// NOTE: most of this already extracted to ReadingHeader, SynonymHeader
+
 import styled from 'styled-components';
 
-import PartsOfSpeechList from 'components/PartsOfSpeechList';
-import A from 'base/A';
+import TagsList from 'components/TagsList';
 import H3 from 'base/H3';
+import P from 'base/P';
+import A from 'base/A';
 
 import { resetButton } from 'shared/styles/utils';
 import { elementGutter } from 'shared/styles/layout';
-import { transparent, whiteLight, red, purple } from 'shared/styles/colors';
+import { transparent, whiteLight, greyDark, red, purple } from 'shared/styles/colors';
 import { outerLine } from 'shared/styles/shadows';
 
 export const IconButton = styled.button`
@@ -66,7 +69,7 @@ export const VocabLink = styled(A)`
   }
 `;
 
-export const Tags = styled(PartsOfSpeechList)`
+export const Tags = styled(TagsList)`
   ${elementGutter}
   padding-left: 1rem;
   display: flex;

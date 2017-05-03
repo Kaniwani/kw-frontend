@@ -1,13 +1,16 @@
 import React from 'react';
+import { branch, renderNothing } from 'recompose';
 
-import { Wrapper } from '../styles';
+import { PanelWrapper } from '../styles';
 
 function NotesPanel() {
   return (
-    <Wrapper>
+    <PanelWrapper>
       <div>Coming soon...</div>
-    </Wrapper>
+    </PanelWrapper>
   );
 }
 
-export default NotesPanel;
+const hideIfNotActive = branch(({ isActive }) => !isActive, renderNothing);
+
+export default hideIfNotActive(NotesPanel);

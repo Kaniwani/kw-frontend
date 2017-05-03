@@ -6,15 +6,15 @@ import { transparent, whiteLight, greyLight, greyDark } from 'shared/styles/colo
 import { micro } from 'shared/styles/typography';
 import { shadowBox } from 'shared/styles/shadows';
 
-export const Wrapper = styled.section`
+export const Wrapper = styled.div`
   display: flex;
+  z-index: 2;
   margin: 0;
   list-style: none;
   justify-content: center;
   background-color: ${transparent};
   padding: 0 .4rem .4rem;
   width: 100%;
-  z-index: 2;
   ${media('min').sm`
     padding-left: .2rem; /* toggles have .2rem side margins */
     padding-right: .2rem;

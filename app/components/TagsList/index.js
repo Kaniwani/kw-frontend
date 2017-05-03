@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cuid from 'cuid';
 
+import * as COLORS from 'shared/styles/colors';
 import { PARTS_OF_SPEECH } from 'shared/constants';
-import Ul from 'base/Ul';
-import Chip from 'components/Chip';
+import { Ul, Li, Span } from './styles';
 
-const selectColors = (text) => {
+const selectColors = ({ text, color, bgColor }) => {
   if (/common/i.test(text)) {
     return {
       color: 'whiteLight',
@@ -15,24 +15,36 @@ const selectColors = (text) => {
   }
   if (/jlpt/i.test(text)) {
     return {
+      color: 'blackLight',
       bgColor: 'tan',
     };
   }
-  return {};
+  return {
+    color,
+    bgColor,
+  };
 };
 
 TagsList.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.oneOf(PARTS_OF_SPEECH)),
+  color: PropTypes.oneOf(Object.keys(COLORS)),
+  bgColor: PropTypes.oneOf(Object.keys(COLORS)),
 };
 
 TagsList.defaultProps = {
   tags: [],
+  color: 'whiteLight',
+  bgColor: 'grey',
 };
 
 function TagsList({ tags, ...props }) {
   return (
-    <Ul plainList {...props} >
-      {tags.map((text) => <Chip key={cuid()} {...selectColors(text)}>{text}</Chip>)}
+    <Ul {...props}>
+      {tags.map((text) => (
+        <Li key={cuid()} {...selectColors({ text, ...props })} >
+          <Span>{text}</Span>
+        </Li>
+      ))}
     </Ul>
   );
 }

@@ -1,3 +1,75 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ReviewPanel /> should match baseline snapshot 1`] = `<div />`;
+exports[`<ReviewPanel /> should match baseline snapshot 1`] = `
+<styled.div>
+  <HelmetWrapper
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Review Session
+    </title>
+    <meta
+      content="Kaniwani Review Session"
+      name="description"
+    />
+  </HelmetWrapper>
+  <styled.section>
+    <ReviewHeader
+      percentComplete={25}
+      percentCorrect={33}
+      reviewsComplete={5}
+      reviewsRemaining={20}
+    />
+    <ReviewQuestion
+      meaning="confinement, imprisonment, incarceration, confinement, imprisonment, incarceration, confinement, imprisonment, incarceration"
+      tags={
+        Array [
+          "Noun",
+          "Verb",
+          "Noun",
+          "Verb",
+          "Noun",
+          "Verb",
+          "Common",
+          "JLPT N1",
+        ]
+      }
+    />
+  </styled.section>
+  <styled.section>
+    <ReviewAnswer
+      answer={
+        Object {
+          "correct": false,
+          "incorrect": false,
+          "marked": false,
+          "text": "",
+          "type": "",
+          "valid": true,
+        }
+      }
+      streak="APPRENTICE"
+    />
+    <ReviewInfo
+      addSynonym={
+        Object {
+          "isActive": false,
+        }
+      }
+      detailLevel="LOW"
+      info={
+        Object {
+          "isActive": false,
+        }
+      }
+      isDisabled={false}
+      notes={
+        Object {
+          "isActive": false,
+        }
+      }
+    />
+    <styled.div />
+  </styled.section>
+</styled.div>
+`;

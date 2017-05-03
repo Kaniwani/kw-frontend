@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ReviewAnswer /> should match baseline snapshot 1`] = `
+<styled.form
+  correct={false}
+  incorrect={false}
+  marked={false}
+  onSubmit={[Function]}
+  tabIndex={-1}
+  valid={true}
+>
+  <styled.div
+    correct={false}
+    incorrect={false}
+    marked={false}
+    valid={true}
+  >
+    <Styled(Icon)
+      size="1.15em"
+      title=""
+    />
+    <styled.label
+      htmlFor="userAnswer"
+    >
+      Vocabulary reading
+    </styled.label>
+    <styled.input
+      autoCapitalize="off"
+      autoComplete="off"
+      autoCorrect="off"
+      autoFocus={true}
+      id="userAnswer"
+      innerRef={[Function]}
+      lang="ja"
+      marked={false}
+      onChange={[Function]}
+      placeholder="答え"
+      spellCheck="false"
+      type="text"
+    />
+    <styled.div>
+      <Styled(IconButton)
+        handleClick={[Function]}
+        name="ARROW_RIGHT"
+        size="1.75em"
+        title="Submit answer"
+        type="submit"
+      />
+    </styled.div>
+  </styled.div>
+</styled.form>
+`;

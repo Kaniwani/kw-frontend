@@ -5,7 +5,7 @@ import {
   Wrapper,
   QuestionWrapper,
   Question,
-  PartsOfSpeech,
+  Tags,
 } from './styles';
 
 ReviewQuestion.propTypes = {
@@ -19,7 +19,7 @@ function ReviewQuestion({ meaning, tags }) {
       <QuestionWrapper>
         <Question>{meaning}</Question>
       </QuestionWrapper>
-      <PartsOfSpeech items={tags} />
+      <Tags tags={tags} />
     </Wrapper>
   );
 }

@@ -1,3 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ReviewHeader /> should match baseline snapshot 1`] = `<div />`;
+exports[`<ReviewHeader /> should match baseline snapshot 1`] = `
+<div>
+  <ProgressBar
+    value={0}
+  />
+  <styled.div>
+    <ViewSummaryLink />
+    <StatsList
+      complete={0}
+      correctness={0}
+      remaining={0}
+    />
+  </styled.div>
+</div>
+`;

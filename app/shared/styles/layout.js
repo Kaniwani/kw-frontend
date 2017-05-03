@@ -5,8 +5,8 @@ import { media } from './media';
  * Allows background to be 100% width whilst content is contained and centered
  */
 export const centerByPadding = `
-  padding-left: calc(50% - ${siteMaxWidthpx});
-  padding-right: calc(50% - ${siteMaxWidthpx});
+  padding-left: calc(100% - ${siteMaxWidthpx});
+  padding-right: calc(100% - ${siteMaxWidthpx});
 `;
 
 export const centerByMargin = `
@@ -96,7 +96,7 @@ export const alignContentMixin = ({ alignContent }) => alignContent && `align-co
 export const alignItemsMixin = ({ alignItems }) => alignItems && `align-items: ${alignItems};`;
 export const alignSelfMixin = ({ alignSelf }) => alignSelf && `align-self:${alignSelf};`;
 export const flexShorthandMixin = ({ flex }) => flex && `flex:${flex};`;
-export const flexMixin = ({ flexDisplay, flexRow, flexCol, flexWrap }) => (flexRow || flexCol) && `
+export const flexMixin = ({ flexDisplay, flexRow, flexColumn, flexWrap }) => (flexRow || flexColumn) && `
   display: ${flexDisplay || 'flex'};
   flex-flow: ${(flexRow && 'row') || 'column'} ${(flexWrap && 'wrap') || ''};
 `;

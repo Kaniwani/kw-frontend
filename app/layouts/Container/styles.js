@@ -37,7 +37,7 @@ export const StyledContainer = styled(({
   fullRow,
   flexRow,
   flexDisplay,
-  flexCol,
+  flexColumn,
   flexWrap,
   flexCenter,
   textAlign,

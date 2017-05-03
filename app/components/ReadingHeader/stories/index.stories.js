@@ -8,6 +8,6 @@ storiesOf('components.ReadingHeader', module)
     <ReadingHeader
       wkVocabLink="#"
       kwVocabLink="#"
-      tags={PARTS_OF_SPEECH.slice(0, 10)}
+      tags={PARTS_OF_SPEECH.slice(4, 10)}
     />
   ));

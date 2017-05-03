@@ -13,7 +13,6 @@ export const Reading = styled.div`
 `;
 
 export const Character = styled(P)`
-  ${elementGutter}
   text-align: center;
   flex: 0 1 100%;
   margin: 0 1rem;

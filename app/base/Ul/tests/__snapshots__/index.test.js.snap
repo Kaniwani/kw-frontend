@@ -5,20 +5,20 @@ exports[`<Ul /> should adopt a plainList prop to reset list styles 1`] = `
   plainList={true}
 >
   <ul
-    className="INVEP"
+    className="lmKKkx"
   />
 </styled.ul>
 `;
 
 exports[`<Ul /> should match baseline snapshot 1`] = `
 <ul
-  className="bMruvD"
+  className="ffrNXW"
 />
 `;
 
 exports[`<Ul /> should render children 1`] = `
 <ul
-  className="bMruvD"
+  className="ffrNXW"
 >
   <li>
     One

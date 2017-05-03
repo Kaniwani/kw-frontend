@@ -33,16 +33,13 @@ injectGlobal`
     line-height: 1;
   }
 
-  /* intentional specificity otherwise any <P> components get 1.4 line height*/
-  [lang=ja],
-  p[lang=ja],
-  span[lang=ja] {
+  [lang="ja"],
+  p[lang="ja"],
+  span[lang="ja"] {
     font-family: ${ffJapanese};
     word-break: break-word;
-    line-height: 1.18;
-  }
-  p[lang=ja] {
     letter-spacing: 0.01em;
+    line-height: 1.2;
   }
 
   #app {
@@ -66,6 +63,9 @@ injectGlobal`
 
   p {
     line-height: 1.3;
+    + p {
+      margin-top: .4em;
+    }
   }
 
   small {

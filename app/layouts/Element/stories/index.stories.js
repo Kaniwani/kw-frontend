@@ -1,6 +1,5 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
-import Container from 'layouts/Container';
 import P from 'base/P';
 import Img from 'base/Img';
 import homeImg from 'shared/assets/img/home.jpg';
@@ -9,12 +8,10 @@ import ColorBlock from '../../../../.storybook/utils/ColorBlock'; // relatively 
 
 storiesOf('layouts.Element', module)
   .add('with paragraph child', () => (
-    <Container>
-      <Element><P>Hello Element</P></Element>
-    </Container>
+    <Element><P>Hello Element</P></Element>
   ))
   .add('as multiple children', () => (
-    <Container>
+    <div>
       <Element>
         <P>Hello Element 1</P>
       </Element>
@@ -24,51 +21,51 @@ storiesOf('layouts.Element', module)
       <Element>
         <P>Hello Element 3</P>
       </Element>
-    </Container>
+    </div>
   ))
-  .add('with multiple children and flexRow', () => (
-    <Container>
+  .add('with flexRow and multiple children', () => (
+    <div>
       <Element flexRow>
         <ColorBlock />
         <ColorBlock />
         <ColorBlock />
       </Element>
-    </Container>
+    </div>
   ))
-  .add('with multiple children and flexCol', () => (
-    <Container>
-      <Element flexCol>
+  .add('with flexColumn and multiple children', () => (
+    <div>
+      <Element flexColumn>
         <ColorBlock />
         <ColorBlock />
         <ColorBlock />
       </Element>
-    </Container>
+    </div>
   ))
-  .add('with multiple children and flexRow + flexCenter', () => (
-    <Container>
+  .add('with flexRow + flexCenter multiple children', () => (
+    <div>
       <Element flexRow flexCenter>
         <ColorBlock />
         <ColorBlock />
         <ColorBlock />
       </Element>
-    </Container>
+    </div>
   ))
-  .add('with multiple children and flexCol + flexCenter', () => (
-    <Container>
-      <Element flexCol flexCenter>
+  .add('with flexColumn + flexCenter multiple children', () => (
+    <div>
+      <Element flexColumn flexCenter>
         <ColorBlock />
         <ColorBlock />
         <ColorBlock />
       </Element>
-    </Container>
+    </div>
   ))
   .add('with padding false and img child ', () => (
-    <Container withPadding={false}>
+    <div withPadding={false}>
       <Img fullRow src={homeImg} alt="Some nice Maple" />
-    </Container>
+    </div>
   ))
-  .add('in a Container with img child as fullRow and sibling Elements', () => (
-    <Container>
+  .add('with fullRow and img child and sibling Elements', () => (
+    <div>
       <Element fullRow>
         <Img src={homeImg} alt="Some nice Maple" />
       </Element>
@@ -81,5 +78,5 @@ storiesOf('layouts.Element', module)
       <Element>
         <P>Hello Element 1</P>
       </Element>
-    </Container>
+    </div>
   ));

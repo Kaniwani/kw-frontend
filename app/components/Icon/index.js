@@ -12,17 +12,15 @@ Icon.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
-  preserveAspectRatio: PropTypes.string,
 };
 
 Icon.defaultProps = {
   display: 'inline-block',
   color: 'currentColor',
   size: '1em',
-  preserveAspectRatio: 'xMidYMid meet',
 };
 
-function Icon({ name, display, color, size, preserveAspectRatio, ...props }) {
+function Icon({ name, display, color, size, ...props }) {
   return (
     <SVGWrapper
       display={display}
@@ -34,8 +32,8 @@ function Icon({ name, display, color, size, preserveAspectRatio, ...props }) {
         title={name}
         width="100%"
         height="100%"
+        preserveAspectRatio="xMidYMid meet"
         viewBox={ICONS[name].viewBox}
-        preserveAspectRatio={preserveAspectRatio}
       >
         {ICONS[name].path}
       </SVG>

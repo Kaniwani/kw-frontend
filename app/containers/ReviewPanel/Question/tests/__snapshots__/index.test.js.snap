@@ -7,8 +7,8 @@ exports[`<ReviewQuestion /> should match baseline snapshot 1`] = `
       large, round
     </styled.h1>
   </styled.div>
-  <Styled(PartsOfSpeechList)
-    items={
+  <Styled(TagsList)
+    tags={
       Array [
         "JLPT N1",
         "Noun",

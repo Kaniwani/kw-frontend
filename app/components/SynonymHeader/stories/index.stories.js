@@ -8,6 +8,6 @@ storiesOf('components.SynonymHeader', module)
   .add('single SynonymHeader with default props', () => (
     <SynonymHeader
       handleRemoveSynonym={action('remove-synonym clicked')}
-      tags={PARTS_OF_SPEECH.slice(0, 10)}
+      tags={PARTS_OF_SPEECH.slice(4, 10)}
     />
   ));
