@@ -1,57 +1,54 @@
 import styled from 'styled-components';
-import { transparentize, placeholder, timingFunctions } from 'polished';
+import { transparentize, darken, placeholder, timingFunctions } from 'polished';
 
 import Ul from 'base/Ul';
 
-import { whiteLight, whiteDark, greyLight, blackLight, red, orange, purple } from 'shared/styles/colors';
+import { whiteLight, greyLight, greyDark, red } from 'shared/styles/colors';
 import { fastEaseQuad } from 'shared/styles/animation';
-import { delta } from 'shared/styles/typography';
+import { delta, ffHeading } from 'shared/styles/typography';
 import { resetButton, visuallyHidden } from 'shared/styles/utils';
 
-export const Wrapper = styled.div`
-  background-color: ${red};
-  height: 100vh;
-  transition: background-color ${fastEaseQuad};
-  ${({ loginSelected }) => loginSelected && `
-    background-color: ${orange};
-  `}
-  ${({ registerSelected }) => registerSelected && `
-    background-color: ${red};
-  `}
-  ${({ resetSelected }) => resetSelected && `
-    background-color: ${purple};
-  `}
-`;
+const maxWidth = '20rem';
 
 export const Form = styled.form`
   display: flex;
-  max-width: 320px;
+  position: relative;
+  z-index: 2;
+  width: ${maxWidth};
+  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  padding-top: 2rem;
+  margin-top: .25rem;
 `;
 
 export const SelectList = styled(Ul)`
   display: grid;
-  width: 320px;
+  max-width: ${maxWidth};
+  font-size: .9em;
+  width: 100%;
   grid-template-columns: 1fr 1fr 1fr;
-  position: absolute;
-  margin-bottom: .5rem;
-  top: 10px;
 `;
 
 export const SelectListItem = styled.li`
   text-align: center;
-  color: ${whiteLight};
+  color: ${greyDark};
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: capitalize;
   opacity: .6;
+  &:hover {
+    opacity: .8;
+  }
   ${({ isActive }) => isActive && `
+    cursor: default;
     opacity: 1;
+
+    &:hover {
+      opacity: 1;
+    }
   `}
 `;
 
@@ -62,19 +59,20 @@ export const Label = styled.label`
 export const InputField = styled.input`
   ${delta}
   display: inline-flex;
-  border-radius: 10px;
   height: 2.5rem;
+  max-width: ${maxWidth};
+  width: 100%;
   border: none;
-  width: 320px;
-  margin: .4rem 0;
+  border-radius: 10px;
   background-color: ${whiteLight};
   text-align: center;
   padding: .2rem .3rem;
+  margin: .25rem auto;
   transition: all ${fastEaseQuad};
-  ${placeholder({ color: greyLight })} /* focused input placeholder text color */
+  ${placeholder({ color: transparentize(0.1, greyLight) })} /* focused input placeholder text color */
 
   &:focus {
-    ${placeholder({ color: whiteDark })} /* focused input placeholder text color */
+    ${placeholder({ color: transparentize(0.5, greyLight) })} /* focused input placeholder text color */
     outline: none;
   }
 
@@ -82,12 +80,13 @@ export const InputField = styled.input`
   &::-ms-clear {
     display: none;
   }
-  ${({ isVisible }) => !isVisible && `
+
+  &[aria-hidden="true"] {
     height: 0;
     margin: 0;
     padding: 0;
     border: none;
-  `}
+  }
 `;
 
 export const SelectedPointer = styled.span`
@@ -96,36 +95,40 @@ export const SelectedPointer = styled.span`
   border-bottom: 1rem solid ${whiteLight};
   height: 0;
   position: relative;
-  top: .6rem;
+  top: .25rem;
   width: 0;
   transition: transform 100ms ${timingFunctions('easeOutQuad')};
-  ${({ registerSelected }) => registerSelected && 'transform: translateX(-105px);'};
-  ${({ resetSelected }) => resetSelected && 'transform: translateX(105px);'};
+  ${({ position }) => {
+    if (position === 'left') return 'transform: translateX(-6.5rem);';
+    if (position === 'right') return 'transform: translateX(6.5rem);';
+    return 'transform: translateX(0px);';
+  }}
 `;
 
 export const SubmitButton = styled.button`
   ${resetButton}
   ${delta}
+  font-family: ${ffHeading};
   margin: .5rem 0;
   padding: .2rem .3rem;
-  width: 75%;
+  width: 12rem;
   height: 2.5rem;
-  color: ${whiteLight};
-  background-color: ${transparentize(0.8, whiteLight)};
   border-radius: 10px;
   transition: all ${fastEaseQuad};
   cursor: pointer;
   font-weight: 500;
   text-transform: capitalize;
+  background-color: ${whiteLight};
+  color: ${red};
 
   &:hover,
   &:focus,
   &:active {
-    background-color: ${transparentize(0.9, blackLight)};
+    color: ${whiteLight};
+    background-color: ${red};
     outline: none;
-    width: 100%;
   }
   &:active {
-    background-color: ${transparentize(0.8, blackLight)};
+    background-color: ${transparentize(0.1, darken(0.1, red))};
   }
 `;

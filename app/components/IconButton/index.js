@@ -27,6 +27,7 @@ function IconButton({ name, title, color, size, type, handleClick, ...props }) {
     <Button
       type={type}
       title={title}
+      aria-label={title}
       onClick={handleClick}
       {...props}
     >

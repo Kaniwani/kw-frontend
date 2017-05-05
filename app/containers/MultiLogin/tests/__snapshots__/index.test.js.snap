@@ -1,101 +1,135 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<MultiLogin /> MultiLogin match baseline snapshot 1`] = `
-<styled.div
-  loginSelected={true}
-  registerSelected={false}
-  resetSelected={false}
+<styled.form
+  onSubmit={[Function]}
 >
-  <styled.form
-    onSubmit={[Function]}
+  <styled.ul
+    plainList={true}
   >
-    <styled.ul
-      plainList={true}
+    <styled.li
+      isActive={false}
+      onClick={[Function]}
     >
-      <styled.li
-        isActive={false}
-        onClick={[Function]}
-        onFocus={[Function]}
-      >
-        Register
-      </styled.li>
-      <styled.li
-        isActive={true}
-        onClick={[Function]}
-        onFocus={[Function]}
-      >
-        Sign In
-      </styled.li>
-      <styled.li
-        isActive={false}
-        onClick={[Function]}
-        onFocus={[Function]}
-      >
-        Reset
-      </styled.li>
-    </styled.ul>
-    <styled.span
-      loginSelected={true}
-      registerSelected={false}
-      resetSelected={false}
-    />
-    <styled.label
-      for="user"
+      Register
+    </styled.li>
+    <styled.li
+      isActive={true}
+      onClick={[Function]}
     >
-      Enter account username or email
-    </styled.label>
-    <styled.input
-      id="user"
-      isHidden={false}
-      name="user"
-      placeholder="Email or Username"
-      type="text"
-    />
-    <styled.label
-      for="password"
+      Login
+    </styled.li>
+    <styled.li
+      isActive={false}
+      onClick={[Function]}
     >
-      Enter account password
-    </styled.label>
-    <styled.input
-      disabled={false}
-      id="password"
-      isHidden={false}
-      name="password"
-      placeholder="Password"
-      type="password"
-    />
-    <styled.label
-      for="confirmPassword"
-    >
-      Confirm account password
-    </styled.label>
-    <styled.input
-      disabled={true}
-      id="confirmPassword"
-      isHidden={true}
-      name="confirmPassword"
-      placeholder="Confirm Password"
-      type="password"
-    />
-    <Styled(Button)
-      plainButton={true}
-      type="submit"
-    >
-      Sign In
-    </Styled(Button)>
-  </styled.form>
-</styled.div>
+      Reset
+    </styled.li>
+  </styled.ul>
+  <styled.span
+    position={false}
+  />
+  <styled.label
+    for="user"
+  >
+    Enter 
+    Email or Username
+  </styled.label>
+  <Input
+    autoFocus={true}
+    innerRef={[Function]}
+    isHidden={false}
+    name="user"
+    placeholder="Email or Username"
+    type="text"
+  />
+  <styled.label
+    for="email"
+  >
+    Enter email
+  </styled.label>
+  <Input
+    innerRef={[Function]}
+    isHidden={true}
+    name="email"
+    placeholder="Email address"
+    type="email"
+  />
+  <styled.label
+    for="password"
+  >
+    Enter account password
+  </styled.label>
+  <Input
+    isHidden={false}
+    name="password"
+    placeholder="Password"
+    type="password"
+  />
+  <styled.label
+    for="confirmPassword"
+  >
+    Confirm account password
+  </styled.label>
+  <Input
+    isHidden={true}
+    name="confirmPassword"
+    placeholder="Confirm Password"
+    type="password"
+  />
+  <styled.label
+    for="apiKey"
+  >
+    Enter WaniKani API key
+  </styled.label>
+  <Input
+    isHidden={true}
+    name="apiKey"
+    placeholder="WaniKani API key"
+    type="text"
+  />
+  <styled.button
+    type="submit"
+  >
+    行こう
+  </styled.button>
+</styled.form>
 `;
 
 exports[`<MultiLogin /> MultiLogin.Form should match snapshot 1`] = `
 <form
-  className="jZnbiN"
+  className="loHeoW"
 />
 `;
 
 exports[`<MultiLogin /> MultiLogin.Input should match snapshot 1`] = `
 <input
-  className="kaNKhN"
+  aria-hidden="false"
+  autocapitalize="off"
+  autocomplete="on"
+  autocorrect="off"
+  class="cbyRRt"
+  id="user"
+  name="user"
+  placeholder="Username or Email"
+  spellcheck="false"
+  type="text"
+/>
+`;
+
+exports[`<MultiLogin /> MultiLogin.Input should match snapshot 2`] = `
+<input
+  aria-hidden="true"
+  autocapitalize="off"
+  autocomplete="on"
+  autocorrect="off"
+  class="cbyRRt"
+  disabled=""
+  id="user"
+  name="user"
+  placeholder="Username or Email"
+  spellcheck="false"
+  type="text"
 />
 `;
 
@@ -107,41 +141,39 @@ exports[`<MultiLogin /> MultiLogin.Label should match snapshot 1`] = `
 
 exports[`<MultiLogin /> MultiLogin.SelectList should match snapshot 1`] = `
 <ul
-  className="xohGk"
+  className="hZodql"
 />
 `;
 
 exports[`<MultiLogin /> MultiLogin.SelectListItem should match snapshot 1`] = `
 <li
-  className="fADOjW"
+  className="bLjVnh"
 />
 `;
 
 exports[`<MultiLogin /> MultiLogin.SelectedPointer should match snapshot 1`] = `
 <span
-  className="jnLSKQ"
+  className="jNxzlX"
+/>
+`;
+
+exports[`<MultiLogin /> MultiLogin.SelectedPointer should match snapshot 2`] = `
+<span
+  className="djVNZH"
+/>
+`;
+
+exports[`<MultiLogin /> MultiLogin.SelectedPointer should match snapshot 3`] = `
+<span
+  className="edWrls"
 />
 `;
 
 exports[`<MultiLogin /> MultiLogin.SubmitButton should match snapshot 1`] = `
-<Button
-  bgColor="#4c81d6"
-  bgColorHover="#fafafa"
-  className="holueg"
-  color="#fafafa"
-  colorHover="#2e50dc"
-  href=""
-  onClick={false}
-  plainButton={true}
-  to=""
+<button
+  className="lejRaL"
   type="submit"
 >
   Submit
-</Button>
-`;
-
-exports[`<MultiLogin /> MultiLogin.Wrapper should match snapshot 1`] = `
-<div
-  className="cyPnam"
-/>
+</button>
 `;

@@ -40,7 +40,7 @@ export const bodyRhythm = `
   line-height: 1.3;
 `;
 
-export const giga = fluidType(22, 48, 300, 2000);
+export const giga = fluidType(35, 90, 400, 2000);
 export const mega = fluidType(21, 44, 300, 2000);
 export const kilo = fluidType(20, 40, 300, 2000);
 

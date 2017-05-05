@@ -6,7 +6,13 @@ import { centerByPadding, centerByMargin } from 'shared/styles/layout';
 const style = css`
   ${({ fullWidth, fullWidthBg }) => {
     if (fullWidth) {
-      return 'width: 100%;';
+      return `
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        min-height: 100vh;
+      `;
     }
     if (fullWidthBg) {
       return `

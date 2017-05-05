@@ -19,12 +19,13 @@ PageWrapper.defaultProps = {
   fullWidthBg: false,
 };
 
-function PageWrapper({ tag, children, fullWidth, fullWidthBg }) {
+function PageWrapper({ tag, children, fullWidth, fullWidthBg, ...props }) {
   return (
     <Wrapper
       tag={tag}
       fullWidth={fullWidth}
       fullWidthBg={fullWidthBg}
+      {...props}
     >
       {children}
     </Wrapper>

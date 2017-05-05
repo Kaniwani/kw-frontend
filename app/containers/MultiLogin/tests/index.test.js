@@ -1,13 +1,12 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, render } from 'enzyme';
 import MultiLogin from '../index';
+import Input from '../Input';
 import {
-  Wrapper,
   Form,
   SelectList,
   SelectListItem,
   Label,
-  Input,
   SelectedPointer,
   SubmitButton,
 } from '../styles';
@@ -15,13 +14,6 @@ import {
 describe('<MultiLogin />', () => {
   it('MultiLogin match baseline snapshot', () => {
     expect(shallow(<MultiLogin />)).toMatchSnapshot();
-  });
-  it('MultiLogin.Wrapper should match snapshot', () => {
-    expect(shallow(<Wrapper
-      loginSelected
-      registerSelected={false}
-      resetSelected={false}
-    />)).toMatchSnapshot();
   });
   it('MultiLogin.Form should match snapshot', () => {
     expect(shallow(<Form />)).toMatchSnapshot();
@@ -33,15 +25,18 @@ describe('<MultiLogin />', () => {
     expect(shallow(<SelectListItem isActive />)).toMatchSnapshot();
   });
   it('MultiLogin.Label should match snapshot', () => {
-    expect(shallow(<Label />)).toMatchSnapshot();
+    expect(shallow(<Label for="user" />)).toMatchSnapshot();
   });
   it('MultiLogin.Input should match snapshot', () => {
-    expect(shallow(<Input />)).toMatchSnapshot();
+    expect(render(<Input name="user" placeholder="Username or Email" />)).toMatchSnapshot();
+    expect(render(<Input isHidden name="user" placeholder="Username or Email" />)).toMatchSnapshot();
   });
   it('MultiLogin.SelectedPointer should match snapshot', () => {
-    expect(shallow(<SelectedPointer registerSelected />)).toMatchSnapshot();
+    expect(shallow(<SelectedPointer />)).toMatchSnapshot();
+    expect(shallow(<SelectedPointer position="left" />)).toMatchSnapshot();
+    expect(shallow(<SelectedPointer position="right" />)).toMatchSnapshot();
   });
   it('MultiLogin.SubmitButton should match snapshot', () => {
-    expect(shallow(<SubmitButton plainButton type="submit">Submit</SubmitButton>)).toMatchSnapshot();
+    expect(shallow(<SubmitButton type="submit">Submit</SubmitButton>)).toMatchSnapshot();
   });
 });

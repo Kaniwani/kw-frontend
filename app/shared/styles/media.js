@@ -17,8 +17,8 @@ export const breakpoints = {
 /**
  * Returns css wrappen in a given media query
  * usage with styled-components:
- * media.sm`color: red;`;
- * @param  {String} direction 'min' or 'max' to apply min-width or max-width
+ * media().sm`color: red;`;
+ * @param  {String} [direction='min'] 'min' or 'max' to apply min-width or max-width
  * @return {String} css wrapped in media query
  */
 export const media = (direction) => Object.keys(breakpoints).reduce((accumulator, label) => {

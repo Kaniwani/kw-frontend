@@ -14,6 +14,7 @@ export const blueLight = '#30c0f9';
 export const blue = '#4c81d6';
 export const blueDark = '#2e50dc';
 export const green = '#7fd468';
+export const teal = '#30b59b';
 export const pink = '#ff00c3';
 export const red = '#e2325b';
 export const orange = '#f66f46';
@@ -28,7 +29,7 @@ export const transparent = 'rgba(0, 0, 0, 0)';
 export const link = blueLight;
 export const linkHover = blueDark;
 
-export const srsColors = {
+export const SRS_COLORS = {
   APPRENTICE: pink,
   GURU: purpleLight,
   MASTER: blueDark,

@@ -4,7 +4,6 @@ import cuid from 'cuid';
 import blockEvent from 'utils/blockEvent';
 import Input from './Input';
 import {
-  Wrapper,
   Form,
   SelectList,
   SelectListItem,
@@ -15,7 +14,7 @@ import {
 
 export const PANELS = [
   'Register',
-  'Sign In',
+  'Login',
   'Reset',
 ];
 
@@ -24,88 +23,99 @@ class MultiLogin extends React.PureComponent { // eslint-disable-line react/pref
     selected: PANELS[1],
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.selected !== prevState.selected) {
-      this.mainInput.focus();
-    }
-  }
-
   handleSelectChange = (PANEL) => (event) => {
     blockEvent(event);
-    this.setState({
-      selected: PANEL,
-    });
+    this.setState({ selected: PANEL });
+    this.mainInput.blur();
   }
 
   handleSubmit = (event) => {
     blockEvent(event);
-    // dispatch some action with this.state.selected
+    // dispatch relevant action based on this.state.selected
   }
 
   render() {
     const registerSelected = this.state.selected === PANELS[0];
     const loginSelected = this.state.selected === PANELS[1];
     const resetSelected = this.state.selected === PANELS[2];
+    const notRegisterSelected = loginSelected || resetSelected;
+
+    const mainInputText = () => {
+      if (loginSelected) return 'Email or Username';
+      if (registerSelected) return 'Username';
+      return 'Email';
+    };
+
+    const mainInputName = loginSelected ? 'user' : 'email';
 
     return (
-      <Wrapper
-        loginSelected={loginSelected}
-        registerSelected={registerSelected}
-        resetSelected={resetSelected}
-      >
-        <Form onSubmit={this.handleSubmit}>
-          <SelectList plainList>
-            {PANELS.map((PANEL) => (
-              <SelectListItem
-                key={cuid()}
-                isActive={this.state.selected === PANEL}
-                onClick={this.handleSelectChange(PANEL)}
-              >
-                {PANEL}
-              </SelectListItem>
-            ))}
-          </SelectList>
-          <SelectedPointer
-            loginSelected={loginSelected}
-            registerSelected={registerSelected}
-            resetSelected={resetSelected}
-          />
-          {/* TODO: CUSTOM username || email validator */}
-          <Label for="user">Enter account {loginSelected ? 'email or username' : 'Email'}</Label>
-          <Input
-            ref={(node) => { this.mainInput = node; }}
-            name="user"
-            placeholder={loginSelected ? 'Email or Username' : 'Email'}
-            isVisible
-            autoFocus
-          />
-          <Label for="password">Enter account password</Label>
-          <Input
-            name="password"
-            type="password"
-            placeholder="Password"
-            isVisible={registerSelected || loginSelected}
-          />
-          <Label for="confirmPassword">Confirm account password</Label>
-          <Input
-            name="confirmPassword"
-            type="password"
-            placeholder="Confirm Password"
-            isVisible={registerSelected}
-          />
-          <Label for="apiKey">Enter WaniKani API key</Label>
-          <Input
-            name="apiKey"
-            placeholder="WaniKani API key"
-            isVisible={registerSelected}
-          />
-          <SubmitButton type="submit">
-            {registerSelected && 'Create Account'}
-            {loginSelected && 'Sign In'}
-            {resetSelected && 'Reset Password'}
-          </SubmitButton>
-        </Form>
-      </Wrapper>
+      <Form onSubmit={this.handleSubmit}>
+        <SelectList plainList>
+          {PANELS.map((PANEL) => (
+            <SelectListItem
+              key={cuid()}
+              isActive={this.state.selected === PANEL}
+              onClick={this.handleSelectChange(PANEL)}
+            >
+              {PANEL}
+            </SelectListItem>
+          ))}
+        </SelectList>
+        <SelectedPointer
+          position={(registerSelected && 'left') || (resetSelected && 'right')}
+        />
+        <Label for={mainInputName}>
+          Enter {mainInputText()}
+        </Label>
+        {/* TODO: CUSTOM username || email validator */}
+        <Input
+          innerRef={(node) => { this.mainInput = node; }}
+          name={mainInputName}
+          placeholder={mainInputText()}
+          autoFocus
+        />
+        <Label for="email">
+          Enter email
+        </Label>
+        <Input
+          innerRef={(node) => { this.mainInput = node; }}
+          name="email"
+          type="email"
+          placeholder="Email address"
+          isHidden={notRegisterSelected}
+        />
+        <Label for="password">
+          Enter account password
+        </Label>
+        <Input
+          name="password"
+          type="password"
+          placeholder="Password"
+          isHidden={resetSelected}
+        />
+        <Label for="confirmPassword">
+          Confirm account password
+        </Label>
+        <Input
+          name="confirmPassword"
+          type="password"
+          placeholder="Confirm Password"
+          isHidden={notRegisterSelected}
+        />
+        <Label for="apiKey">
+          Enter WaniKani API key
+        </Label>
+        <Input
+          name="apiKey"
+          placeholder="WaniKani API key"
+          isHidden={notRegisterSelected}
+        />
+        <SubmitButton type="submit">
+          {registerSelected && 'Create Account'}
+          {loginSelected && '行こう'}
+          {resetSelected && 'Reset Password'}
+        </SubmitButton>
+      </Form>
     );
   }
 }

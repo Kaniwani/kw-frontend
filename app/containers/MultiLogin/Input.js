@@ -6,27 +6,29 @@ import { InputField } from './styles';
 Input.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
-  isVisible: PropTypes.bool.isRequired,
+  isHidden: PropTypes.bool,
   type: PropTypes.string,
 };
 
 Input.defaultProps = {
   type: 'text',
+  isHidden: false,
 };
 
-function Input({ name, type, placeholder, isVisible }) {
+function Input({ name, type, placeholder, isHidden, ...props }) {
   return (
     <InputField
       id={name}
       type={type}
       name={name}
       placeholder={placeholder}
-      isVisible={isVisible}
-      disabled={!isVisible}
+      aria-hidden={isHidden}
+      disabled={isHidden}
       autoComplete="on"
       autoCapitalize="off"
       autoCorrect="off"
       spellCheck="false"
+      {...props}
     />
   );
 }

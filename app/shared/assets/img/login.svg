@@ -1,14 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" id="svg2">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 365" id="svg2">
   <style id="style4">
-    .st0{display:none;} .st1{display:inline;fill:#E3E5E5;} .st2{display:inline;opacity:0.5;} .st3{fill:#6E7F78;} .st4{fill:#70857D;} .st5{fill:#7A8C85;} .st6{fill:#E05D4F;} .st7{fill:#9DA8A4;} .st8{fill:#A2B5AF;} .st9{fill:#B3DB0E;} .st10{fill:#90CCD6;} .st11{fill:#9FD8E2;} .st12{opacity:0.2;fill:#FFFFFF;} .st13{fill:#FFFFFF;} .st14{fill:#A8E513;} .st15{fill:#A7CC0D;} .st16{display:inline;} .st17{fill:url(#SVGID_1_);} .st18{display:inline;fill:#FFFFFF;} .st21{display:inline;fill:none;stroke:#DEE2E2;stroke-miterlimit:10;} .st22{display:inline;opacity:0.65;fill:#444747;}   .st25{display:inline;opacity:0.65;fill:#383F3F;}  .st27{fill:#A0182F;} .st28{fill:#CC1A27;} .st29{fill:#30080D;} .st30{fill:#0D0B0C;} .st31{fill:#098572;} .st32{fill:#C6C12A;} .st33{fill:#56321A;} .st34{fill:#9E1F2D;} .st35{fill:#DE342C;} .st36{fill:#303133;} .st37{fill:#30B59B;} .st38{fill:#FFC800;} .st39{fill:#86745B;} .st40{fill:#7CBAC1;} .st41{fill:#2A2E35;} .st42{display:inline;fill:#B1B2B2;} .st43{display:inline;fill:#90A09F;} .st44{display:inline;fill:#B7978F;} .st45{fill:#9FA526;} .st46{fill:#CC5F4E;} .st47{fill:#9E3D2D;} .st48{fill:#C14F34;} .st49{fill:#B7C62C;} .st50{fill:#BB8B5A;} .st51{fill:#825F3E;} .st52{fill:#AF452F;} .st53{fill:#252830;} .st54{fill:none;stroke:#9FA526;stroke-miterlimit:10;} .st55{fill:#F0EAD1;} .st56{fill:#B1B72E;} .st57{fill:#E5E0CA;} .st58{fill:#454716;} .st59{display:inline;fill:#21304C;} 
+  .st3{fill:#6E7F78;} .st4{fill:#70857D;} .st5{fill:#7A8C85;} .st6{fill:#E05D4F;} .st7{fill:#9DA8A4;} .st8{fill:#A2B5AF;} .st9{fill:#B3DB0E;} .st10{fill:#90CCD6;} .st12{opacity:0.2;fill:#FFFFFF;} .st13{fill:#FFFFFF;} .st14{fill:#A8E513;} .st15{fill:#A7CC0D;} .st16{display:inline;} .st17{fill:url(#SVGID_1_);} .st18{display:inline;fill:#FFFFFF;} .st21{display:inline;fill:none;stroke:#DEE2E2;stroke-miterlimit:10;} .st22{display:inline;opacity:0.65;fill:#444747;}   .st25{display:inline;opacity:0.65;fill:#383F3F;}  .st27{fill:#A0182F;} .st28{fill:#CC1A27;} .st29{fill:#30080D;} .st30{fill:#0D0B0C;} .st31{fill:#098572;} .st32{fill:#C6C12A;} .st33{fill:#56321A;} .st34{fill:#9E1F2D;} .st35{fill:#DE342C;} .st36{fill:#303133;} .st37{fill:#30B59B;} .st38{fill:#FFC800;} .st39{fill:#86745B;} .st40{fill:#7CBAC1;} .st41{fill:#2A2E35;} .st42{display:inline;fill:#B1B2B2;} .st43{display:inline;fill:#90A09F;} .st44{display:inline;fill:#B7978F;} .st45{fill:#9FA526;} .st46{fill:#CC5F4E;} .st47{fill:#9E3D2D;} .st48{fill:#C14F34;} .st49{fill:#B7C62C;} .st50{fill:#BB8B5A;} .st51{fill:#825F3E;} .st52{fill:#AF452F;} .st53{fill:#252830;} .st54{fill:none;stroke:#9FA526;stroke-miterlimit:10;} .st55{fill:#F0EAD1;} .st56{fill:#B1B72E;} .st57{fill:#E5E0CA;} .st58{fill:#454716;} .st59{display:inline;fill:#21304C;}
   </style>
-  <path class="st0 st1" d="M0 0h900v600H0z" id="Laag_2"/>
   <g xmlns="http://www.w3.org/2000/svg" id="Background">
     <ellipse class="st3" cx="493.9" cy="255.9" rx="55.7" ry="43.6" id="ellipse8"/>
-
+    <ellipse class="st4" cx="192.6" cy="247.4" rx="49.4" ry="39.4" id="ellipse16"/>
     <ellipse class="st5" cx="589" cy="241.2" rx="62.2" ry="43.6" id="ellipse12"/>
     <ellipse class="st5" cx="736.7" cy="241.2" rx="62.2" ry="43.6" id="ellipse14"/>
-    <ellipse class="st4" cx="192.6" cy="247.4" rx="49.4" ry="39.4" id="ellipse16"/>
     <circle class="st6" cx="229" cy="129" r="69" id="circle18"/>
     <path class="st7" d="M226.5 241.2s33.8-61.3 42-72.9c8.2-11.6 15.3-28.4 33.4 0 18.1 28.4 41.6 72.9 41.6 72.9h-117z" id="path20"/>
     <path class="st8" d="M179.5 241.2s30.4-48.9 37.9-58.1c7.4-9.2 13.8-22.7 30.1 0s37.5 58.1 37.5 58.1H179.5z" id="path22"/>
@@ -18,7 +16,6 @@
     <path class="st13" d="M218 86.1c-5.3 0-10.2 1.9-14 5-2.5-16.2-16.4-28.6-33.3-28.6-16.8 0-30.7 12.3-33.3 28.3-3.8-3-8.5-4.8-13.7-4.8-12.1 0-21.9 9.8-21.9 21.9s9.8 21.9 21.9 21.9H215v-.2c1 .1 2 .2 3 .2 12.1 0 21.9-9.8 21.9-21.9s-9.8-21.8-21.9-21.8zm578.9 69.8c-3.8 0-7.3 1.4-10 3.6-1.8-11.6-11.8-20.5-23.9-20.5-12.1 0-22.1 8.8-23.9 20.4-2.7-2.2-6.1-3.4-9.8-3.4-8.7 0-15.8 7.1-15.8 15.8 0 8.7 7.1 15.8 15.8 15.8h65.6v-.2c.7.1 1.4.2 2.2.2 8.7 0 15.8-7.1 15.8-15.8-.2-8.8-7.3-15.9-16-15.9zm-169.7-10.5c-3.4 0-6.4 1.2-8.8 3.3-1.6-10.6-10.4-18.8-21-18.8s-19.3 8.1-21 18.6c-2.4-2-5.4-3.2-8.6-3.2-7.6 0-13.8 6.4-13.8 14.4s6.2 14.4 13.8 14.4h57.5v-.1c.6.1 1.2.1 1.9.1 7.6 0 13.8-6.4 13.8-14.4 0-7.9-6.1-14.3-13.8-14.3zM331 169.5c-2.2 0-4.3.8-5.9 2.1-1-6.8-6.9-12.1-14.1-12.1-7.1 0-13 5.2-14 12-1.6-1.3-3.6-2-5.8-2-5.1 0-9.3 4.1-9.3 9.3s4.1 9.3 9.3 9.3h38.5v-.1c.4.1.8.1 1.3.1 5.1 0 9.3-4.1 9.3-9.3s-4.2-9.3-9.3-9.3z" id="path34"/>
     <path class="st15" d="M788.3 252.4c0 5.2-6.8 9.4-15 9.4H146.6c-8.2 0-15-4.2-15-9.4s6.8-9.4 15-9.4h626.7c8.3 0 15 4.3 15 9.4z" id="path44"/>
   </g>
-
 
   <g xmlns="http://www.w3.org/2000/svg" id="Toori_Birds">
     <path class="st34" d="M645.6 228.3c0 1.1-.9 2-2 2h-14c-1.1 0-2-.9-2-2v-3.2c0-1.1.9-2 2-2h14c1.1 0 2 .9 2 2v3.2z" id="path94"/>
