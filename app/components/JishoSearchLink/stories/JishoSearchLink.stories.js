@@ -9,11 +9,4 @@ storiesOf('components.JishoSearchLink', module)
     <Container flexRow>
       <JishoSearchLink keyword="下着" />
     </Container>
-  ))
-  .add('JishoSearchLink visually hidden but still taking up space between two words', () => (
-    <Container flexRow>
-      <div>Two</div>
-      <JishoSearchLink keyword="下着" visuallyHidden />
-      <div>Words</div>
-    </Container>
   ));

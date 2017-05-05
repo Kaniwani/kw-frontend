@@ -12,12 +12,12 @@ storiesOf('components.IconButtons', module)
   .add('all icons', () => (
     <Container flexRow flexWrap justifyContent="space-around">
       {Object.keys(ICONS).map((name, index) => (
-        <Element flex="0 0 200px" key={`icon-${index}`}>
+        <Element flexRow alignItems="center" flex="0 0 200px" key={`icon-${index}`}>
           <IconButton
             name={name}
             size="2rem"
             color={randomHexColor()}
-            onClick={action('button-click')}
+            handleClick={action('button-click')}
             title={`Does some kind of ${name} action`}
           />
           <span style={{ marginLeft: '.5em', fontSize: '.7em' }}>{name}</span>

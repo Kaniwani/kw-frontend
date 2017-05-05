@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<IconButton />  should adopt button types 1`] = `
-<button
-  class="fEdepf"
+exports[`<IconLink />  should match baseline snapshot of anchor 1`] = `
+<a
+  class="kjCPoV iLbNOi"
+  href="http://google.com"
   title="Does an action"
-  type="submit"
 >
   <span
     class="hNDMaS"
@@ -24,14 +24,13 @@ exports[`<IconButton />  should adopt button types 1`] = `
       />
     </svg>
   </span>
-</button>
+</a>
 `;
 
-exports[`<IconButton />  should match baseline snapshot 1`] = `
-<button
-  class="fEdepf"
+exports[`<IconLink />  should match baseline snapshot of react-router Link 1`] = `
+<a
+  class="kjCPoV iLbNOi"
   title="Does an action"
-  type="button"
 >
   <span
     class="hNDMaS"
@@ -51,5 +50,5 @@ exports[`<IconButton />  should match baseline snapshot 1`] = `
       />
     </svg>
   </span>
-</button>
+</a>
 `;

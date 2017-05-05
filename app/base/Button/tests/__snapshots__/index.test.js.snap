@@ -2,7 +2,7 @@
 
 exports[`<Button /> should match baseline snapshot as A button 1`] = `
 <a
-  class="kSuvgA koXDKo"
+  class="eRxmik dTJZJM"
   href="http://google.com"
 >
   <h1>
@@ -13,7 +13,7 @@ exports[`<Button /> should match baseline snapshot as A button 1`] = `
 
 exports[`<Button /> should match baseline snapshot as Button button 1`] = `
 <button
-  class="kSuvgA"
+  class="eRxmik"
   type="button"
 >
   <h1>
@@ -24,7 +24,7 @@ exports[`<Button /> should match baseline snapshot as Button button 1`] = `
 
 exports[`<Button /> should match baseline snapshot as Link button 1`] = `
 <a
-  class="kSuvgA koXDKo"
+  class="eRxmik dTJZJM"
 >
   <h1>
     Test

@@ -2,13 +2,12 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { lighten } from 'polished';
 import { epsilon } from 'shared/styles/typography';
-import { transitionAllEase } from 'shared/styles/animation';
+import { allEaseQuad } from 'shared/styles/animation';
 
 import A from 'base/A';
 
 const style = css`
   ${epsilon}
-  ${transitionAllEase}
   display: inline-block;
   box-sizing: border-box;
   padding: .25em .4em;
@@ -25,6 +24,7 @@ const style = css`
   border: 2px solid ${({ color }) => color};
   color: ${({ color }) => color};
   background-color: ${({ bgColor }) => bgColor};
+  transition: ${allEaseQuad};
 
   &:active,
   &:focus,
