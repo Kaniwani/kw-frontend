@@ -4,10 +4,10 @@ import styled from 'styled-components';
 
 import A from 'base/A';
 import Icon from 'components/Icon';
-import { allEaseQuad } from 'shared/styles/animation';
+import { fastEaseQuad } from 'shared/styles/animation';
 
 const StyledAnchor = styled(A)`
-  transition: ${allEaseQuad}, transform 100ms linear;
+  transition: all ${fastEaseQuad}, transform 100ms linear;
   cursor: pointer;
   opacity: .7;
 

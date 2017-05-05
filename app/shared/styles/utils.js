@@ -57,7 +57,7 @@ export const tapTarget = ({ x, y } = { x: '.1rem', y: '.1rem' }) => css`
   }
 `;
 
-export const visuallyhidden = `
+export const visuallyHidden = `
   position: absolute;
   height: 1px !important;
   width: 1px !important;

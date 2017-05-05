@@ -6,6 +6,7 @@ import { StyledA, StyledButton } from './styles';
 
 
 Button.propTypes = {
+  plainButton: PropTypes.bool,
   children: PropTypes.node.isRequired,
   type: PropTypes.oneOf(['submit', 'reset', 'button']),
   href: PropTypes.oneOfType([
@@ -28,6 +29,7 @@ Button.propTypes = {
 
 Button.defaultProps = {
   type: 'button',
+  plainButton: false,
   href: '',
   to: '',
   onClick: false,
@@ -37,7 +39,7 @@ Button.defaultProps = {
   bgColorHover: whiteLight,
 };
 
-function Button({ children, type, href, to, onClick, ...colorProps }) {
+function Button({ plainButton, children, type, href, to, onClick, ...colorProps }) {
   const link = () => (
     <StyledA plainLink href={href} to={to} {...colorProps}>
       {Children.toArray(children)}
@@ -45,7 +47,7 @@ function Button({ children, type, href, to, onClick, ...colorProps }) {
   );
 
   const button = () => (
-    <StyledButton type={type} onClick={onClick} {...colorProps}>
+    <StyledButton plainButton={plainButton} type={type} onClick={onClick} {...colorProps}>
       {Children.toArray(children)}
     </StyledButton>
   );

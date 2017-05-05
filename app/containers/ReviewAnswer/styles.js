@@ -4,7 +4,7 @@ import { placeholder } from 'polished';
 import Icon from 'components/Icon';
 import IconButton from 'components/IconButton';
 
-import { visuallyhidden } from 'shared/styles/utils';
+import { visuallyHidden } from 'shared/styles/utils';
 import { shadowBox, innerMedium } from 'shared/styles/shadows';
 import { mega } from 'shared/styles/typography';
 import { media } from 'shared/styles/media';
@@ -50,7 +50,7 @@ export const Form = styled.form`
 `;
 
 export const Label = styled.label`
-  ${visuallyhidden}
+  ${visuallyHidden}
 `;
 
 export const Input = styled.input`

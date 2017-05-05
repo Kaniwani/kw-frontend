@@ -1,7 +1,9 @@
 import { keyframes } from 'styled-components';
 import { timingFunctions } from 'polished';
 
-export const allEaseQuad = `all 275ms ${timingFunctions('easeInOutQuad')}`;
+export const fastEaseQuad = `275ms ${timingFunctions('easeInOutQuad')}`;
+export const midEaseQuad = `412.5ms ${timingFunctions('easeInOutQuad')}`;
+export const slowEaseQuad = `550ms ${timingFunctions('easeInOutQuad')}`;
 
 export const wobble = keyframes`
   0% {

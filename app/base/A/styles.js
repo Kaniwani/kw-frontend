@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router';
 import { link, linkHover } from 'shared/styles/colors';
-import { allEaseQuad } from 'shared/styles/animation';
+import { fastEaseQuad } from 'shared/styles/animation';
 
 const plainStyles = `
   text-decoration: none;
@@ -10,7 +10,7 @@ const plainStyles = `
 `;
 
 const linkStyles = `
-  transition: ${allEaseQuad};
+  transition: all ${fastEaseQuad};
   color: ${link};
   &:hover {
     color: ${linkHover};

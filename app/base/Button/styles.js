@@ -1,8 +1,10 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { lighten } from 'polished';
+
 import { epsilon } from 'shared/styles/typography';
-import { allEaseQuad } from 'shared/styles/animation';
+import { fastEaseQuad } from 'shared/styles/animation';
+import { resetButton } from 'shared/styles/utils';
 
 import A from 'base/A';
 
@@ -24,23 +26,26 @@ const style = css`
   border: 2px solid ${({ color }) => color};
   color: ${({ color }) => color};
   background-color: ${({ bgColor }) => bgColor};
-  transition: ${allEaseQuad};
+  transition: all ${fastEaseQuad};
 
-  &:active,
-  &:focus,
-  &:hover {
-    color: ${({ colorHover }) => colorHover};
-    background-color: ${({ bgColorHover }) => bgColorHover};
-  }
+  ${({ plainButton }) => plainButton ?
+    resetButton : `
+    &:active,
+    &:focus,
+    &:hover {
+      color: ${({ colorHover }) => colorHover};
+      background-color: ${({ bgColorHover }) => bgColorHover};
+    }
 
-  &:active {
-    color: ${({ color }) => color};
-    background-color: ${({ bgColor }) => lighten(0.2, bgColor)};
-  }
+    &:active {
+      color: ${({ color }) => color};
+      background-color: ${({ bgColor }) => lighten(0.2, bgColor)};
+    }
+  `}
 `;
 
 export const StyledA = styled(({ color, colorHover, bgColor, bgColorHover, ...props }) =>
   <A {...props} />)`${style}`;
 
-export const StyledButton = styled(({ color, colorHover, bgColor, bgColorHover, ...props }) =>
+export const StyledButton = styled(({ plainButton, color, colorHover, bgColor, bgColorHover, ...props }) =>
   <button {...props} />)`${style}`;
