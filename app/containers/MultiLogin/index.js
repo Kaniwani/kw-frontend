@@ -81,7 +81,7 @@ class MultiLogin extends React.PureComponent { // eslint-disable-line react/pref
           innerRef={(node) => { this.mainInput = node; }}
           name="email"
           type="email"
-          placeholder="Email address"
+          placeholder="Email"
           isHidden={notRegisterSelected}
         />
         <Label for="password">

@@ -1,16 +1,22 @@
-
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
+
 import Ruby from '../index';
+import P from 'base/P';
+
 storiesOf('base.Ruby', module)
   .add('without furi', () => (
-    <Ruby>漢字</Ruby>
+    <P lang="ja">
+      <Ruby>漢字</Ruby>
+    </P>
   ))
   .add('with furi prop', () => (
-    <Ruby furi="かんじ">漢字</Ruby>
+    <P lang="ja">
+      <Ruby furi="かんじ">漢字</Ruby>
+    </P>
   ))
   .add('with furi in a sentence', () => (
-    <p lang="ja">
+    <P lang="ja">
       <Ruby furi="わたし">私</Ruby>
       <Ruby>は</Ruby>
       <Ruby furi="てきい">敵意</Ruby>
@@ -21,5 +27,5 @@ storiesOf('base.Ruby', module)
       <Ruby>を</Ruby>
       <Ruby furi="う">受</Ruby>
       <Ruby>けた</Ruby>
-    </p>
+    </P>
     ));

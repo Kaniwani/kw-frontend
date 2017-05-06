@@ -18,6 +18,7 @@ export default function splitSentenceByMatch(sentence = '', character = '', kana
   // We should attempt to partial match kana like we do with character, since some sentences are:
   // "つく" -> "何かがついた"
   // stripOkurigana however won't work on kana since it relies on stopping at the first kanji
+  // We could save the stripped trailing okurigana, then slice it off the kana
   try {
     const [cleanChars, cleanKana] = [stripLeadingTilde(character), stripLeadingTilde(kana)];
     const cleanKata = toKatakana(cleanKana);

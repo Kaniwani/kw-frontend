@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import A from 'base/A';
+
 import splitSentenceByMatch from 'utils/splitSentenceByMatch';
+import A from 'base/A';
+import Ruby from 'base/Ruby';
 
 import { Sentence, VocabMark } from './styles';
 

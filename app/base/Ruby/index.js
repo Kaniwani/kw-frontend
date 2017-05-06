@@ -1,5 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { pure } from 'recompose';
+
+
+/**
+ * Renders a Ruby tag with furigana or a span if no furigana
+ * Ideally, lang="ja" should be specified on a parent element.
+ */
 
 Ruby.propTypes = {
   furi: PropTypes.string,
@@ -16,4 +23,4 @@ function Ruby({ furi, children }) {
     <span>{children}</span>;
 }
 
-export default Ruby;
+export default pure(Ruby);

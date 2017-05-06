@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { transparentize } from 'polished';
 
 import P from 'base/P';
+import Mark from 'base/Mark';
 
 import { transparent, greyDark, purpleLight } from 'shared/styles/colors';
 
@@ -19,7 +20,7 @@ export const Sentence = styled(P)`
   }
 `;
 
-export const VocabMark = styled.mark`
+export const VocabMark = styled(Mark)`
   background-color: ${transparent};
   color: ${transparentize(0.2, purpleLight)};
 `;
