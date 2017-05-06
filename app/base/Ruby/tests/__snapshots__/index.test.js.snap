@@ -1,17 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Ruby /> should render a <span> tag when furi prop is empty 1`] = `
-<span
-  lang="ja"
->
+<span>
   Without rt
 </span>
 `;
 
 exports[`<Ruby /> should render a Ruby tag with RB and RT children when passed furi prop 1`] = `
-<ruby
-  lang="ja"
->
+<ruby>
   <rb>
     漢字
   </rb>

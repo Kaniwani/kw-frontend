@@ -15,7 +15,7 @@ describe('<Ruby />', () => {
     const renderedComponent = shallow(
       <Ruby>Without rt</Ruby>
     );
-    expect(renderedComponent.find('ruby').exists()).toBe(false);
+    expect(renderedComponent.find('Ruby').exists()).toBe(false);
     expect(renderedComponent).toMatchSnapshot();
   });
 });

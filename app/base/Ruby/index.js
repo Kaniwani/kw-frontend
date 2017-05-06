@@ -12,8 +12,8 @@ Ruby.defaultProps = {
 
 function Ruby({ furi, children }) {
   return furi ?
-    <ruby lang="ja"><rb>{children}</rb><rt>{furi}</rt></ruby> :
-    <span lang="ja">{children}</span>;
+    <ruby><rb>{children}</rb><rt>{furi}</rt></ruby> :
+    <span>{children}</span>;
 }
 
 export default Ruby;
