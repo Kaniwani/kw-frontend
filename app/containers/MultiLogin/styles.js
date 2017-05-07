@@ -97,7 +97,7 @@ export const SelectedPointer = styled.span`
   position: relative;
   top: .25rem;
   width: 0;
-  transition: transform 100ms ${timingFunctions('easeOutQuad')};
+  transition: transform 150ms ${timingFunctions('easeOutSine')};
   ${({ position }) => {
     if (position === 'left') return 'transform: translateX(-6.5rem);';
     if (position === 'right') return 'transform: translateX(6.5rem);';
