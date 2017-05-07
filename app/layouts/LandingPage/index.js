@@ -6,14 +6,14 @@ import PageWrapper from 'layouts/PageWrapper';
 import MultiLogin from 'containers/MultiLogin';
 import loginBackground from 'shared/assets/img/login.svg';
 import { red } from 'shared/styles/colors';
-import { giga } from 'shared/styles/typography';
+import { godzilla } from 'shared/styles/typography';
 
 const Wrapper = styled(PageWrapper)`
   background: #e5e5e5; /* same as background-image */
 `;
 
 const Title = styled(H1)`
-  ${giga}
+  ${godzilla}
   letter-spacing: -0.04em;
   padding-top: .3em;
   padding-bottom: .3em;

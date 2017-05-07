@@ -2,70 +2,33 @@
 
 exports[`<LandingPage /> should match baseline snapshot 1`] = `
 <LandingPage>
-  <Styled(Container)
+  <Styled(PageWrapper)
     fullWidth={true}
   >
-    <Container
-      alignContent=""
-      alignItems=""
-      alignSelf=""
-      className="cUPlXl"
-      flex=""
-      flexCenter={false}
-      flexColumn={false}
-      flexDisplay=""
-      flexRow={false}
-      flexWrap={false}
+    <PageWrapper
+      className="jUaApw"
       fullWidth={true}
-      justifyContent=""
-      marginTop=""
+      fullWidthBg={false}
       tag="div"
-      textAlign=""
-      withPadding={true}
     >
       <Styled(Component)
-        alignContent=""
-        alignItems=""
-        alignSelf=""
-        className="cUPlXl"
-        flex=""
-        flexCenter={false}
-        flexColumn={false}
-        flexDisplay=""
-        flexRow={false}
-        flexWrap={false}
+        className="jUaApw"
         fullWidth={true}
-        justifyContent=""
-        marginTop=""
+        fullWidthBg={false}
         tag="div"
-        textAlign=""
-        withPadding={true}
       >
         <Component
-          alignContent=""
-          alignItems=""
-          alignSelf=""
-          className="cUPlXl iINiFg"
-          flex=""
-          flexCenter={false}
-          flexColumn={false}
-          flexDisplay=""
-          flexRow={false}
-          flexWrap={false}
+          className="jUaApw juuvqD"
           fullWidth={true}
-          justifyContent=""
-          marginTop=""
+          fullWidthBg={false}
           tag="div"
-          textAlign=""
-          withPadding={true}
         >
           <div
-            className="cUPlXl iINiFg"
-            fullWidth={true}
+            className="jUaApw juuvqD"
           >
             <styled.h1>
               <h1
-                className="eeCmJx"
+                className="cWVNMQ"
               >
                 KaniWani
               </h1>
@@ -75,7 +38,7 @@ exports[`<LandingPage /> should match baseline snapshot 1`] = `
                 onSubmit={[Function]}
               >
                 <form
-                  className="loHeoW"
+                  className="jgVQpr"
                   onSubmit={[Function]}
                 >
                   <styled.ul
@@ -100,7 +63,7 @@ exports[`<LandingPage /> should match baseline snapshot 1`] = `
                         onClick={[Function]}
                       >
                         <li
-                          className="hAnbxM"
+                          className="bLjVnh"
                           onClick={[Function]}
                         >
                           Login
@@ -123,7 +86,7 @@ exports[`<LandingPage /> should match baseline snapshot 1`] = `
                     position={false}
                   >
                     <span
-                      className="jNxzlX"
+                      className="iWKBA"
                     />
                   </styled.span>
                   <styled.label
@@ -132,19 +95,20 @@ exports[`<LandingPage /> should match baseline snapshot 1`] = `
                     <label
                       className="eUACHg"
                     >
-                      Enter account 
-                      email or username
+                      Enter 
+                      Email or Username
                     </label>
                   </styled.label>
                   <Input
                     autoFocus={true}
                     innerRef={[Function]}
-                    isVisible={true}
+                    isHidden={false}
                     name="user"
                     placeholder="Email or Username"
                     type="text"
                   >
                     <styled.input
+                      aria-hidden={false}
                       autoCapitalize="off"
                       autoComplete="on"
                       autoCorrect="off"
@@ -152,24 +116,68 @@ exports[`<LandingPage /> should match baseline snapshot 1`] = `
                       disabled={false}
                       id="user"
                       innerRef={[Function]}
-                      isVisible={true}
                       name="user"
                       placeholder="Email or Username"
                       spellCheck="false"
                       type="text"
                     >
                       <input
+                        aria-hidden={false}
                         autoCapitalize="off"
                         autoComplete="on"
                         autoCorrect="off"
                         autoFocus={true}
-                        className="jZCMeN"
+                        className="cbyRRt"
                         disabled={false}
                         id="user"
                         name="user"
                         placeholder="Email or Username"
                         spellCheck="false"
                         type="text"
+                      />
+                    </styled.input>
+                  </Input>
+                  <styled.label
+                    for="email"
+                  >
+                    <label
+                      className="eUACHg"
+                    >
+                      Enter email
+                    </label>
+                  </styled.label>
+                  <Input
+                    innerRef={[Function]}
+                    isHidden={true}
+                    name="email"
+                    placeholder="Email"
+                    type="email"
+                  >
+                    <styled.input
+                      aria-hidden={true}
+                      autoCapitalize="off"
+                      autoComplete="on"
+                      autoCorrect="off"
+                      disabled={true}
+                      id="email"
+                      innerRef={[Function]}
+                      name="email"
+                      placeholder="Email"
+                      spellCheck="false"
+                      type="email"
+                    >
+                      <input
+                        aria-hidden={true}
+                        autoCapitalize="off"
+                        autoComplete="on"
+                        autoCorrect="off"
+                        className="cbyRRt"
+                        disabled={true}
+                        id="email"
+                        name="email"
+                        placeholder="Email"
+                        spellCheck="false"
+                        type="email"
                       />
                     </styled.input>
                   </Input>
@@ -183,28 +191,29 @@ exports[`<LandingPage /> should match baseline snapshot 1`] = `
                     </label>
                   </styled.label>
                   <Input
-                    isVisible={true}
+                    isHidden={false}
                     name="password"
                     placeholder="Password"
                     type="password"
                   >
                     <styled.input
+                      aria-hidden={false}
                       autoCapitalize="off"
                       autoComplete="on"
                       autoCorrect="off"
                       disabled={false}
                       id="password"
-                      isVisible={true}
                       name="password"
                       placeholder="Password"
                       spellCheck="false"
                       type="password"
                     >
                       <input
+                        aria-hidden={false}
                         autoCapitalize="off"
                         autoComplete="on"
                         autoCorrect="off"
-                        className="jZCMeN"
+                        className="cbyRRt"
                         disabled={false}
                         id="password"
                         name="password"
@@ -224,28 +233,29 @@ exports[`<LandingPage /> should match baseline snapshot 1`] = `
                     </label>
                   </styled.label>
                   <Input
-                    isVisible={false}
+                    isHidden={true}
                     name="confirmPassword"
                     placeholder="Confirm Password"
                     type="password"
                   >
                     <styled.input
+                      aria-hidden={true}
                       autoCapitalize="off"
                       autoComplete="on"
                       autoCorrect="off"
                       disabled={true}
                       id="confirmPassword"
-                      isVisible={false}
                       name="confirmPassword"
                       placeholder="Confirm Password"
                       spellCheck="false"
                       type="password"
                     >
                       <input
+                        aria-hidden={true}
                         autoCapitalize="off"
                         autoComplete="on"
                         autoCorrect="off"
-                        className="betTWj"
+                        className="cbyRRt"
                         disabled={true}
                         id="confirmPassword"
                         name="confirmPassword"
@@ -265,28 +275,29 @@ exports[`<LandingPage /> should match baseline snapshot 1`] = `
                     </label>
                   </styled.label>
                   <Input
-                    isVisible={false}
+                    isHidden={true}
                     name="apiKey"
                     placeholder="WaniKani API key"
                     type="text"
                   >
                     <styled.input
+                      aria-hidden={true}
                       autoCapitalize="off"
                       autoComplete="on"
                       autoCorrect="off"
                       disabled={true}
                       id="apiKey"
-                      isVisible={false}
                       name="apiKey"
                       placeholder="WaniKani API key"
                       spellCheck="false"
                       type="text"
                     >
                       <input
+                        aria-hidden={true}
                         autoCapitalize="off"
                         autoComplete="on"
                         autoCorrect="off"
-                        className="betTWj"
+                        className="cbyRRt"
                         disabled={true}
                         id="apiKey"
                         name="apiKey"
@@ -311,13 +322,13 @@ exports[`<LandingPage /> should match baseline snapshot 1`] = `
             </MultiLogin>
             <styled.div>
               <div
-                className="hhSXLu"
+                className="cQXbBu"
               />
             </styled.div>
           </div>
         </Component>
       </Styled(Component)>
-    </Container>
-  </Styled(Container)>
+    </PageWrapper>
+  </Styled(PageWrapper)>
 </LandingPage>
 `;

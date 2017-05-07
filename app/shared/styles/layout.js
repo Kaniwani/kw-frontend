@@ -30,13 +30,12 @@ export const elementGutter = `
   `}
 `;
 
-export const containerGutterHorizontal = `
-  padding-left: ${padding.mobile.outer.x}rem;
-  padding-right: ${padding.mobile.outer.x}rem;
-  ${media('min').sm`
-    padding-left: ${padding.desktop.outer.x}rem;
-    padding-right: ${padding.desktop.outer.x}rem;
-  `}
+export const halfElementGutterMobile = `
+  ${padding.mobile.inner.y / 2}rem ${padding.mobile.inner.x / 2}rem
+`;
+
+export const halfElementGutterDesktop = `
+  ${padding.desktop.inner.y / 2}rem ${padding.desktop.inner.x / 2}rem
 `;
 
 export const elementGutterHorizontal = `
@@ -48,21 +47,38 @@ export const elementGutterHorizontal = `
   `}
 `;
 
-export const containerGutterVertical = `
-  padding-top: ${padding.mobile.outer.y}rem;
-  padding-bottom: ${padding.mobile.outer.y}rem;
-  ${media('min').sm`
-    padding-top: ${padding.desktop.outer.y}rem;
-    padding-bottom: ${padding.desktop.outer.y}rem;
-  `}
-`;
-
 export const elementGutterVertical = `
   padding-top: ${padding.mobile.inner.y}rem;
   padding-bottom: ${padding.mobile.inner.y}rem;
   ${media('min').sm`
     padding-top: ${padding.desktop.inner.y}rem;
     padding-bottom: ${padding.desktop.inner.y}rem;
+  `}
+`;
+
+export const halfContainerGutterMobile = `
+  ${padding.mobile.outer.y / 2}rem ${padding.mobile.outer.x / 2}rem
+`;
+
+export const halfContainerGutterDesktop = `
+  ${padding.desktop.outer.y / 2}rem ${padding.desktop.outer.x / 2}rem
+`;
+
+export const containerGutterHorizontal = `
+  padding-left: ${padding.mobile.outer.x}rem;
+  padding-right: ${padding.mobile.outer.x}rem;
+  ${media('min').sm`
+    padding-left: ${padding.desktop.outer.x}rem;
+    padding-right: ${padding.desktop.outer.x}rem;
+  `}
+`;
+
+export const containerGutterVertical = `
+  padding-top: ${padding.mobile.outer.y}rem;
+  padding-bottom: ${padding.mobile.outer.y}rem;
+  ${media('min').sm`
+    padding-top: ${padding.desktop.outer.y}rem;
+    padding-bottom: ${padding.desktop.outer.y}rem;
   `}
 `;
 
@@ -86,17 +102,17 @@ export const bannerElement = `
 
 export const fullRowMixin = ({ fullRow }) => fullRow ? bannerElement : elementGutter;
 export const textAlignMixin = ({ textAlign }) => textAlign && `text-align: ${textAlign};`;
+export const flexMixin = ({ flexDisplay, flexRow, flexColumn, flexWrap }) => (flexRow || flexColumn) && `
+display: ${flexDisplay || 'flex'};
+flex-flow: ${(flexRow && 'row') || 'column'} ${(flexWrap && 'wrap') || ''};
+`;
 export const flexCenterMixin = ({ flexCenter }) => flexCenter && `
   justify-content: center;
   align-content: center;
   align-items: center;
 `;
+export const flexShorthandMixin = ({ flex }) => flex && `flex:${flex};`;
 export const justifyContentMixin = ({ justifyContent }) => justifyContent && `justify-content: ${justifyContent};`;
 export const alignContentMixin = ({ alignContent }) => alignContent && `align-content: ${alignContent};`;
 export const alignItemsMixin = ({ alignItems }) => alignItems && `align-items: ${alignItems};`;
 export const alignSelfMixin = ({ alignSelf }) => alignSelf && `align-self:${alignSelf};`;
-export const flexShorthandMixin = ({ flex }) => flex && `flex:${flex};`;
-export const flexMixin = ({ flexDisplay, flexRow, flexColumn, flexWrap }) => (flexRow || flexColumn) && `
-  display: ${flexDisplay || 'flex'};
-  flex-flow: ${(flexRow && 'row') || 'column'} ${(flexWrap && 'wrap') || ''};
-`;

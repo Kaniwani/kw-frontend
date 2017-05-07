@@ -27,7 +27,7 @@ export const headingRhythm = `
   margin-bottom: 0;
   line-height: 1.2;
   letter-spacing: -1px;
-  &:not(:first-child) {
+  &:not(:first-of-type) {
     margin-top: ${0.3 * mod2}em;
     margin-bottom: 0;
   }
@@ -40,7 +40,8 @@ export const bodyRhythm = `
   line-height: 1.3;
 `;
 
-export const giga = fluidType(35, 90, 400, 2000);
+export const godzilla = fluidType(35, 90, 400, 2000);
+export const giga = fluidType(22, 52, 400, 2000);
 export const mega = fluidType(21, 44, 300, 2000);
 export const kilo = fluidType(20, 40, 300, 2000);
 

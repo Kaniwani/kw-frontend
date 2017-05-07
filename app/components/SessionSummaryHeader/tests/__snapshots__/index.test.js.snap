@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SessionSummaryHeader /> should match baseline snapshot 1`] = `
+<styled.header>
+  <styled.nav
+    alignItems="center"
+    flexRow={true}
+    flexWrap={true}
+    justifyContent="space-between"
+  >
+    <LogoLink
+      size="4.5rem"
+      to="/"
+    />
+    <styled.h1>
+      Review Summary
+    </styled.h1>
+    <SessionLink
+      color="blue"
+      count={0}
+      text="Continue session"
+      to="/review/"
+    />
+  </styled.nav>
+</styled.header>
+`;

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import TagsList from 'components/TagsList';
 import { white, purpleDark } from 'shared/styles/colors';
+import { centerByMargin } from 'shared/styles/layout';
 import { giga } from 'shared/styles/typography';
 
 export const Wrapper = styled.div`
@@ -21,8 +22,8 @@ export const QuestionWrapper = styled.div`
 
 export const Question = styled.h1`
   ${giga}
+  ${centerByMargin};
   color: ${white};
-  margin: 0;
   font-weight: 700;
   letter-spacing: -0.03em;
   text-shadow: .1em .2em .4em ${purpleDark};

@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link as RouterLink } from 'react-router';
 import styled, { css } from 'styled-components';
 import { timingFunctions } from 'polished';
 
@@ -14,6 +14,7 @@ const linkStyle = css`
   height: ${({ size }) => size}; /*Prevents scaling issue in IE*/
   background-repeat: no-repeat;
   color: ${blueLight};
+  cursor: pointer;
   transition: color .4s ${timingFunctions('easeInOutSine')};
 
   &:hover {
@@ -29,9 +30,8 @@ const linkStyle = css`
 
 const logoStyle = css`
   display: block;
-  pointer-events: none;
-  transform-origin: 50% 50% 0px;
   position: absolute;
+  transform-origin: 50% 50% 0px;
   top: 0;
   right: 0;
   bottom: 0;
@@ -44,5 +44,5 @@ const logoStyle = css`
 `;
 
 
-export const StyledLink = styled(Link)`${linkStyle}`;
-export const StyledSvg = styled(Logo)`${logoStyle}`;
+export const Link = styled(RouterLink)`${linkStyle}`;
+export const Svg = styled(Logo)`${logoStyle}`;

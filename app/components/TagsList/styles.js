@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { resetList, fluidType } from 'shared/styles/utils';
-import { halfElementGutterMobile, halfElementGutterDesktop, borderRadius } from 'shared/styles/sizing';
+import { halfElementGutterMobile, halfElementGutterDesktop } from 'shared/styles/layout';
+import { borderRadius } from 'shared/styles/sizing';
 import { media } from 'shared/styles/media';
 import * as COLORS from 'shared/styles/colors';
 

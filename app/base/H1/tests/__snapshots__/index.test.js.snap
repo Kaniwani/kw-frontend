@@ -2,7 +2,7 @@
 
 exports[`<H1 /> should render its text 1`] = `
 <h1
-  className="hJKcJp"
+  className="gXRtmj"
 >
   Text
 </h1>

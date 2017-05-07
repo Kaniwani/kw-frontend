@@ -1,5 +1,3 @@
-import { css } from 'styled-components';
-
 export const textThin = '1px 1px 1px rgba(59, 59, 59, .4)';
 export const textLight = '2px 2px 1px rgba(59, 59, 59, .5)';
 export const innerLight = 'inset 3px 3px 8px 0 rgba(59, 59, 59, .25)';
@@ -9,6 +7,6 @@ export const outerLight = '0 0 25px -5px rgba(59, 59, 59, .25)';
 export const outerLine = '0 0 .1em .1em rgba(0, 0, 0, .3)';
 export const bottomLight = '0 1px 8px rgba(59, 59, 59, .1)';
 
-export const shadowBox = css`
+export const shadowBox = `
   box-shadow: .1rem .1rem .1rem #e1e1e1;
 `;

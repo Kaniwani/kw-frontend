@@ -2,7 +2,7 @@
 
 exports[`<LogoLink /> should match baseline snapshot 1`] = `
 <Styled(Link)
-  size="4rem"
+  size="4.5rem"
   title="Return Home"
   to="/"
 >

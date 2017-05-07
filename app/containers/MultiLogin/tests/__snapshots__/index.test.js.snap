@@ -52,7 +52,7 @@ exports[`<MultiLogin /> MultiLogin match baseline snapshot 1`] = `
     innerRef={[Function]}
     isHidden={true}
     name="email"
-    placeholder="Email address"
+    placeholder="Email"
     type="email"
   />
   <styled.label
@@ -98,7 +98,7 @@ exports[`<MultiLogin /> MultiLogin match baseline snapshot 1`] = `
 
 exports[`<MultiLogin /> MultiLogin.Form should match snapshot 1`] = `
 <form
-  className="loHeoW"
+  className="jgVQpr"
 />
 `;
 
@@ -153,19 +153,19 @@ exports[`<MultiLogin /> MultiLogin.SelectListItem should match snapshot 1`] = `
 
 exports[`<MultiLogin /> MultiLogin.SelectedPointer should match snapshot 1`] = `
 <span
-  className="jNxzlX"
+  className="iWKBA"
 />
 `;
 
 exports[`<MultiLogin /> MultiLogin.SelectedPointer should match snapshot 2`] = `
 <span
-  className="djVNZH"
+  className="khvCvr"
 />
 `;
 
 exports[`<MultiLogin /> MultiLogin.SelectedPointer should match snapshot 3`] = `
 <span
-  className="edWrls"
+  className="bQqiYH"
 />
 `;
 

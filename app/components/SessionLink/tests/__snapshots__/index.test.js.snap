@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SessionLink /> should adopt color and count props 1`] = `
+<styled.div>
+  <Styled(A)
+    bgColor="purple"
+    plainLink={true}
+    to="/reviews/"
+  >
+    <styled.div>
+      Continue Session
+    </styled.div>
+    <styled.div
+      title="Remaining reviews"
+    >
+      <Styled(Icon)
+        color="white"
+        display="block"
+        name="ASSIGNMENT_INBOX"
+        size="1.2em"
+      />
+      <styled.div>
+        88
+      </styled.div>
+    </styled.div>
+  </Styled(A)>
+</styled.div>
+`;
+
+exports[`<SessionLink /> should match baseline snapshot 1`] = `
+<styled.div>
+  <Styled(A)
+    bgColor="blue"
+    plainLink={true}
+    to="/reviews/"
+  >
+    <styled.div>
+      Continue Session
+    </styled.div>
+    <styled.div
+      title="Remaining reviews"
+    >
+      <Styled(Icon)
+        color="white"
+        display="block"
+        name="ASSIGNMENT_INBOX"
+        size="1.2em"
+      />
+      <styled.div>
+        0
+      </styled.div>
+    </styled.div>
+  </Styled(A)>
+</styled.div>
+`;

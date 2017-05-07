@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { StyledLink, StyledSvg } from './styles';
+import { Link, Svg } from './styles';
 
 LogoLink.propTypes = {
   to: PropTypes.string,
@@ -10,14 +10,14 @@ LogoLink.propTypes = {
 
 LogoLink.defaultProps = {
   to: '/',
-  size: '4rem',
+  size: '4.5rem',
 };
 
 function LogoLink({ to, size }) {
   return (
-    <StyledLink to={to} size={size} title="Return Home">
-      <StyledSvg width="100%" height="100%" />
-    </StyledLink>
+    <Link to={to} size={size} title="Return Home">
+      <Svg width="100%" height="100%" />
+    </Link>
   );
 }
 

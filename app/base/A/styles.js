@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { Link } from 'react-router';
+import { Link as RouterLink } from 'react-router';
 import { link, linkHover } from 'shared/styles/colors';
 import { fastEaseQuad } from 'shared/styles/animation';
 
@@ -32,5 +32,5 @@ export const style = css`
  * to prevent plainLink (used only in style) from being added to <a> & <Link> as (disallowed) html attrs
  */
 
-export const StyledAnchor = styled(({ plainLink, children, ...rest }) => <a {...rest}>{children}</a>)`${style}`;
-export const StyledLink = styled(({ plainLink, children, ...rest }) => <Link {...rest}>{children}</Link>)`${style}`;
+export const Anchor = styled(({ plainLink, children, ...rest }) => <a {...rest}>{children}</a>)`${style}`;
+export const Link = styled(({ plainLink, children, ...rest }) => <RouterLink {...rest}>{children}</RouterLink>)`${style}`;
