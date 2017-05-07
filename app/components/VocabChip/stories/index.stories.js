@@ -9,10 +9,10 @@ storiesOf('components.VocabChip', module)
       character="蟹鰐"
     />
   ))
-  .add('VocabChip with bgColor prop', () => (
+  .add('VocabChip with color prop', () => (
     <VocabChip
       id={Math.random()}
       character="蟹鰐"
-      bgColor="orange"
+      color="green"
     />
   ));
