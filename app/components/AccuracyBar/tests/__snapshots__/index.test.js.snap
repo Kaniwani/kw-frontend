@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AccuracyBar /> should adopt percent and color props 1`] = `
+<Styled(Element)
+  bgColor="green"
+  flexRow={true}
+>
+  <styled.h1
+    percent={24}
+    textShadowColor="green"
+  >
+    24
+    % Accuracy
+  </styled.h1>
+  <styled.div
+    bgColor="green"
+    percent={24}
+  />
+</Styled(Element)>
+`;
+
+exports[`<AccuracyBar /> should match baseline snapshot 1`] = `
+<Styled(Element)
+  bgColor="purple"
+  flexRow={true}
+>
+  <styled.h1
+    percent={0}
+    textShadowColor="purple"
+  >
+    0
+    % Accuracy
+  </styled.h1>
+  <styled.div
+    bgColor="purple"
+    percent={0}
+  />
+</Styled(Element)>
+`;
