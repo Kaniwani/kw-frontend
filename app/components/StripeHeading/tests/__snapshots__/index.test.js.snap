@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<StripeHeading /> should adopt a count prop 1`] = `
+<styled.h3>
+  <styled.span>
+    <styled.strong>
+      22
+    </styled.strong>
+    Apprentice
+  </styled.span>
+</styled.h3>
+`;
+
+exports[`<StripeHeading /> should match baseline snapshot 1`] = `
+<styled.h3>
+  <styled.span>
+    Apprentice
+  </styled.span>
+</styled.h3>
+`;
+
+exports[`<StripeHeading /> should still render a count prop if 0 1`] = `
+<styled.h3>
+  <styled.span>
+    <styled.strong>
+      0
+    </styled.strong>
+    Apprentice
+  </styled.span>
+</styled.h3>
+`;
