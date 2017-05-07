@@ -9,6 +9,7 @@ const WithTooltip = compose(
   setPropTypes({
     'data-tip': PropTypes.string.isRequired, // tooltip content
     'data-for': PropTypes.string, // corresponds to id of external/parent <ReactToolTip />
+    'data-class': PropTypes.string, // optional style class
     'data-place': PropTypes.string, // tooltip position
     'data-type': PropTypes.string, // dark, success, warning, error, info, light (theming)
     'data-multiline': PropTypes.bool, // supports <br /> in data-tip

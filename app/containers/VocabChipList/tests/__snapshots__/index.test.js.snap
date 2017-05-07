@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<VocabChipList /> should adopt a color prop 1`] = `
+<div>
+  <ReactTooltip
+    className="vocab-tip"
+    html={true}
+    id="vocabChipTip"
+    insecure={true}
+    resizeHide={true}
+    wrapper="div"
+  />
+  <styled.ul
+    plainList={true}
+  >
+    <defaultProps(VocabChip)
+      character="施設"
+      color="green"
+      data-for="vocabChipTip"
+      data-tip="
+      <ul>
+        <li>
+          <span>EN</span>
+          <span>facilities</li>
+        <li>
+          <span>JA</span>
+          <span lang=\\"ja\\">しせつ
+        </li>
+        <li>
+          <span>RC</span>
+          <span>82%
+        </li>
+      </ul>
+    "
+      id={42}
+    />
+    <defaultProps(VocabChip)
+      character="踊り"
+      color="green"
+      data-for="vocabChipTip"
+      data-tip="
+      <ul>
+        <li>
+          <span>EN</span>
+          <span>dancing</li>
+        <li>
+          <span>JA</span>
+          <span lang=\\"ja\\">おどり
+        </li>
+        <li>
+          <span>RC</span>
+          <span>95%
+        </li>
+      </ul>
+    "
+      id={22}
+    />
+  </styled.ul>
+</div>
+`;
+
+exports[`<VocabChipList /> should match baseline snapshot 1`] = `
+<div>
+  <ReactTooltip
+    className="vocab-tip"
+    html={true}
+    id="vocabChipTip"
+    insecure={true}
+    resizeHide={true}
+    wrapper="div"
+  />
+  <styled.ul
+    plainList={true}
+  >
+    <defaultProps(VocabChip)
+      character="施設"
+      color="purple"
+      data-for="vocabChipTip"
+      data-tip="
+      <ul>
+        <li>
+          <span>EN</span>
+          <span>facilities</li>
+        <li>
+          <span>JA</span>
+          <span lang=\\"ja\\">しせつ
+        </li>
+        <li>
+          <span>RC</span>
+          <span>82%
+        </li>
+      </ul>
+    "
+      id={42}
+    />
+    <defaultProps(VocabChip)
+      character="踊り"
+      color="purple"
+      data-for="vocabChipTip"
+      data-tip="
+      <ul>
+        <li>
+          <span>EN</span>
+          <span>dancing</li>
+        <li>
+          <span>JA</span>
+          <span lang=\\"ja\\">おどり
+        </li>
+        <li>
+          <span>RC</span>
+          <span>95%
+        </li>
+      </ul>
+    "
+      id={22}
+    />
+  </styled.ul>
+</div>
+`;

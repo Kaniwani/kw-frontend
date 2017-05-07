@@ -11,6 +11,7 @@ exports[`<WithTooltip /> should adopt component props 1`] = `
 
 exports[`<WithTooltip /> should adopt tooltip props 1`] = `
 <div
+  data-class="custom-class"
   data-delay-hide="200"
   data-delay-show="100"
   data-for="tooltipId"

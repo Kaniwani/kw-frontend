@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 // Direct selector to the {{ camelCase name }} state domain
 const select{{ properCase name }}Domain = () => (state) => state.{{ camelCase name }};
 
-// Default selector used by {{ properCase name }}
+// Main selector used by {{ properCase name }}
 const makeSelect{{ properCase name }} = () => createSelector(
   select{{ properCase name }}Domain(),
   (substate) => substate
@@ -12,7 +12,7 @@ const makeSelect{{ properCase name }} = () => createSelector(
 // Other specific selectors
 
 
-export default makeSelect{{ properCase name }};
+export default select{{ properCase name }}Domain;
 export {
-  select{{ properCase name }}Domain,
+  makeSelect{{ properCase name }},
 };

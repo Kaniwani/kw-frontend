@@ -1,5 +1,6 @@
 import { injectGlobal } from 'styled-components';
-import { blackLight, greyDark, purpleLight } from 'shared/styles/colors';
+import { white, grey, blackLight, greyDark, purpleLight } from 'shared/styles/colors';
+import { resetList } from 'shared/styles/utils';
 import { media } from 'shared/styles/media';
 import {
   ffBody,
@@ -70,6 +71,27 @@ injectGlobal`
 
   small {
     ${milli}
+  }
+
+  /* VocabChip tooltip styles */
+  .vocab-tip.vocab-tip {
+    ${epsilon}
+    padding: .75em;
+  }
+  .vocab-tip ul {
+    ${resetList}
+    color: ${white};
+  }
+  .vocab-tip li {
+    display: table-row;
+    > * {
+      display: table-cell;
+      padding: 0 4px;
+    }
+  }
+  .vocab-tip li span:first-child {
+    font-size: .95em;
+    color: ${grey};
   }
 
 `;

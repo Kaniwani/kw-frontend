@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<VocabChip /> should adopt a color prop 1`] = `
+<styled.li
+  bgColor="orange"
+>
+  <Styled(A)
+    plainLink={true}
+    to="/vocabulary/entry/42"
+  >
+    <styled.span
+      lang="ja"
+      shadowColor="orange"
+    >
+      蟹鰐
+    </styled.span>
+  </Styled(A)>
+</styled.li>
+`;
+
+exports[`<VocabChip /> should match baseline snapshot 1`] = `
+<styled.li
+  bgColor="purple"
+>
+  <Styled(A)
+    plainLink={true}
+    to="/vocabulary/entry/42"
+  >
+    <styled.span
+      lang="ja"
+      shadowColor="purple"
+    >
+      蟹鰐
+    </styled.span>
+  </Styled(A)>
+</styled.li>
+`;

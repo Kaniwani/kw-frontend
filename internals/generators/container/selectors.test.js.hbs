@@ -1,9 +1,16 @@
-import { makeSelect{{ properCase name }}Domain } from '../selectors';
+import select{{ properCase name }}Domain, { makeSelect{{ properCase name }} } from '../selectors';
 
-const selectDomain = makeSelect{{ properCase name}}Domain();
 
-describe('makeSelect{{ properCase name }}Domain', () => {  
-  it('selectDomain should match snapshot', () => {
-    expect(selectDomain).toMatchSnapshot;
+describe('{{ properCase name }} selectors', () => {
+  const state = { {{ camelCase name }}: 'winner!' };
+  const {{ properCase name }}Domain = select{{ properCase name }}Domain()(state);
+  const select{{ properCase name }} = makeSelect{{ properCase name}}();
+
+  it('selecting {{ camelCase name }} domain state should match snapshot', () => {
+    expect({{ properCase name }}Domain).toMatchSnapshot();
+  });
+
+  it('selecting {{ camelCase name }} substate should match snapshot', () => {
+    expect(select{{ properCase name }}()).toMatchSnapshot();
   });
 });

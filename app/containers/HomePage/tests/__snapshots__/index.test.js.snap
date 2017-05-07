@@ -2,21 +2,6 @@
 
 exports[`<HomePage /> should match the baseline snapshot 1`] = `
 <h1>
-  Hello HomePage
-  <label
-    htmlFor="derp"
-  >
-    toggle me
-    <ToggleSwitch
-      handleChange={[Function]}
-      height="2rem"
-      id="derp"
-      isChecked={false}
-      name="derp"
-      toggleOffColor="red"
-      toggleOnColor="green"
-      width="6rem"
-    />
-  </label>
+  Hello Homepage
 </h1>
 `;

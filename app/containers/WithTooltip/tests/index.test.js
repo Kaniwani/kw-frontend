@@ -18,6 +18,7 @@ describe('<WithTooltip />', () => {
       <Enhanced
         data-tip="Hello there"
         data-for="tooltipId"
+        data-class="custom-class"
         data-place="left"
         data-type="success"
         data-delay-show={100}
