@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 import invariant from 'invariant';
 
-import { Anchor, Link } from './styles';
+import { Anchor, RouterLink } from './styles';
 
 A.propTypes = {
   href: PropTypes.string,
@@ -36,7 +36,7 @@ function A({ href, to, external, plainLink, activeClassName, ...rest }) {
   if (href) {
     content = <Anchor href={href} plainLink={plainLink} {...props} />;
   } else if (to) {
-    content = <Link to={to} plainLink={plainLink} activeClassName={activeClassName} {...props} />;
+    content = <RouterLink to={to} plainLink={plainLink} activeClassName={activeClassName} {...props} />;
   } else {
     invariant(
       isEmpty(to) && isEmpty(href),

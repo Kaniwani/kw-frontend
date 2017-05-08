@@ -1,4 +1,4 @@
-import { Link as RouterLink } from 'react-router';
+import Link from 'react-router/lib/Link';
 import styled, { css } from 'styled-components';
 import { timingFunctions } from 'polished';
 
@@ -46,5 +46,5 @@ const logoStyle = css`
 `;
 
 
-export const Link = styled(RouterLink)`${linkStyle}`;
+export const RouterLink = styled(Link)`${linkStyle}`;
 export const Svg = styled(Logo)`${logoStyle}`;

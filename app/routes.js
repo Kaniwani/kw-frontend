@@ -4,6 +4,11 @@
 // about the code splitting business
 import { getAsyncInjectors } from './utils/asyncInjectors';
 
+
+// REACT_ROUTER_4
+// https://github.com/react-boilerplate/react-boilerplate/pull/1746
+// https://github.com/anuraaga/react-boilerplate/blob/8123a1b8469e699d4fd15ac25d18287e5d1eea66/docs/js/routing.md
+
 const errorLoading = (err) => {
   console.error('Dynamic page loading failed', err); // eslint-disable-line no-console
 };

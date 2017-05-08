@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { Link as RouterLink } from 'react-router';
+import Link from 'react-router/lib/Link';
 import { link, linkHover } from 'shared/styles/colors';
 import { fastEaseQuad } from 'shared/styles/animation';
 
@@ -33,4 +33,4 @@ export const style = css`
  */
 
 export const Anchor = styled(({ plainLink, children, ...rest }) => <a {...rest}>{children}</a>)`${style}`;
-export const Link = styled(({ plainLink, children, ...rest }) => <RouterLink {...rest}>{children}</RouterLink>)`${style}`;
+export const RouterLink = styled(({ plainLink, children, ...rest }) => <Link {...rest}>{children}</Link>)`${style}`;

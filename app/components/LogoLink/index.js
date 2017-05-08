@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Link, Svg } from './styles';
+import { RouterLink, Svg } from './styles';
 
 LogoLink.propTypes = {
   to: PropTypes.string,
@@ -15,9 +15,9 @@ LogoLink.defaultProps = {
 
 function LogoLink({ to, size }) {
   return (
-    <Link to={to} size={size} title="Return Home">
+    <RouterLink to={to} size={size} title="Return Home">
       <Svg width="100%" height="100%" />
-    </Link>
+    </RouterLink>
   );
 }
 
