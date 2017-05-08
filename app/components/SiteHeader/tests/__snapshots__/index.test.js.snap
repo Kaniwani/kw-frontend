@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SiteNav /> should match baseline snapshot 1`] = `
+<styled.header
+  innerRef={[Function]}
+>
+  <styled.nav>
+    <LogoLink
+      size="4.5rem"
+      to="/"
+    />
+    <OnCanvasMenu
+      routes={
+        Array [
+          Object {
+            "count": 0,
+            "isDisabled": false,
+            "text": "lessons",
+            "to": "/lesson",
+          },
+          Object {
+            "count": 0,
+            "isDisabled": false,
+            "text": "reviews",
+            "to": "/review",
+          },
+          Object {
+            "text": "vocabulary",
+            "to": "/vocabulary",
+          },
+          Object {
+            "text": "settings",
+            "to": "/settings",
+          },
+          Object {
+            "text": "about",
+            "to": "/about",
+          },
+          Object {
+            "text": "logout",
+            "to": "/logout",
+          },
+        ]
+      }
+    />
+    <OffCanvasMenu
+      id="offCanvasMenu"
+      isVisible={false}
+      offsetTop={70}
+      routes={Array []}
+    />
+  </styled.nav>
+</styled.header>
+`;

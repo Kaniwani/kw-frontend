@@ -2,7 +2,8 @@
 
 exports[`<IconButton />  should adopt button types 1`] = `
 <button
-  class="fEdepf"
+  aria-label="Does an action"
+  class="hOSzuP"
   title="Does an action"
   type="submit"
 >
@@ -29,7 +30,8 @@ exports[`<IconButton />  should adopt button types 1`] = `
 
 exports[`<IconButton />  should match baseline snapshot 1`] = `
 <button
-  class="fEdepf"
+  aria-label="Does an action"
+  class="hOSzuP"
   title="Does an action"
   type="button"
 >

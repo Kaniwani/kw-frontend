@@ -7,9 +7,11 @@ import { blueLight, purpleLight, pink } from 'shared/styles/colors';
 
 const linkStyle = css`
   display: block;
+  position: relative;
   vertical-align: middle;
   align-self: center;
-  position: relative;
+  margin-right: auto;
+  flex: 0 0 auto;
   width: ${({ size }) => size}; /*CSS instead of html width attr to support non-pixel units*/
   height: ${({ size }) => size}; /*Prevents scaling issue in IE*/
   background-repeat: no-repeat;

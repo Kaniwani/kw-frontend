@@ -11,20 +11,26 @@ import {
 } from './styles';
 
 SessionSummaryHeader.propTypes = {
-  remainingReviews: PropTypes.number,
+  category: PropTypes.string.isRequired,
+  linkRoute: PropTypes.string.isRequired,
+  count: PropTypes.number,
 };
 
 SessionSummaryHeader.defaultProps = {
-  remainingReviews: 0,
+  count: 0,
 };
 
-function SessionSummaryHeader({ remainingReviews }) {
+function SessionSummaryHeader({ category, count, linkRoute }) {
   return (
     <Header>
-      <Wrapper flexRow flexWrap alignItems="center" justifyContent="space-between">
+      <Wrapper>
         <LogoLink />
-        <Title>Review Summary</Title>
-        <SessionLink text="Continue session" to="/review/" count={remainingReviews} />
+        <Title>{category} Summary</Title>
+        <SessionLink
+          text="Continue Session"
+          to={linkRoute}
+          count={count}
+        />
       </Wrapper>
     </Header>
   );

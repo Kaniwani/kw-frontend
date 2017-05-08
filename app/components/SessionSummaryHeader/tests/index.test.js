@@ -4,6 +4,22 @@ import SessionSummaryHeader from '../index';
 
 describe('<SessionSummaryHeader />', () => {
   it('should match baseline snapshot', () => {
-    expect(shallow(<SessionSummaryHeader />)).toMatchSnapshot();
+    const renderedComponent = shallow(
+      <SessionSummaryHeader
+        category="review"
+        linkRoute="/reviews/"
+      />
+    );
+    expect(renderedComponent).toMatchSnapshot();
+  });
+  it('should match adopt count prop', () => {
+    const renderedComponent = shallow(
+      <SessionSummaryHeader
+        category="lesson"
+        linkRoute="/lessons/"
+        count={22}
+      />
+    );
+    expect(renderedComponent).toMatchSnapshot();
   });
 });

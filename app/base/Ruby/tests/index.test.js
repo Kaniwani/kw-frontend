@@ -1,21 +1,20 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from 'enzyme';
 
 import Ruby from '../index';
 
 describe('<Ruby />', () => {
   it('should render a Ruby tag with RB and RT children when passed furi prop', () => {
-    const renderedComponent = shallow(
+    const renderedComponent = render(
       <Ruby furi="かんじ">漢字</Ruby>
     );
     expect(renderedComponent).toMatchSnapshot();
   });
 
   it('should render a <span> tag when furi prop is empty', () => {
-    const renderedComponent = shallow(
+    const renderedComponent = render(
       <Ruby>Without rt</Ruby>
     );
-    expect(renderedComponent.find('Ruby').exists()).toBe(false);
     expect(renderedComponent).toMatchSnapshot();
   });
 });
