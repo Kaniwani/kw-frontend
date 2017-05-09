@@ -242,7 +242,6 @@ export function lockLevel(body = {
 
 export function unlockLevel(body = {
   level: null,
-  count: null, // for partial x items lock/unlock
 }) {
   const url = urls.unlockLevel(body.level);
   delete body.level; // eslint-disable-line no-param-reassign
