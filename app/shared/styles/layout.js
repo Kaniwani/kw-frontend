@@ -64,6 +64,14 @@ export const halfContainerGutterDesktop = `
   ${padding.desktop.outer.y / 2}rem ${padding.desktop.outer.x / 2}rem
 `;
 
+export const doubleContainerGutterMobile = `
+  ${padding.mobile.outer.y * 2}rem ${padding.mobile.outer.x * 2}rem
+`;
+
+export const doubleContainerGutterDesktop = `
+  ${padding.desktop.outer.y * 2}rem ${padding.desktop.outer.x * 2}rem
+`;
+
 export const containerGutterHorizontal = `
   padding-left: ${padding.mobile.outer.x}rem;
   padding-right: ${padding.mobile.outer.x}rem;

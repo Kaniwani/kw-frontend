@@ -41,9 +41,9 @@ export const bodyRhythm = `
 `;
 
 export const godzilla = fluidType(35, 90, 400, 2000);
-export const giga = fluidType(22, 52, 400, 2000);
-export const mega = fluidType(21, 44, 300, 2000);
-export const kilo = fluidType(20, 40, 300, 2000);
+export const giga = fluidType(23, 52, 400, 2000);
+export const mega = fluidType(22, 46, 300, 2000);
+export const kilo = fluidType(21, 44, 300, 2000);
 
 // Headings
 // h1

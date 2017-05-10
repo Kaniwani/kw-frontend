@@ -6,7 +6,7 @@ import IconButton from 'components/IconButton';
 
 import { visuallyHidden } from 'shared/styles/utils';
 import { shadowBox, innerMedium } from 'shared/styles/shadows';
-import { mega } from 'shared/styles/typography';
+import { kilo } from 'shared/styles/typography';
 import { media } from 'shared/styles/media';
 import { transparent, white, whiteLight, whiteDark, yellowOrange, red, green, black } from 'shared/styles/colors';
 
@@ -33,7 +33,7 @@ export const AnswerWrapper = styled.div`
 `;
 
 export const Form = styled.form`
-  ${mega}
+  ${kilo}
   position: relative;
   max-width: 100%;
   color: ${({ marked }) => marked ? white : black};
@@ -54,7 +54,7 @@ export const Label = styled.label`
 `;
 
 export const Input = styled.input`
-  ${mega}
+  ${kilo}
   display: block;
   width: 100%;
   margin: 0;
