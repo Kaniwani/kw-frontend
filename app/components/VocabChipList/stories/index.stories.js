@@ -26,7 +26,7 @@ const items = [
   },
 ];
 
-storiesOf('containers.VocabChipList', module)
+storiesOf('components.VocabChipList', module)
   .add('VocabChipList with required props', () => (
     <VocabChipList
       items={items}

@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`VocabChipList actions Default Action has a type of DEFAULT_ACTION 1`] = `
-Object {
-  "type": "app/VocabChipList/DEFAULT_ACTION",
-}
-`;

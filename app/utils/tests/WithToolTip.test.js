@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'enzyme';
-import WithTooltip from '../index';
+import WithTooltip from '../WithTooltip';
 
 const SimpleDiv = ({ foo, ...props }) => <div {...props}>{foo}</div>; // eslint-disable-line react/prop-types
 const Enhanced = WithTooltip(SimpleDiv);

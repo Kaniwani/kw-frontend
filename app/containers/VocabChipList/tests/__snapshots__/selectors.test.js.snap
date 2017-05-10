@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`VocabChipList selectors selecting vocabChipList domain state should match snapshot 1`] = `"winner!"`;
-
-exports[`VocabChipList selectors selecting vocabChipList substate should match snapshot 1`] = `"winner!"`;

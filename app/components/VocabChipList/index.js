@@ -6,7 +6,7 @@ import ReactTooltip from 'react-tooltip';
 
 import Ul from 'base/Ul';
 import VocabChip from 'components/VocabChip';
-import WithTooltip from 'containers/WithTooltip';
+import WithTooltip from 'utils/WithTooltip';
 import * as COLORS from 'shared/styles/colors';
 
 VocabChipList.propTypes = {
@@ -18,7 +18,6 @@ VocabChipList.defaultProps = {
   color: 'purple',
 };
 
-// FIXME: operate in item selector instead
 const generateToolTip = ({ meaning, kana, correctPercent }) => `
   <ul>
     <li>
