@@ -3,6 +3,11 @@ import { transparentize } from 'polished';
 
 import { white, grey } from 'shared/styles/colors';
 import { gamma } from 'shared/styles/typography';
+import { elementGutterHorizontal } from 'shared/styles/layout';
+
+export const Wrapper = styled.div`
+  ${elementGutterHorizontal}
+`;
 
 export const Heading = styled.h3`
   ${gamma}

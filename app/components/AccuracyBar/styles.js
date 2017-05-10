@@ -1,13 +1,18 @@
 import styled from 'styled-components';
 import { transparentize, darken } from 'polished';
 
-import Element from 'layouts/Element';
-
 import * as COLORS from 'shared/styles/colors';
 import { borderRadius } from 'shared/styles/sizing';
+import { elementGutter } from 'shared/styles/layout';
 import { beta } from 'shared/styles/typography';
 
-export const Wrapper = styled(Element)`
+
+export const Wrapper = styled.div`
+  ${elementGutter};
+`;
+
+export const Background = styled.div`
+  display: flex;
   position: relative;
   padding: 1rem;
   flex: 1 1 auto;
@@ -17,10 +22,10 @@ export const Wrapper = styled(Element)`
 
 export const Text = styled.h1`
   ${beta}
+  margin: 0;
   line-height: 1;
   align-self: center;
   color: ${COLORS.whiteLight};
-  margin: 0;
   z-index: 2;
   text-shadow: 1px 1px 0.1em ${({ textShadowColor }) => transparentize(0.5, darken(0.4, COLORS[textShadowColor]))};
 `;

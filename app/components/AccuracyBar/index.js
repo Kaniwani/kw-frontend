@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import * as COLORS from 'shared/styles/colors';
 
-import { Wrapper, Text, Bar } from './styles';
+import { Wrapper, Background, Text, Bar } from './styles';
 
 AccuracyBar.propTypes = {
   percent: PropTypes.number,
@@ -19,9 +19,11 @@ AccuracyBar.defaultProps = {
 
 function AccuracyBar({ percent, color }) {
   return (
-    <Wrapper flexRow bgColor={color}>
-      <Text percent={percent} textShadowColor={color}>{percent}% Accuracy</Text>
-      <Bar percent={percent} bgColor={color} />
+    <Wrapper>
+      <Background bgColor={color}>
+        <Text percent={percent} textShadowColor={color}>{percent}% Accuracy</Text>
+        <Bar percent={percent} bgColor={color} />
+      </Background>
     </Wrapper>
   );
 }

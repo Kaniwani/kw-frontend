@@ -78,17 +78,26 @@ injectGlobal`
     ${epsilon}
     padding: .75em;
   }
+
   .vocab-tip ul {
     ${resetList}
     color: ${white};
   }
+
   .vocab-tip li {
     display: table-row;
-    > * {
+
+
+    span {
       display: table-cell;
-      padding: 0 4px;
+      padding: 0 0.2em;
+      &[lang="ja"] {
+        padding-top: 0.15em;
+        padding-bottom: 0.3em;
+      }
     }
   }
+
   .vocab-tip li span:first-child {
     font-size: .95em;
     color: ${grey};

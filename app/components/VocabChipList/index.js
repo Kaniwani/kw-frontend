@@ -1,13 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cuid from 'cuid';
+import titleCase from 'voca/title_case';
 
 import ReactTooltip from 'react-tooltip';
 
-import Ul from 'base/Ul';
 import VocabChip from 'components/VocabChip';
 import WithTooltip from 'utils/WithTooltip';
+import calculateCorrectnessPercentage from 'utils/calculateCorrectnessPercentage';
 import * as COLORS from 'shared/styles/colors';
+
+import { Ul } from './styles';
 
 VocabChipList.propTypes = {
   items: PropTypes.array.isRequired,
@@ -18,7 +21,7 @@ VocabChipList.defaultProps = {
   color: 'purple',
 };
 
-const generateToolTip = ({ meaning, kana, correctPercent }) => `
+const generateToolTip = (meaning, kana, correctPercent) => `
   <ul>
     <li>
       <span>EN</span>
@@ -34,18 +37,10 @@ const generateToolTip = ({ meaning, kana, correctPercent }) => `
   </ul>
 `;
 
-// SELECTOR map over items!
-// import titleCase from 'voca/title_case';
-// import calculateCorrectnessPercentage from 'utils/calculateCorrectnessPercentage';
-// meaning = titleCase(item.meanings[0]);
-// { kana, character } = item.readings[0];
-// correctPercent = calculateCorrectnessPercentage(item.history, item.session);
-// tooltipText = generateToolTip(item)
-
 // `.vocab-tip` tooltip styles are injected in `globalStyles.js`
 const VocabChipWithToolTip = WithTooltip(VocabChip);
 
-function VocabChipList({ items, color, ...props }) {
+function VocabChipList({ items, color }) {
   return (
     <div>
       <ReactTooltip
@@ -53,15 +48,20 @@ function VocabChipList({ items, color, ...props }) {
         className="vocab-tip"
         html
       />
-      <Ul plainList {...props}>
-        {items.map((item) => {
-          const tooltipText = generateToolTip(item); // FIXME: map onto item in memoized item selector instead
+      <Ul>
+        {/* FIXME: memoize */}
+        {items.map(({ id, meanings, readings, history, session }) => {
+          const meaning = titleCase(meanings[0]);
+          const { kana, character } = readings[0];
+          const correctPercent = calculateCorrectnessPercentage(history, session);
+
+          const tooltipText = generateToolTip(meaning, kana, correctPercent);
           return (
             <VocabChipWithToolTip
               key={cuid()}
-              id={item.id}
+              id={id}
               color={color}
-              character={item.character}
+              character={character}
               data-for="vocabChipTip"
               data-tip={tooltipText}
             />

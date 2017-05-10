@@ -4,36 +4,32 @@ import VocabCardList from '../index';
 
 const items = [
   {
-    id: 12,
-    meaning: 'Before Long, Soon',
+    id: 42,
+    meanings: ['facilities', 'establishment'],
     readings: [
       {
-        character: '近々',
-        kana: 'ちかぢか, きんきん, ちかじか',
-      },
-      {
-        character: '間もなく',
-        kana: 'まもなく',
+        kana: 'しせつ',
+        character: '施設',
       },
     ],
   },
   {
-    id: 234,
-    meaning: 'emergency',
+    id: 48,
+    meanings: ['dancing', 'hopping'],
     readings: [
       {
-        kana: 'ひじょう',
-        character: '非常',
-      },
-      {
-        kana: 'きゅうきゅう',
-        character: '救急',
-      },
-      {
-        kana: 'きんきゅう',
-        character: '緊急',
+        kana: 'おどり',
+        character: '踊り',
       },
     ],
+  },
+  {
+    id: 33,
+    meanings: ['happy birthday'],
+    readings: [{
+      kana: 'たんじょうびおめでとう',
+      character: '誕生日おめでとう',
+    }],
   },
 ];
 

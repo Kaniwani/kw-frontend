@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import isNumber from 'lodash/isNumber';
 
-import { Heading, Text, Count } from './styles';
+import { Wrapper, Heading, Text, Count } from './styles';
 
 StripeHeading.propTypes = {
+  text: PropTypes.string.isRequired,
   count: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.number,
   ]),
-  text: PropTypes.string.isRequired,
 };
 
 StripeHeading.defaultProps = {
@@ -19,12 +18,14 @@ StripeHeading.defaultProps = {
 
 function StripeHeading({ count, text }) {
   return (
-    <Heading>
-      <Text>
-        {isNumber(count) && <Count>{count}</Count>}
-        {text}
-      </Text>
-    </Heading>
+    <Wrapper>
+      <Heading>
+        <Text>
+          {isNumber(count) && <Count>{count}</Count>}
+          {text}
+        </Text>
+      </Heading>
+    </Wrapper>
   );
 }
 

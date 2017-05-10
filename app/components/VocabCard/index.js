@@ -7,7 +7,7 @@ import { Li, Link, Dl } from './styles';
 
 VocabCard.propTypes = {
   id: PropTypes.number.isRequired,
-  meaning: PropTypes.string.isRequired,
+  meanings: PropTypes.array.isRequired,
   readings: PropTypes.array.isRequired,
   color: PropTypes.oneOf(Object.keys(COLORS)),
 };
@@ -16,19 +16,20 @@ VocabCard.defaultProps = {
   color: 'purple',
 };
 
-function VocabCard({ id, meaning, readings, color }) {
+function VocabCard({ id, meanings, readings, color }) {
   return (
     <Li bgColor={color}>
       <Link plainLink to={`/vocabulary/entry/${id}`}>
         <Dl color={color}>
           <div className="reading">
+            {/* FIXME: memoize */}
             {readings.map(({ kana, character }) => ([
               <dt className="kana" lang="ja" >{kana}</dt>,
               <dt className="character" lang="ja" >{character}</dt>,
               <div className="separator" />,
             ]))}
           </div>
-          <dd className="meaning">{meaning}</dd>
+          <dd className="meaning">{meanings.join(', ')}</dd>
         </Dl>
       </Link>
     </Li>

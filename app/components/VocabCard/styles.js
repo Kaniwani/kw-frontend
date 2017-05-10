@@ -90,7 +90,7 @@ export const Dl = styled.dl`
     margin: .2rem 0 .5rem;
     width: 100%;
     background-color: ${({ color }) => transparentize(0.7, darken(0.2, COLORS[color]))};
-    border: .1rem solid ${({ color }) => transparentize(0.9, darken(0.2, COLORS[color]))};
+    border: .075rem solid ${({ color }) => transparentize(0.9, darken(0.2, COLORS[color]))};
     border-radius: 100%;
     &:last-of-type {
       display: none;

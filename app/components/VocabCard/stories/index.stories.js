@@ -3,7 +3,7 @@ import { storiesOf } from '@kadira/storybook';
 
 import VocabCard from '../index';
 
-const meaning = 'Before Long, Soon';
+const meanings = ['Before Long', 'Soon'];
 const readings = [
   {
     character: '近々',
@@ -19,7 +19,7 @@ storiesOf('components.VocabCard', module)
   .add('VocabCard with required props', () => (
     <VocabCard
       id={Math.random()}
-      meaning={meaning}
+      meanings={meanings}
       readings={readings}
     />
   ))
@@ -27,7 +27,7 @@ storiesOf('components.VocabCard', module)
     <VocabCard
       id={Math.random()}
       color="orange"
-      meaning={meaning}
+      meanings={meanings}
       readings={readings}
     />
   ));
