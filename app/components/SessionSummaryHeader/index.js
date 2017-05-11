@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import titleCase from 'voca/title_case';
 
 import LogoLink from 'components/LogoLink';
 import SessionLink from 'components/SessionLink';
@@ -12,8 +13,8 @@ import {
 
 SessionSummaryHeader.propTypes = {
   category: PropTypes.string.isRequired,
-  linkRoute: PropTypes.string.isRequired,
   count: PropTypes.number,
+  linkRoute: PropTypes.string.isRequired,
 };
 
 SessionSummaryHeader.defaultProps = {
@@ -25,7 +26,7 @@ function SessionSummaryHeader({ category, count, linkRoute }) {
     <Header>
       <Wrapper>
         <LogoLink />
-        <Title>{category} Summary</Title>
+        <Title>{titleCase(category)} Summary</Title>
         <SessionLink
           text="Continue Session"
           to={linkRoute}

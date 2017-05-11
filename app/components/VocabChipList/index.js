@@ -21,6 +21,9 @@ VocabChipList.defaultProps = {
   color: 'purple',
 };
 
+// `.vocab-tip` tooltip styles are injected in `globalStyles.js`
+const VocabChipWithToolTip = WithTooltip(VocabChip);
+
 const generateToolTip = (meaning, kana, correctPercent) => `
   <ul>
     <li>
@@ -36,9 +39,6 @@ const generateToolTip = (meaning, kana, correctPercent) => `
     </li>
   </ul>
 `;
-
-// `.vocab-tip` tooltip styles are injected in `globalStyles.js`
-const VocabChipWithToolTip = WithTooltip(VocabChip);
 
 function VocabChipList({ items, color }) {
   return (
@@ -64,6 +64,7 @@ function VocabChipList({ items, color }) {
               character={character}
               data-for="vocabChipTip"
               data-tip={tooltipText}
+              data-place="bottom"
             />
           );
         })}

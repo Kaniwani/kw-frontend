@@ -3,7 +3,7 @@ import { storiesOf } from '@kadira/storybook';
 import random from 'lodash/random';
 
 import { vocabs } from 'utils/tests/testTables';
-import VocabChipList from '../index';
+import SessionSummaryPage from '../index';
 
 const generateItems = () => vocabs.map((vocab) => ({
   ...vocab,
@@ -18,15 +18,14 @@ const generateItems = () => vocabs.map((vocab) => ({
   },
 }));
 
-storiesOf('components.VocabChipList', module)
-  .add('VocabChipList with required props', () => (
-    <VocabChipList
-      items={generateItems()}
-    />
-  ))
-  .add('VocabChipList with color prop', () => (
-    <VocabChipList
-      items={generateItems()}
-      color="green"
+
+storiesOf('layouts.SessionSummaryPage', module)
+  .add('SessionSummaryPage with default props', () => (
+    <SessionSummaryPage
+      correctItems={generateItems()}
+      incorrectItems={generateItems()}
+      criticalItems={generateItems()}
+      percentCorrect={random(100)}
+      remainingCount={random(20)}
     />
   ));

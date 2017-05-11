@@ -24,6 +24,5 @@ export const Wrapper = styled.nav`
 `;
 
 export const Title = styled(H1)`
-  text-transform: capitalize;
   margin-left: .5rem;
 `;

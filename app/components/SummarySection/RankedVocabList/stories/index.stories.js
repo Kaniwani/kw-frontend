@@ -1,127 +1,34 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
+import random from 'lodash/random';
 
+import { vocabs } from 'utils/tests/testTables';
+import { SRS_RANKS } from 'shared/constants';
 import { TYPES } from '../../constants';
 import RankedVocabList from '../index';
 
-const items = [
-  {
-    id: 42,
-    meanings: ['facilities', 'establishment'],
-    readings: [
-      {
-        kana: 'しせつ',
-        character: '施設',
-      },
-    ],
-    history: {
-      correct: 12,
-      incorrect: 33,
-    },
-    session: {
-      correct: 1,
-      incorrect: 2,
-    },
+const generateItems = () => vocabs.map((vocab) => ({
+  ...vocab,
+  history: {
+    correct: random(10),
+    incorrect: random(10),
   },
-  {
-    id: 48,
-    meanings: ['dancing', 'hopping'],
-    readings: [
-      {
-        kana: 'おどり',
-        character: '踊り',
-      },
-    ],
-    history: {
-      correct: 9,
-      incorrect: 31,
-    },
-    session: {
-      correct: 1,
-      incorrect: 1,
-    },
+  session: {
+    correct: random(10),
+    incorrect: random(10),
+    streak: random(11),
   },
-  { id: 244,
-    meanings: ['before long', 'soon'],
-    readings: [
-      {
-        character: '近々',
-        kana: 'ちかぢか',
-      },
-      {
-        character: '近々',
-        kana: 'きんきん',
-      },
-      {
-        character: '近々',
-        kana: 'ちかじか',
-      },
-      {
-        character: '間もなく',
-        kana: 'まもなく',
-      },
-    ],
-    history: {
-      correct: 4,
-      incorrect: 7,
-    },
-    session: {
-      correct: 1,
-      incorrect: 0,
-    },
-  },
-  {
-    id: 234,
-    meanings: ['emergency'],
-    readings: [
-      {
-        kana: 'ひじょう',
-        character: '非常',
-      },
-      {
-        kana: 'きゅうきゅう',
-        character: '救急',
-      },
-      {
-        kana: 'きんきゅう',
-        character: '緊急',
-      },
-    ],
-    history: {
-      correct: 6,
-      incorrect: 3,
-    },
-    session: {
-      correct: 1,
-      incorrect: 0,
-    },
-  },
-  {
-    id: 33,
-    meanings: ['happy birthday'],
-    readings: [{
-      kana: 'たんじょうびおめでとう',
-      character: '誕生日おめでとう',
-    }],
-    history: {
-      correct: 11,
-      incorrect: 2,
-    },
-    session: {
-      correct: 1,
-      incorrect: 1,
-    },
-  },
-];
+}));
 
-Object.keys(TYPES).forEach((type) => {
+Object.keys(TYPES).filter((type) => type !== 'critical').forEach((type) => {
   storiesOf('components.SummarySection.RankedVocabList', module)
-    .add(`${type} RankedVocabList with rank="guru"`, () => (
+    .add(`${type} RankedVocabList with rank=${SRS_RANKS.ONE}`, () => (
       <RankedVocabList
         type={type}
-        rank="guru"
-        items={items}
+        rank={SRS_RANKS.ONE}
+        items={generateItems()}
         color={TYPES[type].color}
+        expanded={false}
       />
   ));
 });

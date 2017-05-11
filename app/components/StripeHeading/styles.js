@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { transparentize } from 'polished';
 
 import { white, grey } from 'shared/styles/colors';
-import { gamma } from 'shared/styles/typography';
+import { delta } from 'shared/styles/typography';
 import { elementGutterHorizontal } from 'shared/styles/layout';
 
 export const Wrapper = styled.div`
@@ -10,8 +10,8 @@ export const Wrapper = styled.div`
 `;
 
 export const Heading = styled.h3`
-  ${gamma}
-  margin: 0 0 1.15em;
+  ${delta}
+  margin: 0 0 1.25em;
   color: ${transparentize(0.1, grey)};
   font-weight: 400;
   line-height: 1.15;
@@ -28,6 +28,7 @@ export const Text = styled.span`
 `;
 
 export const Count = styled.strong`
+  font-size: 0.9em;
   margin-right: .3em;
   padding: .1em .4em .15em;
   color: ${white};

@@ -1,13 +1,13 @@
 export const PLACEHOLDERS = {
-  correct: {
+  CORRECT: {
     text: ' 満点！',
     kaomoji: ' (๑•̀ㅂ•́)و',
   },
-  incorrect: {
-    text: '零点... 残念',
-    kaomoji: ' (๑◕︵◕๑)',
+  INCORRECT: {
+    text: '零点',
+    kaomoji: 'ʕノ•ᴥ•ʔノ ︵ ┻━┻',
   },
-  critical: {
+  CRITICAL: {
     text: '無事！',
     kaomoji: '(^・ω・^ )',
   },

@@ -1,0 +1,679 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
+<div>
+  <HelmetWrapper
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Review Session Summary
+    </title>
+    <meta
+      content="Kaniwani Review Session Summary"
+      name="description"
+    />
+  </HelmetWrapper>
+  <SessionSummaryHeader
+    category="review"
+    count={2}
+    linkRoute="/reviews/"
+  />
+  <PageWrapper
+    fullWidth={false}
+    fullWidthBg={false}
+    tag="div"
+  >
+    <styled.div>
+      <AccuracyBar
+        color="purple"
+        percent={24}
+      />
+      <Styled(IconButton)
+        handleClick={[Function]}
+        name="EXPAND_ALL"
+        size="2em"
+        title="Toggle Vocab Card size"
+      />
+    </styled.div>
+    <SummarySection
+      expanded={false}
+      items={
+        Array [
+          Object {
+            "history": Object {
+              "correct": 4,
+              "incorrect": 6,
+            },
+            "id": 553,
+            "meanings": Array [
+              "before long",
+              "soon",
+            ],
+            "readings": Array [
+              Object {
+                "character": "近々",
+                "common": true,
+                "id": 582,
+                "jlpt": "JLPT N2",
+                "kana": "ちかぢか",
+                "level": 7,
+                "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
+                "sentenceJa": "彼らがデートをしているのを見かけて近々結婚するのってきいたんだ",
+                "tags": Array [
+                  "Noun",
+                ],
+              },
+              Object {
+                "character": "近々",
+                "common": true,
+                "id": 583,
+                "jlpt": "JLPT N2",
+                "kana": "きんきん",
+                "level": 7,
+                "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
+                "sentenceJa": "彼らがデートをしているのを見かけて近々結婚するのってきいたんだ",
+                "tags": Array [
+                  "Noun",
+                ],
+              },
+              Object {
+                "character": "近々",
+                "common": true,
+                "id": 584,
+                "jlpt": "JLPT N2",
+                "kana": "ちかじか",
+                "level": 7,
+                "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
+                "sentenceJa": "彼らがデートをしているのを見かけて近々結婚するのってきいたんだ",
+                "tags": Array [
+                  "Noun",
+                ],
+              },
+            ],
+            "session": Object {
+              "correct": 12,
+              "incorrect": 3,
+              "streak": 6,
+            },
+          },
+          Object {
+            "history": Object {
+              "correct": 4,
+              "incorrect": 6,
+            },
+            "id": 176,
+            "meanings": Array [
+              "young lady",
+              "little girl",
+              "maiden",
+              "daughter",
+              "girl",
+            ],
+            "readings": Array [
+              Object {
+                "character": "少女",
+                "common": true,
+                "id": 188,
+                "jlpt": "JLPT N3",
+                "kana": "しょうじょ",
+                "level": 3,
+                "sentenceEn": "I am touched by the girl's acute sensitivity.",
+                "sentenceJa": "少女の鋭い感性に触れている",
+                "tags": Array [
+                  "Noun",
+                ],
+              },
+              Object {
+                "character": "少女",
+                "common": true,
+                "id": 189,
+                "jlpt": "JLPT N3",
+                "kana": "おとめ",
+                "level": 3,
+                "sentenceEn": "I am touched by the girl's acute sensitivity.",
+                "sentenceJa": "少女の鋭い感性に触れている",
+                "tags": Array [
+                  "Noun",
+                ],
+              },
+            ],
+            "session": Object {
+              "correct": 12,
+              "incorrect": 3,
+              "streak": 6,
+            },
+          },
+          Object {
+            "history": Object {
+              "correct": 4,
+              "incorrect": 6,
+            },
+            "id": 280,
+            "meanings": Array [
+              "young boy",
+              "juvenile",
+              "youth",
+              "boy",
+            ],
+            "readings": Array [
+              Object {
+                "character": "少年",
+                "common": true,
+                "id": 298,
+                "jlpt": "JLPT N3",
+                "kana": "しょうねん",
+                "level": 4,
+                "sentenceEn": "The shy boy murmured his name.",
+                "sentenceJa": "その内気な少年はぼそぼそと自分の名前をつぶやいた全ての少年少女はを知っています",
+                "tags": Array [
+                  "Noun",
+                ],
+              },
+            ],
+            "session": Object {
+              "correct": 12,
+              "incorrect": 3,
+              "streak": 6,
+            },
+          },
+          Object {
+            "history": Object {
+              "correct": 4,
+              "incorrect": 6,
+            },
+            "id": 424,
+            "meanings": Array [
+              "whole life",
+              "entire life",
+              "a lifetime",
+              "all through life",
+              "one existence",
+              "a generation",
+              "an age",
+            ],
+            "readings": Array [
+              Object {
+                "character": "一生",
+                "common": true,
+                "id": 449,
+                "jlpt": "JLPT N3",
+                "kana": "いっしょう",
+                "level": 5,
+                "sentenceEn": "She worked hard.",
+                "sentenceJa": "彼女は一生懸命働いた",
+                "tags": Array [
+                  "Noun",
+                  "No adjective",
+                ],
+              },
+            ],
+            "session": Object {
+              "correct": 12,
+              "incorrect": 3,
+              "streak": 6,
+            },
+          },
+          Object {
+            "history": Object {
+              "correct": 4,
+              "incorrect": 6,
+            },
+            "id": 502,
+            "meanings": Array [
+              "honest",
+            ],
+            "readings": Array [
+              Object {
+                "character": "正直",
+                "common": true,
+                "id": 529,
+                "jlpt": "JLPT N3",
+                "kana": "しょうじき",
+                "level": 6,
+                "sentenceEn": "Him, honest? What a joke!",
+                "sentenceJa": "正直が聞いて呆れるよ",
+                "tags": Array [
+                  "Noun",
+                  "Na adjective",
+                ],
+              },
+            ],
+            "session": Object {
+              "correct": 12,
+              "incorrect": 3,
+              "streak": 6,
+            },
+          },
+        ]
+      }
+      type="CORRECT"
+    />
+    <SummarySection
+      expanded={false}
+      items={
+        Array [
+          Object {
+            "history": Object {
+              "correct": 4,
+              "incorrect": 6,
+            },
+            "id": 553,
+            "meanings": Array [
+              "before long",
+              "soon",
+            ],
+            "readings": Array [
+              Object {
+                "character": "近々",
+                "common": true,
+                "id": 582,
+                "jlpt": "JLPT N2",
+                "kana": "ちかぢか",
+                "level": 7,
+                "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
+                "sentenceJa": "彼らがデートをしているのを見かけて近々結婚するのってきいたんだ",
+                "tags": Array [
+                  "Noun",
+                ],
+              },
+              Object {
+                "character": "近々",
+                "common": true,
+                "id": 583,
+                "jlpt": "JLPT N2",
+                "kana": "きんきん",
+                "level": 7,
+                "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
+                "sentenceJa": "彼らがデートをしているのを見かけて近々結婚するのってきいたんだ",
+                "tags": Array [
+                  "Noun",
+                ],
+              },
+              Object {
+                "character": "近々",
+                "common": true,
+                "id": 584,
+                "jlpt": "JLPT N2",
+                "kana": "ちかじか",
+                "level": 7,
+                "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
+                "sentenceJa": "彼らがデートをしているのを見かけて近々結婚するのってきいたんだ",
+                "tags": Array [
+                  "Noun",
+                ],
+              },
+            ],
+            "session": Object {
+              "correct": 12,
+              "incorrect": 3,
+              "streak": 6,
+            },
+          },
+          Object {
+            "history": Object {
+              "correct": 4,
+              "incorrect": 6,
+            },
+            "id": 176,
+            "meanings": Array [
+              "young lady",
+              "little girl",
+              "maiden",
+              "daughter",
+              "girl",
+            ],
+            "readings": Array [
+              Object {
+                "character": "少女",
+                "common": true,
+                "id": 188,
+                "jlpt": "JLPT N3",
+                "kana": "しょうじょ",
+                "level": 3,
+                "sentenceEn": "I am touched by the girl's acute sensitivity.",
+                "sentenceJa": "少女の鋭い感性に触れている",
+                "tags": Array [
+                  "Noun",
+                ],
+              },
+              Object {
+                "character": "少女",
+                "common": true,
+                "id": 189,
+                "jlpt": "JLPT N3",
+                "kana": "おとめ",
+                "level": 3,
+                "sentenceEn": "I am touched by the girl's acute sensitivity.",
+                "sentenceJa": "少女の鋭い感性に触れている",
+                "tags": Array [
+                  "Noun",
+                ],
+              },
+            ],
+            "session": Object {
+              "correct": 12,
+              "incorrect": 3,
+              "streak": 6,
+            },
+          },
+          Object {
+            "history": Object {
+              "correct": 4,
+              "incorrect": 6,
+            },
+            "id": 280,
+            "meanings": Array [
+              "young boy",
+              "juvenile",
+              "youth",
+              "boy",
+            ],
+            "readings": Array [
+              Object {
+                "character": "少年",
+                "common": true,
+                "id": 298,
+                "jlpt": "JLPT N3",
+                "kana": "しょうねん",
+                "level": 4,
+                "sentenceEn": "The shy boy murmured his name.",
+                "sentenceJa": "その内気な少年はぼそぼそと自分の名前をつぶやいた全ての少年少女はを知っています",
+                "tags": Array [
+                  "Noun",
+                ],
+              },
+            ],
+            "session": Object {
+              "correct": 12,
+              "incorrect": 3,
+              "streak": 6,
+            },
+          },
+          Object {
+            "history": Object {
+              "correct": 4,
+              "incorrect": 6,
+            },
+            "id": 424,
+            "meanings": Array [
+              "whole life",
+              "entire life",
+              "a lifetime",
+              "all through life",
+              "one existence",
+              "a generation",
+              "an age",
+            ],
+            "readings": Array [
+              Object {
+                "character": "一生",
+                "common": true,
+                "id": 449,
+                "jlpt": "JLPT N3",
+                "kana": "いっしょう",
+                "level": 5,
+                "sentenceEn": "She worked hard.",
+                "sentenceJa": "彼女は一生懸命働いた",
+                "tags": Array [
+                  "Noun",
+                  "No adjective",
+                ],
+              },
+            ],
+            "session": Object {
+              "correct": 12,
+              "incorrect": 3,
+              "streak": 6,
+            },
+          },
+          Object {
+            "history": Object {
+              "correct": 4,
+              "incorrect": 6,
+            },
+            "id": 502,
+            "meanings": Array [
+              "honest",
+            ],
+            "readings": Array [
+              Object {
+                "character": "正直",
+                "common": true,
+                "id": 529,
+                "jlpt": "JLPT N3",
+                "kana": "しょうじき",
+                "level": 6,
+                "sentenceEn": "Him, honest? What a joke!",
+                "sentenceJa": "正直が聞いて呆れるよ",
+                "tags": Array [
+                  "Noun",
+                  "Na adjective",
+                ],
+              },
+            ],
+            "session": Object {
+              "correct": 12,
+              "incorrect": 3,
+              "streak": 6,
+            },
+          },
+        ]
+      }
+      type="INCORRECT"
+    />
+    <SummarySection
+      expanded={false}
+      items={
+        Array [
+          Object {
+            "history": Object {
+              "correct": 4,
+              "incorrect": 6,
+            },
+            "id": 553,
+            "meanings": Array [
+              "before long",
+              "soon",
+            ],
+            "readings": Array [
+              Object {
+                "character": "近々",
+                "common": true,
+                "id": 582,
+                "jlpt": "JLPT N2",
+                "kana": "ちかぢか",
+                "level": 7,
+                "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
+                "sentenceJa": "彼らがデートをしているのを見かけて近々結婚するのってきいたんだ",
+                "tags": Array [
+                  "Noun",
+                ],
+              },
+              Object {
+                "character": "近々",
+                "common": true,
+                "id": 583,
+                "jlpt": "JLPT N2",
+                "kana": "きんきん",
+                "level": 7,
+                "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
+                "sentenceJa": "彼らがデートをしているのを見かけて近々結婚するのってきいたんだ",
+                "tags": Array [
+                  "Noun",
+                ],
+              },
+              Object {
+                "character": "近々",
+                "common": true,
+                "id": 584,
+                "jlpt": "JLPT N2",
+                "kana": "ちかじか",
+                "level": 7,
+                "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
+                "sentenceJa": "彼らがデートをしているのを見かけて近々結婚するのってきいたんだ",
+                "tags": Array [
+                  "Noun",
+                ],
+              },
+            ],
+            "session": Object {
+              "correct": 12,
+              "incorrect": 3,
+              "streak": 6,
+            },
+          },
+          Object {
+            "history": Object {
+              "correct": 4,
+              "incorrect": 6,
+            },
+            "id": 176,
+            "meanings": Array [
+              "young lady",
+              "little girl",
+              "maiden",
+              "daughter",
+              "girl",
+            ],
+            "readings": Array [
+              Object {
+                "character": "少女",
+                "common": true,
+                "id": 188,
+                "jlpt": "JLPT N3",
+                "kana": "しょうじょ",
+                "level": 3,
+                "sentenceEn": "I am touched by the girl's acute sensitivity.",
+                "sentenceJa": "少女の鋭い感性に触れている",
+                "tags": Array [
+                  "Noun",
+                ],
+              },
+              Object {
+                "character": "少女",
+                "common": true,
+                "id": 189,
+                "jlpt": "JLPT N3",
+                "kana": "おとめ",
+                "level": 3,
+                "sentenceEn": "I am touched by the girl's acute sensitivity.",
+                "sentenceJa": "少女の鋭い感性に触れている",
+                "tags": Array [
+                  "Noun",
+                ],
+              },
+            ],
+            "session": Object {
+              "correct": 12,
+              "incorrect": 3,
+              "streak": 6,
+            },
+          },
+          Object {
+            "history": Object {
+              "correct": 4,
+              "incorrect": 6,
+            },
+            "id": 280,
+            "meanings": Array [
+              "young boy",
+              "juvenile",
+              "youth",
+              "boy",
+            ],
+            "readings": Array [
+              Object {
+                "character": "少年",
+                "common": true,
+                "id": 298,
+                "jlpt": "JLPT N3",
+                "kana": "しょうねん",
+                "level": 4,
+                "sentenceEn": "The shy boy murmured his name.",
+                "sentenceJa": "その内気な少年はぼそぼそと自分の名前をつぶやいた全ての少年少女はを知っています",
+                "tags": Array [
+                  "Noun",
+                ],
+              },
+            ],
+            "session": Object {
+              "correct": 12,
+              "incorrect": 3,
+              "streak": 6,
+            },
+          },
+          Object {
+            "history": Object {
+              "correct": 4,
+              "incorrect": 6,
+            },
+            "id": 424,
+            "meanings": Array [
+              "whole life",
+              "entire life",
+              "a lifetime",
+              "all through life",
+              "one existence",
+              "a generation",
+              "an age",
+            ],
+            "readings": Array [
+              Object {
+                "character": "一生",
+                "common": true,
+                "id": 449,
+                "jlpt": "JLPT N3",
+                "kana": "いっしょう",
+                "level": 5,
+                "sentenceEn": "She worked hard.",
+                "sentenceJa": "彼女は一生懸命働いた",
+                "tags": Array [
+                  "Noun",
+                  "No adjective",
+                ],
+              },
+            ],
+            "session": Object {
+              "correct": 12,
+              "incorrect": 3,
+              "streak": 6,
+            },
+          },
+          Object {
+            "history": Object {
+              "correct": 4,
+              "incorrect": 6,
+            },
+            "id": 502,
+            "meanings": Array [
+              "honest",
+            ],
+            "readings": Array [
+              Object {
+                "character": "正直",
+                "common": true,
+                "id": 529,
+                "jlpt": "JLPT N3",
+                "kana": "しょうじき",
+                "level": 6,
+                "sentenceEn": "Him, honest? What a joke!",
+                "sentenceJa": "正直が聞いて呆れるよ",
+                "tags": Array [
+                  "Noun",
+                  "Na adjective",
+                ],
+              },
+            ],
+            "session": Object {
+              "correct": 12,
+              "incorrect": 3,
+              "streak": 6,
+            },
+          },
+        ]
+      }
+      type="CRITICAL"
+    />
+  </PageWrapper>
+</div>
+`;

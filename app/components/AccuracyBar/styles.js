@@ -2,13 +2,12 @@ import styled from 'styled-components';
 import { transparentize, darken } from 'polished';
 
 import * as COLORS from 'shared/styles/colors';
-import { borderRadius } from 'shared/styles/sizing';
 import { elementGutter } from 'shared/styles/layout';
-import { beta } from 'shared/styles/typography';
-
+import { alpha } from 'shared/styles/typography';
 
 export const Wrapper = styled.div`
   ${elementGutter};
+  flex: 1 1 auto;
 `;
 
 export const Background = styled.div`
@@ -17,17 +16,16 @@ export const Background = styled.div`
   padding: 1rem;
   flex: 1 1 auto;
   background-color: ${({ bgColor }) => transparentize(0.75, COLORS[bgColor])};
-  border-radius: ${borderRadius};
 `;
 
 export const Text = styled.h1`
-  ${beta}
+  ${alpha}
   margin: 0;
   line-height: 1;
   align-self: center;
   color: ${COLORS.whiteLight};
-  z-index: 2;
   text-shadow: 1px 1px 0.1em ${({ textShadowColor }) => transparentize(0.5, darken(0.4, COLORS[textShadowColor]))};
+  z-index: 2;
 `;
 
 export const Bar = styled.div`

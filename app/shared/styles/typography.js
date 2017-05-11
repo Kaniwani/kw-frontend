@@ -48,7 +48,7 @@ export const kilo = fluidType(21, 44, 300, 2000);
 // Headings
 // h1
 export const alpha = css`
-  ${generateFontSize(4)}
+  ${generateFontSize(3.8)}
   letter-spacing: -0.04em;
 `;
 // h2

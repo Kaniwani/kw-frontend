@@ -2,7 +2,7 @@
 
 exports[`<SessionLink /> should adopt color and count props 1`] = `
 <styled.div>
-  <Styled(A)
+  <Styled(Component)
     bgColor="purple"
     plainLink={true}
     to="/reviews/"
@@ -23,13 +23,13 @@ exports[`<SessionLink /> should adopt color and count props 1`] = `
         88
       </styled.div>
     </styled.div>
-  </Styled(A)>
+  </Styled(Component)>
 </styled.div>
 `;
 
 exports[`<SessionLink /> should match baseline snapshot 1`] = `
 <styled.div>
-  <Styled(A)
+  <Styled(Component)
     bgColor="blue"
     plainLink={true}
     to="/reviews/"
@@ -50,6 +50,6 @@ exports[`<SessionLink /> should match baseline snapshot 1`] = `
         0
       </styled.div>
     </styled.div>
-  </Styled(A)>
+  </Styled(Component)>
 </styled.div>
 `;

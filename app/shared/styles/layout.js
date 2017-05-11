@@ -1,12 +1,12 @@
-import { padding, siteMaxWidthpx } from './sizing';
+import { padding, siteMaxWidth, siteMaxWidthpx } from './sizing';
 import { media } from './media';
 
 /**
- * Allows background to be 100% width whilst content is contained and centered
+ * Allows background-image/color to be 100% width whilst content is contained and centered
  */
 export const centerByPadding = `
-  padding-left: calc(100% - ${siteMaxWidthpx});
-  padding-right: calc(100% - ${siteMaxWidthpx});
+  padding-left: calc(50vw - ${siteMaxWidth / 2}px);
+  padding-right: calc(50vw - ${siteMaxWidth / 2}px);
 `;
 
 export const centerByMargin = `
@@ -16,6 +16,9 @@ export const centerByMargin = `
   margin-right: auto;
 `;
 
+// TODO: take property as argument -> so we can use padding or margin as needed
+// TODO: take direction as argument -> so we can do horizontal or vertical only as needed
+// TODO: take modifier as argument -> so we can do half/double etc by *.5, *2
 export const containerGutter = `
   padding: ${padding.mobile.outer.y}rem ${padding.mobile.outer.x}rem;
   ${media('min').sm`

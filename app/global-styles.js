@@ -1,5 +1,6 @@
 import { injectGlobal } from 'styled-components';
 import { white, grey, blackLight, greyDark, purpleLight } from 'shared/styles/colors';
+import { borderRadius } from 'shared/styles/sizing';
 import { resetList } from 'shared/styles/utils';
 import { media } from 'shared/styles/media';
 import {
@@ -77,6 +78,7 @@ injectGlobal`
   .vocab-tip.vocab-tip {
     ${epsilon}
     padding: .75em;
+    border-radius: ${borderRadius};
   }
 
   .vocab-tip ul {
@@ -87,14 +89,9 @@ injectGlobal`
   .vocab-tip li {
     display: table-row;
 
-
     span {
       display: table-cell;
       padding: 0 0.2em;
-      &[lang="ja"] {
-        padding-top: 0.15em;
-        padding-bottom: 0.3em;
-      }
     }
   }
 

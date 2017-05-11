@@ -1,11 +1,11 @@
 export const TYPES = {
-  correct: {
+  CORRECT: {
     color: 'green',
   },
-  incorrect: {
+  INCORRECT: {
     color: 'red',
   },
-  critical: {
+  CRITICAL: {
     color: 'orange',
   },
 };

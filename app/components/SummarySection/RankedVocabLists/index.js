@@ -1,8 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cuid from 'cuid';
+import { branch, renderNothing } from 'recompose';
 
-import { SRS_RANKS } from 'shared/constants';
+import groupByRank from 'utils/groupByRank';
 import RankedVocabList from '../RankedVocabList';
+
+const hasNoItems = ({ items }) => !items.length;
+
+const enhance = branch(
+  hasNoItems,
+  renderNothing,
+);
+
+const RankedVocab = enhance(RankedVocabList);
 
 RankedVocabLists.propTypes = {
   items: PropTypes.array.isRequired,
@@ -11,13 +22,14 @@ RankedVocabLists.propTypes = {
   expanded: PropTypes.bool.isRequired,
 };
 
-// TODO: memoize splitting items into ranks, then render a RankedVocabList for each rank
 function RankedVocabLists({ items, ...props }) {
   return (
-    // see frontend SummarySection selector to map items & ranks
-    // <RankedVocabList rank={rank} rankedItems={rankedItems} {...props} />
-    // temporary
-    <RankedVocabList rank="guru" items={items} {...props} />
+    <div>
+      {/* TODO: memoize */}
+      {Object.entries(groupByRank(items)).map(([rank, entries]) =>
+        <RankedVocab key={cuid()} rank={rank} items={entries} {...props} />
+      )}
+    </div>
   );
 }
 

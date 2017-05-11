@@ -1,10 +1,12 @@
+import React from 'react';
 import styled from 'styled-components';
-import { darken, transparentize } from 'polished';
+import { darken } from 'polished';
 
 import * as COLORS from 'shared/styles/colors';
 import { containerGutterVertical } from 'shared/styles/layout';
+import { borderRadius } from 'shared/styles/sizing';
 import { fastEaseQuad } from 'shared/styles/animation';
-import { milli } from 'shared/styles/typography';
+import { zeta } from 'shared/styles/typography';
 
 import A from 'base/A';
 import Icon from 'components/Icon';
@@ -17,13 +19,14 @@ export const Wrapper = styled.div`
   flex: 1 0 auto;
 `;
 
-export const LinkBlock = styled(A)`
+// peel off bgColor prop so it's not applied to <A/> as html attr
+export const LinkBlock = styled(({ bgColor, children, ...rest }) => <A {...rest}>{children}</A>)`
   display: inline-flex;
   line-height: 1;
   transition: background-color ${fastEaseQuad};
+  border-radius: ${borderRadius};
 
   ${({ bgColor }) => `
-    text-shadow: 0.05em 0.05em 0.1em ${transparentize(0.2, darken(0.4, COLORS[bgColor]))};
     background-color: ${COLORS[bgColor]};
     &:hover {
       background-color:  ${darken(0.08, COLORS[bgColor])};
@@ -46,16 +49,13 @@ const leftRightStyle = `
 
 export const Left = styled.div`
   ${leftRightStyle}
-  ${milli}
+  ${zeta}
   letter-spacing: -0.01em;
-  text-transform: uppercase;
-  font-variant: small-caps;
-  border-radius: 3px 0 0 3px;
 `;
 export const Right = styled.div`
   ${leftRightStyle}
   background-color: black;
-  border-radius: 0 3px 3px 0;
+  border-radius: ${borderRadius};
 `;
 
 export const InboxIcon = styled(Icon)`

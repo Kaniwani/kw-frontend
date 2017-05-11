@@ -4,7 +4,7 @@ import { transparentize, darken } from 'polished';
 import * as COLORS from 'shared/styles/colors';
 import { ffHeading, mega, gamma, delta } from 'shared/styles/typography';
 import { borderRadius } from 'shared/styles/sizing';
-import { containerGutter, elementGutter } from 'shared/styles/layout';
+import { elementGutter } from 'shared/styles/layout';
 
 import A from 'base/A';
 
@@ -37,9 +37,9 @@ export const Link = styled(A)`
 `;
 
 export const Dl = styled.dl`
-  ${containerGutter}
   display: flex;
   margin: 0;
+  padding: 1.25em;
   width: 100%;
   flex-flow: row wrap;
   justify-content: center;
