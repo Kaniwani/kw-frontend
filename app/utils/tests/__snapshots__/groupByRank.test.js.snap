@@ -1,0 +1,176 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`groupByRank() should group entries under named srs ranks 1`] = `
+Object {
+  "APPRENTICE": Array [
+    Object {
+      "id": 0,
+      "session": Object {
+        "streak": 0,
+      },
+    },
+    Object {
+      "id": 1,
+      "session": Object {
+        "streak": 0,
+      },
+    },
+    Object {
+      "id": 2,
+      "session": Object {
+        "streak": 1,
+      },
+    },
+    Object {
+      "id": 3,
+      "session": Object {
+        "streak": 1,
+      },
+    },
+    Object {
+      "id": 4,
+      "session": Object {
+        "streak": 2,
+      },
+    },
+    Object {
+      "id": 5,
+      "session": Object {
+        "streak": 2,
+      },
+    },
+    Object {
+      "id": 6,
+      "session": Object {
+        "streak": 3,
+      },
+    },
+    Object {
+      "id": 7,
+      "session": Object {
+        "streak": 3,
+      },
+    },
+    Object {
+      "id": 8,
+      "session": Object {
+        "streak": 4,
+      },
+    },
+    Object {
+      "id": 9,
+      "session": Object {
+        "streak": 4,
+      },
+    },
+  ],
+  "BURNED": Array [
+    Object {
+      "id": 18,
+      "session": Object {
+        "streak": 9,
+      },
+    },
+    Object {
+      "id": 19,
+      "session": Object {
+        "streak": 9,
+      },
+    },
+    Object {
+      "id": 20,
+      "session": Object {
+        "streak": 10,
+      },
+    },
+    Object {
+      "id": 21,
+      "session": Object {
+        "streak": 10,
+      },
+    },
+    Object {
+      "id": 22,
+      "session": Object {
+        "streak": 11,
+      },
+    },
+    Object {
+      "id": 23,
+      "session": Object {
+        "streak": 11,
+      },
+    },
+    Object {
+      "id": 24,
+      "session": Object {
+        "streak": 12,
+      },
+    },
+  ],
+  "ENLIGHTENED": Array [
+    Object {
+      "id": 16,
+      "session": Object {
+        "streak": 8,
+      },
+    },
+    Object {
+      "id": 17,
+      "session": Object {
+        "streak": 8,
+      },
+    },
+  ],
+  "GURU": Array [
+    Object {
+      "id": 10,
+      "session": Object {
+        "streak": 5,
+      },
+    },
+    Object {
+      "id": 11,
+      "session": Object {
+        "streak": 5,
+      },
+    },
+    Object {
+      "id": 12,
+      "session": Object {
+        "streak": 6,
+      },
+    },
+    Object {
+      "id": 13,
+      "session": Object {
+        "streak": 6,
+      },
+    },
+  ],
+  "MASTER": Array [
+    Object {
+      "id": 14,
+      "session": Object {
+        "streak": 7,
+      },
+    },
+    Object {
+      "id": 15,
+      "session": Object {
+        "streak": 7,
+      },
+    },
+  ],
+}
+`;
+
+exports[`groupByRank() should group entries under named srs ranks 2`] = `10`;
+
+exports[`groupByRank() should group entries under named srs ranks 3`] = `4`;
+
+exports[`groupByRank() should group entries under named srs ranks 4`] = `2`;
+
+exports[`groupByRank() should group entries under named srs ranks 5`] = `2`;
+
+exports[`groupByRank() should group entries under named srs ranks 6`] = `7`;
