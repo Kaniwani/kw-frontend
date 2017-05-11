@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import condenseReadings from 'utils/condenseReadings';
 import * as COLORS from 'shared/styles/colors';
 
 import { Li, Link, Dl } from './styles';
@@ -23,8 +24,8 @@ function VocabCard({ id, meanings, readings, color }) {
         <Dl color={color}>
           <div className="reading">
             {/* FIXME: memoize */}
-            {readings.map(({ kana, character }) => ([
-              <dt className="kana" lang="ja" >{kana}</dt>,
+            {condenseReadings(readings).map(({ kana, character }) => ([
+              <dt className="kana" lang="ja" >{kana.join(', ')}</dt>,
               <dt className="character" lang="ja" >{character}</dt>,
               <div className="separator" />,
             ]))}
