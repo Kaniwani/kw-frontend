@@ -9,14 +9,20 @@ export const Button = styled.button`
   cursor: pointer;
   opacity: .7;
 
-  &:focus,
-  &:hover {
-    opacity: .9;
-    outline: none;
+  &:not(:disabled) {
+    &:focus,
+    &:hover {
+      opacity: .9;
+      outline: none;
+    }
+
+    &:active {
+      opacity: 1;
+      transform: scale(.9);
+    }
   }
 
-  &:active {
-    opacity: 1;
-    transform: scale(.9);
+  &:disabled {
+    cursor: not-allowed;
   }
 `;

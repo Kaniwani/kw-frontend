@@ -17,7 +17,7 @@ Icon.propTypes = {
 Icon.defaultProps = {
   display: 'inline-block',
   color: 'currentColor',
-  size: '1em',
+  size: '1.5em',
 };
 
 function Icon({ name, display, color, size, ...props }) {

@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LockButton /> should adopt props 1`] = `
+<IconButton
+  color="purple"
+  disabled={false}
+  handleClick={[Function]}
+  name="LOCK_OPEN"
+  size="4rem"
+  title="Lock level"
+  type="button"
+/>
+`;
+
+exports[`<LockButton /> should match baseline snapshot 1`] = `
+<IconButton
+  color="currentColor"
+  disabled={true}
+  handleClick={[Function]}
+  name="LOCK_SOLID"
+  size="1.5em"
+  title="Unlock level"
+  type="button"
+/>
+`;

@@ -14,21 +14,24 @@ IconButton.propTypes = {
     PropTypes.number,
   ]),
   type: PropTypes.oneOf(['submit', 'reset', 'button']),
+  disabled: PropTypes.bool,
 };
 
 IconButton.defaultProps = {
   type: 'button',
   color: 'currentColor',
-  size: '1em',
+  size: '1.5em',
+  disabled: false,
 };
 
-function IconButton({ name, title, color, size, type, handleClick, ...props }) {
+function IconButton({ name, title, color, size, type, handleClick, disabled, ...props }) {
   return (
     <Button
       type={type}
       title={title}
       aria-label={title}
       onClick={handleClick}
+      disabled={disabled}
       {...props}
     >
       <Icon

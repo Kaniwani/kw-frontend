@@ -7,6 +7,9 @@ storiesOf('base.Button', module)
   .add('with text and onClick prop', () => (
     <Button onClick={action('clicked')}>Hello Button</Button>
   ))
+  .add('disabled', () => (
+    <Button disabled onClick={action('clicked')}>Disabled Button</Button>
+  ))
   .add('with icon and onClick prop', () => (
     <Button onClick={action('clicked')}><Icon name="SEARCH" /></Button>
   ))

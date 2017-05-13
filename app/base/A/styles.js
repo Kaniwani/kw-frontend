@@ -20,11 +20,6 @@ const linkStyles = `
 export const style = css`
   ${({ plainLink }) => plainLink ? plainStyles : linkStyles}
   cursor: pointer;
-  &:disabled {
-    pointer-events: none;
-    cursor: not-allowed;
-    opacity: .6;
-  }
 `;
 
 /*
@@ -32,5 +27,15 @@ export const style = css`
  * to prevent plainLink (used only in style) from being added to <a> & <Link> as (disallowed) html attrs
  */
 
-export const Anchor = styled(({ plainLink, children, ...rest }) => <a {...rest}>{children}</a>)`${style}`;
-export const RouterLink = styled(({ plainLink, children, ...rest }) => <Link {...rest}>{children}</Link>)`${style}`;
+export const Anchor = styled(({
+  plainLink,
+  children,
+  ...rest
+}) => <a {...rest}>{children}</a>)`${style}`;
+
+
+export const RouterLink = styled(({
+  plainLink,
+  children,
+  ...rest
+}) => <Link {...rest}>{children}</Link>)`${style}`;

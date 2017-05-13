@@ -9,7 +9,6 @@ A.propTypes = {
   href: PropTypes.string,
   to: PropTypes.string,
   external: PropTypes.bool,
-  disabled: PropTypes.bool,
   plainLink: PropTypes.bool,
   activeClassName: PropTypes.string,
   children: PropTypes.oneOfType([
@@ -23,7 +22,6 @@ A.defaultProps = {
   href: '',
   to: '',
   external: false,
-  disabled: false,
   plainLink: false,
 };
 

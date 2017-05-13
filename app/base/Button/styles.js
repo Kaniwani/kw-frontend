@@ -1,7 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { lighten } from 'polished';
+import { mix, lighten } from 'polished';
 
+import { greyDark } from 'shared/styles/colors';
 import { epsilon } from 'shared/styles/typography';
 import { fastEaseQuad } from 'shared/styles/animation';
 import { resetButton } from 'shared/styles/utils';
@@ -29,19 +30,26 @@ const style = css`
   transition: all ${fastEaseQuad};
 
   ${({ plainButton }) => plainButton ?
-    resetButton : `
-    &:active,
-    &:focus,
-    &:hover {
-      color: ${({ colorHover }) => colorHover};
-      background-color: ${({ bgColorHover }) => bgColorHover};
-    }
+    resetButton : css`
+    &:not(:disabled) {
+      &:active,
+      &:focus,
+      &:hover {
+        color: ${({ colorHover }) => colorHover};
+        background-color: ${({ bgColorHover }) => bgColorHover};
+      }
 
-    &:active {
-      color: ${({ color }) => color};
-      background-color: ${({ bgColor }) => lighten(0.2, bgColor)};
+      &:active {
+        color: ${({ color }) => color};
+        background-color: ${({ bgColor }) => lighten(0.2, bgColor)};
+      }
     }
   `}
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: ${({ bgColor }) => mix(0.5, bgColor, greyDark)};
+  }
 `;
 
 export const StyledA = styled(({ color, colorHover, bgColor, bgColorHover, ...props }) =>

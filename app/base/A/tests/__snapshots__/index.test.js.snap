@@ -2,7 +2,6 @@
 
 exports[`<A /> should add appropriate attributes for an external link 1`] = `
 <Styled(Component)
-  disabled={false}
   href="http://google.com/"
   plainLink={false}
   rel="external noopener noreferrer"
@@ -16,7 +15,6 @@ exports[`<A /> should add appropriate attributes for an external link 1`] = `
 
 exports[`<A /> should match snapshot for <Link> 1`] = `
 <Styled(Component)
-  disabled={false}
   plainLink={false}
   to="/someRoute"
 >
@@ -28,7 +26,6 @@ exports[`<A /> should match snapshot for <Link> 1`] = `
 
 exports[`<A /> should match snapshot for <a> 1`] = `
 <Styled(Component)
-  disabled={false}
   href="http://google.com/"
   plainLink={true}
 >

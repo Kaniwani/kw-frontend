@@ -6,9 +6,6 @@ storiesOf('base.A', module)
   .add('normal anchor link', () => (
     <A href="google.com">Regular link</A>
   ))
-  .add('normal anchor link with disabled prop', () => (
-    <A disabled href="google.com">Plain</A>
-  ))
   .add('normal anchor link with external prop', () => (
     <A external href="google.com">Plain</A>
   ))
@@ -17,9 +14,6 @@ storiesOf('base.A', module)
   ))
   .add('react-router Link', () => (
     <A to="/">Plain</A>
-  ))
-  .add('react-router Link with disabled prop', () => (
-    <A disabled to="/">Plain</A>
   ))
   .add('react-router Link with external prop', () => (
     <A external to="/">Plain</A>

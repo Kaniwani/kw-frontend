@@ -39,15 +39,27 @@ Button.defaultProps = {
   bgColorHover: whiteLight,
 };
 
-function Button({ plainButton, children, type, href, to, onClick, ...colorProps }) {
+function Button({ plainButton, children, type, href, to, onClick, disabled, ...props }) {
   const link = () => (
-    <StyledA plainLink href={href} to={to} {...colorProps}>
+    <StyledA
+      plainLink
+      href={href}
+      to={to}
+      disabled={disabled}
+      {...props}
+    >
       {Children.toArray(children)}
     </StyledA>
   );
 
   const button = () => (
-    <StyledButton plainButton={plainButton} type={type} onClick={onClick} {...colorProps}>
+    <StyledButton
+      plainButton={plainButton}
+      type={type}
+      disabled={disabled}
+      onClick={onClick}
+      {...props}
+    >
       {Children.toArray(children)}
     </StyledButton>
   );

@@ -4,7 +4,7 @@ exports[`<Icon />  should match baseline snapshot 1`] = `
 <styled.span
   color="currentColor"
   display="inline-block"
-  size="1em"
+  size="1.5em"
 >
   <styled.svg
     height="100%"
