@@ -8,24 +8,26 @@ LockButton.propTypes = {
   isActionable: PropTypes.bool.isRequired,
   isLocked: PropTypes.bool.isRequired,
   handleClick: PropTypes.func.isRequired,
-  color: PropTypes.string,
   size: PropTypes.string,
 };
 
 LockButton.defaultProps = {
-  color: 'currentColor',
   size: '1.5em',
 };
 
 function LockButton({ title, isActionable, isLocked, ...props }) {
   let icon = 'LOCK_SOLID';
+  let iconColor = 'grey';
   if (isActionable) {
     icon = isLocked ? 'LOCK_CLOSED' : 'LOCK_OPEN';
+    iconColor = isLocked ? 'grey' : 'greyLight';
   }
+  // ffs
   return (
     <IconButton
       name={icon}
       title={title}
+      color={iconColor}
       disabled={!isActionable}
       {...props}
     />

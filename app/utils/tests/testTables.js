@@ -1,7 +1,310 @@
 /**
- * These all assume that the data has been serialized in the front end already!
- * IE: meaning: 'string, of, meanings' has become meanings: ['array', 'of', 'meanings']
+ * These all assume that the data has been serialized to preferred format in the front end already!
+ * This is not the API response shape.
  */
+
+export const levels = [
+  {
+    level: 1,
+    unlocked: false,
+    count: 43,
+  },
+  {
+    level: 2,
+    unlocked: true,
+    count: 90,
+  },
+  {
+    level: 3,
+    unlocked: true,
+    count: 69,
+  },
+  {
+    level: 4,
+    unlocked: false,
+    count: 105,
+  },
+  {
+    level: 5,
+    unlocked: true,
+    count: 126,
+  },
+  {
+    level: 6,
+    unlocked: true,
+    count: 118,
+  },
+  {
+    level: 7,
+    unlocked: true,
+    count: 101,
+  },
+  {
+    level: 8,
+    unlocked: false,
+    count: 136,
+  },
+  {
+    level: 9,
+    unlocked: false,
+    count: 119,
+  },
+  {
+    level: 10,
+    unlocked: false,
+    count: 118,
+  },
+  {
+    level: 11,
+    unlocked: false,
+    count: 126,
+  },
+  {
+    level: 12,
+    unlocked: false,
+    count: 126,
+  },
+  {
+    level: 13,
+    unlocked: false,
+    count: 115,
+  },
+  {
+    level: 14,
+    unlocked: false,
+    count: 116,
+  },
+  {
+    level: 15,
+    unlocked: false,
+    count: 100,
+  },
+  {
+    level: 16,
+    unlocked: false,
+    count: 117,
+  },
+  {
+    level: 17,
+    unlocked: false,
+    count: 124,
+  },
+  {
+    level: 18,
+    unlocked: false,
+    count: 135,
+  },
+  {
+    level: 19,
+    unlocked: false,
+    count: 106,
+  },
+  {
+    level: 20,
+    unlocked: false,
+    count: 114,
+  },
+  {
+    level: 21,
+    unlocked: false,
+    count: 106,
+  },
+  {
+    level: 22,
+    unlocked: false,
+    count: 115,
+  },
+  {
+    level: 23,
+    unlocked: false,
+    count: 97,
+  },
+  {
+    level: 24,
+    unlocked: false,
+    count: 120,
+  },
+  {
+    level: 25,
+    unlocked: false,
+    count: 100,
+  },
+  {
+    level: 26,
+    unlocked: false,
+    count: 124,
+  },
+  {
+    level: 27,
+    unlocked: false,
+    count: 106,
+  },
+  {
+    level: 28,
+    unlocked: false,
+    count: 116,
+  },
+  {
+    level: 29,
+    unlocked: false,
+    count: 107,
+  },
+  {
+    level: 30,
+    unlocked: false,
+    count: 103,
+  },
+  {
+    level: 31,
+    unlocked: false,
+    count: 113,
+  },
+  {
+    level: 32,
+    unlocked: false,
+    count: 111,
+  },
+  {
+    level: 33,
+    unlocked: false,
+    count: 103,
+  },
+  {
+    level: 34,
+    unlocked: false,
+    count: 124,
+  },
+  {
+    level: 35,
+    unlocked: false,
+    count: 100,
+  },
+  {
+    level: 36,
+    unlocked: false,
+    count: 98,
+  },
+  {
+    level: 37,
+    unlocked: false,
+    count: 112,
+  },
+  {
+    level: 38,
+    unlocked: false,
+    count: 100,
+  },
+  {
+    level: 39,
+    unlocked: false,
+    count: 101,
+  },
+  {
+    level: 40,
+    unlocked: false,
+    count: 116,
+  },
+  {
+    level: 41,
+    unlocked: false,
+    count: 107,
+  },
+  {
+    level: 42,
+    unlocked: false,
+    count: 96,
+  },
+  {
+    level: 43,
+    unlocked: false,
+    count: 108,
+  },
+  {
+    level: 44,
+    unlocked: false,
+    count: 103,
+  },
+  {
+    level: 45,
+    unlocked: false,
+    count: 96,
+  },
+  {
+    level: 46,
+    unlocked: false,
+    count: 103,
+  },
+  {
+    level: 47,
+    unlocked: false,
+    count: 94,
+  },
+  {
+    level: 48,
+    unlocked: false,
+    count: 104,
+  },
+  {
+    level: 49,
+    unlocked: false,
+    count: 104,
+  },
+  {
+    level: 50,
+    unlocked: false,
+    count: 87,
+  },
+  {
+    level: 51,
+    unlocked: false,
+    count: 75,
+  },
+  {
+    level: 52,
+    unlocked: false,
+    count: 99,
+  },
+  {
+    level: 53,
+    unlocked: false,
+    count: 103,
+  },
+  {
+    level: 54,
+    unlocked: false,
+    count: 112,
+  },
+  {
+    level: 55,
+    unlocked: false,
+    count: 76,
+  },
+  {
+    level: 56,
+    unlocked: false,
+    count: 88,
+  },
+  {
+    level: 57,
+    unlocked: false,
+    count: 93,
+  },
+  {
+    level: 58,
+    unlocked: false,
+    count: 81,
+  },
+  {
+    level: 59,
+    unlocked: false,
+    count: 79,
+  },
+  {
+    level: 60,
+    unlocked: false,
+    count: 65,
+  },
+];
 
 export const vocabs = [
   {

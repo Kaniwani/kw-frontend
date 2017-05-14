@@ -1,12 +1,14 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+
+import { levels } from 'utils/tests/testTables';
 import VocabLevel from '../index';
 
 describe('<VocabLevel />', () => {
   it('should match baseline snapshot', () => {
     const renderedComponent = shallow(
       <VocabLevel
-        level={12}
+        {...levels[11]}
         handleLevelLock={jest.fn()}
       />
     );
@@ -16,7 +18,7 @@ describe('<VocabLevel />', () => {
   it('should adopt props', () => {
     const renderedComponent = shallow(
       <VocabLevel
-        level={22}
+        {...levels[11]}
         handleLevelLock={jest.fn()}
         isActionable
         isLocked={false}

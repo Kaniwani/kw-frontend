@@ -1,5 +1,7 @@
 import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
+
+import { levels } from 'utils/tests/testTables';
 import VocabLevel from '../index';
 
 storiesOf('components.VocabLevel', module)
@@ -11,7 +13,7 @@ storiesOf('components.VocabLevel', module)
   ))
   .add('VocabLevel with isLocked={true} & isActionable={true}', () => (
     <VocabLevel
-      level={12}
+      {...levels[11]}
       handleLevelLock={action('handleLevelLock')}
       isLocked
       isActionable
@@ -19,7 +21,7 @@ storiesOf('components.VocabLevel', module)
   ))
   .add('VocabLevel with isLocked={false} & isActionable={true}', () => (
     <VocabLevel
-      level={12}
+      {...levels[11]}
       handleLevelLock={action('handleLevelLock')}
       isLocked={false}
       isActionable
