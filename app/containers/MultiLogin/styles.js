@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 import { transparentize, darken, placeholder, timingFunctions } from 'polished';
 
-import Ul from 'base/Ul';
-
 import { whiteLight, greyLight, greyDark, red } from 'shared/styles/colors';
 import { fastEaseQuad } from 'shared/styles/animation';
 import { delta, ffHeading } from 'shared/styles/typography';
-import { resetButton, visuallyHidden } from 'shared/styles/utils';
+import { resetList, resetButton, visuallyHidden } from 'shared/styles/utils';
 
 const maxWidth = '20rem';
 
@@ -24,7 +22,9 @@ export const Form = styled.form`
   margin-top: .25rem;
 `;
 
-export const SelectList = styled(Ul)`
+export const SelectList = styled.ul`
+  ${resetList}
+  ${''/* FIXME: flex fallback + supports */}
   display: grid;
   max-width: ${maxWidth};
   font-size: .9em;

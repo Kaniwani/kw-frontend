@@ -141,7 +141,7 @@ exports[`<MultiLogin /> MultiLogin.Label should match snapshot 1`] = `
 
 exports[`<MultiLogin /> MultiLogin.SelectList should match snapshot 1`] = `
 <ul
-  className="hZodql"
+  className="lbFFBs"
 />
 `;
 
