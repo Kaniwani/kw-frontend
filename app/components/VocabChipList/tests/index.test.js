@@ -1,25 +1,21 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+
+import { vocabs } from 'utils/tests/testTables';
 import VocabChipList from '../index';
 
 describe('<VocabChipList />', () => {
-  const items = [
-    {
-      id: 42,
-      meaning: 'facilities',
-      kana: 'しせつ',
-      character: '施設',
-      correctPercent: 82,
+  const items = vocabs.slice(0, 3).map((vocab) => ({
+    ...vocab,
+    history: {
+      correct: 4,
+      incorrect: 2,
     },
-    {
-      id: 22,
-      meaning: 'dancing',
-      kana: 'おどり',
-      character: '踊り',
-      correctPercent: 95,
+    session: {
+      correct: 1,
+      incorrect: 1,
     },
-  ];
-
+  }));
 
   it('should match baseline snapshot', () => {
     const renderedComponent = shallow(

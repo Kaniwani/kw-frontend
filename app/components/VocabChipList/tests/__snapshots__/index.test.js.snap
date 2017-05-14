@@ -10,50 +10,72 @@ exports[`<VocabChipList /> should adopt a color prop 1`] = `
     resizeHide={true}
     wrapper="div"
   />
-  <styled.ul
-    plainList={true}
-  >
+  <styled.ul>
     <defaultProps(VocabChip)
-      character="施設"
+      character="近々"
       color="green"
       data-for="vocabChipTip"
+      data-place="bottom"
       data-tip="
       <ul>
         <li>
           <span>EN</span>
-          <span>facilities</li>
+          <span>Before Long</span>
         <li>
-          <span>JA</span>
-          <span lang=\\"ja\\">しせつ
+          <span>JA </span>
+          <span lang=\\"ja\\">ちかぢか</span>
         </li>
         <li>
           <span>RC</span>
-          <span>82%
+          <span>62%</span>
         </li>
       </ul>
     "
-      id={42}
+      id={553}
     />
     <defaultProps(VocabChip)
-      character="踊り"
+      character="少女"
       color="green"
       data-for="vocabChipTip"
+      data-place="bottom"
       data-tip="
       <ul>
         <li>
           <span>EN</span>
-          <span>dancing</li>
+          <span>Young Lady</span>
         <li>
-          <span>JA</span>
-          <span lang=\\"ja\\">おどり
+          <span>JA </span>
+          <span lang=\\"ja\\">しょうじょ</span>
         </li>
         <li>
           <span>RC</span>
-          <span>95%
+          <span>62%</span>
         </li>
       </ul>
     "
-      id={22}
+      id={176}
+    />
+    <defaultProps(VocabChip)
+      character="少年"
+      color="green"
+      data-for="vocabChipTip"
+      data-place="bottom"
+      data-tip="
+      <ul>
+        <li>
+          <span>EN</span>
+          <span>Young Boy</span>
+        <li>
+          <span>JA </span>
+          <span lang=\\"ja\\">しょうねん</span>
+        </li>
+        <li>
+          <span>RC</span>
+          <span>62%</span>
+        </li>
+      </ul>
+    "
+      id={280}
     />
   </styled.ul>
 </div>
@@ -69,50 +91,72 @@ exports[`<VocabChipList /> should match baseline snapshot 1`] = `
     resizeHide={true}
     wrapper="div"
   />
-  <styled.ul
-    plainList={true}
-  >
+  <styled.ul>
     <defaultProps(VocabChip)
-      character="施設"
+      character="近々"
       color="purple"
       data-for="vocabChipTip"
+      data-place="bottom"
       data-tip="
       <ul>
         <li>
           <span>EN</span>
-          <span>facilities</li>
+          <span>Before Long</span>
         <li>
-          <span>JA</span>
-          <span lang=\\"ja\\">しせつ
+          <span>JA </span>
+          <span lang=\\"ja\\">ちかぢか</span>
         </li>
         <li>
           <span>RC</span>
-          <span>82%
+          <span>62%</span>
         </li>
       </ul>
     "
-      id={42}
+      id={553}
     />
     <defaultProps(VocabChip)
-      character="踊り"
+      character="少女"
       color="purple"
       data-for="vocabChipTip"
+      data-place="bottom"
       data-tip="
       <ul>
         <li>
           <span>EN</span>
-          <span>dancing</li>
+          <span>Young Lady</span>
         <li>
-          <span>JA</span>
-          <span lang=\\"ja\\">おどり
+          <span>JA </span>
+          <span lang=\\"ja\\">しょうじょ</span>
         </li>
         <li>
           <span>RC</span>
-          <span>95%
+          <span>62%</span>
         </li>
       </ul>
     "
-      id={22}
+      id={176}
+    />
+    <defaultProps(VocabChip)
+      character="少年"
+      color="purple"
+      data-for="vocabChipTip"
+      data-place="bottom"
+      data-tip="
+      <ul>
+        <li>
+          <span>EN</span>
+          <span>Young Boy</span>
+        <li>
+          <span>JA </span>
+          <span lang=\\"ja\\">しょうねん</span>
+        </li>
+        <li>
+          <span>RC</span>
+          <span>62%</span>
+        </li>
+      </ul>
+    "
+      id={280}
     />
   </styled.ul>
 </div>

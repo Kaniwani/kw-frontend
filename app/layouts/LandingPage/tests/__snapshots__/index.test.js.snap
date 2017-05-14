@@ -28,7 +28,7 @@ exports[`<LandingPage /> should match baseline snapshot 1`] = `
           >
             <styled.h1>
               <h1
-                className="cWVNMQ"
+                className="iHqYsg"
               >
                 KaniWani
               </h1>

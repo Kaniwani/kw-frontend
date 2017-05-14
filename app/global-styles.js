@@ -87,17 +87,18 @@ injectGlobal`
   }
 
   .vocab-tip li {
-    display: table-row;
+    display: flex;
 
     span {
-      display: table-cell;
-      padding: 0 0.2em;
+      flex: 0 1 auto;
+      padding: .2em;
     }
-  }
 
-  .vocab-tip li span:first-child {
-    font-size: .95em;
-    color: ${grey};
+    /* category */
+    span:first-child {
+      font-size: .95em;
+      color: ${grey};
+    }
   }
 
 `;

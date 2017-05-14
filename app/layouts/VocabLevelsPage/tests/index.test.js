@@ -1,9 +1,17 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
+
+import { levels } from 'utils/tests/testTables';
 import VocabLevelsPage from '../index';
 
 describe('<VocabLevelsPage />', () => {
   it('should match baseline snapshot', () => {
-    expect(mount(<VocabLevelsPage />)).toMatchSnapshot();
+    const renderedComponent = shallow(
+      <VocabLevelsPage
+        levels={levels.slice(30, 38)}
+        userWKLevel={34}
+      />
+    );
+    expect(renderedComponent).toMatchSnapshot();
   });
 });

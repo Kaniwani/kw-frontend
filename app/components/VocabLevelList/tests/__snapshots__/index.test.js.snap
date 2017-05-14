@@ -1,3 +1,62 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<VocabLevelList /> should match baseline snapshot 1`] = `<div />`;
+exports[`<VocabLevelList /> should match baseline snapshot 1`] = `
+<styled.ul>
+  <VocabLevel
+    count={113}
+    handleLevelLock={[Function]}
+    isActionable={true}
+    isLocked={true}
+    level={31}
+  />
+  <VocabLevel
+    count={111}
+    handleLevelLock={[Function]}
+    isActionable={true}
+    isLocked={true}
+    level={32}
+  />
+  <VocabLevel
+    count={103}
+    handleLevelLock={[Function]}
+    isActionable={true}
+    isLocked={true}
+    level={33}
+  />
+  <VocabLevel
+    count={124}
+    handleLevelLock={[Function]}
+    isActionable={true}
+    isLocked={true}
+    level={34}
+  />
+  <VocabLevel
+    count={100}
+    handleLevelLock={[Function]}
+    isActionable={false}
+    isLocked={true}
+    level={35}
+  />
+  <VocabLevel
+    count={98}
+    handleLevelLock={[Function]}
+    isActionable={false}
+    isLocked={true}
+    level={36}
+  />
+  <VocabLevel
+    count={112}
+    handleLevelLock={[Function]}
+    isActionable={false}
+    isLocked={true}
+    level={37}
+  />
+  <VocabLevel
+    count={100}
+    handleLevelLock={[Function]}
+    isActionable={false}
+    isLocked={true}
+    level={38}
+  />
+</styled.ul>
+`;

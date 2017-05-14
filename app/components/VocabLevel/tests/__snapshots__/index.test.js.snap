@@ -1,29 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<VocabLevel /> should adopt props 1`] = `
-<styled.div
+<styled.li
   isActionable={true}
 >
   <Styled(Component)
-    title="View level 22 vocabulary"
-    to="/vocabulary/level/22"
+    title="View level 12 vocabulary"
+    to="/vocabulary/level/12"
   >
     <styled.h2>
-      Level 
-      22
+      <styled.span
+        isActionable={true}
+      >
+        Level 
+        12
+      </styled.span>
+      <styled.span>
+         
+        126
+         entries
+      </styled.span>
     </styled.h2>
   </Styled(Component)>
   <Styled(LockButton)
     handleClick={[Function]}
     isActionable={true}
     isLocked={false}
-    title="Lock level 22"
+    title="Lock level 12"
   />
-</styled.div>
+</styled.li>
 `;
 
 exports[`<VocabLevel /> should match baseline snapshot 1`] = `
-<styled.div
+<styled.li
   isActionable={false}
 >
   <Styled(Component)
@@ -31,8 +40,12 @@ exports[`<VocabLevel /> should match baseline snapshot 1`] = `
     to="/vocabulary/level/12"
   >
     <styled.h2>
-      Level 
-      12
+      <styled.span
+        isActionable={false}
+      >
+        Level 
+        12
+      </styled.span>
     </styled.h2>
   </Styled(Component)>
   <Styled(LockButton)
@@ -41,5 +54,5 @@ exports[`<VocabLevel /> should match baseline snapshot 1`] = `
     isLocked={true}
     title="Unlock level 12"
   />
-</styled.div>
+</styled.li>
 `;

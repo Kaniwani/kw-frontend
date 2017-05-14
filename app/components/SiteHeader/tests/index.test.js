@@ -1,9 +1,13 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from 'enzyme';
+
 import SiteNav from '../index';
 
 describe('<SiteNav />', () => {
   it('should match baseline snapshot', () => {
-    expect(shallow(<SiteNav />)).toMatchSnapshot();
+    const renderedComponent = render(
+      <SiteNav />
+    );
+    expect(renderedComponent).toMatchSnapshot();
   });
 });

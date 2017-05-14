@@ -5,7 +5,7 @@ import VocabCard from '../index';
 
 describe('<VocabCard />', () => {
   const id = 234;
-  const meaning = 'Before Long, Soon';
+  const meanings = ['Before Long', 'Soon'];
   const readings = [
     {
       character: '近々',
@@ -21,7 +21,7 @@ describe('<VocabCard />', () => {
     const renderedComponent = shallow(
       <VocabCard
         id={id}
-        meaning={meaning}
+        meanings={meanings}
         readings={readings}
       />
     );
@@ -32,7 +32,7 @@ describe('<VocabCard />', () => {
     const renderedComponent = shallow(
       <VocabCard
         id={id}
-        meaning={meaning}
+        meanings={meanings}
         readings={readings}
         color="orange"
       />

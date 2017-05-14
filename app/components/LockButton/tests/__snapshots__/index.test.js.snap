@@ -14,7 +14,7 @@ exports[`<LockButton /> should adopt props 1`] = `
 
 exports[`<LockButton /> should match baseline snapshot 1`] = `
 <IconButton
-  color="currentColor"
+  color="grey"
   disabled={true}
   handleClick={[Function]}
   name="LOCK_SOLID"

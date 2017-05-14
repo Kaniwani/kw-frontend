@@ -2,14 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { branch, renderComponent } from 'recompose';
 
-import Container from 'layouts/Container';
-import Element from 'layouts/Element';
-
 import Placeholder from './Placeholder';
 import VocabList from './VocabList';
 import RankedVocabLists from './RankedVocabLists';
 import { TYPES } from './constants';
-import { Title } from './styles';
+import { Section, Element, Title } from './styles';
 
 const hasNoItems = ({ items }) => !items.length;
 
@@ -39,7 +36,7 @@ SummarySection.defaultProps = {
 function SummarySection({ type, items, expanded }) {
   const color = TYPES[type].color;
   return (
-    <Container tag="section">
+    <Section>
       <Element>
         <Title color={color}>
           {getTitleText(type, items.length)}
@@ -62,7 +59,7 @@ function SummarySection({ type, items, expanded }) {
           />
         )}
       </Element>
-    </Container>
+    </Section>
   );
 }
 

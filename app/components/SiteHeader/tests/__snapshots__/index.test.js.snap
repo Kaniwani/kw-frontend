@@ -1,54 +1,122 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<SiteNav /> should match baseline snapshot 1`] = `
-<styled.header
-  innerRef={[Function]}
+<header
+  class="gvTVl"
 >
-  <styled.nav>
-    <LogoLink
-      size="4.5rem"
-      to="/"
-    />
-    <OnCanvasMenu
-      routes={
-        Array [
-          Object {
-            "count": 0,
-            "isDisabled": false,
-            "text": "lessons",
-            "to": "/lesson",
-          },
-          Object {
-            "count": 0,
-            "isDisabled": false,
-            "text": "reviews",
-            "to": "/review",
-          },
-          Object {
-            "text": "vocabulary",
-            "to": "/vocabulary",
-          },
-          Object {
-            "text": "settings",
-            "to": "/settings",
-          },
-          Object {
-            "text": "about",
-            "to": "/about",
-          },
-          Object {
-            "text": "logout",
-            "to": "/logout",
-          },
-        ]
-      }
-    />
-    <OffCanvasMenu
+  <nav
+    class="jQXhUQ"
+  >
+    <a
+      class="itPQbX"
+      title="Return Home"
+    >
+      <image_mock
+        class="cwMAua"
+        height="100%"
+        width="100%"
+      />
+    </a>
+    <ul
+      class="dRwhwG"
+    >
+      <li
+        class="gNGOCT"
+      >
+        <a
+          class="kTctJh kMmZKU"
+        >
+          <span
+            class="NavLink__Text fYdmEi"
+          >
+            lessons
+            <span
+              class="dgrkVX"
+            >
+              0
+            </span>
+          </span>
+        </a>
+      </li>
+      <li
+        class="gNGOCT"
+      >
+        <a
+          class="kTctJh kMmZKU"
+        >
+          <span
+            class="NavLink__Text fYdmEi"
+          >
+            reviews
+            <span
+              class="dgrkVX"
+            >
+              0
+            </span>
+          </span>
+        </a>
+      </li>
+      <li
+        class="gNGOCT"
+      >
+        <a
+          class="kTctJh kMmZKU"
+        >
+          <span
+            class="NavLink__Text fYdmEi"
+          >
+            vocabulary
+          </span>
+        </a>
+      </li>
+      <li
+        class="gNGOCT"
+      >
+        <a
+          class="kTctJh kMmZKU"
+        >
+          <span
+            class="NavLink__Text fYdmEi"
+          >
+            settings
+          </span>
+        </a>
+      </li>
+      <li
+        class="gNGOCT"
+      >
+        <a
+          class="kTctJh kMmZKU"
+        >
+          <span
+            class="NavLink__Text fYdmEi"
+          >
+            about
+          </span>
+        </a>
+      </li>
+      <li
+        class="gNGOCT"
+      >
+        <a
+          class="kTctJh kMmZKU"
+        >
+          <span
+            class="NavLink__Text fYdmEi"
+          >
+            logout
+          </span>
+        </a>
+      </li>
+    </ul>
+    <div
+      class="hNmmkN"
       id="offCanvasMenu"
-      isVisible={false}
-      offsetTop={70}
-      routes={Array []}
-    />
-  </styled.nav>
-</styled.header>
+    >
+      <ul
+        class="cyVEsf"
+      />
+    </div>
+  </nav>
+</header>
 `;

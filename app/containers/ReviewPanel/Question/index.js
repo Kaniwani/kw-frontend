@@ -9,15 +9,15 @@ import {
 } from './styles';
 
 ReviewQuestion.propTypes = {
-  meaning: PropTypes.string.isRequired,
+  meanings: PropTypes.array.isRequired,
   tags: PropTypes.array.isRequired,
 };
 
-function ReviewQuestion({ meaning, tags }) {
+function ReviewQuestion({ meanings, tags }) {
   return (
     <Wrapper>
       <QuestionWrapper>
-        <Question>{meaning}</Question>
+        <Question>{meanings.join(', ')}</Question>
       </QuestionWrapper>
       <Tags tags={tags} />
     </Wrapper>

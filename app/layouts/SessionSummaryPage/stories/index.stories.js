@@ -18,7 +18,6 @@ const generateItems = () => vocabs.map((vocab) => ({
   },
 }));
 
-
 storiesOf('layouts.SessionSummaryPage', module)
   .add('SessionSummaryPage with default props', () => (
     <SessionSummaryPage

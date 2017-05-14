@@ -6,7 +6,7 @@ exports[`<MarkedSentence /> should match baseline snapshot 1`] = `
   lang="ja"
 >
   <a
-    class="dTJZJM"
+    class="kMmZKU"
     href="http://jisho.org/search/その言葉の漢字は難しい"
     rel="external noopener noreferrer"
     target="_blank"
@@ -30,7 +30,7 @@ exports[`<MarkedSentence /> should match character snapshot 1`] = `
   lang="ja"
 >
   <a
-    class="dTJZJM"
+    class="kMmZKU"
     href="http://jisho.org/search/その言葉の漢字は難しい"
     rel="external noopener noreferrer"
     target="_blank"
@@ -58,7 +58,7 @@ exports[`<MarkedSentence /> should match kana snapshot 1`] = `
   lang="ja"
 >
   <a
-    class="dTJZJM"
+    class="kMmZKU"
     href="http://jisho.org/search/その言葉の漢字は難しい"
     rel="external noopener noreferrer"
     target="_blank"

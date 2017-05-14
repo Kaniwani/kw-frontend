@@ -2,7 +2,7 @@
 
 exports[`<JishoSearchLink /> should match base snapshot 1`] = `
 <a
-  class="hGKpsa dTJZJM"
+  class="hGKpsa kMmZKU"
   href="//jisho.org/search/かな"
   rel="external noopener noreferrer"
   tabindex="-1"

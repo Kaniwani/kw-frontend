@@ -27,7 +27,7 @@ function ReviewPanel({ reviewEntry }) {
           reviewsRemaining={20}
         />
         <ReviewQuestion
-          meaning="confinement, imprisonment, incarceration, confinement, imprisonment, incarceration, confinement, imprisonment, incarceration"
+          meanings={['confinement', 'imprisonment', 'incarceration', 'confinement', 'imprisonment', 'incarceration', 'confinement', 'imprisonment', 'incarceration']}
           tags={['Noun', 'Verb', 'Noun', 'Verb', 'Noun', 'Verb', 'Common', 'JLPT N1']}
         />
       </Upper>
