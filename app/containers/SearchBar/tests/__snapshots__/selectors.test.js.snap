@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchBar selectors selecting searchBar domain state should match snapshot 1`] = `"winner!"`;

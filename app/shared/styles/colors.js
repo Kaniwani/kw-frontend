@@ -26,6 +26,10 @@ export const golden = '#f7f7c9';
 // safer than transparent keyword since browser implementations are different
 export const transparent = 'rgba(0, 0, 0, 0)';
 
+// since we often reference Object.keys(COLORS) or COLORS[color]
+// ensure that we can still set currentColor
+export const currentColor = 'currentColor';
+
 export const link = blueLight;
 export const linkHover = blueDark;
 

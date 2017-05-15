@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { createJishoUrl } from 'shared/urls';
 import IconLink from 'components/IconLink';
 

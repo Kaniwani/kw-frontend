@@ -7,7 +7,6 @@ import { Button } from './styles';
 IconButton.propTypes = {
   name: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  handleClick: PropTypes.func.isRequired,
   color: PropTypes.string,
   size: PropTypes.oneOfType([
     PropTypes.string,
@@ -15,6 +14,7 @@ IconButton.propTypes = {
   ]),
   type: PropTypes.oneOf(['submit', 'reset', 'button']),
   disabled: PropTypes.bool,
+  handleClick: PropTypes.func,
 };
 
 IconButton.defaultProps = {
@@ -22,6 +22,7 @@ IconButton.defaultProps = {
   color: 'currentColor',
   size: '1.5em',
   disabled: false,
+  handleClick: (event) => event, /* passthrough, for submit buttons in forms with onSubmit */
 };
 
 function IconButton({ name, title, color, size, type, handleClick, disabled, ...props }) {

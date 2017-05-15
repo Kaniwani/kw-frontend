@@ -5,6 +5,15 @@ export const fastEaseQuad = `250ms ${timingFunctions('easeInOutQuad')}`;
 export const midEaseQuad = `375ms ${timingFunctions('easeInOutQuad')}`;
 export const slowEaseQuad = `500ms ${timingFunctions('easeInOutQuad')}`;
 
+export const spin = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-180deg);
+  }
+`;
+
 export const wobble = keyframes`
   0% {
     transform: rotate(0deg);
