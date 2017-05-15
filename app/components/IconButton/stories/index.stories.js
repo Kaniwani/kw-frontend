@@ -1,8 +1,10 @@
 import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
-import randomHexColor from 'utils/randomHexColor';
+import sample from 'lodash/sample';
+
 import Container from 'layouts/Container';
 import Element from 'layouts/Element';
+import * as COLORS from 'shared/styles/colors';
 
 import ICONS from 'components/Icon/constants';
 import IconButton from '../index';
@@ -16,7 +18,7 @@ storiesOf('components.IconButtons', module)
           <IconButton
             name={name}
             size="2rem"
-            color={randomHexColor()}
+            color={sample(Object.keys(COLORS))}
             handleClick={action('button-click')}
             title={`Does some kind of ${name} action`}
           />

@@ -1,8 +1,10 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
-import randomHexColor from 'utils/randomHexColor';
+import sample from 'lodash/sample';
+
 import Container from 'layouts/Container';
 import Element from 'layouts/Element';
+import * as COLORS from 'shared/styles/colors';
 
 import Icon from '../index';
 import ICONS from '../constants';
@@ -16,7 +18,7 @@ storiesOf('components.Icons', module)
           <Icon
             name={name}
             size="2rem"
-            color={randomHexColor()}
+            color={sample(Object.keys(COLORS))}
           />
           <span style={{ marginLeft: '.5em', fontSize: '.7em' }}>{name}</span>
         </Element>

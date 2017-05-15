@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import * as COLORS from 'shared/styles/colors';
 import ICONS from './constants';
 import { SVGWrapper, SVG } from './styles';
 
 Icon.propTypes = {
-  name: PropTypes.oneOf(Object.keys(ICONS)).isRequired,
   display: PropTypes.string,
-  color: PropTypes.string,
+  name: PropTypes.oneOf(Object.keys(ICONS)).isRequired,
+  color: PropTypes.oneOf(Object.keys(COLORS)),
   size: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,

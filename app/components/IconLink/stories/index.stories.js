@@ -1,8 +1,10 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
-import randomHexColor from 'utils/randomHexColor';
+import sample from 'lodash/sample';
+
 import Container from 'layouts/Container';
 import Element from 'layouts/Element';
+import * as COLORS from 'shared/styles/colors';
 
 import ICONS from 'components/Icon/constants';
 import IconLink from '../index';
@@ -16,8 +18,8 @@ storiesOf('components.IconLinks', module)
           <IconLink
             href="http://google.com"
             name={name}
-            title={'Goes to a route'}
-            color={randomHexColor()}
+            title={'Goes to an href'}
+            color={sample(Object.keys(COLORS))}
             size="2rem"
           />
           <span style={{ marginLeft: '.5em', fontSize: '.7em' }}>{name}</span>
@@ -33,7 +35,7 @@ storiesOf('components.IconLinks', module)
             to="/path"
             name={name}
             title={'Goes to a route'}
-            color={randomHexColor()}
+            color={sample(Object.keys(COLORS))}
             size="2rem"
           />
           <span style={{ marginLeft: '.5em', fontSize: '.7em' }}>{name}</span>
