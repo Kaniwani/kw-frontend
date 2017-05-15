@@ -22,7 +22,7 @@ function LockButton({ title, isActionable, isLocked, ...props }) {
     icon = isLocked ? 'LOCK_CLOSED' : 'LOCK_OPEN';
     iconColor = isLocked ? 'grey' : 'greyLight';
   }
-  // ffs
+
   return (
     <IconButton
       name={icon}

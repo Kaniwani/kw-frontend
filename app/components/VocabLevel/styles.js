@@ -1,22 +1,21 @@
-import React from 'react';
 import styled from 'styled-components';
 import { transparentize, darken } from 'polished';
 
 import A from 'base/A';
 import H2 from 'base/H2';
 import LockButton from 'components/LockButton';
-import { containerGutter, elementGutter } from 'shared/styles/layout';
+import { containerGutter } from 'shared/styles/layout';
 import { white, greyLight, grey, greyDark } from 'shared/styles/colors';
 import { ffBody } from 'shared/styles/typography';
 import { fastEaseQuad } from 'shared/styles/animation';
 
 export const Wrapper = styled.li`
-  ${containerGutter}
   display: flex;
   color: ${greyDark};
   background-color: ${white};
   border-bottom: 2px solid ${transparentize(0.5, greyLight)};
   transition: background-color ${fastEaseQuad};
+  cursor: pointer;
 
   &:last-of-type {
     border-bottom: none;
@@ -32,7 +31,8 @@ export const Wrapper = styled.li`
   `}
 `;
 
-export const LevelLink = styled(({ ...props }) => <A {...props} plainLink />)`
+export const LevelLink = styled(A)`
+${containerGutter}
   flex: 999 1 auto;
 `;
 
@@ -57,6 +57,6 @@ export const ItemCount = styled.span`
 `;
 
 export const Button = styled(LockButton)`
-  ${elementGutter};
+  ${containerGutter}
   flex: 0 0 auto;
 `;

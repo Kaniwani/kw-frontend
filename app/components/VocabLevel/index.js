@@ -20,10 +20,7 @@ VocabLevel.defaultProps = {
 function VocabLevel({ level, count, isActionable, isLocked, handleLevelLock }) {
   return (
     <Wrapper isActionable={isActionable}>
-      <LevelLink
-        to={`/vocabulary/level/${level}`}
-        title={`View level ${level} vocabulary`}
-      >
+      <LevelLink to={`/vocabulary/level/${level}`} plainLink>
         <Title>
           <Text isActionable={isActionable}>Level {level}</Text>
           {isActionable && <ItemCount> {count} entries</ItemCount>}
