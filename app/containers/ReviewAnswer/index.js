@@ -52,7 +52,7 @@ export class ReviewAnswer extends React.Component {
 
   componentDidMount() {
     // could probably use toKana() in handleKeyDown instead?
-    // depends on any quirks of IMEMode handling selection and 3char chunks etc
+    // depends on any quirks of IMEMode handling selection and 3char chunks
     bind(this.inputField);
     this.inputField.addEventListener('keydown', this.handleKeyDown);
   }
@@ -132,7 +132,6 @@ export class ReviewAnswer extends React.Component {
             title={titleCase(streak)}
             size="1.15em"
           />
-
           <Label htmlFor="userAnswer">
             Vocabulary reading
           </Label>
@@ -147,7 +146,7 @@ export class ReviewAnswer extends React.Component {
             onChange={this.handleInput}
             value={answer.input}
             placeholder="答え"
-            autoFocus
+            autoFocus // eslint-disable-line jsx-a11y/no-autofocus
             autoCapitalize="off"
             autoCorrect="off"
             autoComplete="off"

@@ -9,7 +9,7 @@ class ToggleSwitch extends React.PureComponent {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     isChecked: PropTypes.bool.isRequired,
-    handleChange: PropTypes.func,
+    handleChange: PropTypes.func.isRequired,
     width: PropTypes.string,
     height: PropTypes.string,
     toggleOnColor: PropTypes.oneOf(Object.keys(COLORS)),
@@ -17,7 +17,6 @@ class ToggleSwitch extends React.PureComponent {
   }
 
   static defaultProps = {
-    handleChange: () => {},
     width: '6rem',
     height: '2rem',
     toggleOnColor: 'green',

@@ -72,7 +72,6 @@ class MultiLogin extends React.PureComponent { // eslint-disable-line react/pref
           innerRef={(node) => { this.mainInput = node; }}
           name={mainInputName}
           placeholder={mainInputText()}
-          autoFocus
         />
         <Label for="email">
           Enter email
