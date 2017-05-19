@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { transparentize } from 'polished';
 
 import { blueLight } from 'shared/styles/colors';
@@ -16,14 +16,15 @@ const iconHeight = 32; // should match <SubmitButton size="32px" /> in `../index
 export const Wrapper = styled.div`
   position: relative;
   height: ${componentHeight}px;
+  display: flex;
 `;
 
 export const SubmitButton = styled(IconButton)`
-  position: absolute;
+  /*position: absolute;
   left: 50%;
   top: 50%;
   margin-left: -${componentHeight / 2}px;
-  margin-top:  -${componentHeight / 2}px;
+  margin-top:  -${componentHeight / 2}px;*/
   border-radius: ${componentHeight}px;
   transition: all 0.4s ease-in-out;
   padding: ${(componentHeight - iconHeight) / 2}px;
@@ -35,35 +36,31 @@ export const SubmitButton = styled(IconButton)`
     opacity: 1;
   }
 
-  ${({ isExpanded }) => isExpanded && `
+  ${({ isExpanded }) => isExpanded && css`
     border-radius: 0 ${componentHeight}px ${componentHeight}px 0;
-    margin-left: 115px;
+    margin-left: 0; /*115px*/
     /* shift icon to the left a little */
     padding-left: ${((componentHeight - iconHeight) - 2) / 2}px;
     padding-right: ${((componentHeight - iconHeight) + 2) / 2}px;
   `}
 
-  ${({ isSubmitting }) => isSubmitting && `
+  ${({ isSubmitting }) => isSubmitting && css`
     svg {
       animation: ${spin} 1s linear infinite;
     }
-  `}
-
-  ${({ isExpanded, isSubmitting }) => isExpanded && isSubmitting && `
-
   `}
 `;
 
 export const SearchInput = styled.input`
   ${resetInput}
-  position: absolute;
+  ${''/* position: absolute; */}
   width: 0px;
   height: ${componentHeight}px;
   line-height: ${componentHeight}px;
-  top: 50%;
-  left: 50%;
-  margin-left: ${componentHeight / 2}px;
-  margin-top: -${componentHeight / 2}px;
+  ${''/* top: 50%;
+  left: 50%; */}
+  margin-right: 0;
+  ${''/* margin-top: -${componentHeight / 2}px; */}
   border-radius: ${componentHeight}px;
   padding: 0;
   border: none;
@@ -75,10 +72,10 @@ export const SearchInput = styled.input`
     outline-width: 0px;
   }
 
-  ${({ isExpanded }) => isExpanded && `
+  ${({ isExpanded }) => isExpanded && css`
     border: 1px solid ${transparentize(0.1, blueLight)};
     border-right-width: 0px;
-    margin-left: -185px;
+    margin-right: -185px;
     width: 300px;
     padding: 5px 20px;
     opacity: 1;

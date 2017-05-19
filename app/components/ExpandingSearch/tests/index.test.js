@@ -10,7 +10,7 @@ describe('<ExpandingSearch />', () => {
         handleInputChange={jest.fn()}
         handleInputFocus={jest.fn()}
         inputRef={jest.fn()}
-        keywords="検索"
+        inputValue="検索"
       />
     );
     expect(renderedComponent).toMatchSnapshot();
@@ -21,7 +21,7 @@ describe('<ExpandingSearch />', () => {
         handleInputChange={jest.fn()}
         handleInputFocus={jest.fn()}
         inputRef={jest.fn()}
-        keywords="検索"
+        inputValue="検索"
         isExpanded
         isSubmitting
       />

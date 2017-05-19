@@ -54,7 +54,7 @@ export class SearchBar extends React.Component { // eslint-disable-line react/pr
           onClick={this.expandInput}
           handleInputChange={this.handleInputChange}
           handleInputFocus={this.expandInput}
-          keywords={this.state.keywords}
+          inputValue={this.state.keywords}
           inputRef={(node) => { this.inputElement = node; }}
           isExpanded={this.state.isExpanded}
           isSubmitting={this.state.isSubmitting}

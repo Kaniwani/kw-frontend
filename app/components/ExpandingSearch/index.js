@@ -7,7 +7,7 @@ ExpandingSearch.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
   handleInputFocus: PropTypes.func.isRequired,
   inputRef: PropTypes.func.isRequired,
-  keywords: PropTypes.string.isRequired,
+  inputValue: PropTypes.string.isRequired,
   isExpanded: PropTypes.bool,
   isSubmitting: PropTypes.bool,
 };
@@ -21,7 +21,7 @@ function ExpandingSearch({
   handleInputChange,
   handleInputFocus,
   inputRef,
-  keywords,
+  inputValue,
   isExpanded,
   isSubmitting,
 }) {
@@ -30,7 +30,7 @@ function ExpandingSearch({
       <SearchInput
         lang="ja"
         innerRef={inputRef}
-        value={keywords}
+        value={inputValue}
         isExpanded={isExpanded}
         onChange={handleInputChange}
         onFocus={handleInputFocus}
@@ -38,7 +38,7 @@ function ExpandingSearch({
       <SubmitButton
         size="32px"
         name={isSubmitting ? 'SYNC' : 'SEARCH'}
-        title={isSubmitting ? 'Searching...' : `Search vocabulary for: ${keywords}`}
+        title={isSubmitting ? 'Searching...' : `Search vocabulary for: ${inputValue}`}
         type="submit"
         color="whiteLight"
         bgColor="blueLight"

@@ -9,7 +9,7 @@ storiesOf('components.ExpandingSearch', module)
       handleInputChange={action('handleInputChange')}
       handleInputFocus={action('handleInputFocus')}
       inputRef={action('inputRef')}
-      keywords="検索"
+      inputValue="検索"
     />
   ))
   .add('ExpandingSearch isSubmitting', () => (
@@ -17,7 +17,7 @@ storiesOf('components.ExpandingSearch', module)
       handleInputChange={action('handleInputChange')}
       handleInputFocus={action('handleInputFocus')}
       inputRef={action('inputRef')}
-      keywords="検索"
+      inputValue="検索"
       isSubmitting
     />
   ))
@@ -26,7 +26,7 @@ storiesOf('components.ExpandingSearch', module)
       handleInputChange={action('handleInputChange')}
       handleInputFocus={action('handleInputFocus')}
       inputRef={action('inputRef')}
-      keywords="検索"
+      inputValue="検索"
       isExpanded
     />
   ))
@@ -35,7 +35,7 @@ storiesOf('components.ExpandingSearch', module)
       handleInputChange={action('handleInputChange')}
       handleInputFocus={action('handleInputFocus')}
       inputRef={action('inputRef')}
-      keywords="検索"
+      inputValue="検索"
       isExpanded
       isSubmitting
     />
