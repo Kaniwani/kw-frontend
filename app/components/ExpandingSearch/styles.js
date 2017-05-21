@@ -20,11 +20,6 @@ export const Wrapper = styled.div`
 `;
 
 export const SubmitButton = styled(IconButton)`
-  /*position: absolute;
-  left: 50%;
-  top: 50%;
-  margin-left: -${componentHeight / 2}px;
-  margin-top:  -${componentHeight / 2}px;*/
   border-radius: ${componentHeight}px;
   transition: all 0.4s ease-in-out;
   padding: ${(componentHeight - iconHeight) / 2}px;
@@ -38,7 +33,6 @@ export const SubmitButton = styled(IconButton)`
 
   ${({ isExpanded }) => isExpanded && css`
     border-radius: 0 ${componentHeight}px ${componentHeight}px 0;
-    margin-left: 0; /*115px*/
     /* shift icon to the left a little */
     padding-left: ${((componentHeight - iconHeight) - 2) / 2}px;
     padding-right: ${((componentHeight - iconHeight) + 2) / 2}px;
@@ -53,32 +47,26 @@ export const SubmitButton = styled(IconButton)`
 
 export const SearchInput = styled.input`
   ${resetInput}
-  ${''/* position: absolute; */}
-  width: 0px;
+  width: 0;
   height: ${componentHeight}px;
   line-height: ${componentHeight}px;
-  ${''/* top: 50%;
-  left: 50%; */}
-  margin-right: 0;
-  ${''/* margin-top: -${componentHeight / 2}px; */}
   border-radius: ${componentHeight}px;
   padding: 0;
-  border: none;
-  opacity: 0;
+  border: 1px solid ${transparentize(0.1, blueLight)};
+  border-width: 0;
   font-size: 1.5em;
   transition: all 0.4s ease-in-out;
 
   &:focus{
-    outline-width: 0px;
+    outline-width: 0;
   }
 
   ${({ isExpanded }) => isExpanded && css`
-    border: 1px solid ${transparentize(0.1, blueLight)};
-    border-right-width: 0px;
-    margin-right: -185px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
     width: 300px;
     padding: 5px 20px;
-    opacity: 1;
     border-radius: ${componentHeight}px 0 0 ${componentHeight}px;
   `}
 `;
