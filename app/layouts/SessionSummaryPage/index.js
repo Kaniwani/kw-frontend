@@ -8,8 +8,9 @@ import PageWrapper from 'layouts/PageWrapper';
 import SessionSummaryHeader from 'components/SessionSummaryHeader';
 import AccuracyBar from 'components/AccuracyBar';
 import SummarySection from 'components/SummarySection';
+import ToggleVocabListType from 'components/ToggleVocabListType';
 
-import { Heading, ToggleButton } from './styles';
+import { Heading } from './styles';
 
 class SessionSummaryPage extends React.PureComponent {
   static propTypes = {
@@ -64,10 +65,8 @@ class SessionSummaryPage extends React.PureComponent {
         <PageWrapper>
           <Heading>
             <AccuracyBar percent={this.props.percentCorrect} />
-            <ToggleButton
-              name={this.state.vocabListExpanded ? 'CONTRACT_ALL' : 'EXPAND_ALL'}
-              title="Toggle Vocab Card size"
-              size="2em"
+            <ToggleVocabListType
+              isExpanded={this.state.vocabListExpanded}
               handleClick={this.toggleVocabListType}
             />
           </Heading>
