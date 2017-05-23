@@ -7,11 +7,23 @@ import { Wrapper, Heading, Title, Controls } from './styles';
 
 VocabPageHeader.propTypes = {
   pageTitle: PropTypes.string.isRequired,
-  vocabListExpanded: PropTypes.bool.isRequired,
-  handleToggleVocabList: PropTypes.func.isRequired,
+  withVocabListToggle: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.shape({
+      isExpanded: PropTypes.bool,
+      handleToggle: PropTypes.func,
+    }),
+  ]).isRequired,
 };
 
-function VocabPageHeader({ pageTitle, vocabListExpanded, handleToggleVocabList }) {
+function VocabPageHeader({ pageTitle, withVocabListToggle }) {
+  const renderVocabListToggle = () => (
+    <ToggleVocabListType
+      isExpanded={withVocabListToggle.isExpanded}
+      handleClick={withVocabListToggle.handleToggle}
+    />
+  );
+
   return (
     <Wrapper>
       <Heading>
@@ -19,14 +31,10 @@ function VocabPageHeader({ pageTitle, vocabListExpanded, handleToggleVocabList }
       </Heading>
       <Controls>
         <SearchBar />
-        <ToggleVocabListType
-          isExpanded={vocabListExpanded}
-          handleClick={handleToggleVocabList}
-        />
+        {withVocabListToggle && renderVocabListToggle()}
       </Controls>
     </Wrapper>
   );
 }
 
 export default VocabPageHeader;
-

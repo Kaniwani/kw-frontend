@@ -8,14 +8,15 @@ storiesOf('components.VocabPageHeader', module)
   .add('VocabPageHeader with required props', () => (
     <VocabPageHeader
       pageTitle={TITLE}
-      vocabListExpanded
-      handleToggleVocabList={action('clicked')}
+      withVocabListToggle={false}
     />
   ))
-  .add('VocabPageHeader with vocabListExpanded={false}', () => (
+  .add('VocabPageHeader withVocabListToggle', () => (
     <VocabPageHeader
       pageTitle={TITLE}
-      vocabListExpanded={false}
-      handleToggleVocabList={action('clicked')}
+      withVocabListToggle={{
+        isExpanded: false,
+        handleToggle: action('clicked'),
+      }}
     />
   ));

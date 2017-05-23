@@ -7,8 +7,10 @@ describe('<VocabPageHeader />', () => {
     const renderedComponent = shallow(
       <VocabPageHeader
         pageTitle="Vocabulary > Levels > 24"
-        vocabListExpanded={false}
-        handleToggleVocabList={jest.fn()}
+        withVocabListToggle={{
+          isExpanded: false,
+          handleToggle: jest.fn(),
+        }}
       />
     );
     expect(renderedComponent).toMatchSnapshot();

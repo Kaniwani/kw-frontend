@@ -7,11 +7,11 @@ import { bottomLight } from 'shared/styles/shadows';
 
 export const Header = styled.header`
   ${centerByPadding}
+  ${gutter({ prop: 'margin', position: 'bottom', type: 'outer' })} /* logo unfortunately adds height already */
   position: relative;
   background-color: ${white};
   box-shadow: ${bottomLight};
   border-bottom: 1px solid ${transparentize(0.5, whiteDark)};
-  ${gutter({ prop: 'margin', position: 'bottom', type: 'outer' })} /* logo unfortunately adds height already */
 `;
 
 export const Nav = styled.nav`

@@ -27,11 +27,12 @@ const VocabChipWithToolTip = WithTooltip(VocabChip);
 const generateToolTip = (meaning, kana, correctPercent) => `
   <ul>
     <li>
-      <span>EN</span>
-      <span>${meaning}</span>
-    <li>
       <span>JA </span>
       <span lang="ja">${kana}</span>
+    </li>
+    <li>
+      <span>EN</span>
+      <span>${meaning}</span>
     </li>
     <li>
       <span>RC</span>

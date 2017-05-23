@@ -30,12 +30,12 @@ describe('<SummarySection />', () => {
     renderedComponents.forEach((component) => expect(component).toMatchSnapshot());
   });
 
-  it('should adopt expanded prop', () => {
+  it('should adopt isExpanded prop', () => {
     const renderedComponent = render(
       <SummarySection
         type={SECTION_TYPES[0]}
         items={items}
-        expanded
+        isExpanded
       />);
     expect(renderedComponent).toMatchSnapshot();
   });

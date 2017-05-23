@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import titlecase from 'voca/title_case';
 
 import { SRS_RANKS } from 'shared/constants';
+import VocabList from 'components/VocabList';
 import StripeHeading from 'components/StripeHeading';
-import VocabList from '../VocabList';
 import { Wrapper } from './styles';
 
 RankedVocabList.propTypes = {
@@ -12,14 +12,14 @@ RankedVocabList.propTypes = {
   items: PropTypes.array.isRequired,
   color: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  expanded: PropTypes.bool.isRequired,
+  isExpanded: PropTypes.bool.isRequired,
 };
 
-function RankedVocabList({ rank, items, type, color, expanded }) {
+function RankedVocabList({ rank, items, type, color, isExpanded }) {
   return (
     <Wrapper>
       {items.length > 0 && <StripeHeading text={titlecase(rank)} count={items.length} />}
-      <VocabList expanded={expanded} items={items} color={color} type={type} />
+      <VocabList isExpanded={isExpanded} items={items} color={color} type={type} />
     </Wrapper>
   );
 }

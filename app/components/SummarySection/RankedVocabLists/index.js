@@ -19,7 +19,7 @@ RankedVocabLists.propTypes = {
   items: PropTypes.array.isRequired,
   color: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  expanded: PropTypes.bool.isRequired,
+  isExpanded: PropTypes.bool.isRequired,
 };
 
 function RankedVocabLists({ items, ...props }) {

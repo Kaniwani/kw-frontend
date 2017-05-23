@@ -1,5 +1,5 @@
 import { injectGlobal } from 'styled-components';
-import { white, grey, blackLight, greyDark, purpleLight } from 'shared/styles/colors';
+import { white, greyDark, blackLight, purpleLight } from 'shared/styles/colors';
 import { borderRadius } from 'shared/styles/sizing';
 import { resetList } from 'shared/styles/utils';
 import { media } from 'shared/styles/media';
@@ -88,16 +88,19 @@ injectGlobal`
 
   .vocab-tip li {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
 
     span {
       flex: 0 1 auto;
       padding: .2em;
     }
 
-    /* category */
+    /* left column category "JA", "RC" etc */
     span:first-child {
       font-size: .95em;
-      color: ${grey};
+      color: ${greyDark};
+      margin-right: .2em;
     }
   }
 

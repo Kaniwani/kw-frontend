@@ -12,7 +12,7 @@ function ToggleVocabListType({ isExpanded, handleClick }) {
   return (
     <ToggleButton
       name={isExpanded ? 'CONTRACT_ALL' : 'EXPAND_ALL'}
-      title="Toggle Vocab Card size"
+      title={isExpanded ? 'Shrink card size' : 'Enlarge card size'}
       size="2em"
       onClick={handleClick}
     />

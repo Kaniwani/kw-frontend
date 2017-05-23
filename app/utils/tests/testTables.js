@@ -1,3 +1,5 @@
+import random from 'lodash/random';
+
 /**
  * These all assume that the data has been serialized to preferred format in the front end already!
  * This is not the API response shape.
@@ -309,6 +311,15 @@ export const levels = [
 export const vocabs = [
   {
     id: 553,
+    history: {
+      correct: random(10),
+      incorrect: random(10),
+    },
+    session: {
+      correct: random(10),
+      incorrect: random(10),
+      streak: random(11),
+    },
     meanings: ['before long', 'soon'],
     readings: [
       {
@@ -354,6 +365,15 @@ export const vocabs = [
   },
   {
     id: 176,
+    history: {
+      correct: random(10),
+      incorrect: random(10),
+    },
+    session: {
+      correct: random(10),
+      incorrect: random(10),
+      streak: random(11),
+    },
     meanings: ['young lady', 'little girl', 'maiden', 'daughter', 'girl'],
     readings: [
       {
@@ -386,6 +406,15 @@ export const vocabs = [
   },
   {
     id: 280,
+    history: {
+      correct: random(10),
+      incorrect: random(10),
+    },
+    session: {
+      correct: random(10),
+      incorrect: random(10),
+      streak: random(11),
+    },
     meanings: ['young boy', 'juvenile', 'youth', 'boy'],
     readings: [
       {
@@ -405,6 +434,15 @@ export const vocabs = [
   },
   {
     id: 424,
+    history: {
+      correct: random(10),
+      incorrect: random(10),
+    },
+    session: {
+      correct: random(10),
+      incorrect: random(10),
+      streak: random(11),
+    },
     meanings: ['whole life', 'entire life', 'a lifetime', 'all through life', 'one existence', 'a generation', 'an age'],
     readings: [
       {
@@ -425,6 +463,15 @@ export const vocabs = [
   },
   {
     id: 502,
+    history: {
+      correct: random(10),
+      incorrect: random(10),
+    },
+    session: {
+      correct: random(10),
+      incorrect: random(10),
+      streak: random(11),
+    },
     meanings: ['honest'],
     readings: [
       {

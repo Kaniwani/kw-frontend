@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { branch, renderComponent } from 'recompose';
 
+import VocabList from 'components/VocabList';
 import Placeholder from './Placeholder';
-import VocabList from './VocabList';
 import RankedVocabLists from './RankedVocabLists';
 import { TYPES } from './constants';
 import { Section, Element, Title } from './styles';
@@ -26,14 +26,14 @@ const getTitleText = (type, count) =>
 SummarySection.propTypes = {
   type: PropTypes.oneOf(Object.keys(TYPES)).isRequired,
   items: PropTypes.array.isRequired,
-  expanded: PropTypes.bool,
+  isExpanded: PropTypes.bool,
 };
 
 SummarySection.defaultProps = {
-  expanded: false,
+  isExpanded: false,
 };
 
-function SummarySection({ type, items, expanded }) {
+function SummarySection({ type, items, isExpanded }) {
   const color = TYPES[type].color;
   return (
     <Section>
@@ -45,14 +45,14 @@ function SummarySection({ type, items, expanded }) {
       <Element>
         {type === 'CRITICAL' ? (
           <CriticalList
-            expanded={expanded}
+            isExpanded={isExpanded}
             type={type}
             items={items}
             color={color}
           />
         ) : (
           <RankedLists
-            expanded={expanded}
+            isExpanded={isExpanded}
             type={type}
             items={items}
             color={color}

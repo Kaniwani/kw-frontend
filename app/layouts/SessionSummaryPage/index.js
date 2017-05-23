@@ -71,17 +71,17 @@ class SessionSummaryPage extends React.PureComponent {
             />
           </Heading>
           <SummarySection
-            expanded={this.state.vocabListExpanded}
+            isExpanded={this.state.vocabListExpanded}
             items={this.props.correctItems}
             type={'CORRECT'}
           />
           <SummarySection
-            expanded={this.state.vocabListExpanded}
+            isExpanded={this.state.vocabListExpanded}
             items={this.props.incorrectItems}
             type={'INCORRECT'}
           />
           <SummarySection
-            expanded={this.state.vocabListExpanded}
+            isExpanded={this.state.vocabListExpanded}
             items={this.props.criticalItems}
             type={'CRITICAL'}
           />

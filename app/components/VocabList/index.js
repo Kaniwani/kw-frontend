@@ -5,7 +5,7 @@ import VocabCardList from 'components/VocabCardList';
 import VocabChipList from 'components/VocabChipList';
 
 const enhance = branch(
-  ({ expanded }) => expanded,
+  ({ isExpanded }) => isExpanded,
   renderComponent(VocabCardList),
   renderComponent(VocabChipList),
 );
