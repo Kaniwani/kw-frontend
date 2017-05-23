@@ -5,7 +5,7 @@ import H1 from 'base/H1';
 
 import { white, whiteDark } from 'shared/styles/colors';
 import { bottomLight } from 'shared/styles/shadows';
-import { centerByPadding, containerGutterHorizontal } from 'shared/styles/layout';
+import { gutter, centerByPadding } from 'shared/styles/layout';
 
 export const Header = styled.header`
   ${centerByPadding}
@@ -16,7 +16,7 @@ export const Header = styled.header`
 `;
 
 export const Wrapper = styled.nav`
-  ${containerGutterHorizontal} /* logo unfortunately adds height already */
+  ${gutter({ type: 'outer', position: 'horizontal' })} /* logo adds enough vertical space already */
   display: flex;
   flex-flow: row wrap;
   align-items: center;

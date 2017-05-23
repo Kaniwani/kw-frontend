@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-import { containerGutterHorizontal, containerGutterVertical } from 'shared/styles/layout';
+import { gutter } from 'shared/styles/layout';
 import { delta } from 'shared/styles/typography';
 
 import H1 from 'base/H1';
 
 export const Wrapper = styled.div`
-  ${containerGutterHorizontal}
+  ${gutter({ type: 'outer', position: 'horizontal' })}
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
@@ -21,7 +21,7 @@ export const Title = styled(H1)`
 `;
 
 export const Heading = styled.div`
-  ${containerGutterVertical}
+  ${gutter({ type: 'outer', position: 'vertical' })}
   display: flex;
   flex: 3 1 auto;
 `;

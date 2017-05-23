@@ -2,11 +2,11 @@ import styled from 'styled-components';
 import { transparentize, darken } from 'polished';
 
 import * as COLORS from 'shared/styles/colors';
-import { elementGutter } from 'shared/styles/layout';
+import { gutter } from 'shared/styles/layout';
 import { alpha } from 'shared/styles/typography';
 
 export const Wrapper = styled.div`
-  ${elementGutter};
+  ${gutter()};
   flex: 1 1 auto;
 `;
 

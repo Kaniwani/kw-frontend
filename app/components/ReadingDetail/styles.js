@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import P from 'base/P';
-import { elementGutter } from 'shared/styles/sizing';
 import { greyDark } from 'shared/styles/colors';
 
 export const Reading = styled.div`

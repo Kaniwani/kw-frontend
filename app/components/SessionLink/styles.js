@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 
 import * as COLORS from 'shared/styles/colors';
-import { containerGutterVertical } from 'shared/styles/layout';
+import { gutter } from 'shared/styles/layout';
 import { borderRadius } from 'shared/styles/sizing';
 import { fastEaseQuad } from 'shared/styles/animation';
 import { zeta } from 'shared/styles/typography';
@@ -12,7 +12,7 @@ import A from 'base/A';
 import Icon from 'components/Icon';
 
 export const Wrapper = styled.div`
-  ${containerGutterVertical}
+  ${gutter({ type: 'outer', position: 'vertical' })}
   display: flex;
   justify-content: flex-end;
   align-items: center;

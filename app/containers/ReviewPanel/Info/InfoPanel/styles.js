@@ -4,12 +4,11 @@ import styled from 'styled-components';
 
 import TagsList from 'components/TagsList';
 import H3 from 'base/H3';
-import P from 'base/P';
 import A from 'base/A';
 
 import { resetButton } from 'shared/styles/utils';
-import { elementGutter } from 'shared/styles/layout';
-import { transparent, whiteLight, greyDark, red, purple } from 'shared/styles/colors';
+import { gutter } from 'shared/styles/layout';
+import { transparent, whiteLight, red, purple } from 'shared/styles/colors';
 import { outerLine } from 'shared/styles/shadows';
 
 export const IconButton = styled.button`
@@ -38,7 +37,7 @@ export const HeadingWrapper = styled.div`
 `;
 
 export const Heading = styled(H3)`
-  ${elementGutter}
+  ${gutter()}
   display: flex;
   margin: 0;
   opacity: .8;
@@ -70,7 +69,7 @@ export const VocabLink = styled(A)`
 `;
 
 export const Tags = styled(TagsList)`
-  ${elementGutter}
+  ${gutter()}
   padding-left: 1rem;
   display: flex;
   flex-flow: row wrap;
@@ -83,10 +82,8 @@ export const Tags = styled(TagsList)`
 `;
 
 export const RemoveButton = styled(IconButton)`
-  & {
-    ${resetButton}
-    color: ${whiteLight};
-    background-color: ${red};
-    opacity: .6;
-  }
+  ${resetButton}
+  color: ${whiteLight};
+  background-color: ${red};
+  opacity: .6;
 `;

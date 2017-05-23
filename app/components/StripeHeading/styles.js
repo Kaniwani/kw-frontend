@@ -3,10 +3,10 @@ import { transparentize } from 'polished';
 
 import { white, grey } from 'shared/styles/colors';
 import { delta } from 'shared/styles/typography';
-import { elementGutterHorizontal } from 'shared/styles/layout';
+import { gutter } from 'shared/styles/layout';
 
 export const Wrapper = styled.div`
-  ${elementGutterHorizontal}
+  ${gutter({ position: 'horizontal' })}
 `;
 
 export const Heading = styled.h3`

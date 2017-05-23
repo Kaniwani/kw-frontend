@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { elementGutter } from 'shared/styles/layout';
+import { gutter } from 'shared/styles/layout';
 
 import H3 from 'base/H3';
 import A from 'base/A';
@@ -22,7 +22,7 @@ export const Heading = styled(H3)`
 
 export const VocabLink = styled(A)`
   display: block;
-  ${elementGutter}
+  ${gutter()}
   margin: 0 .2em;
   text-decoration: underline;
   line-height: 1;

@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import { transparentize } from 'polished';
 import * as COLORS from 'shared/styles/colors';
-import { media } from 'shared/styles/media';
-import { padding } from 'shared/styles/sizing';
+import { gutter } from 'shared/styles/layout';
 
 const fullWidthMixin = ({ fullWidth }) => `max-width: ${fullWidth ? '100%' : '70%'};`;
 
@@ -21,10 +20,9 @@ const borderColorMixin = ({ color, fade }) => {
 
 export const StyledDivider = styled.div`
   ${fullWidthMixin}
-  ${`margin: ${padding.mobile.inner.y}rem auto;`}
-  ${media('min').sm`
-    margin: ${padding.desktop.inner.y}rem auto;
-  `}
+  ${gutter({ prop: 'margin', position: 'top' })}
+  margin-left: auto;
+  margin-right: auto;
   color: ${({ color }) => COLORS[color]};
   background-color: ${COLORS.transparent};
   background-position: 50%;

@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-import { containerGutter } from 'shared/styles/layout';
+import { gutter } from 'shared/styles/layout';
 
 export const Heading = styled.div`
-  ${containerGutter}
+  ${gutter({ type: 'outer' })}
   display: flex;
   padding-bottom: 0;
 `;

@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { transparentize, placeholder } from 'polished';
 
-import { elementGutter } from 'shared/styles/layout';
+import { gutter } from 'shared/styles/layout';
 import { greyLight, blueLight } from 'shared/styles/colors';
 import { spin } from 'shared/styles/animation';
 
@@ -14,7 +14,7 @@ const inputHeight = COMPONENT_HEIGHT_EM;
 const iconHeight = COMPONENT_HEIGHT_EM / 2; // should match <SubmitButton size="24px" /> in `../index`
 
 export const Form = styled.form`
-  ${elementGutter}
+  ${gutter()}
   display: flex;
   width: 100%;
   max-width: 600px;

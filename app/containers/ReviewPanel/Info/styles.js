@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { transparentize } from 'polished';
 
 import { transparent, whiteLight, greyDark } from 'shared/styles/colors';
-import { containerGutter } from 'shared/styles/layout';
+import { gutter } from 'shared/styles/layout';
 import { media } from 'shared/styles/media';
 
 export const Wrapper = styled.div`
@@ -25,7 +25,7 @@ export const PanelsWrapper = styled.div`
 `;
 
 export const PanelWrapper = styled.div`
-  ${containerGutter}
+  ${gutter({ type: 'outer' })}
   background-color: ${whiteLight};
 
   &:not(:first-of-type) {

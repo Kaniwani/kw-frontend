@@ -1,4 +1,4 @@
-import { padding, siteMaxWidth, siteMaxWidthpx } from './sizing';
+import { gutters, siteMaxWidth, siteMaxWidthpx } from './sizing';
 import { media } from './media';
 
 /**
@@ -16,82 +16,42 @@ export const centerByMargin = `
   margin-right: auto;
 `;
 
-// TODO: take property as argument -> so we can use padding or margin as needed
-// TODO: take direction as argument -> so we can do horizontal or vertical only as needed
-// TODO: take modifier as argument -> so we can do half/double etc by *.5, *2
-export const containerGutter = `
-  padding: ${padding.mobile.outer.y}rem ${padding.mobile.outer.x}rem;
-  ${media('min').sm`
-    padding: ${padding.desktop.outer.y}rem ${padding.desktop.outer.x}rem;
-  `}
+const createGutter = (prop = 'padding', type = 'inner', mod = 1, position) => {
+  const property = `${prop}${(position ? `-${position}` : '')}`;
+  const mobile = `${gutters.mobile[type] * mod}rem`;
+  const desktop = `${gutters.desktop[type] * mod}rem`;
+
+  return `
+    ${property}: ${mobile};
+    ${media('min').sm`
+      ${property}: ${desktop};
+    `}
+  `;
+};
+
+const createHorizontalGutters = (prop, type, mod) => `
+  ${createGutter(prop, type, mod, 'left')}
+  ${createGutter(prop, type, mod, 'right')}
 `;
 
-export const elementGutter = `
-  padding: ${padding.mobile.inner.y}rem ${padding.mobile.inner.x}rem;
-  ${media('min').sm`
-    padding: ${padding.desktop.inner.y}rem ${padding.desktop.inner.x}rem;
-  `}
+const createVerticalGutters = (prop, type, mod) => `
+  ${createGutter(prop, type, mod, 'top')}
+  ${createGutter(prop, type, mod, 'bottom')}
 `;
 
-export const halfElementGutterMobile = `
-  ${padding.mobile.inner.y / 2}rem ${padding.mobile.inner.x / 2}rem
-`;
-
-export const halfElementGutterDesktop = `
-  ${padding.desktop.inner.y / 2}rem ${padding.desktop.inner.x / 2}rem
-`;
-
-export const elementGutterHorizontal = `
-  padding-left: ${padding.mobile.inner.x}rem;
-  padding-right: ${padding.mobile.inner.x}rem;
-  ${media('min').sm`
-    padding-left: ${padding.desktop.inner.x}rem;
-    padding-right: ${padding.desktop.inner.x}rem;
-  `}
-`;
-
-export const elementGutterVertical = `
-  padding-top: ${padding.mobile.inner.y}rem;
-  padding-bottom: ${padding.mobile.inner.y}rem;
-  ${media('min').sm`
-    padding-top: ${padding.desktop.inner.y}rem;
-    padding-bottom: ${padding.desktop.inner.y}rem;
-  `}
-`;
-
-export const halfContainerGutterMobile = `
-  ${padding.mobile.outer.y / 2}rem ${padding.mobile.outer.x / 2}rem
-`;
-
-export const halfContainerGutterDesktop = `
-  ${padding.desktop.outer.y / 2}rem ${padding.desktop.outer.x / 2}rem
-`;
-
-export const doubleContainerGutterMobile = `
-  ${padding.mobile.outer.y * 2}rem ${padding.mobile.outer.x * 2}rem
-`;
-
-export const doubleContainerGutterDesktop = `
-  ${padding.desktop.outer.y * 2}rem ${padding.desktop.outer.x * 2}rem
-`;
-
-export const containerGutterHorizontal = `
-  padding-left: ${padding.mobile.outer.x}rem;
-  padding-right: ${padding.mobile.outer.x}rem;
-  ${media('min').sm`
-    padding-left: ${padding.desktop.outer.x}rem;
-    padding-right: ${padding.desktop.outer.x}rem;
-  `}
-`;
-
-export const containerGutterVertical = `
-  padding-top: ${padding.mobile.outer.y}rem;
-  padding-bottom: ${padding.mobile.outer.y}rem;
-  ${media('min').sm`
-    padding-top: ${padding.desktop.outer.y}rem;
-    padding-bottom: ${padding.desktop.outer.y}rem;
-  `}
-`;
+export const gutter = ({
+  prop = 'padding',
+  position,
+  type = 'inner',
+  mod = 1,
+} = {}) => {
+  switch (position) {
+    case 'horizontal': return createHorizontalGutters(prop, type, mod);
+    case 'vertical': return createVerticalGutters(prop, type, mod);
+    case 'all': return createGutter(prop, type, mod);
+    default: return createGutter(prop, type, mod, position);
+  }
+};
 
 /**
  * Uses negative margins to remove top and side padding (for a full width banner effect)
@@ -99,11 +59,11 @@ export const containerGutterVertical = `
  */
 export const bannerElement = `
   overflow-x: hidden;
-  margin: -${padding.mobile.outer.y}rem -${padding.mobile.outer.x}rem 0;
-  padding: 0 ${padding.mobile.inner.y}rem ${padding.mobile.inner.y}rem;
+  margin: -${gutters.mobile.outer}rem -${gutters.mobile.outer}rem 0;
+  padding: 0 ${gutters.mobile.inner}rem ${gutters.mobile.inner}rem;
   ${media('min').sm`
-    margin: -${padding.desktop.outer.y}rem -${padding.desktop.outer.x}rem 0;
-    padding: 0 ${padding.desktop.inner.y}rem ${padding.desktop.inner.y}rem;
+    margin: -${gutters.desktop.outer}rem -${gutters.desktop.outer}rem 0;
+    padding: 0 ${gutters.desktop.inner}rem ${gutters.desktop.inner}rem;
   `}
 `;
 
@@ -111,7 +71,7 @@ export const bannerElement = `
  * styled-components mixins, expecting `props` as argument
  */
 
-export const fullRowMixin = ({ fullRow }) => fullRow ? bannerElement : elementGutter;
+export const fullRowMixin = ({ fullRow }) => fullRow ? bannerElement : createGutter();
 export const textAlignMixin = ({ textAlign }) => textAlign && `text-align: ${textAlign};`;
 export const flexMixin = ({ flexDisplay, flexRow, flexColumn, flexWrap }) => (flexRow || flexColumn) && `
 display: ${flexDisplay || 'flex'};

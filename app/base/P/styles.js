@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { epsilon, bodyRhythm } from 'shared/styles/typography';
-import { elementGutter } from 'shared/styles/layout';
+import { gutter } from 'shared/styles/layout';
 
 const lineLengthMixin = css`
   max-width: 35em;
@@ -11,7 +11,7 @@ const lineLengthMixin = css`
 const textAlignMixin = ({ textAlign }) => textAlign && `text-align: ${textAlign};`;
 
 export const StyledP = styled.p`
-  ${elementGutter}
+  ${gutter()}
   ${epsilon}
   ${bodyRhythm}
   ${textAlignMixin}

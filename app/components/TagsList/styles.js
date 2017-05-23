@@ -1,16 +1,13 @@
 import styled from 'styled-components';
+
 import { resetList, fluidType } from 'shared/styles/utils';
-import { halfElementGutterMobile, halfElementGutterDesktop } from 'shared/styles/layout';
+import { gutter } from 'shared/styles/layout';
 import { borderRadius } from 'shared/styles/sizing';
-import { media } from 'shared/styles/media';
 import * as COLORS from 'shared/styles/colors';
 
 export const Ul = styled.ul`
   ${resetList}
-  padding: ${halfElementGutterMobile};
-  ${media('min').sm`
-    padding: ${halfElementGutterDesktop};
-  `}
+  ${gutter({ mod: 0.5 })}
 `;
 
 export const Li = styled.li`
@@ -18,6 +15,7 @@ export const Li = styled.li`
   display: inline-flex;
   max-width: 100%;
   padding: .25rem .5rem .2rem;
+  ${gutter({ prop: 'margin', mod: 0.5 })}
   line-height: 1.2;
   text-decoration: none;
   vertical-align: middle;
@@ -25,10 +23,6 @@ export const Li = styled.li`
   color: ${({ color }) => COLORS[color]};
   background-color: ${({ bgColor }) => COLORS[bgColor]};
   border-radius: ${borderRadius};
-  margin: ${halfElementGutterMobile};
-  ${media('min').sm`
-    margin: ${halfElementGutterDesktop};
-  `}
 `;
 
 export const Span = styled.span`

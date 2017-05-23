@@ -4,7 +4,7 @@ import { transparentize, darken } from 'polished';
 import * as COLORS from 'shared/styles/colors';
 import { ffHeading, mega, gamma, delta } from 'shared/styles/typography';
 import { borderRadius } from 'shared/styles/sizing';
-import { elementGutter } from 'shared/styles/layout';
+import { gutter } from 'shared/styles/layout';
 
 import A from 'base/A';
 
@@ -47,7 +47,7 @@ export const Dl = styled.dl`
   flex: 1 0 auto;
 
   .reading {
-    ${elementGutter}
+    ${gutter()}
     display: flex;
     text-align: center;
     justify-content: center;
@@ -65,7 +65,7 @@ export const Dl = styled.dl`
     }
 
     .character {
-      ${elementGutter}
+      ${gutter()}
       ${mega}
       word-break: keep-all;
       text-shadow: 0 2px 2px ${({ color }) => transparentize(0.3, darken(0.2, COLORS[color]))};
@@ -73,7 +73,7 @@ export const Dl = styled.dl`
   }
 
   .meaning {
-    ${elementGutter}
+    ${gutter()}
     ${gamma}
     margin: 0;
     flex: 0 1 55%;

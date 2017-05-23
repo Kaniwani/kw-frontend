@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import { transparentize, darken } from 'polished';
 
 import * as COLORS from 'shared/styles/colors';
-import { containerGutter, elementGutter } from 'shared/styles/layout';
+import { gutter } from 'shared/styles/layout';
 
 export const Section = styled.section`
-  ${containerGutter}
+  ${gutter({ type: 'outer' })}
 `;
 
 export const Element = styled.div`
-  ${elementGutter}
+  ${gutter({ type: 'inner' })}
 `;
 
 export const Title = styled.h2`

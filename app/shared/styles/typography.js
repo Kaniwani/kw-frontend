@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 import { mod1, mod2 } from 'shared/styles/sizing';
-import { elementGutter } from 'shared/styles/layout';
+import { gutter } from 'shared/styles/layout';
 import { fluidType } from 'shared/styles/utils';
 
 /* 300, 400, 700 weights available */
@@ -21,8 +21,8 @@ const generateFontSize = (exponent) => {
   return fluidType(mobileSize, desktopSize, minFontRange, maxFontRange);
 };
 
-export const headingRhythm = `
-  ${elementGutter}
+export const headingRhythm = css`
+  ${gutter()}
   margin-top: 0;
   margin-bottom: 0;
   line-height: 1.2;
@@ -33,8 +33,8 @@ export const headingRhythm = `
   }
 `;
 
-export const bodyRhythm = `
-  ${elementGutter}
+export const bodyRhythm = css`
+  ${gutter()}
   margin-top: 0;
   margin-bottom: 0;
   line-height: 1.3;

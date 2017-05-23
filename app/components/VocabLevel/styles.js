@@ -4,7 +4,7 @@ import { transparentize, darken } from 'polished';
 import A from 'base/A';
 import H2 from 'base/H2';
 import LockButton from 'components/LockButton';
-import { containerGutter } from 'shared/styles/layout';
+import { gutter } from 'shared/styles/layout';
 import { white, greyLight, grey, greyDark } from 'shared/styles/colors';
 import { ffBody } from 'shared/styles/typography';
 import { fastEaseQuad } from 'shared/styles/animation';
@@ -32,7 +32,7 @@ export const Wrapper = styled.li`
 `;
 
 export const LevelLink = styled(A)`
-${containerGutter}
+${gutter({ type: 'outer' })}
   flex: 999 1 auto;
 `;
 
@@ -57,6 +57,6 @@ export const ItemCount = styled.span`
 `;
 
 export const Button = styled(LockButton)`
-  ${containerGutter}
+  ${gutter({ type: 'outer' })}
   flex: 0 0 auto;
 `;

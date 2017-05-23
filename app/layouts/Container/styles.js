@@ -1,10 +1,10 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import {
+  gutter,
   alignContentMixin,
   alignItemsMixin,
   alignSelfMixin,
-  containerGutter,
   flexCenterMixin,
   flexMixin,
   flexShorthandMixin,
@@ -15,7 +15,7 @@ import {
 
 const style = css`
   position: relative; /* catch any absolute children */
-  ${({ withPadding }) => withPadding && containerGutter}
+  ${({ withPadding }) => withPadding && gutter({ type: 'outer' })}
   ${({ marginTop }) => marginTop && `margin-top: ${marginTop};`}
   ${flexMixin}
   ${flexCenterMixin}
