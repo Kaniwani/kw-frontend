@@ -77,7 +77,7 @@ injectGlobal`
   /* VocabChip tooltip styles */
   .vocab-tip.vocab-tip {
     ${epsilon}
-    padding: .75em;
+    padding: .4em .6em .5em;
     border-radius: ${borderRadius};
   }
 
