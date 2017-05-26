@@ -26,35 +26,21 @@ A.defaultProps = {
   plainLink: false,
 };
 
-// const isExternal = ({ external }) => !!external;
-// const isRouterLink = ({ to }) => !!to;
-//
-// const renderAnchor = branch(
-//   isExternal,
-//   renderComponent(Anchor),
-//   renderComponent(ExternalAnchor),
-// );
-//
-// const enhance = branch(
-//   isRouterLink,
-//   renderComponent(RouterLink),
-//   renderAnchor,
-// );
-//
-
-// perf optimisation - prevents unused component generation
-const renderLink = (props) => <RouterLink {...props} />;
-const renderAnchor = (props) => <Anchor {...props} />;
-const renderExternalAnchor = (props) => <ExternalAnchor {...props} />;
 
 function A({ href, to, external, ...props }) {
+  // minor optimization by only rendering one item, if these are variables instead of functions the unreturned item would still be created/rendered internally - then thrown away
+  const renderLink = () => <RouterLink to={to} {...props} />;
+  const renderExternalAnchor = () => <ExternalAnchor href={href} {...props} />;
+  const renderAnchor = () => <Anchor href={href} {...props} />;
+
   if (to) {
-    return renderLink({ to, ...props });
+    return renderLink();
   } else if (href && external) {
-    return renderExternalAnchor({ href, ...props });
+    return renderExternalAnchor();
   } else if (href) {
-    return renderAnchor({ href, ...props });
+    return renderAnchor();
   }
+
   invariant(
     isEmpty(to) && isEmpty(href),
     '(app/components/A/index.js) <A/>: Expected either "to" or "href" prop to be supplied to <A/>',

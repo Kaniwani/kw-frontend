@@ -1,4 +1,3 @@
-import React from 'react';
 import styled, { css } from 'styled-components';
 import { mix, lighten } from 'polished';
 
@@ -9,7 +8,7 @@ import { resetButton } from 'shared/styles/utils';
 
 import A from 'base/A';
 
-const style = css`
+export const Anchor = styled(A)`
   ${epsilon}
   display: inline-block;
   box-sizing: border-box;
@@ -29,6 +28,11 @@ const style = css`
   background-color: ${({ bgColor }) => bgColor};
   transition: all ${fastEaseQuad};
 
+  &:disabled {
+    cursor: not-allowed;
+    background-color: ${({ bgColor }) => mix(0.5, bgColor, greyDark)};
+  }
+
   ${({ plainButton }) => plainButton ?
     resetButton : css`
     &:not(:disabled) {
@@ -45,15 +49,6 @@ const style = css`
       }
     }
   `}
-
-  &:disabled {
-    cursor: not-allowed;
-    background-color: ${({ bgColor }) => mix(0.5, bgColor, greyDark)};
-  }
 `;
 
-export const StyledA = styled(({ color, colorHover, bgColor, bgColorHover, ...props }) =>
-  <A {...props} />)`${style}`;
-
-export const StyledButton = styled(({ plainButton, color, colorHover, bgColor, bgColorHover, ...props }) =>
-  <button {...props} />)`${style}`;
+export const StyledButton = Anchor.withComponent('button');
