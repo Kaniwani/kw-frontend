@@ -10,6 +10,10 @@
     "npm": ">=3",
     "node": ">=7"
   },
+  "browserslist": [
+    "last 4 versions",
+    ">1%"
+  ],
   "author": "Duncan Bay",
   "license": "MIT",
   "scripts": {
