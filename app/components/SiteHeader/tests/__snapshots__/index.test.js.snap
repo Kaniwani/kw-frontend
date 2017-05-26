@@ -2,36 +2,36 @@
 
 exports[`<SiteNav /> should match baseline snapshot 1`] = `
 <header
-  class="gvTVl"
+  class="sc-gZMcBi frlyKr"
 >
   <nav
-    class="jQXhUQ"
+    class="sc-gqjmRU mUhZH"
   >
     <a
-      class="itPQbX"
+      class="sc-bdVaJa bhRTrH"
       title="Return Home"
     >
       <image_mock
-        class="cwMAua"
+        class="sc-bwzfXH itbozR"
         height="100%"
         width="100%"
       />
     </a>
     <ul
-      class="dRwhwG"
+      class="sc-bZQynM hRtPKZ"
     >
       <li
-        class="gNGOCT"
+        class="sc-EHOje ibQBqg"
       >
         <a
-          class="kTctJh kMmZKU"
+          class="sc-ifAKCX gaePjt"
         >
           <span
-            class="NavLink__Text fYdmEi"
+            class="sc-htpNat eEEGMG"
           >
             lessons
             <span
-              class="dgrkVX"
+              class="sc-bxivhb iEfeYG"
             >
               0
             </span>
@@ -39,17 +39,17 @@ exports[`<SiteNav /> should match baseline snapshot 1`] = `
         </a>
       </li>
       <li
-        class="gNGOCT"
+        class="sc-EHOje ibQBqg"
       >
         <a
-          class="kTctJh kMmZKU"
+          class="sc-ifAKCX gaePjt"
         >
           <span
-            class="NavLink__Text fYdmEi"
+            class="sc-htpNat eEEGMG"
           >
             reviews
             <span
-              class="dgrkVX"
+              class="sc-bxivhb iEfeYG"
             >
               0
             </span>
@@ -57,52 +57,52 @@ exports[`<SiteNav /> should match baseline snapshot 1`] = `
         </a>
       </li>
       <li
-        class="gNGOCT"
+        class="sc-EHOje ibQBqg"
       >
         <a
-          class="kTctJh kMmZKU"
+          class="sc-ifAKCX gaePjt"
         >
           <span
-            class="NavLink__Text fYdmEi"
+            class="sc-htpNat eEEGMG"
           >
             vocabulary
           </span>
         </a>
       </li>
       <li
-        class="gNGOCT"
+        class="sc-EHOje ibQBqg"
       >
         <a
-          class="kTctJh kMmZKU"
+          class="sc-ifAKCX gaePjt"
         >
           <span
-            class="NavLink__Text fYdmEi"
+            class="sc-htpNat eEEGMG"
           >
             settings
           </span>
         </a>
       </li>
       <li
-        class="gNGOCT"
+        class="sc-EHOje ibQBqg"
       >
         <a
-          class="kTctJh kMmZKU"
+          class="sc-ifAKCX gaePjt"
         >
           <span
-            class="NavLink__Text fYdmEi"
+            class="sc-htpNat eEEGMG"
           >
             about
           </span>
         </a>
       </li>
       <li
-        class="gNGOCT"
+        class="sc-EHOje ibQBqg"
       >
         <a
-          class="kTctJh kMmZKU"
+          class="sc-ifAKCX gaePjt"
         >
           <span
-            class="NavLink__Text fYdmEi"
+            class="sc-htpNat eEEGMG"
           >
             logout
           </span>
@@ -110,11 +110,11 @@ exports[`<SiteNav /> should match baseline snapshot 1`] = `
       </li>
     </ul>
     <div
-      class="hNmmkN"
+      class="sc-dnqmqq gvSxfF"
       id="offCanvasMenu"
     >
       <ul
-        class="cyVEsf"
+        class="sc-iwsKbI TzgrY"
       />
     </div>
   </nav>

@@ -1,36 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<A /> should add appropriate attributes for an external link 1`] = `
-<Styled(Component)
+<a
+  class="sc-bwzfXH fSMIRv"
   href="http://google.com/"
-  plainLink={false}
   rel="external noopener noreferrer"
   target="_blank"
 >
   <h1>
     Test
   </h1>
-</Styled(Component)>
+</a>
 `;
 
 exports[`<A /> should match snapshot for <Link> 1`] = `
-<Styled(Component)
+<Styled(Link)
   plainLink={false}
   to="/someRoute"
 >
   <h1>
     Test
   </h1>
-</Styled(Component)>
+</Styled(Link)>
 `;
 
 exports[`<A /> should match snapshot for <a> 1`] = `
-<Styled(Component)
+<styled.a
   href="http://google.com/"
   plainLink={true}
 >
   <h1>
     Test
   </h1>
-</Styled(Component)>
+</styled.a>
 `;

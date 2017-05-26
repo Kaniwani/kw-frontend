@@ -29,16 +29,14 @@ function NavLink({
   isOffCanvas,
 }) {
   return (
-    <Li className={isOffCanvas && 'is-off-canvas'}>
+    <Li isOffCanvas={isOffCanvas}>
       <Link
-        plainLink
         to={to}
-        activeClassName="is-active"
         disabled={isDisabled}
       >
-        <Text className="NavLink__Text">
+        <Text>
           {text}
-          {isNumber(count) && <Count isDisabled={isDisabled}>{count}</Count>}
+          {isNumber(count) && <Count disabled={isDisabled}>{count}</Count>}
         </Text>
       </Link>
     </Li>

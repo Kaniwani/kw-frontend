@@ -1,26 +1,24 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
+
 import A from '../index';
+
+const href = 'google.com';
+const to = '/';
 
 storiesOf('base.A', module)
   .add('normal anchor link', () => (
-    <A href="google.com">Regular link</A>
+    <A href={href}>Regular link</A>
   ))
   .add('normal anchor link with external prop', () => (
-    <A external href="google.com">Plain</A>
+    <A href={href} external>External Link</A>
   ))
   .add('normal anchor link with plainLink prop', () => (
-    <A plainLink href="google.com">Plain</A>
+    <A href={href} plainLink>Plain Link</A>
   ))
   .add('react-router Link', () => (
-    <A to="/">Plain</A>
-  ))
-  .add('react-router Link with external prop', () => (
-    <A external to="/">Plain</A>
+    <A to={to}>Plain</A>
   ))
   .add('react-router Link with plainLink prop', () => (
-    <A plainLink to="/">Plain</A>
-  ))
-  .add('react-router Link with activeClassName prop', () => (
-    <A activeClassName="isActive" to="/">Plain</A>
+    <A to={to} plainLink>Plain</A>
   ));

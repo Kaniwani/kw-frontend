@@ -1,6 +1,6 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Link from 'react-router/lib/Link';
+
 import { link, linkHover } from 'shared/styles/colors';
 import { fastEaseQuad } from 'shared/styles/animation';
 
@@ -17,25 +17,17 @@ const linkStyles = `
   }
 `;
 
-export const style = css`
+export const Anchor = styled.a`
   ${({ plainLink }) => plainLink ? plainStyles : linkStyles}
   cursor: pointer;
 `;
 
-/*
- * Styled Components has some issues passing props, this is a painful workaround at the moment
- * to prevent plainLink (used only in style) from being added to <a> & <Link> as (disallowed) html attrs
- */
+export const ExternalAnchor = styled.a.attrs({
+  target: '_blank',
+  rel: 'external noopener noreferrer',
+})`
+  ${({ plainLink }) => plainLink ? plainStyles : linkStyles}
+  cursor: pointer;
+`;
 
-export const Anchor = styled(({
-  plainLink,
-  children,
-  ...rest
-}) => <a {...rest}>{children}</a>)`${style}`;
-
-
-export const RouterLink = styled(({
-  plainLink,
-  children,
-  ...rest
-}) => <Link {...rest}>{children}</Link>)`${style}`;
+export const RouterLink = Anchor.withComponent(Link);

@@ -1,67 +1,20 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import uuid from 'uuid';
 import { transparentize } from 'polished';
+
+import { Link as RouterLink } from 'react-router';
 
 import { whiteDark, grey, blueLight, purple } from 'shared/styles/colors';
 import { epsilon } from 'shared/styles/typography';
 import { media } from 'shared/styles/media';
 
-import A from 'base/A';
-
-export const Li = styled.li`
-  ${epsilon}
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-
-  &.is-off-canvas {
-    flex: 1 0 auto;
-    border-bottom: 1px solid ${transparentize(0.25, whiteDark)};
-  }
-`;
-
-export const Link = styled(A)`
-  display: flex;
-  font-size: 1.25em;
-  font-weight: 600;
-  font-variant: small-caps;
-  justify-content: center;
-  line-height: 1;
-  align-items: center;
-  padding: .75em;
-
-  ${media('max').sm`
-    padding: 0 .4em;
-  `}
-
-  &:hover,
-  &:focus,
-  &:active,
-  &.is-active {
-    > .NavLink__Text:after {
-      opacity: 1;
-      width: 100%;
-    }
-  }
-
-  .is-off-canvas & {
-    padding: 1rem 1rem .4rem;
-
-    &:hover:not(.is-active) > .NavLink__Text:after {
-      opacity: 0;
-      width: 0;
-    }
-  }
-`;
+const activeClassName = uuid();
 
 export const Text = styled.span`
   position: relative;
   transform: translateY(-4px);
   padding-bottom: 4px;
   bottom: -4px;
-
-  .is-off-canvas & {
-    bottom: 0; /* different centering to onCanvas NavLink when in vertical list */
-  }
 
   &:not(:only-child) {
     padding-right: .4em;
@@ -87,5 +40,58 @@ export const Text = styled.span`
 export const Count = styled.span`
   margin-left: .3em;
   font-size: .7em;
-  color: ${({ isDisabled }) => isDisabled ? grey : blueLight};
+  color: ${({ disabled }) => disabled ? grey : blueLight};
+`;
+
+export const Link = styled(RouterLink).attrs({
+  activeClassName,
+})`
+  display: flex;
+  font-size: 1.25em;
+  font-weight: 600;
+  font-variant: small-caps;
+  justify-content: center;
+  line-height: 1;
+  align-items: center;
+  padding: .75em;
+  cursor: pointer;
+  color: ${({ disabled }) => disabled ? grey : 'currentColor'};
+
+  ${media('max').sm`
+    padding: 0 .4em;
+  `}
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.${activeClassName} {
+    ${Text}:after {
+      opacity: 1;
+      width: 100%;
+    }
+  }
+`;
+
+export const Li = styled.li`
+  ${epsilon}
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  ${({ isOffCanvas }) => isOffCanvas && css`
+    flex: 1 0 auto;
+    border-bottom: 1px solid ${transparentize(0.25, whiteDark)};
+    ${Link} {
+      padding: 1rem 1rem .4rem;
+      width: 100%;
+
+      &:hover:not(.${activeClassName}) > ${Text}:after {
+        opacity: 0;
+        width: 0;
+      }
+    }
+    ${Text} {
+      bottom: 0;
+    }
+  `};
 `;
