@@ -1,5 +1,4 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import {
   alignContentMixin,
   alignItemsMixin,
@@ -12,8 +11,7 @@ import {
   textAlignMixin,
 } from 'shared/styles/layout';
 
-
-const style = css`
+export const StyledElement = styled.div`
   ${fullRowMixin}
   ${flexMixin}
   ${flexCenterMixin}
@@ -24,22 +22,3 @@ const style = css`
   ${justifyContentMixin}
   ${textAlignMixin}
 `;
-
-/* eslint-disable no-unused-vars */
-export const StyledElement = styled(({
-  tag,
-  children,
-  fullRow,
-  flexDisplay,
-  flexRow,
-  flexColumn,
-  flexWrap,
-  flexCenter,
-  flex,
-  textAlign,
-  justifyContent,
-  alignContent,
-  alignItems,
-  alignSelf,
- ...props }) => React.createElement(tag, props, children))`${style}`;
-/* eslint-enable */

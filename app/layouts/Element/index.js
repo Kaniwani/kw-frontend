@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { StyledElement } from './styles';
 
 Element.propTypes = {
-  tag: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.node,
@@ -24,7 +23,6 @@ Element.propTypes = {
 };
 
 Element.defaultProps = {
-  tag: 'div',
   alignContent: '',
   alignItems: '',
   alignSelf: '',
@@ -39,9 +37,9 @@ Element.defaultProps = {
   textAlign: '',
 };
 
-function Element({ tag, children, ...props }) {
+function Element({ children, ...props }) {
   return (
-    <StyledElement tag={tag} {...props}>
+    <StyledElement {...props}>
       {children}
     </StyledElement>
   );

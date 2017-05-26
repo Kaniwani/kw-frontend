@@ -1,5 +1,4 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import {
   gutter,
   alignContentMixin,
@@ -12,8 +11,7 @@ import {
   textAlignMixin,
 } from 'shared/styles/layout';
 
-
-const style = css`
+export const StyledContainer = styled.div`
   position: relative; /* catch any absolute children */
   ${({ withPadding }) => withPadding && gutter({ type: 'outer' })}
   ${({ marginTop }) => marginTop && `margin-top: ${marginTop};`}
@@ -26,26 +24,3 @@ const style = css`
   ${justifyContentMixin}
   ${textAlignMixin}
 `;
-
-/* eslint-disable no-unused-vars */
-// A bit crazytown, but this way we can pass the tag as a prop to dynamically choose 'div', 'section', 'header' etc
-export const StyledContainer = styled(({
-  tag,
-  children,
-  withPadding,
-  marginTop,
-  fullRow,
-  flexRow,
-  flexDisplay,
-  flexColumn,
-  flexWrap,
-  flexCenter,
-  textAlign,
-  justifyContent,
-  alignContent,
-  alignItems,
-  flex,
-  alignSelf,
- ...props
-}) => React.createElement(tag, props, children))`${style}`;
-/* eslint-enable */

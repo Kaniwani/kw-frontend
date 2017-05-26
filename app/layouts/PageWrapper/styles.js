@@ -1,9 +1,8 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { centerByPadding, centerByMargin } from 'shared/styles/layout';
 
-const style = css`
+export const Wrapper = styled.div`
   ${({ fullWidth, fullWidthBg }) => {
     if (fullWidth) {
       return `
@@ -23,11 +22,3 @@ const style = css`
     return centerByMargin;
   }}
 `;
-
-export const Wrapper = styled(({
-  tag,
-  children,
-  fullWidth,
-  fullWidthBg,
-  ...props
-}) => React.createElement(tag, props, children))`${style}`;

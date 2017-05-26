@@ -29,9 +29,9 @@ storiesOf('layouts.PageWrapper', module)
   .add('with BackgroundImg child and fullWidthBg prop', () => (
     <PageWrapper fullWidthBg>
       <P style={{ color: 'white' }}>
-          fullWidthBg centers via padding so any nested BackgroundImg can take up the full width,
-          but other non-absolute elements are constrained
-        </P>
+        fullWidthBg centers via padding so any nested BackgroundImg can take up the full width,
+        but other non-absolute elements are constrained
+      </P>
       <BackgroundImg imgSrc={background} />
     </PageWrapper>
   ));

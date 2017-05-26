@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { StyledContainer } from './styles';
 
 Container.propTypes = {
-  tag: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.node,
@@ -24,7 +23,6 @@ Container.propTypes = {
 };
 
 Container.defaultProps = {
-  tag: 'div',
   withPadding: true,
   marginTop: '',
   alignContent: '',
@@ -40,8 +38,8 @@ Container.defaultProps = {
   textAlign: '',
 };
 
-function Container({ tag, children, ...props }) {
-  return <StyledContainer tag={tag} {...props}>{children}</StyledContainer>;
+function Container({ children, ...props }) {
+  return <StyledContainer {...props}>{children}</StyledContainer>;
 }
 
 export default Container;
