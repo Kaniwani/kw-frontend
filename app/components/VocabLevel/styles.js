@@ -6,7 +6,6 @@ import H2 from 'base/H2';
 import LockButton from 'components/LockButton';
 import { gutter } from 'shared/styles/layout';
 import { white, greyLight, grey, greyDark } from 'shared/styles/colors';
-import { ffBody } from 'shared/styles/typography';
 import { fastEaseQuad } from 'shared/styles/animation';
 
 export const Wrapper = styled.li`
@@ -32,28 +31,24 @@ export const Wrapper = styled.li`
 `;
 
 export const LevelLink = styled(A)`
-${gutter({ type: 'outer' })}
+  ${gutter({ type: 'outer' })}
+  display: flex;
+  flex-flow: row wrap;
   flex: 999 1 auto;
+  align-items: center;
 `;
 
 export const Title = styled(H2)`
   color: inherit;
-  @supports(display: grid) {
-    display: grid;
-    grid-template-columns: 5.5em auto;
-  }
-`;
-
-export const Text = styled.span`
   margin-right: .75em;
 `;
 
 export const ItemCount = styled.span`
-  padding-top: .25em;
-  font-size: .7em;
-  font-family: ${ffBody};
   color: ${grey};
-  align-self: end;
+`;
+
+export const LockedLabel = ItemCount.extend`
+  margin-left: auto;
 `;
 
 export const Button = styled(LockButton)`
