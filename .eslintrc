@@ -13,7 +13,8 @@
   "plugins": [
     "redux-saga",
     "react",
-    "jsx-a11y"
+    "jsx-a11y",
+    "compat"
   ],
   "parserOptions": {
     "ecmaVersion": 6,
