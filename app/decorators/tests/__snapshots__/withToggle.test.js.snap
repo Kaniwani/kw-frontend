@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`withToggle isToggled should default to false 1`] = `
+<div
+  id="isToggled"
+>
+  false
+</div>
+`;
+
+exports[`withToggle should have a working toggleOff handler  1`] = `
+<div
+  id="isToggled"
+>
+  false
+</div>
+`;
+
+exports[`withToggle should have a working toggleOn handler  1`] = `
+<div
+  id="isToggled"
+>
+  true
+</div>
+`;
