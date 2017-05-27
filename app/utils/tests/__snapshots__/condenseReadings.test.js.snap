@@ -22,6 +22,8 @@ Array [
 ]
 `;
 
+exports[`condenseReadings() should have a safe default 1`] = `Array []`;
+
 exports[`condenseReadings() should not fail with unrelated readings 1`] = `
 Array [
   Object {

@@ -7,6 +7,10 @@ const items = Array.from({ length: 25 }).map((v, i) => ({
 }));
 
 describe('groupByRank()', () => {
+  it('should have a safe default', () => {
+    expect(groupByRank()).toMatchSnapshot();
+  });
+
   it('should group entries under named srs ranks', () => {
     const grouped = groupByRank(items);
     expect(grouped).toMatchSnapshot();

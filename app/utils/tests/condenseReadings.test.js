@@ -2,6 +2,10 @@ import condenseReadings from '../condenseReadings';
 import { readings } from './testTables';
 
 describe('condenseReadings()', () => {
+  it('should have a safe default', () => {
+    expect(condenseReadings()).toMatchSnapshot();
+  });
+
   it('should pass when only one reading', () => {
     expect(condenseReadings(readings.single)).toMatchSnapshot();
   });

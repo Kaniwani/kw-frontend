@@ -1,5 +1,6 @@
 import stripOkurigana from 'kanawana/stripOkurigana';
 import toKatakana from 'kanawana/toKatakana';
+
 import stripLeadingTilde from './stripLeadingTilde';
 
 /**

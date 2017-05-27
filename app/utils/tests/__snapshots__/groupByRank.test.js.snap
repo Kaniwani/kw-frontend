@@ -174,3 +174,13 @@ exports[`groupByRank() should group entries under named srs ranks 4`] = `2`;
 exports[`groupByRank() should group entries under named srs ranks 5`] = `2`;
 
 exports[`groupByRank() should group entries under named srs ranks 6`] = `7`;
+
+exports[`groupByRank() should have a safe default 1`] = `
+Object {
+  "APPRENTICE": Array [],
+  "BURNED": Array [],
+  "ENLIGHTENED": Array [],
+  "GURU": Array [],
+  "MASTER": Array [],
+}
+`;

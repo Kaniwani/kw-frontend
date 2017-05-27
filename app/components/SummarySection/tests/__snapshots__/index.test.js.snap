@@ -449,3 +449,126 @@ exports[`<SummarySection /> should adopt expanded prop 1`] = `
   </div>
 </section>
 `;
+
+exports[`<SummarySection /> should adopt isExpanded prop 1`] = `
+<section
+  class="sc-kAzzGY klYfTx"
+>
+  <div
+    class="sc-chPdSV iTPMry"
+  >
+    <h2
+      class="sc-kgoBCf gfZODg"
+      color="green"
+    >
+      2 answered correctly
+    </h2>
+  </div>
+  <div
+    class="sc-chPdSV iTPMry"
+  >
+    <div>
+      <div
+        class="sc-cSHVUG kEUGVy"
+      >
+        <div
+          class="sc-VigVT hvagPz"
+        >
+          <h3
+            class="sc-jTzLTM foIWiG"
+          >
+            <span
+              class="sc-fjdhpX bvevRA"
+            >
+              <strong
+                class="sc-jzJRlG ZoIKu"
+              >
+                2
+              </strong>
+              Guru
+            </span>
+          </h3>
+        </div>
+        <ul
+          class="sc-bZQynM iidow"
+        >
+          <li
+            class="sc-bxivhb eykAIq"
+          >
+            <a
+              class="sc-ifAKCX ipRurr sc-htpNat fYkZLi"
+            >
+              <dl
+                class="sc-EHOje ftmKAE"
+                color="green"
+              >
+                <div
+                  class="reading"
+                >
+                  <dt
+                    class="kana"
+                    lang="ja"
+                  >
+                    ちかぢか, きんきん, ちかじか
+                  </dt>
+                  <dt
+                    class="character"
+                    lang="ja"
+                  >
+                    近々
+                  </dt>
+                  <div
+                    class="separator"
+                  />
+                </div>
+                <dd
+                  class="meaning"
+                >
+                  before long, soon
+                </dd>
+              </dl>
+            </a>
+          </li>
+          <li
+            class="sc-bxivhb eykAIq"
+          >
+            <a
+              class="sc-ifAKCX ipRurr sc-htpNat fYkZLi"
+            >
+              <dl
+                class="sc-EHOje ftmKAE"
+                color="green"
+              >
+                <div
+                  class="reading"
+                >
+                  <dt
+                    class="kana"
+                    lang="ja"
+                  >
+                    しょうじょ, おとめ
+                  </dt>
+                  <dt
+                    class="character"
+                    lang="ja"
+                  >
+                    少女
+                  </dt>
+                  <div
+                    class="separator"
+                  />
+                </div>
+                <dd
+                  class="meaning"
+                >
+                  young lady, little girl, maiden, daughter, girl
+                </dd>
+              </dl>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+`;

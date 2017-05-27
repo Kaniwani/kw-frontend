@@ -3,17 +3,17 @@
 exports[`<IconButton />  should adopt button types 1`] = `
 <button
   aria-label="Does an action"
-  class="jZIabh"
+  class="sc-htpNat ceoSLf"
   title="Does an action"
   type="submit"
 >
   <span
-    class="vwFqP"
+    class="sc-bdVaJa gFmWSy"
     color="currentColor"
     display="block"
   >
     <svg
-      class="hfAVjD"
+      class="sc-bwzfXH jDcJbc"
       height="100%"
       preserveaspectratio="xMidYMid meet"
       title="ADD"
@@ -31,17 +31,17 @@ exports[`<IconButton />  should adopt button types 1`] = `
 exports[`<IconButton />  should match baseline snapshot 1`] = `
 <button
   aria-label="Does an action"
-  class="jZIabh"
+  class="sc-htpNat ceoSLf"
   title="Does an action"
   type="button"
 >
   <span
-    class="vwFqP"
+    class="sc-bdVaJa gFmWSy"
     color="currentColor"
     display="block"
   >
     <svg
-      class="hfAVjD"
+      class="sc-bwzfXH jDcJbc"
       height="100%"
       preserveaspectratio="xMidYMid meet"
       title="ADD"

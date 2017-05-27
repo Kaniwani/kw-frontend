@@ -2,6 +2,10 @@ import getUniqueKanji, { splitKanji } from '../getUniqueKanji';
 import { readings } from './testTables';
 
 describe('splitKanji()', () => {
+  it('should have a safe default', () => {
+    expect(splitKanji()).toMatchSnapshot();
+  });
+
   it('should return empty array when no kanji', () => {
     readings.onlyKana.forEach(({ character }) =>
       expect(splitKanji(character)).toMatchSnapshot()
@@ -28,6 +32,9 @@ describe('splitKanji()', () => {
 });
 
 describe('getUniqueKanji()', () => {
+  it('should have a safe default', () => {
+    expect(getUniqueKanji()).toMatchSnapshot();
+  });
   it('should return unique kanji when single entry', () => {
     expect(getUniqueKanji(readings.single)).toMatchSnapshot();
   });

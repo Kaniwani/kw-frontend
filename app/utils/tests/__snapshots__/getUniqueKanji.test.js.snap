@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`getUniqueKanji() should have a safe default 1`] = `Array []`;
+
 exports[`getUniqueKanji() should return unique kanji when multiple same characters 1`] = `
 Array [
   "近",
@@ -40,6 +42,8 @@ Array [
   "才",
 ]
 `;
+
+exports[`splitKanji() should have a safe default 1`] = `Array []`;
 
 exports[`splitKanji() should only return kanji 1`] = `
 Array [

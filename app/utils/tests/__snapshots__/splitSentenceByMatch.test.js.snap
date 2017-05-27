@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`splitSentenceByMatch() should match kana 1`] = `
+Object {
+  "head": "head",
+  "match": "にち",
+  "tail": "tail",
+}
+`;
+
+exports[`splitSentenceByMatch() should match kana 2`] = `
+Object {
+  "head": "",
+  "match": "にち",
+  "tail": "tail",
+}
+`;
+
+exports[`splitSentenceByMatch() should match kana 3`] = `
+Object {
+  "head": "head",
+  "match": "にち",
+  "tail": "",
+}
+`;
+
+exports[`splitSentenceByMatch() should match kanji 1`] = `
+Object {
+  "head": "head",
+  "match": "日本",
+  "tail": "",
+}
+`;
+
+exports[`splitSentenceByMatch() should match kanji 2`] = `
+Object {
+  "head": "",
+  "match": "日本",
+  "tail": "tail",
+}
+`;
+
+exports[`splitSentenceByMatch() should match kanji 3`] = `
+Object {
+  "head": "head",
+  "match": "日本",
+  "tail": "tail",
+}
+`;
+
+exports[`splitSentenceByMatch() should match partial kanji 1`] = `
+Object {
+  "head": "",
+  "match": "食",
+  "tail": "べました",
+}
+`;
+
+exports[`splitSentenceByMatch() should match partial kanji 2`] = `
+Object {
+  "head": "これを",
+  "match": "食",
+  "tail": "べました",
+}
+`;
