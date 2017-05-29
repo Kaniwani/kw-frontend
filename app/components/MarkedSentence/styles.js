@@ -4,7 +4,12 @@ import { transparentize } from 'polished';
 import P from 'base/P';
 import Mark from 'base/Mark';
 
+import { gutter } from 'shared/styles/layout';
 import { transparent, greyDark, purpleLight } from 'shared/styles/colors';
+
+export const Wrapper = styled.div`
+  ${gutter({ type: 'outer' })}
+`;
 
 export const Sentence = styled(P)`
   line-height: 1;

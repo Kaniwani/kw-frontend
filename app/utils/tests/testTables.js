@@ -325,10 +325,10 @@ export const vocabs = [
       {
         id: 582,
         character: '近々',
-        kana: 'ちかぢか',
+        kana: ['ちかぢか'],
         level: 7,
         tags: [
-          'Noun',
+          'Adverbial Noun',
         ],
         sentenceEn: 'When I saw them on a date, I asked them, “Do I hear wedding bells?”',
         sentenceJa: '彼らがデートをしているのを見かけて近々結婚するのってきいたんだ',
@@ -338,10 +338,10 @@ export const vocabs = [
       {
         id: 583,
         character: '近々',
-        kana: 'きんきん',
+        kana: ['きんきん'],
         level: 7,
         tags: [
-          'Noun',
+          'Adverbial Noun',
         ],
         sentenceEn: 'When I saw them on a date, I asked them, “Do I hear wedding bells?”',
         sentenceJa: '彼らがデートをしているのを見かけて近々結婚するのってきいたんだ',
@@ -351,13 +351,41 @@ export const vocabs = [
       {
         id: 584,
         character: '近々',
-        kana: 'ちかじか',
+        kana: ['ちかじか'],
         level: 7,
         tags: [
-          'Noun',
+          'Adverbial Noun',
         ],
         sentenceEn: 'When I saw them on a date, I asked them, “Do I hear wedding bells?”',
         sentenceJa: '彼らがデートをしているのを見かけて近々結婚するのってきいたんだ',
+        jlpt: 'JLPT N2',
+        common: true,
+      },
+      {
+        id: 783,
+        character: '軈て',
+        kana: ['やがて'],
+        level: 61,
+        tags: [
+          'Adverb',
+        ],
+        sentenceEn: 'By and by he forgot that affair',
+        sentenceJa: 'やがて彼はその事件のことを忘れた',
+        jlpt: 'JLPT N2',
+        common: true,
+      },
+    ],
+    synonyms: [
+      {
+        id: 5582,
+        character: '間もなく',
+        kana: ['まもなく'],
+        level: 22,
+        tags: [
+          'Adverb',
+        ],
+        sentenceEn: 'Coming up, Jiyuugaoka Station.',
+        sentenceJa: '間もなく、自由が丘駅',
         jlpt: 'JLPT N2',
         common: true,
       },
@@ -379,7 +407,7 @@ export const vocabs = [
       {
         id: 188,
         character: '少女',
-        kana: 'しょうじょ',
+        kana: ['しょうじょ'],
         level: 3,
         tags: [
           'Noun',
@@ -392,7 +420,7 @@ export const vocabs = [
       {
         id: 189,
         character: '少女',
-        kana: 'おとめ',
+        kana: ['おとめ'],
         level: 3,
         tags: [
           'Noun',
@@ -403,6 +431,7 @@ export const vocabs = [
         common: true,
       },
     ],
+    synonyms: [],
   },
   {
     id: 280,
@@ -420,7 +449,7 @@ export const vocabs = [
       {
         id: 298,
         character: '少年',
-        kana: 'しょうねん',
+        kana: ['しょうねん'],
         level: 4,
         tags: [
           'Noun',
@@ -431,6 +460,7 @@ export const vocabs = [
         common: true,
       },
     ],
+    synonyms: [],
   },
   {
     id: 424,
@@ -448,7 +478,7 @@ export const vocabs = [
       {
         id: 449,
         character: '一生',
-        kana: 'いっしょう',
+        kana: ['いっしょう'],
         level: 5,
         tags: [
           'Noun',
@@ -460,6 +490,7 @@ export const vocabs = [
         common: true,
       },
     ],
+    synonyms: [],
   },
   {
     id: 502,
@@ -477,7 +508,7 @@ export const vocabs = [
       {
         id: 529,
         character: '正直',
-        kana: 'しょうじき',
+        kana: ['しょうじき'],
         level: 6,
         tags: [
           'Noun',
@@ -489,6 +520,7 @@ export const vocabs = [
         common: true,
       },
     ],
+    synonyms: [],
   },
 ];
 
@@ -498,7 +530,7 @@ export const readings = {
     {
       id: 351,
       character: '売り上げ',
-      kana: 'うりあげ',
+      kana: ['うりあげ'],
       level: 5,
       tags: [
         'Noun',
@@ -513,7 +545,7 @@ export const readings = {
     {
       id: 582,
       character: '近々',
-      kana: 'ちかぢか',
+      kana: ['ちかぢか'],
       level: 7,
       tags: [
         'Noun',
@@ -526,7 +558,7 @@ export const readings = {
     {
       id: 583,
       character: '近々',
-      kana: 'きんきん',
+      kana: ['きんきん'],
       level: 7,
       tags: [
         'Noun',
@@ -539,7 +571,7 @@ export const readings = {
     {
       id: 584,
       character: '近々',
-      kana: 'ちかじか',
+      kana: ['ちかじか'],
       level: 7,
       tags: [
         'Noun',
@@ -554,7 +586,7 @@ export const readings = {
     {
       id: 2476,
       character: '各〜',
-      kana: 'かく',
+      kana: ['かく'],
       level: 22,
       tags: [
         'Prefix',
@@ -569,7 +601,7 @@ export const readings = {
     {
       id: 6337,
       character: '〜漬け',
-      kana: 'づけ',
+      kana: ['づけ'],
       level: 59,
       tags: [
         'Suffix',
@@ -582,7 +614,7 @@ export const readings = {
     {
       id: 130,
       character: '〜才',
-      kana: 'さい',
+      kana: ['さい'],
       level: 2,
       tags: [
         'Suffix',
@@ -597,7 +629,7 @@ export const readings = {
     {
       id: 933,
       character: 'ハート形',
-      kana: 'ハートがた',
+      kana: ['ハートがた'],
       level: 9,
       tags: [
         'Noun',
@@ -610,7 +642,7 @@ export const readings = {
     {
       id: 30,
       character: 'フランス人',
-      kana: 'ふらんすじん',
+      kana: ['ふらんすじん'],
       level: 1,
       tags: [
         'Noun',
@@ -623,7 +655,7 @@ export const readings = {
     {
       id: 3190,
       character: '迷惑メール',
-      kana: 'めいわくメール',
+      kana: ['めいわくメール'],
       level: 29,
       tags: [
         'Noun',
@@ -636,7 +668,7 @@ export const readings = {
     {
       id: 6193,
       character: '烏龍茶',
-      kana: 'ウーロンちゃ',
+      kana: ['ウーロンちゃ'],
       level: 57,
       tags: [
         'Noun',
@@ -649,7 +681,7 @@ export const readings = {
     {
       id: 4875,
       character: '缶ビール',
-      kana: 'かんビール',
+      kana: ['かんビール'],
       level: 44,
       tags: [
         'Noun',
@@ -666,7 +698,7 @@ export const readings = {
       common: true,
       jlpt: 'JLPT N4',
       character: 'そろそろ',
-      kana: 'そろそろ',
+      kana: ['そろそろ'],
       tags: [
         'Adverb',
         "Adverb taking the 'to' particle",
@@ -679,7 +711,7 @@ export const readings = {
       common: false,
       jlpt: null,
       character: 'マンコ',
-      kana: 'マンコ',
+      kana: ['マンコ'],
       tags: [
         'Noun',
       ],

@@ -37,11 +37,13 @@ export const SelectListItem = styled.li`
   color: ${greyDark};
   cursor: pointer;
   font-weight: 600;
-  text-transform: capitalize;
+  text-transform: uppercase;
   opacity: .6;
+
   &:hover {
     opacity: .8;
   }
+
   ${({ isActive }) => isActive && `
     cursor: default;
     opacity: 1;
@@ -95,7 +97,7 @@ export const SelectedPointer = styled.span`
   border-bottom: 1rem solid ${whiteLight};
   height: 0;
   position: relative;
-  top: .25rem;
+  top: .3rem;
   width: 0;
   transition: transform 150ms ${timingFunctions('easeOutSine')};
   ${({ position }) => {

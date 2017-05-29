@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 
 import splitSentenceByMatch from 'utils/splitSentenceByMatch';
 import A from 'base/A';
-import Ruby from 'base/Ruby';
 
 import { Sentence, VocabMark } from './styles';
 
 MarkedSentence.propTypes = {
   sentence: PropTypes.string.isRequired,
   character: PropTypes.string,
-  kana: PropTypes.string,
+  kana: PropTypes.array,
 };
 
 MarkedSentence.defaultProps = {

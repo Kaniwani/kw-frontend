@@ -5,8 +5,10 @@ import TagsList from 'components/TagsList';
 import IconButton from 'components/IconButton';
 
 import { whiteLight, red } from 'shared/styles/colors';
+import { gutter } from 'shared/styles/layout';
 
 export const Wrapper = styled.div`
+  ${gutter({ type: 'outer' })}
   display: flex;
   flex-flow: row wrap;
   align-items: center;

@@ -5,8 +5,8 @@ import titleCase from 'voca/title_case';
 
 import ReactTooltip from 'react-tooltip';
 
+import withTooltip from 'decorators/withTooltip';
 import VocabChip from 'components/VocabChip';
-import WithTooltip from 'utils/WithTooltip';
 import calculateCorrectnessPercentage from 'utils/calculateCorrectnessPercentage';
 import * as COLORS from 'shared/styles/colors';
 
@@ -22,7 +22,7 @@ VocabChipList.defaultProps = {
 };
 
 // `.vocab-tip` tooltip styles are injected in `globalStyles.js`
-const VocabChipWithToolTip = WithTooltip(VocabChip);
+const VocabChipWithToolTip = withTooltip(VocabChip);
 
 const generateToolTip = (meaning, kana, correctPercent) => `
   <ul>

@@ -10,23 +10,21 @@ export default function condenseReadings(readings = []) {
   return groupedReadings.map((entries) =>
     entries.reduce((entry, next) => {
       if (!entry.kana) {
-        return nestKana(next);
+        return {
+          ...next,
+        };
       }
-      entry.kana.push(next.kana);
-      return entry;
+      return spreadKana(entry, next);
     }, {}),
   );
 }
 
-/**
- * Removes kana from entry, and nests as a new entry in kana
- * @param  {Object} reading full vocab reading entry
- * @return {Object} vocab reading entry with kana added to nested kana
- */
-function nestKana(reading) {
-  const { kana, ...rest } = reading;
+function spreadKana(entry, next) {
   return {
-    ...rest,
-    kana: [kana],
+    ...entry,
+    kana: [
+      ...entry.kana,
+      ...next.kana,
+    ],
   };
 }

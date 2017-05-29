@@ -27,6 +27,7 @@ function VocabPageHeader({ pageTitle, withVocabListToggle }) {
   return (
     <Wrapper>
       <Heading>
+        {/* FIXME: TODO: breadcrumbs for vocab root, level, & vocab entry should be lang="ja" */}
         <Title>{pageTitle}</Title>
       </Heading>
       <Controls>

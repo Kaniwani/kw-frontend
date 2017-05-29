@@ -3,10 +3,6 @@ import PropTypes from 'prop-types';
 import cuid from 'cuid';
 
 import NavLink from '../NavLink';
-
-// TODO; HoC withCuid = withProps({ key:cuid() });
-// NavLinkWithKey = enhance(NavLink)
-
 import { Ul } from './styles';
 
 OnCanvasMenu.propTypes = {

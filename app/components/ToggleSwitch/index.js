@@ -1,50 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import withToggle from 'decorators/withToggle';
 import * as COLORS from 'shared/styles/colors';
 import { Input } from './styles';
 
-class ToggleSwitch extends React.PureComponent {
-  static propTypes = {
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    isChecked: PropTypes.bool.isRequired,
-    handleChange: PropTypes.func.isRequired,
-    width: PropTypes.string,
-    height: PropTypes.string,
-    toggleOnColor: PropTypes.oneOf(Object.keys(COLORS)),
-    toggleOffColor: PropTypes.oneOf(Object.keys(COLORS)),
-  }
+const ToggleSwitch = withToggle(({ isToggled, toggle, id, name, ...props }) => (
+  <Input
+    type="checkbox"
+    id={id}
+    name={name}
+    checked={isToggled}
+    onChange={toggle}
+    {...props}
+  />)
+);
 
-  static defaultProps = {
-    width: '6rem',
-    height: '2rem',
-    toggleOnColor: 'green',
-    toggleOffColor: 'red',
-  }
+ToggleSwitch.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  width: PropTypes.string,
+  height: PropTypes.string,
+  toggleOnColor: PropTypes.oneOf(Object.keys(COLORS)),
+  toggleOffColor: PropTypes.oneOf(Object.keys(COLORS)),
+};
 
-  state = {
-    checked: this.props.isChecked,
-  }
+ToggleSwitch.defaultProps = {
+  width: '6rem',
+  height: '2rem',
+  toggleOnColor: 'green',
+  toggleOffColor: 'red',
+};
 
-  onChange = () => {
-    this.setState((prevState) => ({ checked: !prevState.checked }));
-    this.props.handleChange(this.state.checked);
-  }
-
-  render() {
-    const { id, name, isChecked, handleChange, ...styleProps } = this.props;
-    return (
-      <Input
-        type="checkbox"
-        id={id}
-        name={name}
-        checked={this.state.checked}
-        onChange={this.onChange}
-        {...styleProps}
-      />
-    );
-  }
-}
 
 export default ToggleSwitch;

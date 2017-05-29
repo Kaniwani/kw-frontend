@@ -57,6 +57,7 @@ module.exports = (config, env) => {
     alias: {
       base: path.resolve(__dirname, '..', 'app/base'),
       components: path.resolve(__dirname, '..', 'app/components'),
+      decorators: path.resolve(__dirname, '..', 'app/decorators'),
       containers: path.resolve(__dirname, '..', 'app/containers'),
       layouts: path.resolve(__dirname, '..', 'app/layouts'),
       shared: path.resolve(__dirname, '..', 'app/shared'),

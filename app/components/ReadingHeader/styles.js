@@ -6,6 +6,7 @@ import A from 'base/A';
 import TagsList from 'components/TagsList';
 
 export const Wrapper = styled.div`
+  ${gutter({ type: 'outer' })}
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -21,8 +22,8 @@ export const Heading = styled(H3)`
 `;
 
 export const VocabLink = styled(A)`
+  ${gutter({ type: 'inner' })}
   display: block;
-  ${gutter()}
   margin: 0 .2em;
   text-decoration: underline;
   line-height: 1;

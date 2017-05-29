@@ -25,6 +25,7 @@ class MultiLogin extends React.PureComponent { // eslint-disable-line react/pref
 
   handleSelectChange = (PANEL) => (event) => {
     blockEvent(event);
+    // TODO: clear fields
     this.setState({ selected: PANEL });
     this.mainInput.blur();
   }
@@ -41,7 +42,7 @@ class MultiLogin extends React.PureComponent { // eslint-disable-line react/pref
     const notRegisterSelected = loginSelected || resetSelected;
 
     const mainInputText = () => {
-      if (loginSelected) return 'Email or Username';
+      if (loginSelected) return 'Username or Email';
       if (registerSelected) return 'Username';
       return 'Email';
     };

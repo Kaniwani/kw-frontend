@@ -1,3 +1,6 @@
+// TODO: consider using Chromatism to create a more unified color scheme
+// https://github.com/toish/chromatism
+
 export const whiteLight = '#fafafa';
 export const white = '#f0f0f0';
 export const whiteDark = '#d9d9d9';
