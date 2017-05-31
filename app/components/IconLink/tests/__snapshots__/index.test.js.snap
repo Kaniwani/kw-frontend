@@ -2,17 +2,17 @@
 
 exports[`<IconLink />  should match baseline snapshot of anchor 1`] = `
 <a
-  class="hGKpsa gJpXzB"
+  class="sc-EHOje ekiRvc sc-htpNat jFbERI"
   href="http://google.com"
   title="Does an action"
 >
   <span
-    class="hNDMaS"
+    class="sc-bdVaJa gFmWSy"
     color="currentColor"
     display="block"
   >
     <svg
-      class="hfAVjD"
+      class="sc-bwzfXH jDcJbc"
       height="100%"
       preserveaspectratio="xMidYMid meet"
       title="ADD"
@@ -29,16 +29,16 @@ exports[`<IconLink />  should match baseline snapshot of anchor 1`] = `
 
 exports[`<IconLink />  should match baseline snapshot of react-router Link 1`] = `
 <a
-  class="hGKpsa gJpXzB"
+  class="sc-EHOje ekiRvc sc-ifAKCX dVeJIm"
   title="Does an action"
 >
   <span
-    class="hNDMaS"
+    class="sc-bdVaJa gFmWSy"
     color="currentColor"
     display="block"
   >
     <svg
-      class="hfAVjD"
+      class="sc-bwzfXH jDcJbc"
       height="100%"
       preserveaspectratio="xMidYMid meet"
       title="ADD"

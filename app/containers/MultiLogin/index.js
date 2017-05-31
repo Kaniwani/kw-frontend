@@ -10,6 +10,8 @@ import {
   Label,
   SelectedPointer,
   SubmitButton,
+  ApiInput,
+  ApiLink,
 } from './styles';
 
 export const PANELS = [
@@ -102,14 +104,25 @@ class MultiLogin extends React.PureComponent { // eslint-disable-line react/pref
           placeholder="Confirm Password"
           isHidden={notRegisterSelected}
         />
-        <Label for="apiKey">
-          Enter WaniKani API key
-        </Label>
-        <Input
-          name="apiKey"
-          placeholder="WaniKani API key"
-          isHidden={notRegisterSelected}
-        />
+        <ApiInput isHidden={notRegisterSelected}>
+          <Label for="apiKey">
+            Enter WaniKani API key
+          </Label>
+          <Input
+            name="apiKey"
+            placeholder="WaniKani API key"
+            isHidden={notRegisterSelected}
+          />
+          <ApiLink
+            title="Get WK API key"
+            name="HELP"
+            color="black"
+            href="https://www.wanikani.com/settings/account"
+            isHidden={notRegisterSelected}
+            external
+          >
+          </ApiLink>
+        </ApiInput>
         <SubmitButton type="submit">
           {registerSelected && 'Create Account'}
           {loginSelected && '行こう'}

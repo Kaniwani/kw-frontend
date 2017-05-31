@@ -1,10 +1,12 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { transparentize, darken, placeholder, timingFunctions } from 'polished';
 
 import { whiteLight, greyLight, greyDark, red } from 'shared/styles/colors';
 import { fastEaseQuad } from 'shared/styles/animation';
 import { delta, ffHeading } from 'shared/styles/typography';
 import { resetList, resetButton, visuallyHidden } from 'shared/styles/utils';
+
+import IconLink from 'components/IconLink';
 
 const maxWidth = '20rem';
 
@@ -44,7 +46,7 @@ export const SelectListItem = styled.li`
     opacity: .8;
   }
 
-  ${({ isActive }) => isActive && `
+  ${({ isActive }) => isActive && css`
     cursor: default;
     opacity: 1;
 
@@ -71,10 +73,10 @@ export const InputField = styled.input`
   padding: .2rem .3rem;
   margin: .25rem auto;
   transition: all ${fastEaseQuad};
-  ${placeholder({ color: transparentize(0.1, greyLight) })} /* focused input placeholder text color */
+  ${placeholder({ color: greyLight })}
 
   &:focus {
-    ${placeholder({ color: transparentize(0.5, greyLight) })} /* focused input placeholder text color */
+    ${placeholder({ color: transparentize(0.5, greyLight) })}
     outline: none;
   }
 
@@ -133,4 +135,31 @@ export const SubmitButton = styled.button`
   &:active {
     background-color: ${transparentize(0.1, darken(0.1, red))};
   }
+`;
+
+export const ApiLink = styled(IconLink)`
+  position: absolute;
+  right: .25em;
+  top: 50%;
+  transform: translateY(-50%) scale(1);
+  &:active {
+    transform: translateY(-50%) scale(.9);
+  }
+`;
+
+export const ApiInput = styled.div`
+  position: relative;
+  max-width: ${maxWidth};
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  ${({ isHidden }) => isHidden && css`
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+    & ${ApiLink} {
+      transform: scale(0);
+    }
+  `}
 `;
