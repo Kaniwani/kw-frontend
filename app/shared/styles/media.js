@@ -21,7 +21,7 @@ export const breakpoints = {
  * @param  {String} [direction='min'] 'min' or 'max' to apply min-width or max-width
  * @return {String} css wrapped in media query
  */
-export const media = (direction) => Object.keys(breakpoints).reduce((accumulator, label) => {
+export const media = direction => Object.keys(breakpoints).reduce((accumulator, label) => {
   const acc = accumulator;
   acc[label] = (...args) => {
     let size = breakpoints[label];
