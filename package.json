@@ -7,7 +7,7 @@
     "url": "git://github.com/Kaniwani/KW-Frontend.git"
   },
   "engines": {
-    "npm": ">=3",
+    "npm": ">=5",
     "node": ">=7"
   },
   "browserslist": [
