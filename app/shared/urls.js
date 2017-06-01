@@ -33,41 +33,41 @@ export const userSync = urljoin(user, 'sync'); // POST to sync with WK
 export const reviews = urljoin(API_BASE, 'review'); // GET all ready reviews
 export const criticalReviews = urljoin(reviews, 'critical'); // GET critical
 export const currentReviews = urljoin(reviews, 'current'); // GET current review queue
-export const reviewEntry = (id) => urljoin(reviews, id); // GET single
-export const reviewCorrect = (id) => urljoin(reviewEntry(id), 'correct'); // POST correct answer
-export const reviewIncorrect = (id) => urljoin(reviewEntry(id), 'incorrect'); // POST incorrect answer
-export const hideReview = (id) => urljoin(reviewEntry(id), 'hide'); // POST
-export const unhideReview = (id) => urljoin(reviewEntry(id), 'unhide'); // POST
+export const reviewEntry = id => urljoin(reviews, id); // GET single
+export const reviewCorrect = id => urljoin(reviewEntry(id), 'correct'); // POST correct answer
+export const reviewIncorrect = id => urljoin(reviewEntry(id), 'incorrect'); // POST incorrect answer
+export const hideReview = id => urljoin(reviewEntry(id), 'hide'); // POST
+export const unhideReview = id => urljoin(reviewEntry(id), 'unhide'); // POST
 
 //-----------------------------------------------------------------------------
 //  SYNONYMS
 //-----------------------------------------------------------------------------
 export const synonym = urljoin(API_BASE, 'synonym'); // POST add, GET get all
-export const synonymEntry = (id) => urljoin(synonym, id); // DELETE remove, GET one
+export const synonymEntry = id => urljoin(synonym, id); // DELETE remove, GET one
 
 //-----------------------------------------------------------------------------
 //  VOCABULARY
 //-----------------------------------------------------------------------------
 export const vocabulary = urljoin(API_BASE, 'vocabulary'); // GET everything!
-export const vocabularyEntry = (id) => urljoin(vocabulary, id); // GET one
+export const vocabularyEntry = id => urljoin(vocabulary, id); // GET one
 export const reading = urljoin(API_BASE, 'reading'); // Get all
-export const readingEntry = (id) => urljoin(reading, id); // GET one
+export const readingEntry = id => urljoin(reading, id); // GET one
 export const levels = urljoin(API_BASE, 'level'); // GET all
-export const levelEntry = (level) => urljoin(levels, level); // GET one
-export const lockLevel = (level) => urljoin(levelEntry(level), 'lock'); // POST lock
-export const unlockLevel = (level) => urljoin(levelEntry(level), 'unlock'); // POST unlock
+export const levelEntry = level => urljoin(levels, level); // GET one
+export const lockLevel = level => urljoin(levelEntry(level), 'lock'); // POST lock
+export const unlockLevel = level => urljoin(levelEntry(level), 'unlock'); // POST unlock
 
 //-----------------------------------------------------------------------------
 //  GENERAL
 //-----------------------------------------------------------------------------
 export const faq = urljoin(API_BASE, 'faq');
-export const faqEntry = (id) => urljoin(faq, id);
+export const faqEntry = id => urljoin(faq, id);
 export const announcement = urljoin(API_BASE, 'announcement');
-export const announcementEntry = (id) => urljoin(announcement, id);
+export const announcementEntry = id => urljoin(announcement, id);
 export const contact = urljoin(API_BASE, 'contact');
 
 //-----------------------------------------------------------------------------
 //  EXTERNAL
 //-----------------------------------------------------------------------------
-export const createJishoApiUrl = (keyword) => `//jisho.org/api/v1/search/words?keyword=${keyword}`;
-export const createJishoUrl = (keyword) => `//jisho.org/search/${keyword}`;
+export const createJishoApiUrl = keyword => `//jisho.org/api/v1/search/words?keyword=${keyword}`;
+export const createJishoUrl = keyword => `//jisho.org/search/${keyword}`;

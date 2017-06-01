@@ -10,6 +10,6 @@ const enhance = branch(
   renderComponent(VocabChipList),
 );
 
-const VocabList = enhance((props) => <div {...props} />);
+const VocabList = enhance(props => <div {...props} />);
 
 export default VocabList;

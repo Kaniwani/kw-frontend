@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { setPropTypes } from 'recompose';
 import uuid from 'uuid';
 
 import PrimaryReading from 'components/PrimaryReading';
@@ -11,43 +12,42 @@ VocabEntryDetail.propTypes = {
   entry: PropTypes.object.isRequired,
 };
 
-/* eslint-disable react/prop-types */
-const renderReading = ({ character, kana, sentenceEn, sentenceJa }) => (
+const MainReading = setPropTypes({
+  entry: PropTypes.object.isRequired,
+})(({ entry }) => (
   <div>
-    <PrimaryReading
-      character={character}
-      kana={kana}
-    />
-    <SentencePair
-      sentenceEN={sentenceEn}
-      sentenceJA={sentenceJa}
-      character={character}
-      kana={kana}
-    />
+    <PrimaryReading entry={entry} />
+    <SentencePair entry={entry} />
   </div>
-);
-/* eslint-enable */
+));
 
-function VocabEntryDetail({ entry }) {
+const AlternateReadings = ({ id, items }) => items.map(reading => (
+  <div key={uuid()}>
+    <ReadingHeader
+      id={id}
+      primaryCharacter={reading.character}
+      tags={reading.tags}
+    />
+    <MainReading entry={reading} />
+  </div>
+));
+
+const EntrySynonyms = ({ items }) => items.map(synonym => (
+  <div key={uuid()}>
+    <SynonymHeader tags={synonym.tags} />
+    <MainReading entry={synonym} />
+  </div>
+));
+
+
+function VocabEntryDetail({ entry, entry: { id, readings, synonyms } }) {
+  const [primaryReading, ...alternateReadings] = readings;
+
   return (
     <div>
-      {entry.readings.slice(0, 1).map((reading) => renderReading(reading))}
-      {entry.readings.slice(1).map((reading) => (
-        <div key={uuid}>
-          <ReadingHeader
-            id={entry.id}
-            primaryCharacter={reading.character}
-            tags={reading.tags}
-          />
-          {renderReading(reading)}
-        </div>
-      ))}
-      {entry.synonyms.map((synonym) => (
-        <div key={uuid}>
-          <SynonymHeader tags={synonym.tags} />
-          {renderReading(synonym)}
-        </div>
-      ))}
+      <MainReading entry={primaryReading} />
+      <AlternateReadings id={id} items={alternateReadings} />
+      <EntrySynonyms items={synonyms} />
       <p>Your Progression: WK: Burned KW: Guru</p>
       <p>Answered Correct: 95% of 23 times</p>
 

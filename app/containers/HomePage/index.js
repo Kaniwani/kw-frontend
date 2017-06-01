@@ -2,7 +2,7 @@ import React from 'react';
 
 import VocabEntryDetail from 'components/VocabEntryDetail';
 
-import { vocabs } from 'utils/tests/testTables';
+import { vocabs } from 'shared/testTables';
 
 const entry = [...vocabs][0];
 const primaryReading = entry.readings[0];

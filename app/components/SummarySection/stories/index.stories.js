@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 
-import { vocabs } from 'utils/tests/testTables';
+import { vocabs } from 'shared/testTables';
 import { TYPES } from '../constants';
 import SummarySection from '../index';
 

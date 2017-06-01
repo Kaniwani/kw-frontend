@@ -1,14 +1,14 @@
 import React from 'react';
 import { render } from 'enzyme';
 
-import { vocabs } from 'utils/tests/testTables';
+import { vocabs } from 'shared/testTables';
 import { TYPES } from '../constants';
 import SummarySection from '../index';
 
 
 describe('<SummarySection />', () => {
   const SECTION_TYPES = Object.keys(TYPES);
-  const items = vocabs.slice(0, 2).map((vocab) => ({
+  const items = vocabs.slice(0, 2).map(vocab => ({
     ...vocab,
     history: {
       correct: 4,
@@ -22,12 +22,12 @@ describe('<SummarySection />', () => {
   }));
 
   it('should adopt all types', () => {
-    const renderedComponents = SECTION_TYPES.map((TYPE) => render(
+    const renderedComponents = SECTION_TYPES.map(TYPE => render(
       <SummarySection
         type={TYPE}
         items={items}
       />));
-    renderedComponents.forEach((component) => expect(component).toMatchSnapshot());
+    renderedComponents.forEach(component => expect(component).toMatchSnapshot());
   });
 
   it('should adopt isExpanded prop', () => {

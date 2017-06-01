@@ -10,8 +10,8 @@ import { PanelWrapper } from './styles';
 import ReadingHeader from './ReadingHeader';
 
 // really need DetailLevel to be from a selector imo
-const isNotLowDetail = (detailLevel) => detailLevel !== DETAIL_LEVELS.LOW;
-const isHighDetail = (detailLevel) => detailLevel === DETAIL_LEVELS.HIGH;
+const isNotLowDetail = detailLevel => detailLevel !== DETAIL_LEVELS.LOW;
+const isHighDetail = detailLevel => detailLevel === DETAIL_LEVELS.HIGH;
 
 Reading.propTypes = {
   detailLevel: PropTypes.oneOf(Object.values(DETAIL_LEVELS)),

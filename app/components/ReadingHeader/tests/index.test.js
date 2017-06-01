@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { vocabs } from 'utils/tests/testTables';
+import { vocabs } from 'shared/testTables';
 import { PARTS_OF_SPEECH } from 'shared/constants';
 
 import ReadingHeader from '../index';

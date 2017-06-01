@@ -20,7 +20,7 @@ function VocabCardList({ items, color }) {
   return (
     <Ul>
       {/* FIXME: memoize */}
-      {items.map((item) => (
+      {items.map(item => (
         <VocabCard
           key={cuid()}
           color={color}

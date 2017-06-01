@@ -7,7 +7,7 @@ describe('splitKeepingDelimiter()', () => {
 
   it('should return an empty array if argument was not a string', () => {
     const items = [null, {}, [], new Map()];
-    items.forEach((item) => expect(splitKeepingDelimiter(item)).toEqual([]));
+    items.forEach(item => expect(splitKeepingDelimiter(item)).toEqual([]));
   });
 
   it('should split words by comma as default', () => {

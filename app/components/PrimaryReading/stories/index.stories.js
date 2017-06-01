@@ -4,13 +4,12 @@ import { storiesOf } from '@kadira/storybook';
 
 import { readings } from 'shared/testTables';
 import condenseReadings from 'utils/condenseReadings';
-import SentencePair from '../index';
+import PrimaryReading from '../index';
 
 Object.entries(readings).forEach(([key, items]) => {
-  storiesOf('components.SentencePair', module)
-    .add(`SentencePair ${key}`, () => (
-      <div>
-        {condenseReadings(items).map(item => <SentencePair key={uuid()} entry={item} />)}
-      </div>
+  const combinedKanaEntry = condenseReadings(items)[0];
+  storiesOf('components.PrimaryReading', module)
+    .add(`PrimaryReading ${key}`, () => (
+      <PrimaryReading key={uuid()} entry={combinedKanaEntry} />
     ));
 });

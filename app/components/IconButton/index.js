@@ -22,7 +22,7 @@ IconButton.defaultProps = {
   color: 'currentColor',
   size: '1.5em',
   disabled: false,
-  handleClick: (event) => event, /* passthrough, for submit buttons in forms with onSubmit */
+  handleClick: event => event, /* passthrough, for submit buttons in forms with onSubmit */
 };
 
 function IconButton({ name, title, color, size, type, handleClick, disabled, ...props }) {

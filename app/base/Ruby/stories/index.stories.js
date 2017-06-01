@@ -1,8 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 
-import Ruby from '../index';
 import P from 'base/P';
+import Ruby from '../index';
 
 storiesOf('base.Ruby', module)
   .add('without furi', () => (

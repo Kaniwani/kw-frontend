@@ -28,7 +28,7 @@ export class VocabEntriesPage extends React.Component {
   }
 
   toggleVocabListType = () => {
-    this.setState((prevState) => ({ vocabListExpanded: !prevState.vocabListExpanded }));
+    this.setState(prevState => ({ vocabListExpanded: !prevState.vocabListExpanded }));
   }
 
   render() {

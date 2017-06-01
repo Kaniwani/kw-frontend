@@ -46,7 +46,7 @@ class SessionSummaryPage extends React.PureComponent {
   }
 
   toggleVocabListType= () => {
-    this.setState((prevState) => ({ vocabListExpanded: !prevState.vocabListExpanded }));
+    this.setState(prevState => ({ vocabListExpanded: !prevState.vocabListExpanded }));
   }
 
   render() {

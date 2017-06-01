@@ -9,7 +9,7 @@ import { TYPES, CRITICAL } from './constants';
 import { Section, Wrapper, Title } from './styles';
 
 const hasNoItems = ({ items }) => !items.length;
-const isCritical = (type) => type === CRITICAL;
+const isCritical = type => type === CRITICAL;
 
 const withPlaceholder = branch(
   hasNoItems,

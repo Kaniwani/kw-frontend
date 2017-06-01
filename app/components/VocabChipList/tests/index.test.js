@@ -1,11 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { vocabs } from 'utils/tests/testTables';
+import { vocabs } from 'shared/testTables';
 import VocabChipList from '../index';
 
 describe('<VocabChipList />', () => {
-  const items = vocabs.slice(0, 3).map((vocab) => ({
+  const items = vocabs.slice(0, 3).map(vocab => ({
     ...vocab,
     history: {
       correct: 4,

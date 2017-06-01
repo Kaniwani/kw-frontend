@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { vocabs } from 'utils/tests/testTables';
+import { vocabs } from 'shared/testTables';
 import SessionSummaryPage from '../index';
 
-const items = vocabs.map((vocab) => ({
+const items = vocabs.map(vocab => ({
   ...vocab,
   history: {
     correct: 4,

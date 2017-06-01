@@ -25,7 +25,7 @@ class MultiLogin extends React.PureComponent { // eslint-disable-line react/pref
     selected: PANELS[1],
   }
 
-  handleSelectChange = (PANEL) => (event) => {
+  handleSelectChange = PANEL => (event) => {
     blockEvent(event);
     // TODO: clear fields
     this.setState({ selected: PANEL });
@@ -54,7 +54,7 @@ class MultiLogin extends React.PureComponent { // eslint-disable-line react/pref
     return (
       <Form onSubmit={this.handleSubmit}>
         <SelectList plainList>
-          {PANELS.map((PANEL) => (
+          {PANELS.map(PANEL => (
             <SelectListItem
               key={cuid()}
               isActive={this.state.selected === PANEL}

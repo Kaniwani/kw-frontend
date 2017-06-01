@@ -1,36 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<SentencePair /> should match baseline snapshot 1`] = `
-<div>
+<div
+  class="sc-EHOje ebYxOW"
+>
   <p
-    class="sMpVQ iFxjYr"
+    class="sc-bZQynM bTjbra sc-bxivhb bnhDjc"
     lang="ja"
   >
     <a
-      class="kMmZKU"
-      href="http://jisho.org/search/その言葉の漢字は難しい"
+      class="sc-bwzfXH dcrzcy"
+      href="http://jisho.org/search/今月は売上が落ちた"
       rel="external noopener noreferrer"
       target="_blank"
       title="Deconstruct sentence at Jisho.org"
     >
       <span>
-        その言葉の
+        今月は
       </span>
       <mark
-        class="hMFuqV cjlhSZ"
+        class="sc-gzVnrw cEcPpo sc-ifAKCX KExaI"
         color="inherit"
       >
-        漢字
+        売上
       </mark>
       <span>
-        は難しい
+        が落ちた
       </span>
     </a>
   </p>
   <p
-    class="sMpVQ iFxjYr"
+    class="sc-bZQynM bTjbra sc-bxivhb bnhDjc"
   >
-    This sentence's phrase is difficult
+    Sales are down this month.
   </p>
 </div>
 `;

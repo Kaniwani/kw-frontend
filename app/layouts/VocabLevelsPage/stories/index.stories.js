@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 
-import { levels } from 'utils/tests/testTables';
+import { levels } from 'shared/testTables';
 import VocabLevelsPage from '../index';
 
 storiesOf('layouts.VocabLevelsPage', module)

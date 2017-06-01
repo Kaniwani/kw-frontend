@@ -1,5 +1,5 @@
+import { readings } from 'shared/testTables';
 import getUniqueKanji, { splitKanji } from '../getUniqueKanji';
-import { readings } from './testTables';
 
 describe('splitKanji()', () => {
   it('should have a safe default', () => {

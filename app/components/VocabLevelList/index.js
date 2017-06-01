@@ -9,9 +9,10 @@ import { Ul } from './styles';
 VocabLevelList.propTypes = {
   levels: PropTypes.array.isRequired,
   userWKLevel: PropTypes.number.isRequired,
+  handleLevelLock: PropTypes.func.isRequired,
 };
 
-function VocabLevelList({ levels, userWKLevel }) {
+function VocabLevelList({ levels, userWKLevel, handleLevelLock }) {
   return (
     <Ul>
       {levels.map(({ level, unlocked, count }) => (
@@ -21,7 +22,7 @@ function VocabLevelList({ levels, userWKLevel }) {
           count={count}
           isActionable={level <= userWKLevel}
           isLocked={!unlocked}
-          handleLevelLock={(event) => console.log('FIXME: bind level before passing to VocabLevel', event)}
+          handleLevelLock={handleLevelLock}
         />
       ))}
     </Ul>

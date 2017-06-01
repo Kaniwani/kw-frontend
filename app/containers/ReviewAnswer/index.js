@@ -71,7 +71,7 @@ export class ReviewAnswer extends React.Component {
 
   // move up to parent level?
   // check target isn't synonym form?
-  getKeyHandler = (keycode) => ({
+  getKeyHandler = keycode => ({
     [KEYCODES.ENTER]: this.props.recordAnswer,
     [KEYCODES.SPACE]: this.props.cycleInfoDetail,
     [KEYCODES.N_LOWERCASE]: () => this.props.showPanel('notes'),

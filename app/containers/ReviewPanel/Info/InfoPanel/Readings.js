@@ -15,7 +15,7 @@ Readings.propTypes = {
 // NOTE: this should apply the same to synonyms pretty much since the header is now separate
 
 function Readings({ detailLevel, reviewId, entries }) {
-  return entries.map((entry) => (
+  return entries.map(entry => (
     <Reading
       key={cuid()}
       readingEntry={entry}

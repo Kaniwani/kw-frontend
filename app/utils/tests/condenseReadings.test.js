@@ -1,5 +1,5 @@
+import { readings } from 'shared/testTables';
 import condenseReadings from '../condenseReadings';
-import { readings } from './testTables';
 
 describe('condenseReadings()', () => {
   it('should have a safe default', () => {

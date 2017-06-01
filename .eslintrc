@@ -26,11 +26,10 @@
   "rules": {
     "arrow-parens": [
       "error",
-      "always"
-    ],
-    "arrow-body-style": [
-      2,
-      "as-needed"
+      "as-needed",
+      {
+        "requireForBlockBody": true 
+      }
     ],
     "comma-dangle": [
       2,

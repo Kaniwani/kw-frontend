@@ -87,7 +87,7 @@ class SiteHeader extends React.PureComponent {
 
   handleToggleClick = (event) => {
     event.stopPropagation();
-    this.setState((prevState, /* props */) => ({
+    this.setState(prevState => ({
       offCanvasMenuActive: !prevState.offCanvasMenuActive,
     }));
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 
-import { vocabs } from 'utils/tests/testTables';
+import { vocabs } from 'shared/testTables';
 import { PARTS_OF_SPEECH } from 'shared/constants';
 
 import ReadingHeader from '../index';

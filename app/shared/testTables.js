@@ -703,7 +703,7 @@ export const readings = {
         'Adverb',
         "Adverb taking the 'to' particle",
       ],
-      sentenceJa: '「あの、かりんさん・・・、そろそろお開きにしませんか？」「駄目、勝ち逃げ禁止！今度こそボクが勝つの！」',
+      sentenceJa: '「あの、かりんさん...、そろそろお開きにしませんか？」「駄目、勝ち逃げ禁止！今度こそボクが勝つの！」',
       sentenceEn: "“Er, Karin ..., shouldn't we call it a night soon?” “No! No quitting while ahead! Next time I'll win for sure!”",
     },
     {
@@ -717,6 +717,20 @@ export const readings = {
       ],
       sentenceJa: 'マンコいいな〜',
       sentenceEn: 'What a great pussy.',
+    },
+  ],
+  partialKanaSentence: [
+    {
+      id: 8800,
+      common: true,
+      jlpt: 'JLPT N4',
+      character: '付く',
+      kana: ['つく'],
+      tags: [
+        'Transitive Verb',
+      ],
+      sentenceJa: 'この「オンボード」というのは平たく言えば「グラフィックカードがついていない」ものだ',
+      sentenceEn: 'Frankly speaking, this “on board” means “doesn’t have a graphics card”.',
     },
   ],
 };

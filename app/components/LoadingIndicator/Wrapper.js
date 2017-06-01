@@ -5,7 +5,7 @@ const Wrapper = styled.div`
   width: 40px;
   height: 40px;
   position: relative;
-  color: ${(props) => props.color}
+  color: ${props => props.color}
 `;
 
 export default Wrapper;

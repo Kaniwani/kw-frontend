@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { levels } from 'utils/tests/testTables';
+import { levels } from 'shared/testTables';
 import VocabLevel from '../index';
 
 describe('<VocabLevel />', () => {

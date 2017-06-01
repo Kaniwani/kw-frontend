@@ -1,7 +1,7 @@
 import React from 'react';
-import { storiesOf } from '@kadira/storybook';
+import { storiesOf, action } from '@kadira/storybook';
 
-import { levels } from 'utils/tests/testTables';
+import { levels } from 'shared/testTables';
 import VocabLevelList from '../index';
 
 storiesOf('components.VocabLevelList', module)
@@ -9,5 +9,6 @@ storiesOf('components.VocabLevelList', module)
     <VocabLevelList
       levels={levels}
       userWKLevel={34}
+      handleLevelLock={level => action(`handle level lock: level ${level}`)}
     />
   ));

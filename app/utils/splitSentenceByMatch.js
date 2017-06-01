@@ -1,11 +1,15 @@
 import stripOkurigana from 'kanawana/stripOkurigana';
 import toKatakana from 'kanawana/toKatakana';
+import tokenize from 'kanawana/tokenize';
 
-import stripLeadingTilde from './stripLeadingTilde';
+import stripTilde from './stripTilde';
+
+// [x, y] => 'x|y'
+const joinPipe = arr => arr.join('|');
 
 /**
- * Splits sentence into head, match & tail for given targets.
- * Preference order is characterss stripped of okurigana, full characters, and finally kana as fallback
+ * Splits sentence into head, match, & tail.
+ * Attempts to match characters, hiragana, katakana; or smart partial matches without okurigana.
  * @param  {String} [sentence=''] - sentence to attempt match
  * @param  {String} [character=''] - japanese characters to attempt to match
  * @param  {String} [kana=''] - japanese kana to attempt to match
@@ -15,39 +19,28 @@ import stripLeadingTilde from './stripLeadingTilde';
  * // { head: '彼女は私を', match: '避', tail: 'けている' }
  */
 export default function splitSentenceByMatch(sentence = '', character = '', kana = ['']) {
-  // TODO: splitOkurigana as well, so we can then use the removed okurigana to strip that from the kana.
-  // We should attempt to partial match kana like we do with character, since some sentences are:
-  // "つく" -> "何かがついた"
-  // stripOkurigana however won't work on kana since it relies on stopping at the first kanji
-  // We could save the stripped trailing okurigana, then slice it off the kana
-  try {
-    const cleanChars = stripLeadingTilde(character);
-    const strippedChars = stripOkurigana(cleanChars);
-    const cleanKana = kana.map((k) => stripLeadingTilde(k)).join('|');
-    const cleanKata = kana.map((k) => toKatakana(stripLeadingTilde(k))).join('|');
-    let re;
-    if (character && kana) {
-      re = new RegExp(`(.*?)(${cleanChars}|${strippedChars}|${cleanKana}|${cleanKata})(.*)`, 'gi');
-    } else if (!kana) {
-      re = new RegExp(`(.*?)(${cleanChars}|${strippedChars})(.*)`, 'gi');
-    } else {
-      re = new RegExp(`(.*?)(${cleanKana}|${cleanKata})(.*)`, 'gi');
-    }
+  const cleanChars = stripTilde(character); // '〜漬け' => '漬け'
+  const strippedChars = stripOkurigana(cleanChars); // '飛び込む' => '飛び込'
+  const onlyChars = stripOkurigana(cleanChars, { all: true }); // '売り上げ' => '売上'
+  const cleanKana = kana.map(stripTilde); // ['〜つけ'] => ['つけ']
+  const cleanKata = cleanKana.map(toKatakana); // ['〜つけ'] => ['ツケ']
+  const stripKana = k => k.replace(tokenize(cleanChars).pop(), '') || k;
+  const strippedKana = cleanKana.map(stripKana); // ['〜つけ'] => ['つ']
 
-    const [, head, match, tail] = re.exec(sentence) || ['', sentence, '', ''];
+  // '売り上げ' => /(.*?)(売り上げ|売り上|売上|うりあげ|ウリアゲ|うりあ)(.*)/
+  const regex = new RegExp(`(.*?)(${
+    joinPipe([cleanChars, strippedChars, onlyChars])
+  }|${
+    joinPipe([cleanKana, cleanKata, strippedKana].map(joinPipe))
+  })(.*)`);
 
-    return {
-      head,
-      match,
-      tail,
-    };
-  } catch (err) {
-    // oh well, just return an unhighlighted sentence
-    console.error(err); // eslint-disable-line no-console
-    return {
-      head: sentence,
-      match: '',
-      tail: '',
-    };
-  }
+  const failSafe = ['', sentence, '', ''];
+
+  const [, head, match, tail] = sentence.match(regex) || failSafe;
+
+  return {
+    head,
+    match,
+    tail,
+  };
 }

@@ -12,7 +12,7 @@ OnCanvasMenu.propTypes = {
 function OnCanvasMenu({ routes }) {
   return (
     <Ul>
-      {routes.map((route) => (
+      {routes.map(route => (
         <NavLink
           key={cuid()}
           {...route}

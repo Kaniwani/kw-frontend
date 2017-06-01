@@ -21,7 +21,7 @@ function OffCanvasMenu({ id, routes, offsetTop, isVisible }) {
       isVisible={isVisible}
     >
       <Ul>
-        {routes.map((route) => (
+        {routes.map(route => (
           <NavLink
             key={cuid()}
             isOffCanvas

@@ -6,7 +6,7 @@ import { branch, renderNothing } from 'recompose';
 
 import blockEvent from 'utils/blockEvent';
 import { SynonymRecord } from 'shared/models';
-import { ANSWER_TYPES, KEYCODES } from 'shared/constants';
+import { /* ANSWER_TYPES,*/ KEYCODES } from 'shared/constants';
 // import AddSynonymForm from 'containers/AddSynonymForm';
 
 import { PanelWrapper } from '../styles';
@@ -15,8 +15,8 @@ class AddSynonymPanel extends React.Component {
   static propTypes = {
     submitUserSynonym: PropTypes.func.isRequired,
     handleClose: PropTypes.func.isRequired,
-    userAnswer: PropTypes.string.isRequired,
-    answerType: PropTypes.oneOf(Object.keys(ANSWER_TYPES)).isRequired,
+    // userAnswer: PropTypes.string.isRequired,
+    // answerType: PropTypes.oneOf(Object.keys(ANSWER_TYPES)).isRequired,
     reviewId: PropTypes.string.isRequired,
   }
 
@@ -38,7 +38,7 @@ class AddSynonymPanel extends React.Component {
   getInitialValue = (fieldType = '', answerType = '', text = '') =>
     fieldType.toLowerCase() === answerType.toLowerCase() ? text : ''
 
-  getKeyHandler = (keycode) => ({
+  getKeyHandler = keycode => ({
     [KEYCODES.ESCAPE]: this.props.handleClose,
   }[keycode])
 
@@ -50,7 +50,7 @@ class AddSynonymPanel extends React.Component {
     }
   }
   // synonym is currently a Map from redux-form
-  handleSubmit = (synonym) =>
+  handleSubmit = synonym =>
     this.props.submitUserSynonym(new SynonymRecord(synonym.merge({
       review: this.props.reviewId,
       character: synonym.get('kanji'),

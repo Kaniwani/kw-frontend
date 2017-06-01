@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PrimaryReading /> should match baseline snapshot 1`] = `
+<onlyUpdateForKeys(Component)
+  character="売り上げ"
+  common={true}
+  entry={
+    Object {
+      "character": "売り上げ",
+      "common": true,
+      "id": 351,
+      "jlpt": "JLPT N2",
+      "kana": Array [
+        "うりあげ",
+      ],
+      "level": 5,
+      "sentenceEn": "Sales are down this month.",
+      "sentenceJa": "今月は売上が落ちた",
+      "tags": Array [
+        "Noun",
+      ],
+    }
+  }
+  id={351}
+  jlpt="JLPT N2"
+  kana={
+    Array [
+      "うりあげ",
+    ]
+  }
+  level={5}
+  sentenceEn="Sales are down this month."
+  sentenceJa="今月は売上が落ちた"
+  tags={
+    Array [
+      "Noun",
+    ]
+  }
+/>
+`;

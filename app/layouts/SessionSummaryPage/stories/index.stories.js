@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 import random from 'lodash/random';
 
-import { vocabs } from 'utils/tests/testTables';
+import { vocabs } from 'shared/testTables';
 import SessionSummaryPage from '../index';
 
 storiesOf('layouts.SessionSummaryPage', module)

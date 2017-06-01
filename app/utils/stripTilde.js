@@ -5,11 +5,11 @@ import { TILDE_JA, TILDE_EN } from 'shared/constants';
  * @param  {String} [text=''] string to remove tilde from
  * @return {String} cleaned string
  * @example
- * stripLeadingTilde('〜回')
+ * stripTilde('〜回')
  * // => '回'
  */
-function stripLeadingTilde(text = '') {
+function stripTilde(text = '') {
   return text.replace(new RegExp(`${TILDE_JA}|${TILDE_EN}`, 'gi'), '');
 }
 
-export default stripLeadingTilde;
+export default stripTilde;

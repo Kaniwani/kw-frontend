@@ -6,12 +6,12 @@ import Button from '../index';
 const href = 'http://google.com';
 const to = '/';
 const children = (<h1>Test</h1>);
-const mountComponent = (props) => mount(
+const mountComponent = props => mount(
   <Button {...props}>
     {children}
   </Button>,
 );
-const renderComponent = (props) => render(
+const renderComponent = props => render(
   <Button {...props}>
     {children}
   </Button>,
