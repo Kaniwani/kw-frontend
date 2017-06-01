@@ -5,10 +5,11 @@ import { branch, renderComponent } from 'recompose';
 import VocabList from 'components/VocabList';
 import Placeholder from './Placeholder';
 import RankedVocabLists from './RankedVocabLists';
-import { TYPES } from './constants';
-import { Section, Element, Title } from './styles';
+import { TYPES, CRITICAL } from './constants';
+import { Section, Wrapper, Title } from './styles';
 
 const hasNoItems = ({ items }) => !items.length;
+const isCritical = (type) => type === CRITICAL;
 
 const withPlaceholder = branch(
   hasNoItems,
@@ -19,7 +20,7 @@ const CriticalList = withPlaceholder(VocabList);
 const RankedLists = withPlaceholder(RankedVocabLists);
 
 const getTitleText = (type, count) =>
-  type === 'CRITICAL' ?
+  isCritical(type) ?
     `${count} critical items` :
     `${count} answered ${type.toLowerCase()}ly`;
 
@@ -37,13 +38,13 @@ function SummarySection({ type, items, isExpanded }) {
   const color = TYPES[type].color;
   return (
     <Section>
-      <Element>
+      <Wrapper>
         <Title color={color}>
           {getTitleText(type, items.length)}
         </Title>
-      </Element>
-      <Element>
-        {type === 'CRITICAL' ? (
+      </Wrapper>
+      <Wrapper>
+        {isCritical(type) ? (
           <CriticalList
             isExpanded={isExpanded}
             type={type}
@@ -58,7 +59,7 @@ function SummarySection({ type, items, isExpanded }) {
             color={color}
           />
         )}
-      </Element>
+      </Wrapper>
     </Section>
   );
 }

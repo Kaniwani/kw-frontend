@@ -1,11 +1,15 @@
+export const CRITICAL = 'CRITICAL';
+export const CORRECT = 'CORRECT';
+export const INCORRECT = 'INCORRECT';
+
 export const TYPES = {
-  CORRECT: {
+  [CORRECT]: {
     color: 'green',
   },
-  INCORRECT: {
+  [INCORRECT]: {
     color: 'red',
   },
-  CRITICAL: {
+  [CRITICAL]: {
     color: 'orange',
   },
 };

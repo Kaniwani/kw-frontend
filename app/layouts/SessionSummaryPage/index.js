@@ -4,6 +4,7 @@ import ReactTooltip from 'react-tooltip';
 import Helmet from 'react-helmet';
 import titleCase from 'voca/title_case';
 
+import { CORRECT, INCORRECT, CRITICAL } from 'components/SummarySection/constants';
 import PageWrapper from 'layouts/PageWrapper';
 import SessionSummaryHeader from 'components/SessionSummaryHeader';
 import AccuracyBar from 'components/AccuracyBar';
@@ -73,17 +74,17 @@ class SessionSummaryPage extends React.PureComponent {
           <SummarySection
             isExpanded={this.state.vocabListExpanded}
             items={this.props.correctItems}
-            type={'CORRECT'}
+            type={CORRECT}
           />
           <SummarySection
             isExpanded={this.state.vocabListExpanded}
             items={this.props.incorrectItems}
-            type={'INCORRECT'}
+            type={INCORRECT}
           />
           <SummarySection
             isExpanded={this.state.vocabListExpanded}
             items={this.props.criticalItems}
-            type={'CRITICAL'}
+            type={CRITICAL}
           />
         </PageWrapper>
       </div>

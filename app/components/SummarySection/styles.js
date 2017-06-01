@@ -8,7 +8,7 @@ export const Section = styled.section`
   ${gutter({ type: 'outer' })}
 `;
 
-export const Element = styled.div`
+export const Wrapper = styled.div`
   ${gutter({ type: 'inner' })}
 `;
 

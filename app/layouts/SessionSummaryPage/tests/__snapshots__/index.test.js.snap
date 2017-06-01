@@ -21,22 +21,19 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
   <PageWrapper
     fullWidth={false}
     fullWidthBg={false}
-    tag="div"
   >
     <styled.div>
       <AccuracyBar
         color="purple"
         percent={24}
       />
-      <Styled(IconButton)
+      <ToggleVocabListType
         handleClick={[Function]}
-        name="EXPAND_ALL"
-        size="2em"
-        title="Toggle Vocab Card size"
+        isExpanded={false}
       />
     </styled.div>
     <SummarySection
-      expanded={false}
+      isExpanded={false}
       items={
         Array [
           Object {
@@ -55,12 +52,14 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
                 "common": true,
                 "id": 582,
                 "jlpt": "JLPT N2",
-                "kana": "ちかぢか",
+                "kana": Array [
+                  "ちかぢか",
+                ],
                 "level": 7,
                 "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
                 "sentenceJa": "彼らがデートをしているのを見かけて近々結婚するのってきいたんだ",
                 "tags": Array [
-                  "Noun",
+                  "Adverbial Noun",
                 ],
               },
               Object {
@@ -68,12 +67,14 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
                 "common": true,
                 "id": 583,
                 "jlpt": "JLPT N2",
-                "kana": "きんきん",
+                "kana": Array [
+                  "きんきん",
+                ],
                 "level": 7,
                 "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
                 "sentenceJa": "彼らがデートをしているのを見かけて近々結婚するのってきいたんだ",
                 "tags": Array [
-                  "Noun",
+                  "Adverbial Noun",
                 ],
               },
               Object {
@@ -81,12 +82,29 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
                 "common": true,
                 "id": 584,
                 "jlpt": "JLPT N2",
-                "kana": "ちかじか",
+                "kana": Array [
+                  "ちかじか",
+                ],
                 "level": 7,
                 "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
                 "sentenceJa": "彼らがデートをしているのを見かけて近々結婚するのってきいたんだ",
                 "tags": Array [
-                  "Noun",
+                  "Adverbial Noun",
+                ],
+              },
+              Object {
+                "character": "軈て",
+                "common": true,
+                "id": 783,
+                "jlpt": "JLPT N2",
+                "kana": Array [
+                  "やがて",
+                ],
+                "level": 61,
+                "sentenceEn": "By and by he forgot that affair",
+                "sentenceJa": "やがて彼はその事件のことを忘れた",
+                "tags": Array [
+                  "Adverb",
                 ],
               },
             ],
@@ -95,6 +113,23 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
               "incorrect": 3,
               "streak": 6,
             },
+            "synonyms": Array [
+              Object {
+                "character": "間もなく",
+                "common": true,
+                "id": 5582,
+                "jlpt": "JLPT N2",
+                "kana": Array [
+                  "まもなく",
+                ],
+                "level": 22,
+                "sentenceEn": "Coming up, Jiyuugaoka Station.",
+                "sentenceJa": "間もなく、自由が丘駅",
+                "tags": Array [
+                  "Adverb",
+                ],
+              },
+            ],
           },
           Object {
             "history": Object {
@@ -115,7 +150,9 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
                 "common": true,
                 "id": 188,
                 "jlpt": "JLPT N3",
-                "kana": "しょうじょ",
+                "kana": Array [
+                  "しょうじょ",
+                ],
                 "level": 3,
                 "sentenceEn": "I am touched by the girl's acute sensitivity.",
                 "sentenceJa": "少女の鋭い感性に触れている",
@@ -128,7 +165,9 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
                 "common": true,
                 "id": 189,
                 "jlpt": "JLPT N3",
-                "kana": "おとめ",
+                "kana": Array [
+                  "おとめ",
+                ],
                 "level": 3,
                 "sentenceEn": "I am touched by the girl's acute sensitivity.",
                 "sentenceJa": "少女の鋭い感性に触れている",
@@ -142,6 +181,7 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
               "incorrect": 3,
               "streak": 6,
             },
+            "synonyms": Array [],
           },
           Object {
             "history": Object {
@@ -161,7 +201,9 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
                 "common": true,
                 "id": 298,
                 "jlpt": "JLPT N3",
-                "kana": "しょうねん",
+                "kana": Array [
+                  "しょうねん",
+                ],
                 "level": 4,
                 "sentenceEn": "The shy boy murmured his name.",
                 "sentenceJa": "その内気な少年はぼそぼそと自分の名前をつぶやいた全ての少年少女はを知っています",
@@ -175,6 +217,7 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
               "incorrect": 3,
               "streak": 6,
             },
+            "synonyms": Array [],
           },
           Object {
             "history": Object {
@@ -197,7 +240,9 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
                 "common": true,
                 "id": 449,
                 "jlpt": "JLPT N3",
-                "kana": "いっしょう",
+                "kana": Array [
+                  "いっしょう",
+                ],
                 "level": 5,
                 "sentenceEn": "She worked hard.",
                 "sentenceJa": "彼女は一生懸命働いた",
@@ -212,6 +257,7 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
               "incorrect": 3,
               "streak": 6,
             },
+            "synonyms": Array [],
           },
           Object {
             "history": Object {
@@ -228,7 +274,9 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
                 "common": true,
                 "id": 529,
                 "jlpt": "JLPT N3",
-                "kana": "しょうじき",
+                "kana": Array [
+                  "しょうじき",
+                ],
                 "level": 6,
                 "sentenceEn": "Him, honest? What a joke!",
                 "sentenceJa": "正直が聞いて呆れるよ",
@@ -243,13 +291,14 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
               "incorrect": 3,
               "streak": 6,
             },
+            "synonyms": Array [],
           },
         ]
       }
       type="CORRECT"
     />
     <SummarySection
-      expanded={false}
+      isExpanded={false}
       items={
         Array [
           Object {
@@ -268,12 +317,14 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
                 "common": true,
                 "id": 582,
                 "jlpt": "JLPT N2",
-                "kana": "ちかぢか",
+                "kana": Array [
+                  "ちかぢか",
+                ],
                 "level": 7,
                 "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
                 "sentenceJa": "彼らがデートをしているのを見かけて近々結婚するのってきいたんだ",
                 "tags": Array [
-                  "Noun",
+                  "Adverbial Noun",
                 ],
               },
               Object {
@@ -281,12 +332,14 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
                 "common": true,
                 "id": 583,
                 "jlpt": "JLPT N2",
-                "kana": "きんきん",
+                "kana": Array [
+                  "きんきん",
+                ],
                 "level": 7,
                 "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
                 "sentenceJa": "彼らがデートをしているのを見かけて近々結婚するのってきいたんだ",
                 "tags": Array [
-                  "Noun",
+                  "Adverbial Noun",
                 ],
               },
               Object {
@@ -294,12 +347,29 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
                 "common": true,
                 "id": 584,
                 "jlpt": "JLPT N2",
-                "kana": "ちかじか",
+                "kana": Array [
+                  "ちかじか",
+                ],
                 "level": 7,
                 "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
                 "sentenceJa": "彼らがデートをしているのを見かけて近々結婚するのってきいたんだ",
                 "tags": Array [
-                  "Noun",
+                  "Adverbial Noun",
+                ],
+              },
+              Object {
+                "character": "軈て",
+                "common": true,
+                "id": 783,
+                "jlpt": "JLPT N2",
+                "kana": Array [
+                  "やがて",
+                ],
+                "level": 61,
+                "sentenceEn": "By and by he forgot that affair",
+                "sentenceJa": "やがて彼はその事件のことを忘れた",
+                "tags": Array [
+                  "Adverb",
                 ],
               },
             ],
@@ -308,6 +378,23 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
               "incorrect": 3,
               "streak": 6,
             },
+            "synonyms": Array [
+              Object {
+                "character": "間もなく",
+                "common": true,
+                "id": 5582,
+                "jlpt": "JLPT N2",
+                "kana": Array [
+                  "まもなく",
+                ],
+                "level": 22,
+                "sentenceEn": "Coming up, Jiyuugaoka Station.",
+                "sentenceJa": "間もなく、自由が丘駅",
+                "tags": Array [
+                  "Adverb",
+                ],
+              },
+            ],
           },
           Object {
             "history": Object {
@@ -328,7 +415,9 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
                 "common": true,
                 "id": 188,
                 "jlpt": "JLPT N3",
-                "kana": "しょうじょ",
+                "kana": Array [
+                  "しょうじょ",
+                ],
                 "level": 3,
                 "sentenceEn": "I am touched by the girl's acute sensitivity.",
                 "sentenceJa": "少女の鋭い感性に触れている",
@@ -341,7 +430,9 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
                 "common": true,
                 "id": 189,
                 "jlpt": "JLPT N3",
-                "kana": "おとめ",
+                "kana": Array [
+                  "おとめ",
+                ],
                 "level": 3,
                 "sentenceEn": "I am touched by the girl's acute sensitivity.",
                 "sentenceJa": "少女の鋭い感性に触れている",
@@ -355,6 +446,7 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
               "incorrect": 3,
               "streak": 6,
             },
+            "synonyms": Array [],
           },
           Object {
             "history": Object {
@@ -374,7 +466,9 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
                 "common": true,
                 "id": 298,
                 "jlpt": "JLPT N3",
-                "kana": "しょうねん",
+                "kana": Array [
+                  "しょうねん",
+                ],
                 "level": 4,
                 "sentenceEn": "The shy boy murmured his name.",
                 "sentenceJa": "その内気な少年はぼそぼそと自分の名前をつぶやいた全ての少年少女はを知っています",
@@ -388,6 +482,7 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
               "incorrect": 3,
               "streak": 6,
             },
+            "synonyms": Array [],
           },
           Object {
             "history": Object {
@@ -410,7 +505,9 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
                 "common": true,
                 "id": 449,
                 "jlpt": "JLPT N3",
-                "kana": "いっしょう",
+                "kana": Array [
+                  "いっしょう",
+                ],
                 "level": 5,
                 "sentenceEn": "She worked hard.",
                 "sentenceJa": "彼女は一生懸命働いた",
@@ -425,6 +522,7 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
               "incorrect": 3,
               "streak": 6,
             },
+            "synonyms": Array [],
           },
           Object {
             "history": Object {
@@ -441,7 +539,9 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
                 "common": true,
                 "id": 529,
                 "jlpt": "JLPT N3",
-                "kana": "しょうじき",
+                "kana": Array [
+                  "しょうじき",
+                ],
                 "level": 6,
                 "sentenceEn": "Him, honest? What a joke!",
                 "sentenceJa": "正直が聞いて呆れるよ",
@@ -456,13 +556,14 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
               "incorrect": 3,
               "streak": 6,
             },
+            "synonyms": Array [],
           },
         ]
       }
       type="INCORRECT"
     />
     <SummarySection
-      expanded={false}
+      isExpanded={false}
       items={
         Array [
           Object {
@@ -481,12 +582,14 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
                 "common": true,
                 "id": 582,
                 "jlpt": "JLPT N2",
-                "kana": "ちかぢか",
+                "kana": Array [
+                  "ちかぢか",
+                ],
                 "level": 7,
                 "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
                 "sentenceJa": "彼らがデートをしているのを見かけて近々結婚するのってきいたんだ",
                 "tags": Array [
-                  "Noun",
+                  "Adverbial Noun",
                 ],
               },
               Object {
@@ -494,12 +597,14 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
                 "common": true,
                 "id": 583,
                 "jlpt": "JLPT N2",
-                "kana": "きんきん",
+                "kana": Array [
+                  "きんきん",
+                ],
                 "level": 7,
                 "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
                 "sentenceJa": "彼らがデートをしているのを見かけて近々結婚するのってきいたんだ",
                 "tags": Array [
-                  "Noun",
+                  "Adverbial Noun",
                 ],
               },
               Object {
@@ -507,12 +612,29 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
                 "common": true,
                 "id": 584,
                 "jlpt": "JLPT N2",
-                "kana": "ちかじか",
+                "kana": Array [
+                  "ちかじか",
+                ],
                 "level": 7,
                 "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
                 "sentenceJa": "彼らがデートをしているのを見かけて近々結婚するのってきいたんだ",
                 "tags": Array [
-                  "Noun",
+                  "Adverbial Noun",
+                ],
+              },
+              Object {
+                "character": "軈て",
+                "common": true,
+                "id": 783,
+                "jlpt": "JLPT N2",
+                "kana": Array [
+                  "やがて",
+                ],
+                "level": 61,
+                "sentenceEn": "By and by he forgot that affair",
+                "sentenceJa": "やがて彼はその事件のことを忘れた",
+                "tags": Array [
+                  "Adverb",
                 ],
               },
             ],
@@ -521,6 +643,23 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
               "incorrect": 3,
               "streak": 6,
             },
+            "synonyms": Array [
+              Object {
+                "character": "間もなく",
+                "common": true,
+                "id": 5582,
+                "jlpt": "JLPT N2",
+                "kana": Array [
+                  "まもなく",
+                ],
+                "level": 22,
+                "sentenceEn": "Coming up, Jiyuugaoka Station.",
+                "sentenceJa": "間もなく、自由が丘駅",
+                "tags": Array [
+                  "Adverb",
+                ],
+              },
+            ],
           },
           Object {
             "history": Object {
@@ -541,7 +680,9 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
                 "common": true,
                 "id": 188,
                 "jlpt": "JLPT N3",
-                "kana": "しょうじょ",
+                "kana": Array [
+                  "しょうじょ",
+                ],
                 "level": 3,
                 "sentenceEn": "I am touched by the girl's acute sensitivity.",
                 "sentenceJa": "少女の鋭い感性に触れている",
@@ -554,7 +695,9 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
                 "common": true,
                 "id": 189,
                 "jlpt": "JLPT N3",
-                "kana": "おとめ",
+                "kana": Array [
+                  "おとめ",
+                ],
                 "level": 3,
                 "sentenceEn": "I am touched by the girl's acute sensitivity.",
                 "sentenceJa": "少女の鋭い感性に触れている",
@@ -568,6 +711,7 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
               "incorrect": 3,
               "streak": 6,
             },
+            "synonyms": Array [],
           },
           Object {
             "history": Object {
@@ -587,7 +731,9 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
                 "common": true,
                 "id": 298,
                 "jlpt": "JLPT N3",
-                "kana": "しょうねん",
+                "kana": Array [
+                  "しょうねん",
+                ],
                 "level": 4,
                 "sentenceEn": "The shy boy murmured his name.",
                 "sentenceJa": "その内気な少年はぼそぼそと自分の名前をつぶやいた全ての少年少女はを知っています",
@@ -601,6 +747,7 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
               "incorrect": 3,
               "streak": 6,
             },
+            "synonyms": Array [],
           },
           Object {
             "history": Object {
@@ -623,7 +770,9 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
                 "common": true,
                 "id": 449,
                 "jlpt": "JLPT N3",
-                "kana": "いっしょう",
+                "kana": Array [
+                  "いっしょう",
+                ],
                 "level": 5,
                 "sentenceEn": "She worked hard.",
                 "sentenceJa": "彼女は一生懸命働いた",
@@ -638,6 +787,7 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
               "incorrect": 3,
               "streak": 6,
             },
+            "synonyms": Array [],
           },
           Object {
             "history": Object {
@@ -654,7 +804,9 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
                 "common": true,
                 "id": 529,
                 "jlpt": "JLPT N3",
-                "kana": "しょうじき",
+                "kana": Array [
+                  "しょうじき",
+                ],
                 "level": 6,
                 "sentenceEn": "Him, honest? What a joke!",
                 "sentenceJa": "正直が聞いて呆れるよ",
@@ -669,6 +821,7 @@ exports[`<SessionSummaryPage /> should match baseline snapshot 1`] = `
               "incorrect": 3,
               "streak": 6,
             },
+            "synonyms": Array [],
           },
         ]
       }

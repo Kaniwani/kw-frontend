@@ -8,12 +8,12 @@ import RankedVocabList from '../RankedVocabList';
 
 const hasNoItems = ({ items }) => !items.length;
 
-const enhance = branch(
+const onlyRenderIfItems = branch(
   hasNoItems,
   renderNothing,
 );
 
-const RankedVocab = enhance(RankedVocabList);
+const RankedVocab = onlyRenderIfItems(RankedVocabList);
 
 RankedVocabLists.propTypes = {
   items: PropTypes.array.isRequired,

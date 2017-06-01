@@ -2,36 +2,36 @@
 
 exports[`<SummarySection /> should adopt all types 1`] = `
 <section
-  class="czlPHw"
+  class="sc-kAzzGY klYfTx"
 >
   <div
-    class="lhxzqr"
+    class="sc-chPdSV iTPMry"
   >
     <h2
-      class="iaXvoQ"
+      class="sc-kgoBCf gfZODg"
       color="green"
     >
       2 answered correctly
     </h2>
   </div>
   <div
-    class="lhxzqr"
+    class="sc-chPdSV iTPMry"
   >
     <div>
       <div
-        class="czlPHw"
+        class="sc-cSHVUG kEUGVy"
       >
         <div
-          class="iZQoTn"
+          class="sc-VigVT hvagPz"
         >
           <h3
-            class="dKOlPI"
+            class="sc-jTzLTM foIWiG"
           >
             <span
-              class="ufRFl"
+              class="sc-fjdhpX bvevRA"
             >
               <strong
-                class="lgSyAV"
+                class="sc-jzJRlG ZoIKu"
               >
                 2
               </strong>
@@ -45,20 +45,21 @@ exports[`<SummarySection /> should adopt all types 1`] = `
             data-id="tooltip"
           />
           <ul
-            class="fAaWEY"
+            class="sc-iwsKbI cHiZUQ"
           >
             <li
-              class="khpCuN"
+              class="sc-gzVnrw cZRkbu"
               data-for="vocabChipTip"
               data-place="bottom"
               data-tip="
               <ul>
                 <li>
-                  <span>EN</span>
-                  <span>Before Long</span>
-                <li>
                   <span>JA </span>
                   <span lang=\\"ja\\">ちかぢか</span>
+                </li>
+                <li>
+                  <span>EN</span>
+                  <span>Before Long</span>
                 </li>
                 <li>
                   <span>RC</span>
@@ -68,10 +69,10 @@ exports[`<SummarySection /> should adopt all types 1`] = `
             "
             >
               <a
-                class="gCqXBY kMmZKU"
+                class="sc-htoDjs chsupN"
               >
                 <span
-                  class="JkMnC"
+                  class="sc-dnqmqq DDgta"
                   lang="ja"
                 >
                   近々
@@ -79,17 +80,18 @@ exports[`<SummarySection /> should adopt all types 1`] = `
               </a>
             </li>
             <li
-              class="khpCuN"
+              class="sc-gzVnrw cZRkbu"
               data-for="vocabChipTip"
               data-place="bottom"
               data-tip="
               <ul>
                 <li>
-                  <span>EN</span>
-                  <span>Young Lady</span>
-                <li>
                   <span>JA </span>
                   <span lang=\\"ja\\">しょうじょ</span>
+                </li>
+                <li>
+                  <span>EN</span>
+                  <span>Young Lady</span>
                 </li>
                 <li>
                   <span>RC</span>
@@ -99,10 +101,10 @@ exports[`<SummarySection /> should adopt all types 1`] = `
             "
             >
               <a
-                class="gCqXBY kMmZKU"
+                class="sc-htoDjs chsupN"
               >
                 <span
-                  class="JkMnC"
+                  class="sc-dnqmqq DDgta"
                   lang="ja"
                 >
                   少女
@@ -119,36 +121,36 @@ exports[`<SummarySection /> should adopt all types 1`] = `
 
 exports[`<SummarySection /> should adopt all types 2`] = `
 <section
-  class="czlPHw"
+  class="sc-kAzzGY klYfTx"
 >
   <div
-    class="lhxzqr"
+    class="sc-chPdSV iTPMry"
   >
     <h2
-      class="knoJpK"
+      class="sc-kgoBCf kFdMEJ"
       color="red"
     >
       2 answered incorrectly
     </h2>
   </div>
   <div
-    class="lhxzqr"
+    class="sc-chPdSV iTPMry"
   >
     <div>
       <div
-        class="czlPHw"
+        class="sc-cSHVUG kEUGVy"
       >
         <div
-          class="iZQoTn"
+          class="sc-VigVT hvagPz"
         >
           <h3
-            class="dKOlPI"
+            class="sc-jTzLTM foIWiG"
           >
             <span
-              class="ufRFl"
+              class="sc-fjdhpX bvevRA"
             >
               <strong
-                class="lgSyAV"
+                class="sc-jzJRlG ZoIKu"
               >
                 2
               </strong>
@@ -162,20 +164,21 @@ exports[`<SummarySection /> should adopt all types 2`] = `
             data-id="tooltip"
           />
           <ul
-            class="fAaWEY"
+            class="sc-iwsKbI cHiZUQ"
           >
             <li
-              class="llosvn"
+              class="sc-gzVnrw dekfRL"
               data-for="vocabChipTip"
               data-place="bottom"
               data-tip="
               <ul>
                 <li>
-                  <span>EN</span>
-                  <span>Before Long</span>
-                <li>
                   <span>JA </span>
                   <span lang=\\"ja\\">ちかぢか</span>
+                </li>
+                <li>
+                  <span>EN</span>
+                  <span>Before Long</span>
                 </li>
                 <li>
                   <span>RC</span>
@@ -185,10 +188,10 @@ exports[`<SummarySection /> should adopt all types 2`] = `
             "
             >
               <a
-                class="gCqXBY kMmZKU"
+                class="sc-htoDjs chsupN"
               >
                 <span
-                  class="lbhIEP"
+                  class="sc-dnqmqq dTLVwP"
                   lang="ja"
                 >
                   近々
@@ -196,17 +199,18 @@ exports[`<SummarySection /> should adopt all types 2`] = `
               </a>
             </li>
             <li
-              class="llosvn"
+              class="sc-gzVnrw dekfRL"
               data-for="vocabChipTip"
               data-place="bottom"
               data-tip="
               <ul>
                 <li>
-                  <span>EN</span>
-                  <span>Young Lady</span>
-                <li>
                   <span>JA </span>
                   <span lang=\\"ja\\">しょうじょ</span>
+                </li>
+                <li>
+                  <span>EN</span>
+                  <span>Young Lady</span>
                 </li>
                 <li>
                   <span>RC</span>
@@ -216,10 +220,10 @@ exports[`<SummarySection /> should adopt all types 2`] = `
             "
             >
               <a
-                class="gCqXBY kMmZKU"
+                class="sc-htoDjs chsupN"
               >
                 <span
-                  class="lbhIEP"
+                  class="sc-dnqmqq dTLVwP"
                   lang="ja"
                 >
                   少女
@@ -236,20 +240,20 @@ exports[`<SummarySection /> should adopt all types 2`] = `
 
 exports[`<SummarySection /> should adopt all types 3`] = `
 <section
-  class="czlPHw"
+  class="sc-kAzzGY klYfTx"
 >
   <div
-    class="lhxzqr"
+    class="sc-chPdSV iTPMry"
   >
     <h2
-      class="isTFjL"
+      class="sc-kgoBCf PSoOL"
       color="orange"
     >
       2 critical items
     </h2>
   </div>
   <div
-    class="lhxzqr"
+    class="sc-chPdSV iTPMry"
   >
     <div>
       <div
@@ -257,20 +261,21 @@ exports[`<SummarySection /> should adopt all types 3`] = `
         data-id="tooltip"
       />
       <ul
-        class="fAaWEY"
+        class="sc-iwsKbI cHiZUQ"
       >
         <li
-          class="ieYcML"
+          class="sc-gzVnrw ctmdZY"
           data-for="vocabChipTip"
           data-place="bottom"
           data-tip="
           <ul>
             <li>
-              <span>EN</span>
-              <span>Before Long</span>
-            <li>
               <span>JA </span>
               <span lang=\\"ja\\">ちかぢか</span>
+            </li>
+            <li>
+              <span>EN</span>
+              <span>Before Long</span>
             </li>
             <li>
               <span>RC</span>
@@ -280,10 +285,10 @@ exports[`<SummarySection /> should adopt all types 3`] = `
         "
         >
           <a
-            class="gCqXBY kMmZKU"
+            class="sc-htoDjs chsupN"
           >
             <span
-              class="fcsNlw"
+              class="sc-dnqmqq hpzYwF"
               lang="ja"
             >
               近々
@@ -291,17 +296,18 @@ exports[`<SummarySection /> should adopt all types 3`] = `
           </a>
         </li>
         <li
-          class="ieYcML"
+          class="sc-gzVnrw ctmdZY"
           data-for="vocabChipTip"
           data-place="bottom"
           data-tip="
           <ul>
             <li>
-              <span>EN</span>
-              <span>Young Lady</span>
-            <li>
               <span>JA </span>
               <span lang=\\"ja\\">しょうじょ</span>
+            </li>
+            <li>
+              <span>EN</span>
+              <span>Young Lady</span>
             </li>
             <li>
               <span>RC</span>
@@ -311,10 +317,10 @@ exports[`<SummarySection /> should adopt all types 3`] = `
         "
         >
           <a
-            class="gCqXBY kMmZKU"
+            class="sc-htoDjs chsupN"
           >
             <span
-              class="fcsNlw"
+              class="sc-dnqmqq hpzYwF"
               lang="ja"
             >
               少女
@@ -322,129 +328,6 @@ exports[`<SummarySection /> should adopt all types 3`] = `
           </a>
         </li>
       </ul>
-    </div>
-  </div>
-</section>
-`;
-
-exports[`<SummarySection /> should adopt expanded prop 1`] = `
-<section
-  class="czlPHw"
->
-  <div
-    class="lhxzqr"
-  >
-    <h2
-      class="iaXvoQ"
-      color="green"
-    >
-      2 answered correctly
-    </h2>
-  </div>
-  <div
-    class="lhxzqr"
-  >
-    <div>
-      <div
-        class="czlPHw"
-      >
-        <div
-          class="iZQoTn"
-        >
-          <h3
-            class="dKOlPI"
-          >
-            <span
-              class="ufRFl"
-            >
-              <strong
-                class="lgSyAV"
-              >
-                2
-              </strong>
-              Guru
-            </span>
-          </h3>
-        </div>
-        <ul
-          class="bKvhlU"
-        >
-          <li
-            class="jUcQtZ"
-          >
-            <a
-              class="iCoZdI kMmZKU"
-            >
-              <dl
-                class="iQUovP"
-                color="green"
-              >
-                <div
-                  class="reading"
-                >
-                  <dt
-                    class="kana"
-                    lang="ja"
-                  >
-                    ちかぢか, きんきん, ちかじか
-                  </dt>
-                  <dt
-                    class="character"
-                    lang="ja"
-                  >
-                    近々
-                  </dt>
-                  <div
-                    class="separator"
-                  />
-                </div>
-                <dd
-                  class="meaning"
-                >
-                  before long, soon
-                </dd>
-              </dl>
-            </a>
-          </li>
-          <li
-            class="jUcQtZ"
-          >
-            <a
-              class="iCoZdI kMmZKU"
-            >
-              <dl
-                class="iQUovP"
-                color="green"
-              >
-                <div
-                  class="reading"
-                >
-                  <dt
-                    class="kana"
-                    lang="ja"
-                  >
-                    しょうじょ, おとめ
-                  </dt>
-                  <dt
-                    class="character"
-                    lang="ja"
-                  >
-                    少女
-                  </dt>
-                  <div
-                    class="separator"
-                  />
-                </div>
-                <dd
-                  class="meaning"
-                >
-                  young lady, little girl, maiden, daughter, girl
-                </dd>
-              </dl>
-            </a>
-          </li>
-        </ul>
-      </div>
     </div>
   </div>
 </section>
@@ -516,6 +399,21 @@ exports[`<SummarySection /> should adopt isExpanded prop 1`] = `
                     lang="ja"
                   >
                     近々
+                  </dt>
+                  <div
+                    class="separator"
+                  />
+                  <dt
+                    class="kana"
+                    lang="ja"
+                  >
+                    やがて
+                  </dt>
+                  <dt
+                    class="character"
+                    lang="ja"
+                  >
+                    軈て
                   </dt>
                   <div
                     class="separator"
