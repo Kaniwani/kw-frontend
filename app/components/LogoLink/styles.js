@@ -1,4 +1,4 @@
-import Link from 'react-router/lib/Link';
+import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { timingFunctions } from 'polished';
 

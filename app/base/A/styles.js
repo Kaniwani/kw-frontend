@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Link from 'react-router/lib/Link';
+import { Link } from 'react-router-dom';
 
 import { link, linkHover } from 'shared/styles/colors';
 import { fastEaseQuad } from 'shared/styles/animation';

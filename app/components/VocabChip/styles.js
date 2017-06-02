@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { darken } from 'polished';
 
-import Link from 'react-router/lib/Link';
+import { Link } from 'react-router-dom';
 
 import * as COLORS from 'shared/styles/colors';
 import { beta } from 'shared/styles/typography';

@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import uuid from 'uuid';
 import { transparentize } from 'polished';
 
-import { Link as RouterLink } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { whiteDark, grey, blueLight, purple } from 'shared/styles/colors';
 import { epsilon } from 'shared/styles/typography';
@@ -43,7 +43,7 @@ export const Count = styled.span`
   color: ${({ disabled }) => disabled ? grey : blueLight};
 `;
 
-export const Link = styled(RouterLink).attrs({
+export const RouterLink = styled(Link).attrs({
   activeClassName,
 })`
   display: flex;

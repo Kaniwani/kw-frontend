@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Link from 'react-router/lib/Link';
+import { Link } from 'react-router-dom';
 import { fluidType } from 'shared/styles/utils';
 import { white, whiteLight, blackLight } from 'shared/styles/colors';
 
