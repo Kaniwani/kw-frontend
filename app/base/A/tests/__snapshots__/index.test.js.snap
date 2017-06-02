@@ -6,31 +6,16 @@ exports[`<A /> should add appropriate attributes for an external link 1`] = `
   href="http://google.com/"
   rel="external noopener noreferrer"
   target="_blank"
->
-  <h1>
-    Test
-  </h1>
-</a>
+/>
 `;
 
-exports[`<A /> should match snapshot for <Link> 1`] = `
-<Styled(Link)
-  plainLink={false}
-  to="/someRoute"
->
-  <h1>
-    Test
-  </h1>
-</Styled(Link)>
-`;
-
-exports[`<A /> should match snapshot for <a> 1`] = `
+exports[`<A /> should match baseline snapshot 1`] = `
 <styled.a
   href="http://google.com/"
   plainLink={true}
 >
   <h1>
-    Test
+    child
   </h1>
 </styled.a>
 `;

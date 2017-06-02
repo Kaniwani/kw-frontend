@@ -63,6 +63,16 @@ module.exports = {
       path: '../../app/components/{{properCase name}}/tests/index.test.js',
       templateFile: './component/test.js.hbs',
       abortOnFail: true,
+    }, {
+      type: 'add',
+      path: '../../app/components/{{properCase name}}/loader.js',
+      templateFile: './component/loader.js.hbs',
+      abortOnFail: true,
+    }, {
+      type: 'add',
+      path: '../../app/components/{{properCase name}}/tests/loader.test.js',
+      templateFile: './component/loader.test.js.hbs',
+      abortOnFail: true,
     }];
 
     if (data.wantStories) {

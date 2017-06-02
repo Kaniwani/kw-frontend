@@ -11,6 +11,6 @@ describe('{{ properCase name }} selectors', () => {
   });
 
   it('selecting {{ camelCase name }} substate should match snapshot', () => {
-    expect(select{{ properCase name }}()).toMatchSnapshot();
+    expect(select{{ properCase name }}(state)).toMatchSnapshot();
   });
 });

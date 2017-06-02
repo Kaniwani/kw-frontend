@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomePage selectors selecting homepage domain state should match snapshot 1`] = `"winner!"`;
+
+exports[`HomePage selectors selecting homepage substate should match snapshot 1`] = `"winner!"`;

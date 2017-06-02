@@ -4,15 +4,34 @@
  */
 
 import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
+import { LOCATION_CHANGE } from 'react-router-redux';
 
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import notificationsReducer from 'containers/Notifications/reducer';
 
+// Initial routing state
+const routeInitialState = {
+  location: null,
+};
+
+// Merge route into the global application state
+function routeReducer(state = routeInitialState, { type, payload }) {
+  switch (type) {
+    /* istanbul ignore next */
+    case LOCATION_CHANGE:
+      return {
+        ...state,
+        location: payload,
+      };
+    default:
+      return state;
+  }
+}
+
 // Creates the main reducer with the asynchronously loaded ones
 export default function createReducer(asyncReducers) {
   return combineReducers({
-    routing: routerReducer,
+    routing: routeReducer,
     language: languageProviderReducer,
     notifications: notificationsReducer,
     ...asyncReducers,

@@ -23,9 +23,7 @@ A.defaultProps = {
   href: false,
   to: false,
   external: false,
-  plainLink: false,
 };
-
 
 function A({ href, to, external, ...props }) {
   // minor optimization by only rendering one item, if these are variables instead of functions the unreturned item would still be created/rendered internally - then thrown away
