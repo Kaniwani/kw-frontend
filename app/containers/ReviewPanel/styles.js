@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { white, reviewBackground } from 'shared/styles/colors';
+import { white } from 'shared/styles/colors';
 import backgroundImage from 'shared/assets/img/reviews.svg';
 // matches review background image svg color
 export const backgroundImageColor = '#e5e5e5';
@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  background-color: ${reviewBackground};
+  background-color: ${backgroundImageColor};
   min-height: 100vh;
   width: 100%;
   padding-left: calc(50% - 2000px);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { storiesOf } from '@kadira/storybook';
+import { storiesOf } from '@storybook/react';
 import Container from 'layouts/Container';
 import A from 'base/A';
 import H1 from 'base/H1';

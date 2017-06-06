@@ -1,6 +1,6 @@
 import React from 'react';
 import uuid from 'uuid';
-import { storiesOf } from '@kadira/storybook';
+import { storiesOf } from '@storybook/react';
 
 import { readings } from 'shared/testTables';
 import condenseReadings from 'utils/condenseReadings';

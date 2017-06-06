@@ -1,5 +1,5 @@
 import React from 'react';
-import { storiesOf } from '@kadira/storybook';
+import { storiesOf } from '@storybook/react';
 import ReviewPanel from '../index';
 
 storiesOf('components.ReviewPanel', module)

@@ -1,5 +1,6 @@
 import React from 'react';
-import { storiesOf, action } from '@kadira/storybook';
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 import { PARTS_OF_SPEECH } from 'shared/constants';
 
 import SynonymHeader from '../index';

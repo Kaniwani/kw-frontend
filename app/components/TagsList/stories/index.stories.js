@@ -1,5 +1,5 @@
 import React from 'react';
-import { storiesOf } from '@kadira/storybook';
+import { storiesOf } from '@storybook/react';
 import { PARTS_OF_SPEECH } from 'shared/constants';
 
 import TagsList from '../index';

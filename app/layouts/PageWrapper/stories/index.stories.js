@@ -1,5 +1,5 @@
 import React from 'react';
-import { storiesOf } from '@kadira/storybook';
+import { storiesOf } from '@storybook/react';
 import background from 'shared/assets/img/home.jpg';
 import A from 'base/A';
 import P from 'base/P';

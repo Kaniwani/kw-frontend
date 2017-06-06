@@ -6,7 +6,6 @@ import { greyLight, blueLight } from 'shared/styles/colors';
 import { spin } from 'shared/styles/animation';
 
 import IconButton from 'components/IconButton';
-import { resetInput } from 'shared/styles/utils';
 
 import { COMPONENT_HEIGHT_EM } from './constants';
 
@@ -43,7 +42,6 @@ export const SubmitButton = styled(IconButton)`
 `;
 
 export const SearchInput = styled.input`
-  ${resetInput}
   width: 100%;
   font-size: 1em;
   line-height: 1.75;

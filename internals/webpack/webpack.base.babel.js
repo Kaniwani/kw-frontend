@@ -5,7 +5,7 @@
 const path = require('path');
 const webpack = require('webpack');
 
-module.exports = (options) => ({
+module.exports = options => ({
   entry: options.entry,
   output: Object.assign({ // Compile into js/build.js
     path: path.resolve(process.cwd(), 'build'),
@@ -47,8 +47,12 @@ module.exports = (options) => ({
             loader: 'image-webpack-loader',
             options: {
               progressive: true,
-              optimizationLevel: 7,
-              interlaced: false,
+              optipng: {
+                optimizationLevel: 7,
+              },
+              gifsicle: {
+                interlaced: false,
+              },
               pngquant: {
                 quality: '65-90',
                 speed: 4,

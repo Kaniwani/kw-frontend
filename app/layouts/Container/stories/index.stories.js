@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { storiesOf } from '@kadira/storybook';
+import { storiesOf } from '@storybook/react';
 import Element from 'layouts/Element';
 import Img from 'base/Img';
 import homeImg from 'shared/assets/img/home.jpg';

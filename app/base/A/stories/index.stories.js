@@ -1,5 +1,5 @@
 import React from 'react';
-import { storiesOf } from '@kadira/storybook';
+import { storiesOf } from '@storybook/react';
 
 import A from '../index';
 
@@ -17,8 +17,8 @@ storiesOf('base.A', module)
     <A href={href} plainLink>Plain Link</A>
   ))
   .add('react-router Link', () => (
-    <A to={to}>Plain</A>
+    <A to={to}>Router Link</A>
   ))
   .add('react-router Link with plainLink prop', () => (
-    <A to={to} plainLink>Plain</A>
+    <A to={to} plainLink>Plain Router Link</A>
   ));
