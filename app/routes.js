@@ -19,6 +19,7 @@ import AsyncRoute from './AsyncRoute';
 function Routes({ location }) {
   return (
     <Switch location={location}>
+      {/* TODO: exact path="/reviews" load={loadReviewPage} etc */}
       <AsyncRoute exact path="/" load={loadHomePage} />
       <AsyncRoute path="" load={loadNotFoundPage} />
     </Switch>
