@@ -43,7 +43,7 @@
     fuse.js "^3.0.1"
     prop-types "^15.5.9"
 
-"@storybook/react@~3.1.3":
+"@storybook/react@3.1.3":
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/@storybook/react/-/react-3.1.3.tgz#e2d7d2ecf4d7ff3dfab1d7b324e2c19e04be5934"
   dependencies:
@@ -2156,9 +2156,9 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-create-react-class@^15.5.1, create-react-class@^15.5.2, create-react-class@^15.5.3:
-  version "15.5.3"
-  resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.5.3.tgz#fb0f7cae79339e9a179e194ef466efa3923820fe"
+create-react-class@^15.5.1, create-react-class@^15.5.2, create-react-class@^15.5.3, create-react-class@^15.6.0:
+  version "15.6.0"
+  resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.6.0.tgz#ab448497c26566e1e29413e883207d57cfe7bed4"
   dependencies:
     fbjs "^0.8.9"
     loose-envify "^1.3.1"
@@ -2273,7 +2273,7 @@ css-what@2.1:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/css-what/-/css-what-2.1.0.tgz#9467d032c38cfaefb9f2d79501253062f87fa1bd"
 
-css@^2.2.1:
+css@2.2.1, css@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/css/-/css-2.2.1.tgz#73a4c81de85db664d4ee674f7d47085e3b2d55dc"
   dependencies:
@@ -4935,9 +4935,9 @@ jest-snapshot@^20.0.3:
     natural-compare "^1.4.0"
     pretty-format "^20.0.3"
 
-jest-styled-components@~3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/jest-styled-components/-/jest-styled-components-3.0.1.tgz#0a570d4365f9b1b5e045a24da64addeded74d396"
+jest-styled-components@~3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/jest-styled-components/-/jest-styled-components-3.0.2.tgz#90047608075219dd0ee60e7c80d7c0ba90c6534d"
   dependencies:
     css "^2.2.1"
 
@@ -4976,14 +4976,14 @@ js-tokens@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.1.tgz#08e9f132484a2c45a30907e9dc4d5567b7f114d7"
 
-js-yaml@3.6.1:
+js-yaml@3.6.1, js-yaml@^3.5.1:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.6.1.tgz#6e5fe67d8b205ce4d22fad05b7781e8dadcc4b30"
   dependencies:
     argparse "^1.0.7"
     esprima "^2.6.0"
 
-js-yaml@^3.4.3, js-yaml@^3.5.1, js-yaml@^3.7.0:
+js-yaml@^3.4.3, js-yaml@^3.7.0:
   version "3.8.4"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.8.4.tgz#520b4564f86573ba96662af85a8cafa7b4b5a6f6"
   dependencies:
@@ -5235,7 +5235,7 @@ loader-runner@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/loader-runner/-/loader-runner-2.3.0.tgz#f482aea82d543e07921700d5a46ef26fdac6b8a2"
 
-loader-utils@0.2.x, loader-utils@^0.2, loader-utils@^0.2.16:
+loader-utils@0.2.x, loader-utils@^0.2.16:
   version "0.2.17"
   resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-0.2.17.tgz#f86e6374d43205a6e6c60e9196f17c0299bfb348"
   dependencies:
@@ -5244,7 +5244,7 @@ loader-utils@0.2.x, loader-utils@^0.2, loader-utils@^0.2.16:
     json5 "^0.5.0"
     object-assign "^4.0.1"
 
-loader-utils@^1.0.2, loader-utils@^1.1.0, loader-utils@^1.x:
+loader-utils@1.1.0, loader-utils@^1.0.2, loader-utils@^1.1.0, loader-utils@^1.x:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-1.1.0.tgz#c98aef488bcceda2ffb5e2de646d6a754429f5cd"
   dependencies:
@@ -5487,7 +5487,7 @@ lodash@4.17.2:
   version "4.17.2"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.2.tgz#34a3055babe04ce42467b607d700072c7ff6bf42"
 
-lodash@4.17.4, lodash@4.x.x, lodash@^4.0.0, lodash@^4.12.0, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.6.1:
+lodash@4.17.4, lodash@4.x.x, lodash@^4.0.0, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.6.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -5791,9 +5791,9 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
-ngrok@2.2.9:
-  version "2.2.9"
-  resolved "https://registry.yarnpkg.com/ngrok/-/ngrok-2.2.9.tgz#d455c1ed2f55d3854d6e9ee5a7ec97872afd2c26"
+ngrok@~2.2.10:
+  version "2.2.10"
+  resolved "https://registry.yarnpkg.com/ngrok/-/ngrok-2.2.10.tgz#f23a5a00593ea33063be56d7f3542f6b9e1d6a56"
   dependencies:
     async "^2.3.0"
     decompress-zip "^0.3.0"
@@ -6828,7 +6828,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@15.5.10, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@~15.5.7:
+prop-types@15.5.10, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.5.9:
   version "15.5.10"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.10.tgz#2797dfc3126182e3a95e3dfbb2e893ddd7456154"
   dependencies:
@@ -6895,6 +6895,10 @@ querystring@0.2.0, querystring@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.0.tgz#b209849203bb25df820da756e747005878521620"
 
+ramda@0.21.0:
+  version "0.21.0"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.21.0.tgz#a001abedb3ff61077d4ff1d577d44de77e8d0a35"
+
 randomatic@^1.1.3:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/randomatic/-/randomatic-1.1.6.tgz#110dcabff397e9dcff7c0789ccc0a49adf1ec5bb"
@@ -6937,14 +6941,14 @@ react-docgen@^2.15.0:
     node-dir "^0.1.10"
     recast "^0.11.5"
 
-react-dom@~15.6.0:
-  version "15.6.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.6.0.tgz#8bc23cb0c80e706355b76ca9f8ce47cf7bdfb6d1"
+react-dom@~15.6.1:
+  version "15.6.1"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.6.1.tgz#2cb0ed4191038e53c209eb3a79a23e2a4cf99470"
   dependencies:
     fbjs "^0.8.9"
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
-    prop-types "~15.5.7"
+    prop-types "^15.5.10"
 
 react-helmet@5.1.3:
   version "5.1.3"
@@ -7091,9 +7095,9 @@ react-style-proptype@^3.0.0:
   dependencies:
     prop-types "^15.5.4"
 
-react-test-renderer@15.5.4:
-  version "15.5.4"
-  resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-15.5.4.tgz#d4ebb23f613d685ea8f5390109c2d20fbf7c83bc"
+react-test-renderer@~15.6.1:
+  version "15.6.1"
+  resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-15.6.1.tgz#026f4a5bb5552661fd2cc4bbcd0d4bc8a35ebf7e"
   dependencies:
     fbjs "^0.8.9"
     object-assign "^4.1.0"
@@ -7116,15 +7120,15 @@ react-transform-hmr@^1.0.3:
     global "^4.3.0"
     react-proxy "^1.1.7"
 
-react@~15.6.0:
-  version "15.6.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-15.6.0.tgz#c23299b48e30ed302508ce89e1a02c919f826bce"
+react@~15.6.1:
+  version "15.6.1"
+  resolved "https://registry.yarnpkg.com/react/-/react-15.6.1.tgz#baa8434ec6780bde997cdc380b79cd33b96393df"
   dependencies:
-    create-react-class "^15.5.2"
+    create-react-class "^15.6.0"
     fbjs "^0.8.9"
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
-    prop-types "^15.5.7"
+    prop-types "^15.5.10"
 
 read-all-stream@^3.0.0:
   version "3.1.0"
@@ -7526,7 +7530,7 @@ rx-lite@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/rx-lite/-/rx-lite-3.1.2.tgz#19ce502ca572665f3b647b10939f97fd1615f102"
 
-rx@^4.1.0:
+rx@4.1.0, rx@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/rx/-/rx-4.1.0.tgz#a5f13ff79ef3b740fe30aa803fb09f98805d4782"
 
@@ -8023,9 +8027,9 @@ style-loader@~0.18.2:
     loader-utils "^1.0.2"
     schema-utils "^0.3.0"
 
-styled-components@~2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-2.0.1.tgz#c7b5d211a2f794c0bf5e7c7d028617bed5781625"
+styled-components@~2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-2.1.0.tgz#425805fca7efa5880aad2171f986bfd8a2f0808f"
   dependencies:
     buffer "^5.0.3"
     css-to-react-native "^2.0.3"
@@ -8057,13 +8061,16 @@ supports-color@^3.1.0, supports-color@^3.1.2, supports-color@^3.2.3:
   dependencies:
     has-flag "^1.0.0"
 
-svg-react-loader@0.3.7:
-  version "0.3.7"
-  resolved "https://registry.yarnpkg.com/svg-react-loader/-/svg-react-loader-0.3.7.tgz#a88a92a6349260f599f922ac6def7753787b9216"
+svg-react-loader@~0.4.3:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/svg-react-loader/-/svg-react-loader-0.4.3.tgz#5a6ba2167274177d88bd119e8653aef5b5a47252"
   dependencies:
-    loader-utils "^0.2"
-    lodash "^4.12.0"
-    xml2js "^0.4"
+    css "2.2.1"
+    loader-utils "1.1.0"
+    ramda "0.21.0"
+    rx "4.1.0"
+    traverse "0.6.6"
+    xml2js "0.4.17"
 
 svgo@^0.7.0:
   version "0.7.2"
@@ -8276,6 +8283,10 @@ tough-cookie@^2.3.2, tough-cookie@~2.3.0:
 tr46@~0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/tr46/-/tr46-0.0.3.tgz#8184fd347dac9cdc185992f3a6622e14b9d9ab6a"
+
+traverse@0.6.6:
+  version "0.6.6"
+  resolved "https://registry.yarnpkg.com/traverse/-/traverse-0.6.6.tgz#cbdf560fd7b9af632502fed40f918c157ea97137"
 
 "traverse@>=0.3.0 <0.4":
   version "0.3.9"
@@ -8782,7 +8793,7 @@ xml-name-validator@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/xml-name-validator/-/xml-name-validator-2.0.1.tgz#4d8b8f1eccd3419aa362061becef515e1e559635"
 
-xml2js@^0.4:
+xml2js@0.4.17:
   version "0.4.17"
   resolved "https://registry.yarnpkg.com/xml2js/-/xml2js-0.4.17.tgz#17be93eaae3f3b779359c795b419705a8817e868"
   dependencies:
