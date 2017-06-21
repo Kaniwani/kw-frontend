@@ -7,7 +7,7 @@ import groupBy from 'lodash/groupBy';
  */
 export default function condenseReadings(readings = []) {
   const groupedReadings = Object.values(groupBy(readings, 'character'));
-  return groupedReadings.map((entries) =>
+  return groupedReadings.map(entries =>
     entries.reduce((entry, next) => {
       if (!entry.kana) {
         return {

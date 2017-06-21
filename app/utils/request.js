@@ -35,11 +35,11 @@ function request({ url = '', method = 'GET', headers = {}, body = {} } = {}) {
 }
 
 export default {
-  get: (config) => request({ ...config, method: 'GET' }),
-  post: (config) => request({ ...config, method: 'POST' }),
-  put: (config) => request({ ...config, method: 'PUT' }),
-  patch: (config) => request({ ...config, method: 'PATCH' }),
-  delete: (config) => request({ ...config, method: 'DELETE' }), // delete is a reserved word in JS
+  get: config => request({ ...config, method: 'GET' }),
+  post: config => request({ ...config, method: 'POST' }),
+  put: config => request({ ...config, method: 'PUT' }),
+  patch: config => request({ ...config, method: 'PATCH' }),
+  delete: config => request({ ...config, method: 'DELETE' }), // delete is a reserved word in JS
 };
 
 
@@ -74,6 +74,6 @@ function checkStatus(response = { status: 404, statusText: 'No response!' }) {
 function getQueryString(params) {
   const esc = encodeURIComponent;
   return Object.keys(params)
-     .map((key) => `${esc(key)}=${esc(params[key])}`)
+     .map(key => `${esc(key)}=${esc(params[key])}`)
      .join('&');
 }
