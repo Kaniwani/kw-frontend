@@ -1,4 +1,4 @@
-import isKanji from 'kanawana/isKanji';
+import isKanji from 'wanakana/isKanji';
 
 export function splitKanji(word = '') {
   return word.split('').filter(isKanji);

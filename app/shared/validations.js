@@ -1,6 +1,6 @@
-import isKanji from 'kanawana/isKanji';
-import isJapanese from 'kanawana/isJapanese';
-import isKana from 'kanawana/isKana';
+import isKanji from 'wanakana/isKanji';
+import isJapanese from 'wanakana/isJapanese';
+import isKana from 'wanakana/isKana';
 
 /**
  * Validation functions for use with Redux-Form Fields

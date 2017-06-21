@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // import { connect } from 'react-redux';
 // import { createStructuredSelector } from 'reselect';
-import bind from 'kanawana/bind';
-import unbind from 'kanawana/unbind';
+import bind from 'wanakana/bind';
+import unbind from 'wanakana/unbind';
 import titleCase from 'voca/title_case';
 
 import { SRS_RANKS, KEYCODES } from 'shared/constants';
