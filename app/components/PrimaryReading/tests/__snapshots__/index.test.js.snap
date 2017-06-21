@@ -1,40 +1,182 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<PrimaryReading /> should match baseline snapshot 1`] = `
-<onlyUpdateForKeys(Component)
-  character="売り上げ"
-  common={true}
-  entry={
-    Object {
-      "character": "売り上げ",
-      "common": true,
-      "id": 351,
-      "jlpt": "JLPT N2",
-      "kana": Array [
-        "うりあげ",
-      ],
-      "level": 5,
-      "sentenceEn": "Sales are down this month.",
-      "sentenceJa": "今月は売上が落ちた",
-      "tags": Array [
-        "Noun",
-      ],
-    }
-  }
-  id={351}
-  jlpt="JLPT N2"
-  kana={
-    Array [
-      "うりあげ",
-    ]
-  }
-  level={5}
-  sentenceEn="Sales are down this month."
-  sentenceJa="今月は売上が落ちた"
-  tags={
-    Array [
-      "Noun",
-    ]
-  }
-/>
+exports[`<PrimaryReading /> mixed mixed should match baseline snapshot 1`] = `
+<div
+  class="sc-bdVaJa fvtXVP"
+>
+  <div
+    class="sc-bwzfXH bAiPGO"
+    lang="JA"
+  >
+    ハート形
+  </div>
+  <ul
+    class="sc-htpNat gfzGem"
+    lang="JA"
+  >
+    <li
+      class="sc-bxivhb bOPCFf"
+    >
+      ハートがた
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`<PrimaryReading /> onlyKana onlyKana should match baseline snapshot 1`] = `
+<div
+  class="sc-bdVaJa fvtXVP"
+>
+  <div
+    class="sc-bwzfXH bAiPGO"
+    lang="JA"
+  >
+    そろそろ
+  </div>
+  <ul
+    class="sc-htpNat gfzGem"
+    lang="JA"
+  >
+    <li
+      class="sc-bxivhb bOPCFf"
+    >
+      そろそろ
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`<PrimaryReading /> partialKanaSentence partialKanaSentence should match baseline snapshot 1`] = `
+<div
+  class="sc-bdVaJa fvtXVP"
+>
+  <div
+    class="sc-bwzfXH bAiPGO"
+    lang="JA"
+  >
+    付く
+  </div>
+  <ul
+    class="sc-htpNat gfzGem"
+    lang="JA"
+  >
+    <li
+      class="sc-bxivhb bOPCFf"
+    >
+      つく
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`<PrimaryReading /> prefix prefix should match baseline snapshot 1`] = `
+<div
+  class="sc-bdVaJa fvtXVP"
+>
+  <div
+    class="sc-bwzfXH bAiPGO"
+    lang="JA"
+  >
+    〜漬け
+  </div>
+  <ul
+    class="sc-htpNat gfzGem"
+    lang="JA"
+  >
+    <li
+      class="sc-bxivhb bOPCFf"
+    >
+      づけ
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`<PrimaryReading /> sameCharacters sameCharacters should match baseline snapshot 1`] = `
+<div
+  class="sc-bdVaJa fvtXVP"
+>
+  <div
+    class="sc-bwzfXH bAiPGO"
+    lang="JA"
+  >
+    近々
+  </div>
+  <ul
+    class="sc-htpNat gfzGem"
+    lang="JA"
+  >
+    <li
+      class="sc-bxivhb bOPCFf"
+    >
+      ちかぢか
+    </li>
+    <li
+      class="sc-bxivhb bOPCFf"
+    >
+      ・
+    </li>
+    <li
+      class="sc-bxivhb bOPCFf"
+    >
+      きんきん
+    </li>
+    <li
+      class="sc-bxivhb bOPCFf"
+    >
+      ・
+    </li>
+    <li
+      class="sc-bxivhb bOPCFf"
+    >
+      ちかじか
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`<PrimaryReading /> single single should match baseline snapshot 1`] = `
+<div
+  class="sc-bdVaJa fvtXVP"
+>
+  <div
+    class="sc-bwzfXH bAiPGO"
+    lang="JA"
+  >
+    売り上げ
+  </div>
+  <ul
+    class="sc-htpNat gfzGem"
+    lang="JA"
+  >
+    <li
+      class="sc-bxivhb bOPCFf"
+    >
+      うりあげ
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`<PrimaryReading /> suffix suffix should match baseline snapshot 1`] = `
+<div
+  class="sc-bdVaJa fvtXVP"
+>
+  <div
+    class="sc-bwzfXH bAiPGO"
+    lang="JA"
+  >
+    各〜
+  </div>
+  <ul
+    class="sc-htpNat gfzGem"
+    lang="JA"
+  >
+    <li
+      class="sc-bxivhb bOPCFf"
+    >
+      かく
+    </li>
+  </ul>
+</div>
 `;

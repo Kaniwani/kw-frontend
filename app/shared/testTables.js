@@ -582,7 +582,7 @@ export const readings = {
       common: true,
     },
   ],
-  prefix: [
+  suffix: [
     {
       id: 2476,
       character: '各〜',
@@ -597,7 +597,7 @@ export const readings = {
       common: null,
     },
   ],
-  suffix: [
+  prefix: [
     {
       id: 6337,
       character: '〜漬け',
