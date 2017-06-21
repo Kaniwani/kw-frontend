@@ -10,9 +10,10 @@ import PageWrapper from 'layouts/PageWrapper';
 VocabLevelsPage.propTypes = {
   levels: PropTypes.array.isRequired,
   userWKLevel: PropTypes.number.isRequired,
+  handleLevelLock: PropTypes.func.isRequired,
 };
 
-export function VocabLevelsPage({ levels, userWKLevel }) {
+export function VocabLevelsPage({ levels, userWKLevel, handleLevelLock }) {
   const PAGE_TITLE = 'Vocabulary: Levels';
 
   return (
@@ -30,6 +31,7 @@ export function VocabLevelsPage({ levels, userWKLevel }) {
         <VocabLevelList
           levels={levels}
           userWKLevel={userWKLevel}
+          handleLevelLock={handleLevelLock}
         />
       </PageWrapper>
     </div>

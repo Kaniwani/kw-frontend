@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
   align-items: center;
 `;
 
-export const Title = styled(H1)`
+export const Title = H1.extend`
   display: inline-flex;
   vertical-align: middle;
   line-height: 1;

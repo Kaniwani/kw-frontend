@@ -1,6 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-
+import { shallow } from 'enzyme';
 import { vocabs } from 'shared/testTables';
 import SessionSummaryPage from '../index';
 
@@ -29,19 +28,5 @@ describe('<SessionSummaryPage />', () => {
       />
     );
     expect(renderedComponent).toMatchSnapshot();
-  });
-  it('should toggle vocabListExpanded when button is clicked', () => {
-    const renderedComponent = mount(
-      <SessionSummaryPage
-        correctItems={items}
-        incorrectItems={items}
-        criticalItems={items}
-        percentCorrect={24}
-        remainingCount={2}
-      />
-    );
-    const prevState = renderedComponent.state('vocabListExpanded');
-    renderedComponent.find('IconButton').simulate('click');
-    expect(renderedComponent.state('vocabListExpanded')).not.toBe(prevState);
   });
 });

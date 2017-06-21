@@ -10,6 +10,7 @@ describe('<VocabLevelsPage />', () => {
       <VocabLevelsPage
         levels={levels.slice(30, 38)}
         userWKLevel={34}
+        handleLevelLock={jest.fn()}
       />
     );
     expect(renderedComponent).toMatchSnapshot();

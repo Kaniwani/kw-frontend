@@ -36,7 +36,7 @@ export const HeadingWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const Heading = styled(H3)`
+export const Heading = H3.extend`
   ${gutter()}
   display: flex;
   margin: 0;

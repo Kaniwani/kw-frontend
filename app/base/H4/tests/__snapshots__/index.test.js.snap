@@ -1,12 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<H1 /> should match styling snapshot 1`] = `
-.RjAlW {
-  font-size: 21.9px;
-  -webkit-letter-spacing: -0.04em;
-  -moz-letter-spacing: -0.04em;
-  -ms-letter-spacing: -0.04em;
-  letter-spacing: -0.04em;
+exports[`<H4 /> should match styling snapshot 1`] = `
+.hFlIEo {
+  font-size: 15.8px;
   padding: 0.28125rem;
   margin-top: 0;
   margin-bottom: 0;
@@ -17,32 +13,32 @@ exports[`<H1 /> should match styling snapshot 1`] = `
   letter-spacing: -1px;
 }
 
-.RjAlW:not(:first-of-type) {
+.hFlIEo:not(:first-of-type) {
   margin-top: 0.3999em;
   margin-bottom: 0;
 }
 
 @media (min-width: 600px) and (max-width: 1800px) {
-  .RjAlW {
-    font-size: calc(21.9px + (41.7 - 21.9) * ( (100vw - 600px) / ( 1800 - 600) ));
+  .hFlIEo {
+    font-size: calc(15.8px + (18.9 - 15.8) * ( (100vw - 600px) / ( 1800 - 600) ));
   }
 }
 
 @media (min-width: 1800px) {
-  .RjAlW {
-    font-size: 41.7px;
+  .hFlIEo {
+    font-size: 18.9px;
   }
 }
 
 @media (min-width: 600px) {
-  .RjAlW {
+  .hFlIEo {
     padding: 0.33325rem;
   }
 }
 
-<h1
-  className="sc-bdVaJa RjAlW"
+<h4
+  className="sc-bdVaJa hFlIEo"
 >
   text
-</h1>
+</h4>
 `;

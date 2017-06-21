@@ -4,25 +4,16 @@ exports[`<Wrapper /> should match baseline snapshot 1`] = `
 <PageWrapper
   fullWidth={false}
   fullWidthBg={false}
-  tag="div"
 >
-  <Styled(Component)
+  <styled.div
     fullWidth={false}
     fullWidthBg={false}
-    tag="div"
   >
-    <Component
-      className="xrKBM"
-      fullWidth={false}
-      fullWidthBg={false}
-      tag="div"
+    <div
+      className="sc-bdVaJa bNkGtT"
     >
-      <div
-        className="xrKBM"
-      >
-        text
-      </div>
-    </Component>
-  </Styled(Component)>
+      text
+    </div>
+  </styled.div>
 </PageWrapper>
 `;

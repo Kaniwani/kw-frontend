@@ -2,7 +2,7 @@
 
 exports[`<IconLink />  should match baseline snapshot of anchor 1`] = `
 <a
-  class="sc-EHOje ekiRvc sc-htpNat jFbERI"
+  class="sc-EHOje coeIrt sc-htpNat jFbERI"
   href="http://google.com"
   title="Does an action"
 >
@@ -29,7 +29,8 @@ exports[`<IconLink />  should match baseline snapshot of anchor 1`] = `
 
 exports[`<IconLink />  should match baseline snapshot of react-router Link 1`] = `
 <a
-  class="sc-EHOje ekiRvc sc-ifAKCX dVeJIm"
+  class="sc-EHOje coeIrt sc-ifAKCX cFlEyZ"
+  href="/path"
   title="Does an action"
 >
   <span

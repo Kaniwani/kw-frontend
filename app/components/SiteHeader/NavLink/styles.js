@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import uuid from 'uuid';
 import { transparentize } from 'polished';
 
 import { Link } from 'react-router-dom';
@@ -7,8 +6,6 @@ import { Link } from 'react-router-dom';
 import { whiteDark, grey, blueLight, purple } from 'shared/styles/colors';
 import { epsilon } from 'shared/styles/typography';
 import { media } from 'shared/styles/media';
-
-const activeClassName = uuid();
 
 export const Text = styled.span`
   position: relative;
@@ -43,9 +40,7 @@ export const Count = styled.span`
   color: ${({ disabled }) => disabled ? grey : blueLight};
 `;
 
-export const RouterLink = styled(Link).attrs({
-  activeClassName,
-})`
+export const RouterLink = styled(Link)`
   display: flex;
   font-size: 1.25em;
   font-weight: 600;
@@ -64,7 +59,7 @@ export const RouterLink = styled(Link).attrs({
   &:hover,
   &:focus,
   &:active,
-  &.${activeClassName} {
+  &.active {
     ${Text}:after {
       opacity: 1;
       width: 100%;
@@ -85,7 +80,7 @@ export const Li = styled.li`
       padding: 1rem 1rem .4rem;
       width: 100%;
 
-      &:hover:not(.${activeClassName}) > ${Text}:after {
+      &:hover:not(.active) > ${Text}:after {
         opacity: 0;
         width: 0;
       }

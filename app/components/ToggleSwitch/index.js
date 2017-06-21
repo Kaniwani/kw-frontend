@@ -10,7 +10,7 @@ const ToggleSwitch = withToggle(({ isToggled, toggle, id, name, ...props }) => (
     type="checkbox"
     id={id}
     name={name}
-    checked={isToggled}
+    isToggled={isToggled}
     onChange={toggle}
     {...props}
   />)

@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -30,4 +31,4 @@ export const ExternalAnchor = styled.a.attrs({
   cursor: pointer;
 `;
 
-export const RouterLink = Anchor.withComponent(Link);
+export const RouterLink = styled(({ plainLink, colorHover, bgColor, bgColorHover, ...rest }) => <Link {...rest} />)``;

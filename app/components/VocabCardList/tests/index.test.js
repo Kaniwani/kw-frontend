@@ -1,12 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+
 import VocabCardList from '../index';
 
 describe('<VocabCardList />', () => {
   const items = [
     {
       id: 12,
-      meaning: 'Before Long, Soon',
+      meanings: ['Before Long', 'Soon'],
       readings: [
         {
           character: '近々',
@@ -20,7 +21,7 @@ describe('<VocabCardList />', () => {
     },
     {
       id: 234,
-      meaning: 'emergency',
+      meanings: ['emergency'],
       readings: [
         {
           kana: 'ひじょう',

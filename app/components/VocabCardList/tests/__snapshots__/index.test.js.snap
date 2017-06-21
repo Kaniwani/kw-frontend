@@ -5,7 +5,12 @@ exports[`<VocabCardList /> should adopt a color prop 1`] = `
   <VocabCard
     color="blue"
     id={12}
-    meaning="Before Long, Soon"
+    meanings={
+      Array [
+        "Before Long",
+        "Soon",
+      ]
+    }
     readings={
       Array [
         Object {
@@ -22,7 +27,11 @@ exports[`<VocabCardList /> should adopt a color prop 1`] = `
   <VocabCard
     color="blue"
     id={234}
-    meaning="emergency"
+    meanings={
+      Array [
+        "emergency",
+      ]
+    }
     readings={
       Array [
         Object {
@@ -48,7 +57,12 @@ exports[`<VocabCardList /> should match baseline snapshot 1`] = `
   <VocabCard
     color="purple"
     id={12}
-    meaning="Before Long, Soon"
+    meanings={
+      Array [
+        "Before Long",
+        "Soon",
+      ]
+    }
     readings={
       Array [
         Object {
@@ -65,7 +79,11 @@ exports[`<VocabCardList /> should match baseline snapshot 1`] = `
   <VocabCard
     color="purple"
     id={234}
-    meaning="emergency"
+    meanings={
+      Array [
+        "emergency",
+      ]
+    }
     readings={
       Array [
         Object {

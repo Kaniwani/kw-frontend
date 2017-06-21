@@ -2,11 +2,11 @@
 
 exports[`<MarkedSentence /> should match baseline snapshot 1`] = `
 <p
-  class="sMpVQ iFxjYr"
+  class="sc-bZQynM bTjbra sc-bxivhb bnhDjc"
   lang="ja"
 >
   <a
-    class="kMmZKU"
+    class="sc-bwzfXH dcrzcy"
     href="http://jisho.org/search/その言葉の漢字は難しい"
     rel="external noopener noreferrer"
     target="_blank"
@@ -14,7 +14,7 @@ exports[`<MarkedSentence /> should match baseline snapshot 1`] = `
   >
     <span />
     <mark
-      class="hMFuqV cjlhSZ"
+      class="sc-gzVnrw cEcPpo sc-ifAKCX ewknst"
       color="inherit"
     />
     <span>
@@ -26,11 +26,11 @@ exports[`<MarkedSentence /> should match baseline snapshot 1`] = `
 
 exports[`<MarkedSentence /> should match character snapshot 1`] = `
 <p
-  class="sMpVQ iFxjYr"
+  class="sc-bZQynM bTjbra sc-bxivhb bnhDjc"
   lang="ja"
 >
   <a
-    class="kMmZKU"
+    class="sc-bwzfXH dcrzcy"
     href="http://jisho.org/search/その言葉の漢字は難しい"
     rel="external noopener noreferrer"
     target="_blank"
@@ -40,7 +40,7 @@ exports[`<MarkedSentence /> should match character snapshot 1`] = `
       その言葉の
     </span>
     <mark
-      class="hMFuqV cjlhSZ"
+      class="sc-gzVnrw cEcPpo sc-ifAKCX ewknst"
       color="inherit"
     >
       漢字
@@ -54,11 +54,11 @@ exports[`<MarkedSentence /> should match character snapshot 1`] = `
 
 exports[`<MarkedSentence /> should match kana snapshot 1`] = `
 <p
-  class="sMpVQ iFxjYr"
+  class="sc-bZQynM bTjbra sc-bxivhb bnhDjc"
   lang="ja"
 >
   <a
-    class="kMmZKU"
+    class="sc-bwzfXH dcrzcy"
     href="http://jisho.org/search/その言葉の漢字は難しい"
     rel="external noopener noreferrer"
     target="_blank"
@@ -66,7 +66,7 @@ exports[`<MarkedSentence /> should match kana snapshot 1`] = `
   >
     <span />
     <mark
-      class="hMFuqV cjlhSZ"
+      class="sc-gzVnrw cEcPpo sc-ifAKCX ewknst"
       color="inherit"
     >
       その

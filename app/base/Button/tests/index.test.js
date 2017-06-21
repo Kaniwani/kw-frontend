@@ -1,5 +1,6 @@
 import React from 'react';
-import { mount, render } from 'enzyme';
+import { mount, shallow } from 'enzyme';
+import { MemoryRouter } from 'react-router-dom';
 
 import Button from '../index';
 
@@ -7,47 +8,45 @@ const href = 'http://google.com';
 const to = '/';
 const children = (<h1>Test</h1>);
 const mountComponent = props => mount(
-  <Button {...props}>
-    {children}
-  </Button>,
+  <MemoryRouter>
+    <Button {...props}>
+      {children}
+    </Button>
+  </MemoryRouter>
 );
-const renderComponent = props => render(
+const shallowComponent = props => shallow(
   <Button {...props}>
     {children}
-  </Button>,
+  </Button>
 );
 
 describe('<Button />', () => {
   it('should match baseline snapshot as A button', () => {
-    expect(renderComponent({ href })).toMatchSnapshot();
+    expect(shallowComponent({ href })).toMatchSnapshot();
   });
 
   it('should match baseline snapshot as Link button', () => {
-    expect(renderComponent({ to })).toMatchSnapshot();
+    expect(shallowComponent({ to })).toMatchSnapshot();
   });
 
   it('should match baseline snapshot as Button button', () => {
-    expect(renderComponent({ onClick: jest.fn() })).toMatchSnapshot();
+    expect(shallowComponent({ onClick: jest.fn() })).toMatchSnapshot();
   });
 
   it('should render an <a> tag if href is specified', () => {
-    const mountedComponent = mountComponent({ href });
-    expect(mountedComponent.find('a').length).toEqual(1);
+    expect(mountComponent({ href }).find('a').length).toEqual(1);
   });
 
   it('should render an <a> tag if "to" prop is specified', () => {
-    const mountedComponent = mountComponent({ to });
-    expect(mountedComponent.find('a').length).toEqual(1);
+    expect(mountComponent({ to }).find('a').length).toEqual(1);
   });
 
   it('should render a <button> tag if the onClick prop is specified', () => {
-    const mountedComponent = mountComponent({ onClick: jest.fn() });
-    expect(mountedComponent.find('button').length).toEqual(1);
+    expect(mountComponent({ onClick: jest.fn() }).find('button').length).toEqual(1);
   });
 
   it('should have children', () => {
-    const mountedComponent = mountComponent({ href });
-    expect(mountedComponent.contains(children)).toBe(true);
+    expect(mountComponent({ href }).contains(children)).toBe(true);
   });
 
   it('should handle click events', () => {

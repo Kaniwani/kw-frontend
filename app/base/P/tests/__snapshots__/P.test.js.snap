@@ -1,28 +1,135 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should adopt a textAlign prop 1`] = `
-<styled.p
-  align="left"
-  textAlign="center"
+.cHKASV {
+  padding: 0.28125rem;
+  font-size: 15.3px;
+  padding: 0.28125rem;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 1.3;
+  max-width: 35em;
+  margin-left: 0;
+  margin-right: 0;
+  -webkit-text-align: center;
+  text-align: center;
+}
+
+@media (min-width: 600px) {
+  .cHKASV {
+    padding: 0.33325rem;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1800px) {
+  .cHKASV {
+    font-size: calc(15.3px + (17.4 - 15.3) * ( (100vw - 600px) / ( 1800 - 600) ));
+  }
+}
+
+@media (min-width: 1800px) {
+  .cHKASV {
+    font-size: 17.4px;
+  }
+}
+
+@media (min-width: 600px) {
+  .cHKASV {
+    padding: 0.33325rem;
+  }
+}
+
+<p
+  className="sc-bdVaJa cHKASV"
 >
   Centered text
-</styled.p>
+</p>
 `;
 
 exports[`should adopt an align prop 1`] = `
-<styled.p
-  align="center"
-  textAlign="left"
+.exymzs {
+  padding: 0.28125rem;
+  font-size: 15.3px;
+  padding: 0.28125rem;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 1.3;
+  max-width: 35em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 600px) {
+  .exymzs {
+    padding: 0.33325rem;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1800px) {
+  .exymzs {
+    font-size: calc(15.3px + (17.4 - 15.3) * ( (100vw - 600px) / ( 1800 - 600) ));
+  }
+}
+
+@media (min-width: 1800px) {
+  .exymzs {
+    font-size: 17.4px;
+  }
+}
+
+@media (min-width: 600px) {
+  .exymzs {
+    padding: 0.33325rem;
+  }
+}
+
+<p
+  className="sc-bdVaJa exymzs"
 >
   Centered element
-</styled.p>
+</p>
 `;
 
-exports[`should render its text 1`] = `
-<styled.p
-  align="left"
-  textAlign="left"
+exports[`should match baseline snapshot 1`] = `
+.jCOcCm {
+  padding: 0.28125rem;
+  font-size: 15.3px;
+  padding: 0.28125rem;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 1.3;
+  max-width: 35em;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@media (min-width: 600px) {
+  .jCOcCm {
+    padding: 0.33325rem;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1800px) {
+  .jCOcCm {
+    font-size: calc(15.3px + (17.4 - 15.3) * ( (100vw - 600px) / ( 1800 - 600) ));
+  }
+}
+
+@media (min-width: 1800px) {
+  .jCOcCm {
+    font-size: 17.4px;
+  }
+}
+
+@media (min-width: 600px) {
+  .jCOcCm {
+    padding: 0.33325rem;
+  }
+}
+
+<p
+  className="sc-bdVaJa jCOcCm"
 >
   Text
-</styled.p>
+</p>
 `;

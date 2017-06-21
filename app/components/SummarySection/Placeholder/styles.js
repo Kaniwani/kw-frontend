@@ -1,8 +1,6 @@
-import styled from 'styled-components';
-
 import H2 from 'base/H2';
 
-export const Heading = styled(H2)`
+export const Heading = H2.extend`
   font-weight: normal;
   display: flex;
   flex-flow: row wrap;

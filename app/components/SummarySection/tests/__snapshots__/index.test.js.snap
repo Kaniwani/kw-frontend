@@ -70,6 +70,7 @@ exports[`<SummarySection /> should adopt all types 1`] = `
             >
               <a
                 class="sc-htoDjs chsupN"
+                href="/vocabulary/entry/553"
               >
                 <span
                   class="sc-dnqmqq DDgta"
@@ -102,6 +103,7 @@ exports[`<SummarySection /> should adopt all types 1`] = `
             >
               <a
                 class="sc-htoDjs chsupN"
+                href="/vocabulary/entry/176"
               >
                 <span
                   class="sc-dnqmqq DDgta"
@@ -189,6 +191,7 @@ exports[`<SummarySection /> should adopt all types 2`] = `
             >
               <a
                 class="sc-htoDjs chsupN"
+                href="/vocabulary/entry/553"
               >
                 <span
                   class="sc-dnqmqq dTLVwP"
@@ -221,6 +224,7 @@ exports[`<SummarySection /> should adopt all types 2`] = `
             >
               <a
                 class="sc-htoDjs chsupN"
+                href="/vocabulary/entry/176"
               >
                 <span
                   class="sc-dnqmqq dTLVwP"
@@ -286,6 +290,7 @@ exports[`<SummarySection /> should adopt all types 3`] = `
         >
           <a
             class="sc-htoDjs chsupN"
+            href="/vocabulary/entry/553"
           >
             <span
               class="sc-dnqmqq hpzYwF"
@@ -318,6 +323,7 @@ exports[`<SummarySection /> should adopt all types 3`] = `
         >
           <a
             class="sc-htoDjs chsupN"
+            href="/vocabulary/entry/176"
           >
             <span
               class="sc-dnqmqq hpzYwF"
@@ -379,10 +385,11 @@ exports[`<SummarySection /> should adopt isExpanded prop 1`] = `
             class="sc-bxivhb eykAIq"
           >
             <a
-              class="sc-ifAKCX ipRurr sc-htpNat fYkZLi"
+              class="sc-ifAKCX ipRurr sc-htpNat KtFsv"
+              href="/vocabulary/entry/553"
             >
               <dl
-                class="sc-EHOje ftmKAE"
+                class="sc-EHOje gAloyo"
                 color="green"
               >
                 <div
@@ -431,10 +438,11 @@ exports[`<SummarySection /> should adopt isExpanded prop 1`] = `
             class="sc-bxivhb eykAIq"
           >
             <a
-              class="sc-ifAKCX ipRurr sc-htpNat fYkZLi"
+              class="sc-ifAKCX ipRurr sc-htpNat KtFsv"
+              href="/vocabulary/entry/176"
             >
               <dl
-                class="sc-EHOje ftmKAE"
+                class="sc-EHOje gAloyo"
                 color="green"
               >
                 <div

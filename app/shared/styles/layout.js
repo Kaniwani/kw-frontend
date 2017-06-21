@@ -1,3 +1,4 @@
+import { css } from 'styled-components';
 import { gutters, siteMaxWidth, siteMaxWidthpx } from './sizing';
 import { media } from './media';
 
@@ -21,7 +22,7 @@ const createGutter = (prop = 'padding', type = 'inner', mod = 1, position) => {
   const mobile = `${gutters.mobile[type] * mod}rem`;
   const desktop = `${gutters.desktop[type] * mod}rem`;
 
-  return `
+  return css`
     ${property}: ${mobile};
     ${media('min').sm`
       ${property}: ${desktop};
@@ -29,12 +30,12 @@ const createGutter = (prop = 'padding', type = 'inner', mod = 1, position) => {
   `;
 };
 
-const createHorizontalGutters = (prop, type, mod) => `
+const createHorizontalGutters = (prop, type, mod) => css`
   ${createGutter(prop, type, mod, 'left')}
   ${createGutter(prop, type, mod, 'right')}
 `;
 
-const createVerticalGutters = (prop, type, mod) => `
+const createVerticalGutters = (prop, type, mod) => css`
   ${createGutter(prop, type, mod, 'top')}
   ${createGutter(prop, type, mod, 'bottom')}
 `;
@@ -49,7 +50,7 @@ export const gutter = ({
     case 'horizontal': return createHorizontalGutters(prop, type, mod);
     case 'vertical': return createVerticalGutters(prop, type, mod);
     case 'all': return createGutter(prop, type, mod);
-    default: return createGutter(prop, type, mod, position);
+    default: return createGutter(prop, type, mod);
   }
 };
 
@@ -57,7 +58,7 @@ export const gutter = ({
  * Uses negative margins to remove top and side padding (for a full width banner effect)
  * Uses half paddings to align side gutters with other sibling elements still
  */
-export const bannerElement = `
+export const bannerElement = css`
   overflow-x: hidden;
   margin: -${gutters.mobile.outer}rem -${gutters.mobile.outer}rem 0;
   padding: 0 ${gutters.mobile.inner}rem ${gutters.mobile.inner}rem;

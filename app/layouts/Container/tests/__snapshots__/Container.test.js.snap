@@ -13,11 +13,10 @@ exports[`<Container /> should match baseline snapshot 1`] = `
   flexWrap={false}
   justifyContent=""
   marginTop=""
-  tag="div"
   textAlign=""
   withPadding={true}
 >
-  <Styled(Component)
+  <styled.div
     alignContent=""
     alignItems=""
     alignSelf=""
@@ -29,33 +28,14 @@ exports[`<Container /> should match baseline snapshot 1`] = `
     flexWrap={false}
     justifyContent=""
     marginTop=""
-    tag="div"
     textAlign=""
     withPadding={true}
   >
-    <Component
-      alignContent=""
-      alignItems=""
-      alignSelf=""
-      className="iINiFg"
-      flex=""
-      flexCenter={false}
-      flexColumn={false}
-      flexDisplay=""
-      flexRow={false}
-      flexWrap={false}
-      justifyContent=""
-      marginTop=""
-      tag="div"
-      textAlign=""
-      withPadding={true}
+    <div
+      className="sc-bdVaJa jidYGz"
     >
-      <div
-        className="iINiFg"
-      >
-        text
-      </div>
-    </Component>
-  </Styled(Component)>
+      text
+    </div>
+  </styled.div>
 </Container>
 `;

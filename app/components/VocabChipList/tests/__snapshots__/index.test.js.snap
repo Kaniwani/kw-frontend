@@ -19,11 +19,12 @@ exports[`<VocabChipList /> should adopt a color prop 1`] = `
       data-tip="
       <ul>
         <li>
-          <span>EN</span>
-          <span>Before Long</span>
-        <li>
           <span>JA </span>
           <span lang=\\"ja\\">ちかぢか</span>
+        </li>
+        <li>
+          <span>EN</span>
+          <span>Before Long</span>
         </li>
         <li>
           <span>RC</span>
@@ -41,11 +42,12 @@ exports[`<VocabChipList /> should adopt a color prop 1`] = `
       data-tip="
       <ul>
         <li>
-          <span>EN</span>
-          <span>Young Lady</span>
-        <li>
           <span>JA </span>
           <span lang=\\"ja\\">しょうじょ</span>
+        </li>
+        <li>
+          <span>EN</span>
+          <span>Young Lady</span>
         </li>
         <li>
           <span>RC</span>
@@ -63,11 +65,12 @@ exports[`<VocabChipList /> should adopt a color prop 1`] = `
       data-tip="
       <ul>
         <li>
-          <span>EN</span>
-          <span>Young Boy</span>
-        <li>
           <span>JA </span>
           <span lang=\\"ja\\">しょうねん</span>
+        </li>
+        <li>
+          <span>EN</span>
+          <span>Young Boy</span>
         </li>
         <li>
           <span>RC</span>
@@ -100,11 +103,12 @@ exports[`<VocabChipList /> should match baseline snapshot 1`] = `
       data-tip="
       <ul>
         <li>
-          <span>EN</span>
-          <span>Before Long</span>
-        <li>
           <span>JA </span>
           <span lang=\\"ja\\">ちかぢか</span>
+        </li>
+        <li>
+          <span>EN</span>
+          <span>Before Long</span>
         </li>
         <li>
           <span>RC</span>
@@ -122,11 +126,12 @@ exports[`<VocabChipList /> should match baseline snapshot 1`] = `
       data-tip="
       <ul>
         <li>
-          <span>EN</span>
-          <span>Young Lady</span>
-        <li>
           <span>JA </span>
           <span lang=\\"ja\\">しょうじょ</span>
+        </li>
+        <li>
+          <span>EN</span>
+          <span>Young Lady</span>
         </li>
         <li>
           <span>RC</span>
@@ -144,11 +149,12 @@ exports[`<VocabChipList /> should match baseline snapshot 1`] = `
       data-tip="
       <ul>
         <li>
-          <span>EN</span>
-          <span>Young Boy</span>
-        <li>
           <span>JA </span>
           <span lang=\\"ja\\">しょうねん</span>
+        </li>
+        <li>
+          <span>EN</span>
+          <span>Young Boy</span>
         </li>
         <li>
           <span>RC</span>

@@ -11,14 +11,14 @@ export const Reading = styled.div`
   text-align: center;
 `;
 
-export const Character = styled(P)`
+export const Character = P.extend`
   text-align: center;
   flex: 0 1 100%;
   margin: 0 1rem;
   font-size: 2.6em;
 `;
 
-export const Kana = styled(Character)`
+export const Kana = Character.extend`
   font-size: 1.5em;
   margin-top: 0; /* overwrite <P> style */
   color: ${greyDark};

@@ -5,12 +5,8 @@ import { gutter } from 'shared/styles/layout';
 const Ul = styled.ul`
   margin-top: 0;
   margin-bottom: 0;
-  ${({ plainList }) => plainList ? `
-    ${resetList}
-    ${gutter()}
-  ` : `
-    ${gutter({ position: 'vertical' })}
-  `}
+  ${({ plainList }) => plainList && resetList}
+  ${({ plainList }) => plainList ? gutter() : gutter({ position: 'vertical' })}
 `;
 
 export default Ul;

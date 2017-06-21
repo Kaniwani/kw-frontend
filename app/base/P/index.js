@@ -1,25 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { epsilon, bodyRhythm } from 'shared/styles/typography';
+import { gutter } from 'shared/styles/layout';
 
-import { StyledP } from './styles';
+const lineLengthMixin = ({ align }) => `
+  max-width: 35em;
+  margin-left: ${align === 'center' ? 'auto' : 0};
+  margin-right: ${align === 'center' ? 'auto' : 0};
+`;
 
-P.propTypes = {
-  children: PropTypes.node.isRequired,
-  textAlign: PropTypes.oneOf(['left', 'center', 'right']),
-  align: PropTypes.oneOf(['left', 'center', 'right']),
-};
+const textAlignMixin = ({ textAlign }) => textAlign && `text-align: ${textAlign};`;
 
-P.defaultProps = {
-  textAlign: 'left',
-  align: 'left',
-};
-
-function P({ children, textAlign, align, ...props }) {
-  return (
-    <StyledP textAlign={textAlign} align={align} {...props}>
-      {children}
-    </StyledP>
-  );
-}
+export const P = styled.p`
+  ${gutter()}
+  ${epsilon}
+  ${bodyRhythm}
+  ${lineLengthMixin}
+  ${textAlignMixin}
+`;
 
 export default P;

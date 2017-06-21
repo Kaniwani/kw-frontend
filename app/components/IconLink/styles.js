@@ -6,7 +6,7 @@ import { fastEaseQuad } from 'shared/styles/animation';
 export const Link = styled(A)`
   transition: all ${fastEaseQuad}, transform 100ms linear;
   cursor: pointer;
-  opacity: .7;
+  opacity: 1;
   transform: scale(1);
 
   &:focus,

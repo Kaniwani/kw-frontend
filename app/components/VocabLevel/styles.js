@@ -38,7 +38,7 @@ export const LevelLink = styled(A)`
   align-items: center;
 `;
 
-export const Title = styled(H2)`
+export const Title = H2.extend`
   color: inherit;
   margin-right: .75em;
 `;

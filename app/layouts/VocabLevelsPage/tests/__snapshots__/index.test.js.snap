@@ -50,9 +50,13 @@ exports[`<VocabLevelsPage /> should match baseline snapshot 1`] = `
   <PageWrapper
     fullWidth={false}
     fullWidthBg={false}
-    tag="div"
   >
+    <VocabPageHeader
+      pageTitle="Vocabulary: Levels"
+      withVocabListToggle={false}
+    />
     <VocabLevelList
+      handleLevelLock={[Function]}
       levels={
         Array [
           Object {

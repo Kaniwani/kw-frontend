@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
   align-items: center;
 `;
 
-export const Heading = styled(H3)`
+export const Heading = H3.extend`
   display: flex;
   margin: 0;
   opacity: .8;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'enzyme';
-
+import { MemoryRouter } from 'react-router-dom';
 import { vocabs } from 'shared/testTables';
 import { TYPES } from '../constants';
 import SummarySection from '../index';
@@ -23,20 +23,26 @@ describe('<SummarySection />', () => {
 
   it('should adopt all types', () => {
     const renderedComponents = SECTION_TYPES.map(TYPE => render(
-      <SummarySection
-        type={TYPE}
-        items={items}
-      />));
+      <MemoryRouter>
+        <SummarySection
+          type={TYPE}
+          items={items}
+        />
+      </MemoryRouter>
+    ));
     renderedComponents.forEach(component => expect(component).toMatchSnapshot());
   });
 
   it('should adopt isExpanded prop', () => {
     const renderedComponent = render(
-      <SummarySection
-        type={SECTION_TYPES[0]}
-        items={items}
-        isExpanded
-      />);
+      <MemoryRouter>
+        <SummarySection
+          type={SECTION_TYPES[0]}
+          items={items}
+          isExpanded
+        />
+      </MemoryRouter>
+      );
     expect(renderedComponent).toMatchSnapshot();
   });
 });

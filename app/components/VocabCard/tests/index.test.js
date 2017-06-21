@@ -9,11 +9,11 @@ describe('<VocabCard />', () => {
   const readings = [
     {
       character: '近々',
-      kana: 'ちかぢか, きんきん, ちかじか',
+      kana: ['ちかぢか, きんきん, ちかじか'],
     },
     {
       character: '間もなく',
-      kana: 'まもなく',
+      kana: ['まもなく'],
     },
   ];
 

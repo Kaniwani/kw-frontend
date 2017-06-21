@@ -1,19 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Mark /> should adopt color and bgColor props 1`] = `
-<styled.mark
+.jgvsMJ {
+  color: tomato;
+  background-color: purple;
+  padding: 1px 2px 2px;
+  border-radius: 2px;
+}
+
+<Mark
   bgColor="purple"
   color="tomato"
 >
-  Mark me!
-</styled.mark>
+  <styled.mark
+    bgColor="purple"
+    color="tomato"
+  >
+    <mark
+      className="sc-bdVaJa jgvsMJ"
+      color="tomato"
+    >
+      Mark me!
+    </mark>
+  </styled.mark>
+</Mark>
 `;
 
 exports[`<Mark /> should match baseline snapshot with defaultProps 1`] = `
-<styled.mark
+.ihauwQ {
+  color: inherit;
+  background-color: rgba(48,192,249,0.8);
+  padding: 1px 2px 2px;
+  border-radius: 2px;
+}
+
+<Mark
   bgColor="rgba(48,192,249,0.8)"
   color="inherit"
 >
-  Mark me!
-</styled.mark>
+  <styled.mark
+    bgColor="rgba(48,192,249,0.8)"
+    color="inherit"
+  >
+    <mark
+      className="sc-bdVaJa ihauwQ"
+      color="inherit"
+    >
+      Mark me!
+    </mark>
+  </styled.mark>
+</Mark>
 `;

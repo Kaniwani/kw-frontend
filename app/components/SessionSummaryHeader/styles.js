@@ -23,6 +23,6 @@ export const Wrapper = styled.nav`
   justify-content: space-between;
 `;
 
-export const Title = styled(H1)`
+export const Title = H1.extend`
   margin-left: .5rem;
 `;

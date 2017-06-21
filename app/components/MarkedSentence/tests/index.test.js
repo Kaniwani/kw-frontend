@@ -15,6 +15,7 @@ describe('<MarkedSentence />', () => {
       <MarkedSentence
         sentence="その言葉の漢字は難しい"
         character="漢字"
+        kana={['かんじ']}
       />);
     expect(renderedComponent).toMatchSnapshot();
   });
@@ -22,7 +23,7 @@ describe('<MarkedSentence />', () => {
     const renderedComponent = render(
       <MarkedSentence
         sentence="その言葉の漢字は難しい"
-        kana="その"
+        kana={['その']}
       />);
     expect(renderedComponent).toMatchSnapshot();
   });

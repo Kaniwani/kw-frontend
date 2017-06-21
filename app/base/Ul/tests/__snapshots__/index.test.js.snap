@@ -1,24 +1,74 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Ul /> should adopt a plainList prop to reset list styles 1`] = `
-<styled.ul
-  plainList={true}
->
-  <ul
-    className="lmKKkx"
-  />
-</styled.ul>
+.fKibZi {
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style: none;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  padding: 0.28125rem;
+}
+
+@media (min-width: 600px) {
+  .fKibZi {
+    padding: 0.33325rem;
+  }
+}
+
+<ul
+  className="sc-bdVaJa fKibZi"
+/>
 `;
 
-exports[`<Ul /> should match baseline snapshot 1`] = `
+exports[`<Ul /> should match styling snapshot 1`] = `
+.iyAeGL {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0.28125rem;
+  padding-bottom: 0.28125rem;
+}
+
+@media (min-width: 600px) {
+  .iyAeGL {
+    padding-top: 0.33325rem;
+  }
+}
+
+@media (min-width: 600px) {
+  .iyAeGL {
+    padding-bottom: 0.33325rem;
+  }
+}
+
 <ul
-  className="ffrNXW"
+  className="sc-bdVaJa iyAeGL"
 />
 `;
 
 exports[`<Ul /> should render children 1`] = `
+.iyAeGL {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0.28125rem;
+  padding-bottom: 0.28125rem;
+}
+
+@media (min-width: 600px) {
+  .iyAeGL {
+    padding-top: 0.33325rem;
+  }
+}
+
+@media (min-width: 600px) {
+  .iyAeGL {
+    padding-bottom: 0.33325rem;
+  }
+}
+
 <ul
-  className="ffrNXW"
+  className="sc-bdVaJa iyAeGL"
 >
   <li>
     One

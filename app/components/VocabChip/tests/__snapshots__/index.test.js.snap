@@ -4,8 +4,7 @@ exports[`<VocabChip /> should adopt a color prop 1`] = `
 <styled.li
   bgColor="orange"
 >
-  <Styled(A)
-    plainLink={true}
+  <Styled(Link)
     to="/vocabulary/entry/42"
   >
     <styled.span
@@ -14,7 +13,7 @@ exports[`<VocabChip /> should adopt a color prop 1`] = `
     >
       蟹鰐
     </styled.span>
-  </Styled(A)>
+  </Styled(Link)>
 </styled.li>
 `;
 
@@ -22,8 +21,7 @@ exports[`<VocabChip /> should match baseline snapshot 1`] = `
 <styled.li
   bgColor="purple"
 >
-  <Styled(A)
-    plainLink={true}
+  <Styled(Link)
     to="/vocabulary/entry/42"
   >
     <styled.span
@@ -32,6 +30,6 @@ exports[`<VocabChip /> should match baseline snapshot 1`] = `
     >
       蟹鰐
     </styled.span>
-  </Styled(A)>
+  </Styled(Link)>
 </styled.li>
 `;

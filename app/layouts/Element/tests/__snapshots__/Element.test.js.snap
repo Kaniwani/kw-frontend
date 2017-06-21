@@ -13,10 +13,9 @@ exports[`<Element /> should match baseline snapshot 1`] = `
   flexWrap={false}
   fullRow={false}
   justifyContent=""
-  tag="div"
   textAlign=""
 >
-  <Styled(Component)
+  <styled.div
     alignContent=""
     alignItems=""
     alignSelf=""
@@ -28,31 +27,13 @@ exports[`<Element /> should match baseline snapshot 1`] = `
     flexWrap={false}
     fullRow={false}
     justifyContent=""
-    tag="div"
     textAlign=""
   >
-    <Component
-      alignContent=""
-      alignItems=""
-      alignSelf=""
-      className="chnckK"
-      flex=""
-      flexCenter={false}
-      flexColumn={false}
-      flexDisplay=""
-      flexRow={false}
-      flexWrap={false}
-      fullRow={false}
-      justifyContent=""
-      tag="div"
-      textAlign=""
+    <div
+      className="sc-bdVaJa kEHcfi"
     >
-      <div
-        className="chnckK"
-      >
-        text
-      </div>
-    </Component>
-  </Styled(Component)>
+      text
+    </div>
+  </styled.div>
 </Element>
 `;

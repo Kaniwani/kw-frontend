@@ -1,3 +1,4 @@
+import 'jest-styled-components';
 import { shallow, mount, render } from 'enzyme';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
@@ -35,6 +36,6 @@ describe('<A />', () => {
     const renderedComponent = render(
       <A href={href} external />
     );
-    expect(renderedComponent).toMatchSnapshot();
+    expect(renderedComponent).toMatchStyledComponentsSnapshot();
   });
 });

@@ -1,12 +1,14 @@
 import React from 'react';
 import { render } from 'enzyme';
+import { MemoryRouter } from 'react-router-dom';
+import SiteHeader from '../index';
 
-import SiteNav from '../index';
-
-describe('<SiteNav />', () => {
+describe('<SiteHeader />', () => {
   it('should match baseline snapshot', () => {
     const renderedComponent = render(
-      <SiteNav />
+      <MemoryRouter>
+        <SiteHeader />
+      </MemoryRouter>
     );
     expect(renderedComponent).toMatchSnapshot();
   });

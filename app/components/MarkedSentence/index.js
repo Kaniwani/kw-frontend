@@ -14,7 +14,7 @@ MarkedSentence.propTypes = {
 
 MarkedSentence.defaultProps = {
   character: '',
-  kana: '',
+  kana: [],
 };
 
 function MarkedSentence({ sentence, character, kana }) {

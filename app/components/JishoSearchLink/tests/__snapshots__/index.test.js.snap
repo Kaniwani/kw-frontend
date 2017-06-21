@@ -2,7 +2,7 @@
 
 exports[`<JishoSearchLink /> should match base snapshot 1`] = `
 <a
-  class="hGKpsa kMmZKU"
+  class="sc-EHOje coeIrt sc-bxivhb elhyLk"
   href="//jisho.org/search/かな"
   rel="external noopener noreferrer"
   tabindex="-1"
@@ -10,12 +10,12 @@ exports[`<JishoSearchLink /> should match base snapshot 1`] = `
   title="Search Jisho for かな"
 >
   <span
-    class="FjeAj"
+    class="sc-bdVaJa bSERFw"
     color="currentColor"
     display="block"
   >
     <svg
-      class="hfAVjD"
+      class="sc-bwzfXH jDcJbc"
       height="100%"
       preserveaspectratio="xMidYMid meet"
       title="WORD_SEARCH"

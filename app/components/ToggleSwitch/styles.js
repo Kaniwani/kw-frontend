@@ -1,17 +1,19 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { darken, transparentize, timingFunctions } from 'polished';
 import * as COLORS from 'shared/styles/colors';
 
 // toggle background
-const beforeMixin = ({ checked, width, height, toggleOnColor, toggleOffColor }) => {
-  const position = `position: ${checked ? 'absolute' : 'relative'}`;
-  const bgColor = checked ? COLORS[toggleOnColor] : COLORS[toggleOffColor];
-  const boxShadow = checked && `
+const beforeMixin = ({ isToggled, width, height, toggleOnColor, toggleOffColor }) => {
+  const position = `
+    position: ${isToggled ? 'absolute' : 'relative'};
+  `;
+  const bgColor = isToggled ? COLORS[toggleOnColor] : COLORS[toggleOffColor];
+  const boxShadow = isToggled && `
     box-shadow: inset 0 0 8px -2px ${COLORS.greyDark},
       0 -4px 8px -3px ${transparentize(0.3, COLORS.greyLight)},
       0 2px 6px ${COLORS.whiteDark};
   `;
-  return `
+  return css`
     display: block;
     visibility: visible;
     content: "";
@@ -28,9 +30,9 @@ const beforeMixin = ({ checked, width, height, toggleOnColor, toggleOffColor }) 
 };
 
 // toggle knob
-const afterMixin = ({ checked, width, height }) => {
-  const transform = `translateX(${checked ? '2px' : `calc((${width} - (${width} /3)) + 2px)`})`;
-  return `
+const afterMixin = ({ isToggled, width, height }) => {
+  const transform = `translateX(${isToggled ? '2px' : `calc((${width} - (${width} /3)) + 2px)`})`;
+  return css`
     display: block;
     visibility: visible;
     position: absolute;

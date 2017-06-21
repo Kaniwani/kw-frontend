@@ -5,7 +5,7 @@ const withToggle = compose(
   withHandlers({
     toggleOn: ({ updateToggle }) => (/* event */) => updateToggle(true),
     toggleOff: ({ updateToggle }) => (/* event */) => updateToggle(false),
-    toggle: ({ updateToggle }) => (/* event */) => updateToggle((currentValue) => !currentValue),
+    toggle: ({ updateToggle }) => (/* event */) => updateToggle(currentValue => !currentValue),
   })
 );
 

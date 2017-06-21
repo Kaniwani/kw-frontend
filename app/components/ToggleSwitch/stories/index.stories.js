@@ -1,6 +1,5 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 import ToggleSwitch from '../index';
 
 storiesOf('components.ToggleSwitch', module)
@@ -8,16 +7,14 @@ storiesOf('components.ToggleSwitch', module)
     <ToggleSwitch
       id="toggle1"
       name="someToggle1"
-      handleChange={action('ToggleSwitch-change')}
-      isChecked
+      isToggled
     />
   ))
   .add('ToggleSwitch with custom props', () => (
     <ToggleSwitch
       id="toggle2"
       name="someToggle2"
-      handleChange={action('ToggleSwitch-change')}
-      isChecked={false}
+      isToggled={false}
       width="12rem"
       height="4rem"
       toggleOnColor="purple"

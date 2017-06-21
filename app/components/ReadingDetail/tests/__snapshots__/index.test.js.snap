@@ -2,16 +2,16 @@
 
 exports[`<ReadingDetail /> should match baseline snapshot 1`] = `
 <styled.div>
-  <Styled(P)
+  <styled.p
     lang="ja"
   >
     近
-  </Styled(P)>
-  <Styled(P)
+  </styled.p>
+  <styled.p
     lang="ja"
   >
     ちか
     じか
-  </Styled(P)>
+  </styled.p>
 </styled.div>
 `;

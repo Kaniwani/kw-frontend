@@ -8,22 +8,17 @@ exports[`<VocabLevel /> should adopt props 1`] = `
     plainLink={true}
     to="/vocabulary/level/12"
   >
-    <styled.h2>
-      <styled.span
-        isActionable={true}
-      >
-        Level 
-        12
-      </styled.span>
-      <styled.span>
-         
-        126
-         entries
-      </styled.span>
-    </styled.h2>
+    <Styled(styled.h2)>
+      Level 
+      12
+    </Styled(styled.h2)>
+    <styled.span>
+       
+      126
+       entries
+    </styled.span>
   </Styled(A)>
   <Styled(LockButton)
-    handleClick={[Function]}
     isActionable={true}
     isLocked={false}
     title="Lock level 12"
@@ -39,17 +34,15 @@ exports[`<VocabLevel /> should match baseline snapshot 1`] = `
     plainLink={true}
     to="/vocabulary/level/12"
   >
-    <styled.h2>
-      <styled.span
-        isActionable={false}
-      >
-        Level 
-        12
-      </styled.span>
-    </styled.h2>
+    <Styled(styled.h2)>
+      Level 
+      12
+    </Styled(styled.h2)>
+    <styled.span>
+      Locked
+    </styled.span>
   </Styled(A)>
   <Styled(LockButton)
-    handleClick={[Function]}
     isActionable={false}
     isLocked={true}
     title="Unlock level 12"

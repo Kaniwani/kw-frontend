@@ -12,7 +12,7 @@ const Wrapper = styled(PageWrapper)`
   background: #e5e5e5; /* same as background-image */
 `;
 
-const Title = styled(H1)`
+const Title = H1.extend`
   ${godzilla}
   letter-spacing: -0.04em;
   padding-top: .3em;

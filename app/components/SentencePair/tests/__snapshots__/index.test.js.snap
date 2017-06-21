@@ -19,7 +19,7 @@ exports[`<SentencePair /> should match baseline snapshot 1`] = `
         今月は
       </span>
       <mark
-        class="sc-gzVnrw cEcPpo sc-ifAKCX KExaI"
+        class="sc-gzVnrw cEcPpo sc-ifAKCX ewknst"
         color="inherit"
       >
         売上
