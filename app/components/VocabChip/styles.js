@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { darken } from 'polished';
 
-import { Link } from 'react-router-dom';
+import A from 'base/A';
 
 import * as COLORS from 'shared/styles/colors';
 import { beta } from 'shared/styles/typography';
@@ -17,12 +17,12 @@ export const ListItem = styled.li`
   border-radius: ${borderRadius};
   color: ${COLORS.whiteLight};
   max-width: 100%;
-  text-decoration: none;
   vertical-align: middle;
   cursor: pointer;
+  text-decoration: none;
 `;
 
-export const RouterLink = styled(Link)`
+export const Link = styled(A)`
   display: block;
   color: currentColor;
   padding: .4rem .6rem;

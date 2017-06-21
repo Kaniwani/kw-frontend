@@ -31,4 +31,7 @@ export const ExternalAnchor = styled.a.attrs({
   cursor: pointer;
 `;
 
-export const RouterLink = styled(({ plainLink, colorHover, bgColor, bgColorHover, ...rest }) => <Link {...rest} />)``;
+export const RouterLink = styled(({ plainLink, colorHover, bgColor, bgColorHover, ...rest }) => <Link {...rest} />)`
+  ${({ plainLink }) => plainLink ? plainStyles : linkStyles}
+  cursor: pointer;
+`;

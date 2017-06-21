@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import ReactTooltip from 'react-tooltip';
 import Routes from 'routes';
 import withProgressBar from 'components/ProgressBar';
-import makeSelectLocation from './selectors';
+import { makeSelectLocation } from './selectors';
 
 function App() {
   return (
