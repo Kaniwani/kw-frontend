@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import isNumber from 'lodash/isNumber';
 
-import { Li, RouterLink, Text, Count } from './styles';
+import { Li, Link, Text, Count } from './styles';
 
 NavLink.propTypes = {
   to: PropTypes.string.isRequired,
@@ -30,7 +30,8 @@ function NavLink({
 }) {
   return (
     <Li isOffCanvas={isOffCanvas}>
-      <RouterLink
+      <Link
+        plainLink
         to={to}
         disabled={isDisabled}
       >
@@ -38,7 +39,7 @@ function NavLink({
           {text}
           {isNumber(count) && <Count disabled={isDisabled}>{count}</Count>}
         </Text>
-      </RouterLink>
+      </Link>
     </Li>
   );
 }

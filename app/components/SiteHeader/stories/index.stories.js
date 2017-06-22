@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import SiteNav from '../index';
+import SiteHeader from '../index';
 
-storiesOf('components.SiteNav', module)
-  .add('SiteNav', () => <SiteNav />);
+storiesOf('components.SiteHeader', module)
+  .add('SiteHeader', () => <SiteHeader />);

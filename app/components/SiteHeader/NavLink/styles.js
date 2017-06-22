@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { transparentize } from 'polished';
 
-import { Link } from 'react-router-dom';
+import A from 'base/A';
 
 import { whiteDark, grey, blueLight, purple } from 'shared/styles/colors';
 import { epsilon } from 'shared/styles/typography';
@@ -40,7 +40,7 @@ export const Count = styled.span`
   color: ${({ disabled }) => disabled ? grey : blueLight};
 `;
 
-export const RouterLink = styled(Link)`
+export const Link = styled(A)`
   display: flex;
   font-size: 1.25em;
   font-weight: 600;

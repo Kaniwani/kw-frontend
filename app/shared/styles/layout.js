@@ -50,7 +50,7 @@ export const gutter = ({
     case 'horizontal': return createHorizontalGutters(prop, type, mod);
     case 'vertical': return createVerticalGutters(prop, type, mod);
     case 'all': return createGutter(prop, type, mod);
-    default: return createGutter(prop, type, mod);
+    default: return createGutter(prop, type, mod, position);
   }
 };
 
