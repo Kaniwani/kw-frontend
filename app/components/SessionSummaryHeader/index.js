@@ -13,8 +13,8 @@ import {
 
 SessionSummaryHeader.propTypes = {
   category: PropTypes.string.isRequired,
-  count: PropTypes.number,
   linkRoute: PropTypes.string.isRequired,
+  count: PropTypes.number,
 };
 
 SessionSummaryHeader.defaultProps = {

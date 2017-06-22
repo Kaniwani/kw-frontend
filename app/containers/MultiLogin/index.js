@@ -117,7 +117,7 @@ class MultiLogin extends React.PureComponent { // eslint-disable-line react/pref
             title="Get WK API key"
             name="HELP"
             color="black"
-            href="https://www.wanikani.com/settings/account"
+            href="https://www.wanikani.com/settings/account#public-api-key"
             isHidden={notRegisterSelected}
             external
           >
