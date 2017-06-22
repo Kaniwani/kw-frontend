@@ -22,6 +22,10 @@ import App from 'containers/App';
 // Import Language Provider
 import LanguageProvider from 'containers/LanguageProvider';
 
+// Import default LoadingComponent provider and LoadingIndicator that will be used as a loading component
+import DefaultLoadingComponentProvider from 'routing/DefaultLoadingComponentProvider';
+import LoadingIndicator from 'components/LoadingIndicator';
+
 // Load the favicon, the manifest.json file and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
 import '!file-loader?name=[name].[ext]!./favicon.ico';
@@ -48,9 +52,11 @@ const render = (messages) => {
   ReactDOM.render(
     <Provider store={store}>
       <LanguageProvider messages={messages}>
-        <ConnectedRouter history={history}>
-          <App />
-        </ConnectedRouter>
+        <DefaultLoadingComponentProvider component={LoadingIndicator}>
+          <ConnectedRouter history={history}>
+            <App />
+          </ConnectedRouter>
+        </DefaultLoadingComponentProvider>
       </LanguageProvider>
     </Provider>,
     document.getElementById('app')

@@ -1,27 +1,28 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { createStructuredSelector } from 'reselect';
-
+import { Switch, Route } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
-import Routes from 'routes';
-import withProgressBar from 'components/ProgressBar';
-import { makeSelectLocation } from './selectors';
 
-function App() {
-  return (
-    <div>
-      <Helmet titleTemplate="%s - KaniWani">
-        <meta name="description" content="KaniWani - An English to Japanese SRS Quiz WebApp" />
-      </Helmet>
-      <ReactTooltip id="globalTooltip" />
-      <Routes />
-    </div>
-  );
+import HomePage from 'containers/HomePage/Loadable';
+import NotFoundPage from 'containers/NotFoundPage/Loadable';
+
+// must be Component not stateless for Loadable to work
+export class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  render() {
+    return (
+      <div>
+        <Helmet titleTemplate="%s - KaniWani">
+          <meta name="description" content="KaniWani - An English to Japanese SRS Quiz WebApp" />
+        </Helmet>
+        <ReactTooltip id="globalTooltip" />
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          {/* TODO: other routes! */}
+          <Route path="" component={NotFoundPage} />
+        </Switch>
+      </div>
+    );
+  }
 }
 
-const mapStateToProps = createStructuredSelector({
-  location: makeSelectLocation(),
-});
-
-export default withProgressBar(connect(mapStateToProps)(App));
+export default App;

@@ -25,10 +25,10 @@
   },
   "rules": {
     "arrow-parens": [
-      "error",
+      2,
       "as-needed",
       {
-        "requireForBlockBody": true 
+        "requireForBlockBody": true
       }
     ],
     "comma-dangle": [

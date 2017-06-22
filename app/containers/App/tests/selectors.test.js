@@ -1,5 +1,3 @@
-import { fromJS } from 'immutable';
-
 import {
   selectGlobal,
   makeSelectLoading,
@@ -9,10 +7,10 @@ import {
 
 describe('selectGlobal', () => {
   it('should select the global state', () => {
-    const globalState = fromJS({});
-    const mockedState = fromJS({
+    const globalState = {};
+    const mockedState = {
       global: globalState,
-    });
+    };
     expect(selectGlobal(mockedState)).toEqual(globalState);
   });
 });
@@ -21,11 +19,11 @@ describe('makeSelectLoading', () => {
   const loadingSelector = makeSelectLoading();
   it('should select the loading', () => {
     const loading = false;
-    const mockedState = fromJS({
+    const mockedState = {
       global: {
         loading,
       },
-    });
+    };
     expect(loadingSelector(mockedState)).toEqual(loading);
   });
 });
@@ -34,11 +32,11 @@ describe('makeSelectError', () => {
   const errorSelector = makeSelectError();
   it('should select the error', () => {
     const error = 404;
-    const mockedState = fromJS({
+    const mockedState = {
       global: {
         error,
       },
-    });
+    };
     expect(errorSelector(mockedState)).toEqual(error);
   });
 });
@@ -46,12 +44,12 @@ describe('makeSelectError', () => {
 describe('makeSelectLocation', () => {
   const locationStateSelector = makeSelectLocation();
   it('should select the location', () => {
-    const route = fromJS({
+    const route = {
       location: { pathname: '/foo' },
-    });
-    const mockedState = fromJS({
+    };
+    const mockedState = {
       route,
-    });
-    expect(locationStateSelector(mockedState)).toEqual(route.get('location'));
+    };
+    expect(locationStateSelector(mockedState)).toEqual(route.location);
   });
 });

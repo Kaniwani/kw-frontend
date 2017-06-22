@@ -2,9 +2,8 @@
   "name": "Kaniwani",
   "theme_color": "#b1624d",
   "background_color": "#fafafa",
-  "start_url": "/",
   "display": "standalone",
-  "splash_pages": null,
+  "start_url": "/",
   "icons": [
     {
       "src": "favicon.png",

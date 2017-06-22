@@ -6,6 +6,7 @@
 import { combineReducers } from 'redux';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
+import globalReducer from 'containers/App/reducer';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import notificationsReducer from 'containers/Notifications/reducer';
 
@@ -31,7 +32,8 @@ function routeReducer(state = routeInitialState, { type, payload }) {
 // Creates the main reducer with the asynchronously loaded ones
 export default function createReducer(asyncReducers) {
   return combineReducers({
-    routing: routeReducer,
+    route: routeReducer,
+    global: globalReducer,
     language: languageProviderReducer,
     notifications: notificationsReducer,
     ...asyncReducers,

@@ -6,8 +6,8 @@ exports[`<HomePage /> should match the baseline snapshot 1`] = `
     entry={
       Object {
         "history": Object {
-          "correct": 9,
-          "incorrect": 10,
+          "correct": 0,
+          "incorrect": 2,
         },
         "id": 553,
         "meanings": Array [
@@ -77,9 +77,9 @@ exports[`<HomePage /> should match the baseline snapshot 1`] = `
           },
         ],
         "session": Object {
-          "correct": 3,
-          "incorrect": 6,
-          "streak": 4,
+          "correct": 9,
+          "incorrect": 5,
+          "streak": 8,
         },
         "synonyms": Array [
           Object {

@@ -4,23 +4,23 @@
 
 import { createSelector } from 'reselect';
 
-const selectGlobal = state => state.get('global');
+const selectGlobal = state => state.global;
 
-const selectRoute = state => state.get('route');
+const selectRoute = state => state.route;
 
 const makeSelectLoading = () => createSelector(
   selectGlobal,
-  globalState => globalState.get('loading')
+  globalState => globalState.loading
 );
 
 const makeSelectError = () => createSelector(
   selectGlobal,
-  globalState => globalState.get('error')
+  globalState => globalState.error
 );
 
 const makeSelectLocation = () => createSelector(
   selectRoute,
-  routeState => routeState.get('location')
+  routeState => routeState.location
 );
 
 export {

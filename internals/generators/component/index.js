@@ -38,6 +38,11 @@ module.exports = {
     name: 'wantMessages',
     default: false,
     message: 'Do you want i18n messages (i.e. will this component use text)?',
+  }, {
+    type: 'confirm',
+    name: 'wantLoadable',
+    default: false,
+    message: 'Do you want to load the component asynchronously?',
   }],
   actions: (data) => {
     // Generate index.js and index.test.js
@@ -63,16 +68,6 @@ module.exports = {
       path: '../../app/components/{{properCase name}}/tests/index.test.js',
       templateFile: './component/test.js.hbs',
       abortOnFail: true,
-    }, {
-      type: 'add',
-      path: '../../app/components/{{properCase name}}/loader.js',
-      templateFile: './component/loader.js.hbs',
-      abortOnFail: true,
-    }, {
-      type: 'add',
-      path: '../../app/components/{{properCase name}}/tests/loader.test.js',
-      templateFile: './component/loader.test.js.hbs',
-      abortOnFail: true,
     }];
 
     if (data.wantStories) {
@@ -80,6 +75,15 @@ module.exports = {
         type: 'add',
         path: '../../app/components/{{properCase name}}/stories/index.stories.js',
         templateFile: './component/stories.js.hbs',
+        abortOnFail: true,
+      });
+    }
+
+    if (data.wantLoadable) {
+      actions.push({
+        type: 'add',
+        path: '../../app/components/{{properCase name}}/Loadable.js',
+        templateFile: './component/loadable.js.hbs',
         abortOnFail: true,
       });
     }

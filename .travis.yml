@@ -1,8 +1,8 @@
 language: node_js
 
 node_js:
-  - 8
   - 7
+  - node
 
 script: npm run build
 
@@ -14,6 +14,5 @@ after_success: 'npm run coveralls'
 
 cache:
   yarn: true
-  # comment out the below lines to prevent caching node_modules if pngquant-bin fails to compile!
   directories:
     - node_modules
