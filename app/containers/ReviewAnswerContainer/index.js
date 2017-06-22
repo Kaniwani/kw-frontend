@@ -4,22 +4,20 @@ import PropTypes from 'prop-types';
 // import { createStructuredSelector } from 'reselect';
 import bind from 'wanakana/bind';
 import unbind from 'wanakana/unbind';
-import titleCase from 'voca/title_case';
 
 import { SRS_RANKS, KEYCODES } from 'shared/constants';
 import blockEvent from 'utils/blockEvent';
+import ReviewAnswer from 'components/ReviewAnswer';
 // import globalActions from 'containers/App/actions';
 // import reviewActions from 'containers/ReviewSession/actions';
 // import { selectAnswer, selectCurrentStreakName } from 'containers/ReviewSession/selectors';
 
-import { AnswerWrapper, Input, Form, Label, ActionButtons, IgnoreButton, SubmitButton, StreakIcon } from './styles';
 
-export class ReviewAnswer extends React.Component {
+export class ReviewAnswerContainer extends React.Component {
   static propTypes = {
     streak: PropTypes.oneOf(Object.values(SRS_RANKS)).isRequired,
     answer: PropTypes.shape({
-      input: PropTypes.string,
-      type: PropTypes.string,
+      value: PropTypes.string,
       marked: PropTypes.bool,
       disabled: PropTypes.bool,
       focus: PropTypes.bool,
@@ -35,41 +33,41 @@ export class ReviewAnswer extends React.Component {
     cycleInfoDetail: PropTypes.func.isRequired,
   }
 
-  // TODO: these could be state
+  // TODO: these could potentially be state
   // have to check sagas carefully though for any hooks
   // passing the state in dispatched actions should be fine though
   // though only interesting one is resetAnswer() when rotating
   static defaultProps = {
     answer: {
-      text: '',
-      type: '',
-      valid: true,
+      value: '',
       marked: false,
+      disabled: false,
+      focus: false,
       correct: false,
       incorrect: false,
+      valid: true,
     },
   }
 
   componentDidMount() {
     // could probably use toKana() in handleKeyDown instead?
     // depends on any quirks of IMEMode handling selection and 3char chunks
-    bind(this.inputField);
-    this.inputField.addEventListener('keydown', this.handleKeyDown);
+    bind(this.inputFieldRef);
+    this.inputFieldRef.addEventListener('keydown', this.handleKeyDown);
   }
 
   componentDidUpdate() {
     if (this.props.answer.focus) {
-      this.inputField.focus();
+      this.inputFieldRef.focus();
     }
-    // if (this.props.answer.disabled) this.answerForm.focus(); // wha? this was for keyhandling I guess, eww
   }
 
   componentWillUnmount() {
-    this.inputField.removeEventListener('keydown', this.handleKeyDown);
-    unbind(this.inputField);
+    this.inputFieldRef.removeEventListener('keydown', this.handleKeyDown);
+    unbind(this.inputFieldRef);
   }
 
-  // move up to parent level?
+  // move up to parent ReviewPanel/Page level?
   // check target isn't synonym form?
   getKeyHandler = keycode => ({
     [KEYCODES.ENTER]: this.props.recordAnswer,
@@ -109,69 +107,22 @@ export class ReviewAnswer extends React.Component {
   }
 
   render() {
-    const { answer, streak } = this.props; // eslint-disable-line no-shadow
+    const { answer, streak } = this.props;
     return (
-      <Form
-        marked={answer.marked}
-        onSubmit={this.handleSubmit}
-        tabIndex={-1}
-        // are these three necessary - perhaps in form values?
-        valid={answer.valid}
-        correct={answer.correct}
-        incorrect={answer.incorrect}
-      >
-        {/* TODO: <StreakAnimation /> */}
-        <AnswerWrapper
-          marked={answer.marked}
-          valid={answer.valid}
-          correct={answer.correct}
-          incorrect={answer.incorrect}
-        >
-          <StreakIcon
-            name={streak}
-            title={titleCase(streak)}
-            size="1.15em"
-          />
-          <Label htmlFor="userAnswer">
-            Vocabulary reading
-          </Label>
-          <Input
-            focus={answer.focus}
-            disabled={answer.disabled}
-            marked={answer.marked}
-            id="userAnswer"
-            lang="ja"
-            type="text"
-            innerRef={(node) => { this.inputField = node; }}
-            onChange={this.handleInput}
-            value={answer.input}
-            placeholder="答え"
-            autoFocus // eslint-disable-line jsx-a11y/no-autofocus
-            autoCapitalize="off"
-            autoCorrect="off"
-            autoComplete="off"
-            spellCheck="false"
-          />
-          <ActionButtons>
-            {answer.disabled && (
-              <IgnoreButton
-                name="CLOSE"
-                type="button"
-                title="Ignore answer"
-                size="1.4em"
-                handleClick={this.handleIgnore}
-              />
-            )}
-            <SubmitButton
-              name="ARROW_RIGHT"
-              type="submit"
-              title="Submit answer"
-              size="1.75em"
-              handleClick={this.handleSubmit}
-            />
-          </ActionButtons>
-        </AnswerWrapper>
-      </Form>
+      <ReviewAnswer
+        isMarked={answer.marked}
+        isFocused={answer.focus}
+        isValid={answer.valid}
+        isCorrect={answer.correct}
+        isIncorrect={answer.incorrect}
+        isDisabled={answer.disabled}
+        streak={streak}
+        handleSubmit={this.handleSubmit}
+        handleIgnore={this.handleIgnore}
+        handleInput={this.handleInput}
+        inputFieldRef={(node) => { this.inputFieldRef = node; }}
+        inputFieldValue={answer.value}
+      />
     );
   }
 }
@@ -190,4 +141,4 @@ export class ReviewAnswer extends React.Component {
 //   cycleInfoDetail: () => dispatch(globalActions.cycleInfoDetail()),
 // });
 
-export default /* connect(mapStateToProps, mapDispatchToProps)(*/ReviewAnswer/* )*/;
+export default /* connect(mapStateToProps, mapDispatchToProps)(*/ReviewAnswerContainer/* )*/;

@@ -10,7 +10,6 @@ const baseGenerator = require('./base/index.js');
 const layoutGenerator = require('./layout/index.js');
 const componentGenerator = require('./component/index.js');
 const containerGenerator = require('./container/index.js');
-const routeGenerator = require('./route/index.js');
 const languageGenerator = require('./language/index.js');
 
 module.exports = (plop) => {
@@ -18,7 +17,6 @@ module.exports = (plop) => {
   plop.setGenerator('layout', layoutGenerator);
   plop.setGenerator('component', componentGenerator);
   plop.setGenerator('container', containerGenerator);
-  plop.setGenerator('route', routeGenerator);
   plop.setGenerator('language', languageGenerator);
   plop.addHelper('directory', (comp) => {
     try {

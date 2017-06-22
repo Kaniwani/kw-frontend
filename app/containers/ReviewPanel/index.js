@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 
-import ReviewAnswer from 'containers/ReviewAnswer';
+import ReviewAnswer from 'containers/ReviewAnswerContainer';
 import ReviewHeader from './Header';
 import ReviewQuestion from './Question';
 import ReviewInfo from './Info';

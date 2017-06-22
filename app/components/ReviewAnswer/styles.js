@@ -121,6 +121,6 @@ const ActionButton = styled(IconButton)`
 `;
 
 export const SubmitButton = ActionButton;
-export const IgnoreButton = styled(ActionButton)`
+export const IgnoreButton = ActionButton.extend`
  opacity: .5;
 `;

@@ -32,6 +32,7 @@ export const SelectList = styled.ul`
   font-size: .9em;
   width: 100%;
   grid-template-columns: 1fr 1fr 1fr;
+  margin-bottom: -.3rem;
 `;
 
 export const SelectListItem = styled.li`
@@ -41,6 +42,8 @@ export const SelectListItem = styled.li`
   font-weight: 600;
   text-transform: uppercase;
   opacity: .6;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
 
   &:hover {
     opacity: .8;

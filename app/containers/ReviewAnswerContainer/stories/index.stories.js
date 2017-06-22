@@ -2,19 +2,19 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
-import ReviewAnswer from '../index';
+import ReviewAnswerContainer from '../index';
 
-storiesOf('components.ReviewAnswer', module)
-  .add('ReviewAnswer with default props', () => (
-    <ReviewAnswer
+storiesOf('containers.ReviewAnswerContainer', module)
+  .add('ReviewAnswerContainer with default props', () => (
+    <ReviewAnswerContainer
       streak="APPRENTICE"
       checkAnswer={action('CHECK_ANSWER')}
       recordAnswer={action('RECORD_ANSWER')}
       ignoreAnswer={action('IGNORE_ANSWER')}
     />
   ))
-  .add('ReviewAnswer marked invalid', () => (
-    <ReviewAnswer
+  .add('ReviewAnswerContainer marked invalid', () => (
+    <ReviewAnswerContainer
       answer={{
         input: '河g',
         marked: true,
@@ -26,8 +26,8 @@ storiesOf('components.ReviewAnswer', module)
       ignoreAnswer={action('IGNORE_ANSWER')}
     />
   ))
-  .add('ReviewAnswer marked correct', () => (
-    <ReviewAnswer
+  .add('ReviewAnswerContainer marked correct', () => (
+    <ReviewAnswerContainer
       answer={{
         input: 'すげー',
         type: 'kana',
@@ -42,8 +42,8 @@ storiesOf('components.ReviewAnswer', module)
       ignoreAnswer={action('IGNORE_ANSWER')}
     />
   ))
-  .add('ReviewAnswer marked incorrect', () => (
-    <ReviewAnswer
+  .add('ReviewAnswerContainer marked incorrect', () => (
+    <ReviewAnswerContainer
       answer={{
         input: '河豚',
         type: 'kanji',

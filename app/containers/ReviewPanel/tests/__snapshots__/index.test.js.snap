@@ -49,15 +49,16 @@ exports[`<ReviewPanel /> should match baseline snapshot 1`] = `
     />
   </styled.section>
   <styled.section>
-    <ReviewAnswer
+    <ReviewAnswerContainer
       answer={
         Object {
           "correct": false,
+          "disabled": false,
+          "focus": false,
           "incorrect": false,
           "marked": false,
-          "text": "",
-          "type": "",
           "valid": true,
+          "value": "",
         }
       }
       streak="APPRENTICE"
