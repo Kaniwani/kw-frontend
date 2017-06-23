@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { branch, renderNothing } from 'recompose';
 
 import { PanelWrapper } from '../styles';
@@ -7,11 +7,11 @@ import { PanelWrapper } from '../styles';
 // import { Synonyms } from './Synonyms';
 
 InfoPanel.propTypes = {
-  reviewEntry: PropTypes.object.isRequired,
-  detailLevel: PropTypes.string.isRequired,
+  // reviewEntry: PropTypes.object.isRequired,
+  // detailLevel: PropTypes.string.isRequired,
 };
 
-function InfoPanel({
+function InfoPanel(/* {
   detailLevel,
   reviewEntry: {
     id,
@@ -20,7 +20,7 @@ function InfoPanel({
       synonyms,
     },
   },
-}) {
+}*/) {
   // FIXME: padding adjustments at this stage using detailLevel, not lower!
   return (
     <PanelWrapper>

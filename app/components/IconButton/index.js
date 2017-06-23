@@ -37,7 +37,7 @@ function IconButton({ name, title, color, size, type, handleClick, disabled, ...
     >
       <Icon
         name={name}
-        display="block"
+        inline="false"
         size={size}
         color={color}
       />

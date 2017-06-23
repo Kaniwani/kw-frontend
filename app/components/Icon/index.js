@@ -6,7 +6,7 @@ import ICONS from './constants';
 import { SVGWrapper, SVG } from './styles';
 
 Icon.propTypes = {
-  display: PropTypes.string,
+  inline: PropTypes.bool,
   name: PropTypes.oneOf(Object.keys(ICONS)).isRequired,
   color: PropTypes.oneOf(Object.keys(COLORS)),
   size: PropTypes.oneOfType([
@@ -16,15 +16,15 @@ Icon.propTypes = {
 };
 
 Icon.defaultProps = {
-  display: 'inline-block',
+  inline: true,
   color: 'currentColor',
   size: '1.5em',
 };
 
-function Icon({ name, display, color, size, ...props }) {
+function Icon({ name, inline, color, size, ...props }) {
   return (
     <SVGWrapper
-      display={display}
+      inline={inline}
       color={color}
       size={size}
       {...props}

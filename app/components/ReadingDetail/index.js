@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { DETAIL_LEVELS } from 'containers/ReviewPanel/Info/constants';
+import { DETAIL_LEVELS } from 'shared/constants';
 
 import { Reading, Character, Kana } from './styles';
 

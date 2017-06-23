@@ -5,7 +5,7 @@ import Divider from 'components/Divider';
 import ReadingDetail from 'components/ReadingDetail';
 import SentencePair from 'components/SentencePair';
 
-import { DETAIL_LEVELS } from '../constants';
+import { DETAIL_LEVELS } from 'shared/constants';
 import { PanelWrapper } from './styles';
 import ReadingHeader from './ReadingHeader';
 

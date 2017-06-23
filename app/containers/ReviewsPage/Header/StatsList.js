@@ -8,15 +8,15 @@ function StatsList({ correctness, complete, remaining }) {
   return (
     <StatsWrapper>
       <Stat title="Correctness">
-        <Icon name="CHECK" />
+        <Icon inline={false} size="1.15em" name="CHECK" />
         <Label>{`${correctness}%`}</Label>
       </Stat>
       <Stat title="Reviews complete">
-        <Icon name="ASSIGNMENT_CHECK" />
+        <Icon inline={false} size="1.1em" name="ASSIGNMENT_CHECK" />
         <Label>{complete}</Label>
       </Stat>
       <Stat title="Reviews remaining">
-        <Icon name="ASSIGNMENT_INBOX" />
+        <Icon inline={false} size="1.1em" name="ASSIGNMENT_INBOX" />
         <Label>{remaining}</Label>
       </Stat>
     </StatsWrapper>

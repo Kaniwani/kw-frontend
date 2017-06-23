@@ -1,10 +1,10 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import ReviewPanel from '../index';
+import ReviewsPage from '../index';
 
-storiesOf('components.ReviewPanel', module)
-  .add('single ReviewPanel with default props', () => (
-    <ReviewPanel
+storiesOf('components.ReviewsPage', module)
+  .add('single ReviewsPage with default props', () => (
+    <ReviewsPage
       reviewEntry={{
         id: 12,
         vocabulary: {

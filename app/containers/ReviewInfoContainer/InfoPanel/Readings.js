@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cuid from 'cuid';
 
-import { DETAIL_LEVELS } from '../constants';
+import { DETAIL_LEVELS } from 'shared/constants';
 import Reading from './Reading';
 
 Readings.propTypes = {

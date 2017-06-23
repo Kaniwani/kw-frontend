@@ -10,8 +10,8 @@ const body = {
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   componentDidMount() {
     getUserProfile(body)
-      .then(res => console.log(res))
-      .catch(err => console.error(err));
+      .then(res => console.log(res)) // eslint-disable-line no-console
+      .catch(err => console.error(err)); // eslint-disable-line no-console
   }
 
   render() {

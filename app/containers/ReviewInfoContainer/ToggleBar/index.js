@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import titleCase from 'voca/title_case';
 
-import { DETAIL_LEVELS } from '../constants';
+import { DETAIL_LEVELS } from 'shared/constants';
 import { Wrapper } from './styles';
 import Toggle from './Toggle';
 

@@ -43,13 +43,16 @@ export const StatsWrapper = styled.ul`
 `;
 
 export const Stat = styled.li`
+  display: flex;
   padding-left: .35em;
   padding-right: .35em;
+  line-height: 1;
 `;
 
-export const Label = styled.span`
-  vertical-align: middle; /* Icon has va-m */
+export const Label = styled.div`
+  align-self: center;
   margin-left: .15em;
+  font-size: .95em;
 `;
 
 export const SummaryLink = styled(Link)`

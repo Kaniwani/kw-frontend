@@ -12,6 +12,7 @@ import ReviewAnswer from 'components/ReviewAnswer';
 // import reviewActions from 'containers/ReviewSession/actions';
 // import { selectAnswer, selectCurrentStreakName } from 'containers/ReviewSession/selectors';
 
+// props from selectors
 export class ReviewAnswerContainer extends React.Component {
   static propTypes = {
     streak: PropTypes.oneOf(Object.values(SRS_RANKS)).isRequired,
@@ -66,7 +67,7 @@ export class ReviewAnswerContainer extends React.Component {
     unbind(this.inputFieldRef);
   }
 
-  // move up to parent ReviewPanel/Page level?
+  // move up to parent ReviewsPage/Page level?
   // check target isn't synonym form?
   getKeyHandler = keycode => ({
     [KEYCODES.ENTER]: this.props.recordAnswer,

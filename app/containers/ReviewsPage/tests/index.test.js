@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import ReviewPanel from '../index';
+import ReviewsPage from '../index';
 
-describe('<ReviewPanel />', () => {
+describe('<ReviewsPage />', () => {
   const reviewEntry = {
     id: 12,
     vocabulary: {
@@ -55,7 +55,7 @@ describe('<ReviewPanel />', () => {
 
   it('should match baseline snapshot', () => {
     const renderedComponent = shallow(
-      <ReviewPanel
+      <ReviewsPage
         reviewEntry={reviewEntry}
       />
     );

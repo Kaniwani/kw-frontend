@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { DETAIL_LEVELS } from './constants';
+import { DETAIL_LEVELS } from 'shared/constants';
 import { cycleDetailLevel } from './utils';
 import ToggleBar from './ToggleBar';
 import InfoPanel from './InfoPanel';
@@ -10,7 +10,7 @@ import AddSynonymPanel from './AddSynonymPanel';
 
 import { Wrapper, PanelsWrapper } from './styles';
 
-class ReviewInfo extends React.PureComponent {
+class ReviewInfoContainer extends React.PureComponent {
   static propTypes = {
     reviewEntry: PropTypes.object.isRequired,
     detailLevel: PropTypes.string,
@@ -112,4 +112,4 @@ class ReviewInfo extends React.PureComponent {
 //   addSynonym: selectSynonymPanel
 // });
 
-export default ReviewInfo;
+export default ReviewInfoContainer;
