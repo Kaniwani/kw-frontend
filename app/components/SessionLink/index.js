@@ -23,7 +23,7 @@ function SessionLink({ text, to, count, color }) {
       <LinkBlock plainLink bgColor={color} to={to}>
         <Left>{text}</Left>
         <Right title="Remaining reviews">
-          <InboxIcon display="block" name="ASSIGNMENT_INBOX" color="white" size="1.2em" />
+          <InboxIcon inline={false} name="ASSIGNMENT_INBOX" color="white" size="1.2em" />
           <Count>{count}</Count>
         </Right>
       </LinkBlock>

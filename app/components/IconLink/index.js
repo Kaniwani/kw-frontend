@@ -33,7 +33,7 @@ function IconLink({ name, title, color, size, href, to, ...props }) {
       {...props}
     >
       <Icon
-        display="block"
+        inline={false}
         name={name}
         color={color}
         size={size}

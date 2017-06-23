@@ -9,6 +9,12 @@
 export const DATE_IN_WORDS = 'hh:mma[,] MMM Do YYYY';
 export const MINUTES_SINCE_LAST_SYNC_LIMIT = 5;
 
+export const DETAIL_LEVELS = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+};
+
 export const SRS_RANKS = {
   ONE: 'APPRENTICE',
   TWO: 'GURU',
@@ -24,6 +30,7 @@ export const PARTS_OF_SPEECH = [
   'JLPT N4',
   'JLPT N5',
   'Common',
+  'Uncommon',
   'Intransitive verb',
   'Godan verb',
   'Noun',

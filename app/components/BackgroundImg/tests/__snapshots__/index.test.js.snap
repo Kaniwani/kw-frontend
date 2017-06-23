@@ -1,25 +1,76 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<BackgroundImg /> should adopt a bgPosition prop 1`] = `
-<styled.div
-  bgPosition="bottom right"
-  bgSize="cover"
-  imgSrc="http://fillmurray.com/400/800"
+exports[`<BackgroundImg /> should adopt a bgPosition prop = bottom right 1`] = `
+.jGAEGp {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(http://fillmurray.com/400/800);
+  background-position: bottom right;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+  -webkit-flex: 1 1 100%;
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+<div
+  className="sc-bdVaJa jGAEGp"
 />
 `;
 
-exports[`<BackgroundImg /> should adopt a bgSize prop 1`] = `
-<styled.div
-  bgPosition="center center"
-  bgSize="contain"
-  imgSrc="http://fillmurray.com/400/800"
+exports[`<BackgroundImg /> should adopt a bgSize prop = contain 1`] = `
+.gzIgWh {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(http://fillmurray.com/400/800);
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: -1;
+  -webkit-flex: 1 1 100%;
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+<div
+  className="sc-bdVaJa gzIgWh"
 />
 `;
 
 exports[`<BackgroundImg /> should render with an imgSrc prop 1`] = `
-<styled.div
-  bgPosition="center center"
-  bgSize="cover"
-  imgSrc="http://fillmurray.com/400/800"
+.foKLhh {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(http://fillmurray.com/400/800);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+  -webkit-flex: 1 1 100%;
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+<div
+  className="sc-bdVaJa foKLhh"
 />
 `;

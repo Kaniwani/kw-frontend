@@ -51,7 +51,7 @@ injectGlobal`
 
   *:focus {
     outline: none;
-    ${media('min').sm`
+    ${media().sm`
       outline: ${purpleLight} auto 3px;
     `}
   }

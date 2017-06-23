@@ -2,9 +2,13 @@ import styled from 'styled-components';
 import * as COLORS from 'shared/styles/colors';
 
 export const SVGWrapper = styled.span`
-  display: ${({ display }) => display};
-  vertical-align: middle;
-  align-self: center;
+  ${({ inline }) => inline ? `
+    display: inline-block;
+    vertical-align: middle;
+  ` : `
+    display: block;
+    align-self: center;
+  `}
   position: relative;
   width: ${({ size }) => size}; /*CSS instead of html width attr to support non-pixel units*/
   height: ${({ size }) => size}; /*Prevents scaling issue in IE*/

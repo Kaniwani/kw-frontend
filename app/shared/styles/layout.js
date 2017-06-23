@@ -24,7 +24,7 @@ const createGutter = (prop = 'padding', type = 'inner', mod = 1, position) => {
 
   return css`
     ${property}: ${mobile};
-    ${media('min').sm`
+    ${media().sm`
       ${property}: ${desktop};
     `}
   `;
@@ -62,7 +62,7 @@ export const bannerElement = css`
   overflow-x: hidden;
   margin: -${gutters.mobile.outer}rem -${gutters.mobile.outer}rem 0;
   padding: 0 ${gutters.mobile.inner}rem ${gutters.mobile.inner}rem;
-  ${media('min').sm`
+  ${media().sm`
     margin: -${gutters.desktop.outer}rem -${gutters.desktop.outer}rem 0;
     padding: 0 ${gutters.desktop.inner}rem ${gutters.desktop.inner}rem;
   `}

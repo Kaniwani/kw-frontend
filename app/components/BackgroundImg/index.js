@@ -1,29 +1,26 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
-import { Div } from './styles';
+import styled from 'styled-components';
 
 /**
  * Requires a parent with position: relative, and a valid height or min-height
  * This component renders a div with position: absolute, height/width 100%
- * expecting to fill its parent's container
+ * expecting to fill its parent's container.
+ * Easy solution is using:  <PageWrapper fullWidthBg />
  */
 
-BackgroundImg.propTypes = {
-  imgSrc: PropTypes.string.isRequired,
-  bgSize: PropTypes.string,
-  bgPosition: PropTypes.string,
-};
-
-BackgroundImg.defaultProps = {
-  bgSize: 'cover',
-  bgPosition: 'center center',
-};
-
-function BackgroundImg({ imgSrc, bgSize, bgPosition }) {
-  return (
-    <Div imgSrc={imgSrc} bgSize={bgSize} bgPosition={bgPosition} />
-  );
-}
+const BackgroundImg = styled.div`
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-image: url(${({ imgSrc }) => imgSrc});
+   background-position: ${({ bgPosition }) => bgPosition || 'center center'};
+   background-size: ${({ bgSize }) => bgSize || 'cover'};
+   background-repeat: no-repeat;
+   z-index: -1;
+   /* If parent is a flex container */
+   flex: 1 1 100%;
+   align-self: stretch;
+ `;
 
 export default BackgroundImg;

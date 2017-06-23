@@ -2,7 +2,7 @@ import { css } from 'styled-components';
 
 /**
  * Sizes for media queries using media tag
- * IE: media('min').xl`css: rule;`;
+ * IE: media('max').sm` css: rule; `;
  * @type {Object}
  */
 export const breakpoints = {
@@ -15,21 +15,21 @@ export const breakpoints = {
 };
 
 /**
- * Returns css wrappen in a given media query
+ * Returns css wrapped in a given media query
  * usage with styled-components:
  * media().sm`color: red;`;
- * @param  {String} [direction='min'] 'min' or 'max' to apply min-width or max-width
+ * @param  {String} [limit='min'] 'min' or 'max' to apply min-width or max-width
  * @return {String} css wrapped in media query
  */
-export const media = direction => Object.keys(breakpoints).reduce((accumulator, label) => {
+export const media = (limit = 'min') => Object.keys(breakpoints).reduce((accumulator, label) => {
   const acc = accumulator;
   acc[label] = (...args) => {
     let size = breakpoints[label];
     // to ensure (max-width: 599px) versus (min-width: 600px) [the next size up]
-    if (direction === 'max') size -= 1;
+    if (limit === 'max') size -= 1;
 
     return css`
-      @media (${direction}-width: ${size}px) {
+      @media (${limit}-width: ${size}px) {
         ${css(...args)}
       }`;
   };
