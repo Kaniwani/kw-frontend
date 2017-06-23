@@ -22,10 +22,12 @@ export class App extends React.Component { // eslint-disable-line react/prefer-s
           {/* TODO: first route should check if logged in in render={() => {}} and if not then redirect to landingpage */}
           <Route exact path="/" component={HomePage} />
           <Route path="/welcome" component={LandingPage} />
-          <Route path="/lessons" render={() => <h1>lessons</h1>} />
+          {/* <Route path="/lessons" render={() => <h1>lessons</h1>} /> */}
           <Route path="/reviews" component={ReviewsPage} />
+          {/* <Route path="/vocabulary" component={VocabularyPage} /> */}
           <Route path="/about" render={() => <h1>about</h1>} />
           <Route path="/contact" render={() => <h1>contact</h1>} />
+          {/* TODO: handle token clear logout action in redirect or in SiteHeader link */}
           <Redirect path="/logout" to="/welcome" />
           <Route path="" component={NotFoundPage} />
         </Switch>

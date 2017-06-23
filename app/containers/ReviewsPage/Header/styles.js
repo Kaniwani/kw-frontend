@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+
 import { fluidType } from 'shared/styles/utils';
 import { white, whiteLight, blackLight } from 'shared/styles/colors';
 
@@ -18,7 +19,7 @@ export const Bar = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 5px;
+  height: 6px;
   background-color: ${blackLight};
   opacity: .75;
   overflow: hidden;

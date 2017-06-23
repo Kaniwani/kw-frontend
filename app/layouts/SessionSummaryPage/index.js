@@ -31,7 +31,7 @@ class SessionSummaryPage extends React.PureComponent {
     percentCorrect: 0,
     remainingCount: 0,
     category: 'review',
-    resumeSessionRoute: '/reviews/',
+    resumeSessionRoute: '/reviews',
   };
 
   state = {

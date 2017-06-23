@@ -7,7 +7,7 @@ describe('<SessionSummaryHeader />', () => {
     const renderedComponent = shallow(
       <SessionSummaryHeader
         category="review"
-        linkRoute="/reviews/"
+        linkRoute="/reviews"
       />
     );
     expect(renderedComponent).toMatchSnapshot();
@@ -16,7 +16,7 @@ describe('<SessionSummaryHeader />', () => {
     const renderedComponent = shallow(
       <SessionSummaryHeader
         category="lesson"
-        linkRoute="/lessons/"
+        linkRoute="/lessons"
         count={22}
       />
     );
