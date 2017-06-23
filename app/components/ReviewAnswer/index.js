@@ -54,20 +54,14 @@ function ReviewAnswer({
 }) {
   return (
     <Form
-      marked={isMarked}
       onSubmit={handleSubmit}
       tabIndex={-1}
-      // NOTE: are these three necessary here - perhaps in form values?
+      marked={isMarked}
       valid={isValid}
       correct={isCorrect}
       incorrect={isIncorrect}
     >
-      <AnswerWrapper
-        marked={isMarked}
-        valid={isValid}
-        correct={isCorrect}
-        incorrect={isIncorrect}
-      >
+      <AnswerWrapper>
         <StreakIcon
           name={streak}
           title={titleCase(streak)}

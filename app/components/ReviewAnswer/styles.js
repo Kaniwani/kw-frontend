@@ -10,15 +10,15 @@ import { kilo } from 'shared/styles/typography';
 import { media } from 'shared/styles/media';
 import { transparent, white, whiteLight, whiteDark, yellowOrange, red, green, black } from 'shared/styles/colors';
 
-const bgColorMixin = ({ marked, valid, incorrect, correct }) => {
+const bgColorMixin = ({ marked, valid, correct, incorrect }) => {
   if (marked && !valid) {
     return `background-color: ${yellowOrange};`;
   }
-  if (incorrect) {
-    return `background-color: ${red};`;
-  }
   if (correct) {
     return `background-color: ${green};`;
+  }
+  if (incorrect) {
+    return `background-color: ${red};`;
   }
   return false;
 };
@@ -29,7 +29,6 @@ export const AnswerWrapper = styled.div`
   background-color: ${whiteLight};
   transition: all 150ms ease-in-out;
   ${shadowBox}
-  ${bgColorMixin}
 `;
 
 export const Form = styled.form`
@@ -47,6 +46,10 @@ export const Form = styled.form`
   ${media('min').sm`
     margin: .4rem;
   `}
+
+  & ${AnswerWrapper} {
+    ${bgColorMixin}
+  }
 `;
 
 export const Label = styled.label`
