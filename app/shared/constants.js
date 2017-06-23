@@ -24,6 +24,7 @@ export const PARTS_OF_SPEECH = [
   'JLPT N4',
   'JLPT N5',
   'Common',
+  'Uncommon',
   'Intransitive verb',
   'Godan verb',
   'Noun',

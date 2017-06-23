@@ -2,46 +2,40 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cuid from 'cuid';
 
-import * as COLORS from 'shared/styles/colors';
 import { PARTS_OF_SPEECH } from 'shared/constants';
 import { Ul, Li, Span } from './styles';
 
-const selectColors = ({ text, color, bgColor }) => {
-  if (/common/i.test(text)) {
-    return {
-      color: 'whiteLight',
-      bgColor: 'blue',
-    };
+const selectTagColors = (text) => {
+  const isCommon = /^common/i.test(text);
+  const isUncommon = /^uncommon/i.test(text);
+  const isJlpt = /^jlpt/i.test(text);
+
+  const defaultColors = { color: 'whiteLight', bgColor: 'grey' };
+  const uncommonColors = { ...defaultColors, bgColor: 'orange' };
+  const commonColors = { ...defaultColors, bgColor: 'blue' };
+  const jlptColors = { color: 'blackLight', bgColor: 'tan' };
+
+  switch (true) {
+    case isCommon: return commonColors;
+    case isUncommon: return uncommonColors;
+    case isJlpt: return jlptColors;
+    default: return defaultColors;
   }
-  if (/jlpt/i.test(text)) {
-    return {
-      color: 'blackLight',
-      bgColor: 'tan',
-    };
-  }
-  return {
-    color,
-    bgColor,
-  };
 };
 
 TagsList.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.oneOf(PARTS_OF_SPEECH)),
-  color: PropTypes.oneOf(Object.keys(COLORS)),
-  bgColor: PropTypes.oneOf(Object.keys(COLORS)),
 };
 
 TagsList.defaultProps = {
   tags: [],
-  color: 'whiteLight',
-  bgColor: 'grey',
 };
 
 function TagsList({ tags, ...props }) {
   return (
     <Ul {...props}>
       {tags.map(text => (
-        <Li key={cuid()} {...selectColors({ text, ...props })} >
+        <Li key={cuid()} {...selectTagColors(text)} >
           <Span>{text}</Span>
         </Li>
       ))}
