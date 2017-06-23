@@ -9,10 +9,7 @@ Icon.propTypes = {
   inline: PropTypes.bool,
   name: PropTypes.oneOf(Object.keys(ICONS)).isRequired,
   color: PropTypes.oneOf(Object.keys(COLORS)),
-  size: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
+  size: PropTypes.string,
 };
 
 Icon.defaultProps = {
