@@ -11,7 +11,7 @@ export const BackgroundImg = BGImg.extend`
   max-width: 700px;
   background-position: left bottom;
   background-size: contain;
-  ${media('min').lg`
+  ${media().lg`
     background-position: 15% center;
     background-size: cover;
   `}
@@ -20,7 +20,7 @@ export const BackgroundImg = BGImg.extend`
 export const Title = H1.extend`
   ${kilo}
   color: ${pink};
-  ${media('min').md`
+  ${media().md`
     ${godzilla}
     margin-left: auto;
     text-align: right;
@@ -29,7 +29,7 @@ export const Title = H1.extend`
 
 export const Text = H2.extend`
   color: ${greyDark};
-  ${media('min').md`
+  ${media().md`
     max-width: 800px;
     margin-left: auto;
     text-align: right;

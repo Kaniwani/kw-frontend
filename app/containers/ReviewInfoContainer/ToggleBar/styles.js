@@ -15,7 +15,7 @@ export const Wrapper = styled.div`
   background-color: ${transparent};
   padding: 0 .4rem .4rem;
   width: 100%;
-  ${media('min').sm`
+  ${media().sm`
     padding-left: .2rem; /* toggles have .2rem side margins */
     padding-right: .2rem;
     max-width: ${siteMaxWidth}px;

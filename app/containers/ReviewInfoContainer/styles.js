@@ -19,7 +19,7 @@ export const PanelsWrapper = styled.div`
   position: relative;
   max-width: 2000px;
 
-  ${media('min').sm`
+  ${media().sm`
     margin-bottom: 2rem;
   `}
 `;
@@ -36,7 +36,7 @@ export const PanelWrapper = styled.div`
     ${({ addPadding }) => addPadding ? 'padding-bottom: 2rem;' : ''}
   }
 
-  ${media('min').sm`
+  ${media().sm`
     margin-left: .4rem;
     margin-right: .4rem;
     &:first-child {

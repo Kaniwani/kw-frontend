@@ -43,7 +43,7 @@ export const Form = styled.form`
   outline: none;
   appearance: none;
   z-index: 2;
-  ${media('min').sm`
+  ${media().sm`
     margin: .4rem;
   `}
 
