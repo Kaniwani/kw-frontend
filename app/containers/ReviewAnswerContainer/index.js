@@ -12,7 +12,6 @@ import ReviewAnswer from 'components/ReviewAnswer';
 // import reviewActions from 'containers/ReviewSession/actions';
 // import { selectAnswer, selectCurrentStreakName } from 'containers/ReviewSession/selectors';
 
-
 export class ReviewAnswerContainer extends React.Component {
   static propTypes = {
     streak: PropTypes.oneOf(Object.values(SRS_RANKS)).isRequired,

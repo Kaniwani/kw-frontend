@@ -93,7 +93,7 @@ export const Input = styled.input`
   }
 `;
 
-export const StreakIcon = styled(Icon)`
+export const StreakIcon = Icon.extend`
   display: block;
   position: absolute;
   transform: translateY(-50%);
@@ -109,7 +109,7 @@ export const ActionButtons = styled.div`
   height: 100%;
 `;
 
-const ActionButton = styled(IconButton)`
+const ActionButton = IconButton.extend`
   height: 100%;
   align-self: center;
   color: currentColor;
