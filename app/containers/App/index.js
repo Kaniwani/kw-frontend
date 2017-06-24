@@ -7,6 +7,10 @@ import SiteHeader from 'components/SiteHeader';
 import WelcomePage from 'containers/WelcomePage';
 import HomePage from 'containers/HomePage/Loadable';
 import ReviewsPage from 'containers/ReviewsPage/Loadable';
+import VocabularyPage from 'containers/VocabularyPage/Loadable';
+import AboutPage from 'containers/AboutPage/Loadable';
+import ContactPage from 'containers/ContactPage/Loadable';
+import SettingsPage from 'containers/SettingsPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 const renderProtectedRoutes = () => (
@@ -18,22 +22,22 @@ const renderProtectedRoutes = () => (
     <ReactTooltip id="globalTooltip" />
     {/* Notifications */}
     <Switch>
-      {/* TODO: first route should check if logged in in render={() => {}} and if not then redirect to landingpage */}
       <Route exact path="/" component={HomePage} />
+      <Route exact path="/about" component={AboutPage} />
+      <Route exact path="/contact" component={ContactPage} />
+      <Route exact path="/settings" component={SettingsPage} />
+      <Redirect exact path="/logout" to="/welcome" />
       {/* <Route path="/lessons" component={LessonsPage} /> */}
       <Route path="/reviews" component={ReviewsPage} />
-      {/* <Route path="/vocabulary" component={VocabularyPage} /> */}
-      <Route exact path="/about" render={() => <h1>about</h1>} />
-      <Route exact path="/contact" render={() => <h1>contact</h1>} />
+      <Route path="/vocabulary" component={VocabularyPage} />
       {/* TODO: handle token clear logout action in redirect or in SiteHeader link */}
-      <Redirect exact path="/logout" to="/welcome" />
       <Route path="" component={NotFoundPage} />
     </Switch>
   </div>
 );
 
 // TODO: should check for JWT token ~
-const LOGGED_IN = false;
+const LOGGED_IN = true;
 
 // must be React.Component not stateless for Loadable to work
 export class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
