@@ -14,6 +14,7 @@ class {{ properCase name }} extends {{{ type }}} { // eslint-disable-line react/
   render() {
     return (
       <div>
+        <h1>Hello {{properCase name}}</h1>
       {{#if wantMessages}}
         <FormattedMessage {...messages.header} />
       {{/if}}
