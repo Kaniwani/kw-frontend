@@ -9,7 +9,31 @@ import HomePage from 'containers/HomePage/Loadable';
 import ReviewsPage from 'containers/ReviewsPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
-const siteHeaderPaths = /^\/(?!welcome|reviews|lessons).*$/; // not starting with /welcome, /reviews etc
+const renderProtectedRoutes = () => (
+  <div>
+    <Switch>
+      <Route path="/:path(lessons|reviews)" /* render nothing */ />
+      <Route path="" component={SiteHeader} />
+    </Switch>
+    <ReactTooltip id="globalTooltip" />
+    {/* Notifications */}
+    <Switch>
+      {/* TODO: first route should check if logged in in render={() => {}} and if not then redirect to landingpage */}
+      <Route exact path="/" component={HomePage} />
+      {/* <Route path="/lessons" component={LessonsPage} /> */}
+      <Route path="/reviews" component={ReviewsPage} />
+      {/* <Route path="/vocabulary" component={VocabularyPage} /> */}
+      <Route exact path="/about" render={() => <h1>about</h1>} />
+      <Route exact path="/contact" render={() => <h1>contact</h1>} />
+      {/* TODO: handle token clear logout action in redirect or in SiteHeader link */}
+      <Redirect exact path="/logout" to="/welcome" />
+      <Route path="" component={NotFoundPage} />
+    </Switch>
+  </div>
+);
+
+// TODO: should check for JWT token ~
+const LOGGED_IN = false;
 
 // must be React.Component not stateless for Loadable to work
 export class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -17,24 +41,11 @@ export class App extends React.Component { // eslint-disable-line react/prefer-s
     return (
       <div>
         <Helmet titleTemplate="%s - KaniWani">
-          <meta name="description" content="KaniWani - An English to Japanese SRS Quiz WebApp" />
+          <meta name="description" content="KaniWani - An English to Japanese SRS Quiz App" />
         </Helmet>
-        <Route path={siteHeaderPaths} component={SiteHeader} />
-        <ReactTooltip id="globalTooltip" />
-
-        {/* Notifications */}
         <Switch>
-          {/* TODO: first route should check if logged in in render={() => {}} and if not then redirect to landingpage */}
-          <Route exact path="/" component={HomePage} />
-          <Route path="/welcome" component={WelcomePage} />
-          {/* <Route path="/lessons" component={LessonsPage} */}
-          <Route path="/reviews" component={ReviewsPage} />
-          {/* <Route path="/vocabulary" component={VocabularyPage} /> */}
-          <Route path="/about" render={() => <h1>about</h1>} />
-          <Route path="/contact" render={() => <h1>contact</h1>} />
-          {/* TODO: handle token clear logout action in redirect or in SiteHeader link */}
-          <Redirect path="/logout" to="/welcome" />
-          <Route path="" component={NotFoundPage} />
+          <Route exact path="/welcome" component={WelcomePage} />
+          <Route path="" render={() => LOGGED_IN ? renderProtectedRoutes() : <Redirect to="/welcome" />} />
         </Switch>
       </div>
     );

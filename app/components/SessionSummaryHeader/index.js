@@ -12,16 +12,15 @@ import {
 } from './styles';
 
 SessionSummaryHeader.propTypes = {
-  category: PropTypes.string.isRequired,
-  linkRoute: PropTypes.string.isRequired,
   count: PropTypes.number,
+  match: PropTypes.object.isRequired,
 };
 
 SessionSummaryHeader.defaultProps = {
   count: 0,
 };
 
-function SessionSummaryHeader({ category, count, linkRoute }) {
+function SessionSummaryHeader({ count, match: { params: { category } } }) {
   return (
     <Header>
       <Wrapper>
@@ -29,7 +28,7 @@ function SessionSummaryHeader({ category, count, linkRoute }) {
         <Title>{titleCase(category)} Summary</Title>
         <SessionLink
           text="Continue Session"
-          to={linkRoute}
+          to={`/${category}/session`}
           count={count}
         />
       </Wrapper>
