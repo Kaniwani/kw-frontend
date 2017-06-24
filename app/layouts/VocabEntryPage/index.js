@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 import SiteHeader from 'components/SiteHeader';
 import VocabPageHeader from 'components/VocabPageHeader';
 import VocabEntryDetail from 'components/VocabEntryDetail';
-import PageWrapper from 'layouts/PageWrapper';
+import PageWrapper from 'base/PageWrapper';
 
 VocabEntryPage.propTypes = {
   entry: PropTypes.object.isRequired,

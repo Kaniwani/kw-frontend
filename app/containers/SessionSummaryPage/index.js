@@ -1,17 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+
+
 import ReactTooltip from 'react-tooltip';
 import Helmet from 'react-helmet';
 import titleCase from 'voca/title_case';
 
 import { CORRECT, INCORRECT, CRITICAL } from 'components/SummarySection/constants';
-import PageWrapper from 'layouts/PageWrapper';
+import PageWrapper from 'base/PageWrapper';
 import SessionSummaryHeader from 'components/SessionSummaryHeader';
 import AccuracyBar from 'components/AccuracyBar';
 import SummarySection from 'components/SummarySection';
 import ToggleVocabListType from 'components/ToggleVocabListType';
 
 import { Heading } from './styles';
+
+import makeSelectSessionSummaryPage from './selectors';
 
 class SessionSummaryPage extends React.PureComponent {
   static propTypes = {
@@ -92,4 +98,14 @@ class SessionSummaryPage extends React.PureComponent {
   }
 }
 
-export default SessionSummaryPage;
+const mapStateToProps = createStructuredSelector({
+  SessionSummaryPage: makeSelectSessionSummaryPage(),
+});
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SessionSummaryPage);

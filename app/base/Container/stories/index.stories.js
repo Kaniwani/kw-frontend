@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import Element from 'layouts/Element';
+import Element from 'base/Element';
 import Img from 'base/Img';
 import homeImg from 'shared/assets/img/home.jpg';
 import Container from '../index';

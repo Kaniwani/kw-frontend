@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import Container from 'layouts/Container';
+import Container from 'base/Container';
 import A from 'base/A';
 import H1 from 'base/H1';
 import H2 from 'base/H2';

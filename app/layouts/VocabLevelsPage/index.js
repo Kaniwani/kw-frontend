@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 import SiteHeader from 'components/SiteHeader';
 import VocabPageHeader from 'components/VocabPageHeader';
 import VocabLevelList from 'components/VocabLevelList';
-import PageWrapper from 'layouts/PageWrapper';
+import PageWrapper from 'base/PageWrapper';
 
 VocabLevelsPage.propTypes = {
   levels: PropTypes.array.isRequired,

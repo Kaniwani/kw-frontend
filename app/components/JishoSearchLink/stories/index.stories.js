@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import Container from 'layouts/Container';
+import Container from 'base/Container';
 import JishoSearchLink from '../index';
 
 storiesOf('components.JishoSearchLink', module)

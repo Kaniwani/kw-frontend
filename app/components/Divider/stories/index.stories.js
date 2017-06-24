@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import PageWrapper from 'layouts/PageWrapper';
-import Container from 'layouts/Container';
+import PageWrapper from 'base/PageWrapper';
+import Container from 'base/Container';
 import P from 'base/P';
 import Divider from '../index';
 

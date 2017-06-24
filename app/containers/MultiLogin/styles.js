@@ -144,6 +144,7 @@ export const ApiLink = styled(IconLink)`
   position: absolute;
   right: .25em;
   top: 50%;
+  background-color: ${whiteLight};
   transform: translateY(-50%) scale(1);
   &:active {
     transform: translateY(-50%) scale(.9);
@@ -156,6 +157,7 @@ export const ApiInput = styled.div`
   width: 100%;
   border: none;
   border-radius: 10px;
+
   ${({ isHidden }) => isHidden && css`
     height: 0;
     margin: 0;
@@ -165,4 +167,5 @@ export const ApiInput = styled.div`
       transform: scale(0);
     }
   `}
+
 `;
