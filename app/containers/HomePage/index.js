@@ -1,5 +1,6 @@
 import React from 'react';
-import { getUserProfile } from 'shared/api';
+import { getUserProfile, getCurrentReviews } from 'shared/api';
+import { userProfileSerializer, stubbedReviewEntriesSerializer, reviewEntriesSerializer } from 'shared/serializers';
 
 import PageWrapper from 'base/PageWrapper';
 
@@ -10,17 +11,34 @@ const body = {
 };
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  state = {
+    user: {},
+    dashboard: {},
+    settings: {},
+    reviews: [],
+  }
+
   componentDidMount() {
     getUserProfile(body)
-      .then(res => console.log(res)) // eslint-disable-line no-console
+      .then((res) => {
+        this.setState(userProfileSerializer(res));
+      }) // eslint-disable-line no-console
+      .catch(err => console.error(err)); // eslint-disable-line no-console
+
+    getCurrentReviews(body)
+      .then((res) => {
+        console.log(res);
+        this.setState({ reviews: stubbedReviewEntriesSerializer(res) });
+      }) // eslint-disable-line no-console
       .catch(err => console.error(err)); // eslint-disable-line no-console
   }
 
   render() {
     return (
-      <div>
-        <PageWrapper>HomePage!</PageWrapper>
-      </div>
+      <PageWrapper>
+        <h1>HomePage!</h1>
+        <pre><code>{JSON.stringify(this.state, null, 2)}</code></pre>
+      </PageWrapper>
     );
   }
 }
