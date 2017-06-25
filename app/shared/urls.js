@@ -50,7 +50,7 @@ export const synonymEntry = id => urljoin(synonym, id); // DELETE remove, GET on
 //-----------------------------------------------------------------------------
 export const vocabulary = urljoin(API_BASE, 'vocabulary'); // GET everything!
 export const vocabularyEntry = id => urljoin(vocabulary, id); // GET one
-export const reading = urljoin(API_BASE, 'reading'); // Get all
+export const reading = urljoin(API_BASE, 'reading'); // GET all
 export const readingEntry = id => urljoin(reading, id); // GET one
 export const levels = urljoin(API_BASE, 'level'); // GET all
 export const levelEntry = level => urljoin(levels, level); // GET one
@@ -60,10 +60,10 @@ export const unlockLevel = level => urljoin(levelEntry(level), 'unlock'); // POS
 //-----------------------------------------------------------------------------
 //  GENERAL
 //-----------------------------------------------------------------------------
-export const faq = urljoin(API_BASE, 'faq');
-export const faqEntry = id => urljoin(faq, id);
-export const announcement = urljoin(API_BASE, 'announcement');
-export const announcementEntry = id => urljoin(announcement, id);
+export const faq = urljoin(API_BASE, 'faq'); // GET all, POST create
+export const faqEntry = id => urljoin(faq, id); // GET, PUT update, PATCH partial update, DELETE
+export const announcement = urljoin(API_BASE, 'announcement'); // GET all, POST create
+export const announcementEntry = id => urljoin(announcement, id); // GET one, PUT update, PATCH  partial update, DELETE
 export const contact = urljoin(API_BASE, 'contact');
 
 //-----------------------------------------------------------------------------

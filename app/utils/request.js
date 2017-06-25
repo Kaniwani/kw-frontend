@@ -39,7 +39,7 @@ export default {
   post: config => request({ ...config, method: 'POST' }),
   put: config => request({ ...config, method: 'PUT' }),
   patch: config => request({ ...config, method: 'PATCH' }),
-  delete: config => request({ ...config, method: 'DELETE' }), // delete is a reserved word in JS
+  del: config => request({ ...config, method: 'DELETE' }), // delete is a reserved word in JS
 };
 
 

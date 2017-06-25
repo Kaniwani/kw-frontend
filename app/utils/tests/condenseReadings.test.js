@@ -14,6 +14,11 @@ describe('condenseReadings()', () => {
     expect(condenseReadings(readings.sameCharacters)).toMatchSnapshot();
   });
 
+  it('should pass when readings were already condensed', () => {
+    const condensed = condenseReadings(readings.sameCharacters);
+    expect(condenseReadings(condensed)).toMatchSnapshot();
+  });
+
   it('should not fail with unrelated readings', () => {
     expect(condenseReadings(readings.sameCharacters.concat(...readings.single))).toMatchSnapshot();
   });

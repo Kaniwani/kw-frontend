@@ -81,6 +81,28 @@ Array [
 ]
 `;
 
+exports[`condenseReadings() should pass when readings were already condensed 1`] = `
+Array [
+  Object {
+    "character": "近々",
+    "common": true,
+    "id": 582,
+    "jlpt": "JLPT N2",
+    "kana": Array [
+      "ちかぢか",
+      "きんきん",
+      "ちかじか",
+    ],
+    "level": 7,
+    "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
+    "sentenceJa": "彼らがデートをしているのを見かけて近々結婚するのってきいたんだ",
+    "tags": Array [
+      "Noun",
+    ],
+  },
+]
+`;
+
 exports[`condenseReadings() should work with mixed edge cases 1`] = `
 Array [
   Object {
@@ -198,26 +220,6 @@ Array [
 exports[`condenseReadings() should work with prefixes 1`] = `
 Array [
   Object {
-    "character": "各〜",
-    "common": null,
-    "id": 2476,
-    "jlpt": null,
-    "kana": Array [
-      "かく",
-    ],
-    "level": 22,
-    "sentenceEn": "First, choose a representative for each team.",
-    "sentenceJa": "まず始めに、各チームの代表者を決めて下さい",
-    "tags": Array [
-      "Prefix",
-    ],
-  },
-]
-`;
-
-exports[`condenseReadings() should work with suffixes 1`] = `
-Array [
-  Object {
     "character": "〜漬け",
     "common": null,
     "id": 6337,
@@ -245,6 +247,26 @@ Array [
     "sentenceJa": "わたしは５才です",
     "tags": Array [
       "Suffix",
+    ],
+  },
+]
+`;
+
+exports[`condenseReadings() should work with suffixes 1`] = `
+Array [
+  Object {
+    "character": "各〜",
+    "common": null,
+    "id": 2476,
+    "jlpt": null,
+    "kana": Array [
+      "かく",
+    ],
+    "level": 22,
+    "sentenceEn": "First, choose a representative for each team.",
+    "sentenceJa": "まず始めに、各チームの代表者を決めて下さい",
+    "tags": Array [
+      "Prefix",
     ],
   },
 ]

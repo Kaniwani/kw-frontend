@@ -1,301 +1,260 @@
-import request from 'utils/request';
+import { get, put, post, patch, del } from 'utils/request';
 import * as urls from './urls';
+
+// FIXME: selectUsername etc from state to prefill defaults where possible!
 
 //-----------------------------------------------------------------------------
 //  AUTHORIZATION
 //-----------------------------------------------------------------------------
-export function getUserAuth(body = {
-  id: 0,
-  username: 'No username provided',
-  email: 'No email provided',
-}) {
-  const url = urls.userCredentials;
-  return request.get({ url, body });
-}
+export const getUserAuth = ({
+  id = 0,
+  username = 'No username provided', // select from state
+  email = 'No email provided',
+} = {}) => get({
+  url: urls.userCredentials,
+  body: { id, username, email },
+});
 
-export function loginUser(body = {
-  username: 'No username provided',
-  password: 'No email provided',
-}) {
-  const url = urls.userLogin;
-  return request.post({ url, body });
-}
+export const loginUser = ({
+  username = 'No username provided',
+  password = 'No email provided',
+} = {}) => post({
+  url: urls.userLogin,
+  body: { username, password },
+});
 
-export function updateUserAuth(body = {
-  id: 0,
-  username: 'No username provided',
-  email: 'No email provided',
-}) {
-  const url = urls.userCredentials;
-  return request.patch({ url, body });
-}
+export const updateUserAuth = ({
+  id = 0,
+  username = 'No username provided',
+  email = 'No email provided',
+} = {}) => patch({
+  url: urls.userCredentials,
+  body: { id, username, email },
+});
 
-export function registerUser(body = {
-  api_key: 0, // Required
-  username: 'No username provided', // Required
-  password: 'No password provided', // Required
-  email: 'No email provided',
-}) {
-  const url = urls.register;
-  return request.post({ url, body });
-}
 
-export function activateUser(body = {
-  uid: 'No uid provided', // Required
-  token: 'No token provided', // Required
-}) {
-  const url = urls.activate;
-  return request.post({ url, body });
-}
+export const registerUser = ({
+  email = 'No email provided',
+  username = 'No username provided',
+  password = 'No password provided',
+  apiKey = 0,
+} = {}) => post({
+  url: urls.register,
+  body: { email, username, password, api_key: apiKey },
+});
 
-export function changeUsername(body = { username: 'No username provided' }) {
-  const url = urls.username;
-  return request.post({ url, body });
-}
+export const activateUser = ({
+  uid = 'No uid provided',
+  token = 'No token provided',
+} = {}) => post({
+  url: urls.activate,
+  body: { uid, token },
+});
 
-export function changePassword(body = { password: 'No password provided' }) {
-  const url = urls.password;
-  return request.post({ url, body });
-}
+export const changeUsername = ({
+  username = 'No username provided',
+} = {}) => post({
+  url: urls.username,
+  body: { username },
+});
+
+
+export const changePassword = ({
+  password = 'No password provided',
+}) => post({
+  url: urls.password,
+  body: { password },
+});
 
 // send email to user with password reset link.
-export function passwordReset(body = { email: 'No email provided' /* Required */ }) {
-  const url = urls.passwordReset;
-  return request.post({ url, body });
-}
+export const passwordReset = ({
+  email = 'No email provided',
+} = {}) => post({
+  url: urls.passwordReset,
+  body: { email },
+});
 
 // endpoint to finish reset password process
-export function passwordConfirm(body) {
-  const url = urls.passwordConfirm;
-  return request.post({ url, body });
-}
+export const passwordConfirm = () => post({ url: urls.passwordConfirm });
 
 //-----------------------------------------------------------------------------
 //  USER
 //-----------------------------------------------------------------------------
-export function getUsers(body) {
-  const url = urls.user;
-  return request.get({ url, body });
-}
-
-export function getUserProfile(body) {
-  const url = urls.userProfile;
-  return request.get({ url, body });
-}
-
-export function syncKw(body) {
-  const url = urls.userSrs;
-  return request.post({ url, body });
-}
-
-export function syncWk(body = {
-  full_sync: false, // true to force ALL users to sync with WK
-}) {
-  const url = urls.userSync;
-  return request.post({ url, body });
-}
+export const getUsers = () => get({ url: urls.user });
+export const getUserProfile = () => get({ url: urls.userProfile });
+export const syncKw = () => post({ url: urls.userSrs });
+export const syncWk = ({
+  fullSync = false, // true to force ALL users to sync with WK
+} = {}) => post({
+  url: urls.userSync,
+  body: { full_sync: fullSync },
+});
 
 //-----------------------------------------------------------------------------
 //  REVIEWS
 //-----------------------------------------------------------------------------
-export function getReviews(body = {
-  meaning_contains: '',
-  level: 0,
-  srs_level: 0,
-  srs_level_lt: 0,
-  srs_level_gt: 0,
-  offset: 0,
-  limit: 100,
-}) {
-  const url = urls.reviews;
-  return request.get({ url, body });
-}
+export const getReviews = ({
+  level = 0,
+  offset = 0,
+  limit = 100,
+  meaningContains = '',
+  srsLevel = 0,
+  srsLevelLt = 0,
+  srsLevelGt = 0,
+} = {}) => get({
+  url: urls.reviews,
+  body: {
+    level,
+    offset,
+    limit,
+    meaning_contains: meaningContains,
+    srs_level: srsLevel,
+    srs_level_lt: srsLevelLt,
+    srs_level_gt: srsLevelGt,
+  },
+});
 
-export function getCriticalReviews(body = {
-  offset: 0,
-  limit: 100,
-}) {
-  const url = urls.criticalReviews;
-  return request.get({ url, body });
-}
+export const getCriticalReviews = ({
+  offset = 0,
+  limit = 100,
+} = {}) => get({
+  url: urls.criticalReviews,
+  body: { offset, limit },
+});
 
-export function getCurrentReviews(body = {
-  offset: 0,
-  limit: 100,
-}) {
-  const url = urls.currentReviews;
-  return request.get({ url, body });
-}
+export const getCurrentReviews = ({
+  offset = 0,
+  limit = 100,
+} = {}) => get({
+  url: urls.currentReviews,
+  body: { offset, limit },
+});
 
-export function getReviewEntry(body = {}) {
-  const url = urls.reviewEntry(body.id);
-  delete body.id; // eslint-disable-line no-param-reassign
-  return request.get({ url, body });
-}
-
-export function reviewCorrect(body = {}) {
-  const url = urls.reviewCorrect(body.id);
-  delete body.id; // eslint-disable-line no-param-reassign
-  return request.post({ url, body });
-}
-
-export function reviewIncorrect(body = {}) {
-  const url = urls.reviewIncorrect(body.id);
-  delete body.id; // eslint-disable-line no-param-reassign
-  return request.post({ url, body });
-}
-
-export function hideReview(body = {}) {
-  const url = urls.hideReview(body.id);
-  delete body.id; // eslint-disable-line no-param-reassign
-  return request.post({ url, body });
-}
-
-export function unhideReview(body = {}) {
-  const url = urls.unhideReview(body.id);
-  delete body.id; // eslint-disable-line no-param-reassign
-  return request.post({ url, body });
-}
+export const getReviewEntry = id => get({ url: urls.reviewEntry(id) });
+export const reviewCorrect = id => post({ url: urls.reviewCorrect(id) });
+export const reviewIncorrect = id => post({ url: urls.reviewIncorrect(id) });
+export const hideReview = id => post({ url: urls.hideReview(id) });
+export const unhideReview = id => post({ url: urls.unhideReview(id) });
 
 //-----------------------------------------------------------------------------
 //  SYNONYMS
 //-----------------------------------------------------------------------------
-export function getSynonym(body = {}) {
-  const url = urls.synonymEntry(body.id);
-  delete body.id; // eslint-disable-line no-param-reassign
-  return request.get({ url, body });
-}
+export const addSynonym = (id, {
+  character = '',
+  kana = '',
+} = {}) => post({
+  url: urls.synonym,
+  body: {
+    character,
+    kana,
+    review: id,
+  },
+});
 
-export function getSynonyms(body) {
-  const url = urls.synonym;
-  return request.get({ url, body });
-}
-
-export function addSynonym(body) {
-  const url = urls.synonym;
-  return request.post({ url, body });
-}
-
-export function removeSynonym(body = {}) {
-  const url = urls.synonymEntry(body.id);
-  delete body.id; // eslint-disable-line no-param-reassign
-  return request.delete({ url, body });
-}
+export const removeSynonym = id => del({
+  url: urls.synonymEntry(id),
+});
 
 //-----------------------------------------------------------------------------
 //  VOCABULARY
 //-----------------------------------------------------------------------------
-export function getVocabulary(body = {
-  level: 0,
-  meaning_contains: '',
-  readings_kana_contains: '',
-  readings_character_contains: '',
-  offset: 0,
-  limit: 100,
-}) {
-  const url = urls.vocabulary;
-  return request.get({ url, body });
-}
+export const getVocabulary = ({
+  level = 0,
+  offset = 0,
+  limit = 100,
+  meaningContains = '',
+  readingsKanaContains = '',
+  readingsCharacterContains = '',
+} = {}) => get({
+  url: urls.vocabulary,
+  body: {
+    level,
+    meaning_contains: meaningContains,
+    readings_kana_contains: readingsKanaContains,
+    readings_character_contains: readingsCharacterContains,
+    offset,
+    limit,
+  },
+});
 
-export function getVocabularyEntry(body = { id: 0 }) {
-  const url = urls.vocabularyEntry(body.id);
-  delete body.id; // eslint-disable-line no-param-reassign
-  return request.get({ url, body });
-}
+export const getVocabularyEntry = id => get({ url: urls.vocabularyEntry(id) });
 
-export function getReadings(body = {
-  offset: 0,
-  limit: 100,
-}) {
-  const url = urls.reading;
-  return request.get({ url, body });
-}
+export const getReadings = ({
+  offset = 0,
+  limit = 100,
+} = {}) => get({
+  url: urls.reading,
+  body: { offset, limit },
+});
 
-export function getReadingEntry(body = { id: 0 }) {
-  const url = urls.readingEntry(body.id);
-  delete body.id; // eslint-disable-line no-param-reassign
-  return request.get({ url, body });
-}
+export const getReadingEntry = id => get({ url: urls.readingEntry(id) });
+export const getLevels = () => get({ url: urls.levels });
 
-export function getLevels(body) {
-  const url = urls.levels;
-  return request.get({ url, body });
-}
+export const getLevelVocabulary = ({
+  level = 0,
+  offset = 0,
+  limit = 100,
+  hyperlink = false,
+} = {}) => get({
+  url: urls.vocabulary,
+  body: {
+    level,
+    offset,
+    limit,
+    hyperlink,
+  },
+});
 
-export function getLevelVocabulary(body = {
-  level: 0,
-  offset: 0,
-  limit: 100,
-  hyperlink: false,
-}) {
-  const url = urls.vocabulary;
-  return request.get({ url, body }); // creates queryString using body.level
-}
 
-export function lockLevel(body = {
-  level: null,
-}) {
-  const url = urls.lockLevel(body.level);
-  delete body.level; // eslint-disable-line no-param-reassign
-  return request.post({ url, body });
-}
-
-export function unlockLevel(body = {
-  level: null,
-}) {
-  const url = urls.unlockLevel(body.level);
-  delete body.level; // eslint-disable-line no-param-reassign
-  return request.post({ url, body });
-}
+export const lockLevel = level => post({ url: urls.lockLevel(level) });
+export const unlockLevel = level => post({ url: urls.unlockLevel(level) });
 
 //-----------------------------------------------------------------------------
 //  GENERAL
 //-----------------------------------------------------------------------------
-export function getFaqs(body) {
-  const url = urls.faq;
-  return request.get({ url, body });
-}
+export const getFaqs = () => get({ url: urls.faq });
+export const getFaq = id => get({ url: urls.faqEntry(id) });
 
-export function getFaqEntry(body = { id: 0 }) {
-  const url = urls.faqEntry(body.id);
-  delete body.id; // eslint-disable-line no-param-reassign
-  return request.get({ url, body });
-}
+export const addFaq = ({
+  question = '',
+  answer = '',
+} = {}) => post({
+  url: urls.faq,
+  body: { question, answer },
+});
 
-export function addFaqEntry(body = {
-  id: null,
-  question: '', // Required
-  answer: '', // Required
-}) {
-  const url = urls.faqEntry(body.id);
-  delete body.id; // eslint-disable-line no-param-reassign
-  return request.get({ url, body });
-}
+export const updateFaq = ({
+  question = '',
+  answer = '',
+} = {}) => put({
+  url: urls.faq,
+  body: { question, answer },
+});
 
-export function getAnnouncements(body) {
-  const url = urls.announcement;
-  return request.get({ url, body });
-}
+export const getAnnouncements = () => get({ url: urls.announcement });
+export const getAnnouncement = id => get({ url: urls.announcementEntry(id) });
 
-export function getAnnouncement(body = { id: 0 }) {
-  const url = urls.announcementEntry(body.id);
-  delete body.id; // eslint-disable-line no-param-reassign
-  return request.get({ url, body });
-}
+export const addAnnouncement = ({
+  title = '',
+  body = '',
+} = {}) => post({
+  url: urls.announcement,
+  body: { title, body },
+});
 
-export function addAnnouncement(body = {
-  title: '', // Required
-  body: '', // Required
-}) {
-  const url = urls.announcementEntry(body);
-  return request.post({ url, body });
-}
+export const updateAnnouncement = ({
+  title = '',
+  body = '',
+} = {}) => put({
+  url: urls.announcement,
+  body: { title, body },
+});
 
-export function contact(body = {
-  name: 'No name provided', // Required
-  email: 'No email provided', // Required
-  body: 'No body provided', // Required
-}) {
-  const url = urls.contact;
-  return request.post({ url, body });
-}
+export const sendContactMessage = ({
+  name = 'No name provided',
+  email = 'No email provided',
+  body = 'No body provided',
+} = {}) => post({
+  url: urls.contact,
+  body: { name, email, body },
+});
