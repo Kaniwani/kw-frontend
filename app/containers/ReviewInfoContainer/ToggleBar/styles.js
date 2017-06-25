@@ -32,11 +32,14 @@ export const ToggleButton = styled.button`
   text-align: center;
   text-transform: uppercase;
   flex: 0 1 300px;
-  ${''/* cursor: pointer; */}
   padding: .2rem;
   margin: 0 .2rem;
   background-color: ${whiteLight};
   color: ${greyLight};
+
+  &:focus {
+    outline: none;
+  }
 
   ${({ isActive }) => isActive && `
     color: ${greyDark};
@@ -61,7 +64,6 @@ export const ToggleButton = styled.button`
 
   &:disabled {
     opacity: .7;
-    cursor: not-allowed;
     pointer-events: none;
   }
 `;

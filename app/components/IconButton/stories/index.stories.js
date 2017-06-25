@@ -3,8 +3,8 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import sample from 'lodash/sample';
 
-import Container from 'layouts/Container';
-import Element from 'layouts/Element';
+import Container from 'base/Container';
+import Element from 'base/Element';
 import * as COLORS from 'shared/styles/colors';
 
 import ICONS from 'components/Icon/constants';

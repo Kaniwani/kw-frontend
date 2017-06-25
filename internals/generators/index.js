@@ -7,17 +7,13 @@
 const fs = require('fs');
 const path = require('path');
 const baseGenerator = require('./base/index.js');
-const layoutGenerator = require('./layout/index.js');
 const componentGenerator = require('./component/index.js');
 const containerGenerator = require('./container/index.js');
-const languageGenerator = require('./language/index.js');
 
 module.exports = (plop) => {
   plop.setGenerator('base', baseGenerator);
-  plop.setGenerator('layout', layoutGenerator);
   plop.setGenerator('component', componentGenerator);
   plop.setGenerator('container', containerGenerator);
-  plop.setGenerator('language', languageGenerator);
   plop.addHelper('directory', (comp) => {
     try {
       fs.accessSync(path.join(__dirname, `../../app/containers/${comp}`), fs.F_OK);

@@ -14,15 +14,15 @@ import { Header, Nav } from './styles';
 // FIXME: selectors for counts
 // the rest can probably just be local state, since we have a nav of specific routes only.
 const devRoutes = [
-  {
-    text: 'lessons',
-    to: '/lesson',
-    count: 0,
-    isDisabled: false,
-  },
+  // {
+  //   text: 'lessons',
+  //   to: '/lessons',
+  //   count: 0,
+  //   isDisabled: false,
+  // },
   {
     text: 'reviews',
-    to: '/review',
+    to: '/reviews',
     count: 0,
     isDisabled: false,
   },
@@ -37,6 +37,10 @@ const devRoutes = [
   {
     text: 'about',
     to: '/about',
+  },
+  {
+    text: 'contact',
+    to: '/contact',
   },
   {
     text: 'logout',

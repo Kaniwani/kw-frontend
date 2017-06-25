@@ -1,10 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-{{#if wantMessages}}
-
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
-{{/if}}
 
 class {{ properCase name }} extends {{{ type }}} { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
@@ -14,9 +9,7 @@ class {{ properCase name }} extends {{{ type }}} { // eslint-disable-line react/
   render() {
     return (
       <div>
-      {{#if wantMessages}}
-        <FormattedMessage {...messages.header} />
-      {{/if}}
+        <h1>Hello {{properCase name}}</h1>
       </div>
     );
   }

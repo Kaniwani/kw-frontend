@@ -1,7 +1,9 @@
 import styled from 'styled-components';
+
+import { gutter } from 'shared/styles/layout';
 import { white } from 'shared/styles/colors';
-import backgroundImage from 'shared/assets/img/reviews.svg';
-// matches review background image svg color
+import BackgroundImg from 'components/BackgroundImg';
+// match review background image svg color
 export const backgroundImageColor = '#e5e5e5';
 
 export const Wrapper = styled.div`
@@ -16,9 +18,11 @@ export const Wrapper = styled.div`
 `;
 
 export const Upper = styled.section`
+  ${gutter({ position: 'horizontal' })}
+  ${gutter({ position: 'top', mod: 1.5 })} /* Space for progress bar */
+  ${gutter({ position: 'bottom', mod: 0.25 })} /* Taglist has enough already*/
   display: flex;
   flex-direction: column;
-  padding: .4rem;
   min-height: 35vmin;
   background-color: #6a3bbc;
   background-image: linear-gradient(180deg, #774ac6, #5f35a9);
@@ -34,18 +38,12 @@ export const Lower = styled.section`
   background-color: ${backgroundImageColor};
 `;
 
-export const ReviewBackground = styled.div`
-  position: absolute;
-  bottom: 0;
+export const ReviewBackgroundImg = BackgroundImg.extend`
   left: 50%;
   transform: translateX(-50%);
   width: 100vw;
-  opacity: .9;
-  background-image: url(${backgroundImage});
-  background-repeat: no-repeat;
-  background-position: bottom right;
-  background-size: cover;
-  align-self: stretch;
-  height: 100%;
   max-height: 25vmax;
+  opacity: .9;
+  z-index: 0;
+  background-position: bottom right;
 `;

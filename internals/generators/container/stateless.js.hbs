@@ -4,18 +4,12 @@ import { connect } from 'react-redux';
 {{#if wantHeaders}}
 import Helmet from 'react-helmet';
 {{/if}}
-{{#if wantMessages}}
-import { FormattedMessage } from 'react-intl';
-{{/if}}
 {{#if wantActionsAndReducer}}
 import { createStructuredSelector } from 'reselect';
 {{/if}}
 
 {{#if wantActionsAndReducer}}
 import makeSelect{{properCase name}} from './selectors';
-{{/if}}
-{{#if wantMessages}}
-import messages from './messages';
 {{/if}}
 
 function {{ properCase name }}() {
@@ -29,9 +23,7 @@ function {{ properCase name }}() {
         ]{{curly}}
       />
     {{/if}}
-    {{#if wantMessages}}
-      <FormattedMessage {...messages.header} />
-    {{/if}}
+    <h1>Hello {{properCase name}}</h1>
     </div>
   );
 }

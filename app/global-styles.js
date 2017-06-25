@@ -1,7 +1,5 @@
 import { injectGlobal } from 'styled-components';
-import { white, greyDark, blackLight, purpleLight } from 'shared/styles/colors';
-import { borderRadius } from 'shared/styles/sizing';
-import { resetList } from 'shared/styles/utils';
+import { greyDark, blackLight, purpleLight } from 'shared/styles/colors';
 import { media } from 'shared/styles/media';
 import {
   ffBody,
@@ -63,6 +61,11 @@ injectGlobal`
     line-height: 1.2;
   }
 
+  a,
+  button {
+    cursor: pointer;
+  }
+
   p {
     line-height: 1.3;
     + p {
@@ -73,35 +76,4 @@ injectGlobal`
   small {
     ${milli}
   }
-
-  /* VocabChip tooltip styles */
-  .vocab-tip.vocab-tip {
-    ${epsilon}
-    padding: .4em .6em .5em;
-    border-radius: ${borderRadius};
-  }
-
-  .vocab-tip ul {
-    ${resetList}
-    color: ${white};
-  }
-
-  .vocab-tip li {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    span {
-      flex: 0 1 auto;
-      padding: .2em;
-    }
-
-    /* left column category "JA", "RC" etc */
-    span:first-child {
-      font-size: .95em;
-      color: ${greyDark};
-      margin-right: .2em;
-    }
-  }
-
 `;

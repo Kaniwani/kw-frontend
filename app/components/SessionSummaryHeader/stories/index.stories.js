@@ -6,6 +6,6 @@ storiesOf('components.SessionSummaryHeader', module)
   .add('SessionSummaryHeader with required props', () => (
     <SessionSummaryHeader
       category="review"
-      linkRoute="/reviews/"
+      linkRoute="/reviews"
     />
   ));

@@ -6,14 +6,13 @@ import { gutter } from 'shared/styles/layout';
 import { media } from 'shared/styles/media';
 
 export const Wrapper = styled.div`
-  z-index: 2; /* Stay above absolute ReviewBackground component */
+  z-index: 2; /* Stay above absolute ReviewBackgroundImg component */
 `;
 
-export const PanelsWrapper = styled.div`
+export const PanelsWrapper = Wrapper.extend`
   background-color: ${transparent};
   overflow: hidden;
   width: 100%;
-  z-index: 2;
   margin-left: auto;
   margin-right: auto;
   position: relative;

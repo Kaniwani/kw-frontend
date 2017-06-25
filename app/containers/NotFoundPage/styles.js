@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import H1 from 'base/H1';
 import H2 from 'base/H2';
 import BGImg from 'components/BackgroundImg';
@@ -5,6 +6,13 @@ import BGImg from 'components/BackgroundImg';
 import { pink, greyDark } from 'shared/styles/colors';
 import { kilo, godzilla } from 'shared/styles/typography';
 import { media } from 'shared/styles/media';
+
+export const Wrapper = styled.div`
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+`;
 
 export const BackgroundImg = BGImg.extend`
   max-width: 75vmax;

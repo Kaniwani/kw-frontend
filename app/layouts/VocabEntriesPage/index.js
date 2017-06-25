@@ -6,7 +6,7 @@ import Helmet from 'react-helmet';
 import SiteHeader from 'components/SiteHeader';
 import VocabPageHeader from 'components/VocabPageHeader';
 import VocabList from 'components/VocabList';
-import PageWrapper from 'layouts/PageWrapper';
+import PageWrapper from 'base/PageWrapper';
 
 import { VocabListWrapper } from './styles';
 

@@ -2,11 +2,12 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 
+import backgroundImage from 'shared/assets/img/reviews.svg';
 import ReviewAnswerContainer from 'containers/ReviewAnswerContainer';
 import ReviewInfoContainer from 'containers/ReviewInfoContainer';
 import ReviewHeader from './Header';
 import ReviewQuestion from './Question';
-import { Wrapper, Upper, Lower, ReviewBackground } from './styles';
+import { Wrapper, Upper, Lower, ReviewBackgroundImg } from './styles';
 
 class ReviewsPage extends React.Component {
 
@@ -36,7 +37,7 @@ class ReviewsPage extends React.Component {
         <Lower>
           <ReviewAnswerContainer />
           <ReviewInfoContainer />
-          <ReviewBackground />
+          <ReviewBackgroundImg imgSrc={backgroundImage} />
         </Lower>
       </Wrapper>
     );

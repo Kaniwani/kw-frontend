@@ -32,8 +32,8 @@ export const Question = styled.h1`
 
 export const Tags = styled(TagsList)`
   display: flex;
-  align-self: flex-start;
   flex-flow: row wrap;
-  justify-content: flex-start;
+  justify-content: center;
+  align-self: center;
   z-index: 2;
 `;
