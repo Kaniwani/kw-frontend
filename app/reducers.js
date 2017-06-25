@@ -7,7 +7,6 @@ import { combineReducers } from 'redux';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 import globalReducer from 'containers/App/reducer';
-import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import notificationsReducer from 'containers/Notifications/reducer';
 
 // Initial routing state
@@ -34,7 +33,6 @@ export default function createReducer(asyncReducers) {
   return combineReducers({
     route: routeReducer,
     global: globalReducer,
-    language: languageProviderReducer,
     notifications: notificationsReducer,
     ...asyncReducers,
   });

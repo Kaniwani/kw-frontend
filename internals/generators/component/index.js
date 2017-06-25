@@ -35,11 +35,6 @@ module.exports = {
     message: 'Do you want storybook stories?',
   }, {
     type: 'confirm',
-    name: 'wantMessages',
-    default: false,
-    message: 'Do you want i18n messages (i.e. will this component use text)?',
-  }, {
-    type: 'confirm',
     name: 'wantLoadable',
     default: false,
     message: 'Do you want to load the component asynchronously?',
@@ -84,15 +79,6 @@ module.exports = {
         type: 'add',
         path: '../../app/components/{{properCase name}}/Loadable.js',
         templateFile: './component/loadable.js.hbs',
-        abortOnFail: true,
-      });
-    }
-
-    if (data.wantMessages) {
-      actions.push({
-        type: 'add',
-        path: '../../app/components/{{properCase name}}/messages.js',
-        templateFile: './component/messages.js.hbs',
         abortOnFail: true,
       });
     }
