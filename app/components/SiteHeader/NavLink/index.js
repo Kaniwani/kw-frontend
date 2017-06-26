@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import isNumber from 'lodash/isNumber';
 
-import { Li, Link, Text, Count } from './styles';
+import { Li, Link, LinkButton, Text, Count } from './styles';
 
 NavLink.propTypes = {
   to: PropTypes.string.isRequired,
@@ -13,6 +13,7 @@ NavLink.propTypes = {
   ]),
   isDisabled: PropTypes.bool,
   isOffCanvas: PropTypes.bool,
+  handleLogout: PropTypes.func.isRequired,
 };
 
 NavLink.defaultProps = {
@@ -27,19 +28,29 @@ function NavLink({
   count,
   isDisabled,
   isOffCanvas,
+  handleLogout,
 }) {
   return (
     <Li isOffCanvas={isOffCanvas}>
-      <Link
-        plainLink
-        to={to}
-        disabled={isDisabled}
-      >
-        <Text>
-          {text}
-          {isNumber(count) && <Count disabled={isDisabled}>{count}</Count>}
-        </Text>
-      </Link>
+      {to === '/logout' ? (
+        <LinkButton onClick={handleLogout}>
+          <Text>
+            {text}
+          </Text>
+        </LinkButton>
+      ) : (
+        <Link
+          plainLink
+          to={to}
+          disabled={isDisabled}
+        >
+          <Text>
+            {text}
+            {isNumber(count) && <Count disabled={isDisabled}>{count}</Count>}
+          </Text>
+        </Link>
+        )
+      }
     </Li>
   );
 }

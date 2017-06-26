@@ -1,6 +1,6 @@
 import React from 'react';
 import debounce from 'lodash/debounce';
-
+import { clearToken } from 'utils/auth';
 import { breakpoints } from 'shared/styles/media';
 
 import LogoLink from 'components/LogoLink';
@@ -81,11 +81,16 @@ class SiteHeader extends React.Component {
     }
   }
 
-  handleToggleClick = (event) => {
+  handleToggle = (event) => {
     event.stopPropagation();
     this.setState((prevState) => ({
       offCanvasMenuActive: !prevState.offCanvasMenuActive,
     }));
+  }
+
+  handleLogout = () => {
+    clearToken();
+    this.props.history.push('/logout'); // eslint-disable-line react/prop-types
   }
 
   render() {
@@ -101,19 +106,22 @@ class SiteHeader extends React.Component {
       <Header innerRef={(node) => { this.HeaderRef = node; }}>
         <Nav>
           <LogoLink />
-          <OnCanvasMenu routes={onCanvasRoutes} />
-          {this.state.offCanvasToggleVisible && (
-            <OffCanvasToggle
-              ariaControls="offCanvasMenu"
-              isActive={this.state.offCanvasMenuActive}
-              handleToggle={this.handleToggleClick}
-            />
-          )}
+          <OnCanvasMenu
+            routes={onCanvasRoutes}
+            handleLogout={this.handleLogout}
+          />
+          <OffCanvasToggle
+            isVisible={this.state.offCanvasToggleVisible}
+            isActive={this.state.offCanvasMenuActive}
+            handleToggle={this.handleToggle}
+            ariaControls="offCanvasMenu"
+          />
           <OffCanvasMenu
             id="offCanvasMenu"
             routes={offCanvasRoutes}
             offsetTop={this.state.headerHeight}
             isVisible={this.state.offCanvasMenuActive}
+            handleLogout={this.handleLogout}
           />
         </Nav>
       </Header>

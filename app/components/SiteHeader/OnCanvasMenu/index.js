@@ -7,14 +7,20 @@ import { Ul } from './styles';
 
 OnCanvasMenu.propTypes = {
   routes: PropTypes.array.isRequired,
+  handleLogout: PropTypes.func,
 };
 
-function OnCanvasMenu({ routes }) {
+OnCanvasMenu.defaultProps = {
+  handleLogout: () => {},
+};
+
+function OnCanvasMenu({ routes, handleLogout }) {
   return (
     <Ul>
       {routes.map((route) => (
         <NavLink
           key={cuid()}
+          handleLogout={handleLogout}
           {...route}
         />
       ))}

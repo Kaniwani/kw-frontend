@@ -11,9 +11,10 @@ OffCanvasMenu.propTypes = {
   routes: PropTypes.array.isRequired,
   offsetTop: PropTypes.number.isRequired,
   isVisible: PropTypes.bool.isRequired,
+  handleLogout: PropTypes.func.isRequired,
 };
 
-function OffCanvasMenu({ id, routes, offsetTop, isVisible }) {
+function OffCanvasMenu({ id, routes, offsetTop, isVisible, handleLogout }) {
   return (
     <Wrapper
       id={id}
@@ -21,9 +22,10 @@ function OffCanvasMenu({ id, routes, offsetTop, isVisible }) {
       isVisible={isVisible}
     >
       <Ul>
-        {routes.map(route => (
+        {routes.map((route) => (
           <NavLink
             key={cuid()}
+            handleLogout={handleLogout}
             isOffCanvas
             {...route}
           />

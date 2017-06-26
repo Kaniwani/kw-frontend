@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import cuid from 'cuid';
 
 import { Redirect } from 'react-router-dom';

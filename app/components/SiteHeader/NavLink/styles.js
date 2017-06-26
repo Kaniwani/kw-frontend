@@ -3,6 +3,7 @@ import { transparentize } from 'polished';
 
 import A from 'base/A';
 
+import { resetButton } from 'shared/styles/utils';
 import { whiteDark, grey, blueLight, purple } from 'shared/styles/colors';
 import { epsilon } from 'shared/styles/typography';
 import { media } from 'shared/styles/media';
@@ -31,7 +32,6 @@ export const Text = styled.span`
     transition: all .3s ease-out;
     transform: translateX(-50%);
   }
-
 `;
 
 export const Count = styled.span`
@@ -40,7 +40,7 @@ export const Count = styled.span`
   color: ${({ disabled }) => disabled ? grey : blueLight};
 `;
 
-export const Link = styled(A)`
+const linkStyle = css`
   display: flex;
   font-size: 1.25em;
   font-weight: 600;
@@ -67,6 +67,15 @@ export const Link = styled(A)`
   }
 `;
 
+export const Link = styled(A)`
+  ${linkStyle}
+`;
+
+export const LinkButton = styled.button`
+  ${resetButton}
+  ${linkStyle}
+`;
+
 export const Li = styled.li`
   ${epsilon}
   display: inline-flex;
@@ -76,7 +85,8 @@ export const Li = styled.li`
   ${({ isOffCanvas }) => isOffCanvas && css`
     flex: 1 0 auto;
     border-bottom: 1px solid ${transparentize(0.25, whiteDark)};
-    ${Link} {
+    ${Link},
+    ${LinkButton} {
       padding: 1rem 1rem .4rem;
       width: 100%;
 

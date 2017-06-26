@@ -38,7 +38,6 @@ export class ProtectedRoutes extends React.Component {
           <Route exact path="/about" component={AboutPage} />
           <Route exact path="/contact" component={ContactPage} />
           <Route exact path="/settings" component={SettingsPage} />
-          {/* TODO: handle token clear logout action in redirect or in SiteHeader link */}
           <Redirect exact path="/logout" to="/welcome" />
           {/* <Route path="/lessons" component={LessonsPage} /> */}
           <Route path="/reviews" component={ReviewsPage} />

@@ -77,7 +77,7 @@ export const resetList = `
   padding-left: 0;
 `;
 
-export const resetButton = css`
+export const resetButton = `
   background: none;
   border: 0;
   color: inherit;

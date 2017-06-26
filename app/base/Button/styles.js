@@ -8,7 +8,7 @@ import { resetButton } from 'shared/styles/utils';
 
 import A from 'base/A';
 
-export const Anchor = styled(A)`
+const buttonStyle = css`
   ${epsilon}
   display: inline-block;
   box-sizing: border-box;
@@ -33,22 +33,33 @@ export const Anchor = styled(A)`
     background-color: ${({ bgColor }) => mix(0.5, bgColor, greyDark)};
   }
 
-  ${({ plainButton }) => plainButton ?
-    resetButton : css`
-    &:not(:disabled) {
-      &:active,
-      &:focus,
-      &:hover {
-        color: ${({ colorHover }) => colorHover};
-        background-color: ${({ bgColorHover }) => bgColorHover};
-      }
+  & {
+    ${({ plainButton }) => plainButton ? css`
+        ${resetButton}
+        min-width: auto;
+      ` : css`
+        &:not(:disabled) {
+          &:active,
+          &:focus,
+          &:hover {
+            color: ${({ colorHover }) => colorHover};
+            background-color: ${({ bgColorHover }) => bgColorHover};
+          }
 
-      &:active {
-        color: ${({ color }) => color};
-        background-color: ${({ bgColor }) => lighten(0.2, bgColor)};
-      }
+          &:active {
+            color: ${({ color }) => color};
+            background-color: ${({ bgColor }) => lighten(0.2, bgColor)};
+          }
+        }
+      `
     }
-  `}
+  }
 `;
 
-export const StyledButton = Anchor.withComponent('button');
+export const Anchor = styled(A)`
+  ${buttonStyle}
+`;
+
+export const StyledButton = styled.button`
+  ${buttonStyle}
+`;

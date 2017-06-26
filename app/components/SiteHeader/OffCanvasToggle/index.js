@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { branch, renderNothing } from 'recompose';
 
 import { Toggle, ToggleDot } from './styles';
 
@@ -29,4 +30,10 @@ function OffCanvasToggle({ isActive, handleToggle, ariaControls }) {
   );
 }
 
-export default OffCanvasToggle;
+const isHidden = ({ isVisible }) => !isVisible;
+const enhance = branch(
+  isHidden,
+  renderNothing,
+);
+
+export default enhance(OffCanvasToggle);
