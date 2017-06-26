@@ -70,8 +70,6 @@ const contactUrl = urljoin(API_BASE, 'contact');
 export const createJishoApiUrl = (keyword) => `//jisho.org/api/v1/search/words?keyword=${keyword}`;
 export const createJishoUrl = (keyword) => `//jisho.org/search/${keyword}`;
 
-// FIXME: selectUsername etc from state to prefill defaults where possible!
-
 //-----------------------------------------------------------------------------
 //  AUTHORIZATION
 //-----------------------------------------------------------------------------
@@ -222,6 +220,6 @@ export const updateAnnouncement = ({ title, body }) => put(announcementUrl, { ti
 export const sendContactMessage = ({
   name,
   email,
-  body = 'No body provided',
+  body = 'No message provided',
 } = {}) =>
   post(contactUrl, { name, email, body });

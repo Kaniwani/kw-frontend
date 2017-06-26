@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { withRouter, Switch, Route, Redirect } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
 import SiteHeader from 'components/SiteHeader';
@@ -13,28 +13,15 @@ import ContactPage from 'containers/ContactPage/Loadable';
 import SettingsPage from 'containers/SettingsPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
-import { userProfileSerializer, stubbedReviewEntriesSerializer } from 'shared/serializers';
-
-import { loadUser, loadReviews } from './actions';
+import { loadUser } from 'containers/App/actions';
 
 export class ProtectedRoutes extends React.Component {
   static propTypes = {
     loadUser: PropTypes.func.isRequired,
-    loadReviews: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
     this.props.loadUser();
-      // .then((res) => {
-      //   this.setState(userProfileSerializer(res));
-      // }) // eslint-disable-line no-console
-      // .catch((err) => console.error(err)); // eslint-disable-line no-console
-
-    // this.props.loadReviews()
-    //   .then((res) => {
-    //     this.setState({ reviews: stubbedReviewEntriesSerializer(res) });
-    //   }) // eslint-disable-line no-console
-    //   .catch((err) => console.error(err)); // eslint-disable-line no-console
   }
 
   render() {
@@ -65,9 +52,8 @@ export class ProtectedRoutes extends React.Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadUser: () => dispatch(loadUser),
-    loadReviews: () => dispatch(loadReviews),
+    loadUser: () => dispatch(loadUser()),
   };
 }
 
-export default connect(null, mapDispatchToProps)(ProtectedRoutes);
+export default withRouter(connect(null, mapDispatchToProps)(ProtectedRoutes));

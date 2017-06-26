@@ -1,13 +1,14 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { withRouter, Switch, Route, Redirect } from 'react-router-dom';
 
-import { hasToken } from 'utils/auth';
 import WelcomePage from 'containers/WelcomePage';
 import ProtectedRoutes from 'containers/ProtectedRoutes';
 
+import { hasToken } from 'utils/auth';
+
 // must be React.Component not stateless for Loadable to work
-export class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
+class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <div>
@@ -23,4 +24,5 @@ export class App extends React.Component { // eslint-disable-line react/prefer-s
   }
 }
 
-export default App;
+// connected components will block rendering if not wrapped withRouter
+export default withRouter(App);

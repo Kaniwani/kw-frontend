@@ -15,20 +15,23 @@ export const del = createRequestType('DELETE'); // del because "delete" is a res
  * @param  {Object} config {method='GET', headers={}, body={}}
  * @return {Promise} response
  */
-async function request(url = '', { method, headers, body } = {}) {
+function request(url = '', { method, headers, body } = {}) {
   const finalUrl = formatUrl(url, method, body);
-  const token = await getToken();
+  const token = getToken();
   const combinedHeaders = {
     ...headers,
     Authorization: `JWT ${token}`,
     'Accept': 'application/json', // eslint-disable-line quote-props
     'Content-Type': 'application/json',
   };
-
-  return fetch(finalUrl, { method, headers: combinedHeaders, body: JSON.stringify(body) })
+  const config = { method, headers: combinedHeaders, body: JSON.stringify(body) };
+  // no body allowed
+  if (['GET', 'DELETE'].includes(method)) {
+    delete config.body;
+  }
+  return fetch(finalUrl, config)
     .then(checkStatus)
     .then(parseJSON);
-    // .catch(console.error); // dev only
 }
 
 /**
@@ -37,7 +40,9 @@ async function request(url = '', { method, headers, body } = {}) {
  * @return {object}          The parsed JSON from the request
  */
 function parseJSON(response) {
-  if (response.status === 204) return response; // no JSON
+  if (response.status === 204) {
+    return response; // no JSON
+  }
   return response.json();
 }
 
@@ -47,11 +52,12 @@ function parseJSON(response) {
  * @return {object|undefined} Returns either the response, or throws an error
  */
 function checkStatus(response = { status: 404, statusText: 'No response!' }) {
-  if (response.status >= 200 && response.status < 300) return response;
-
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  }
   const error = new Error(response.statusText);
   error.response = response;
-  throw error;
+  return error;
 }
 
 /**
@@ -65,7 +71,6 @@ function checkStatus(response = { status: 404, statusText: 'No response!' }) {
  */
 function formatUrl(url, method, body) {
   const needsConversion = ['GET', 'DELETE'].includes(method) && !isEmpty(body);
-
   return needsConversion ?
     `${url}/?${formatQueryString(body)}` :
     `${url}/`;

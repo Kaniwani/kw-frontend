@@ -1,26 +1,33 @@
-import {
-  LOAD_REPOS,
-  LOAD_REPOS_SUCCESS,
-  LOAD_REPOS_ERROR,
-} from './constants';
+import actionTypeCreator, { SYNC } from 'redux-action-types-creator';
+import { createAction } from 'redux-actions';
+import * as api from 'shared/api';
 
-export function loadRepos() {
-  return {
-    type: LOAD_REPOS,
-  };
-}
+export const TYPES = actionTypeCreator('KW')({
+  USER: {
+    SRS: SYNC,
+    LOAD: SYNC,
+  },
+  REVIEWS: {
+    LOAD: SYNC,
+  },
+  VOCAB: {
+    LEVELS: {
+      LOAD: SYNC,
+    },
+    LEVEL: {
+      LOAD: SYNC,
+    },
+    ENTRY: {
+      LOAD: SYNC,
+    },
+  },
+});
 
-export function reposLoaded(repos, username) {
-  return {
-    type: LOAD_REPOS_SUCCESS,
-    repos,
-    username,
-  };
-}
+// https://github.com/acdlite/flux-standard-action
 
-export function repoLoadingError(error) {
-  return {
-    type: LOAD_REPOS_ERROR,
-    error,
-  };
-}
+export const loadUser = createAction('LOAD_USER', api.getUserProfile);
+// export const syncUser = createAction(TYPES.USER.SRS); // () => api.syncKw
+// export const loadReviews = createAction(TYPES.REVIEWS.LOAD); // () => api.getCurrentReviews
+// export const loadVocabLevels = createAction(TYPES.VOCAB.LEVELS.LOAD); // () => api.getLevels
+// export const loadVocabLevel = createAction(TYPES.VOCAB.LEVEL.LOAD); // () => api.getLevel
+// export const loadVocabEntry = createAction(TYPES.VOCAB.ENTRY.LOAD); // () => api.getVocabularyEntry

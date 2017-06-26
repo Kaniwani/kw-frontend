@@ -1,17 +1,16 @@
 import { createSelector } from 'reselect';
+import { selectGlobal } from 'containers/App/selectors';
 
 // Direct selector to the homepage state domain
-const selectHomePageDomain = () => state => state.homepage;
-
-// Main selector used by HomePage
-const makeSelectHomePage = () => createSelector(
-  selectHomePageDomain(),
-  substate => substate
-);
+const selectHomePageDomain = () => (state) => state.homepage;
 
 // Other specific selectors
+const makeSelectUser = () => createSelector(
+  selectGlobal,
+  (state) => state.user,
+);
 
 export default selectHomePageDomain;
 export {
-  makeSelectHomePage,
+  makeSelectUser,
 };

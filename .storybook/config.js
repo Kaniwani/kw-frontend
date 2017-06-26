@@ -8,10 +8,10 @@ const reqComponents = require.context('components', true, /.stories.js$/);
 const reqContainers = require.context('containers', true, /.stories.js$/);
 
 function loadStories() {
-  reqMainStories.keys().forEach(filename => reqMainStories(filename));
-  reqBase.keys().forEach(filename => reqBase(filename));
-  reqComponents.keys().forEach(filename => reqComponents(filename));
-  reqContainers.keys().forEach(filename => reqContainers(filename));
+  reqMainStories.keys().forEach((filename) => reqMainStories(filename));
+  reqBase.keys().forEach((filename) => reqBase(filename));
+  reqComponents.keys().forEach((filename) => reqComponents(filename));
+  reqContainers.keys().forEach((filename) => reqContainers(filename));
 }
 
 addDecorator(withRouter);

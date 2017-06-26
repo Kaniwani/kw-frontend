@@ -1,50 +1,17 @@
-import {
-  LOAD_REPOS_SUCCESS,
-  LOAD_REPOS,
-  LOAD_REPOS_ERROR,
-} from './constants';
+import { handleActions } from 'redux-actions';
+import { TYPES } from './actions';
 
-// The global initialState of the App
 const initialState = {
+  user: {},
   loading: false,
   error: false,
-  currentUser: false,
-  userData: {
-    repositories: false,
-  },
 };
 
-function appReducer(state = initialState, action) {
-  switch (action.type) {
-    case LOAD_REPOS:
-      return {
-        ...state,
-        loading: true,
-        error: false,
-        userData: {
-          ...state.userData,
-          repositories: false,
-        },
-      };
-    case LOAD_REPOS_SUCCESS:
-      return {
-        ...state,
-        userData: {
-          ...state.userData,
-          repositories: action.repos,
-        },
-        loading: false,
-        currentUser: action.username,
-      };
-    case LOAD_REPOS_ERROR:
-      return {
-        ...state,
-        error: action.error,
-        loading: false,
-      };
-    default:
-      return state;
-  }
-}
+const appReducer = handleActions({
+  [TYPES.USER.LOAD]: (state, { payload, error }) => {
+    if (error) return { ...state, error };
+    return { ...state, user: payload };
+  },
+}, initialState);
 
 export default appReducer;

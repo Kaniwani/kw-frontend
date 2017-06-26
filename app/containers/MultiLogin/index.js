@@ -1,5 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import cuid from 'cuid';
+
+import { Redirect } from 'react-router-dom';
 
 // FIXME: remove - temp dev stuff!
 import { setToken } from 'utils/auth';
@@ -26,6 +29,7 @@ export const PANELS = [
 class MultiLogin extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   state = {
     selected: PANELS[1],
+    redirectToDashboard: false,
   }
 
   handleSelectChange = (PANEL) => (event) => {
@@ -37,11 +41,18 @@ class MultiLogin extends React.PureComponent { // eslint-disable-line react/pref
 
   handleSubmit = (event) => {
     blockEvent(event);
+    // FIXME: dispatch(login())
     setToken('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InN5bjFAYmFyLmNvbSIsImV4cCI6MTQ5ODE1MTk4MywidXNlcl9pZCI6MywidXNlcm5hbWUiOiJzeW4xIn0.Dr0SSvS8cZ6Y0zk17U0C2fRBWFKFwenoQaqFiiRGGsM');
+    this.setState({ redirectToDashboard: true });
     // dispatch relevant action based on this.state.selected
   }
 
   render() {
+    // FIXME: selectIsLoggedIn()
+    if (this.state.redirectToDashboard) {
+      return <Redirect to="/" />;
+    }
+
     const registerSelected = this.state.selected === PANELS[0];
     const loginSelected = this.state.selected === PANELS[1];
     const resetSelected = this.state.selected === PANELS[2];
