@@ -1,109 +1,133 @@
+import urljoin from 'url-join';
 import { get, put, post, patch, del } from 'utils/request';
-import * as urls from './urls';
+
+const BASE_URL = '//localhost:8000'; // FIXME: change for production
+const API_BASE = urljoin(BASE_URL, 'api', 'v1');
+
+//-----------------------------------------------------------------------------
+//  AUTHORIZATION
+//-----------------------------------------------------------------------------
+const authUrl = urljoin(API_BASE, 'auth');
+const userLoginUrl = urljoin(authUrl, 'login');
+const userCredentialsUrl = urljoin(authUrl, 'me'); // GET / PATCH
+const registerUrl = urljoin(authUrl, 'register'); // POST
+const activateUrl = urljoin(authUrl, 'activate'); // POST
+const usernameUrl = urljoin(authUrl, 'username'); // POST
+const passwordUrl = urljoin(authUrl, 'password'); // POST
+const resetPasswordUrl = urljoin(passwordUrl, 'reset'); // POST
+const confirmPasswordUrl = urljoin(resetPasswordUrl, 'confirm'); // POST
+
+//-----------------------------------------------------------------------------
+//  USER
+//-----------------------------------------------------------------------------
+const userUrl = urljoin(API_BASE, 'user'); // GET all users (if admin, else 'me')
+const userProfileUrl = urljoin(userUrl, 'me'); // GET user profile
+const userSrsUrl = urljoin(userUrl, 'srs'); // POST to get review count
+const userSyncUrl = urljoin(userUrl, 'sync'); // POST to sync with WK
+
+//-----------------------------------------------------------------------------
+//  REVIEWS
+//-----------------------------------------------------------------------------
+const reviewsUrl = urljoin(API_BASE, 'review'); // GET all ready reviews
+const criticalReviewsUrl = urljoin(reviewsUrl, 'critical'); // GET critical
+const currentReviewsUrl = urljoin(reviewsUrl, 'current'); // GET current review queue
+const reviewEntryUrl = (id) => urljoin(reviewsUrl, id); // GET single
+const reviewCorrectUrl = (id) => urljoin(reviewEntryUrl(id), 'correct'); // POST correct answer
+const reviewIncorrectUrl = (id) => urljoin(reviewEntryUrl(id), 'incorrect'); // POST incorrect answer
+const hideReviewUrl = (id) => urljoin(reviewEntryUrl(id), 'hide'); // POST
+const unhideReviewUrl = (id) => urljoin(reviewEntryUrl(id), 'unhide'); // POST
+
+//-----------------------------------------------------------------------------
+//  SYNONYMS
+//-----------------------------------------------------------------------------
+const synonymUrl = urljoin(API_BASE, 'synonym'); // POST add, GET get all
+const synonymEntryUrl = (id) => urljoin(synonymUrl, id); // DELETE remove, GET one
+
+//-----------------------------------------------------------------------------
+//  VOCABULARY
+//-----------------------------------------------------------------------------
+const vocabularyUrl = urljoin(API_BASE, 'vocabulary'); // GET everything!
+const vocabularyEntryUrl = (id) => urljoin(vocabularyUrl, id); // GET one
+const readingUrl = urljoin(API_BASE, 'reading'); // GET all
+const readingEntryUrl = (id) => urljoin(readingUrl, id); // GET one
+const levelsUrl = urljoin(API_BASE, 'level'); // GET all
+const levelEntryUrl = (level) => urljoin(levelsUrl, level); // GET one
+const lockLevelUrl = (level) => urljoin(levelEntryUrl(level), 'lock'); // POST lock
+const unlockLevelUrl = (level) => urljoin(levelEntryUrl(level), 'unlock'); // POST unlock
+
+//-----------------------------------------------------------------------------
+//  GENERAL
+//-----------------------------------------------------------------------------
+const faqUrl = urljoin(API_BASE, 'faq'); // GET all, POST create
+const faqEntryUrl = (id) => urljoin(faqUrl, id); // GET, PUT update, PATCH partial update, DELETE
+const announcementUrl = urljoin(API_BASE, 'announcement'); // GET all, POST create
+const announcementEntryUrl = (id) => urljoin(announcementUrl, id); // GET one, PUT update, PATCH  partial update, DELETE
+const contactUrl = urljoin(API_BASE, 'contact');
+
+//-----------------------------------------------------------------------------
+//  EXTERNAL
+//-----------------------------------------------------------------------------
+export const createJishoApiUrl = (keyword) => `//jisho.org/api/v1/search/words?keyword=${keyword}`;
+export const createJishoUrl = (keyword) => `//jisho.org/search/${keyword}`;
 
 // FIXME: selectUsername etc from state to prefill defaults where possible!
 
 //-----------------------------------------------------------------------------
 //  AUTHORIZATION
 //-----------------------------------------------------------------------------
-export const getUserAuth = ({
-  id = 0,
-  username = 'No username provided', // select from state
-  email = 'No email provided',
-} = {}) => get({
-  url: urls.userCredentials,
-  body: { id, username, email },
-});
+export const getUserAuth = ({ id, username, email }) =>
+  get(
+    userCredentialsUrl,
+    { id, username, email }
+  );
 
-export const loginUser = ({
-  username = 'No username provided',
-  password = 'No email provided',
-} = {}) => post({
-  url: urls.userLogin,
-  body: { username, password },
-});
+export const loginUser = ({ username, password }) =>
+  post(
+    userLoginUrl,
+    { username, password }
+  );
 
-export const updateUserAuth = ({
-  id = 0,
-  username = 'No username provided',
-  email = 'No email provided',
-} = {}) => patch({
-  url: urls.userCredentials,
-  body: { id, username, email },
-});
+export const updateUserAuth = ({ id, username, email }) =>
+  patch(
+    userCredentialsUrl,
+    { id, username, email }
+  );
 
+export const registerUser = ({ email, username, password, apiKey }) =>
+  post(
+    registerUrl,
+    { email, username, password, api_key: apiKey }
+  );
 
-export const registerUser = ({
-  email = 'No email provided',
-  username = 'No username provided',
-  password = 'No password provided',
-  apiKey = 0,
-} = {}) => post({
-  url: urls.register,
-  body: { email, username, password, api_key: apiKey },
-});
-
-export const activateUser = ({
-  uid = 'No uid provided',
-  token = 'No token provided',
-} = {}) => post({
-  url: urls.activate,
-  body: { uid, token },
-});
-
-export const changeUsername = ({
-  username = 'No username provided',
-} = {}) => post({
-  url: urls.username,
-  body: { username },
-});
-
-
-export const changePassword = ({
-  password = 'No password provided',
-}) => post({
-  url: urls.password,
-  body: { password },
-});
-
-// send email to user with password reset link.
-export const passwordReset = ({
-  email = 'No email provided',
-} = {}) => post({
-  url: urls.passwordReset,
-  body: { email },
-});
-
-// endpoint to finish reset password process
-export const passwordConfirm = () => post({ url: urls.passwordConfirm });
+export const activateUser = (uid) => post(activateUrl, { uid });
+export const changeUsername = (username) => post(usernameUrl, { username });
+export const changePassword = (password) => post(passwordUrl, { password });
+export const resetPassword = (email) => post(resetPasswordUrl, { email }); // send password reset email.
+export const confirmPassword = () => post(confirmPasswordUrl); // finish reset password process
 
 //-----------------------------------------------------------------------------
 //  USER
 //-----------------------------------------------------------------------------
-export const getUsers = () => get({ url: urls.user });
-export const getUserProfile = () => get({ url: urls.userProfile });
-export const syncKw = () => post({ url: urls.userSrs });
-export const syncWk = ({
-  fullSync = false, // true to force ALL users to sync with WK
-} = {}) => post({
-  url: urls.userSync,
-  body: { full_sync: fullSync },
-});
+export const getUsers = () => get(userUrl);
+export const getUserProfile = () => get(userProfileUrl);
+export const syncKw = () => post(userSrsUrl);
+// true to force ALL users to sync with WK
+export const syncWk = (fullSync = false) => post(userSyncUrl, { full_sync: fullSync });
 
 //-----------------------------------------------------------------------------
 //  REVIEWS
 //-----------------------------------------------------------------------------
 export const getReviews = ({
-  level = 0,
+  level,
   offset = 0,
   limit = 100,
   meaningContains = '',
   srsLevel = 0,
   srsLevelLt = 0,
   srsLevelGt = 0,
-} = {}) => get({
-  url: urls.reviews,
-  body: {
+} = {}) => get(
+  reviewsUrl,
+  {
     level,
     offset,
     limit,
@@ -111,150 +135,93 @@ export const getReviews = ({
     srs_level: srsLevel,
     srs_level_lt: srsLevelLt,
     srs_level_gt: srsLevelGt,
-  },
-});
+  }
+);
 
-export const getCriticalReviews = ({
-  offset = 0,
-  limit = 100,
-} = {}) => get({
-  url: urls.criticalReviews,
-  body: { offset, limit },
-});
+export const getCriticalReviews = ({ offset = 0, limit = 100 } = {}) =>
+  get(criticalReviewsUrl, { offset, limit });
 
-export const getCurrentReviews = ({
-  offset = 0,
-  limit = 100,
-} = {}) => get({
-  url: urls.currentReviews,
-  body: { offset, limit },
-});
+export const getCurrentReviews = ({ offset = 0, limit = 100 } = {}) =>
+  get(currentReviewsUrl, { offset, limit });
 
-export const getReviewEntry = id => get({ url: urls.reviewEntry(id) });
-export const reviewCorrect = id => post({ url: urls.reviewCorrect(id) });
-export const reviewIncorrect = id => post({ url: urls.reviewIncorrect(id) });
-export const hideReview = id => post({ url: urls.hideReview(id) });
-export const unhideReview = id => post({ url: urls.unhideReview(id) });
+export const getReviewEntry = (id) => get(reviewEntryUrl(id));
+export const reviewCorrect = (id) => post(reviewCorrectUrl(id));
+export const reviewIncorrect = (id) => post(reviewIncorrectUrl(id));
+export const hideReview = (id) => post(hideReviewUrl(id));
+export const unhideReview = (id) => post(unhideReviewUrl(id));
 
 //-----------------------------------------------------------------------------
 //  SYNONYMS
 //-----------------------------------------------------------------------------
-export const addSynonym = (id, {
-  character = '',
-  kana = '',
-} = {}) => post({
-  url: urls.synonym,
-  body: {
-    character,
-    kana,
-    review: id,
-  },
-});
+export const addSynonym = ({ id, character, kana }) =>
+  post(synonymUrl, { character, kana, review: id });
 
-export const removeSynonym = id => del({
-  url: urls.synonymEntry(id),
-});
+export const removeSynonym = (id) => del(synonymEntryUrl(id));
 
 //-----------------------------------------------------------------------------
 //  VOCABULARY
 //-----------------------------------------------------------------------------
 export const getVocabulary = ({
-  level = 0,
+  level,
   offset = 0,
   limit = 100,
   meaningContains = '',
   readingsKanaContains = '',
   readingsCharacterContains = '',
-} = {}) => get({
-  url: urls.vocabulary,
-  body: {
+} = {}) => get(
+  vocabularyUrl,
+  {
     level,
+    offset,
+    limit,
     meaning_contains: meaningContains,
     readings_kana_contains: readingsKanaContains,
     readings_character_contains: readingsCharacterContains,
-    offset,
-    limit,
-  },
-});
+  }
+);
 
-export const getVocabularyEntry = id => get({ url: urls.vocabularyEntry(id) });
-
-export const getReadings = ({
-  offset = 0,
-  limit = 100,
-} = {}) => get({
-  url: urls.reading,
-  body: { offset, limit },
-});
-
-export const getReadingEntry = id => get({ url: urls.readingEntry(id) });
-export const getLevels = () => get({ url: urls.levels });
-
-export const getLevelVocabulary = ({
-  level = 0,
+export const getLevels = () => get(levelsUrl);
+export const getLevel = ({
+  level,
   offset = 0,
   limit = 100,
   hyperlink = false,
-} = {}) => get({
-  url: urls.vocabulary,
-  body: {
+} = {}) => get(
+  vocabularyUrl,
+  {
     level,
     offset,
     limit,
     hyperlink,
-  },
-});
+  }
+);
 
+export const getVocabularyEntry = (id) => get(vocabularyEntryUrl(id));
 
-export const lockLevel = level => post({ url: urls.lockLevel(level) });
-export const unlockLevel = level => post({ url: urls.unlockLevel(level) });
+export const getReadings = ({ offset = 0, limit = 100 } = {}) =>
+  get(readingUrl, { offset, limit });
+
+export const getReadingEntry = (id) => get(readingEntryUrl(id));
+
+export const lockLevel = (level) => post(lockLevelUrl(level));
+export const unlockLevel = (level) => post(unlockLevelUrl(level));
 
 //-----------------------------------------------------------------------------
 //  GENERAL
 //-----------------------------------------------------------------------------
-export const getFaqs = () => get({ url: urls.faq });
-export const getFaq = id => get({ url: urls.faqEntry(id) });
+export const getFaqs = () => get(faqUrl);
+export const getFaq = (id) => get(faqEntryUrl(id));
+export const addFaq = ({ question, answer }) => post(faqUrl, { question, answer });
+export const updateFaq = ({ question, answer }) => put(faqUrl, { question, answer });
 
-export const addFaq = ({
-  question = '',
-  answer = '',
-} = {}) => post({
-  url: urls.faq,
-  body: { question, answer },
-});
-
-export const updateFaq = ({
-  question = '',
-  answer = '',
-} = {}) => put({
-  url: urls.faq,
-  body: { question, answer },
-});
-
-export const getAnnouncements = () => get({ url: urls.announcement });
-export const getAnnouncement = id => get({ url: urls.announcementEntry(id) });
-
-export const addAnnouncement = ({
-  title = '',
-  body = '',
-} = {}) => post({
-  url: urls.announcement,
-  body: { title, body },
-});
-
-export const updateAnnouncement = ({
-  title = '',
-  body = '',
-} = {}) => put({
-  url: urls.announcement,
-  body: { title, body },
-});
+export const getAnnouncements = () => get(announcementUrl);
+export const getAnnouncement = (id) => get(announcementEntryUrl(id));
+export const addAnnouncement = ({ title, body }) => post(announcementUrl, { title, body });
+export const updateAnnouncement = ({ title, body }) => put(announcementUrl, { title, body });
 
 export const sendContactMessage = ({
-  name = 'No name provided',
-  email = 'No email provided',
+  name,
+  email,
   body = 'No body provided',
-} = {}) => post({
-  url: urls.contact,
-  body: { name, email, body },
-});
+} = {}) =>
+  post(contactUrl, { name, email, body });

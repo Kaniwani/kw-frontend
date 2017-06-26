@@ -13,7 +13,7 @@ function SettingsPage() {
           { name: 'description', content: 'Description of SettingsPage' },
         ]}
       />
-    <h1>Hello SettingsPage</h1>
+      <h1>Hello SettingsPage</h1>
     </div>
   );
 }

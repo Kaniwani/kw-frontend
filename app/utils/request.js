@@ -1,47 +1,35 @@
 import 'whatwg-fetch';
+import { getToken } from 'utils/auth';
+import isEmpty from 'lodash/isEmpty';
+
+const createRequestType = (method) => (url, body = {}, headers = {}) => request(url, { body, headers, method });
+export const get = createRequestType('GET');
+export const post = createRequestType('POST');
+export const put = createRequestType('PUT');
+export const patch = createRequestType('PATCH');
+export const del = createRequestType('DELETE'); // del because "delete" is a reserved word in JS
 
 /**
  * Makes a request!
- * @param  {Object} config {url='', method='GET', headers={}, body={}}
+ * @param  {String} [url=''] url to send request to
+ * @param  {Object} config {method='GET', headers={}, body={}}
  * @return {Promise} response
  */
-function request({ url = '', method = 'GET', headers = {}, body = {} } = {}) {
-  let requestUrl = url;
-  let requestBody = {};
-  let requestHeaders = {
+async function request(url = '', { method, headers, body } = {}) {
+  const finalUrl = formatUrl(url, method, body);
+  const token = await getToken();
+  const combinedHeaders = {
     ...headers,
+    Authorization: `JWT ${token}`,
     'Accept': 'application/json', // eslint-disable-line quote-props
     'Content-Type': 'application/json',
   };
-  if (body.token) {
-    requestHeaders = {
-      ...requestHeaders,
-      Authorization: `JWT ${body.token}`,
-    };
-    delete body.token; // eslint-disable-line no-param-reassign
-  }
 
-  if (['GET', 'DELETE'].includes(method)) {
-    requestUrl += `${Object.keys(body).length ? `/?${getQueryString(body)}` : '/'}`; // NOTE: DRF requires trailing slashes
-  } else { // POST, PUT, PATCH
-    requestUrl += '/'; // NOTE: DRF requires trailing slashes
-    requestBody = JSON.stringify(body);
-  }
-
-  return fetch(requestUrl, { method, headers: requestHeaders, body: requestBody })
+  return fetch(finalUrl, { method, headers: combinedHeaders, body: JSON.stringify(body) })
     .then(checkStatus)
     .then(parseJSON);
     // .catch(console.error); // dev only
 }
-
-export default {
-  get: config => request({ ...config, method: 'GET' }),
-  post: config => request({ ...config, method: 'POST' }),
-  put: config => request({ ...config, method: 'PUT' }),
-  patch: config => request({ ...config, method: 'PATCH' }),
-  del: config => request({ ...config, method: 'DELETE' }), // delete is a reserved word in JS
-};
-
 
 /**
  * Parses the JSON returned by a network request
@@ -67,13 +55,30 @@ function checkStatus(response = { status: 404, statusText: 'No response!' }) {
 }
 
 /**
+ *
+ * API requires body as a querystring for get/delete without trailing slash
+ * All other request *do* require a trailing slash
+ * @param {string} url request url
+ * @param {string} method request method
+ * @param {object} body request body
+ * @returns {string} url with querystring and/or trailing slash as needed
+ */
+function formatUrl(url, method, body) {
+  const needsConversion = ['GET', 'DELETE'].includes(method) && !isEmpty(body);
+
+  return needsConversion ?
+    `${url}/?${formatQueryString(body)}` :
+    `${url}/`;
+}
+
+/**
  * Creates a properly formatted querystring from provided object
  * @param  {Object} params key/value pairs
  * @return {String} querystring
  */
-function getQueryString(params) {
+function formatQueryString(params) {
   const esc = encodeURIComponent;
   return Object.keys(params)
-     .map(key => `${esc(key)}=${esc(params[key])}`)
+     .map((key) => `${esc(key)}=${esc(params[key])}`)
      .join('&');
 }

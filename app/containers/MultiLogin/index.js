@@ -1,6 +1,9 @@
 import React from 'react';
 import cuid from 'cuid';
 
+// FIXME: remove - temp dev stuff!
+import { setToken } from 'utils/auth';
+
 import blockEvent from 'utils/blockEvent';
 import Input from './Input';
 import {
@@ -25,7 +28,7 @@ class MultiLogin extends React.PureComponent { // eslint-disable-line react/pref
     selected: PANELS[1],
   }
 
-  handleSelectChange = PANEL => (event) => {
+  handleSelectChange = (PANEL) => (event) => {
     blockEvent(event);
     // TODO: clear fields
     this.setState({ selected: PANEL });
@@ -34,6 +37,7 @@ class MultiLogin extends React.PureComponent { // eslint-disable-line react/pref
 
   handleSubmit = (event) => {
     blockEvent(event);
+    setToken('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InN5bjFAYmFyLmNvbSIsImV4cCI6MTQ5ODE1MTk4MywidXNlcl9pZCI6MywidXNlcm5hbWUiOiJzeW4xIn0.Dr0SSvS8cZ6Y0zk17U0C2fRBWFKFwenoQaqFiiRGGsM');
     // dispatch relevant action based on this.state.selected
   }
 
@@ -54,7 +58,7 @@ class MultiLogin extends React.PureComponent { // eslint-disable-line react/pref
     return (
       <Form onSubmit={this.handleSubmit}>
         <SelectList plainList>
-          {PANELS.map(PANEL => (
+          {PANELS.map((PANEL) => (
             <SelectListItem
               key={cuid()}
               isActive={this.state.selected === PANEL}
