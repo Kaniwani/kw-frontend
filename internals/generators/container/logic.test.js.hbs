@@ -1,0 +1,41 @@
+import { createMockStore } from 'redux-logic-test';
+
+import { TYPES } from '../actions';
+import defaultLogic from '../logic';
+import {{ camelCase name }}Reducer from '../reducer';
+
+describe('{{ properCase name }} defaultLogic', () => {
+  const store = createMockStore({
+    reducer: {{ camelCase name }}Reducer, // default: identity reducer
+    logic: defaultLogic, // default: []
+  //  initialState: {},
+  //  injectedDeps: optionalObject, // default {}
+  //  middleware: optionalArr // other mw, exclude logicMiddleware
+  });
+
+  it('Expect to have unit tests specified', async () => {
+    const expected = {
+      loading: false,
+      value: 'async logic',
+    };
+
+    store.dispatch({ type: TYPES.DEFAULT }); // kick off fetching
+    store.dispatch({ type: 'BAR' }); // other dispatches
+
+    await store.whenComplete(() => { // runs this fn when all logic is complete
+      expect(store.actions).toEqual([
+        { type: TYPES.DEFAULT },
+        { type: TYPES.DEFAULT, meta: { loading: true } },
+        { type: TYPES.DEFAULT, payload: { value: 'async logic' }, meta: { loading: false } },
+        { type: 'BAR' },
+      ]);
+      expect(store.getState()).toEqual(expected);
+      // if desired, can reset the actions for more tests
+      // store.resetActions(); // clear for more tests
+
+      // be sure to return the whenComplete promise to your test
+      // or if using a done cb, call it to indicate that your async
+      // test is finished
+    });
+  });
+});

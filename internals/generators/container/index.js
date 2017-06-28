@@ -33,12 +33,12 @@ module.exports = {
     type: 'confirm',
     name: 'wantActionsAndReducer',
     default: true,
-    message: 'Do you want an actions/constants/selectors/reducer tuple for this container?',
+    message: 'Do you want an actions/selectors/reducer tuple for this container?',
   }, {
     type: 'confirm',
-    name: 'wantSagas',
+    name: 'wantLogic',
     default: true,
-    message: 'Do you want sagas for asynchronous flows? (e.g. fetching data)',
+    message: 'Do you want redux-logic for asynchronous flows and intercepting actions? (e.g. fetching data, validation)',
   }, {
     type: 'confirm',
     name: 'wantStories',
@@ -85,7 +85,7 @@ module.exports = {
       });
     }
 
-    // If they want actions and a reducer, generate actions.js, constants.js,
+    // If they want actions and a reducer, generate actions.js,
     // reducer.js and the corresponding tests for actions and the reducer
     if (data.wantActionsAndReducer) {
       // Actions
@@ -99,14 +99,6 @@ module.exports = {
         type: 'add',
         path: '../../app/containers/{{properCase name}}/tests/actions.test.js',
         templateFile: './container/actions.test.js.hbs',
-        abortOnFail: true,
-      });
-
-      // Constants
-      actions.push({
-        type: 'add',
-        path: '../../app/containers/{{properCase name}}/constants.js',
-        templateFile: './container/constants.js.hbs',
         abortOnFail: true,
       });
 
@@ -139,24 +131,24 @@ module.exports = {
       });
     }
 
-    // Sagas
-    if (data.wantSagas) {
+    // Logic
+    if (data.wantLogic) {
       actions.push({
         type: 'add',
-        path: '../../app/containers/{{properCase name}}/sagas.js',
-        templateFile: './container/sagas.js.hbs',
+        path: '../../app/containers/{{properCase name}}/logic.js',
+        templateFile: './container/logic.js.hbs',
         abortOnFail: true,
       });
       actions.push({
         type: 'add',
-        path: '../../app/containers/{{properCase name}}/tests/sagas.test.js',
-        templateFile: './container/sagas.test.js.hbs',
+        path: '../../app/containers/{{properCase name}}/tests/logic.test.js',
+        templateFile: './container/logic.test.js.hbs',
         abortOnFail: true,
       });
     }
 
-    // If want sagas or reducer add Loadable.js
-    if (data.wantActionsAndReducer || data.wantSagas) {
+    // If want logic or reducer add Loadable.js
+    if (data.wantActionsAndReducer || data.wantLogic) {
       actions.push({
         type: 'add',
         path: '../../app/containers/{{properCase name}}/Loadable.js',

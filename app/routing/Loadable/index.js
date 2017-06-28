@@ -14,7 +14,7 @@ const Loadable = ({ loader, loading: CustomLoadingComponent, ...rest }) =>
     loaderWithAsyncInjectors = () => {
       if (loader) {
         return loader(getAsyncInjectors(this.context.store))
-          .then(component => component.default ? component.default : component);
+          .then((component) => component.default ? component.default : component);
       }
       return Promise.resolve(null);
     };

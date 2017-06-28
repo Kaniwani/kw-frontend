@@ -2,7 +2,7 @@ import actionTypeCreator, { SYNC } from 'redux-action-types-creator';
 import { createAction } from 'redux-actions';
 import * as api from 'shared/api';
 
-export const TYPES = actionTypeCreator('KW')({
+export const TYPES = actionTypeCreator('APP')({
   USER: {
     SRS: SYNC,
     LOAD: SYNC,
@@ -25,7 +25,7 @@ export const TYPES = actionTypeCreator('KW')({
 
 // https://github.com/acdlite/flux-standard-action
 
-export const loadUser = createAction('LOAD_USER', api.getUserProfile);
+export const loadUser = createAction(TYPES.USER.LOAD, api.getUserProfile);
 // export const syncUser = createAction(TYPES.USER.SRS); // () => api.syncKw
 // export const loadReviews = createAction(TYPES.REVIEWS.LOAD); // () => api.getCurrentReviews
 // export const loadVocabLevels = createAction(TYPES.VOCAB.LEVELS.LOAD); // () => api.getLevels

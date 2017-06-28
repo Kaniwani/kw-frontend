@@ -1,7 +1,13 @@
-import { DEFAULT_ACTION } from './constants';
+import {
+  TYPES,
+  defaultAction,
+} from '../actions';
 
-export function defaultAction() {
-  return {
-    type: DEFAULT_ACTION,
-  };
-}
+describe('HomePage actions', () => {
+  describe('Default Action', () => {
+    it('has a type of APP/HOMEPAGE/DEFAULT', () => {
+      expect(defaultAction()).toEqual({ type: APP / HOMEPAGE / DEFAULT });
+      expect(defaultAction()).toMatchSnapshot();
+    });
+  });
+});

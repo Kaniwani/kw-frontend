@@ -3,35 +3,39 @@
  */
 
 import { memoryHistory } from 'react-router';
-import { put } from 'redux-saga/effects';
+import { createLogic } from 'redux-logic';
 
 import configureStore from 'store';
 
 import {
   injectAsyncReducer,
-  injectAsyncSagas,
+  injectAsyncLogic,
   getAsyncInjectors,
 } from '../asyncInjectors';
 
 // Fixtures
-
-const initialState = { reduced: 'soon' };
+const initialState = { reduced: 'soon', init: false };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'TEST':
       return { ...state, reduced: action.payload };
+    case 'INIT_TEST':
+      return { ...state, init: !state.init };
     default:
       return state;
   }
 };
 
-function* testSaga() {
-  yield put({ type: 'TEST', payload: 'yup' });
-}
+const testLogic = createLogic({
+  type: 'TRIGGER_TEST',
+  process() { // return action to dispatch
+    return { type: 'TEST', payload: 'yup' };
+  },
+});
 
-const sagas = [
-  testSaga,
+const logic = [
+  testLogic,
 ];
 
 describe('asyncInjectors', () => {
@@ -43,11 +47,12 @@ describe('asyncInjectors', () => {
     });
 
     it('given a store, should return all async injectors', () => {
-      const { injectReducer, injectSagas } = getAsyncInjectors(store);
+      const { injectReducer, injectLogic } = getAsyncInjectors(store);
 
       injectReducer('test', reducer);
-      injectSagas(sagas);
+      injectLogic(logic);
 
+      store.dispatch({ type: 'TRIGGER_TEST' });
       const actual = store.getState().test;
       const expected = { ...initialState, reduced: 'yup' };
 
@@ -136,36 +141,42 @@ describe('asyncInjectors', () => {
       });
     });
 
-    describe('injectAsyncSagas', () => {
-      it('given a store, it should provide a function to inject a saga', () => {
-        const injectSagas = injectAsyncSagas(store);
+    describe('injectAsyncLogic', () => {
+      it('given a store, it should provide a function to inject logic', () => {
+        const injectLogic = injectAsyncLogic(store);
+        injectLogic(logic);
 
-        injectSagas(sagas);
-
+        store.dispatch({ type: 'TRIGGER_TEST' });
         const actual = store.getState().test;
         const expected = { ...initialState, reduced: 'yup' };
 
         expect(actual).toEqual(expected);
       });
 
-      it('should throw if passed invalid saga', () => {
+      it('should throw if passed invalid logic', () => {
         let result = false;
 
-        const injectSagas = injectAsyncSagas(store);
+        const injectLogic = injectAsyncLogic(store);
 
         try {
-          injectSagas({ testSaga });
+          injectLogic(false /* should be logic arr */);
         } catch (err) {
           result = err.name === 'Invariant Violation';
         }
 
         try {
-          injectSagas(testSaga);
+          injectLogic(testLogic); // should be an array of logic
         } catch (err) {
           result = err.name === 'Invariant Violation';
         }
 
-        expect(result).toEqual(true);
+        try {
+          injectLogic([testLogic], {}); // should be a function onLogicInit
+        } catch (err) {
+          result = err.name === 'Invariant Violation';
+        }
+
+        expect(result).toBe(true);
       });
     });
   });

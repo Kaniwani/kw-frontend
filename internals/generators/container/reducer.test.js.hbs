@@ -1,7 +1,18 @@
+import { TYPES } from '../actions';
 import {{ camelCase name }}Reducer from '../reducer';
 
 describe('{{ camelCase name }}Reducer', () => {
   it('returns the initial state', () => {
     expect({{ camelCase name }}Reducer(undefined, {})).toEqual({});
+  });
+  it('merges the payload and meta from default action', () => {
+    const type = TYPES.DEFAULT;
+    const payload = { value: 'default' };
+    const meta = { loading: false };
+    const expected = {
+      ...payload,
+      ...meta,
+    };
+    expect({{ camelCase name }}Reducer({}, { type, payload, meta })).toEqual(expected);
   });
 });

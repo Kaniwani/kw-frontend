@@ -1,9 +1,8 @@
-import {
-  DEFAULT_ACTION,
-} from './constants';
+import actionTypeCreator, { SYNC } from 'redux-action-types-creator';
+import { createAction } from 'redux-actions';
 
-export function defaultAction() {
-  return {
-    type: DEFAULT_ACTION,
-  };
-}
+export const TYPES = actionTypeCreator('APP/{{ upperCase name  }}')({
+  DEFAULT: SYNC,
+});
+
+export const defaultAction = createAction(TYPES.DEFAULT, (payload) => payload, (meta) => meta);

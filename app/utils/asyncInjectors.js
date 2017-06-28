@@ -8,15 +8,14 @@ import warning from 'warning';
 
 import createReducer from '../reducers';
 
-
- // Validate the shape of redux store
+// Validate the shape of redux store
 export function checkStore(store) {
   const shape = {
     dispatch: isFunction,
     subscribe: isFunction,
     getState: isFunction,
+    logicMiddleware: isFunction,
     replaceReducer: isFunction,
-    runSaga: isFunction,
     asyncReducers: isObject,
   };
   invariant(
@@ -25,8 +24,7 @@ export function checkStore(store) {
   );
 }
 
-
- // Inject an asynchronously loaded reducer
+// Inject an asynchronously loaded reducer
 export function injectAsyncReducer(store, isValid) {
   return function injectReducer(name, asyncReducer) {
     if (!isValid) checkStore(store);
@@ -43,26 +41,33 @@ export function injectAsyncReducer(store, isValid) {
   };
 }
 
-
- // Inject an asynchronously loaded saga
-export function injectAsyncSagas(store, isValid) {
-  return function injectSagas(sagas) {
+// Inject an asynchronously loaded logic
+export function injectAsyncLogic(store, isValid) {
+  return function injectLogic(logic, onLogicInit) {
     if (!isValid) checkStore(store);
 
     invariant(
-      Array.isArray(sagas),
-      '(app/utils...) injectAsyncSagas: Expected `sagas` to be an array of generator functions'
+      Array.isArray(logic),
+      '(app/utils...) injectAsyncLogic: Expected `logic` to be an array of logic objects'
     );
 
     warning(
-      !isEmpty(sagas),
-      '(app/utils...) injectAsyncSagas: Received an empty `sagas` array'
+      !isEmpty(logic),
+      '(app/utils...) injectAsyncLogic: Received an empty `logic` array'
     );
 
-    sagas.map(store.runSaga);
+    store.logicMiddleware.mergeNewLogic(logic);
+
+    // TODO: DOES THIS WORK AS EXPECTED? TEST THAT IT ONLY RUNS ONCE
+    if (onLogicInit) {
+      invariant(
+        isFunction(onLogicInit),
+        '(app/utils...) injectAsyncLogic: Expected `onLogicInit` to be a function'
+      );
+      onLogicInit(store);
+    }
   };
 }
-
 
 // Helper for creating injectors
 export function getAsyncInjectors(store) {
@@ -70,14 +75,15 @@ export function getAsyncInjectors(store) {
 
   return {
     injectReducer: injectAsyncReducer(store, true),
-    injectSagas: injectAsyncSagas(store, true),
+    injectLogic: injectAsyncLogic(store, true),
   };
 }
 
- // Helper to log an error when asynchronous loading fails.
+
+// Helper to log an error when asynchronous loading fails.
 export function errorLoading(err) {
   if (process.env.NODE_ENV !== 'production') {
     /* istanbul ignore next */
-    console.error('Error while loading or handling loaded components, sagas, or reducers\n', err); // eslint-disable-line no-console
+    console.error('Error while loading or handling loaded components, logic, or reducers\n', err); // eslint-disable-line no-console
   }
 }
