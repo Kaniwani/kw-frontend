@@ -9,7 +9,7 @@ import { createStructuredSelector } from 'reselect';
 {{/if}}
 
 {{#if wantActionsAndReducer}}
-import makeSelect{{properCase name}} from './selectors';
+import makeSelect{{ properCase name }} from './selectors';
 {{/if}}
 
 function {{ properCase name }}() {
@@ -17,13 +17,13 @@ function {{ properCase name }}() {
     <div>
     {{#if wantHeaders}}
       <Helmet
-        title="{{properCase name}}"
+        title="{{ properCase name }}"
         meta={{curly true}}[
-          {{curly true}} name: 'description', content: 'Description of {{properCase name}}' {{curly}},
+          {{curly true}} name: 'description', content: 'Description of {{ properCase name }}' {{curly}},
         ]{{curly}}
       />
     {{/if}}
-      <h1>Hello {{properCase name}}</h1>
+      <h1>Hello {{ properCase name }}</h1>
     </div>
   );
 }
@@ -34,7 +34,7 @@ function {{ properCase name }}() {
 
 {{#if wantActionsAndReducer}}
 const mapStateToProps = createStructuredSelector({
-  {{name}}: makeSelect{{properCase name}}(),
+  {{ camelCase name }}: makeSelect{{ properCase name }}(),
 });
 {{/if}}
 

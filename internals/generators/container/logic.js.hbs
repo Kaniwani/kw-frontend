@@ -1,10 +1,15 @@
 import { createLogic } from 'redux-logic';
-import { TYPES } from './actions';
+import {
+  defaultLoad,
+  defaultLoadCancel,
+  defaultLoadSuccess,
+  defaultLoadFailure,
+} from './actions';
 
 // Individual exports for testing
 export const defaultLogic = createLogic({
-  type: TYPES.DEFAULT, // action type logic listens for
-  // cancelType: 'BAR', // actions to cancel on
+  type: defaultLoad, // action type logic listens for
+  cancelType: defaultLoadCancel, // actions to cancel on
   // latest: true, // use response for latest request only
   /* other less used options: debounce, throttle */
 
@@ -27,21 +32,14 @@ export const defaultLogic = createLogic({
   //   next(action);
   // },
 
-  /*
-    optionally implement the process hook for async processing
-    dispatch as necessary, call done when finished dispatching
-    Implement with callbacks using dispatch/done OR
-    implement returning promises or observables (shown later).
-    `requestUtil` is the helper from `utils/request`
-   */
-  // dispatch/done callback style process use
-  process({ getState, action: { payload, meta } }) { // eslint-disable-line consistent-return, no-unused-vars
-    // do async processing here
-    if (!payload && !meta) {
-      return { type: TYPES.DEFAULT, meta: { loading: true } };
-    } else if (!payload) {
-      return { type: TYPES.DEFAULT, payload: { value: 'async logic' }, meta: { loading: false } }; // dispatch thing(s)
-    }
+  processOptions: { // influences what is dispatched
+    successType: defaultLoadSuccess, // apply action type/creator for success
+    failType: defaultLoadFailure, // apply action type/creator on errors
+  },
+
+  process({ getState, action: { payload, meta } }) { // eslint-disable-line no-unused-vars
+    if (meta) console.log('Extra info passed in action: ', meta); // eslint-disable-line no-console
+    return new Promise((resolve) => setTimeout(() => resolve(payload), 500));
   },
 
   /* OR using the auto-dispatching return style by omitting dispatch/done
@@ -52,11 +50,6 @@ export const defaultLogic = createLogic({
       - if you return an observable then dispatch next/error actions
       - if you return an error it will be dispatched (wrapped first if action type)
      Then you can write code like the following. See docs for more details.
-
-     processOptions: { // influences what is dispatched
-       // successType: FOO_SUCCESS, // apply action type/creator for success
-       failType: FOO_ERROR // apply action type/creator on errors
-     },
 
      process({ getState, action, requestUtil }) {
        // return promise that resolves to the action to dispatch,

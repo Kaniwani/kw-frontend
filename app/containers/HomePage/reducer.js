@@ -1,16 +1,8 @@
-import {
-  DEFAULT_ACTION,
-} from './constants';
+import { handleActions } from 'redux-actions';
+// import { TYPES } from './actions';
 
 const initialState = {};
 
-function homePageReducer(state = initialState, action) {
-  switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
-    default:
-      return state;
-  }
-}
+const homePageReducer = handleActions({}, initialState);
 
 export default homePageReducer;

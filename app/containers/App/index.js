@@ -1,6 +1,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import { withRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import WelcomePage from 'containers/WelcomePage';
 import ProtectedRoutes from 'containers/ProtectedRoutes';
@@ -24,5 +24,4 @@ class App extends React.Component { // eslint-disable-line react/prefer-stateles
   }
 }
 
-// connected components will block rendering if not wrapped withRouter
-export default withRouter(App);
+export default App;

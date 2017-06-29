@@ -5,14 +5,21 @@ describe('{{ camelCase name }}Reducer', () => {
   it('returns the initial state', () => {
     expect({{ camelCase name }}Reducer(undefined, {})).toEqual({});
   });
-  it('merges the payload and meta from default action', () => {
-    const type = TYPES.DEFAULT;
-    const payload = { value: 'default' };
-    const meta = { loading: false };
-    const expected = {
-      ...payload,
-      ...meta,
-    };
-    expect({{ camelCase name }}Reducer({}, { type, payload, meta })).toEqual(expected);
+  it('request sets loading to true', () => {
+    const type = TYPES.DEFAULT.LOAD;
+    const expected = { loading: true };
+    expect({{ camelCase name }}Reducer({}, { type })).toEqual(expected);
+  });
+  it('success merges the payload and sets loading to false', () => {
+    const type = TYPES.DEFAULT.SUCCESS;
+    const payload = 'default';
+    const expected = { value: payload, loading: false };
+    expect({{ camelCase name }}Reducer({}, { type, payload })).toEqual(expected);
+  });
+  it('failure sets an error and sets loading to false', () => {
+    const type = TYPES.DEFAULT.FAILURE;
+    const payload = new Error('Wu-oh');
+    const expected = { error: payload, loading: false };
+    expect({{ camelCase name }}Reducer({}, { type, payload })).toEqual(expected);
   });
 });

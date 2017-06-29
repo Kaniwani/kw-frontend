@@ -8,21 +8,79 @@ const combineTags = ({ tags, jlpt, common }) => {
   return jlpt != null ? newTags.concat(jlpt) : newTags;
 };
 
-const setDate = date =>
-  date == null ? null : new Date(date);
+const setDate = (date) => date == null ? null : new Date(date);
 
-export function userProfileSerializer({
+export function serializeUserProfile({
   email,
   profile,
 }) {
   return {
-    user: userSerializer({ email, ...profile }),
-    dashboard: dashboardSerializer(profile),
-    settings: settingsSerializer(profile),
+    user: serializeUser({ email, ...profile }),
+    dashboard: serializeDashboard(profile),
+    settings: serializeSettings(profile),
   };
 }
 
-export function readingSerializer(reading) {
+function serializeUser({
+  email,
+  name,
+  api_key,
+  api_valid,
+  join_date,
+  level,
+  unlocked_levels,
+}) {
+  return {
+    name,
+    email,
+    currentLevel: +level,
+    joinDate: setDate(join_date),
+    apiKey: api_key,
+    apiValid: api_valid,
+    unlockedLevels: unlocked_levels.map(Number),
+  };
+}
+
+function serializeDashboard({
+  reviews_count,
+  last_wanikani_sync_date,
+  reviews_within_hour_count,
+  reviews_within_day_count,
+  srs_counts,
+}) {
+  return {
+    reviewCount: +reviews_count,
+    lastWkSyncDate: setDate(last_wanikani_sync_date),
+    // FIXME: technically this model doesn't have a sync
+    // should probably only set this after a succesful /sync/ request
+    lastKwSyncDate: new Date(),
+    nextHourReviews: +reviews_within_hour_count,
+    nextDayReviews: +reviews_within_day_count,
+    srsCounts: Object.values(srs_counts).map(Number),
+  };
+}
+
+function serializeSettings({
+  follow_me,
+  auto_advance_on_success,
+  auto_expand_answer_on_success,
+  auto_expand_answer_on_failure,
+  minimum_wk_srs_level_to_review,
+  on_vacation,
+  vacation_date,
+}) {
+  return {
+    followMe: follow_me,
+    autoAdvanceCorrect: auto_advance_on_success,
+    autoExpandCorrect: auto_expand_answer_on_success,
+    autoExpandIncorrect: auto_expand_answer_on_failure,
+    reviewSrsLevelLimit: minimum_wk_srs_level_to_review,
+    onVacation: on_vacation,
+    vacationDate: setDate(vacation_date),
+  };
+}
+
+export function serializeReading(reading) {
   return {
     id: reading.id,
     level: reading.level,
@@ -35,7 +93,7 @@ export function readingSerializer(reading) {
   };
 }
 
-export function levelsSerializer(data) {
+export function serializeLevels(data) {
   return data.map(({ level, unlocked, vocabulary_count, count, ids }) => ({
     level: +level,
     unlocked: !!unlocked,
@@ -45,15 +103,15 @@ export function levelsSerializer(data) {
 }
 
 
-export function vocabularyEntrySerializer({ synonyms, meaning, readings }) {
+export function serializeVocabularyEntry({ synonyms, meaning, readings }) {
   return {
     synonyms,
-    meanings: meaningSerializer(meaning),
-    readings: readingsSerializer(readings),
+    meanings: serializeMeaning(meaning),
+    readings: serializeReadings(readings),
   };
 }
 
-export function stubbedReviewEntrySerializer({
+export function serializeStubbedReviewEntry({
   id,
   correct,
   incorrect,
@@ -68,11 +126,11 @@ export function stubbedReviewEntrySerializer({
     incorrect,
     streak,
     notes: notes == null ? '' : notes,
-    vocabulary: vocabularyEntrySerializer({ synonyms: answer_synonyms, ...vocabulary }),
+    vocabulary: serializeVocabularyEntry({ synonyms: answer_synonyms, ...vocabulary }),
   };
 }
 
-export function reviewEntrySerializer({
+export function serializeReviewEntry({
   needs_review,
   last_studied,
   unlock_date,
@@ -96,86 +154,26 @@ export function reviewEntrySerializer({
     wkStreak: wanikani_srs_numeric,
     wkStreakName: wanikani_srs,
     wkBurned: wanikani_burned,
-    ...stubbedReviewEntrySerializer(rest),
+    ...serializeStubbedReviewEntry(rest),
   };
 }
 
-export function meaningSerializer(data) {
+export function serializeMeaning(data) {
   return typeOf(data) === 'string' ? data.split(', ') : data;
 }
 
-export function readingsSerializer(data) {
-  return condenseReadings(data).map(readingSerializer);
+export function serializeReadings(data) {
+  return condenseReadings(data).map(serializeReading);
 }
 
-export function reviewEntriesSerializer(data) {
-  return data.map(reviewEntrySerializer);
+export function serializeReviewEntries(data) {
+  return data.map(serializeReviewEntry);
 }
 
-export function stubbedReviewEntriesSerializer(data) {
-  return data.map(stubbedReviewEntrySerializer);
+export function serializeStubbedReviewEntries(data) {
+  return data.map(serializeStubbedReviewEntry);
 }
 
-export function vocabularyEntriesSerializer(data) {
-  return data.map(vocabularyEntrySerializer);
-}
-
-
-function userSerializer({
-  email,
-  name,
-  api_key,
-  api_valid,
-  join_date,
-  level,
-  unlocked_levels,
-}) {
-  return {
-    name,
-    email,
-    currentLevel: +level,
-    joinDate: setDate(join_date),
-    apiKey: api_key,
-    apiValid: api_valid,
-    unlockedLevels: unlocked_levels.map(Number),
-  };
-}
-
-function dashboardSerializer({
-  reviews_count,
-  last_wanikani_sync_date,
-  reviews_within_hour_count,
-  reviews_within_day_count,
-  srs_counts,
-}) {
-  return {
-    reviewCount: +reviews_count,
-    lastWkSyncDate: setDate(last_wanikani_sync_date),
-    // FIXME: technically this model doesn't have a sync
-    // should probably only set this after a succesful /sync/ request
-    lastKwSyncDate: new Date(),
-    nextHourReviews: +reviews_within_hour_count,
-    nextDayReviews: +reviews_within_day_count,
-    srsCounts: Object.values(srs_counts).map(Number),
-  };
-}
-
-function settingsSerializer({
-  follow_me,
-  auto_advance_on_success,
-  auto_expand_answer_on_success,
-  auto_expand_answer_on_failure,
-  minimum_wk_srs_level_to_review,
-  on_vacation,
-  vacation_date,
-}) {
-  return {
-    followMe: follow_me,
-    autoAdvanceCorrect: auto_advance_on_success,
-    autoExpandCorrect: auto_expand_answer_on_success,
-    autoExpandIncorrect: auto_expand_answer_on_failure,
-    reviewSrsLevelLimit: minimum_wk_srs_level_to_review,
-    onVacation: on_vacation,
-    vacationDate: setDate(vacation_date),
-  };
+export function serializeVocabularyEntries(data) {
+  return data.map(serializeVocabularyEntry);
 }

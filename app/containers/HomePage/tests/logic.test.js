@@ -1,14 +1,14 @@
 import { createMockStore } from 'redux-logic-test';
 
-import { TYPES, defaultLoad, defaultLoadCancel } from '../actions';
+import { TYPES, userLoad, userLoadCancel } from '../actions';
 import defaultLogic from '../logic';
-import {{ camelCase name }}Reducer from '../reducer';
+import homePageReducer from '../reducer';
 
-describe('{{ properCase name }} defaultLogic', () => {
+describe('HomePage defaultLogic', () => {
   let store;
   beforeEach(() => {
     store = createMockStore({
-      reducer: {{ camelCase name }}Reducer, // default: identity reducer
+      reducer: homePageReducer, // default: identity reducer
       logic: defaultLogic, // default: []
     /*
       initialState: {},
@@ -25,14 +25,14 @@ describe('{{ properCase name }} defaultLogic', () => {
     const meta = 'so meta';
     const expected = { value: payload, loading: false };
 
-    store.dispatch(defaultLoad(payload, meta)); // kick off fetching
+    store.dispatch(userLoad(payload, meta)); // kick off fetching
     store.dispatch({ type: 'BAR' }); // other dispatches
 
     await store.whenComplete(() => { // runs this fn when all logic is complete
       expect(store.actions).toEqual([
-        { type: TYPES.DEFAULT.LOAD, payload, meta },
+        { type: TYPES.USER.LOAD, payload, meta },
         { type: 'BAR' },
-        { type: TYPES.DEFAULT.SUCCESS, payload },
+        { type: TYPES.USER.SUCCESS, payload },
       ]);
       expect(store.getState()).toEqual(expected);
     });
@@ -42,13 +42,13 @@ describe('{{ properCase name }} defaultLogic', () => {
     const payload = 'nope nope';
     const expected = { loading: false };
 
-    store.dispatch(defaultLoad(payload));
-    store.dispatch(defaultLoadCancel());
+    store.dispatch(userLoad(payload));
+    store.dispatch(userLoadCancel());
 
     await store.whenComplete(() => { // runs this fn when all logic is complete
       expect(store.actions).toEqual([
-        { type: TYPES.DEFAULT.LOAD, payload },
-        { type: TYPES.DEFAULT.CANCEL },
+        { type: TYPES.USER.LOAD, payload },
+        { type: TYPES.USER.CANCEL },
       ]);
       expect(store.getState()).toEqual(expected);
     });

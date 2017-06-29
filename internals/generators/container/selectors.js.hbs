@@ -1,16 +1,11 @@
 import { createSelector } from 'reselect';
 
-// Direct selector to the {{ camelCase name }} state domain
 const select{{ properCase name }}Domain = () => (state) => state.{{ camelCase name }};
 
-// Main selector used by {{ properCase name }}
 const makeSelect{{ properCase name }} = () => createSelector(
   select{{ properCase name }}Domain(),
   (substate) => substate
 );
-
-// Other specific selectors
-
 
 export default select{{ properCase name }}Domain;
 export {

@@ -5,14 +5,14 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import { createLogicMiddleware } from 'redux-logic';
-import { request } from 'utils/request';
+// import { request } from 'utils/request';
+import globalLogic from 'containers/App/logic';
 import createReducer from './reducers';
 
 export default function configureStore(initialState = {}, history) {
-  // inject helpers, make requestUtil available to all logic
-
-  const injectedHelpers = { request };
-  const logicMiddleware = createLogicMiddleware([], injectedHelpers);
+  // inject helpers, we could make an "import request from 'utils/request'" available to all logic
+  // const injectedHelpers = { request };
+  const logicMiddleware = createLogicMiddleware(globalLogic, /* injectedHelpers*/);
 
   // Create the store with two middlewares
   // 1. logicMiddleware: enables redux-logic

@@ -1,13 +1,37 @@
 import {
   TYPES,
-  defaultAction,
+  defaultLoad,
+  defaultLoadCancel,
 } from '../actions';
 
 describe('{{ upperCase name }} actions', () => {
-  describe('Default Action', () => {
-    it('has a type of APP/{{ upperCase name }}/DEFAULT', () => {
-      expect(defaultAction()).toEqual({ type: TYPES.DEFAULT });
-      expect(defaultAction()).toMatchSnapshot();
+  describe('defaultLoad', () => {
+    it('has a type of APP/{{ upperCase name }}/DEFAULT/LOAD', () => {
+      expect(defaultLoad()).toEqual({ type: TYPES.DEFAULT.LOAD });
+    });
+    it('will set payload and meta from params', () => {
+      const actual = defaultLoad('payloadval', 'metaval');
+      const expected = {
+        type: TYPES.DEFAULT.LOAD,
+        payload: 'payloadval',
+        meta: 'metaval'
+      };
+      expect(actual).toEqual(expected);
+    });
+  });
+  describe('defaultLoadSuccess', () => {
+    it('it has a type of APP/{{ upperCase name }}/DEFAULT/SUCCESS', () => {
+      expect(defaultLoadSuccess()).toEqual({ type: TYPES.DEFAULT.SUCCESS });
+    });
+  });
+  describe('defaultLoadFailure', () => {
+    it('it has a type of APP/{{ upperCase name }}/DEFAULT/FAILURE', () => {
+      expect(defaultLoadFailure()).toEqual({ type: TYPES.DEFAULT.FAILURE });
+    });
+  });
+  describe('defaultLoadCancel', () => {
+    it('it has a type of APP/{{ upperCase name }}/DEFAULT/CANCEL', () => {
+      expect(defaultLoadCancel()).toEqual({ type: TYPES.DEFAULT.CANCEL });
     });
   });
 });

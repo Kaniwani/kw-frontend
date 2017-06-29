@@ -1,20 +1,16 @@
-/**
- * Asynchronously loads the modules for ReviewsPage
- */
 import Loadable from 'routing/Loadable';
 
-export const handleLoadedModules = (injectReducer, injectSagas) => ([reducer, sagas, component]) => {
-  injectReducer('home', reducer.default);
-  injectSagas(sagas.default);
-  return component;
-};
-
 export default Loadable({
-  loader: ({ injectReducer, injectSagas }) =>
+  loader: ({ injectReducer, injectLogic }) =>
     Promise.all([
       import('./reducer'),
-      import('./sagas'),
+      import('./logic'),
       import('./index'),
     ])
-    .then(handleLoadedModules(injectReducer, injectSagas)),
+    .then(([reducer, logic, component]) => {
+      injectReducer('homePage', reducer.default);
+      injectLogic(logic.default, logic.onLogicInit);
+
+      return component;
+    }),
 });

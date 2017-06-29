@@ -1,33 +1,16 @@
-import actionTypeCreator, { SYNC } from 'redux-action-types-creator';
+import actionTypeCreator, { ASYNC } from 'redux-action-types-creator';
 import { createAction } from 'redux-actions';
-import * as api from 'shared/api';
 
-export const TYPES = actionTypeCreator('APP')({
-  USER: {
-    SRS: SYNC,
-    LOAD: SYNC,
-  },
-  REVIEWS: {
-    LOAD: SYNC,
-  },
-  VOCAB: {
-    LEVELS: {
-      LOAD: SYNC,
-    },
-    LEVEL: {
-      LOAD: SYNC,
-    },
-    ENTRY: {
-      LOAD: SYNC,
-    },
-  },
+export const TYPES = actionTypeCreator('APP', { asyncSuffix: ['LOAD', 'SUCCESS', 'FAILURE', 'CANCEL'] })({
+  USER: ASYNC, // load, success, failure, cancel
+  REVIEWS: ASYNC, // load, success, failure, cancel
 });
 
-// https://github.com/acdlite/flux-standard-action
-
-export const loadUser = createAction(TYPES.USER.LOAD, api.getUserProfile);
-// export const syncUser = createAction(TYPES.USER.SRS); // () => api.syncKw
-// export const loadReviews = createAction(TYPES.REVIEWS.LOAD); // () => api.getCurrentReviews
-// export const loadVocabLevels = createAction(TYPES.VOCAB.LEVELS.LOAD); // () => api.getLevels
-// export const loadVocabLevel = createAction(TYPES.VOCAB.LEVEL.LOAD); // () => api.getLevel
-// export const loadVocabEntry = createAction(TYPES.VOCAB.ENTRY.LOAD); // () => api.getVocabularyEntry
+export const userLoad = createAction(TYPES.USER.LOAD);
+export const userLoadSuccess = createAction(TYPES.USER.SUCCESS);
+export const userLoadFailure = createAction(TYPES.USER.FAILURE);
+export const userLoadCancel = createAction(TYPES.USER.CANCEL);
+export const reviewsLoad = createAction(TYPES.REVIEWS.LOAD);
+export const reviewsLoadSuccess = createAction(TYPES.REVIEWS.SUCCESS);
+export const reviewsLoadFailure = createAction(TYPES.REVIEWS.FAILURE);
+export const reviewsLoadCancel = createAction(TYPES.REVIEWS.CANCEL);
