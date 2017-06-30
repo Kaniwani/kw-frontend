@@ -1,60 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import debounce from 'lodash/debounce';
 import { clearToken } from 'utils/auth';
 import { breakpoints } from 'shared/styles/media';
 
 import LogoLink from 'components/LogoLink';
+import { makeSelectReviewCount } from 'containers/App/selectors';
 
 import OnCanvasMenu from './OnCanvasMenu';
 import OffCanvasToggle from './OffCanvasToggle';
 import OffCanvasMenu from './OffCanvasMenu';
 import { Header, Nav } from './styles';
 
-// FIXME: selectors for counts
-// the rest can probably just be local state, since we have a nav of specific routes only.
-const routes = [
-  // {
-  //   text: 'lessons',
-  //   to: '/lessons',
-  //   count: 0,
-  //   isDisabled: false,
-  // },
-  {
-    text: 'reviews',
-    to: '/reviews',
-    count: 0,
-    isDisabled: false,
-  },
-  {
-    text: 'vocabulary',
-    to: '/vocabulary',
-  },
-  {
-    text: 'settings',
-    to: '/settings',
-  },
-  {
-    text: 'about',
-    to: '/about',
-  },
-  {
-    text: 'contact',
-    to: '/contact',
-  },
-  {
-    text: 'logout',
-    to: '/logout',
-  },
-];
-
 class SiteHeader extends React.Component {
+  static propTypes = {
+    reviewCount: PropTypes.number, // eslint-disable-line react/require-default-props
+  };
+
   state = {
     headerHeight: 70, // ballpark fallback
     offCanvasMenuActive: false,
     offCanvasToggleVisible: false,
-    onCanvasWidth: null,
-    linkWidths: null,
-    routes,
   };
 
   componentDidMount() {
@@ -94,12 +62,23 @@ class SiteHeader extends React.Component {
   }
 
   render() {
-    let onCanvasRoutes = this.state.routes;
-    let offCanvasRoutes = [];
+    const isWideViewport = !this.state.offCanvasToggleVisible;
+    let onCanvasRoutes = [
+      // { text: 'lessons', count: this.props.lessonCount },
+      { text: 'reviews', count: this.props.reviewCount },
+      { text: 'vocabulary' },
+    ];
+    let offCanvasRoutes = [
+      { text: 'settings' },
+      { text: 'about' },
+      { text: 'contact' },
+      { text: 'logout' },
+    ];
 
-    if (this.state.offCanvasToggleVisible) {
-      onCanvasRoutes = this.state.routes.slice(0, 2);
-      offCanvasRoutes = this.state.routes.slice(2);
+    // show all routes in main menu if large screen
+    if (isWideViewport) {
+      onCanvasRoutes = onCanvasRoutes.concat(offCanvasRoutes);
+      offCanvasRoutes = [];
     }
 
     return (
@@ -129,4 +108,8 @@ class SiteHeader extends React.Component {
   }
 }
 
-export default SiteHeader;
+const mapStateToProps = createStructuredSelector({
+  reviewCount: makeSelectReviewCount(),
+});
+
+export default connect(mapStateToProps)(SiteHeader);

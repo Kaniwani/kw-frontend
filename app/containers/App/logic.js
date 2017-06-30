@@ -1,47 +1,57 @@
 import { createLogic } from 'redux-logic';
-import { getUserProfile, getCurrentReviews } from 'shared/api';
-import { serializeUserProfile, serializeStubbedReviewEntries } from 'shared/serializers';
-
+import * as api from 'shared/api';
 import {
-  userLoad,
-  userLoadCancel,
-  userLoadSuccess,
-  userLoadFailure,
-  reviewsLoad,
-  reviewsLoadCancel,
-  reviewsLoadSuccess,
-  reviewsLoadFailure,
-} from './actions';
+  serializeUserProfile,
+  serializeStubbedReviewEntries,
+  serializeLevel,
+} from 'shared/serializers';
+import * as actions from './actions';
 
 export const userLoadLogic = createLogic({
-  type: userLoad,
-  cancelType: userLoadCancel,
+  type: actions.userLoad,
+  cancelType: actions.userLoadCancel,
   latest: true,
-  throttle: 10000, /* 10 secs */
+  throttle: 10000, // 10 secs
   processOptions: {
-    successType: userLoadSuccess,
-    failType: userLoadFailure,
+    successType: actions.userLoadSuccess,
+    failType: actions.userLoadFailure,
   },
-  warnTimeout: 20000, /* 20 secs */
+  warnTimeout: 20000, // 20 secs
 
   process() {
-    return getUserProfile().then((res) => serializeUserProfile(res));
+    return api.getUserProfile().then((response) => serializeUserProfile(response));
   },
 });
 
 export const reviewsLoadLogic = createLogic({
-  type: reviewsLoad,
-  cancelType: reviewsLoadCancel,
+  type: actions.reviewsLoad,
+  cancelType: actions.reviewsLoadCancel,
   latest: true,
-  throttle: 10000, /* 10 secs */
+  throttle: 10000, // 10 secs
   processOptions: {
-    successType: reviewsLoadSuccess,
-    failType: reviewsLoadFailure,
+    successType: actions.reviewsLoadSuccess,
+    failType: actions.reviewsLoadFailure,
   },
-  warnTimeout: 20000, /* 20 secs */
+  warnTimeout: 20000, // 20 secs
 
   process() {
-    return getCurrentReviews().then((res) => serializeStubbedReviewEntries(res.results));
+    return api.getCurrentReviews().then((response) => serializeStubbedReviewEntries(response));
+  },
+});
+
+export const levelsLoadLogic = createLogic({
+  type: actions.levelsLoad,
+  cancelType: actions.levelsLoadCancel,
+  latest: true,
+  throttle: 10000, // 10 secs
+  processOptions: {
+    successType: actions.levelsLoadSuccess,
+    failType: actions.levelsLoadFailure,
+  },
+  warnTimeout: 20000, // 20 secs
+
+  process() {
+    return api.getLevel({ level: 47 }).then((response) => serializeLevel({ level, ...response }));
   },
 });
 
@@ -49,4 +59,5 @@ export const reviewsLoadLogic = createLogic({
 export default [
   userLoadLogic,
   reviewsLoadLogic,
+  levelsLoadLogic,
 ];

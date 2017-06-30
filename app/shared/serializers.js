@@ -1,7 +1,10 @@
 /* eslint-disable camelcase */
 import { SRS_RANKS } from 'shared/constants';
-import typeOf from 'utils/typeOf';
+import isString from 'lodash/isString';
+import castArray from 'lodash/castArray';
 import condenseReadings from 'utils/condenseReadings';
+
+import { normalizeLevel, normalizeReviews } from 'shared/schemas';
 
 // Add 'Common'|'Uncommon' and JLPT rank to tags list
 const combineTags = ({ tags, jlpt, common }) => {
@@ -10,6 +13,16 @@ const combineTags = ({ tags, jlpt, common }) => {
 };
 
 const setDate = (date) => date == null ? null : new Date(date);
+
+const toUniqueStringsArray = (data) => {
+  let asArray = data;
+  if (isString(data) && data.includes(', ')) {
+    asArray = data.split(', ');
+  } else {
+    asArray = castArray(data);
+  }
+  return Array.from(new Set(asArray));
+};
 
 export function serializeUserProfile({
   email,
@@ -42,19 +55,27 @@ export function serializeUser({
   };
 }
 
+/* eslint-disable no-param-reassign, no-return-assign, no-sequences */
+const ranksWithZeroCount = Object.values(SRS_RANKS).reduce((hash, key) => (hash[key] = 0, hash), {});
+const upcaseKeys = (obj) =>
+  Object.entries(obj).reduce((hash, [key, val]) => (hash[key.toUpperCase()] = +val, hash), {});
+const coerceValsToNumber = (obj) =>
+  Object.entries(obj).reduce((hash, [key, val]) => (hash[key] = parseInt(val, 10), hash), {});
+/* eslint-enable */
+
 export function serializeDashboard({
   reviews_count: reviewCount = 0,
   reviews_within_hour_count: nextHourReviews = 0,
   reviews_within_day_count: nextDayReviews = 0,
   last_wanikani_sync_date: lastWkSyncDate = null,
-  srs_counts: srsCounts = Array.from({ length: Object.values(SRS_RANKS).length }, () => 0),
+  srs_counts: srsCounts = ranksWithZeroCount,
 } = {}) {
   return {
     reviewCount: +reviewCount,
     nextHourReviews: +nextHourReviews,
     nextDayReviews: +nextDayReviews,
     lastWkSyncDate: setDate(lastWkSyncDate),
-    srsCounts: srsCounts.map(Number),
+    srsCounts: coerceValsToNumber(upcaseKeys(srsCounts)),
   };
 }
 
@@ -82,27 +103,23 @@ export function serializeReading(reading) {
   return {
     id: reading.id,
     level: reading.level,
-    common: reading.common,
+    common: !!reading.common,
     character: reading.character,
-    kana: reading.kana,
+    kana: toUniqueStringsArray(reading.kana),
     tags: combineTags(reading),
     sentenceEn: reading.sentence_en,
     sentenceJa: reading.sentence_ja,
   };
 }
 
-export function serializeLevels(data) {
-  return data.map(({ level, unlocked, vocabulary_count, count, ids }) => ({
-    level: +level,
-    unlocked: !!unlocked,
-    count: +vocabulary_count || +count, // prefer server over local storage
-    ids,
-  }));
-}
-
-
-export function serializeVocabularyEntry({ synonyms, meaning, readings }) {
+export function serializeVocabularyEntry({
+  id,
+  synonyms = [],
+  meaning = [],
+  readings = [],
+} = {}) {
   return {
+    id,
     synonyms,
     meanings: serializeMeaning(meaning),
     readings: serializeReadings(readings),
@@ -111,53 +128,62 @@ export function serializeVocabularyEntry({ synonyms, meaning, readings }) {
 
 export function serializeStubbedReviewEntry({
   id,
-  correct,
-  incorrect,
-  streak,
-  notes,
-  answer_synonyms,
-  vocabulary,
-}) {
+  correct = 0,
+  incorrect = 0,
+  streak = 0,
+  notes = null,
+  answer_synonyms: synonyms = [],
+  vocabulary = {},
+} = {}) {
   return {
     id,
     correct,
     incorrect,
-    streak,
-    notes: notes == null ? '' : notes,
-    vocabulary: serializeVocabularyEntry({ synonyms: answer_synonyms, ...vocabulary }),
+    streak: +streak,
+    notes,
+    vocabulary: serializeVocabularyEntry({ synonyms, ...vocabulary }),
   };
 }
 
 export function serializeReviewEntry({
-  needs_review,
-  last_studied,
-  unlock_date,
-  next_review_date,
-  burned,
-  hidden,
-  critical,
-  wanikani_srs_numeric,
-  wanikani_srs,
-  wanikani_burned,
+  needs_review: needsReview,
+  last_studied: lastReviewDate,
+  unlock_date: unlockDate,
+  next_review_date: nextReviewDate,
+  burned: isBurned,
+  hidden: isHidden,
+  critical: isCritical,
+  wanikani_srs_numeric: wkStreak,
+  wanikani_srs: wkStreakName,
+  wanikani_burned: wkBurned,
   ...rest
-}) {
+} = {}) {
   return {
-    needsReview: needs_review,
-    lastReviewDate: setDate(last_studied),
-    unlockDate: setDate(unlock_date),
-    nextReviewDate: setDate(next_review_date),
-    isBurned: burned,
-    isHidden: hidden,
-    isCritical: critical,
-    wkStreak: wanikani_srs_numeric,
-    wkStreakName: wanikani_srs,
-    wkBurned: wanikani_burned,
+    needsReview,
+    lastReviewDate: setDate(lastReviewDate),
+    unlockDate: setDate(unlockDate),
+    nextReviewDate: setDate(nextReviewDate),
+    isBurned,
+    isHidden,
+    isCritical,
+    wkStreak,
+    wkStreakName,
+    wkBurned,
     ...serializeStubbedReviewEntry(rest),
   };
 }
 
 export function serializeMeaning(data) {
-  return typeOf(data) === 'string' ? data.split(', ') : data;
+  return toUniqueStringsArray(data);
+}
+
+export function serializeLevels(data) {
+  return data.map((item) => ({
+    level: +item.level,
+    count: +item.vocabulary_count,
+    unlocked: item.unlocked,
+    ids: item.ids,
+  }));
 }
 
 export function serializeReadings(data) {
@@ -168,10 +194,11 @@ export function serializeReviewEntries(data) {
   return data.map(serializeReviewEntry);
 }
 
-export function serializeStubbedReviewEntries(data) {
-  return data.map(serializeStubbedReviewEntry);
+export function serializeStubbedReviewEntries({ /* count, */ results }) {
+  return normalizeReviews(results.map(serializeStubbedReviewEntry));
 }
 
-export function serializeVocabularyEntries(data) {
-  return data.map(serializeVocabularyEntry);
+// export function serializeLevel({ /* count, next, previous,*/ results }) {
+export function serializeLevel({ level, /* count, next, previous,*/ results }) {
+  return { level, entities: normalizeLevel(results.map(serializeVocabularyEntry)) };
 }

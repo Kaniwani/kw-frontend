@@ -7,7 +7,6 @@
  * // => 12:00am, Nov 2nd 2014
  */
 export const DATE_IN_WORDS = 'hh:mma[,] MMM Do YYYY';
-export const MINUTES_SINCE_LAST_SYNC_LIMIT = 5;
 
 export const DETAIL_LEVELS = {
   LOW: 'LOW',

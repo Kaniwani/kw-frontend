@@ -13,16 +13,18 @@ import ContactPage from 'containers/ContactPage/Loadable';
 import SettingsPage from 'containers/SettingsPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
-import { userLoad, reviewsLoad } from 'containers/App/actions';
+import * as globalActions from 'containers/App/actions';
 
 export class ProtectedRoutes extends React.Component {
   static propTypes = {
     userLoad: PropTypes.func.isRequired,
     reviewsLoad: PropTypes.func.isRequired,
+    levelsLoad: PropTypes.func.isRequired,
   }
   componentDidMount() {
     this.props.userLoad();
     this.props.reviewsLoad();
+    this.props.levelsLoad();
   }
   render() {
     return (
@@ -50,8 +52,9 @@ export class ProtectedRoutes extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  userLoad: () => dispatch(userLoad()),
-  reviewsLoad: () => dispatch(reviewsLoad()),
+  userLoad: () => dispatch(globalActions.userLoad()),
+  reviewsLoad: () => dispatch(globalActions.reviewsLoad()),
+  levelsLoad: () => dispatch(globalActions.levelsLoad()),
 });
 
 export default withRouter(connect(null, mapDispatchToProps)(ProtectedRoutes));

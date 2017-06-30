@@ -7,15 +7,14 @@ import groupBy from 'lodash/groupBy';
  */
 export default function condenseReadings(readings = []) {
   const groupedReadings = Object.values(groupBy(readings, 'character'));
-  return groupedReadings.map(entries =>
-    entries.reduce((entry, next) => {
-      if (!entry.kana) {
-        return {
-          ...next,
-        };
-      }
-      return spreadKana(entry, next);
-    }, {}),
+  return combineKana(groupedReadings);
+}
+
+function combineKana(list) {
+  return list.map((entries) =>
+    entries
+      .map(ensureKanaArray)
+      .reduce((entry, next) => !entry.kana ? next : spreadKana(entry, next), {}),
   );
 }
 
@@ -26,5 +25,12 @@ function spreadKana(entry, next) {
       ...entry.kana,
       ...next.kana,
     ],
+  };
+}
+
+function ensureKanaArray(obj) {
+  return {
+    ...obj,
+    kana: Array.isArray(obj.kana) ? obj.kana : [obj.kana],
   };
 }
