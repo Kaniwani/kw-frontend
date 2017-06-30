@@ -1,10 +1,19 @@
 import { handleActions } from 'redux-actions';
+import {
+  serializeUser,
+  serializeDashboard,
+  serializeSettings,
+} from 'shared/serializers';
+
 import { TYPES } from './actions';
 const { USER, REVIEWS } = TYPES;
 
 const initialState = {
   loading: false,
   error: false,
+  user: serializeUser(),
+  dashboard: serializeDashboard(),
+  settings: serializeSettings(),
 };
 
 const appReducer = handleActions({

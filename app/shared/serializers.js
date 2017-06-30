@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { SRS_RANKS } from 'shared/constants';
 import typeOf from 'utils/typeOf';
 import condenseReadings from 'utils/condenseReadings';
 
@@ -21,62 +22,59 @@ export function serializeUserProfile({
   };
 }
 
-function serializeUser({
-  email,
-  name,
-  api_key,
-  api_valid,
-  join_date,
-  level,
-  unlocked_levels,
-}) {
+export function serializeUser({
+  email = '',
+  name = '',
+  api_key: apiKey = '',
+  api_valid: apiValid = null,
+  level: currentLevel = 0,
+  join_date: joinDate = null,
+  unlocked_levels: unlockedLevels = [],
+} = {}) {
   return {
     name,
     email,
-    currentLevel: +level,
-    joinDate: setDate(join_date),
-    apiKey: api_key,
-    apiValid: api_valid,
-    unlockedLevels: unlocked_levels.map(Number),
+    apiKey,
+    apiValid,
+    currentLevel: +currentLevel,
+    joinDate: setDate(joinDate),
+    unlockedLevels: unlockedLevels.map(Number),
   };
 }
 
-function serializeDashboard({
-  reviews_count,
-  last_wanikani_sync_date,
-  reviews_within_hour_count,
-  reviews_within_day_count,
-  srs_counts,
-}) {
+export function serializeDashboard({
+  reviews_count: reviewCount = 0,
+  reviews_within_hour_count: nextHourReviews = 0,
+  reviews_within_day_count: nextDayReviews = 0,
+  last_wanikani_sync_date: lastWkSyncDate = null,
+  srs_counts: srsCounts = Array.from({ length: Object.values(SRS_RANKS).length }, () => 0),
+} = {}) {
   return {
-    reviewCount: +reviews_count,
-    lastWkSyncDate: setDate(last_wanikani_sync_date),
-    // FIXME: technically this model doesn't have a sync
-    // should probably only set this after a succesful /sync/ request
-    lastKwSyncDate: new Date(),
-    nextHourReviews: +reviews_within_hour_count,
-    nextDayReviews: +reviews_within_day_count,
-    srsCounts: Object.values(srs_counts).map(Number),
+    reviewCount: +reviewCount,
+    nextHourReviews: +nextHourReviews,
+    nextDayReviews: +nextDayReviews,
+    lastWkSyncDate: setDate(lastWkSyncDate),
+    srsCounts: srsCounts.map(Number),
   };
 }
 
-function serializeSettings({
-  follow_me,
-  auto_advance_on_success,
-  auto_expand_answer_on_success,
-  auto_expand_answer_on_failure,
-  minimum_wk_srs_level_to_review,
-  on_vacation,
-  vacation_date,
-}) {
+export function serializeSettings({
+  follow_me: followMe = true,
+  auto_advance_on_success: autoAdvanceCorrect = false,
+  auto_expand_answer_on_success: autoExpandCorrect = true,
+  auto_expand_answer_on_failure: autoExpandIncorrect = true,
+  minimum_wk_srs_level_to_review: reviewSrsLevelLimit = SRS_RANKS.ONE,
+  on_vacation: onVacation = false,
+  vacation_date: vacationDate = null,
+} = {}) {
   return {
-    followMe: follow_me,
-    autoAdvanceCorrect: auto_advance_on_success,
-    autoExpandCorrect: auto_expand_answer_on_success,
-    autoExpandIncorrect: auto_expand_answer_on_failure,
-    reviewSrsLevelLimit: minimum_wk_srs_level_to_review,
-    onVacation: on_vacation,
-    vacationDate: setDate(vacation_date),
+    followMe,
+    autoAdvanceCorrect,
+    autoExpandCorrect,
+    autoExpandIncorrect,
+    reviewSrsLevelLimit,
+    onVacation,
+    vacationDate: setDate(vacationDate),
   };
 }
 
