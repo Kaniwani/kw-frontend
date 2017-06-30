@@ -22,6 +22,12 @@ export default function configureStore(initialState = {}, history) {
     routerMiddleware(history),
   ];
 
+  // Enforces state to be read-only (in dev) - it'll throw if we try to mutate
+  if (process.env.NODE_ENV !== 'production') {
+    const freeze = require('redux-freeze'); // eslint-disable-line global-require
+    middlewares.push(freeze);
+  }
+
   const enhancers = [
     applyMiddleware(...middlewares),
   ];

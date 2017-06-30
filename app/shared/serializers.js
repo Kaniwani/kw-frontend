@@ -4,7 +4,7 @@ import isString from 'lodash/isString';
 import castArray from 'lodash/castArray';
 import condenseReadings from 'utils/condenseReadings';
 
-import { normalizeLevel, normalizeReviews } from 'shared/schemas';
+import { normalizeVocabulary, normalizeReviews } from 'shared/schemas';
 
 // Add 'Common'|'Uncommon' and JLPT rank to tags list
 const combineTags = ({ tags, jlpt, common }) => {
@@ -114,13 +114,11 @@ export function serializeReading(reading) {
 
 export function serializeVocabularyEntry({
   id,
-  synonyms = [],
   meaning = [],
   readings = [],
 } = {}) {
   return {
     id,
-    synonyms,
     meanings: serializeMeaning(meaning),
     readings: serializeReadings(readings),
   };
@@ -141,7 +139,8 @@ export function serializeStubbedReviewEntry({
     incorrect,
     streak: +streak,
     notes,
-    vocabulary: serializeVocabularyEntry({ synonyms, ...vocabulary }),
+    synonyms,
+    vocabulary: serializeVocabularyEntry(vocabulary),
   };
 }
 
@@ -178,27 +177,29 @@ export function serializeMeaning(data) {
 }
 
 export function serializeLevels(data) {
-  return data.map((item) => ({
-    level: +item.level,
-    count: +item.vocabulary_count,
-    unlocked: item.unlocked,
-    ids: item.ids,
-  }));
+  return data.reduce((hash, item) => Object.assign({},
+    hash,
+    {
+      [item.level]: {
+        level: +item.level,
+        count: +item.vocabulary_count,
+        unlocked: !!item.unlocked,
+      },
+    }), {});
 }
 
 export function serializeReadings(data) {
   return condenseReadings(data).map(serializeReading);
 }
 
-export function serializeReviewEntries(data) {
-  return data.map(serializeReviewEntry);
+export function serializeReviewEntries({ results }) {
+  return normalizeReviews(results.map(serializeReviewEntry));
 }
 
 export function serializeStubbedReviewEntries({ /* count, */ results }) {
   return normalizeReviews(results.map(serializeStubbedReviewEntry));
 }
 
-// export function serializeLevel({ /* count, next, previous,*/ results }) {
 export function serializeLevel({ level, /* count, next, previous,*/ results }) {
-  return { level, entities: normalizeLevel(results.map(serializeVocabularyEntry)) };
+  return normalizeVocabulary(results.map(serializeVocabularyEntry), level);
 }

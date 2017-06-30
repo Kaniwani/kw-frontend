@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 
+import PageWrapper from 'base/PageWrapper';
+import H1 from 'base/H1';
 
 function AboutPage() {
   return (
@@ -13,7 +15,9 @@ function AboutPage() {
           { name: 'description', content: 'Description of AboutPage' },
         ]}
       />
-    <h1>Hello AboutPage</h1>
+      <PageWrapper>
+        <H1>Hello AboutPage</H1>
+      </PageWrapper>
     </div>
   );
 }

@@ -84,6 +84,7 @@ function formatUrl(url, method, body) {
 function formatQueryString(params) {
   const esc = encodeURIComponent;
   return Object.keys(params)
-     .map((key) => `${esc(key)}=${esc(params[key])}`)
+     .map((key) => params[key] ? `${esc(key)}=${esc(params[key])}` : null)
+     .filter((key) => key !== null)
      .join('&');
 }

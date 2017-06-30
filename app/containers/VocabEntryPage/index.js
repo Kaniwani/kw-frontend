@@ -4,11 +4,18 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 
+import * as globalActions from 'containers/App/actions';
+import { makeSelectReview } from 'containers/App/selectors';
 import makeSelectVocabEntryPage from './selectors';
 
 export class VocabEntryPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
-    dispatch: PropTypes.func.isRequired,
+    entry: PropTypes.object,
+    reviewLoad: PropTypes.func.isRequired,
+  }
+
+  componentDidMount() {
+    this.props.reviewLoad();
   }
 
   render() {
@@ -20,7 +27,8 @@ export class VocabEntryPage extends React.Component { // eslint-disable-line rea
             { name: 'description', content: 'Description of VocabEntryPage' },
           ]}
         />
-      <h1>Hello VocabEntryPage</h1>
+        <h1>Hello VocabEntryPage</h1>
+        <pre><code className="language-javascript">{this.props.entry && JSON.stringify(this.props.entry, null, 2)}</code></pre>
       </div>
     );
   }
@@ -28,11 +36,12 @@ export class VocabEntryPage extends React.Component { // eslint-disable-line rea
 
 const mapStateToProps = createStructuredSelector({
   VocabEntryPage: makeSelectVocabEntryPage(),
+  entry: makeSelectReview(),
 });
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, { match: { params } }) {
   return {
-    dispatch,
+    reviewLoad: () => dispatch(globalActions.reviewLoad({ id: params.id })),
   };
 }
 

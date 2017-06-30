@@ -9,8 +9,13 @@ import {
 } from './styles';
 
 ReviewQuestion.propTypes = {
-  meanings: PropTypes.array.isRequired,
-  tags: PropTypes.array.isRequired,
+  meanings: PropTypes.array,
+  tags: PropTypes.array,
+};
+
+ReviewQuestion.defaultProps = {
+  meanings: ['Default', 'Meanings'],
+  tags: ['JLPT N1', 'Common', 'Uncommon', 'Intransitive verb', 'Godan verb', 'Noun', 'Suru verb', 'Transitive verb', 'Ichidan verb', 'Suffix'],
 };
 
 function ReviewQuestion({ meanings, tags }) {

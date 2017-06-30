@@ -8,17 +8,15 @@ const reviewSchema = new schema.Entity('reviews', {
   vocabulary: vocabularySchema,
 });
 
-export function normalizeReviews(reviewList) {
-  const { entities, result: queue } = normalize(reviewList, [reviewSchema]);
-  return { entities, queue };
-}
+export const normalizeReview = (review) => normalize(review, reviewSchema);
+export const denormalizeReview = (review, entities) => denormalize(review, reviewSchema, entities);
 
-export function normalizeLevel(vocabularyList) {
-  const resulte = normalize(vocabularyList, [vocabularySchema]);
-  console.log(resulte);
-  return resulte;
-}
+export const normalizeReviews = (reviewList) => normalize(reviewList, [reviewSchema]);
+export const denormalizeReviews = (reviewList, entities) => denormalize(reviewList, [reviewSchema], entities);
 
-export function denormalizeReview(review, entities) {
-  return denormalize(review, reviewSchema, entities);
-}
+export const normalizeVocabulary = (vocabularyList, level) => ({
+  ...normalize(vocabularyList, [vocabularySchema]),
+  level,
+});
+export const denormalizeVocabulary = (vocabularyList, entities) =>
+  denormalize(vocabularyList, [vocabularySchema], entities);

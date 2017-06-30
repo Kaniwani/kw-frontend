@@ -7,7 +7,7 @@ import VocabLevel from 'components/VocabLevel';
 import { Ul } from './styles';
 
 VocabLevelList.propTypes = {
-  levels: PropTypes.array.isRequired,
+  levels: PropTypes.array,
   userWKLevel: PropTypes.number.isRequired,
   handleLevelLock: PropTypes.func.isRequired,
 };

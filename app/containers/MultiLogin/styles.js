@@ -35,7 +35,9 @@ export const SelectList = styled.ul`
   margin-bottom: -.3rem;
 `;
 
-export const SelectListItem = styled.li`
+export const SelectListItem = styled.button`
+  ${resetButton}
+  width: 100%;
   text-align: center;
   color: ${greyDark};
   cursor: pointer;
@@ -45,7 +47,8 @@ export const SelectListItem = styled.li`
   padding-top: .5rem;
   padding-bottom: .5rem;
 
-  &:hover {
+  &:hover,
+  &:focus {
     opacity: .8;
   }
 
@@ -53,7 +56,8 @@ export const SelectListItem = styled.li`
     cursor: default;
     opacity: 1;
 
-    &:hover {
+    &:hover,
+    &:focus {
       opacity: 1;
     }
   `}
@@ -140,13 +144,28 @@ export const SubmitButton = styled.button`
   }
 `;
 
+const hideMixin = ({ isHidden }) => isHidden && css`
+  height: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  pointer-events: none;
+  visibility: hidden;
+  & ${ApiLink} {
+    transform: scale(0);
+  }
+`;
+
 export const ApiLink = styled(IconLink)`
   position: absolute;
   right: .25em;
   top: 50%;
   background-color: ${whiteLight};
+  opacity: .65;
+  ${hideMixin}
   transform: translateY(-50%) scale(1);
   &:active {
+    opacity: 1;
     transform: translateY(-50%) scale(.9);
   }
 `;
@@ -157,15 +176,5 @@ export const ApiInput = styled.div`
   width: 100%;
   border: none;
   border-radius: 10px;
-
-  ${({ isHidden }) => isHidden && css`
-    height: 0;
-    margin: 0;
-    padding: 0;
-    border: none;
-    & ${ApiLink} {
-      transform: scale(0);
-    }
-  `}
-
+  ${hideMixin}
 `;

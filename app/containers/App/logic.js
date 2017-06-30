@@ -3,39 +3,88 @@ import * as api from 'shared/api';
 import {
   serializeUserProfile,
   serializeStubbedReviewEntries,
+  serializeReviewEntries,
   serializeLevel,
+  serializeLevels,
 } from 'shared/serializers';
+
 import * as actions from './actions';
+
+const TEN_SECONDS = 10000;
 
 export const userLoadLogic = createLogic({
   type: actions.userLoad,
   cancelType: actions.userLoadCancel,
-  latest: true,
-  throttle: 10000, // 10 secs
+  warnTimeout: TEN_SECONDS,
   processOptions: {
     successType: actions.userLoadSuccess,
     failType: actions.userLoadFailure,
   },
-  warnTimeout: 20000, // 20 secs
 
   process() {
-    return api.getUserProfile().then((response) => serializeUserProfile(response));
+    return api.getUserProfile()
+      .then((response) => serializeUserProfile(response));
+  },
+});
+
+export const queueLoadLogic = createLogic({
+  type: actions.queueLoad,
+  cancelType: actions.queueLoadCancel,
+  warnTimeout: TEN_SECONDS,
+  processOptions: {
+    successType: actions.queueLoadSuccess,
+    failType: actions.queueLoadFailure,
+  },
+
+  process() {
+    return api.getCurrentReviews()
+      .then((response) => serializeStubbedReviewEntries(response));
   },
 });
 
 export const reviewsLoadLogic = createLogic({
   type: actions.reviewsLoad,
   cancelType: actions.reviewsLoadCancel,
-  latest: true,
-  throttle: 10000, // 10 secs
+  warnTimeout: TEN_SECONDS,
   processOptions: {
     successType: actions.reviewsLoadSuccess,
     failType: actions.reviewsLoadFailure,
   },
-  warnTimeout: 20000, // 20 secs
 
-  process() {
-    return api.getCurrentReviews().then((response) => serializeStubbedReviewEntries(response));
+  process({ action: { payload } }) {
+    return api.getReviews(payload)
+      .then((response) => serializeReviewEntries(response));
+  },
+});
+
+export const reviewLoadLogic = createLogic({
+  type: actions.reviewLoad,
+  cancelType: actions.reviewLoadCancel,
+  warnTimeout: TEN_SECONDS,
+  processOptions: {
+    successType: actions.reviewLoadSuccess,
+    failType: actions.reviewLoadFailure,
+  },
+
+  process({ action: { payload } }) {
+    // intentionally using serializeReviewEntries to force normalization for single item
+    return api.getReviewEntry(payload.id)
+      .then((response) => serializeReviewEntries({ results: [response] }));
+  },
+});
+
+export const levelLoadLogic = createLogic({
+  type: actions.levelLoad,
+  cancelType: actions.levelLoadCancel,
+  warnTimeout: TEN_SECONDS,
+  processOptions: {
+    successType: actions.levelLoadSuccess,
+    failType: actions.levelLoadFailure,
+  },
+
+  process({ action: { payload } }) {
+    return api.getLevel(payload.level)
+      .then((response) => serializeLevel({ level: payload.level, ...response }));
   },
 });
 
@@ -43,15 +92,15 @@ export const levelsLoadLogic = createLogic({
   type: actions.levelsLoad,
   cancelType: actions.levelsLoadCancel,
   latest: true,
-  throttle: 10000, // 10 secs
+  warnTimeout: TEN_SECONDS,
   processOptions: {
     successType: actions.levelsLoadSuccess,
     failType: actions.levelsLoadFailure,
   },
-  warnTimeout: 20000, // 20 secs
 
   process() {
-    return api.getLevel({ level: 47 }).then((response) => serializeLevel({ level, ...response }));
+    return api.getLevels()
+      .then((response) => serializeLevels(response));
   },
 });
 
@@ -59,5 +108,8 @@ export const levelsLoadLogic = createLogic({
 export default [
   userLoadLogic,
   reviewsLoadLogic,
+  queueLoadLogic,
+  reviewLoadLogic,
+  levelLoadLogic,
   levelsLoadLogic,
 ];

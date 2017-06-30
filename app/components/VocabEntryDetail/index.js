@@ -54,7 +54,7 @@ function VocabEntryDetail({ entry, entry: { id, readings, synonyms } }) {
 
       <p>debug</p>
       <pre>
-        <code>
+        <code className="language-javascript">
           {JSON.stringify(entry, null, 2)}
         </code>
       </pre>

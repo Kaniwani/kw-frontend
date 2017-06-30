@@ -1,7 +1,16 @@
 import { createSelector } from 'reselect';
-import { denormalizeReview } from 'shared/schemas';
+import toArray from 'lodash/toArray';
+
+import { denormalizeReview, denormalizeReviews, denormalizeVocabulary } from 'shared/schemas';
 
 const selectGlobal = (state) => state.global;
+const selectEntities = createSelector(
+  selectGlobal,
+  (state) => state.entities,
+);
+
+const makeSelectEntityById = (entity) => (state, props) =>
+  state.global.entities[entity][props.match.params.id || props.id];
 
 const makeSelectLoading = () => createSelector(
   selectGlobal,
@@ -33,14 +42,17 @@ const makeSelectSettings = () => createSelector(
   (state) => state.settings
 );
 
-const selectEntities = (state) => state.global.entities;
-const selectEntityById = (entity) => (id) => (state) => state.global.entities[entity][id];
-const selectReviewById = selectEntityById('reviews');
-const selectReview = (state, { id }) => selectReviewById(id)(state);
+const makeSelectReviews = () => createSelector(
+  [selectEntities],
+  (entities) => {
+    const reviews = toArray(entities.reviews);
+    return reviews && denormalizeReviews(reviews, entities);
+  }
+);
 
 const makeSelectReview = () => createSelector(
-  [selectReview, selectEntities],
-  (review, entities) => denormalizeReview(review, entities)
+  [makeSelectEntityById('reviews'), selectEntities],
+  (review, entities) => review && denormalizeReview(review, entities)
 );
 
 const makeSelectQueue = () => createSelector(
@@ -49,8 +61,13 @@ const makeSelectQueue = () => createSelector(
 );
 
 const makeSelectLevels = () => createSelector(
-  selectGlobal,
-  (state) => state.levels
+  selectEntities,
+  (state) => toArray(state.levels)
+);
+
+const makeSelectLevel = () => createSelector(
+  [makeSelectEntityById('levels'), selectEntities],
+  (level, entities) => level && denormalizeVocabulary(level.ids, entities)
 );
 
 export {
@@ -62,5 +79,7 @@ export {
   makeSelectSettings,
   makeSelectQueue,
   makeSelectReview,
+  makeSelectReviews,
   makeSelectLevels,
+  makeSelectLevel,
 };

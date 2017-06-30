@@ -69,13 +69,17 @@ class MultiLogin extends React.PureComponent { // eslint-disable-line react/pref
       <Form onSubmit={this.handleSubmit}>
         <SelectList plainList>
           {PANELS.map((PANEL) => (
-            <SelectListItem
-              key={cuid()}
-              isActive={this.state.selected === PANEL}
-              onClick={this.handleSelectChange(PANEL)}
-            >
-              {PANEL}
-            </SelectListItem>
+            <li>
+              <SelectListItem
+                plainButton
+                key={cuid()}
+                isActive={this.state.selected === PANEL}
+                onClick={this.handleSelectChange(PANEL)}
+                tabIndex={this.state.selected === PANEL ? -1 : 0}
+              >
+                {PANEL}
+              </SelectListItem>
+            </li>
           ))}
         </SelectList>
         <SelectedPointer

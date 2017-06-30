@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 
+import PageWrapper from 'base/PageWrapper';
+import H1 from 'base/H1';
 
 function ContactPage() {
   return (
@@ -13,7 +15,9 @@ function ContactPage() {
           { name: 'description', content: 'Description of ContactPage' },
         ]}
       />
-    <h1>Hello ContactPage</h1>
+      <PageWrapper>
+        <H1>Hello ContactPage</H1>
+      </PageWrapper>
     </div>
   );
 }

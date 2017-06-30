@@ -73,29 +73,11 @@ export const createJishoUrl = (keyword) => `//jisho.org/search/${keyword}`;
 //-----------------------------------------------------------------------------
 //  AUTHORIZATION
 //-----------------------------------------------------------------------------
-export const getUserAuth = ({ id, username, email }) =>
-  get(
-    userCredentialsUrl,
-    { id, username, email }
-  );
-
-export const loginUser = ({ username, password }) =>
-  post(
-    userLoginUrl,
-    { username, password }
-  );
-
-export const updateUserAuth = ({ id, username, email }) =>
-  patch(
-    userCredentialsUrl,
-    { id, username, email }
-  );
-
-export const registerUser = ({ email, username, password, apiKey }) =>
-  post(
-    registerUrl,
-    { email, username, password, api_key: apiKey }
-  );
+export const getUserAuth = ({ id, username, email } = {}) => get(userCredentialsUrl, { id, username, email });
+export const loginUser = ({ username, password } = {}) => post(userLoginUrl, { username, password });
+export const updateUserAuth = ({ id, username, email } = {}) => patch(userCredentialsUrl, { id, username, email });
+export const registerUser = ({ email, username, password, apiKey } = {}) =>
+  post(registerUrl, { email, username, password, api_key: apiKey });
 
 export const activateUser = (uid) => post(activateUrl, { uid });
 export const changeUsername = (username) => post(usernameUrl, { username });
@@ -117,12 +99,12 @@ export const syncWk = (fullSync = false) => post(userSyncUrl, { full_sync: fullS
 //-----------------------------------------------------------------------------
 export const getReviews = ({
   level,
-  offset = 0,
-  limit = 100,
-  meaningContains = '',
-  srsLevel = 0,
-  srsLevelLt = 0,
-  srsLevelGt = 0,
+  offset,
+  limit,
+  meaningContains,
+  srsLevel,
+  srsLevelLt,
+  srsLevelGt,
 } = {}) => get(
   reviewsUrl,
   {
@@ -136,11 +118,8 @@ export const getReviews = ({
   }
 );
 
-export const getCriticalReviews = ({ offset = 0, limit = 100 } = {}) =>
-  get(criticalReviewsUrl, { offset, limit });
-
-export const getCurrentReviews = ({ offset = 0, limit = 100 } = {}) =>
-  get(currentReviewsUrl, { offset, limit });
+export const getCriticalReviews = ({ offset, limit } = {}) => get(criticalReviewsUrl, { offset, limit });
+export const getCurrentReviews = ({ offset, limit } = {}) => get(currentReviewsUrl, { offset, limit });
 
 export const getReviewEntry = (id) => get(reviewEntryUrl(id));
 export const reviewCorrect = (id) => post(reviewCorrectUrl(id));
@@ -151,9 +130,7 @@ export const unhideReview = (id) => post(unhideReviewUrl(id));
 //-----------------------------------------------------------------------------
 //  SYNONYMS
 //-----------------------------------------------------------------------------
-export const addSynonym = ({ id, character, kana }) =>
-  post(synonymUrl, { character, kana, review: id });
-
+export const addSynonym = ({ review, character, kana } = {}) => post(synonymUrl, { review, character, kana });
 export const removeSynonym = (id) => del(synonymEntryUrl(id));
 
 //-----------------------------------------------------------------------------
@@ -161,11 +138,11 @@ export const removeSynonym = (id) => del(synonymEntryUrl(id));
 //-----------------------------------------------------------------------------
 export const getVocabulary = ({
   level,
-  offset = 0,
-  limit = 100,
-  meaningContains = '',
-  readingsKanaContains = '',
-  readingsCharacterContains = '',
+  offset,
+  limit,
+  meaningContains,
+  readingsKanaContains,
+  readingsCharacterContains,
 } = {}) => get(
   vocabularyUrl,
   {
@@ -181,8 +158,8 @@ export const getVocabulary = ({
 export const getLevels = () => get(levelsUrl);
 export const getLevel = ({
   level,
-  offset = 0,
-  limit = 100,
+  offset,
+  limit,
   hyperlink = false,
 } = {}) => get(
   vocabularyUrl,
@@ -196,9 +173,7 @@ export const getLevel = ({
 
 export const getVocabularyEntry = (id) => get(vocabularyEntryUrl(id));
 
-export const getReadings = ({ offset = 0, limit = 100 } = {}) =>
-  get(readingUrl, { offset, limit });
-
+export const getReadings = ({ offset, limit } = {}) => get(readingUrl, { offset, limit });
 export const getReadingEntry = (id) => get(readingEntryUrl(id));
 
 export const lockLevel = (level) => post(lockLevelUrl(level));
@@ -217,9 +192,4 @@ export const getAnnouncement = (id) => get(announcementEntryUrl(id));
 export const addAnnouncement = ({ title, body }) => post(announcementUrl, { title, body });
 export const updateAnnouncement = ({ title, body }) => put(announcementUrl, { title, body });
 
-export const sendContactMessage = ({
-  name,
-  email,
-  body = 'No message provided',
-} = {}) =>
-  post(contactUrl, { name, email, body });
+export const sendContactMessage = ({ name, email, body } = {}) => post(contactUrl, { name, email, body });

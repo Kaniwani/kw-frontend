@@ -5,7 +5,7 @@ import { DETAIL_LEVELS } from 'shared/constants';
 
 import { Reading, Character, Kana } from './styles';
 
-const isNotLowDetail = detailLevel => detailLevel !== DETAIL_LEVELS.LOW;
+const isNotLowDetail = (detailLevel) => detailLevel !== DETAIL_LEVELS.LOW;
 
 ReadingDetail.propTypes = {
   detailLevel: PropTypes.oneOf(Object.values(DETAIL_LEVELS)),
