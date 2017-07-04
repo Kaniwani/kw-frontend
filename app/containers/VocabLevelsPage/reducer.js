@@ -1,11 +1,11 @@
 import { handleActions } from 'redux-actions';
-// import { update } from 'immutability-helper';
+// import update from 'immutability-helper';
 // import { TYPES } from './actions';
 
 const initialState = {};
 
-const vocabLevelsContainerReducer = handleActions({
+const vocabLevelsReducer = handleActions({
 
 }, initialState);
 
-export default vocabLevelsContainerReducer;
+export default vocabLevelsReducer;

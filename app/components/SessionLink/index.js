@@ -10,17 +10,19 @@ SessionLink.propTypes = {
   to: PropTypes.string.isRequired,
   count: PropTypes.number,
   color: PropTypes.oneOf(Object.keys(COLORS)),
+  isDisabled: PropTypes.bool,
 };
 
 SessionLink.defaultProps = {
   count: 0,
   color: 'blue',
+  isDisabled: false,
 };
 
-function SessionLink({ text, to, count, color }) {
+function SessionLink({ text, to, count, color, isDisabled }) {
   return (
     <Wrapper>
-      <LinkBlock plainLink bgColor={color} to={to}>
+      <LinkBlock plainLink isDisabled={isDisabled} bgColor={color} to={to}>
         <Left>{text}</Left>
         <Right title="Remaining reviews">
           <InboxIcon inline={false} name="ASSIGNMENT_INBOX" color="white" size="1.2em" />

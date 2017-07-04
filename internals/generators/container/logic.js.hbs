@@ -1,15 +1,10 @@
 import { createLogic } from 'redux-logic';
-import {
-  defaultLoad,
-  defaultLoadCancel,
-  defaultLoadSuccess,
-  defaultLoadFailure,
-} from './actions';
+import {{ camelCase name }} from './actions';
 
 // Individual exports for testing
 export const defaultLogic = createLogic({
-  type: defaultLoad, // action type logic listens for
-  cancelType: defaultLoadCancel, // actions to cancel on
+  type: {{ camelCase name }}.load.request, // action type logic listens for
+  cancelType: {{ camelCase name }}.load.cancel, // actions to cancel on
   // latest: true, // use response for latest request only
   /* other less used options: debounce, throttle */
 
@@ -33,8 +28,8 @@ export const defaultLogic = createLogic({
   // },
 
   processOptions: { // influences what is dispatched
-    successType: defaultLoadSuccess, // apply action type/creator for success
-    failType: defaultLoadFailure, // apply action type/creator on errors
+    successType: {{ camelCase name }}.load.success, // apply action type/creator for success
+    failType: {{ camelCase name }}.load.failure, // apply action type/creator on errors
   },
 
   process({ getState, action: { payload, meta } }) { // eslint-disable-line no-unused-vars

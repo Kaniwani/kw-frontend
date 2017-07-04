@@ -34,7 +34,7 @@ TagsList.defaultProps = {
 function TagsList({ tags, ...props }) {
   return (
     <Ul {...props}>
-      {tags.map(text => (
+      {tags.map((text) => (
         <Li key={cuid()} {...selectTagColors(text)} >
           <Span>{text}</Span>
         </Li>

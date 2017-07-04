@@ -5,34 +5,32 @@ import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import ReactTooltip from 'react-tooltip';
 
-import * as globalActions from 'containers/App/actions';
-import { makeSelectLevel, makeSelectReviews } from 'containers/App/selectors';
+import app from 'containers/App/actions';
 import PageWrapper from 'base/PageWrapper';
 import VocabPageHeader from 'components/VocabPageHeader';
-import VocabLevelContainer from 'containers/VocabLevelContainer';
-import makeSelectVocabLevelPage from './selectors';
+import VocabList from 'components/VocabList';
+
+import { VocabListWrapper } from './styles';
+import { makeSelectLevelReviews } from './selectors';
 
 export class VocabLevelPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
-    reviewsLoad: PropTypes.func.isRequired,
-    entries: PropTypes.array,
-    level: PropTypes.number,
-    match: PropTypes.object,
+    loadLevelReviews: PropTypes.func.isRequired,
+    entries: PropTypes.array.isRequired,
+    match: PropTypes.object.isRequired,
   }
 
-  static defaultProps = {
-    entries: [],
-  }
-
+  // FIXME: state.global.settings.vocabListExpanded
   state = {
     vocabListExpanded: true,
   }
 
   componentDidMount() {
     // TODO: ask tadgh for custom stubbed reviews api point?
-    this.props.reviewsLoad();
+    this.props.loadLevelReviews();
   }
 
+  // FIXME: create a recompose HoC for this since multiple pages have the toggle
   componentDidUpdate(prevProps, prevState) {
     const switchedToCompact = (!this.state.vocabListExpanded) && prevState.vocabListExpanded;
     if (switchedToCompact) {
@@ -45,7 +43,7 @@ export class VocabLevelPage extends React.Component { // eslint-disable-line rea
   }
 
   render() {
-    const { entries, match: { params: { id: level } } } = this.props;
+    const { entries, match: { params: { level } } } = this.props;
     const PAGE_TITLE = `Vocabulary: Level ${level}`;
     return (
       <div>
@@ -61,11 +59,11 @@ export class VocabLevelPage extends React.Component { // eslint-disable-line rea
               handleToggle: this.toggleVocabListType,
             }}
           />
-          <VocabLevelContainer
-            entries={entries}
-            level={+level}
-            vocabListExpanded={this.state.vocabListExpanded}
-          />
+          {entries && (
+            <VocabListWrapper>
+              <VocabList items={entries} isExpanded={this.state.vocabListExpanded} />
+            </VocabListWrapper>
+          )}
         </PageWrapper>
       </div>
     );
@@ -73,15 +71,11 @@ export class VocabLevelPage extends React.Component { // eslint-disable-line rea
 }
 
 const mapStateToProps = createStructuredSelector({
-  VocabLevelPage: makeSelectVocabLevelPage(),
-  level: makeSelectLevel(),
-  entries: makeSelectReviews(),
+  entries: makeSelectLevelReviews(),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    reviewsLoad: () => dispatch(globalActions.reviewsLoadRequest()),
-  };
-}
+const mapDispatchToProps = (dispatch, { match: { params: { level } } }) => ({
+  loadLevelReviews: () => dispatch(app.level.load.request({ level })),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(VocabLevelPage);

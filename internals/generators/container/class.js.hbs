@@ -6,15 +6,15 @@ import Helmet from 'react-helmet';
 {{/if}}
 {{#if wantActionsAndReducer}}
 import { createStructuredSelector } from 'reselect';
-{{/if}}
 
-{{#if wantActionsAndReducer}}
+import {{ camelCase name }} from './actions';
 import makeSelect{{ properCase name }} from './selectors';
 {{/if}}
 
 export class {{ properCase name }} extends {{{ type }}} { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
-    dispatch: PropTypes.func.isRequired,
+    load{{ titleCase name }}: PropTypes.func.isRequired,
+    {{ camelCase name }}State: PropTypes.string,
   }
 
   render() {
@@ -36,15 +36,13 @@ export class {{ properCase name }} extends {{{ type }}} { // eslint-disable-line
 
 {{#if wantActionsAndReducer}}
 const mapStateToProps = createStructuredSelector({
-  {{ camelCase name }}: makeSelect{{ properCase name }}(),
+  {{ camelCase name }}State: makeSelect{{ properCase name }}(),
+});
+
+const mapDispatchToProps = (dispatch)  => ({
+  load{{ titleCase name }}: () => dispatch({{ camelCase name }}.load.request()),
 });
 {{/if}}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
 
 {{#if wantActionsAndReducer}}
 export default connect(mapStateToProps, mapDispatchToProps)({{ properCase name }});

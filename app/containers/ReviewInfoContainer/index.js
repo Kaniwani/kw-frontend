@@ -12,7 +12,7 @@ import { Wrapper, PanelsWrapper } from './styles';
 
 class ReviewInfoContainer extends React.PureComponent {
   static propTypes = {
-    reviewEntry: PropTypes.object.isRequired,
+    entry: PropTypes.object.isRequired,
     detailLevel: PropTypes.string,
     isDisabled: PropTypes.bool,
     notes: PropTypes.shape({ isActive: PropTypes.bool }),
@@ -67,7 +67,7 @@ class ReviewInfoContainer extends React.PureComponent {
   }
 
   render() {
-    const { reviewEntry, isDisabled } = this.props;
+    const { entry, isDisabled } = this.props;
     const { detailLevel, notes, info, addSynonym } = this.state;
 
     return (
@@ -85,17 +85,17 @@ class ReviewInfoContainer extends React.PureComponent {
         <PanelsWrapper>
           <NotesPanel
             isActive={notes.isActive}
-            reviewEntry={reviewEntry}
+            entry={entry}
             detailLevel={detailLevel}
           />
           <InfoPanel
             isActive={info.isActive}
-            reviewEntry={reviewEntry}
+            entry={entry}
             detailLevel={detailLevel}
           />
           <AddSynonymPanel
             isActive={addSynonym.isActive}
-            reviewEntry={reviewEntry}
+            entry={entry}
             addPadding={detailLevel !== DETAIL_LEVELS.LOW}
           />
         </PanelsWrapper>

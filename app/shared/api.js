@@ -156,20 +156,6 @@ export const getVocabulary = ({
 );
 
 export const getLevels = () => get(levelsUrl);
-export const getLevel = ({
-  level,
-  offset,
-  limit,
-  hyperlink = false,
-} = {}) => get(
-  vocabularyUrl,
-  {
-    level,
-    offset,
-    limit,
-    hyperlink,
-  }
-);
 
 export const getVocabularyEntry = (id) => get(vocabularyEntryUrl(id));
 

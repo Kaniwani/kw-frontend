@@ -1,24 +1,21 @@
 import { createLogic } from 'redux-logic';
 import * as api from 'shared/api';
+
 import {
   serializeUserProfile,
-  serializeStubbedReviewEntries,
   serializeReviewEntries,
   serializeLevel,
-  serializeLevels,
 } from 'shared/serializers';
 
-import * as actions from './actions';
-
-const TWENTY_SECONDS = 20000;
+import app from './actions';
 
 export const userLoadLogic = createLogic({
-  type: actions.userLoadRequest,
-  cancelType: actions.userLoadCancel,
-  warnTimeout: TWENTY_SECONDS,
+  type: app.user.load.request,
+  cancelType: app.user.load.cancel,
+  warnTimeout: 10000,
   processOptions: {
-    successType: actions.userLoadSuccess,
-    failType: actions.userLoadFailure,
+    successType: app.user.load.success,
+    failType: app.user.load.failure,
   },
 
   process() {
@@ -27,28 +24,14 @@ export const userLoadLogic = createLogic({
   },
 });
 
-export const queueLoadLogic = createLogic({
-  type: actions.queueLoadRequest,
-  cancelType: actions.queueLoadCancel,
-  warnTimeout: TWENTY_SECONDS,
-  processOptions: {
-    successType: actions.queueLoadSuccess,
-    failType: actions.queueLoadFailure,
-  },
-
-  process() {
-    return api.getCurrentReviews()
-      .then((response) => serializeStubbedReviewEntries(response));
-  },
-});
-
+// TODO: move to review session
 export const reviewsLoadLogic = createLogic({
-  type: actions.reviewsLoadRequest,
-  cancelType: actions.reviewsLoadCancel,
-  warnTimeout: TWENTY_SECONDS,
+  type: app.reviews.load.request,
+  cancelType: app.reviews.load.cancel,
+  warnTimeout: 10000,
   processOptions: {
-    successType: actions.reviewsLoadSuccess,
-    failType: actions.reviewsLoadFailure,
+    successType: app.reviews.load.success,
+    failType: app.reviews.load.failure,
   },
 
   process({ action: { payload } }) {
@@ -57,80 +40,37 @@ export const reviewsLoadLogic = createLogic({
   },
 });
 
+// TODO: move to vocabEntryPage
 export const reviewLoadLogic = createLogic({
-  type: actions.reviewLoadRequest,
-  cancelType: actions.reviewLoadCancel,
-  warnTimeout: TWENTY_SECONDS,
+  type: app.review.load.request,
+  cancelType: app.review.load.cancel,
+  warnTimeout: 10000,
   processOptions: {
-    successType: actions.reviewLoadSuccess,
-    failType: actions.reviewLoadFailure,
+    successType: app.review.load.success,
+    failType: app.review.load.failure,
   },
 
   process({ action: { payload } }) {
-    // intentionally using serializeReviewEntries to force normalization for single item
+    // intentionally using serializeReviewEntries && { results: [response] }
+    // to force proper normalization format for reducer
     return api.getReviewEntry(payload.id)
       .then((response) => serializeReviewEntries({ results: [response] }));
   },
 });
 
+// TODO: move to vocabLevelPage
 export const levelLoadLogic = createLogic({
-  type: actions.levelLoadRequest,
-  cancelType: actions.levelLoadCancel,
-  warnTimeout: TWENTY_SECONDS,
+  type: app.level.load.request,
+  cancelType: app.level.load.cancel,
+  warnTimeout: 10000,
   processOptions: {
-    successType: actions.levelLoadSuccess,
-    failType: actions.levelLoadFailure,
+    successType: app.level.load.success,
+    failType: app.level.load.failure,
   },
 
   process({ action: { payload } }) {
-    return api.getLevel(payload.level)
+    return api.getReviews(payload)
       .then((response) => serializeLevel({ level: payload.level, ...response }));
-  },
-});
-
-export const levelLockLogic = createLogic({
-  type: actions.levelLockRequest,
-  cancelType: actions.levelLockCancel,
-  warnTimeout: TWENTY_SECONDS,
-  processOptions: {
-    successType: actions.levelLockSuccess,
-    failType: actions.levelLockFailure,
-  },
-
-  process({ action: { payload } }) {
-    return api.lockLevel(payload.level)
-      .then((response) => { console.log(response); return response; });
-  },
-});
-
-export const levelUnlockLogic = createLogic({
-  type: actions.levelUnlockRequest,
-  cancelType: actions.levelUnlockCancel,
-  warnTimeout: TWENTY_SECONDS,
-  processOptions: {
-    successType: actions.levelUnlockSuccess,
-    failType: actions.levelUnlockFailure,
-  },
-
-  process({ action: { payload } }) {
-    return api.unlockLevel(payload.level)
-    .then((response) => { console.log(response); return response; });
-  },
-});
-
-export const levelsLoadLogic = createLogic({
-  type: actions.levelsLoadRequest,
-  cancelType: actions.levelsLoadCancel,
-  latest: true,
-  warnTimeout: TWENTY_SECONDS,
-  processOptions: {
-    successType: actions.levelsLoadSuccess,
-    failType: actions.levelsLoadFailure,
-  },
-
-  process() {
-    return api.getLevels()
-      .then((response) => serializeLevels(response));
   },
 });
 
@@ -138,8 +78,6 @@ export const levelsLoadLogic = createLogic({
 export default [
   userLoadLogic,
   reviewsLoadLogic,
-  queueLoadLogic,
   reviewLoadLogic,
   levelLoadLogic,
-  levelsLoadLogic,
 ];

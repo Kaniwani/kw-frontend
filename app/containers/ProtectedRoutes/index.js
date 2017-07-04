@@ -4,29 +4,29 @@ import { connect } from 'react-redux';
 import { withRouter, Switch, Route, Redirect } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
-import SiteHeader from 'components/SiteHeader';
+import SiteHeader from 'containers/SiteHeader';
 import HomePage from 'containers/HomePage/Loadable';
-import ReviewsPage from 'containers/ReviewsPage/Loadable';
-import VocabularyPage from 'containers/VocabularyPage/Loadable';
+import SessionRoutes from 'containers/SessionRoutes/Loadable';
+import VocabularyRoutes from 'containers/VocabularyRoutes/Loadable';
 import AboutPage from 'containers/AboutPage/Loadable';
 import ContactPage from 'containers/ContactPage/Loadable';
 import SettingsPage from 'containers/SettingsPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
-import * as globalActions from 'containers/App/actions';
+import { app } from 'containers/App/actions';
 
 export class ProtectedRoutes extends React.Component {
   static propTypes = {
-    userLoad: PropTypes.func.isRequired,
+    loadUser: PropTypes.func.isRequired,
   }
   componentDidMount() {
-    this.props.userLoad();
+    this.props.loadUser();
   }
   render() {
     return (
       <div>
         <Switch>
-          <Route path="/:path(lessons|reviews)" /* render nothing */ />
+          <Route path="/:path(lessons|reviews)" /* don't render SiteHeader */ />
           <Route path="" component={SiteHeader} />
         </Switch>
         <ReactTooltip id="globalTooltip" />
@@ -37,9 +37,9 @@ export class ProtectedRoutes extends React.Component {
           <Route exact path="/contact" component={ContactPage} />
           <Route exact path="/settings" component={SettingsPage} />
           <Redirect exact path="/logout" to="/welcome" />
-          {/* <Route path="/lessons" component={LessonsPage} /> */}
-          <Route path="/reviews" component={ReviewsPage} />
-          <Route path="/vocabulary" component={VocabularyPage} />
+          <Route path="/lessons" component={SessionRoutes} />
+          <Route path="/reviews" component={SessionRoutes} />
+          <Route path="/vocabulary" component={VocabularyRoutes} />
           <Route path="" component={NotFoundPage} />
         </Switch>
       </div>
@@ -48,7 +48,7 @@ export class ProtectedRoutes extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  userLoad: () => dispatch(globalActions.userLoadRequest()),
+  loadUser: () => dispatch(app.user.load.request()),
 });
 
 export default withRouter(connect(null, mapDispatchToProps)(ProtectedRoutes));

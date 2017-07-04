@@ -1,23 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import condenseReadings from 'utils/condenseReadings';
 import * as COLORS from 'shared/styles/colors';
 
 import { Li, Link, Dl } from './styles';
 
 VocabCard.propTypes = {
-  id: PropTypes.number.isRequired,
-  meanings: PropTypes.array.isRequired,
-  readings: PropTypes.array.isRequired,
   color: PropTypes.oneOf(Object.keys(COLORS)),
+  id: PropTypes.number.isRequired,
+  vocabulary: PropTypes.shape({
+    meanings: PropTypes.array,
+    readings: PropTypes.array,
+  }).isRequired,
 };
 
 VocabCard.defaultProps = {
   color: 'purple',
 };
 
-function VocabCard({ id, meanings, readings, color }) {
+function VocabCard({ color, id, vocabulary: { meanings, readings } }) {
   return (
     <Li bgColor={color}>
       <Link plainLink to={`/vocabulary/entry/${id}`}>

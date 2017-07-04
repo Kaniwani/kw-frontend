@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   height: 2rem;
   margin-left: auto;
   margin-right: auto;
-  color: ${props => props.color}
+  color: ${({ color }) => color}
 `;
 
 export default Wrapper;

@@ -1,7 +1,7 @@
 import {
   selectGlobal,
-  makeSelectLoading,
-  makeSelectError,
+  selectLoading,
+  selectError,
   makeSelectLocation,
 } from '../selectors';
 
@@ -15,8 +15,8 @@ describe('selectGlobal', () => {
   });
 });
 
-describe('makeSelectLoading', () => {
-  const loadingSelector = makeSelectLoading();
+describe('selectLoading', () => {
+  const loadingSelector = selectLoading();
   it('should select the loading', () => {
     const loading = false;
     const mockedState = {
@@ -28,8 +28,8 @@ describe('makeSelectLoading', () => {
   });
 });
 
-describe('makeSelectError', () => {
-  const errorSelector = makeSelectError();
+describe('selectError', () => {
+  const errorSelector = selectError();
   it('should select the error', () => {
     const error = 404;
     const mockedState = {

@@ -1,111 +1,84 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 
-
 import ReactTooltip from 'react-tooltip';
-import Helmet from 'react-helmet';
 import titleCase from 'voca/title_case';
 
-import { CORRECT, INCORRECT, CRITICAL } from 'components/SummarySection/constants';
-import PageWrapper from 'base/PageWrapper';
 import SessionSummaryHeader from 'components/SessionSummaryHeader';
-import AccuracyBar from 'components/AccuracyBar';
-import SummarySection from 'components/SummarySection';
-import ToggleVocabListType from 'components/ToggleVocabListType';
+import SessionSummaryContent from 'components/SessionSummaryContent';
 
-import { Heading } from './styles';
+import {
+  selectRemainingCount,
+  makeSelectCorrectItems,
+  makeSelectIncorrectItems,
+  makeSelectCriticalItems,
+  makeSelectPercentCorrect,
+} from 'containers/SessionRoutes/selectors';
 
-import makeSelectSessionSummaryPage from './selectors';
-
-class SessionSummaryPage extends React.PureComponent {
+class SessionSummaryPage extends React.Component {
   static propTypes = {
-    correctItems: PropTypes.array,
-    incorrectItems: PropTypes.array,
-    criticalItems: PropTypes.array,
-    percentCorrect: PropTypes.number,
-    remainingCount: PropTypes.number,
-    category: PropTypes.string,
-    resumeSessionRoute: PropTypes.string,
-  };
+    match: PropTypes.object.isRequired,
+    remaining: PropTypes.number.isRequired,
+    correctItems: PropTypes.array.isRequired,
+    incorrectItems: PropTypes.array.isRequired,
+    criticalItems: PropTypes.array.isRequired,
+    percentCorrect: PropTypes.number.isRequired,
+  }
 
-  static defaultProps = {
-    correctItems: [],
-    incorrectItems: [],
-    criticalItems: [],
-    percentCorrect: 0,
-    remainingCount: 0,
-    category: 'review',
-    resumeSessionRoute: '/reviews',
-  };
-
+  // FIXME: state.global.settings.vocabListExpanded
   state = {
     vocabListExpanded: false,
   }
 
+  // FIXME: same code is in vocabLevel page, share with a HoC instead
   componentDidUpdate(prevProps, prevState) {
-    const switchedToCompact = (!this.state.vocabListExpanded) && prevState.vocabListExpanded;
+    const switchedToCompact = !this.state.vocabListExpanded && prevState.vocabListExpanded;
     if (switchedToCompact) {
       ReactTooltip.rebuild();
     }
   }
 
-  toggleVocabListType= () => {
-    this.setState(prevState => ({ vocabListExpanded: !prevState.vocabListExpanded }));
-  }
+  toggleVocabListType = () => this.setState({ vocabListExpanded: !this.state.vocabListExpanded });
 
   render() {
-    const categoryTitle = titleCase(this.props.category);
+    const {
+      match: { params },
+      remaining,
+      ...rest
+    } = this.props;
+
+    const categoryTitle = titleCase(params.category);
 
     return (
       <div>
         <Helmet>
-          <title>{`${categoryTitle} Session Summary`}</title>
-          <meta name="description" content={`Kaniwani ${categoryTitle} Session Summary`} />
+          <title>{`${categoryTitle} Summary`}</title>
+          <meta name="description" content={`Kaniwani ${categoryTitle} Summary`} />
         </Helmet>
         <SessionSummaryHeader
-          category={this.props.category}
-          linkRoute={this.props.resumeSessionRoute}
-          count={this.props.remainingCount}
+          category={params.category}
+          linkRoute={`/${params.category}/session`}
+          count={remaining}
         />
-        <PageWrapper>
-          <Heading>
-            <AccuracyBar percent={this.props.percentCorrect} />
-            <ToggleVocabListType
-              isExpanded={this.state.vocabListExpanded}
-              handleClick={this.toggleVocabListType}
-            />
-          </Heading>
-          <SummarySection
-            isExpanded={this.state.vocabListExpanded}
-            items={this.props.correctItems}
-            type={CORRECT}
-          />
-          <SummarySection
-            isExpanded={this.state.vocabListExpanded}
-            items={this.props.incorrectItems}
-            type={INCORRECT}
-          />
-          <SummarySection
-            isExpanded={this.state.vocabListExpanded}
-            items={this.props.criticalItems}
-            type={CRITICAL}
-          />
-        </PageWrapper>
+        <SessionSummaryContent
+          onVocabListToggle={this.toggleVocabListType}
+          vocabListExpanded={this.state.vocabListExpanded}
+          {...rest}
+        />
       </div>
     );
   }
 }
 
 const mapStateToProps = createStructuredSelector({
-  SessionSummaryPage: makeSelectSessionSummaryPage(),
+  remaining: selectRemainingCount,
+  correctItems: makeSelectCorrectItems(),
+  incorrectItems: makeSelectIncorrectItems(),
+  criticalItems: makeSelectCriticalItems(),
+  percentCorrect: makeSelectPercentCorrect(),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SessionSummaryPage);
+export default connect(mapStateToProps)(SessionSummaryPage);

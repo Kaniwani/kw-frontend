@@ -4,31 +4,30 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 
-import * as globalActions from 'containers/App/actions';
-import { makeSelectLevels } from 'containers/App/selectors';
-
-import VocabPageHeader from 'components/VocabPageHeader';
-import VocabLevelsContainer from 'containers/VocabLevelsContainer';
 import PageWrapper from 'base/PageWrapper';
+import VocabPageHeader from 'components/VocabPageHeader';
+import VocabLevelList from 'components/VocabLevelList';
 
-import makeSelectVocabLevelsPage from './selectors';
+import actions from './actions';
+import { selectLevels, selectUserLevel } from './selectors';
 
-export class VocabLevelsPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class VocabLevelsPage extends React.Component {
   static propTypes = {
-    levels: PropTypes.array,
+    userLevel: PropTypes.number.isRequired,
+    levels: PropTypes.array.isRequired,
     levelsLoad: PropTypes.func.isRequired,
-  }
-
-  static defaultProps = {
-    levels: [],
+    lockLevel: PropTypes.func.isRequired,
+    unlockLevel: PropTypes.func.isRequired,
   }
 
   componentDidMount() {
     this.props.levelsLoad();
   }
 
+  lockLevel = (level) => () => this.props.lockLevel(level)
+  unlockLevel = (level) => () => this.props.unlockLevel(level)
+
   render() {
-    const { levels } = this.props;
     const PAGE_TITLE = 'Vocabulary: Levels';
     return (
       <div>
@@ -37,8 +36,16 @@ export class VocabLevelsPage extends React.Component { // eslint-disable-line re
           <meta name="description" content={`Kaniwani ${PAGE_TITLE}`} />
         </Helmet>
         <PageWrapper>
-          <VocabPageHeader pageTitle={PAGE_TITLE} withVocabListToggle={false} />
-          <VocabLevelsContainer levels={levels} />
+          <VocabPageHeader
+            pageTitle={PAGE_TITLE}
+            withVocabListToggle={false}
+          />
+          <VocabLevelList
+            levels={this.props.levels}
+            userLevel={this.props.userLevel}
+            handleLockLevel={this.lockLevel}
+            handleUnlockLevel={this.unlockLevel}
+          />
         </PageWrapper>
       </div>
     );
@@ -46,14 +53,14 @@ export class VocabLevelsPage extends React.Component { // eslint-disable-line re
 }
 
 const mapStateToProps = createStructuredSelector({
-  VocabLevelsPage: makeSelectVocabLevelsPage(),
-  levels: makeSelectLevels(),
+  levels: selectLevels,
+  userLevel: selectUserLevel,
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    levelsLoad: () => dispatch(globalActions.levelsLoadRequest()),
-  };
-}
+const mapDispatchToProps = (dispatch) => ({
+  levelsLoad: () => dispatch(actions.load.request()),
+  lockLevel: (level) => dispatch(actions.locklevel.request({ level })),
+  unlockLevel: (level) => dispatch(actions.unlocklevel.request({ level })),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(VocabLevelsPage);

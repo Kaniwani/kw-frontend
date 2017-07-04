@@ -1,16 +1,19 @@
-import actionTypeCreator, { ASYNC, SYNC } from 'redux-action-types-creator';
-import { createAction } from 'redux-actions';
+import { createActions } from 'redux-actions';
 
-export const TYPES = actionTypeCreator('APP/{{ upperCase name}}',
-  { asyncSuffix: ['REQUEST', 'SUCCESS', 'FAILURE', 'CANCEL']
-})({
-  DEFAULT: {
-    LOAD: ASYNC, // request, success, failure, cancel
+const ASYNC = {
+  REQUEST: [
+    (payload) => payload,
+    (payload, meta) => meta
+  ], // { type: "TYPE", payload, meta }
+  SUCCESS: undefined, // undefined results in simple identity fn(payload) => { type: "TYPE", payload }
+  FAILURE: undefined, // if payload is an error, redux-actions will add { error: true }
+  CANCEL: undefined,
+};
+
+export const { {{ camelCase name }} } = createActions({
+  {{ upperCase name }}: {
+    LOAD: ASYNC,
   },
-  ANOTHER: SYNC,
 });
 
-export const defaultLoad = createAction(TYPES.DEFAULT.LOAD.REQUEST, (payload) => payload, (payload, meta) => meta);
-export const defaultLoadSuccess = createAction(TYPES.DEFAULT.LOAD.SUCCESS); // auto identity for payload: action(payloadVal)
-export const defaultLoadFailure = createAction(TYPES.DEFAULT.LOAD.FAILURE);
-export const defaultLoadCancel = createAction(TYPES.DEFAULT.LOAD.CANCEL);
+export default {{ camelCase name }};

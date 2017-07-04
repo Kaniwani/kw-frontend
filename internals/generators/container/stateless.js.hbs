@@ -6,11 +6,14 @@ import Helmet from 'react-helmet';
 {{/if}}
 {{#if wantActionsAndReducer}}
 import { createStructuredSelector } from 'reselect';
-{{/if}}
 
-{{#if wantActionsAndReducer}}
+import {{ camelCase name }} from './actions';
 import makeSelect{{ properCase name }} from './selectors';
 {{/if}}
+
+{{ properCase name }}.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
 
 function {{ properCase name }}() {
   return (
@@ -28,21 +31,15 @@ function {{ properCase name }}() {
   );
 }
 
-{{ properCase name }}.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
-
 {{#if wantActionsAndReducer}}
 const mapStateToProps = createStructuredSelector({
   {{ camelCase name }}: makeSelect{{ properCase name }}(),
 });
-{{/if}}
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
+const mapDispatchToProps = (dispatch) => ({
+  dispatch,
+});
+{{/if}}
 
 {{#if wantActionsAndReducer}}
 export default connect(mapStateToProps, mapDispatchToProps)({{ properCase name }});

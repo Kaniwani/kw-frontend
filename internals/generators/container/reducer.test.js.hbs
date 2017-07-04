@@ -1,4 +1,4 @@
-import { TYPES } from '../actions';
+import {{ camelCase name }} from '../actions';
 import {{ camelCase name }}Reducer from '../reducer';
 
 describe('{{ camelCase name }}Reducer', () => {
@@ -6,19 +6,19 @@ describe('{{ camelCase name }}Reducer', () => {
     expect({{ camelCase name }}Reducer(undefined, {})).toEqual({});
   });
   it('request sets loading to true', () => {
-    const type = TYPES.DEFAULT.LOAD;
+    const type = {{ camelCase name }}.load.request;
     const expected = { loading: true };
     expect({{ camelCase name }}Reducer({}, { type })).toEqual(expected);
   });
   it('success merges the payload and sets loading to false', () => {
-    const type = TYPES.DEFAULT.SUCCESS;
+    const type = {{ camelCase name }}.load.success;
     const payload = 'default';
     const expected = { value: payload, loading: false };
     expect({{ camelCase name }}Reducer({}, { type, payload })).toEqual(expected);
   });
   it('failure sets an error and sets loading to false', () => {
-    const type = TYPES.DEFAULT.FAILURE;
-    const payload = new Error('Wu-oh');
+    const type = {{ camelCase name }}.load.failure;
+    const payload = Error('Wu-oh');
     const expected = { error: payload, loading: false };
     expect({{ camelCase name }}Reducer({}, { type, payload })).toEqual(expected);
   });

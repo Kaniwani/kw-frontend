@@ -7,7 +7,7 @@ import ReactTooltip from 'react-tooltip';
 
 import withTooltip from 'decorators/withTooltip';
 import VocabChip from 'components/VocabChip';
-import calculateCorrectnessPercentage from 'utils/calculateCorrectnessPercentage';
+import calculatePercentage from 'utils/calculatePercentage';
 import * as COLORS from 'shared/styles/colors';
 
 import { Ul } from './styles';
@@ -24,7 +24,7 @@ VocabChipList.defaultProps = {
 // `.vocab-tip` tooltip styles are injected in `globalStyles.js`
 const VocabChipWithToolTip = withTooltip(VocabChip);
 
-const generateToolTip = (meaning, kana, correctPercent) => `
+const generateToolTip = (meaning, kana, correctPercent, answeredTotal) => `
   <ul>
     <li>
       <span>JA </span>
@@ -36,7 +36,7 @@ const generateToolTip = (meaning, kana, correctPercent) => `
     </li>
     <li>
       <span>RC</span>
-      <span>${correctPercent}%</span>
+      <span>${answeredTotal > 0 ? `${correctPercent}%` : '<small>N/A</small>'}</span>
     </li>
   </ul>
 `;
@@ -50,13 +50,11 @@ function VocabChipList({ items, color }) {
         html
       />
       <Ul>
-        {/* FIXME: memoize */}
-        {items.map(({ id, meanings, readings, history, session }) => {
-          const meaning = titleCase(meanings[0]);
+        {items.map(({ id, correct, incorrect, vocabulary: { meanings, readings } }) => {
+          const answeredTotal = correct + incorrect;
+          const correctPercent = calculatePercentage(correct, answeredTotal);
           const { kana, character } = readings[0];
-          const correctPercent = calculateCorrectnessPercentage(history, session);
-
-          const tooltipText = generateToolTip(meaning, kana, correctPercent);
+          const tooltipText = generateToolTip(titleCase(meanings[0]), kana, correctPercent, answeredTotal);
           return (
             <VocabChipWithToolTip
               key={cuid()}

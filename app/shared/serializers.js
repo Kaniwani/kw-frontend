@@ -5,7 +5,7 @@ import castArray from 'lodash/castArray';
 import uniq from 'lodash/uniq';
 import condenseReadings from 'utils/condenseReadings';
 
-import { normalizeVocabulary, normalizeReviews } from 'shared/schemas';
+import { normalizeReviews, normalizeLevel } from 'shared/schemas';
 
 // Add 'Common'|'Uncommon' and JLPT rank to tags list
 const combineTags = ({ tags, jlpt, common }) => {
@@ -185,6 +185,7 @@ export function serializeLevels(data) {
         level: +item.level,
         count: +item.vocabulary_count,
         unlocked: !!item.unlocked,
+        submitting: false,
       },
     }), {});
 }
@@ -197,10 +198,10 @@ export function serializeReviewEntries({ results }) {
   return normalizeReviews(results.map(serializeReviewEntry));
 }
 
-export function serializeStubbedReviewEntries({ /* count, */ results }) {
+export function serializeStubbedReviewEntries({ results }) {
   return normalizeReviews(results.map(serializeStubbedReviewEntry));
 }
 
-export function serializeLevel({ level, /* count, next, previous,*/ results }) {
-  return normalizeVocabulary(results.map(serializeVocabularyEntry), level);
+export function serializeLevel({ level, results }) {
+  return normalizeLevel(level, results.map(serializeReviewEntry));
 }

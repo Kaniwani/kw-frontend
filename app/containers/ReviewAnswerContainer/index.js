@@ -8,7 +8,7 @@ import unbind from 'wanakana/unbind';
 import { SRS_RANKS, KEYCODES } from 'shared/constants';
 import blockEvent from 'utils/blockEvent';
 import ReviewAnswer from 'components/ReviewAnswer';
-// import globalActions from 'containers/App/actions';
+// import app from 'containers/App/actions';
 // import reviewActions from 'containers/ReviewSession/actions';
 // import { selectAnswer, selectCurrentStreakName } from 'containers/ReviewSession/selectors';
 
@@ -69,7 +69,7 @@ export class ReviewAnswerContainer extends React.Component {
 
   // move up to parent ReviewsPage/Page level?
   // check target isn't synonym form?
-  getKeyHandler = keycode => ({
+  getKeyHandler = (keycode) => ({
     [KEYCODES.ENTER]: this.props.recordAnswer,
     [KEYCODES.SPACE]: this.props.cycleInfoDetail,
     [KEYCODES.N_LOWERCASE]: () => this.props.showPanel('notes'),

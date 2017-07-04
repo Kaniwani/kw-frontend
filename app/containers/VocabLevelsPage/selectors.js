@@ -1,18 +1,16 @@
 import { createSelector } from 'reselect';
+import toArray from 'lodash/toArray';
 
-// Direct selector to the vocabLevelsPage state domain
-const selectVocabLevelsPageDomain = () => (state) => state.vocabLevelsPage;
-
-// Main selector used by VocabLevelsPage
-const makeSelectVocabLevelsPage = () => createSelector(
-  selectVocabLevelsPageDomain(),
-  (substate) => substate
+const selectLevels = (state) => toArray(state.global.entities.levels);
+const selectUserLevel = (state) => state.global.user.currentLevel;
+const selectLevel = (state, { level }) => state.global.entities.levels[level];
+const makeSelectLevel = () => createSelector(
+  selectLevel,
+  (level) => level,
 );
 
-// Other specific selectors
-
-
-export default selectVocabLevelsPageDomain;
 export {
-  makeSelectVocabLevelsPage,
+  selectUserLevel,
+  selectLevels,
+  makeSelectLevel,
 };

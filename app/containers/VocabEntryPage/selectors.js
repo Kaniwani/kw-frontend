@@ -1,18 +1,15 @@
 import { createSelector } from 'reselect';
+import { denormalizeReview } from 'shared/schemas';
+import { selectSettings, selectEntities } from 'containers/App/selectors';
 
-// Direct selector to the vocabEntryPage state domain
-const selectVocabEntryPageDomain = () => (state) => state.vocabEntryPage;
+const selectReview = (state, { match: { params: { id } } }) => state.global.entities.reviews[id];
 
-// Main selector used by VocabEntryPage
-const makeSelectVocabEntryPage = () => createSelector(
-  selectVocabEntryPageDomain(),
-  (substate) => substate
+const makeSelectReview = () => createSelector(
+  [selectEntities, selectReview],
+  (entities, review) => review && denormalizeReview(review, entities)
 );
 
-// Other specific selectors
-
-
-export default selectVocabEntryPageDomain;
 export {
-  makeSelectVocabEntryPage,
+  selectSettings,
+  makeSelectReview,
 };

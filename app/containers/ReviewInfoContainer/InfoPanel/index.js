@@ -7,13 +7,13 @@ import { PanelWrapper } from '../styles';
 // import { Synonyms } from './Synonyms';
 
 InfoPanel.propTypes = {
-  // reviewEntry: PropTypes.object.isRequired,
+  // entry: PropTypes.object.isRequired,
   // detailLevel: PropTypes.string.isRequired,
 };
 
 function InfoPanel(/* {
   detailLevel,
-  reviewEntry: {
+  entry: {
     id,
     vocabulary: {
       readings,

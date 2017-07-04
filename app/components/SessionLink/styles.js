@@ -20,12 +20,11 @@ export const Wrapper = styled.div`
 `;
 
 // peel off bgColor prop so it's not applied to <A/> as html attr
-export const LinkBlock = styled(({ bgColor, children, ...rest }) => <A {...rest}>{children}</A>)`
+export const LinkBlock = styled(({ bgColor, isDisabled, children, ...rest }) => <A {...rest}>{children}</A>)`
   display: inline-flex;
   line-height: 1;
   transition: background-color ${fastEaseQuad};
   border-radius: ${borderRadius};
-
   ${({ bgColor }) => `
     background-color: ${COLORS[bgColor]};
     &:hover {
@@ -36,6 +35,8 @@ export const LinkBlock = styled(({ bgColor, children, ...rest }) => <A {...rest}
       background-color:  ${darken(0.12, COLORS[bgColor])};
     }
   `}
+
+  ${({ isDisabled }) => isDisabled && 'pointer-events: none;'}
 `;
 
 const leftRightStyle = `

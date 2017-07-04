@@ -5,28 +5,28 @@ import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import uuid from 'uuid';
 
-import * as globalActions from 'containers/App/actions';
+import app from 'containers/App/actions';
 import PageWrapper from 'base/PageWrapper';
 import VocabPageHeader from 'components/VocabPageHeader';
 import VocabEntryDetail from 'components/VocabEntryDetail';
-import { makeSelectReview, makeSelectSettings } from 'containers/App/selectors';
 import KanjiStroke from 'components/KanjiStroke';
-import makeSelectVocabEntryPage from './selectors';
+import { selectSettings, makeSelectReview } from './selectors';
 
 export class VocabEntryPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     entry: PropTypes.object,
     settings: PropTypes.object,
-    reviewLoad: PropTypes.func.isRequired,
+    loadReview: PropTypes.func.isRequired,
   }
 
   componentDidMount() {
-    this.props.reviewLoad();
+    this.props.loadReview();
   }
 
   render() {
     const { entry } = this.props;
-    const primaryReading = entry && entry.vocabulary && entry.readings && entry.readings[0] || { level: 'derp', character: 'herp' };
+    const primaryReading = entry && entry.vocabulary && entry.readings && entry.readings[0]
+      || { level: 'derp', character: 'herp' };
     const PAGE_TITLE = `Vocabulary > Level ${primaryReading.level} > ${primaryReading.character}`;
     return (
       <div>
@@ -58,14 +58,13 @@ export class VocabEntryPage extends React.Component { // eslint-disable-line rea
 }
 
 const mapStateToProps = createStructuredSelector({
-  VocabEntryPage: makeSelectVocabEntryPage(),
   entry: makeSelectReview(),
-  settings: makeSelectSettings(),
+  settings: selectSettings,
 });
 
-function mapDispatchToProps(dispatch, { match: { params } }) {
+function mapDispatchToProps(dispatch, { match: { params: { id } } }) {
   return {
-    reviewLoad: () => dispatch(globalActions.reviewLoadRequest({ id: params.id })),
+    loadReview: () => dispatch(app.review.load.request({ id })),
   };
 }
 

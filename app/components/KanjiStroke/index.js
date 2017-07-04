@@ -59,8 +59,8 @@ class KanjiStroke extends React.PureComponent {
           <Controls>
             <ControlButton name="SKIP_PREV" title="Step backwards" onClick={this.stepBack} />
             <ControlButton name="RESTART" size="1.3em" title="Erase drawing" onClick={this.erase} />
-            <ControlButton name="PAUSE" title="Pause drawing" onClick={this.pause} />
             <ControlButton name="PLAY" title="Play drawing" onClick={this.play} />
+            <ControlButton name="PAUSE" title="Pause drawing" onClick={this.pause} />
             <ControlButton name="SKIP_NEXT" title="Step forwards" onClick={this.stepForward} />
           </Controls>
         </Element>

@@ -1,5 +1,4 @@
-import { handleActions, combineActions } from 'redux-actions';
-import union from 'lodash/union';
+import { handleActions } from 'redux-actions';
 import merge from 'lodash/merge';
 import update from 'immutability-helper';
 /*
@@ -11,7 +10,7 @@ import update from 'immutability-helper';
  *
  * { $splice: array of arrays }
  *  for each item in arrays call splice() on the target with the parameters provided by the item.
- *  Note: The items in the  array are applied sequentially, so the order matters.
+ *  Note: The items in the  array are actionslied sequentially, so the order matters.
  *  The indices of the target may change during the operation.
  *
  * { $set: any }
@@ -23,14 +22,16 @@ import update from 'immutability-helper';
  * { $merge: object }
  *   shallow merge the keys of object with the target.
  *
- * { $apply: function }
+ * { $actionsly: function }
  *   passes in the current value to the function and updates it with the new returned value.
 */
 
-import { TYPES } from './actions';
-const { USER, REVIEWS, QUEUE, REVIEW, LEVEL, LEVELS } = TYPES;
+import session from 'containers/SessionRoutes/actions';
+import levels from 'containers/VocabLevelsPage/actions';
+import app from './actions';
 
 const initialState = {
+  // FIXME: loading should be handled by relevant containers
   loading: false,
   error: false,
   user: {},
@@ -51,7 +52,6 @@ const initialState = {
       grid: { show: true },
     },
   },
-  queue: [], // todo: store in reviewsPage/lessonsPage slice reducer
   entities: {
     reviews: {},
     vocabulary: {},
@@ -60,88 +60,56 @@ const initialState = {
   },
 };
 
+// FIXME: loading true/false should be handled by relevant containers
 const appReducer = handleActions({
-  [combineActions(
-    USER.LOAD.REQUEST,
-    REVIEWS.LOAD.REQUEST,
-    QUEUE.LOAD.REQUEST,
-    REVIEW.LOAD.REQUEST,
-    LEVELS.LOAD.REQUEST,
-    LEVEL.LOAD.REQUEST,
-  )]: (state) => update(state, { $merge: { loading: true } }),
-  [combineActions(
-    USER.LOAD.SUCCESS,
-    REVIEWS.LOAD.SUCCESS,
-    QUEUE.LOAD.SUCCESS,
-    REVIEW.LOAD.SUCCESS,
-    LEVELS.LOAD.SUCCESS,
-    LEVEL.LOAD.SUCCESS,
-    USER.LOAD.CANCEL,
-    REVIEWS.LOAD.CANCEL,
-    QUEUE.LOAD.CANCEL,
-    REVIEW.LOAD.CANCEL,
-    LEVELS.LOAD.CANCEL,
-    LEVEL.LOAD.CANCEL,
-  )]: (state) => update(state, { $merge: { loading: false } }),
-  [combineActions(
-    USER.LOAD.FAILURE,
-    REVIEWS.LOAD.FAILURE,
-    QUEUE.LOAD.FAILURE,
-    REVIEW.LOAD.FAILURE,
-    LEVELS.LOAD.FAILURE,
-    LEVEL.LOAD.FAILURE,
-  )]: (state, { payload, error }) => {
+  [app.user.load.request]: (state) => update(state, { $merge: { loading: true } }),
+  [app.user.load.cancel]: (state) => update(state, { $merge: { loading: false } }),
+  [app.user.load.failure]: (state, { payload, error }) => {
     // TODO: log to slack
     console.warn('api error', error); // eslint-disable-line no-console
     console.error(payload); // eslint-disable-line no-console
     return update(state, { $merge: { error: payload, loading: false } });
   },
-  [USER.LOAD.SUCCESS]: (state, { payload }) => update(state, {
-    $set: merge({}, state, payload),
+  [app.user.load.success]: (state, { payload }) => update(state, {
+    $set: merge({}, state, payload, { loading: false }),
   }),
-  [REVIEWS.LOAD.SUCCESS]: (state, { payload }) => {
-    console.log('REVIEWS.LOAD.SUCCESS', payload);
-    return update(state, {
-      entities: {
-        levels: { [payload.level]: { $set: merge({}, state.entities.levels[payload.level], { ids: payload.result }) } },
-        vocabulary: { $set: merge({}, state.entities.vocabulary, payload.entities.vocabulary) },
-        readings: { $set: merge({}, state.entities.readings, payload.entities.readings) },
-        reviews: { $set: merge({}, state.entities.reviews, payload.entities.reviews) },
-      },
-    });
-  },
-  [QUEUE.LOAD.SUCCESS]: (state, { payload }) => {
-    console.log('QUEUE.LOAD.SUCCESS', payload);
-    return update(state, {
-      entities: { $set: merge({}, state.entities, payload.entities) },
-      queue: { $set: union(state.queue, payload.result) },
-    });
-  },
-  [REVIEW.LOAD.SUCCESS]: (state, { payload }) => {
-    console.log('REVIEW.LOAD.SUCCESS', payload);
-    return update(state, {
-      entities: { $set: merge({}, state.entities, payload.entities) },
-    });
-  },
-  [LEVELS.LOAD.SUCCESS]: (state, { payload }) => update(state, {
+  [app.reviews.load.success]: (state, { payload }) => update(state, {
+    entities: {
+      reviews: { $set: merge({}, state.entities.reviews, payload.entities.reviews) },
+      vocabulary: { $set: merge({}, state.entities.vocabulary, payload.entities.vocabulary) },
+      readings: { $set: merge({}, state.entities.readings, payload.entities.readings) },
+      // levels: { [payload.level]: { $set: merge({}, state.entities.levels[payload.level], { ids: payload.result }) } },
+    },
+  }),
+  [session.queue.load.success]: (state, { payload }) => update(state, {
+    entities: { $set: merge({}, state.entities, payload.entities) },
+  }),
+  [app.review.load.success]: (state, { payload }) => update(state, {
+    entities: { $set: merge({}, state.entities, payload.entities) },
+  }),
+  [levels.load.success]: (state, { payload }) => update(state, {
     entities: { levels: { $set: merge({}, state.entities.levels, payload) } },
   }),
-  [LEVEL.LOCK.SUCCESS]: (state, { payload }) => update(state, {
-    entities: { levels: { [payload.level]: { locked: { $set: true } } } },
+  [levels.locklevel.request]: (state, { payload }) => update(state, {
+    entities: { levels: { [payload.level]: { submitting: { $set: true } } } },
   }),
-  [LEVEL.UNLOCK.SUCCESS]: (state, { payload }) => update(state, {
-    entities: { levels: { [payload.level]: { locked: { $set: false } } } },
+  [levels.unlocklevel.request]: (state, { payload }) => update(state, {
+    entities: { levels: { [payload.level]: { submitting: { $set: true } } } },
   }),
-  [LEVEL.LOAD.SUCCESS]: (state, { payload }) => {
-    console.log('LEVEL.LOAD.SUCCESS', payload);
-    return update(state, {
-      entities: {
-        levels: { [payload.level]: { $set: merge({}, state.entities.levels[payload.level], { ids: payload.result }) } },
-        vocabulary: { $set: merge({}, state.entities.vocabulary, payload.entities.vocabulary) },
-        readings: { $set: merge({}, state.entities.readings, payload.entities.readings) },
-      },
-    });
-  },
+  [levels.locklevel.success]: (state, { payload }) => update(state, {
+    entities: { levels: { [payload.level]: { $merge: { submitting: false, unlocked: false } } } },
+  }),
+  [levels.unlocklevel.success]: (state, { payload }) => update(state, {
+    entities: { levels: { [payload.level]: { $merge: { submitting: false, unlocked: true } } } },
+  }),
+  [app.level.load.success]: (state, { payload }) => update(state, {
+    entities: {
+      reviews: { $set: merge({}, state.entities.reviews, payload.entities.reviews) },
+      vocabulary: { $set: merge({}, state.entities.vocabulary, payload.entities.vocabulary) },
+      readings: { $set: merge({}, state.entities.readings, payload.entities.readings) },
+      levels: { [payload.level]: { $set: merge({}, state.entities.levels[payload.level], { ids: payload.result }) } },
+    },
+  }),
 }, initialState);
 
 export default appReducer;

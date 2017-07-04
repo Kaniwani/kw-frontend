@@ -5,36 +5,44 @@ import { Wrapper, LevelLink, Title, ItemCount, LockedLabel, Button } from './sty
 
 VocabLevel.propTypes = {
   level: PropTypes.number.isRequired,
-  count: PropTypes.number,
-  handleLevelLock: PropTypes.func.isRequired,
-  isActionable: PropTypes.bool,
-  isLocked: PropTypes.bool,
+  count: PropTypes.number.isRequired,
+  isActionable: PropTypes.bool.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
+  isLocked: PropTypes.bool.isRequired,
+  handleLockClick: PropTypes.func.isRequired,
 };
 
-VocabLevel.defaultProps = {
-  count: 0,
-  isActionable: false,
-  isLocked: true,
-};
-
-function VocabLevel({ level, count, isActionable, isLocked, handleLevelLock }) {
+function VocabLevel({
+  level,
+  count,
+  isActionable,
+  isSubmitting,
+  isLocked,
+  handleLockClick,
+}) {
   return (
-    <Wrapper isActionable={isActionable}>
-      <LevelLink to={`/vocabulary/level/${level}`} plainLink>
+    <Wrapper
+      isActionable={isActionable}
+      isLocked={isLocked}
+      isSubmitting={isSubmitting}
+    >
+      <LevelLink
+        plainLink
+        to={`/vocabulary/level/${level}`}
+      >
         <Title>Level {level}</Title>
         {isActionable && <ItemCount> {count} entries</ItemCount>}
         {isLocked && <LockedLabel>Locked</LockedLabel>}
       </LevelLink>
       <Button
+        level={level}
+        isSubmitting={isSubmitting}
         isActionable={isActionable}
         isLocked={isLocked}
-        title={isLocked ? `Unlock level ${level}` : `Lock level ${level}`}
-        handleClick={handleLevelLock}
+        handleClick={handleLockClick}
       />
     </Wrapper>
-
   );
 }
-
 
 export default VocabLevel;

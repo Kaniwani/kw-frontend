@@ -37,8 +37,8 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
 
 const mapStateToProps = createStructuredSelector({
   homePage: makeSelectHomePage(),
-  user: globalSelectors.makeSelectUser(),
-  dashboard: globalSelectors.makeSelectDashboard(),
+  user: globalSelectors.selectUser,
+  dashboard: globalSelectors.selectDashboard,
 });
 
 export default connect(mapStateToProps)(HomePage);

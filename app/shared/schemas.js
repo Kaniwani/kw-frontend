@@ -14,9 +14,9 @@ export const denormalizeReview = (review, entities) => denormalize(review, revie
 export const normalizeReviews = (reviewList) => normalize(reviewList, [reviewSchema]);
 export const denormalizeReviews = (reviewList, entities) => denormalize(reviewList, [reviewSchema], entities);
 
-export const normalizeVocabulary = (vocabularyList, level) => ({
-  ...normalize(vocabularyList, [vocabularySchema]),
+export const normalizeLevel = (level, reviewList) => ({
+  ...normalize(reviewList, [reviewSchema]),
   level,
 });
-export const denormalizeVocabulary = (vocabularyList, entities) =>
-  denormalize(vocabularyList, [vocabularySchema], entities);
+
+export const denormalizeLevel = denormalizeReviews;

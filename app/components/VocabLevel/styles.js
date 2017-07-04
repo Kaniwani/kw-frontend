@@ -1,34 +1,12 @@
-import styled from 'styled-components';
-import { transparentize, darken } from 'polished';
+import styled, { css } from 'styled-components';
+import { rgba } from 'polished';
 
 import A from 'base/A';
 import H2 from 'base/H2';
 import LockButton from 'components/LockButton';
 import { gutter } from 'shared/styles/layout';
-import { white, greyLight, grey, greyDark } from 'shared/styles/colors';
-import { fastEaseQuad } from 'shared/styles/animation';
-
-export const Wrapper = styled.li`
-  display: flex;
-  color: ${greyDark};
-  background-color: ${white};
-  border-bottom: 2px solid ${transparentize(0.5, greyLight)};
-  transition: background-color ${fastEaseQuad};
-  cursor: pointer;
-
-  &:last-of-type {
-    border-bottom: none;
-  }
-
-  ${({ isActionable }) => isActionable ? `
-    &:hover {
-      background-color: ${darken(0.03, white)};
-    }
-  ` : `
-    pointer-events: none;
-    color: ${greyLight};
-  `}
-`;
+import { white, greyLight, grey, blue, purpleLight } from 'shared/styles/colors';
+import { fastEaseQuad, wobble, spin } from 'shared/styles/animation';
 
 export const LevelLink = styled(A)`
   ${gutter({ type: 'outer' })}
@@ -41,10 +19,12 @@ export const LevelLink = styled(A)`
 export const Title = H2.extend`
   color: inherit;
   margin-right: .75em;
+  transition: color ${fastEaseQuad};
 `;
 
 export const ItemCount = styled.span`
   color: ${grey};
+  transition: color ${fastEaseQuad};
 `;
 
 export const LockedLabel = ItemCount.extend`
@@ -54,4 +34,56 @@ export const LockedLabel = ItemCount.extend`
 export const Button = styled(LockButton)`
   ${gutter({ type: 'outer' })}
   flex: 0 0 auto;
+`;
+
+export const Wrapper = styled.li`
+  display: flex;
+  background-color: ${white};
+  border-bottom: 2px solid ${rgba(greyLight, 0.5)};
+  transition: background-color ${fastEaseQuad};
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+
+  ${({ isLocked }) => isLocked && css`
+    & ${LevelLink} {
+      pointer-events: none;
+    }
+  `}
+
+  ${({ isActionable, isLocked }) => isActionable && !isLocked ? css`
+    &:hover {
+      color: ${white};
+      background-color: ${rgba(purpleLight, 0.7)};
+      & ${Button},
+      & ${ItemCount} {
+        color: ${white};
+      }
+    }
+  ` : css`
+      color: ${greyLight};
+  `}
+
+  ${({ isActionable, isLocked }) => isActionable && css`
+    &:hover {
+      & ${Button} {
+        ${isLocked && `color: ${rgba(purpleLight, 0.7)};`}
+        animation: ${wobble} 1s linear infinite;
+        &:hover {
+          animation: none;
+        }
+      }
+    }
+  `}
+
+  ${({ isSubmitting }) => isSubmitting && css`
+    cursor: wait;
+    & ${Button} {
+      cursor: inherit;
+      opacity: 1;
+      color: ${blue} !important;
+      animation: ${spin} 1s linear infinite !important;
+    }
+  `}
 `;

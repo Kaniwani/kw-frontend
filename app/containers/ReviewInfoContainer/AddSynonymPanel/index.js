@@ -14,9 +14,11 @@ class AddSynonymPanel extends React.Component {
   static propTypes = {
     submitUserSynonym: PropTypes.func.isRequired,
     handleClose: PropTypes.func.isRequired,
+    entry: PropTypes.shape({
+      id: PropTypes.number,
+    }).isRequired,
     // userAnswer: PropTypes.string.isRequired,
     // answerType: PropTypes.oneOf(Object.keys(ANSWER_TYPES)).isRequired,
-    reviewId: PropTypes.string.isRequired,
   }
 
   componentDidMount() {
@@ -51,7 +53,7 @@ class AddSynonymPanel extends React.Component {
   // synonym is currently a Map from redux-form
   handleSubmit = (synonym) =>
     this.props.submitUserSynonym(synonym.merge({
-      review: this.props.reviewId,
+      review: this.props.entry.id,
       character: synonym.get('kanji'),
     }));
 

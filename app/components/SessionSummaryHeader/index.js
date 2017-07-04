@@ -12,22 +12,31 @@ import {
 } from './styles';
 
 SessionSummaryHeader.propTypes = {
+  category: PropTypes.string.isRequired,
+  isSessionActive: PropTypes.bool,
   count: PropTypes.number,
-  match: PropTypes.object.isRequired,
 };
 
 SessionSummaryHeader.defaultProps = {
   count: 0,
+  isSessionActive: false,
 };
 
-function SessionSummaryHeader({ count, match: { params: { category } } }) {
+function SessionSummaryHeader({ category, count, isSessionActive }) {
+  const linkText = () => {
+    if (isSessionActive && count > 0) return 'Continue Session';
+    if (!isSessionActive && count > 0) return 'Begin Session';
+    return `No ${titleCase(category)}`;
+  };
+
   return (
     <Header>
       <Wrapper>
         <LogoLink />
         <Title>{titleCase(category)} Summary</Title>
         <SessionLink
-          text="Continue Session"
+          isDisabled={count <= 0}
+          text={linkText()}
           to={`/${category}/session`}
           count={count}
         />

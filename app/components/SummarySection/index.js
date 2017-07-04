@@ -5,11 +5,22 @@ import { branch, renderComponent } from 'recompose';
 import VocabList from 'components/VocabList';
 import Placeholder from './Placeholder';
 import RankedVocabLists from './RankedVocabLists';
-import { TYPES, CRITICAL } from './constants';
 import { Section, Wrapper, Title } from './styles';
 
+const CATEGORIES = {
+  CORRECT: {
+    color: 'green',
+  },
+  INCORRECT: {
+    color: 'red',
+  },
+  CRITICAL: {
+    color: 'orange',
+  },
+};
+
 const hasNoItems = ({ items }) => !items.length;
-const isCritical = (type) => type === CRITICAL;
+const isCritical = (category) => category === 'CRITICAL';
 
 const withPlaceholder = branch(
   hasNoItems,
@@ -19,13 +30,13 @@ const withPlaceholder = branch(
 const CriticalList = withPlaceholder(VocabList);
 const RankedLists = withPlaceholder(RankedVocabLists);
 
-const getTitleText = (type, count) =>
-  isCritical(type) ?
+const getTitleText = (category, count) =>
+  isCritical(category) ?
     `${count} critical items` :
-    `${count} answered ${type.toLowerCase()}ly`;
+    `${count} answered ${category.toLowerCase()}ly`;
 
 SummarySection.propTypes = {
-  type: PropTypes.oneOf(Object.keys(TYPES)).isRequired,
+  category: PropTypes.oneOf(Object.keys(CATEGORIES)).isRequired,
   items: PropTypes.array.isRequired,
   isExpanded: PropTypes.bool,
 };
@@ -34,27 +45,27 @@ SummarySection.defaultProps = {
   isExpanded: false,
 };
 
-function SummarySection({ type, items, isExpanded }) {
-  const color = TYPES[type].color;
+function SummarySection({ category, items, isExpanded }) {
+  const color = CATEGORIES[category].color;
   return (
     <Section>
       <Wrapper>
         <Title color={color}>
-          {getTitleText(type, items.length)}
+          {getTitleText(category, items.length)}
         </Title>
       </Wrapper>
       <Wrapper>
-        {isCritical(type) ? (
+        {isCritical(category) ? (
           <CriticalList
             isExpanded={isExpanded}
-            type={type}
+            category={category}
             items={items}
             color={color}
           />
         ) : (
           <RankedLists
             isExpanded={isExpanded}
-            type={type}
+            category={category}
             items={items}
             color={color}
           />

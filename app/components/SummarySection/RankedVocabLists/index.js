@@ -25,7 +25,7 @@ RankedVocabLists.propTypes = {
 function RankedVocabLists({ items, ...props }) {
   return (
     <div>
-      {/* TODO: memoize */}
+      {/* TODO: memoize grouping in selectors */}
       {Object.entries(groupByRank(items)).map(([rank, entries]) =>
         <RankedVocab key={cuid()} rank={rank} items={entries} {...props} />
       )}

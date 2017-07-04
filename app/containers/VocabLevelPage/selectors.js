@@ -1,18 +1,15 @@
 import { createSelector } from 'reselect';
+import { denormalizeReviews } from 'shared/schemas';
+import pick from 'lodash/pick';
 
-// Direct selector to the vocabLevelPage state domain
-const selectVocabLevelPageDomain = () => (state) => state.vocabLevelPage;
+import { selectEntities } from 'containers/App/selectors';
+const selectLevel = (state, { match: { params: { level } } }) => state.global.entities.levels[level];
 
-// Main selector used by VocabLevelPage
-const makeSelectVocabLevelPage = () => createSelector(
-  selectVocabLevelPageDomain(),
-  (substate) => substate
+const makeSelectLevelReviews = () => createSelector(
+  [selectEntities, selectLevel],
+  (entities, level) => level && denormalizeReviews(Object.values(pick(entities.reviews, level.ids)), entities)
 );
 
-// Other specific selectors
-
-
-export default selectVocabLevelPageDomain;
 export {
-  makeSelectVocabLevelPage,
+  makeSelectLevelReviews,
 };

@@ -31,6 +31,11 @@ module.exports = {
     message: 'Do you want headers?',
   }, {
     type: 'confirm',
+    name: 'wantStories',
+    default: false,
+    message: 'Do you want storybook stories?',
+  }, {
+    type: 'confirm',
     name: 'wantActionsAndReducer',
     default: true,
     message: 'Do you want an actions/selectors/reducer tuple for this container?',
@@ -39,11 +44,6 @@ module.exports = {
     name: 'wantLogic',
     default: true,
     message: 'Do you want redux-logic for asynchronous flows and intercepting actions? (e.g. fetching data, validation)',
-  }, {
-    type: 'confirm',
-    name: 'wantStories',
-    default: true,
-    message: 'Do you want storybook stories?',
   }, {
     type: 'confirm',
     name: 'wantLoadable',

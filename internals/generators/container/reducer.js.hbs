@@ -1,13 +1,18 @@
 import { handleActions } from 'redux-actions';
-import { TYPES } from './actions';
+import update from 'immutability-helper';
+// import merge from 'lodash/merge';
+
+import {{ camelCase name }} from './actions';
 
 const initialState = {};
 
 const {{ camelCase name }}Reducer = handleActions({
-  [TYPES.DEFAULT.LOAD]: (state) => ({ ...state, loading: true }),
-  [TYPES.DEFAULT.SUCCESS]: (state, { payload }) => ({ ...state, value: payload, loading: false }),
-  [TYPES.DEFAULT.FAILURE]: (state, { payload }) => ({ ...state, error: payload, loading: false }),
-  [TYPES.DEFAULT.CANCEL]: (state) => ({ ...state, loading: false }),
+  [{{ camelCase name }}.load.request]: (state) => ({ ...state, loading: true }),
+  [{{ camelCase name }}.load.success]: (state, { payload }) => update(state, {
+    $merge: { value: payload, loading: false },
+  }),
+  [{{ camelCase name }}.load.failure]: (state, { payload }) => ({ ...state, error: payload, loading: false }),
+  [{{ camelCase name }}.load.cancel]: (state) => ({ ...state, loading: false }),
 }, initialState);
 
 export default {{ camelCase name }}Reducer;

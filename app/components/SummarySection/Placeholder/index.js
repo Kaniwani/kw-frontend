@@ -5,14 +5,14 @@ import { PLACEHOLDERS } from './constants';
 import { Heading } from './styles';
 
 Placeholder.propTypes = {
-  type: PropTypes.oneOf(Object.keys(PLACEHOLDERS)).isRequired,
+  category: PropTypes.oneOf(Object.keys(PLACEHOLDERS)).isRequired,
 };
 
-function Placeholder({ type }) {
+function Placeholder({ category }) {
   return (
     <Heading>
-      <span lang="ja">{PLACEHOLDERS[type].text}</span>
-      <span>{PLACEHOLDERS[type].kaomoji}</span>
+      <span lang="ja">{PLACEHOLDERS[category].text}</span>
+      <span>{PLACEHOLDERS[category].kaomoji}</span>
     </Heading>
   );
 }
