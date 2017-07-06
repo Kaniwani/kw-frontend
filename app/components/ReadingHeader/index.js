@@ -3,35 +3,39 @@ import PropTypes from 'prop-types';
 
 import { Wrapper, Heading, VocabLink, Tags } from './styles';
 
-// selectors will need
-// selectTags = combineTags(tags, jlpt, common); (same as SynonymHeading)
-
 ReadingHeader.propTypes = {
   id: PropTypes.number.isRequired,
-  primaryCharacter: PropTypes.string.isRequired,
+  character: PropTypes.string.isRequired,
   tags: PropTypes.array.isRequired,
+  withKwLink: PropTypes.bool,
 };
 
-function ReadingHeader({ id, primaryCharacter, tags }) {
+ReadingHeader.defaultProps = {
+  withKwLink: true,
+};
+
+function ReadingHeader({ id, character, tags, withKwLink }) {
   return (
     <Wrapper>
       <Heading>
         Reading
       </Heading>
       <VocabLink
-        href={`//wanikani.com/vocabulary/${primaryCharacter}`}
+        href={`//wanikani.com/vocabulary/${character}`}
         title="View on WaniKani"
         external
       >
         WK
       </VocabLink>
-      <VocabLink
-        to={`/vocabulary/entry/${id}`}
-        title="View on KaniWani"
-        target="_blank"
-      >
-        KW
-      </VocabLink>
+      {withKwLink && (
+        <VocabLink
+          to={`/vocabulary/entry/${id}`}
+          title="View on KaniWani"
+          target="_blank"
+        >
+          KW
+        </VocabLink>
+      )}
       <Tags tags={tags} />
     </Wrapper>
   );

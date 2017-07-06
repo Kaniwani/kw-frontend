@@ -5,7 +5,6 @@ import { pure } from 'recompose';
 
 /**
  * Renders a Ruby tag with furigana or a span if no furigana
- * Ideally, lang="ja" should be specified on a parent element.
  */
 
 Ruby.propTypes = {
@@ -19,8 +18,8 @@ Ruby.defaultProps = {
 
 function Ruby({ furi, children }) {
   return furi ?
-    <ruby><rb>{children}</rb><rt>{furi}</rt></ruby> :
-    <span>{children}</span>;
+    <ruby lang="ja"><rb>{children}</rb><rt>{furi}</rt></ruby> :
+    <span lang="ja">{children}</span>;
 }
 
 export default pure(Ruby);

@@ -1,15 +1,25 @@
 import { createSelector } from 'reselect';
 import { denormalizeReview } from 'shared/schemas';
+import omit from 'lodash/omit';
 import { selectSettings, selectEntities } from 'containers/App/selectors';
 
-const selectReview = (state, { match: { params: { id } } }) => state.global.entities.reviews[id];
+const selectReviewById = (state, { id, match: { params: { id: routeId } } }) => state.global.entities.reviews[id || routeId];
 
-const makeSelectReview = () => createSelector(
-  [selectEntities, selectReview],
-  (entities, review) => review && denormalizeReview(review, entities)
+const flattenReview = (review) => {
+  const { vocabulary: { meanings, readings } } = review;
+  return {
+    ...omit(review, ['vocabulary']),
+    meanings,
+    readings,
+  };
+};
+
+const selectReview = createSelector(
+  [selectEntities, selectReviewById],
+  (entities, review) => review && flattenReview(denormalizeReview(review, entities))
 );
 
 export {
   selectSettings,
-  makeSelectReview,
+  selectReview,
 };

@@ -3,18 +3,15 @@ import PropTypes from 'prop-types';
 
 import { Wrapper, Heading, Tags, RemoveButton } from './styles';
 
-// selectors will need
-// const selectTags = combineTags(tags, jlpt, common); (same as ReadingHeading)
-
 // actions will need
 // handleRemoveSynonym => synonym id
 
 SynonymHeader.propTypes = {
-  tags: PropTypes.array.isRequired,
+  // tags: PropTypes.array.isRequired,
   handleRemoveSynonym: PropTypes.func.isRequired,
 };
 
-function SynonymHeader({ handleRemoveSynonym, tags }) {
+function SynonymHeader({ handleRemoveSynonym }) {
   return (
     <Wrapper>
       <Heading>
@@ -27,7 +24,7 @@ function SynonymHeader({ handleRemoveSynonym, tags }) {
         size="1.3em"
         onClick={handleRemoveSynonym}
       />
-      <Tags tags={tags} />
+      {/* <Tags tags={tags} /> */}
     </Wrapper>
   );
 }

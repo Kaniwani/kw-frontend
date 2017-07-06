@@ -1,64 +1,116 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { setPropTypes } from 'recompose';
 import uuid from 'uuid';
+import { branch, renderNothing } from 'recompose';
+import titleCase from 'voca/title_case';
+import getDateInWords from 'utils/getDateInWords';
 
-import PrimaryReading from 'components/PrimaryReading';
+import H1 from 'base/H1';
+import P from 'base/P';
+import Container from 'base/Container';
 import ReadingHeader from 'components/ReadingHeader';
 import SynonymHeader from 'components/SynonymHeader';
 import SentencePair from 'components/SentencePair';
+import KanjiStroke from 'components/KanjiStroke';
 
 VocabEntryDetail.propTypes = {
-  entry: PropTypes.object.isRequired,
+  review: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    notes: PropTypes.string.isRequired,
+    synonyms: PropTypes.array.isRequired,
+    meanings: PropTypes.array.isRequired,
+    readings: PropTypes.array.isRequired,
+    isReviewReady: PropTypes.bool.isRequired,
+    lastReviewDate: PropTypes.instanceOf(Date).isRequired,
+    unlockDate: PropTypes.instanceOf(Date).isRequired,
+    nextReviewDate: PropTypes.instanceOf(Date).isRequired,
+    isHidden: PropTypes.bool.isRequired,
+    isCritical: PropTypes.bool.isRequired,
+    isBurned: PropTypes.bool.isRequired,
+    correct: PropTypes.number.isRequired,
+    incorrect: PropTypes.number.isRequired,
+    streak: PropTypes.number.isRequired,
+    streakName: PropTypes.string.isRequired,
+    wk: PropTypes.shape({
+      isBurned: PropTypes.bool.isRequired,
+      streak: PropTypes.number.isRequired,
+      streakName: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
-const MainReading = setPropTypes({
-  entry: PropTypes.object.isRequired,
-})(({ entry }) => (
+const Reading = ({ kana, character }) => (
+  <Container>
+    <H1>{character}</H1>
+    <P>{kana.join('・')}</P>
+  </Container>
+);
+
+const Readings = ({ review }) => (
   <div>
-    <PrimaryReading entry={entry} />
-    <SentencePair entry={entry} />
+    {review.readings.map((reading) => (
+      <div key={uuid()} >
+        <ReadingHeader
+          id={review.id}
+          character={reading.character}
+          tags={reading.tags}
+          withKwLink={false}
+        />
+        <Reading character={reading.character} kana={reading.kana} />
+        <SentencePair reading={reading} />
+        <KanjiStroke character={reading.character} />
+      </div>
+    )
+  )}
   </div>
+);
+
+
+const Synonyms = ({ review, review: { synonyms } }) => synonyms.map((synonym) => (
+  <SynonymHeader
+    key={uuid()}
+    id={synonym.id}
+    reviewId={review.id}
+    character={synonym.character}
+  />
 ));
 
-const AlternateReadings = ({ id, items }) => items.map((reading) => (
-  <div key={uuid()}>
-    <ReadingHeader
-      id={id}
-      primaryCharacter={reading.character}
-      tags={reading.tags}
-    />
-    <MainReading entry={reading} />
-  </div>
-));
+const Meaning = ({ review }) => {
+  const [first, ...rest] = review.meanings;
+  return (
+    <Container>
+      <H1>{titleCase(first)}</H1>
+      <P>{titleCase(rest.join(', '))}</P>
+    </Container>
+  );
+};
 
-const EntrySynonyms = ({ items }) => items.map((synonym) => (
-  <div key={uuid()}>
-    <SynonymHeader tags={synonym.tags} />
-    <MainReading entry={synonym} />
-  </div>
-));
-
-
-function VocabEntryDetail({ entry, entry: { id, readings, synonyms } }) {
-  const [primaryReading, ...alternateReadings] = readings;
+function VocabEntryDetail({ review }) {
+  const boolToString = (bool) => bool ? 'True' : 'False';
   return (
     <div>
-      <MainReading entry={primaryReading} />
-      {alternateReadings.length && <AlternateReadings id={id} items={alternateReadings} />}
-      {synonyms.length && <EntrySynonyms items={synonyms} />}
-      <p>Your Progression: WK: Burned KW: Guru</p>
-      <p>Answered Correct: 95% of 23 times</p>
-
-
-      <p>debug</p>
-      <pre>
-        <code className="language-javascript">
-          {JSON.stringify(entry, null, 2)}
-        </code>
-      </pre>
+      <Meaning review={review} />
+      {review.readings.length > 0 && <Readings review={review} />}
+      {review.synonyms.length > 0 && <Synonyms review={review} />}
+      <P>Ready for review: {boolToString(review.isReviewReady)}</P>
+      <P>KW LastReviewDate: {getDateInWords(review.lastReviewDate)}</P>
+      <P>KW UnlockDate: {getDateInWords(review.unlockDate)}</P>
+      <P>KW NextReviewDate: {getDateInWords(review.nextReviewDate)}</P>
+      <P>KW Correct: {boolToString(review.correct)}</P>
+      <P>KW Incorrect: {boolToString(review.incorrect)}</P>
+      <P>KW Notes: {boolToString(review.notes)}</P>
+      <P>KW Burned: {boolToString(review.isBurned)}</P>
+      <P>KW Hidden: {boolToString(review.isHidden)}</P>
+      <P>KW Critical: {boolToString(review.isCritical)}</P>
+      <P>KW Streak: {review.streak}</P>
+      <P>KW StreakName: {review.streakName}</P>
+      <P>WK Burned: {boolToString(review.wk.isBurned)}</P>
+      <P>WK Streak: {review.wk.streak}</P>
+      <P>WK StreakName: {review.wk.streakName}</P>
     </div>
   );
 }
 
-export default VocabEntryDetail;
+const enhance = branch(({ review }) => !review, renderNothing);
+
+export default enhance(VocabEntryDetail);

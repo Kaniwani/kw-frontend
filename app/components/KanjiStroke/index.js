@@ -1,15 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { rgba } from 'polished';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import { isKanji } from 'wanakana';
 import merge from 'lodash/merge';
 
+import { selectSettings } from 'containers/App/selectors';
+
 import { greyLight, blackLight, purpleLight, purpleDark } from 'shared/styles/colors';
+import { rgba } from 'polished';
 
 import Container from 'base/Container';
 import Element from 'base/Element';
+
 import { Controls, ControlButton } from './styles';
 import dmak from './dmak-0-3-1';
+
 
 class KanjiStroke extends React.PureComponent {
   static propTypes = {
@@ -69,5 +75,8 @@ class KanjiStroke extends React.PureComponent {
   }
 }
 
+const mapStateToProps = createStructuredSelector({
+  settings: selectSettings,
+});
 
-export default KanjiStroke;
+export default connect(mapStateToProps)(KanjiStroke);

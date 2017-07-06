@@ -6,7 +6,7 @@
  * format(new Date(2014, 11, 2), DATE_IN_WORDS)
  * // => 12:00am, Nov 2nd 2014
  */
-export const DATE_IN_WORDS = 'hh:mma[,] MMM Do YYYY';
+export const DATE_IN_WORDS = 'MMM Do YYYY[,] hh:mma';
 
 export const DETAIL_LEVELS = {
   LOW: 'LOW',

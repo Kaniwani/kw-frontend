@@ -41,7 +41,7 @@ class MultiLogin extends React.PureComponent { // eslint-disable-line react/pref
   handleSubmit = (event) => {
     blockEvent(event);
     // FIXME: dispatch(login())
-    setToken('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InN5bjFAYmFyLmNvbSIsImV4cCI6MTQ5ODE1MTk4MywidXNlcl9pZCI6MywidXNlcm5hbWUiOiJzeW4xIn0.Dr0SSvS8cZ6Y0zk17U0C2fRBWFKFwenoQaqFiiRGGsM');
+    setToken('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE0OTkzNzA4NjgsInVzZXJuYW1lIjoiZHVuY2FudGVzdCIsImVtYWlsIjoiZm9vQGJhci5jb20ifQ.-xHUPpGTlEImVXM49aZky4-XxGIybwo33MEvIOsSHRs');
     this.setState({ redirectToDashboard: true });
     // dispatch relevant action based on this.state.selected
   }
@@ -69,10 +69,9 @@ class MultiLogin extends React.PureComponent { // eslint-disable-line react/pref
       <Form onSubmit={this.handleSubmit}>
         <SelectList plainList>
           {PANELS.map((PANEL) => (
-            <li>
+            <li key={cuid()}>
               <SelectListItem
                 plainButton
-                key={cuid()}
                 isActive={this.state.selected === PANEL}
                 onClick={this.handleSelectChange(PANEL)}
                 tabIndex={this.state.selected === PANEL ? -1 : 0}

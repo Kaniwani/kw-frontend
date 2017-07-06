@@ -98,7 +98,7 @@ export const syncWk = (fullSync = false) => post(userSyncUrl, { full_sync: fullS
 //  REVIEWS
 //-----------------------------------------------------------------------------
 export const getReviews = ({
-  level,
+  id,
   offset,
   limit,
   meaningContains,
@@ -108,7 +108,7 @@ export const getReviews = ({
 } = {}) => get(
   reviewsUrl,
   {
-    level,
+    level: id,
     offset,
     limit,
     meaning_contains: meaningContains,
@@ -137,7 +137,7 @@ export const removeSynonym = (id) => del(synonymEntryUrl(id));
 //  VOCABULARY
 //-----------------------------------------------------------------------------
 export const getVocabulary = ({
-  level,
+  id: level,
   offset,
   limit,
   meaningContains,

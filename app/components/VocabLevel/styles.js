@@ -5,7 +5,7 @@ import A from 'base/A';
 import H2 from 'base/H2';
 import LockButton from 'components/LockButton';
 import { gutter } from 'shared/styles/layout';
-import { white, greyLight, grey, blueLight, purpleLight } from 'shared/styles/colors';
+import { white, greyLight, blueLight, purpleLight } from 'shared/styles/colors';
 import { fastEaseQuad, wobble, spin } from 'shared/styles/animation';
 
 export const LevelLink = styled(A)`
@@ -18,12 +18,12 @@ export const LevelLink = styled(A)`
 
 export const Title = H2.extend`
   color: inherit;
-  margin-right: .75em;
+  margin-right: .6em;
   transition: color ${fastEaseQuad};
 `;
 
 export const ItemCount = styled.span`
-  color: ${grey};
+  color: inherit;
   transition: color ${fastEaseQuad};
 `;
 
@@ -39,13 +39,7 @@ export const Button = styled(LockButton)`
 export const Wrapper = styled.li`
   display: flex;
   background-color: ${white};
-  border-bottom: 2px solid ${rgba(greyLight, 0.5)};
   transition: background-color ${fastEaseQuad};
-
-  &:last-of-type {
-    border-bottom: none;
-  }
-
   ${({ isLocked }) => isLocked && css`
     & ${LevelLink} {
       pointer-events: none;

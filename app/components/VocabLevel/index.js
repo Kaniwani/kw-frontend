@@ -5,6 +5,7 @@ import { compose, withHandlers, mapProps } from 'recompose';
 import { createStructuredSelector } from 'reselect';
 import noop from 'lodash/noop';
 import isNumber from 'lodash/isNumber';
+import titleCase from 'voca/title_case';
 
 import actions from 'containers/VocabLevelsPage/actions';
 import { makeSelectLevel } from 'containers/VocabLevelsPage/selectors';
@@ -16,6 +17,7 @@ const isNotNumberedLevel = (id) => !isNumber(id);
 const enhance = compose(
   mapProps(({ userLevel, lockLevel, unlockLevel, level: { id, count, isSubmitting, isLocked } }) => ({
     isActionable: !isSubmitting && (isWithinUserWKLevel(id, userLevel) || isNotNumberedLevel(id)),
+    title: isNotNumberedLevel(id) ? titleCase(id) : id,
     id,
     count,
     isLocked,
@@ -37,6 +39,10 @@ VocabLevel.propTypes = {
     PropTypes.number,
     PropTypes.string,
   ]).isRequired,
+  title: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]).isRequired,
   count: PropTypes.number.isRequired,
   isLocked: PropTypes.bool.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
@@ -44,7 +50,7 @@ VocabLevel.propTypes = {
   handleLockClick: PropTypes.func.isRequired,
 };
 
-function VocabLevel({ id, count, isLocked, isSubmitting, isActionable, handleLockClick }) {
+function VocabLevel({ id, title, count, isLocked, isSubmitting, isActionable, handleLockClick }) {
   return (
     <Wrapper
       isLocked={isLocked}
@@ -55,7 +61,7 @@ function VocabLevel({ id, count, isLocked, isSubmitting, isActionable, handleLoc
         plainLink
         to={`/vocabulary/level/${id}`}
       >
-        <Title>Level {id}</Title>
+        <Title>{title}</Title>
         {isActionable && <ItemCount> {count} entries</ItemCount>}
         {isLocked && <LockedLabel>Locked</LockedLabel>}
       </LevelLink>

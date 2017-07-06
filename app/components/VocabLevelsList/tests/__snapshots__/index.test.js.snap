@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<VocabLevelList /> should match baseline snapshot 1`] = `
+exports[`<VocabLevelsList /> should match baseline snapshot 1`] = `
 <styled.ul>
   <VocabLevel
     count={113}

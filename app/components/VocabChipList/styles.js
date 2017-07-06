@@ -3,7 +3,7 @@ import styled, { injectGlobal } from 'styled-components';
 import { gutter } from 'shared/styles/layout';
 import { epsilon } from 'shared/styles/typography';
 
-import { white, greyDark } from 'shared/styles/colors';
+import { white, grey } from 'shared/styles/colors';
 import { borderRadius } from 'shared/styles/sizing';
 import { resetList } from 'shared/styles/utils';
 
@@ -34,7 +34,7 @@ injectGlobal`
     /* left column category "JA", "RC" etc */
     span:first-child {
       font-size: .95em;
-      color: ${greyDark};
+      color: ${grey};
       margin-right: .2em;
     }
   }

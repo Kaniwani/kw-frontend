@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect';
 
 import PageWrapper from 'base/PageWrapper';
 import VocabPageHeader from 'components/VocabPageHeader';
-import VocabLevelList from 'components/VocabLevelList';
+import VocabLevelsList from 'components/VocabLevelsList';
 
 import actions from './actions';
 import { selectLevels, selectUserLevel } from './selectors';
@@ -35,7 +35,7 @@ export class VocabLevelsPage extends React.Component {
             pageTitle={PAGE_TITLE}
             withVocabListToggle={false}
           />
-          <VocabLevelList
+          <VocabLevelsList
             levels={this.props.levels}
             userLevel={this.props.userLevel}
           />

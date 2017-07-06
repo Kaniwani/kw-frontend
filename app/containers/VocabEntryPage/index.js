@@ -3,20 +3,20 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
-import uuid from 'uuid';
 
 import app from 'containers/App/actions';
 import PageWrapper from 'base/PageWrapper';
-import VocabPageHeader from 'components/VocabPageHeader';
 import VocabEntryDetail from 'components/VocabEntryDetail';
-import KanjiStroke from 'components/KanjiStroke';
-import { selectSettings, makeSelectReview } from './selectors';
+import { selectReview } from './selectors';
 
 export class VocabEntryPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
-    entry: PropTypes.object,
-    settings: PropTypes.object,
+    review: PropTypes.object,
     loadReview: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    review: false,
   }
 
   componentDidMount() {
@@ -24,42 +24,24 @@ export class VocabEntryPage extends React.Component { // eslint-disable-line rea
   }
 
   render() {
-    const { entry } = this.props;
-    const primaryReading = entry && entry.vocabulary && entry.readings && entry.readings[0]
-      || { level: 'derp', character: 'herp' };
-    const PAGE_TITLE = `Vocabulary > Level ${primaryReading.level} > ${primaryReading.character}`;
+    const { review } = this.props;
+    const title = (review && review.meanings[0]) || '';
     return (
       <div>
         <Helmet>
-          <title>{PAGE_TITLE}</title>
-          <meta name="description" content={`Kaniwani ${PAGE_TITLE}`} />
+          <title>{`Vocabulary: ${title}`}</title>
+          <meta name="description" content={`Kaniwani Vocabulary: ${title}`} />
         </Helmet>
         <PageWrapper>
-          {entry && (
-          <div>
-            <VocabPageHeader
-              pageTitle={PAGE_TITLE}
-              withVocabListToggle={false}
-            />
-            {entry.vocabulary.readings.map((reading) =>
-              <KanjiStroke key={uuid()} character={reading.character} settings={this.props.settings.kanjiStroke} />
-            )}
-            <VocabEntryDetail
-              entry={{ ...entry.vocabulary, synonyms: entry.synonyms }}
-              primaryReading={primaryReading}
-            />
-          </div>
-        )}
+          <VocabEntryDetail review={review} />
         </PageWrapper>
-        <pre><code className="language-javascript">{entry && JSON.stringify(entry, null, 2)}</code></pre>
       </div>
     );
   }
 }
 
 const mapStateToProps = createStructuredSelector({
-  entry: makeSelectReview(),
-  settings: selectSettings,
+  review: selectReview,
 });
 
 function mapDispatchToProps(dispatch, { match: { params: { id } } }) {

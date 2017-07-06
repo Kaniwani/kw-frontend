@@ -14,12 +14,12 @@ const enhance = compose(
   shouldUpdate(({ levels }, nextProps) => (levels.length !== nextProps.levels.length)),
 );
 
-VocabLevelList.propTypes = {
+VocabLevelsList.propTypes = {
   levels: PropTypes.array.isRequired,
   userLevel: PropTypes.number.isRequired,
 };
 
-function VocabLevelList({ levels, userLevel }) {
+function VocabLevelsList({ levels, userLevel }) {
   return (
     <Ul>
       {levels.map((id) =>
@@ -29,4 +29,4 @@ function VocabLevelList({ levels, userLevel }) {
   );
 }
 
-export default enhance(VocabLevelList);
+export default enhance(VocabLevelsList);

@@ -3,7 +3,7 @@ import { denormalizeReviews } from 'shared/schemas';
 import pick from 'lodash/pick';
 
 import { selectEntities } from 'containers/App/selectors';
-const selectLevel = (state, { match: { params: { id } } }) => state.global.entities.levels[id];
+const selectLevel = (state, { id, match: { params: { id: routeId } } }) => state.global.entities.levels[id || routeId];
 
 const makeSelectLevelReviews = () => createSelector(
   [selectEntities, selectLevel],

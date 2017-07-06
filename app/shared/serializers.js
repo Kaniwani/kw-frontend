@@ -44,7 +44,7 @@ export function serializeUser({
   api_valid,
   level,
   join_date: joinDate,
-  unlocked_levels: unlockedLevels = [],
+  unlocked_levels: unlockedLevels,
 } = {}) {
   return {
     name,
@@ -82,20 +82,20 @@ export function serializeDashboard({
 }
 
 export function serializeSettings({
-  follow_me: followMe = true,
-  auto_advance_on_success: autoAdvanceCorrect = false,
-  auto_expand_answer_on_success: autoExpandCorrect = true,
-  auto_expand_answer_on_failure: autoExpandIncorrect = true,
-  minimum_wk_srs_level_to_review: reviewSrsLevelLimit = SRS_RANKS.ONE,
-  on_vacation: onVacation = false,
-  vacation_date: vacationDate = null,
+  follow_me: followMe,
+  auto_advance_on_success: autoAdvanceCorrect,
+  auto_expand_answer_on_success: autoExpandCorrect,
+  auto_expand_answer_on_failure: autoExpandIncorrect,
+  minimum_wk_srs_level_to_review: minimumSrsToReview,
+  on_vacation: onVacation,
+  vacation_date: vacationDate,
 } = {}) {
   return {
     followMe,
     autoAdvanceCorrect,
     autoExpandCorrect,
     autoExpandIncorrect,
-    reviewSrsLevelLimit,
+    minimumSrsToReview,
     onVacation,
     vacationDate: setDate(vacationDate),
   };
@@ -116,8 +116,8 @@ export function serializeReading(reading) {
 
 export function serializeVocabularyEntry({
   id,
-  meaning = [],
-  readings = [],
+  meaning,
+  readings,
 } = {}) {
   return {
     id: +id,
@@ -128,12 +128,12 @@ export function serializeVocabularyEntry({
 
 export function serializeStubbedReviewEntry({
   id,
-  correct = 0,
-  incorrect = 0,
-  streak = 0,
-  notes = null,
-  answer_synonyms: synonyms = [],
-  vocabulary = {},
+  correct,
+  incorrect,
+  streak,
+  notes,
+  vocabulary,
+  answer_synonyms: synonyms,
 } = {}) {
   return {
     id: +id,
@@ -141,7 +141,7 @@ export function serializeStubbedReviewEntry({
     incorrect: +incorrect,
     streak: +streak,
     streakName: getSrsRankName(+streak),
-    notes,
+    notes: notes == null ? '' : notes,
     synonyms,
     vocabulary: serializeVocabularyEntry(vocabulary),
   };

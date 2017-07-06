@@ -12,7 +12,7 @@ import merge from 'lodash/merge';
 const defaultOptions = {
   uri: 'http://kanjivg.tagaini.net/kanjivg/kanji/',
   skipLoad: false,
-  autoplay: true,
+  autoplay: false,
   height: 150,
   width: 150,
   viewBox: {

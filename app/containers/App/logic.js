@@ -75,7 +75,7 @@ export const levelLoadLogic = createLogic({
   },
 
   process({ action: { payload: { id } } }) {
-    return api.getReviews(id)
+    return api.getReviews({ id })
       .then((response) => serializeLevelReviews({ id, response }));
   },
 });
