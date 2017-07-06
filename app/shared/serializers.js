@@ -109,8 +109,8 @@ export function serializeReading(reading) {
     character: reading.character,
     kana: toUniqueStringsArray(reading.kana),
     tags: combineTags(reading),
-    sentenceEn: reading.sentence_en,
-    sentenceJa: reading.sentence_ja,
+    sentenceEn: reading.sentence_en || '',
+    sentenceJa: reading.sentence_ja || '',
   };
 }
 
