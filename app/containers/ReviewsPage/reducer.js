@@ -1,16 +1,13 @@
-import {
-  DEFAULT_ACTION,
-} from './constants';
+import { handleActions } from 'redux-actions';
+import { TYPES } from './actions';
 
 const initialState = {};
 
-function homePageReducer(state = initialState, action) {
-  switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
-    default:
-      return state;
-  }
-}
+const reviewsPageReducer = handleActions({
+  [TYPES.DEFAULT.LOAD]: (state) => ({ ...state, loading: true }),
+  [TYPES.DEFAULT.SUCCESS]: (state, { payload }) => ({ ...state, value: payload, loading: false }),
+  [TYPES.DEFAULT.FAILURE]: (state, { payload }) => ({ ...state, error: payload, loading: false }),
+  [TYPES.DEFAULT.CANCEL]: (state) => ({ ...state, loading: false }),
+}, initialState);
 
-export default homePageReducer;
+export default reviewsPageReducer;

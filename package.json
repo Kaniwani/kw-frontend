@@ -108,6 +108,7 @@
     "lodash": "4.17.4",
     "polished": "1.2.1",
     "normalizr": "3.2.3",
+    "raphael": "2.2.7",
     "react": "15.6.1",
     "react-dom": "15.6.1",
     "react-helmet": "5.1.3",

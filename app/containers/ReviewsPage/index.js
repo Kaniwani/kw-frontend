@@ -4,17 +4,11 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 
-import { queueLoad } from 'containers/App/actions';
+import * as globalActions from 'containers/App/actions';
+import ReviewsContainer from 'containers/ReviewsContainer';
 import { makeSelectQueue, makeSelectReviewCount } from 'containers/App/selectors';
 
-import backgroundImage from 'shared/assets/img/reviews.svg';
-import ReviewAnswerContainer from 'containers/ReviewAnswerContainer';
-import ReviewInfoContainer from 'containers/ReviewInfoContainer';
-import ReviewHeader from './Header';
-import ReviewQuestion from './Question';
-import { Wrapper, Upper, Lower, ReviewBackgroundImg } from './styles';
-
-class ReviewsPage extends React.Component {
+export class ReviewsPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     queueLoad: PropTypes.func.isRequired,
     queue: PropTypes.array,
@@ -35,22 +29,15 @@ class ReviewsPage extends React.Component {
   }
 
   render() {
+    const { queue } = this.props;
     return (
-      <Wrapper>
+      <div>
         <Helmet>
           <title>Review Session</title>
           <meta name="description" content="Kaniwani Review Session" />
         </Helmet>
-        <Upper>
-          <ReviewHeader />
-          <ReviewQuestion />
-        </Upper>
-        <Lower>
-          <ReviewAnswerContainer />
-          <ReviewInfoContainer />
-          <ReviewBackgroundImg imgSrc={backgroundImage} />
-        </Lower>
-      </Wrapper>
+        <ReviewsContainer queue={queue} />
+      </div>
     );
   }
 }
@@ -61,7 +48,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  queueLoad: () => dispatch(queueLoad()),
+  queueLoad: () => dispatch(globalActions.queueLoadRequest()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReviewsPage);

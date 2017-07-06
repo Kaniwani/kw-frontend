@@ -1,18 +1,20 @@
 import {
   TYPES,
-  defaultLoad,
+  defaultLoadRequest,
+  defaultLoadSuccess,
+  defaultLoadFailure,
   defaultLoadCancel,
 } from '../actions';
 
 describe('{{ upperCase name }} actions', () => {
-  describe('defaultLoad', () => {
-    it('has a type of APP/{{ upperCase name }}/DEFAULT/LOAD', () => {
-      expect(defaultLoad()).toEqual({ type: TYPES.DEFAULT.LOAD });
+  describe('defaultLoadRequest', () => {
+    it('has a type of APP/{{ upperCase name }}/DEFAULT/LOAD/REQUEST', () => {
+      expect(defaultLoadRequest()).toEqual({ type: TYPES.DEFAULT.LOAD.REQUEST });
     });
     it('will set payload and meta from params', () => {
-      const actual = defaultLoad('payloadval', 'metaval');
+      const actual = defaultLoadRequest('payloadval', 'metaval');
       const expected = {
-        type: TYPES.DEFAULT.LOAD,
+        type: TYPES.DEFAULT.LOAD.REQUEST,
         payload: 'payloadval',
         meta: 'metaval'
       };
@@ -20,18 +22,18 @@ describe('{{ upperCase name }} actions', () => {
     });
   });
   describe('defaultLoadSuccess', () => {
-    it('it has a type of APP/{{ upperCase name }}/DEFAULT/SUCCESS', () => {
-      expect(defaultLoadSuccess()).toEqual({ type: TYPES.DEFAULT.SUCCESS });
+    it('it has a type of APP/{{ upperCase name }}/DEFAULT/LOAD/SUCCESS', () => {
+      expect(defaultLoadSuccess()).toEqual({ type: TYPES.DEFAULT.LOAD.SUCCESS });
     });
   });
   describe('defaultLoadFailure', () => {
-    it('it has a type of APP/{{ upperCase name }}/DEFAULT/FAILURE', () => {
-      expect(defaultLoadFailure()).toEqual({ type: TYPES.DEFAULT.FAILURE });
+    it('it has a type of APP/{{ upperCase name }}/DEFAULT/LOAD/FAILURE', () => {
+      expect(defaultLoadFailure()).toEqual({ type: TYPES.DEFAULT.LOAD.FAILURE });
     });
   });
   describe('defaultLoadCancel', () => {
-    it('it has a type of APP/{{ upperCase name }}/DEFAULT/CANCEL', () => {
-      expect(defaultLoadCancel()).toEqual({ type: TYPES.DEFAULT.CANCEL });
+    it('it has a type of APP/{{ upperCase name }}/DEFAULT/LOAD/CANCEL', () => {
+      expect(defaultLoadCancel()).toEqual({ type: TYPES.DEFAULT.LOAD.CANCEL });
     });
   });
 });

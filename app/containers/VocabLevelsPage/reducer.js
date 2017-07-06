@@ -1,16 +1,11 @@
-import {
-  DEFAULT_ACTION,
-} from './constants';
+import { handleActions } from 'redux-actions';
+// import { update } from 'immutability-helper';
+// import { TYPES } from './actions';
 
 const initialState = {};
 
-function vocabLevelsPageReducer(state = initialState, action) {
-  switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
-    default:
-      return state;
-  }
-}
+const vocabLevelsContainerReducer = handleActions({
 
-export default vocabLevelsPageReducer;
+}, initialState);
+
+export default vocabLevelsContainerReducer;

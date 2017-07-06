@@ -33,7 +33,7 @@ function Icon({ name, inline, color, size, ...props }) {
         preserveAspectRatio="xMidYMid meet"
         viewBox={ICONS[name].viewBox}
       >
-        {ICONS[name].path}
+        <path d={ICONS[name].path} />
       </SVG>
     </SVGWrapper>
   );

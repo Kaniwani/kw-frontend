@@ -48,7 +48,7 @@ export class ProtectedRoutes extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  userLoad: () => dispatch(globalActions.userLoad()),
+  userLoad: () => dispatch(globalActions.userLoadRequest()),
 });
 
 export default withRouter(connect(null, mapDispatchToProps)(ProtectedRoutes));

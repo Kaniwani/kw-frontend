@@ -10,12 +10,12 @@ import {
 
 import * as actions from './actions';
 
-const TEN_SECONDS = 10000;
+const TWENTY_SECONDS = 20000;
 
 export const userLoadLogic = createLogic({
-  type: actions.userLoad,
+  type: actions.userLoadRequest,
   cancelType: actions.userLoadCancel,
-  warnTimeout: TEN_SECONDS,
+  warnTimeout: TWENTY_SECONDS,
   processOptions: {
     successType: actions.userLoadSuccess,
     failType: actions.userLoadFailure,
@@ -28,9 +28,9 @@ export const userLoadLogic = createLogic({
 });
 
 export const queueLoadLogic = createLogic({
-  type: actions.queueLoad,
+  type: actions.queueLoadRequest,
   cancelType: actions.queueLoadCancel,
-  warnTimeout: TEN_SECONDS,
+  warnTimeout: TWENTY_SECONDS,
   processOptions: {
     successType: actions.queueLoadSuccess,
     failType: actions.queueLoadFailure,
@@ -43,9 +43,9 @@ export const queueLoadLogic = createLogic({
 });
 
 export const reviewsLoadLogic = createLogic({
-  type: actions.reviewsLoad,
+  type: actions.reviewsLoadRequest,
   cancelType: actions.reviewsLoadCancel,
-  warnTimeout: TEN_SECONDS,
+  warnTimeout: TWENTY_SECONDS,
   processOptions: {
     successType: actions.reviewsLoadSuccess,
     failType: actions.reviewsLoadFailure,
@@ -58,9 +58,9 @@ export const reviewsLoadLogic = createLogic({
 });
 
 export const reviewLoadLogic = createLogic({
-  type: actions.reviewLoad,
+  type: actions.reviewLoadRequest,
   cancelType: actions.reviewLoadCancel,
-  warnTimeout: TEN_SECONDS,
+  warnTimeout: TWENTY_SECONDS,
   processOptions: {
     successType: actions.reviewLoadSuccess,
     failType: actions.reviewLoadFailure,
@@ -74,9 +74,9 @@ export const reviewLoadLogic = createLogic({
 });
 
 export const levelLoadLogic = createLogic({
-  type: actions.levelLoad,
+  type: actions.levelLoadRequest,
   cancelType: actions.levelLoadCancel,
-  warnTimeout: TEN_SECONDS,
+  warnTimeout: TWENTY_SECONDS,
   processOptions: {
     successType: actions.levelLoadSuccess,
     failType: actions.levelLoadFailure,
@@ -88,11 +88,41 @@ export const levelLoadLogic = createLogic({
   },
 });
 
+export const levelLockLogic = createLogic({
+  type: actions.levelLockRequest,
+  cancelType: actions.levelLockCancel,
+  warnTimeout: TWENTY_SECONDS,
+  processOptions: {
+    successType: actions.levelLockSuccess,
+    failType: actions.levelLockFailure,
+  },
+
+  process({ action: { payload } }) {
+    return api.lockLevel(payload.level)
+      .then((response) => { console.log(response); return response; });
+  },
+});
+
+export const levelUnlockLogic = createLogic({
+  type: actions.levelUnlockRequest,
+  cancelType: actions.levelUnlockCancel,
+  warnTimeout: TWENTY_SECONDS,
+  processOptions: {
+    successType: actions.levelUnlockSuccess,
+    failType: actions.levelUnlockFailure,
+  },
+
+  process({ action: { payload } }) {
+    return api.unlockLevel(payload.level)
+    .then((response) => { console.log(response); return response; });
+  },
+});
+
 export const levelsLoadLogic = createLogic({
-  type: actions.levelsLoad,
+  type: actions.levelsLoadRequest,
   cancelType: actions.levelsLoadCancel,
   latest: true,
-  warnTimeout: TEN_SECONDS,
+  warnTimeout: TWENTY_SECONDS,
   processOptions: {
     successType: actions.levelsLoadSuccess,
     failType: actions.levelsLoadFailure,

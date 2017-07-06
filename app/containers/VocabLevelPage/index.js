@@ -3,43 +3,70 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
+import ReactTooltip from 'react-tooltip';
 
 import * as globalActions from 'containers/App/actions';
 import { makeSelectLevel, makeSelectReviews } from 'containers/App/selectors';
+import PageWrapper from 'base/PageWrapper';
+import VocabPageHeader from 'components/VocabPageHeader';
+import VocabLevelContainer from 'containers/VocabLevelContainer';
 import makeSelectVocabLevelPage from './selectors';
 
 export class VocabLevelPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
-    level: PropTypes.array,
-    reviews: PropTypes.array,
-    levelLoad: PropTypes.func.isRequired,
     reviewsLoad: PropTypes.func.isRequired,
+    entries: PropTypes.array,
+    level: PropTypes.number,
+    match: PropTypes.object,
   }
 
   static defaultProps = {
-    level: [],
-    reviews: [],
+    entries: [],
+  }
+
+  state = {
+    vocabListExpanded: true,
   }
 
   componentDidMount() {
     // TODO: ask tadgh for custom stubbed reviews api point?
-    this.props.levelLoad();
     this.props.reviewsLoad();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const switchedToCompact = (!this.state.vocabListExpanded) && prevState.vocabListExpanded;
+    if (switchedToCompact) {
+      ReactTooltip.rebuild();
+    }
+  }
+
+  toggleVocabListType = () => {
+    this.setState((prevState) => ({ vocabListExpanded: !prevState.vocabListExpanded }));
+  }
+
   render() {
+    const { entries, match: { params: { id: level } } } = this.props;
+    const PAGE_TITLE = `Vocabulary: Level ${level}`;
     return (
       <div>
-        <Helmet
-          title="VocabLevelPage"
-          meta={[
-            { name: 'description', content: 'Description of VocabLevelPage' },
-          ]}
-        />
-        <h1>Vocab api response</h1>
-        <pre><code className="language-javascript">{this.props.level.length && JSON.stringify(this.props.level.slice(0, 1), null, 2)}</code></pre>
-        <h1>Review api response</h1>
-        <pre><code className="language-javascript">{this.props.reviews.length && JSON.stringify(this.props.reviews.slice(0, 1), null, 2)}</code></pre>
+        <Helmet>
+          <title>{PAGE_TITLE}</title>
+          <meta name="description" content={`Kaniwani ${PAGE_TITLE}`} />
+        </Helmet>
+        <PageWrapper>
+          <VocabPageHeader
+            pageTitle={PAGE_TITLE}
+            withVocabListToggle={{
+              isExpanded: this.state.vocabListExpanded,
+              handleToggle: this.toggleVocabListType,
+            }}
+          />
+          <VocabLevelContainer
+            entries={entries}
+            level={+level}
+            vocabListExpanded={this.state.vocabListExpanded}
+          />
+        </PageWrapper>
       </div>
     );
   }
@@ -48,13 +75,12 @@ export class VocabLevelPage extends React.Component { // eslint-disable-line rea
 const mapStateToProps = createStructuredSelector({
   VocabLevelPage: makeSelectVocabLevelPage(),
   level: makeSelectLevel(),
-  reviews: makeSelectReviews(),
+  entries: makeSelectReviews(),
 });
 
-function mapDispatchToProps(dispatch, { match: { params } }) {
+function mapDispatchToProps(dispatch) {
   return {
-    levelLoad: () => dispatch(globalActions.levelLoad({ level: params.id })),
-    reviewsLoad: () => dispatch(globalActions.reviewsLoad()),
+    reviewsLoad: () => dispatch(globalActions.reviewsLoadRequest()),
   };
 }
 

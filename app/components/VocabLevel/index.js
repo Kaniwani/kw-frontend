@@ -29,7 +29,7 @@ function VocabLevel({ level, count, isActionable, isLocked, handleLevelLock }) {
         isActionable={isActionable}
         isLocked={isLocked}
         title={isLocked ? `Unlock level ${level}` : `Lock level ${level}`}
-        handleClick={handleLevelLock(level)}
+        handleClick={handleLevelLock}
       />
     </Wrapper>
 

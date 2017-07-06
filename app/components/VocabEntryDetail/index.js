@@ -21,7 +21,7 @@ const MainReading = setPropTypes({
   </div>
 ));
 
-const AlternateReadings = ({ id, items }) => items.map(reading => (
+const AlternateReadings = ({ id, items }) => items.map((reading) => (
   <div key={uuid()}>
     <ReadingHeader
       id={id}
@@ -32,7 +32,7 @@ const AlternateReadings = ({ id, items }) => items.map(reading => (
   </div>
 ));
 
-const EntrySynonyms = ({ items }) => items.map(synonym => (
+const EntrySynonyms = ({ items }) => items.map((synonym) => (
   <div key={uuid()}>
     <SynonymHeader tags={synonym.tags} />
     <MainReading entry={synonym} />
@@ -42,12 +42,11 @@ const EntrySynonyms = ({ items }) => items.map(synonym => (
 
 function VocabEntryDetail({ entry, entry: { id, readings, synonyms } }) {
   const [primaryReading, ...alternateReadings] = readings;
-
   return (
     <div>
       <MainReading entry={primaryReading} />
-      <AlternateReadings id={id} items={alternateReadings} />
-      <EntrySynonyms items={synonyms} />
+      {alternateReadings.length && <AlternateReadings id={id} items={alternateReadings} />}
+      {synonyms.length && <EntrySynonyms items={synonyms} />}
       <p>Your Progression: WK: Burned KW: Guru</p>
       <p>Answered Correct: 95% of 23 times</p>
 

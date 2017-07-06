@@ -2,6 +2,7 @@
 import { SRS_RANKS } from 'shared/constants';
 import isString from 'lodash/isString';
 import castArray from 'lodash/castArray';
+import uniq from 'lodash/uniq';
 import condenseReadings from 'utils/condenseReadings';
 
 import { normalizeVocabulary, normalizeReviews } from 'shared/schemas';
@@ -21,7 +22,7 @@ const toUniqueStringsArray = (data) => {
   } else {
     asArray = castArray(data);
   }
-  return Array.from(new Set(asArray));
+  return uniq(asArray);
 };
 
 export function serializeUserProfile({
@@ -36,12 +37,12 @@ export function serializeUserProfile({
 }
 
 export function serializeUser({
-  email = '',
-  name = '',
-  api_key: apiKey = '',
-  api_valid: apiValid = null,
-  level: currentLevel = 0,
-  join_date: joinDate = null,
+  email,
+  name,
+  api_key: apiKey,
+  api_valid: apiValid,
+  level,
+  join_date: joinDate,
   unlocked_levels: unlockedLevels = [],
 } = {}) {
   return {
@@ -49,7 +50,7 @@ export function serializeUser({
     email,
     apiKey,
     apiValid,
-    currentLevel: +currentLevel,
+    currentLevel: +level,
     joinDate: setDate(joinDate),
     unlockedLevels: unlockedLevels.map(Number),
   };

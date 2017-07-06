@@ -5,6 +5,8 @@ import { fastEaseQuad } from 'shared/styles/animation';
 
 export const Button = styled.button`
   ${resetButton}
+  align-self: center;
+  vertical-align: middle;
   transition: all ${fastEaseQuad}, transform 100ms linear;
   cursor: pointer;
   opacity: .7;

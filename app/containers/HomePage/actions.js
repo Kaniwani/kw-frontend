@@ -1,7 +1,7 @@
 import actionTypeCreator, { /* ASYNC*/ } from 'redux-action-types-creator';
 // import { createAction } from 'redux-actions';
 
-export const TYPES = actionTypeCreator('APP/HOMEPAGE', { asyncSuffix: ['LOAD', 'SUCCESS', 'FAILURE', 'CANCEL'] })({
+export const TYPES = actionTypeCreator('APP/HOMEPAGE', { asyncSuffix: ['REQUEST', 'SUCCESS', 'FAILURE', 'CANCEL'] })({
 //  USER: ASYNC, // request, success, failure, cancel
 });
 //

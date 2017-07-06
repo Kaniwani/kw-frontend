@@ -24,7 +24,7 @@ function VocabCard({ id, meanings, readings, color }) {
         <Dl color={color}>
           <div className="reading">
             {/* FIXME: memoize */}
-            {condenseReadings(readings).map(({ kana, character }) => ([
+            {readings.map(({ kana, character }) => ([
               <dt className="kana" lang="ja" >{kana.join(', ')}</dt>,
               <dt className="character" lang="ja" >{character}</dt>,
               <div className="separator" />,

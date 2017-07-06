@@ -10,7 +10,7 @@ import { Form, SearchInput, SubmitButton } from './styles';
 
 export class SearchBar extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
-    dispatch: PropTypes.func.isRequired,
+    dispatch: PropTypes.func,
   }
 
   // TODO: props from redux state / redux-form

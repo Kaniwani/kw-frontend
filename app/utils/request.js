@@ -21,11 +21,11 @@ function request(url = '', { method, headers, body } = {}) {
   const combinedHeaders = {
     ...headers,
     Authorization: `JWT ${token}`,
-    'Accept': 'application/json', // eslint-disable-line quote-props
+    Accept: 'application/json',
     'Content-Type': 'application/json',
   };
   const config = { method, headers: combinedHeaders, body: JSON.stringify(body) };
-  // no body allowed
+  // no body allowed for these
   if (['GET', 'DELETE'].includes(method)) {
     delete config.body;
   }

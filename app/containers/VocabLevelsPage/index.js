@@ -8,7 +8,7 @@ import * as globalActions from 'containers/App/actions';
 import { makeSelectLevels } from 'containers/App/selectors';
 
 import VocabPageHeader from 'components/VocabPageHeader';
-import VocabLevelList from 'components/VocabLevelList';
+import VocabLevelsContainer from 'containers/VocabLevelsContainer';
 import PageWrapper from 'base/PageWrapper';
 
 import makeSelectVocabLevelsPage from './selectors';
@@ -17,14 +17,10 @@ export class VocabLevelsPage extends React.Component { // eslint-disable-line re
   static propTypes = {
     levels: PropTypes.array,
     levelsLoad: PropTypes.func.isRequired,
-    userWKLevel: PropTypes.number,
-    handleLevelLock: PropTypes.func,
   }
 
   static defaultProps = {
     levels: [],
-    userWKLevel: 24,
-    handleLevelLock: () => console.log('implement lol'),
   }
 
   componentDidMount() {
@@ -32,6 +28,7 @@ export class VocabLevelsPage extends React.Component { // eslint-disable-line re
   }
 
   render() {
+    const { levels } = this.props;
     const PAGE_TITLE = 'Vocabulary: Levels';
     return (
       <div>
@@ -39,19 +36,10 @@ export class VocabLevelsPage extends React.Component { // eslint-disable-line re
           <title>{PAGE_TITLE}</title>
           <meta name="description" content={`Kaniwani ${PAGE_TITLE}`} />
         </Helmet>
-        {this.props.levels && (
         <PageWrapper>
-          <VocabPageHeader
-            pageTitle={PAGE_TITLE}
-            withVocabListToggle={false}
-          />
-          <VocabLevelList
-            levels={this.props.levels}
-            userWKLevel={this.props.userWKLevel}
-            handleLevelLock={this.props.handleLevelLock}
-          />
+          <VocabPageHeader pageTitle={PAGE_TITLE} withVocabListToggle={false} />
+          <VocabLevelsContainer levels={levels} />
         </PageWrapper>
-      )}
       </div>
     );
   }
@@ -64,7 +52,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    levelsLoad: () => dispatch(globalActions.levelsLoad()),
+    levelsLoad: () => dispatch(globalActions.levelsLoadRequest()),
   };
 }
 

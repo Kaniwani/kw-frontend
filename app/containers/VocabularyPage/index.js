@@ -10,12 +10,14 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 function VocabularyPage() {
   return (
-    <Switch>
-      <Route exact path="/vocabulary" component={VocabLevelsPage} />
-      <Route exact path="/vocabulary/level/:id" component={VocabLevelPage} />
-      <Route exact path="/vocabulary/entry/:id" component={VocabEntryPage} />
-      <Route path="" component={NotFoundPage} />
-    </Switch>
+    <div>
+      <Switch>
+        <Route exact path="/vocabulary" component={VocabLevelsPage} />
+        <Route exact path="/vocabulary/level/:id" component={VocabLevelPage} />
+        <Route exact path="/vocabulary/entry/:id" component={VocabEntryPage} />
+        <Route path="" component={NotFoundPage} />
+      </Switch>
+    </div>
   );
 }
 

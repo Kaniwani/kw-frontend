@@ -15,6 +15,7 @@ IconButton.propTypes = {
   type: PropTypes.oneOf(['submit', 'reset', 'button']),
   disabled: PropTypes.bool,
   handleClick: PropTypes.func,
+  children: PropTypes.node,
 };
 
 IconButton.defaultProps = {
@@ -22,10 +23,11 @@ IconButton.defaultProps = {
   color: 'currentColor',
   size: '1.5em',
   disabled: false,
+  children: null,
   handleClick: (event) => event, /* passthrough, for submit buttons in forms with onSubmit */
 };
 
-function IconButton({ name, title, color, size, type, handleClick, disabled, ...props }) {
+function IconButton({ name, title, color, size, type, handleClick, disabled, children, ...props }) {
   return (
     <Button
       type={type}
@@ -35,6 +37,7 @@ function IconButton({ name, title, color, size, type, handleClick, disabled, ...
       disabled={disabled}
       {...props}
     >
+      {children}
       <Icon
         name={name}
         inline={false}

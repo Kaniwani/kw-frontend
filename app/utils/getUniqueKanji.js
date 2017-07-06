@@ -1,14 +1,14 @@
+import uniq from 'lodash/uniq';
 import isKanji from 'wanakana/isKanji';
 
 export function splitKanji(word = '') {
   return word.split('').filter(isKanji);
 }
 
-const combineKanji = (result, { character }) => result.concat(splitKanji(character));
+const combineKanji = (newList, { character }) => newList.concat(splitKanji(character));
 
 export function getUniqueKanji(readings = []) {
-  const kanji = readings.reduce(combineKanji, []);
-  return Array.from(new Set(kanji));
+  return uniq(readings.reduce(combineKanji, []));
 }
 
 export default getUniqueKanji;
