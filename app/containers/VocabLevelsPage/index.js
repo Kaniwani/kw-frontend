@@ -16,16 +16,11 @@ export class VocabLevelsPage extends React.Component {
     userLevel: PropTypes.number.isRequired,
     levels: PropTypes.array.isRequired,
     levelsLoad: PropTypes.func.isRequired,
-    lockLevel: PropTypes.func.isRequired,
-    unlockLevel: PropTypes.func.isRequired,
   }
 
   componentDidMount() {
     this.props.levelsLoad();
   }
-
-  lockLevel = (level) => () => this.props.lockLevel(level)
-  unlockLevel = (level) => () => this.props.unlockLevel(level)
 
   render() {
     const PAGE_TITLE = 'Vocabulary: Levels';
@@ -43,8 +38,6 @@ export class VocabLevelsPage extends React.Component {
           <VocabLevelList
             levels={this.props.levels}
             userLevel={this.props.userLevel}
-            handleLockLevel={this.lockLevel}
-            handleUnlockLevel={this.unlockLevel}
           />
         </PageWrapper>
       </div>
@@ -59,8 +52,6 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
   levelsLoad: () => dispatch(actions.load.request()),
-  lockLevel: (level) => dispatch(actions.locklevel.request({ level })),
-  unlockLevel: (level) => dispatch(actions.unlocklevel.request({ level })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VocabLevelsPage);

@@ -1,4 +1,4 @@
-import { handleActions } from 'redux-actions';
+import { handleActions, combineActions } from 'redux-actions';
 import merge from 'lodash/merge';
 import update from 'immutability-helper';
 /*
@@ -81,34 +81,28 @@ const appReducer = handleActions({
       // levels: { [payload.level]: { $set: merge({}, state.entities.levels[payload.level], { ids: payload.result }) } },
     },
   }),
-  [session.queue.load.success]: (state, { payload }) => update(state, {
+  [combineActions(
+    session.queue.load.success,
+    app.review.load.success,
+    app.level.load.success,
+    levels.load.success,
+  )]: (state, { payload }) => update(state, {
     entities: { $set: merge({}, state.entities, payload.entities) },
-  }),
-  [app.review.load.success]: (state, { payload }) => update(state, {
-    entities: { $set: merge({}, state.entities, payload.entities) },
-  }),
-  [levels.load.success]: (state, { payload }) => update(state, {
-    entities: { levels: { $set: merge({}, state.entities.levels, payload) } },
-  }),
-  [levels.locklevel.request]: (state, { payload }) => update(state, {
-    entities: { levels: { [payload.level]: { submitting: { $set: true } } } },
-  }),
-  [levels.unlocklevel.request]: (state, { payload }) => update(state, {
-    entities: { levels: { [payload.level]: { submitting: { $set: true } } } },
-  }),
-  [levels.locklevel.success]: (state, { payload }) => update(state, {
-    entities: { levels: { [payload.level]: { $merge: { submitting: false, unlocked: false } } } },
-  }),
-  [levels.unlocklevel.success]: (state, { payload }) => update(state, {
-    entities: { levels: { [payload.level]: { $merge: { submitting: false, unlocked: true } } } },
   }),
   [app.level.load.success]: (state, { payload }) => update(state, {
-    entities: {
-      reviews: { $set: merge({}, state.entities.reviews, payload.entities.reviews) },
-      vocabulary: { $set: merge({}, state.entities.vocabulary, payload.entities.vocabulary) },
-      readings: { $set: merge({}, state.entities.readings, payload.entities.readings) },
-      levels: { [payload.level]: { $set: merge({}, state.entities.levels[payload.level], { ids: payload.result }) } },
-    },
+    entities: { $set: merge({}, state.entities, payload.entities) },
+  }),
+  [combineActions(
+    levels.locklevel.request,
+    levels.unlocklevel.request,
+  )]: (state, { payload }) => update(state, {
+    entities: { levels: { [payload.id]: { isSubmitting: { $set: true } } } },
+  }),
+  [levels.locklevel.success]: (state, { payload }) => update(state, {
+    entities: { levels: { [payload.id]: { $merge: { isSubmitting: false, isLocked: true } } } },
+  }),
+  [levels.unlocklevel.success]: (state, { payload }) => update(state, {
+    entities: { levels: { [payload.id]: { $merge: { isSubmitting: false, isLocked: false } } } },
   }),
 }, initialState);
 

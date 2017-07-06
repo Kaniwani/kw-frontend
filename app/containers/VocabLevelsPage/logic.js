@@ -33,8 +33,8 @@ export const levelLockLogic = createLogic({
     failType: actions.locklevel.failure,
   },
 
-  process({ action: { payload: { level } } }) {
-    return lockLevel(level).then(() => ({ level }));
+  process({ action: { payload: { id } } }) {
+    return lockLevel(id).then(() => ({ id }));
   },
 });
 
@@ -47,8 +47,8 @@ export const levelUnlockLogic = createLogic({
     failType: actions.unlocklevel.failure,
   },
 
-  process({ action: { payload: { level } } }) {
-    return unlockLevel(level).then(() => ({ level }));
+  process({ action: { payload: { id } } }) {
+    return unlockLevel(id).then(() => ({ id }));
   },
 });
 

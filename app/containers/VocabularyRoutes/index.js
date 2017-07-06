@@ -13,7 +13,7 @@ function VocabularyPage() {
     <div>
       <Switch>
         <Route exact path="/vocabulary" component={VocabLevelsPage} />
-        <Route exact path="/vocabulary/level/:level" component={VocabLevelPage} />
+        <Route exact path="/vocabulary/level/:id" component={VocabLevelPage} />
         <Route exact path="/vocabulary/entry/:id" component={VocabEntryPage} />
         <Route path="" component={NotFoundPage} />
       </Switch>

@@ -51,9 +51,9 @@ const vocabularyEntryUrl = (id) => urljoin(vocabularyUrl, id); // GET one
 const readingUrl = urljoin(API_BASE, 'reading'); // GET all
 const readingEntryUrl = (id) => urljoin(readingUrl, id); // GET one
 const levelsUrl = urljoin(API_BASE, 'level'); // GET all
-const levelEntryUrl = (level) => urljoin(levelsUrl, level); // GET one
-const lockLevelUrl = (level) => urljoin(levelEntryUrl(level), 'lock'); // POST lock
-const unlockLevelUrl = (level) => urljoin(levelEntryUrl(level), 'unlock'); // POST unlock
+const levelEntryUrl = (id) => urljoin(levelsUrl, id); // GET one
+const lockLevelUrl = (id) => urljoin(levelEntryUrl(id), 'lock'); // POST lock
+const unlockLevelUrl = (id) => urljoin(levelEntryUrl(id), 'unlock'); // POST unlock
 
 //-----------------------------------------------------------------------------
 //  GENERAL
@@ -162,8 +162,8 @@ export const getVocabularyEntry = (id) => get(vocabularyEntryUrl(id));
 export const getReadings = ({ offset, limit } = {}) => get(readingUrl, { offset, limit });
 export const getReadingEntry = (id) => get(readingEntryUrl(id));
 
-export const lockLevel = (level) => post(lockLevelUrl(level));
-export const unlockLevel = (level) => post(unlockLevelUrl(level));
+export const lockLevel = (id) => post(lockLevelUrl(id));
+export const unlockLevel = (id) => post(unlockLevelUrl(id));
 
 //-----------------------------------------------------------------------------
 //  GENERAL

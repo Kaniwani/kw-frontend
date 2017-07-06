@@ -4,15 +4,17 @@ import * as api from 'shared/api';
 import {
   serializeUserProfile,
   serializeReviewEntries,
-  serializeLevel,
+  serializeLevelReviews,
 } from 'shared/serializers';
 
+import levels from 'containers/VocabLevelsPage/actions';
 import app from './actions';
 
 export const userLoadLogic = createLogic({
-  type: app.user.load.request,
+  type: [app.user.load.request, levels.locklevel.success, levels.unlocklevel.success],
   cancelType: app.user.load.cancel,
   warnTimeout: 10000,
+  latest: true,
   processOptions: {
     successType: app.user.load.success,
     failType: app.user.load.failure,
@@ -29,6 +31,7 @@ export const reviewsLoadLogic = createLogic({
   type: app.reviews.load.request,
   cancelType: app.reviews.load.cancel,
   warnTimeout: 10000,
+  latest: true,
   processOptions: {
     successType: app.reviews.load.success,
     failType: app.reviews.load.failure,
@@ -45,15 +48,17 @@ export const reviewLoadLogic = createLogic({
   type: app.review.load.request,
   cancelType: app.review.load.cancel,
   warnTimeout: 10000,
+  latest: true,
   processOptions: {
     successType: app.review.load.success,
     failType: app.review.load.failure,
   },
 
-  process({ action: { payload } }) {
+  process({ action: { payload: { id } } }) {
     // intentionally using serializeReviewEntries && { results: [response] }
     // to force proper normalization format for reducer
-    return api.getReviewEntry(payload.id)
+    // TODO: rename serializeReviewEntry and handle with just ( response )
+    return api.getReviewEntry(id)
       .then((response) => serializeReviewEntries({ results: [response] }));
   },
 });
@@ -63,14 +68,15 @@ export const levelLoadLogic = createLogic({
   type: app.level.load.request,
   cancelType: app.level.load.cancel,
   warnTimeout: 10000,
+  latest: true,
   processOptions: {
     successType: app.level.load.success,
     failType: app.level.load.failure,
   },
 
-  process({ action: { payload } }) {
-    return api.getReviews(payload)
-      .then((response) => serializeLevel({ level: payload.level, ...response }));
+  process({ action: { payload: { id } } }) {
+    return api.getReviews(id)
+      .then((response) => serializeLevelReviews({ id, response }));
   },
 });
 

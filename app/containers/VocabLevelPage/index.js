@@ -43,8 +43,8 @@ export class VocabLevelPage extends React.Component { // eslint-disable-line rea
   }
 
   render() {
-    const { entries, match: { params: { level } } } = this.props;
-    const PAGE_TITLE = `Vocabulary: Level ${level}`;
+    const { entries, match: { params: { id } } } = this.props;
+    const PAGE_TITLE = `Vocabulary: Level ${id}`;
     return (
       <div>
         <Helmet>
@@ -74,8 +74,8 @@ const mapStateToProps = createStructuredSelector({
   entries: makeSelectLevelReviews(),
 });
 
-const mapDispatchToProps = (dispatch, { match: { params: { level } } }) => ({
-  loadLevelReviews: () => dispatch(app.level.load.request({ level })),
+const mapDispatchToProps = (dispatch, { match: { params: { id } } }) => ({
+  loadLevelReviews: () => dispatch(app.level.load.request({ id })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VocabLevelPage);

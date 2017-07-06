@@ -1,48 +1,82 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose, withHandlers, mapProps } from 'recompose';
+import { createStructuredSelector } from 'reselect';
+import noop from 'lodash/noop';
+import isNumber from 'lodash/isNumber';
 
+import actions from 'containers/VocabLevelsPage/actions';
+import { makeSelectLevel } from 'containers/VocabLevelsPage/selectors';
 import { Wrapper, LevelLink, Title, ItemCount, LockedLabel, Button } from './styles';
 
+const isWithinUserWKLevel = (id, userLevel) => isNumber(id) && id <= userLevel;
+const isNotNumberedLevel = (id) => !isNumber(id);
+
+const enhance = compose(
+  mapProps(({ userLevel, lockLevel, unlockLevel, level: { id, count, isSubmitting, isLocked } }) => ({
+    isActionable: !isSubmitting && (isWithinUserWKLevel(id, userLevel) || isNotNumberedLevel(id)),
+    id,
+    count,
+    isLocked,
+    isSubmitting,
+    lockLevel,
+    unlockLevel,
+  })),
+  withHandlers({
+    handleLockClick: ({ id, isActionable, isLocked, lockLevel, unlockLevel }) => {
+      if (isActionable && !isLocked) return () => lockLevel(id);
+      if (isActionable && isLocked) return () => unlockLevel(id);
+      return noop;
+    },
+  }),
+);
+
 VocabLevel.propTypes = {
-  level: PropTypes.number.isRequired,
+  id: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]).isRequired,
   count: PropTypes.number.isRequired,
-  isActionable: PropTypes.bool.isRequired,
-  isSubmitting: PropTypes.bool.isRequired,
   isLocked: PropTypes.bool.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
+  isActionable: PropTypes.bool.isRequired,
   handleLockClick: PropTypes.func.isRequired,
 };
 
-function VocabLevel({
-  level,
-  count,
-  isActionable,
-  isSubmitting,
-  isLocked,
-  handleLockClick,
-}) {
+function VocabLevel({ id, count, isLocked, isSubmitting, isActionable, handleLockClick }) {
   return (
     <Wrapper
-      isActionable={isActionable}
       isLocked={isLocked}
       isSubmitting={isSubmitting}
+      isActionable={isActionable}
     >
       <LevelLink
         plainLink
-        to={`/vocabulary/level/${level}`}
+        to={`/vocabulary/level/${id}`}
       >
-        <Title>Level {level}</Title>
+        <Title>Level {id}</Title>
         {isActionable && <ItemCount> {count} entries</ItemCount>}
         {isLocked && <LockedLabel>Locked</LockedLabel>}
       </LevelLink>
       <Button
-        level={level}
+        level={id}
+        isLocked={isLocked}
         isSubmitting={isSubmitting}
         isActionable={isActionable}
-        isLocked={isLocked}
         handleClick={handleLockClick}
       />
     </Wrapper>
   );
 }
 
-export default VocabLevel;
+const mapStateToProps = createStructuredSelector({
+  level: makeSelectLevel(),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  lockLevel: (id) => dispatch(actions.locklevel.request({ id })),
+  unlockLevel: (id) => dispatch(actions.unlocklevel.request({ id })),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(enhance(VocabLevel));

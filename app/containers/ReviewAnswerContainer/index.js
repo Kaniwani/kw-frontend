@@ -15,7 +15,7 @@ import ReviewAnswer from 'components/ReviewAnswer';
 // props from selectors
 export class ReviewAnswerContainer extends React.Component {
   static propTypes = {
-    streak: PropTypes.oneOf(Object.values(SRS_RANKS)).isRequired,
+    streakName: PropTypes.oneOf(Object.values(SRS_RANKS)).isRequired,
     answer: PropTypes.shape({
       value: PropTypes.string,
       marked: PropTypes.bool,
@@ -38,6 +38,7 @@ export class ReviewAnswerContainer extends React.Component {
   // passing the state in dispatched actions should be fine though
   // though only interesting one is resetAnswer() when rotating
   static defaultProps = {
+    // TODO: proper bool state naming isDisabled, isCorrect etc
     answer: {
       value: '',
       marked: false,
@@ -107,7 +108,7 @@ export class ReviewAnswerContainer extends React.Component {
   }
 
   render() {
-    const { answer, streak } = this.props;
+    const { answer, streakName } = this.props;
     return (
       <ReviewAnswer
         isMarked={answer.marked}
@@ -116,7 +117,7 @@ export class ReviewAnswerContainer extends React.Component {
         isCorrect={answer.correct}
         isIncorrect={answer.incorrect}
         isDisabled={answer.disabled}
-        streak={streak}
+        streakName={streakName}
         handleSubmit={this.handleSubmit}
         handleIgnore={this.handleIgnore}
         handleInput={this.handleInput}

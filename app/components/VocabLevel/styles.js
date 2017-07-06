@@ -5,7 +5,7 @@ import A from 'base/A';
 import H2 from 'base/H2';
 import LockButton from 'components/LockButton';
 import { gutter } from 'shared/styles/layout';
-import { white, greyLight, grey, blue, purpleLight } from 'shared/styles/colors';
+import { white, greyLight, grey, blueLight, purpleLight } from 'shared/styles/colors';
 import { fastEaseQuad, wobble, spin } from 'shared/styles/animation';
 
 export const LevelLink = styled(A)`
@@ -79,10 +79,15 @@ export const Wrapper = styled.li`
 
   ${({ isSubmitting }) => isSubmitting && css`
     cursor: wait;
+
+    & ${LevelLink},
     & ${Button} {
       cursor: inherit;
+    }
+
+    & ${Button} {
       opacity: 1;
-      color: ${blue} !important;
+      color: ${blueLight} !important;
       animation: ${spin} 1s linear infinite !important;
     }
   `}

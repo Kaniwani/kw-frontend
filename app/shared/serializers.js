@@ -1,11 +1,12 @@
 /* eslint-disable camelcase */
 import { SRS_RANKS } from 'shared/constants';
+import getSrsRankName from 'utils/getSrsRankName';
 import isString from 'lodash/isString';
 import castArray from 'lodash/castArray';
 import uniq from 'lodash/uniq';
 import condenseReadings from 'utils/condenseReadings';
 
-import { normalizeReviews, normalizeLevel } from 'shared/schemas';
+import { normalizeReviews, normalizeLevelReviews, normalizeLevels } from 'shared/schemas';
 
 // Add 'Common'|'Uncommon' and JLPT rank to tags list
 const combineTags = ({ tags, jlpt, common }) => {
@@ -40,7 +41,7 @@ export function serializeUser({
   email,
   name,
   api_key: apiKey,
-  api_valid: apiValid,
+  api_valid,
   level,
   join_date: joinDate,
   unlocked_levels: unlockedLevels = [],
@@ -49,7 +50,7 @@ export function serializeUser({
     name,
     email,
     apiKey,
-    apiValid,
+    isApiValid: !!api_valid,
     currentLevel: +level,
     joinDate: setDate(joinDate),
     unlockedLevels: unlockedLevels.map(Number),
@@ -102,9 +103,9 @@ export function serializeSettings({
 
 export function serializeReading(reading) {
   return {
-    id: reading.id,
+    id: +reading.id,
     level: reading.level,
-    common: !!reading.common,
+    isCommon: !!reading.common,
     character: reading.character,
     kana: toUniqueStringsArray(reading.kana),
     tags: combineTags(reading),
@@ -119,7 +120,7 @@ export function serializeVocabularyEntry({
   readings = [],
 } = {}) {
   return {
-    id,
+    id: +id,
     meanings: serializeMeaning(meaning),
     readings: serializeReadings(readings),
   };
@@ -135,10 +136,11 @@ export function serializeStubbedReviewEntry({
   vocabulary = {},
 } = {}) {
   return {
-    id,
-    correct,
-    incorrect,
+    id: +id,
+    correct: +correct,
+    incorrect: +incorrect,
     streak: +streak,
+    streakName: getSrsRankName(+streak),
     notes,
     synonyms,
     vocabulary: serializeVocabularyEntry(vocabulary),
@@ -146,30 +148,45 @@ export function serializeStubbedReviewEntry({
 }
 
 export function serializeReviewEntry({
-  needs_review: needsReview,
+  needs_review: isReviewReady,
   last_studied: lastReviewDate,
   unlock_date: unlockDate,
   next_review_date: nextReviewDate,
-  burned: isBurned,
   hidden: isHidden,
   critical: isCritical,
-  wanikani_srs_numeric: wkStreak,
-  wanikani_srs: wkStreakName,
-  wanikani_burned: wkBurned,
+  burned: isBurned,
+  wanikani_burned,
+  wanikani_srs_numeric,
+  wanikani_srs,
   ...rest
 } = {}) {
   return {
-    needsReview,
+    isReviewReady,
     lastReviewDate: setDate(lastReviewDate),
     unlockDate: setDate(unlockDate),
     nextReviewDate: setDate(nextReviewDate),
-    isBurned,
     isHidden,
     isCritical,
-    wkStreak,
-    wkStreakName,
-    wkBurned,
+    isBurned,
+    wk: {
+      isBurned: !!wanikani_burned,
+      streak: +wanikani_srs_numeric,
+      streakName: wanikani_srs.toUpperCase(),
+    },
     ...serializeStubbedReviewEntry(rest),
+  };
+}
+
+function serializeLevel({
+  level,
+  vocabulary_count: count,
+  unlocked,
+}) {
+  return {
+    id: +level,
+    count: +count,
+    isLocked: !unlocked,
+    isSubmitting: false,
   };
 }
 
@@ -178,16 +195,11 @@ export function serializeMeaning(data) {
 }
 
 export function serializeLevels(data) {
-  return data.reduce((hash, item) => Object.assign({},
-    hash,
-    {
-      [item.level]: {
-        level: +item.level,
-        count: +item.vocabulary_count,
-        unlocked: !!item.unlocked,
-        submitting: false,
-      },
-    }), {});
+  return normalizeLevels(data.map(serializeLevel));
+}
+
+export function serializeLevelReviews({ id, response: { results } }) {
+  return normalizeLevelReviews(+id, results.map(serializeReviewEntry));
 }
 
 export function serializeReadings(data) {
@@ -200,8 +212,4 @@ export function serializeReviewEntries({ results }) {
 
 export function serializeStubbedReviewEntries({ results }) {
   return normalizeReviews(results.map(serializeStubbedReviewEntry));
-}
-
-export function serializeLevel({ level, results }) {
-  return normalizeLevel(level, results.map(serializeReviewEntry));
 }

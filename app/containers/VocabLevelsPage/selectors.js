@@ -1,11 +1,10 @@
 import { createSelector } from 'reselect';
-import toArray from 'lodash/toArray';
 
-const selectLevels = (state) => toArray(state.global.entities.levels);
+const selectLevels = (state) => Object.keys(state.global.entities.levels);
 const selectUserLevel = (state) => state.global.user.currentLevel;
-const selectLevel = (state, { level }) => state.global.entities.levels[level];
+const selectLevelById = (state, { id }) => state.global.entities.levels[id];
 const makeSelectLevel = () => createSelector(
-  selectLevel,
+  selectLevelById,
   (level) => level,
 );
 

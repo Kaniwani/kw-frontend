@@ -4,7 +4,6 @@ import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import titleCase from 'voca/title_case';
-import getSrsRankName from 'utils/getSrsRankName';
 
 import {
   selectLoading,
@@ -68,7 +67,7 @@ class SessionPage extends React.Component {
               <ReviewQuestion {...entry.vocabulary} />
             </Upper>
             <Lower>
-              <ReviewAnswerContainer streak={getSrsRankName(entry.streak)} />
+              <ReviewAnswerContainer streakName={entry.streakName} />
               <ReviewInfoContainer entry={entry} />
               <ReviewBackgroundImg imgSrc={backgroundImage} />
             </Lower>

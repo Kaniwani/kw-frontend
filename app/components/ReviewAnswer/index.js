@@ -19,23 +19,13 @@ ReviewAnswer.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   handleIgnore: PropTypes.func.isRequired,
   handleInput: PropTypes.func.isRequired,
-  isMarked: PropTypes.bool,
-  isFocused: PropTypes.bool,
-  isValid: PropTypes.bool,
-  isCorrect: PropTypes.bool,
-  isIncorrect: PropTypes.bool,
-  isDisabled: PropTypes.bool,
-  streak: PropTypes.string,
-};
-
-ReviewAnswer.defaultProps = {
-  isValid: true,
-  isMarked: false,
-  isDisabled: false,
-  isCorrect: false,
-  isIncorrect: false,
-  isFocused: false,
-  streak: 'APPRENTICE',
+  isMarked: PropTypes.bool.isRequired,
+  isFocused: PropTypes.bool.isRequired,
+  isValid: PropTypes.bool.isRequired,
+  isCorrect: PropTypes.bool.isRequired,
+  isIncorrect: PropTypes.bool.isRequired,
+  isDisabled: PropTypes.bool.isRequired,
+  streakName: PropTypes.string.isRequired,
 };
 
 function ReviewAnswer({
@@ -50,7 +40,7 @@ function ReviewAnswer({
   isCorrect,
   isIncorrect,
   isDisabled,
-  streak,
+  streakName,
 }) {
   return (
     <Form
@@ -63,8 +53,8 @@ function ReviewAnswer({
     >
       <AnswerWrapper>
         <StreakIcon
-          name={streak}
-          title={titleCase(streak)}
+          name={streakName}
+          title={titleCase(streakName)}
           size="1.15em"
         />
         <Label htmlFor="userAnswer">
