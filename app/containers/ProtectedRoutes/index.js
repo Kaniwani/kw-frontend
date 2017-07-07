@@ -19,18 +19,20 @@ export class ProtectedRoutes extends React.Component {
   static propTypes = {
     loadUser: PropTypes.func.isRequired,
   }
+
   componentDidMount() {
     this.props.loadUser();
   }
+
   render() {
     return (
       <div>
+        <ReactTooltip id="globalTooltip" />
+        {/* Notifications */}
         <Switch>
           <Route path="/:path(lessons|reviews)" /* don't render SiteHeader */ />
           <Route path="" component={SiteHeader} />
         </Switch>
-        <ReactTooltip id="globalTooltip" />
-        {/* Notifications */}
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/about" component={AboutPage} />
@@ -51,4 +53,6 @@ const mapDispatchToProps = (dispatch) => ({
   loadUser: () => dispatch(app.user.load.request()),
 });
 
+// location not passed to connected components if we don't use withRouter
+// see https://reacttraining.com/react-router/web/guides/dealing-with-update-blocking
 export default withRouter(connect(null, mapDispatchToProps)(ProtectedRoutes));
