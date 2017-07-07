@@ -21,12 +21,10 @@ export const queueLoadLogic = createLogic({
   process({ action: { meta: { category } } }) {
     if (category === 'lessons') {
       return getCurrentLessons()
-      .then((response) => serializeStubbedReviewEntries(response))
-      .catch((error) => error);
+        .then((response) => serializeStubbedReviewEntries(response));
     }
     return getCurrentReviews()
-    .then((response) => serializeStubbedReviewEntries(response))
-    .catch((error) => error);
+      .then((response) => serializeStubbedReviewEntries(response));
   },
 });
 

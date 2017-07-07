@@ -27,8 +27,8 @@ const enhance = compose(
   })),
   withHandlers({
     handleLockClick: ({ id, isActionable, isLocked, lockLevel, unlockLevel }) => {
-      if (isActionable && !isLocked) return () => lockLevel(id);
-      if (isActionable && isLocked) return () => unlockLevel(id);
+      if (isActionable && !isLocked) return () => lockLevel({ id });
+      if (isActionable && isLocked) return () => unlockLevel({ id });
       return noop;
     },
   }),
@@ -62,11 +62,11 @@ function VocabLevel({ id, title, count, isLocked, isSubmitting, isActionable, ha
         to={`/vocabulary/level/${id}`}
       >
         <Title>{title}</Title>
-        {isActionable && <ItemCount> {count} entries</ItemCount>}
-        {isLocked && <LockedLabel>Locked</LockedLabel>}
+        <ItemCount>{count} entries</ItemCount>
+        <LockedLabel>{(isSubmitting && 'Syncing') || (isLocked && 'Locked')}</LockedLabel>
       </LevelLink>
       <Button
-        level={id}
+        id={id}
         isLocked={isLocked}
         isSubmitting={isSubmitting}
         isActionable={isActionable}
@@ -81,8 +81,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  lockLevel: (id) => dispatch(actions.locklevel.request({ id })),
-  unlockLevel: (id) => dispatch(actions.unlocklevel.request({ id })),
+  lockLevel: (payload) => dispatch(actions.locklevel.request(payload)),
+  unlockLevel: (payload) => dispatch(actions.unlocklevel.request(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(enhance(VocabLevel));

@@ -10,8 +10,8 @@ import { normalizeReviews, normalizeLevelReviews, normalizeLevels } from 'shared
 
 // Add 'Common'|'Uncommon' and JLPT rank to tags list
 const combineTags = ({ tags, jlpt, common }) => {
-  const newTags = [...tags, common ? 'Common' : 'Uncommon'];
-  return jlpt != null ? newTags.concat(jlpt) : newTags;
+  const newTags = [common ? 'Common' : 'Uncommon', ...tags];
+  return jlpt != null ? [jlpt, ...newTags] : newTags;
 };
 
 const setDate = (date) => date == null ? null : new Date(date);
@@ -126,6 +126,9 @@ export function serializeVocabularyEntry({
   };
 }
 
+export const serializeSynonym = ({ review: reviewId, ...rest }) => ({ reviewId, ...rest });
+export const serializeSynonyms = (list) => list.length ? list.map(serializeSynonym) : [];
+
 export function serializeStubbedReviewEntry({
   id,
   correct,
@@ -133,7 +136,7 @@ export function serializeStubbedReviewEntry({
   streak,
   notes,
   vocabulary,
-  answer_synonyms: synonyms,
+  answer_synonyms,
 } = {}) {
   return {
     id: +id,
@@ -142,7 +145,7 @@ export function serializeStubbedReviewEntry({
     streak: +streak,
     streakName: getSrsRankName(+streak),
     notes: notes == null ? '' : notes,
-    synonyms,
+    synonyms: serializeSynonyms(answer_synonyms),
     vocabulary: serializeVocabularyEntry(vocabulary),
   };
 }

@@ -34,8 +34,8 @@ const currentReviewsUrl = urljoin(reviewsUrl, 'current'); // GET current review 
 const reviewEntryUrl = (id) => urljoin(reviewsUrl, id); // GET single
 const reviewCorrectUrl = (id) => urljoin(reviewEntryUrl(id), 'correct'); // POST correct answer
 const reviewIncorrectUrl = (id) => urljoin(reviewEntryUrl(id), 'incorrect'); // POST incorrect answer
-const hideReviewUrl = (id) => urljoin(reviewEntryUrl(id), 'hide'); // POST
-const unhideReviewUrl = (id) => urljoin(reviewEntryUrl(id), 'unhide'); // POST
+const lockReviewUrl = (id) => urljoin(reviewEntryUrl(id), 'hide'); // POST
+const unlockReviewUrl = (id) => urljoin(reviewEntryUrl(id), 'unhide'); // POST
 
 //-----------------------------------------------------------------------------
 //  SYNONYMS
@@ -70,6 +70,7 @@ const contactUrl = urljoin(API_BASE, 'contact');
 export const createJishoApiUrl = (keyword) => `//jisho.org/api/v1/search/words?keyword=${keyword}`;
 export const createJishoUrl = (keyword) => `//jisho.org/search/${keyword}`;
 
+
 //-----------------------------------------------------------------------------
 //  AUTHORIZATION
 //-----------------------------------------------------------------------------
@@ -79,10 +80,10 @@ export const updateUserAuth = ({ id, username, email } = {}) => patch(userCreden
 export const registerUser = ({ email, username, password, apiKey } = {}) =>
   post(registerUrl, { email, username, password, api_key: apiKey });
 
-export const activateUser = (uid) => post(activateUrl, { uid });
-export const changeUsername = (username) => post(usernameUrl, { username });
-export const changePassword = (password) => post(passwordUrl, { password });
-export const resetPassword = (email) => post(resetPasswordUrl, { email }); // send password reset email.
+export const activateUser = ({ uid } = {}) => post(activateUrl, { uid });
+export const changeUsername = ({ username } = {}) => post(usernameUrl, { username });
+export const changePassword = ({ password } = {}) => post(passwordUrl, { password });
+export const resetPassword = ({ email } = {}) => post(resetPasswordUrl, { email }); // send password reset email.
 export const confirmPassword = () => post(confirmPasswordUrl); // finish reset password process
 
 //-----------------------------------------------------------------------------
@@ -92,7 +93,7 @@ export const getUsers = () => get(userUrl);
 export const getUserProfile = () => get(userProfileUrl);
 export const syncKw = () => post(userSrsUrl);
 // true to force ALL users to sync with WK
-export const syncWk = (fullSync = false) => post(userSyncUrl, { full_sync: fullSync });
+export const syncWk = ({ fullSync = false } = {}) => post(userSyncUrl, { full_sync: fullSync });
 
 //-----------------------------------------------------------------------------
 //  REVIEWS
@@ -121,17 +122,17 @@ export const getReviews = ({
 export const getCriticalReviews = ({ offset, limit } = {}) => get(criticalReviewsUrl, { offset, limit });
 export const getCurrentReviews = ({ offset, limit } = {}) => get(currentReviewsUrl, { offset, limit });
 
-export const getReviewEntry = (id) => get(reviewEntryUrl(id));
-export const reviewCorrect = (id) => post(reviewCorrectUrl(id));
-export const reviewIncorrect = (id) => post(reviewIncorrectUrl(id));
-export const hideReview = (id) => post(hideReviewUrl(id));
-export const unhideReview = (id) => post(unhideReviewUrl(id));
+export const getReviewEntry = ({ id }) => get(reviewEntryUrl(id));
+export const reviewCorrect = ({ id }) => post(reviewCorrectUrl(id));
+export const reviewIncorrect = ({ id }) => post(reviewIncorrectUrl(id));
+export const lockReview = ({ id }) => post(lockReviewUrl(id));
+export const unlockReview = ({ id }) => post(unlockReviewUrl(id));
 
 //-----------------------------------------------------------------------------
 //  SYNONYMS
 //-----------------------------------------------------------------------------
-export const addSynonym = ({ review, character, kana } = {}) => post(synonymUrl, { review, character, kana });
-export const removeSynonym = (id) => del(synonymEntryUrl(id));
+export const addSynonym = ({ reviewId, character, kana } = {}) => post(synonymUrl, { review: reviewId, character, kana });
+export const removeSynonym = ({ id }) => del(synonymEntryUrl(id));
 
 //-----------------------------------------------------------------------------
 //  VOCABULARY
@@ -157,25 +158,25 @@ export const getVocabulary = ({
 
 export const getLevels = () => get(levelsUrl);
 
-export const getVocabularyEntry = (id) => get(vocabularyEntryUrl(id));
+export const getVocabularyEntry = ({ id }) => get(vocabularyEntryUrl(id));
 
 export const getReadings = ({ offset, limit } = {}) => get(readingUrl, { offset, limit });
-export const getReadingEntry = (id) => get(readingEntryUrl(id));
+export const getReadingEntry = ({ id }) => get(readingEntryUrl(id));
 
-export const lockLevel = (id) => post(lockLevelUrl(id));
-export const unlockLevel = (id) => post(unlockLevelUrl(id));
+export const lockLevel = ({ id }) => post(lockLevelUrl(id));
+export const unlockLevel = ({ id }) => post(unlockLevelUrl(id));
 
 //-----------------------------------------------------------------------------
 //  GENERAL
 //-----------------------------------------------------------------------------
 export const getFaqs = () => get(faqUrl);
-export const getFaq = (id) => get(faqEntryUrl(id));
-export const addFaq = ({ question, answer }) => post(faqUrl, { question, answer });
-export const updateFaq = ({ question, answer }) => put(faqUrl, { question, answer });
+export const getFaq = ({ id }) => get(faqEntryUrl(id));
+export const addFaq = ({ question, answer } = {}) => post(faqUrl, { question, answer });
+export const updateFaq = ({ question, answer } = {}) => put(faqUrl, { question, answer });
 
 export const getAnnouncements = () => get(announcementUrl);
-export const getAnnouncement = (id) => get(announcementEntryUrl(id));
-export const addAnnouncement = ({ title, body }) => post(announcementUrl, { title, body });
-export const updateAnnouncement = ({ title, body }) => put(announcementUrl, { title, body });
+export const getAnnouncement = ({ id }) => get(announcementEntryUrl(id));
+export const addAnnouncement = ({ title, body } = {}) => post(announcementUrl, { title, body });
+export const updateAnnouncement = ({ title, body } = {}) => put(announcementUrl, { title, body });
 
 export const sendContactMessage = ({ name, email, body } = {}) => post(contactUrl, { name, email, body });

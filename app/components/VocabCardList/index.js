@@ -19,14 +19,8 @@ VocabCardList.defaultProps = {
 function VocabCardList({ items, color }) {
   return (
     <Ul>
-      {/* FIXME: memoize */}
-      {items.map((item) => (
-        <VocabCard
-          key={cuid()}
-          color={color}
-          {...item}
-        />
-      ))}
+      {/* FIXME: ids not full items */}
+      {items.map((item) => <VocabCard key={cuid()} color={color} {...item} />)}
     </Ul>
   );
 }

@@ -1,15 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose, withHandlers, setPropTypes } from 'recompose';
 
-import { Wrapper, Heading, Tags, RemoveButton } from './styles';
-
-// actions will need
-// handleRemoveSynonym => synonym id
+import app from 'containers/App/actions';
+import { Wrapper, Heading, RemoveButton } from './styles';
 
 SynonymHeader.propTypes = {
-  // tags: PropTypes.array.isRequired,
   handleRemoveSynonym: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  removeSynonym: (payload) => dispatch(app.review.synonym.remove.request(payload)),
+});
+
+const enhance = compose(
+  connect(null, mapDispatchToProps),
+  setPropTypes({
+    reviewId: PropTypes.number.isRequired,
+    id: PropTypes.number.isRequired,
+  }),
+  withHandlers({
+    handleRemoveSynonym: ({ id, reviewId, removeSynonym }) => () => removeSynonym({ id, reviewId }),
+  }),
+);
 
 function SynonymHeader({ handleRemoveSynonym }) {
   return (
@@ -24,9 +38,8 @@ function SynonymHeader({ handleRemoveSynonym }) {
         size="1.3em"
         onClick={handleRemoveSynonym}
       />
-      {/* <Tags tags={tags} /> */}
     </Wrapper>
   );
 }
 
-export default SynonymHeader;
+export default enhance(SynonymHeader);

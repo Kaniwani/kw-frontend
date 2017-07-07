@@ -20,8 +20,8 @@ export const levelsLoadLogic = createLogic({
   },
 
   process() {
-    return getLevels().then((response) => serializeLevels(response))
-    .catch((error) => error);
+    return getLevels()
+      .then((response) => serializeLevels(response));
   },
 });
 
@@ -35,8 +35,8 @@ export const levelLockLogic = createLogic({
   },
 
   process({ action: { payload: { id } } }) {
-    return lockLevel(id).then(() => ({ id }))
-    .catch((error) => error);
+    return lockLevel(id)
+      .then(() => ({ id }));
   },
 });
 
@@ -50,8 +50,8 @@ export const levelUnlockLogic = createLogic({
   },
 
   process({ action: { payload: { id } } }) {
-    return unlockLevel(id).then(() => ({ id }))
-    .catch((error) => error);
+    return unlockLevel(id)
+      .then(() => ({ id }));
   },
 });
 

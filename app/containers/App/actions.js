@@ -25,6 +25,12 @@ export const { app } = createActions({
     },
     REVIEW: {
       LOAD: ASYNC,
+      LOCK: ASYNC,
+      UNLOCK: ASYNC,
+      SYNONYM: {
+        ADD: ASYNC,
+        REMOVE: ASYNC,
+      },
     },
     LEVEL: {
       LOAD: ASYNC,

@@ -50,6 +50,7 @@ function VocabChipList({ items, color }) {
         html
       />
       <Ul>
+        {/* FIXME: ids not full items, selector should do all this destructuring instead */}
         {items.map(({ id, correct, incorrect, vocabulary: { meanings, readings } }) => {
           const answeredTotal = correct + incorrect;
           const correctPercent = calculatePercentage(correct, answeredTotal);

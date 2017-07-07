@@ -19,6 +19,10 @@ class SiteHeader extends React.Component {
     reviewCount: PropTypes.number,
   };
 
+  static defaultProps = {
+    reviewCount: 0,
+  };
+
   state = {
     headerHeight: 70, // ballpark fallback
     offCanvasMenuActive: false,

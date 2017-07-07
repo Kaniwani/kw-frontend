@@ -104,6 +104,20 @@ const appReducer = handleActions({
   [levels.unlocklevel.success]: (state, { payload }) => update(state, {
     entities: { levels: { [payload.id]: { $merge: { isSubmitting: false, isLocked: false } } } },
   }),
+  [combineActions(
+    app.review.lock.success,
+    app.review.unlock.success,
+  )]: (state, { payload }) => update(state, {
+    entities: { reviews: { [payload.id]: { $merge: { isHidden: payload.isHidden } } } },
+  }),
+  [app.review.synonym.add.success]: (state, { payload }) => update(state, {
+    entities: { reviews: { [payload.reviewId]: { synonyms: { $push: [payload] } } } },
+  }),
+  [app.review.synonym.remove.success]: (state, { payload: { reviewId, id } }) => update(state, {
+    entities: { reviews: { [reviewId]: { synonyms: { $apply:
+      (synonyms) => synonyms.filter((syn) => syn.id !== id),
+    } } } },
+  }),
 }, initialState);
 
 export default appReducer;

@@ -11,13 +11,16 @@ import { selectReview } from './selectors';
 
 export class VocabEntryPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
-    review: PropTypes.object,
     loadReview: PropTypes.func.isRequired,
+    review: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.object,
+    ]).isRequired,
   }
 
   static defaultProps = {
     review: false,
-  }
+  };
 
   componentDidMount() {
     this.props.loadReview();

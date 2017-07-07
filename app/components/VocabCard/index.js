@@ -24,7 +24,7 @@ function VocabCard({ color, id, vocabulary: { meanings, readings } }) {
       <Link plainLink to={`/vocabulary/entry/${id}`}>
         <Dl color={color}>
           <div className="reading">
-            {/* FIXME: memoize */}
+            {/* FIXME: should use selector for review from id  */}
             {readings.map(({ kana, character }) => ([
               <dt className="kana" lang="ja" >{kana.join(', ')}</dt>,
               <dt className="character" lang="ja" >{character}</dt>,

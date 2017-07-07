@@ -4,30 +4,33 @@ import PropTypes from 'prop-types';
 import IconButton from 'components/IconButton';
 
 LockButton.propTypes = {
-  isActionable: PropTypes.bool.isRequired,
-  isSubmitting: PropTypes.bool.isRequired,
-  isLocked: PropTypes.bool.isRequired,
-  handleClick: PropTypes.func.isRequired,
-  size: PropTypes.string,
-  level: PropTypes.oneOfType([
+  id: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,
   ]).isRequired,
+  size: PropTypes.string,
+  isActionable: PropTypes.bool,
+  isSubmitting: PropTypes.bool,
+  isLocked: PropTypes.bool,
+  handleClick: PropTypes.func.isRequired,
 };
 
 LockButton.defaultProps = {
   size: '1.5em',
+  isActionable: true,
+  isSubmitting: false,
+  isLocked: false,
 };
 
-function LockButton({ level, isSubmitting, isActionable, isLocked, handleClick, ...props }) {
-  let title = 'Level unavailable';
+function LockButton({ id, isSubmitting, isActionable, isLocked, handleClick, ...props }) {
+  let title = 'Not allowed';
   let icon = 'LOCK_SOLID';
   if (isSubmitting) {
     icon = 'SYNC';
-    title = 'Submitting';
+    title = 'Syncing';
   } else if (isActionable) {
-    icon = isLocked ? 'LOCK_CLOSED' : 'LOCK_OPEN';
-    title = isLocked ? `Unlock level ${level}` : `Lock level ${level}`;
+    icon = isLocked ? 'LOCK_OPEN' : 'LOCK_CLOSED';
+    title = isLocked ? `Unlock ${id}` : `Lock ${id}`;
   }
 
   return (
