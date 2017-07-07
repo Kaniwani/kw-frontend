@@ -57,7 +57,7 @@ function checkStatus(response = { status: 404, statusText: 'No response!' }) {
   }
   const error = new Error(response.statusText);
   error.response = response;
-  return error;
+  throw error;
 }
 
 /**

@@ -19,13 +19,14 @@ export const queueLoadLogic = createLogic({
   },
 
   process({ action: { meta: { category } } }) {
-    console.log({ category });
     if (category === 'lessons') {
       return getCurrentLessons()
-      .then((response) => serializeStubbedReviewEntries(response));
+      .then((response) => serializeStubbedReviewEntries(response))
+      .catch((error) => error);
     }
     return getCurrentReviews()
-    .then((response) => serializeStubbedReviewEntries(response));
+    .then((response) => serializeStubbedReviewEntries(response))
+    .catch((error) => error);
   },
 });
 

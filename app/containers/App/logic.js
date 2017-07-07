@@ -22,7 +22,8 @@ export const userLoadLogic = createLogic({
 
   process() {
     return api.getUserProfile()
-      .then((response) => serializeUserProfile(response));
+      .then((response) => serializeUserProfile(response))
+      .catch((error) => error);
   },
 });
 
@@ -39,7 +40,8 @@ export const reviewsLoadLogic = createLogic({
 
   process({ action: { payload } }) {
     return api.getReviews(payload)
-      .then((response) => serializeReviewEntries(response));
+      .then((response) => serializeReviewEntries(response))
+      .catch((error) => error);
   },
 });
 
@@ -59,7 +61,8 @@ export const reviewLoadLogic = createLogic({
     // to force proper normalization format for reducer
     // TODO: rename serializeReviewEntry and handle with just ( response )
     return api.getReviewEntry(id)
-      .then((response) => serializeReviewEntries({ results: [response] }));
+      .then((response) => serializeReviewEntries({ results: [response] }))
+      .catch((error) => error);
   },
 });
 
@@ -76,7 +79,8 @@ export const levelLoadLogic = createLogic({
 
   process({ action: { payload: { id } } }) {
     return api.getReviews({ id })
-      .then((response) => serializeLevelReviews({ id, response }));
+      .then((response) => serializeLevelReviews({ id, response }))
+      .catch((error) => error);
   },
 });
 
