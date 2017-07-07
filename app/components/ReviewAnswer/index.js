@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import titleCase from 'voca/title_case';
 
 import {
   Form,
@@ -10,7 +9,7 @@ import {
   ActionButtons,
   IgnoreButton,
   SubmitButton,
-  StreakIcon,
+  Streak,
 } from './styles';
 
 ReviewAnswer.propTypes = {
@@ -52,11 +51,7 @@ function ReviewAnswer({
       incorrect={isIncorrect}
     >
       <AnswerWrapper>
-        <StreakIcon
-          name={streakName}
-          title={titleCase(streakName)}
-          size="1.15em"
-        />
+        <Streak streakName={streakName} size="1.15em" />
         <Label htmlFor="userAnswer">
           Vocabulary reading
         </Label>

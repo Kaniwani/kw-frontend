@@ -24,7 +24,13 @@ VocabChipList.defaultProps = {
 // `.vocab-tip` tooltip styles are injected in `globalStyles.js`
 const VocabChipWithToolTip = withTooltip(VocabChip);
 
-const generateToolTip = (meaning, kana, correctPercent, answeredTotal) => `
+const correctnessText = (correct, incorrect) => {
+  const total = correct + incorrect;
+  const previouslyAnswered = total > 0;
+  return `${previouslyAnswered ? `${calculatePercentage(correct, total)}%` : '<small>N/A</small>'}`;
+};
+
+const generateToolTip = (meaning, kana, correctness) => `
   <ul>
     <li>
       <span>JA </span>
@@ -36,7 +42,7 @@ const generateToolTip = (meaning, kana, correctPercent, answeredTotal) => `
     </li>
     <li>
       <span>RC</span>
-      <span>${answeredTotal > 0 ? `${correctPercent}%` : '<small>N/A</small>'}</span>
+      <span>${correctness}</span>
     </li>
   </ul>
 `;
@@ -52,10 +58,8 @@ function VocabChipList({ items, color }) {
       <Ul>
         {/* FIXME: ids not full items, selector should do all this destructuring instead */}
         {items.map(({ id, correct, incorrect, vocabulary: { meanings, readings } }) => {
-          const answeredTotal = correct + incorrect;
-          const correctPercent = calculatePercentage(correct, answeredTotal);
           const { kana, character } = readings[0];
-          const tooltipText = generateToolTip(titleCase(meanings[0]), kana, correctPercent, answeredTotal);
+          const tooltipText = generateToolTip(titleCase(meanings[0]), kana, correctnessText(correct, incorrect));
           return (
             <VocabChipWithToolTip
               key={cuid()}

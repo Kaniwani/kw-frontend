@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { placeholder } from 'polished';
 
-import Icon from 'components/Icon';
+import StreakIcon from 'components/StreakIcon';
 import IconButton from 'components/IconButton';
 
 import { visuallyHidden } from 'shared/styles/utils';
@@ -96,7 +96,7 @@ export const Input = styled.input`
   }
 `;
 
-export const StreakIcon = styled(Icon)`
+export const Streak = styled(StreakIcon)`
   display: block;
   position: absolute;
   transform: translateY(-50%);
