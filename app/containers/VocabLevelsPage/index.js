@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import PageWrapper from 'base/PageWrapper';
@@ -33,7 +33,7 @@ export class VocabLevelsPage extends React.Component {
         </Helmet>
         <PageWrapper>
           <VocabPageHeader pageTitle={PAGE_TITLE} withVocabListToggle={false} />
-          <VocabLevelsList levelIds={this.props.levelIds} />
+          <VocabLevelsList />
         </PageWrapper>
       </div>
     );

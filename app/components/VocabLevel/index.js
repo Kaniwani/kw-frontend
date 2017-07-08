@@ -9,11 +9,9 @@ import isNumber from 'lodash/isNumber';
 import titleCase from 'voca/title_case';
 
 import actions from 'containers/App/actions';
-import { makeSelectLevel, selectUserLevel } from 'containers/App/selectors';
+import { makeSelectLevel } from 'containers/App/selectors';
 import { Wrapper, LevelLink, Title, ItemCount, LockedLabel, Button } from './styles';
 
-const isWithinUserWKLevel = (id, userLevel) => isNumber(id) && id <= userLevel;
-const isNotNumberedLevel = (id) => !isNumber(id);
 
 const enhance = compose(
   mapProps(({ userLevel, lockLevel, unlockLevel, level: { id, count, isSubmitting, isLocked } }) => ({
@@ -80,7 +78,6 @@ function VocabLevel({ id, title, count, isLocked, isSubmitting, isActionable, ha
 
 const mapStateToProps = createStructuredSelector({
   level: makeSelectLevel(),
-  userLevel: selectUserLevel,
 });
 
 const mapDispatchToProps = (dispatch) => ({

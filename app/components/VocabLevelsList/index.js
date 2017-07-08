@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cuid from 'cuid';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import { compose, branch, renderNothing, shouldUpdate } from 'recompose';
 import isEqual from 'lodash/isEqual';
 
+import { selectLevelIds } from 'containers/App/selectors';
 import VocabLevel from 'components/VocabLevel';
 import { Ul } from './styles';
 
@@ -24,4 +27,8 @@ function VocabLevelsList({ levelIds }) {
   );
 }
 
-export default enhance(VocabLevelsList);
+const mapStateToProps = createStructuredSelector({
+  levelIds: selectLevelIds,
+});
+
+export default connect(mapStateToProps)(enhance(VocabLevelsList));

@@ -2,7 +2,7 @@ import { createLogic } from 'redux-logic';
 import * as api from 'shared/api';
 
 import {
-  serializeUserProfile,
+  serializeUser,
   serializeLevels,
   serializeReviewEntries,
   serializeLevelReviews,
@@ -11,8 +11,8 @@ import {
 
 import actions from './actions';
 
-export const userLoadLogic = createLogic({
-  type: [actions.user.load.request, actions.level.lock.success, actions.level.unlock.success],
+const userLoadLogic = createLogic({
+  type: actions.user.load.request,
   cancelType: actions.user.load.cancel,
   warnTimeout: 10000,
   latest: true,
@@ -23,11 +23,30 @@ export const userLoadLogic = createLogic({
 
   process() {
     return api.getUserProfile()
-      .then((response) => serializeUserProfile(response));
+      .then((response) => serializeUser(response));
   },
 });
 
-export const levelsLoadLogic = createLogic({
+const reloadSessionCountsLogic = createLogic({
+  type: [
+    actions.level.lock.success,
+    actions.level.unlock.success,
+  ],
+  debounce: 15000,
+  latest: true,
+  processOptions: {
+    successType: actions.user.load.success,
+    failType: actions.user.load.failure,
+  },
+
+  process() {
+    console.info('Attempting to reload session counts, check my debouncing');
+    return api.getUserProfile()
+      .then((response) => serializeUser(response));
+  },
+});
+
+const levelsLoadLogic = createLogic({
   type: actions.levels.load.request,
   cancelType: actions.levels.load.cancel,
   latest: true,
@@ -43,7 +62,7 @@ export const levelsLoadLogic = createLogic({
   },
 });
 
-export const levelLockLogic = createLogic({
+const levelLockLogic = createLogic({
   type: actions.level.lock.request,
   cancelType: actions.level.lock.cancel,
   warnTimeout: 10000,
@@ -58,7 +77,7 @@ export const levelLockLogic = createLogic({
   },
 });
 
-export const levelUnlockLogic = createLogic({
+const levelUnlockLogic = createLogic({
   type: actions.level.unlock.request,
   cancelType: actions.level.unlock.cancel,
   warnTimeout: 10000,
@@ -74,7 +93,7 @@ export const levelUnlockLogic = createLogic({
 });
 
 
-export const reviewsLoadLogic = createLogic({
+const reviewsLoadLogic = createLogic({
   type: actions.reviews.load.request,
   cancelType: actions.reviews.load.cancel,
   warnTimeout: 10000,
@@ -90,7 +109,7 @@ export const reviewsLoadLogic = createLogic({
   },
 });
 
-export const reviewLoadLogic = createLogic({
+const reviewLoadLogic = createLogic({
   type: actions.review.load.request,
   cancelType: actions.review.load.cancel,
   warnTimeout: 10000,
@@ -109,7 +128,7 @@ export const reviewLoadLogic = createLogic({
   },
 });
 
-export const reviewLockLogic = createLogic({
+const reviewLockLogic = createLogic({
   type: actions.review.lock.request,
   cancelType: actions.review.lock.cancel,
   warnTimeout: 10000,
@@ -125,7 +144,7 @@ export const reviewLockLogic = createLogic({
   },
 });
 
-export const reviewUnlockLogic = createLogic({
+const reviewUnlockLogic = createLogic({
   type: actions.review.unlock.request,
   cancelType: actions.review.unlock.cancel,
   warnTimeout: 10000,
@@ -141,7 +160,7 @@ export const reviewUnlockLogic = createLogic({
   },
 });
 
-export const addSynonymLogic = createLogic({
+const addSynonymLogic = createLogic({
   type: actions.synonym.add.request,
   cancelType: actions.synonym.add.cancel,
   warnTimeout: 10000,
@@ -157,7 +176,7 @@ export const addSynonymLogic = createLogic({
   },
 });
 
-export const removeSynonymLogic = createLogic({
+const removeSynonymLogic = createLogic({
   type: actions.synonym.remove.request,
   cancelType: actions.synonym.remove.cancel,
   warnTimeout: 10000,
@@ -173,8 +192,7 @@ export const removeSynonymLogic = createLogic({
   },
 });
 
-// TODO: move to vocabLevelPage
-export const levelLoadLogic = createLogic({
+const levelLoadLogic = createLogic({
   type: actions.level.load.request,
   cancelType: actions.level.load.cancel,
   warnTimeout: 10000,
@@ -193,6 +211,7 @@ export const levelLoadLogic = createLogic({
 // All logic to be loaded
 export default [
   userLoadLogic,
+  reloadSessionCountsLogic,
   levelsLoadLogic,
   levelLockLogic,
   levelUnlockLogic,

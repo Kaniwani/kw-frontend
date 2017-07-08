@@ -84,18 +84,18 @@ export const serializeStubbedReviewEntries = ({ results }) =>
   normalizeReviews(results.map(serializeStubbedReviewEntry));
 
 
-export function serializeUserProfile({
+export function serializeUser({
   email,
   profile,
 }) {
   return {
-    user: serializeUser({ email, ...profile }),
+    profile: serializeProfile({ email, ...profile }),
     dashboard: serializeDashboard(profile),
     settings: serializeSettings(profile),
   };
 }
 
-export function serializeUser({
+export function serializeProfile({
   email,
   name,
   api_key: apiKey,

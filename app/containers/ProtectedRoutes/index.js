@@ -6,8 +6,11 @@ import ReactTooltip from 'react-tooltip';
 
 import SiteHeader from 'containers/SiteHeader';
 import HomePage from 'containers/HomePage/Loadable';
-import SessionRoutes from 'containers/SessionRoutes/Loadable';
-import VocabularyRoutes from 'containers/VocabularyRoutes/Loadable';
+import VocabLevelsPage from 'containers/VocabLevelsPage/Loadable';
+import VocabLevelPage from 'containers/VocabLevelPage/Loadable';
+import VocabEntryPage from 'containers/VocabEntryPage/Loadable';
+import SessionPage from 'containers/SessionPage/Loadable';
+import SessionSummaryPage from 'containers/SessionSummaryPage';
 import AboutPage from 'containers/AboutPage/Loadable';
 import ContactPage from 'containers/ContactPage/Loadable';
 import SettingsPage from 'containers/SettingsPage/Loadable';
@@ -39,9 +42,21 @@ export class ProtectedRoutes extends React.Component {
           <Route exact path="/contact" component={ContactPage} />
           <Route exact path="/settings" component={SettingsPage} />
           <Redirect exact path="/logout" to="/welcome" />
-          <Route path="/lessons" component={SessionRoutes} />
-          <Route path="/reviews" component={SessionRoutes} />
-          <Route path="/vocabulary" component={VocabularyRoutes} />
+          <Route path="/lessons">
+            <Switch>
+              <Route exact path="/:category/session" component={SessionPage} />
+              <Route exact path="/:category" component={SessionSummaryPage} />
+            </Switch>
+          </Route>
+          <Route path="/reviews">
+            <Switch>
+              <Route exact path="/:category/session" component={SessionPage} />
+              <Route exact path="/:category" component={SessionSummaryPage} />
+            </Switch>
+          </Route>
+          <Route exact path="/vocabulary" component={VocabLevelsPage} />
+          <Route exact path="/vocabulary/level/:id" component={VocabLevelPage} />
+          <Route exact path="/vocabulary/entry/:id" component={VocabEntryPage} />
           <Route path="" component={NotFoundPage} />
         </Switch>
       </div>

@@ -3,8 +3,8 @@ import { createActions } from 'redux-actions';
 const ASYNC = {
   REQUEST: undefined, // undefined results in identity fn(payload, meta) => { type: "TYPE", payload, meta }
   SUCCESS: undefined,
-  FAILURE: undefined, // if payload is an error, redux-actions will add { error: true }
   CANCEL: undefined,
+  FAILURE: undefined,
 };
 
 // import actions from './actions'
@@ -18,6 +18,9 @@ export const { app } = createActions({
       LOAD: ASYNC,
     },
     REVIEWS: {
+      LOAD: ASYNC,
+    },
+    QUEUE: {
       LOAD: ASYNC,
     },
     LEVELS: {

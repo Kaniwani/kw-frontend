@@ -1,35 +1,43 @@
 import { createSelector } from 'reselect';
 
-const selectLoading = (state) => state.global.loading;
-const selectError = (state) => state.global.error;
-const selectUser = (state) => state.global.user;
-const selectDashboard = (state) => state.global.dashboard;
+const selectError = (state) => state.global.ui.error;
+const selectProfile = (state) => state.global.user.profile;
+const selectDashboard = (state) => state.global.user.dashboard;
 const selectSettings = (state) => state.global.settings;
-const selectEntities = (state) => state.global.entities;
-const makeSelectSessionCount = (category) => createSelector(
+const createSelectSessionCount = (name) => createSelector(
   selectDashboard,
-  (dashboard) => dashboard[`${category}Count`]
+  (dashboard) => dashboard[`${name}Count`]
 );
-const selectReviewCount = makeSelectSessionCount('review');
-const selectLessonCount = makeSelectSessionCount('lesson');
+const selectUserLevel = createSelector(selectProfile, (state) => state.currentLevel);
+const selectReviewCount = createSelectSessionCount('review');
+const selectLessonCount = createSelectSessionCount('lesson');
 
-const selectUserLevel = createSelector(selectUser, (state) => state.currentLevel);
-
-const selectLevels = (state) => state.global.entities.levels;
+const selectEntities = (state) => state.global.entities;
+const createSelectEntities = (name) => createSelector(
+  selectEntities,
+  (entities) => entities[name]
+);
+const createSelectEntityById = (entity, id) => createSelector(
+  createSelectEntities(entity),
+  (entities) => entities[id],
+);
+const selectLevels = createSelectEntities('levels');
 const selectLevelIds = createSelector(
   selectLevels,
   (levels) => Object.keys(levels),
 );
-const selectLevelById = (state, { id }) => state.global.entities.levels[id];
-const makeSelectLevel = () => createSelector(
-  selectLevelById,
-  (level) => level
-);
+const selectLevel = (state, { id }) => createSelectEntityById('levels', id)(state);
+// const isWithinUserWKLevel = (id, userLevel) => isNumber(id) && id <= userLevel;
+// const isNotNumberedLevel = (id) => !isNumber(id);
+// const levelTitle = (id) => isNotNumberedLevel(id) ? titleCase(id) : id;
+//
+// const selectLevelIsActionable = createSelector(
+//   [selectLevel, selectUserLevel, selectLevelSubmitting],
+//   !isSubmitting && (isWithinUserWKLevel(id, userLevel) || isNotNumberedLevel(id)),
+// );
 
 // VocabLevelPage
 import pick from 'lodash/pick';
-
-const selectLevel = (state, { id, match: { params: { id: routeId } } }) => state.global.entities.levels[id || routeId];
 
 const makeSelectLevelReviews = () => createSelector(
   [selectEntities, selectLevel],
@@ -53,9 +61,8 @@ const flattenReview = (review) => {
 
 
 export {
-  selectLoading,
   selectError,
-  selectUser,
+  selectProfile,
   selectDashboard,
   selectReviewCount,
   selectLessonCount,
