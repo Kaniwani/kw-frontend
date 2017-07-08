@@ -5,13 +5,13 @@ import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import ReactTooltip from 'react-tooltip';
 
-import app from 'containers/App/actions';
+import actions from 'containers/App/actions';
+import { makeSelectLevelReviews } from 'containers/App/selectors';
 import PageWrapper from 'base/PageWrapper';
 import VocabPageHeader from 'components/VocabPageHeader';
 import VocabList from 'components/VocabList';
 
 import { VocabListWrapper } from './styles';
-import { makeSelectLevelReviews } from './selectors';
 
 export class VocabLevelPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
@@ -75,7 +75,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch, { match: { params: { id } } }) => ({
-  loadLevelReviews: () => dispatch(app.level.load.request({ id })),
+  loadLevelReviews: () => dispatch(actions.level.load.request({ id })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VocabLevelPage);

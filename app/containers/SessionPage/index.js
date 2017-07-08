@@ -15,7 +15,7 @@ import {
   makeSelectPercentCorrect,
   makeSelectPercentComplete,
 } from 'containers/SessionRoutes/selectors';
-import session from 'containers/SessionRoutes/actions';
+import actions from 'containers/App/actions';
 
 import backgroundImage from 'shared/assets/img/reviews.svg';
 import ReviewAnswerContainer from 'containers/ReviewAnswerContainer';
@@ -90,7 +90,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loadQueue: (payload, meta) => dispatch(session.queue.load.request(payload, meta)),
+  loadQueue: (payload, meta) => dispatch(actions.queue.load.request(payload, meta)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SessionPage);

@@ -5,12 +5,13 @@ import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 
 import PageWrapper from 'base/PageWrapper';
-import * as globalSelectors from 'containers/App/selectors';
-import { makeSelectHomePage } from './selectors';
+import {
+  selectUser,
+  selectDashboard,
+} from 'containers/App/selectors';
 
 export class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
-    homePage: PropTypes.object,
     user: PropTypes.object,
     dashboard: PropTypes.object,
   }
@@ -23,8 +24,6 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
           meta={[{ name: 'description', content: 'Dashboard' }]}
         />
         <h1>HomePage!</h1>
-        <h6>homePage</h6>
-        <pre><code className="language-javascript">{JSON.stringify(this.props.homePage, null, 2)}</code></pre>
         <h6>user</h6>
         <pre><code className="language-javascript">{JSON.stringify(this.props.user, null, 2)}</code></pre>
         <h6>dashboard</h6>
@@ -36,9 +35,8 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
 
 
 const mapStateToProps = createStructuredSelector({
-  homePage: makeSelectHomePage(),
-  user: globalSelectors.selectUser,
-  dashboard: globalSelectors.selectDashboard,
+  user: selectUser,
+  dashboard: selectDashboard,
 });
 
 export default connect(mapStateToProps)(HomePage);

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, withHandlers, setPropTypes } from 'recompose';
 
-import app from 'containers/App/actions';
+import actions from 'containers/App/actions';
 import { Wrapper, Heading, RemoveButton } from './styles';
 
 SynonymHeader.propTypes = {
@@ -11,7 +11,7 @@ SynonymHeader.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  removeSynonym: (payload) => dispatch(app.review.synonym.remove.request(payload)),
+  removeSynonym: (payload) => dispatch(actions.review.synonym.remove.request(payload)),
 });
 
 const enhance = compose(

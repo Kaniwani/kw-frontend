@@ -1,6 +1,8 @@
 import { handleActions, combineActions } from 'redux-actions';
 import merge from 'lodash/merge';
+import difference from 'lodash/difference';
 import update from 'immutability-helper';
+
 /*
  * { $push: array }
  *   push() all the items in array on the target.
@@ -27,7 +29,6 @@ import update from 'immutability-helper';
 */
 
 import session from 'containers/SessionRoutes/actions';
-import levels from 'containers/VocabLevelsPage/actions';
 import app from './actions';
 
 const initialState = {
@@ -54,6 +55,7 @@ const initialState = {
   },
   entities: {
     reviews: {},
+    synonyms: {},
     vocabulary: {},
     readings: {},
     levels: {},
@@ -85,23 +87,25 @@ const appReducer = handleActions({
     session.queue.load.success,
     app.review.load.success,
     app.level.load.success,
-    levels.load.success,
+    app.levels.load.success,
   )]: (state, { payload }) => update(state, {
     entities: { $set: merge({}, state.entities, payload.entities) },
   }),
   [app.level.load.success]: (state, { payload }) => update(state, {
     entities: { $set: merge({}, state.entities, payload.entities) },
   }),
+  // FIXME: store submitting in UI state instead of canonical
   [combineActions(
-    levels.locklevel.request,
-    levels.unlocklevel.request,
+    app.level.lock.request,
+    app.level.unlock.request,
   )]: (state, { payload }) => update(state, {
     entities: { levels: { [payload.id]: { isSubmitting: { $set: true } } } },
   }),
-  [levels.locklevel.success]: (state, { payload }) => update(state, {
+  // FIXME: store submitting in UI state instead of canonical
+  [app.level.lock.success]: (state, { payload }) => update(state, {
     entities: { levels: { [payload.id]: { $merge: { isSubmitting: false, isLocked: true } } } },
   }),
-  [levels.unlocklevel.success]: (state, { payload }) => update(state, {
+  [app.level.unlock.success]: (state, { payload }) => update(state, {
     entities: { levels: { [payload.id]: { $merge: { isSubmitting: false, isLocked: false } } } },
   }),
   [combineActions(
@@ -110,13 +114,16 @@ const appReducer = handleActions({
   )]: (state, { payload }) => update(state, {
     entities: { reviews: { [payload.id]: { $merge: { isHidden: payload.isHidden } } } },
   }),
-  [app.review.synonym.add.success]: (state, { payload }) => update(state, {
-    entities: { reviews: { [payload.reviewId]: { synonyms: { $push: [payload] } } } },
+  [app.synonym.add.success]: (state, { payload }) => update(state, {
+    entities: {
+      reviews: { [payload.reviewId]: { synonyms: { $push: [payload.id] } } },
+      synonyms: { [payload.id]: { $set: payload } } },
   }),
-  [app.review.synonym.remove.success]: (state, { payload: { reviewId, id } }) => update(state, {
-    entities: { reviews: { [reviewId]: { synonyms: { $apply:
-      (synonyms) => synonyms.filter((syn) => syn.id !== id),
-    } } } },
+  [app.synonym.remove.success]: (state, { payload }) => update(state, {
+    entities: {
+      reviews: { [payload.reviewId]: { synonyms: { $apply: (synonyms) => difference(synonyms, [payload.id]) } } },
+      synonyms: { $unset: [payload.id] },
+    },
   }),
 }, initialState);
 

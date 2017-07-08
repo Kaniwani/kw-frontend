@@ -7,8 +7,8 @@ import noop from 'lodash/noop';
 import isNumber from 'lodash/isNumber';
 import titleCase from 'voca/title_case';
 
-import actions from 'containers/VocabLevelsPage/actions';
-import { makeSelectLevel } from 'containers/VocabLevelsPage/selectors';
+import actions from 'containers/App/actions';
+import { makeSelectLevel } from 'containers/App/selectors';
 import { Wrapper, LevelLink, Title, ItemCount, LockedLabel, Button } from './styles';
 
 const isWithinUserWKLevel = (id, userLevel) => isNumber(id) && id <= userLevel;
@@ -81,8 +81,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  lockLevel: (payload) => dispatch(actions.locklevel.request(payload)),
-  unlockLevel: (payload) => dispatch(actions.unlocklevel.request(payload)),
+  lockLevel: (payload) => dispatch(actions.level.lock.request(payload)),
+  unlockLevel: (payload) => dispatch(actions.level.unlock.request(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(enhance(VocabLevel));

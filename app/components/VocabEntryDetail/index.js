@@ -6,8 +6,11 @@ import { compose, withHandlers, branch, renderNothing } from 'recompose';
 import titleCase from 'voca/title_case';
 import getDateInWords from 'utils/getDateInWords';
 import calculatePercentage from 'utils/calculatePercentage';
+import { createStructuredSelector } from 'reselect';
 
-import app from 'containers/App/actions';
+import actions from 'containers/App/actions';
+// move canonical global state selectors back to global >_<
+import { selectReview } from 'containers/VocabEntryPage/selectors';
 
 import H1 from 'base/H1';
 import H3 from 'base/H3';
@@ -45,7 +48,7 @@ const Readings = ({ review }) => (
         />
         <Reading character={reading.character} kana={reading.kana} />
         <SentencePair reading={reading} />
-        <KanjiStroke character={reading.character} />
+        {/* <KanjiStroke character={reading.character} /> */}
       </div>
     ))}
   </div>
@@ -78,7 +81,7 @@ Synonyms.propTypes = {
 const enhanceSynonyms = compose(
   branch(({ synonyms }) => synonyms.length < 0, renderNothing),
   connect(null, (dispatch) => ({
-    addSynonym: (payload) => dispatch(app.review.synonym.add.request(payload)),
+    addSynonym: (payload) => dispatch(actions.review.synonym.add.request(payload)),
   })),
   withHandlers({
     handleAddSynonym: ({ reviewId, addSynonym }) => () =>
@@ -102,8 +105,8 @@ Meaning.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  lockReview: (payload) => dispatch(app.review.lock.request(payload)),
-  unlockReview: (payload) => dispatch(app.review.unlock.request(payload)),
+  lockReview: (payload) => dispatch(actions.review.lock.request(payload)),
+  unlockReview: (payload) => dispatch(actions.review.unlock.request(payload)),
 });
 
 const enhance = compose(
@@ -169,6 +172,9 @@ const correctness = (correct, incorrect) => {
 };
 
 function VocabEntryDetail({ review, handleLockClick }) {
+  // FIXME: don't pass review down! pass ID (or vocab id, reading id, synonym id)
+  // and let the components select only what they need for re-rendering
+  // TODO: flat entities synonyms as well since they have unique ids!!!
   return (
     <div>
       <Meaning review={review} />
@@ -207,4 +213,8 @@ function VocabEntryDetail({ review, handleLockClick }) {
   );
 }
 
-export default enhance(VocabEntryDetail);
+const mapStateToProps = createStructuredSelector({
+  review: selectReview,
+});
+
+export default connect(mapStateToProps, null)(enhance(VocabEntryDetail));

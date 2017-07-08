@@ -3,22 +3,22 @@ import * as api from 'shared/api';
 
 import {
   serializeUserProfile,
+  serializeLevels,
   serializeReviewEntries,
   serializeLevelReviews,
   serializeSynonym,
 } from 'shared/serializers';
 
-import levels from 'containers/VocabLevelsPage/actions';
-import app from './actions';
+import actions from './actions';
 
 export const userLoadLogic = createLogic({
-  type: [app.user.load.request, levels.locklevel.success, levels.unlocklevel.success],
-  cancelType: app.user.load.cancel,
+  type: [actions.user.load.request, actions.actions.level.lock.success, actions.actions.level.unlock.success],
+  cancelType: actions.user.load.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
-    successType: app.user.load.success,
-    failType: app.user.load.failure,
+    successType: actions.user.load.success,
+    failType: actions.user.load.failure,
   },
 
   process() {
@@ -27,15 +27,61 @@ export const userLoadLogic = createLogic({
   },
 });
 
-// TODO: move to review session
+export const levelsLoadLogic = createLogic({
+  type: actions.levels.load.request,
+  cancelType: actions.levels.load.cancel,
+  latest: true,
+  warnTimeout: 10000,
+  processOptions: {
+    successType: actions.levels.load.success,
+    failType: actions.levels.load.failure,
+  },
+
+  process() {
+    return api.getLevels()
+      .then((response) => serializeLevels(response));
+  },
+});
+
+export const levelLockLogic = createLogic({
+  type: actions.level.lock.request,
+  cancelType: actions.level.lock.cancel,
+  warnTimeout: 10000,
+  processOptions: {
+    successType: actions.level.lock.success,
+    failType: actions.level.lock.failure,
+  },
+
+  process({ action: { payload: { id } } }) {
+    return api.lockLevel(id)
+      .then(() => ({ id }));
+  },
+});
+
+export const levelUnlockLogic = createLogic({
+  type: actions.level.unlock.request,
+  cancelType: actions.level.unlock.cancel,
+  warnTimeout: 10000,
+  processOptions: {
+    successType: actions.level.unlock.success,
+    failType: actions.level.unlock.failure,
+  },
+
+  process({ action: { payload: { id } } }) {
+    return api.unlockLevel(id)
+      .then(() => ({ id }));
+  },
+});
+
+
 export const reviewsLoadLogic = createLogic({
-  type: app.reviews.load.request,
-  cancelType: app.reviews.load.cancel,
+  type: actions.reviews.load.request,
+  cancelType: actions.reviews.load.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
-    successType: app.reviews.load.success,
-    failType: app.reviews.load.failure,
+    successType: actions.reviews.load.success,
+    failType: actions.reviews.load.failure,
   },
 
   process({ action: { payload: { id } } }) {
@@ -45,13 +91,13 @@ export const reviewsLoadLogic = createLogic({
 });
 
 export const reviewLoadLogic = createLogic({
-  type: app.review.load.request,
-  cancelType: app.review.load.cancel,
+  type: actions.review.load.request,
+  cancelType: actions.review.load.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
-    successType: app.review.load.success,
-    failType: app.review.load.failure,
+    successType: actions.review.load.success,
+    failType: actions.review.load.failure,
   },
 
   process({ action: { payload: { id } } }) {
@@ -64,13 +110,13 @@ export const reviewLoadLogic = createLogic({
 });
 
 export const reviewLockLogic = createLogic({
-  type: app.review.lock.request,
-  cancelType: app.review.lock.cancel,
+  type: actions.review.lock.request,
+  cancelType: actions.review.lock.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
-    successType: app.review.lock.success,
-    failType: app.review.lock.failure,
+    successType: actions.review.lock.success,
+    failType: actions.review.lock.failure,
   },
 
   process({ action: { payload: { id } } }) {
@@ -80,13 +126,13 @@ export const reviewLockLogic = createLogic({
 });
 
 export const reviewUnlockLogic = createLogic({
-  type: app.review.unlock.request,
-  cancelType: app.review.unlock.cancel,
+  type: actions.review.unlock.request,
+  cancelType: actions.review.unlock.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
-    successType: app.review.unlock.success,
-    failType: app.review.unlock.failure,
+    successType: actions.review.unlock.success,
+    failType: actions.review.unlock.failure,
   },
 
   process({ action: { payload: { id } } }) {
@@ -96,13 +142,13 @@ export const reviewUnlockLogic = createLogic({
 });
 
 export const addSynonymLogic = createLogic({
-  type: app.review.synonym.add.request,
-  cancelType: app.review.synonym.add.cancel,
+  type: actions.review.synonym.add.request,
+  cancelType: actions.review.synonym.add.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
-    successType: app.review.synonym.add.success,
-    failType: app.review.synonym.add.failure,
+    successType: actions.review.synonym.add.success,
+    failType: actions.review.synonym.add.failure,
   },
 
   process({ action: { payload: { reviewId, character, kana } } }) {
@@ -112,13 +158,13 @@ export const addSynonymLogic = createLogic({
 });
 
 export const removeSynonymLogic = createLogic({
-  type: app.review.synonym.remove.request,
-  cancelType: app.review.synonym.remove.cancel,
+  type: actions.review.synonym.remove.request,
+  cancelType: actions.review.synonym.remove.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
-    successType: app.review.synonym.remove.success,
-    failType: app.review.synonym.remove.failure,
+    successType: actions.review.synonym.remove.success,
+    failType: actions.review.synonym.remove.failure,
   },
 
   process({ action: { payload: { id, reviewId } } }) {
@@ -129,13 +175,13 @@ export const removeSynonymLogic = createLogic({
 
 // TODO: move to vocabLevelPage
 export const levelLoadLogic = createLogic({
-  type: app.level.load.request,
-  cancelType: app.level.load.cancel,
+  type: actions.level.load.request,
+  cancelType: actions.level.load.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
-    successType: app.level.load.success,
-    failType: app.level.load.failure,
+    successType: actions.level.load.success,
+    failType: actions.level.load.failure,
   },
 
   process({ action: { payload: { id } } }) {
@@ -147,6 +193,9 @@ export const levelLoadLogic = createLogic({
 // All logic to be loaded
 export default [
   userLoadLogic,
+  levelsLoadLogic,
+  levelLockLogic,
+  levelUnlockLogic,
   reviewsLoadLogic,
   reviewLoadLogic,
   addSynonymLogic,
