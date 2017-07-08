@@ -109,7 +109,13 @@ const uiReducer = handleActions({
     app.level.lock.request,
     app.level.unlock.request,
   )]: (state, { payload }) => update(state, {
-    levels: { submitting: { $push: [payload.id] } },
+    level: { submitting: { $push: [payload.id] } },
+  }),
+  [combineActions(
+    app.level.lock.success,
+    app.level.unlock.success,
+  )]: (state, { payload }) => update(state, {
+    level: { submitting: { $apply: (ids) => difference(ids, [payload.id]) } },
   }),
 }, uiState);
 

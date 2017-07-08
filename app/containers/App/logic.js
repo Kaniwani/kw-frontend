@@ -72,6 +72,7 @@ const levelLockLogic = createLogic({
   },
 
   process({ action: { payload: { id } } }) {
+    console.log(id);
     return api.lockLevel({ id })
       .then(() => ({ id }));
   },
@@ -87,6 +88,7 @@ const levelUnlockLogic = createLogic({
   },
 
   process({ action: { payload: { id } } }) {
+    console.log(id);
     return api.unlockLevel({ id })
       .then(() => ({ id }));
   },

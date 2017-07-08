@@ -17,16 +17,16 @@ import {
 import { Wrapper, LevelLink, Title, ItemCount, LockedLabel, Button } from './styles';
 
 
-// const enhance = compose(
-//   withHandlers({
-//     handleLockClick: ({ id, isActionable, isLocked, lockLevel, unlockLevel }) => () => {
-//       if (isActionable && !isLocked) return lockLevel({ id });
-//       if (isActionable && isLocked) return unlockLevel({ id });
-//       return noop;
-//     },
-//   }),
-//   // pure,
-// );
+const enhance = compose(
+  withHandlers({
+    handleLockClick: ({ id, isActionable, isLocked, lockLevel, unlockLevel }) => () => {
+      if (isActionable && !isLocked) return lockLevel({ id });
+      if (isActionable && isLocked) return unlockLevel({ id });
+      return noop;
+    },
+  }),
+  // pure,
+);
 
 VocabLevel.propTypes = {
   id: PropTypes.oneOfType([
@@ -44,7 +44,7 @@ VocabLevel.propTypes = {
   handleLockClick: PropTypes.func.isRequired,
 };
 
-function VocabLevel({ id, title, count, isLocked, isSubmitting, isActionable, unlockLevel, handleLockClick }) {
+function VocabLevel({ id, title, count, isLocked, isSubmitting, isActionable, handleLockClick }) {
   return (
     <Wrapper
       isLocked={isLocked}
@@ -64,7 +64,7 @@ function VocabLevel({ id, title, count, isLocked, isSubmitting, isActionable, un
         isLocked={isLocked}
         isSubmitting={isSubmitting}
         isActionable={isActionable}
-        handleClick={() => unlockLevel('4')}
+        handleClick={handleLockClick}
       />
     </Wrapper>
   );
@@ -83,4 +83,4 @@ const mapDispatchToProps = (dispatch) => ({
   unlockLevel: (payload) => dispatch(actions.level.unlock.request(payload)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(VocabLevel);
+export default connect(mapStateToProps, mapDispatchToProps)(enhance(VocabLevel));

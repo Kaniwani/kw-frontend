@@ -28,6 +28,7 @@ class SiteHeader extends React.Component {
 
   state = {
     headerHeight: 70, // ballpark fallback
+    // FIXME: NOPE! UI redux state instead
     offCanvasMenuActive: false,
     offCanvasToggleVisible: false,
   };
@@ -37,7 +38,7 @@ class SiteHeader extends React.Component {
     window.addEventListener('resize', this.handleResize);
   }
 
-  // FIXME: navlinks don't have active state?
+  // FIXME: navlinks don't have active state? probably need a ConnectedSwitch
   shouldComponentUpdate({ reviewCount, lessonCount }) {
     console.log(reviewCount, this.props.reviewCount, lessonCount, this.props.lessonCount);
     if (
@@ -68,6 +69,8 @@ class SiteHeader extends React.Component {
 
   handleToggle = (event) => {
     event.stopPropagation();
+    // FIXME: nope nope nope, ui state, dispatch action!
+    // also dispatch hiding of menu on navlink click
     this.setState((prevState) => ({
       offCanvasMenuActive: !prevState.offCanvasMenuActive,
     }));
