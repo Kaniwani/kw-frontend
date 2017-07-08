@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { compose, withHandlers, shouldUpdate } from 'recompose';
+import { compose, pure, withHandlers, shouldUpdate } from 'recompose';
 import { createStructuredSelector } from 'reselect';
 import noop from 'lodash/noop';
 import isEqual from 'lodash/isEqual';
-
 
 import actions from 'containers/App/actions';
 import {
@@ -18,16 +17,16 @@ import {
 import { Wrapper, LevelLink, Title, ItemCount, LockedLabel, Button } from './styles';
 
 
-const enhance = compose(
-  withHandlers({
-    handleLockClick: ({ id, isActionable, isLocked, lockLevel, unlockLevel }) => {
-      if (isActionable && !isLocked) return () => lockLevel({ id });
-      if (isActionable && isLocked) return () => unlockLevel({ id });
-      return noop;
-    },
-  }),
-  shouldUpdate((props, nextProps) => !isEqual(props, nextProps)),
-);
+// const enhance = compose(
+//   withHandlers({
+//     handleLockClick: ({ id, isActionable, isLocked, lockLevel, unlockLevel }) => () => {
+//       if (isActionable && !isLocked) return lockLevel({ id });
+//       if (isActionable && isLocked) return unlockLevel({ id });
+//       return noop;
+//     },
+//   }),
+//   // pure,
+// );
 
 VocabLevel.propTypes = {
   id: PropTypes.oneOfType([
@@ -45,7 +44,7 @@ VocabLevel.propTypes = {
   handleLockClick: PropTypes.func.isRequired,
 };
 
-function VocabLevel({ id, title, count, isLocked, isSubmitting, isActionable, handleLockClick }) {
+function VocabLevel({ id, title, count, isLocked, isSubmitting, isActionable, unlockLevel, handleLockClick }) {
   return (
     <Wrapper
       isLocked={isLocked}
@@ -65,7 +64,7 @@ function VocabLevel({ id, title, count, isLocked, isSubmitting, isActionable, ha
         isLocked={isLocked}
         isSubmitting={isSubmitting}
         isActionable={isActionable}
-        handleClick={handleLockClick}
+        handleClick={() => unlockLevel('4')}
       />
     </Wrapper>
   );
@@ -84,4 +83,4 @@ const mapDispatchToProps = (dispatch) => ({
   unlockLevel: (payload) => dispatch(actions.level.unlock.request(payload)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(enhance(VocabLevel));
+export default connect(mapStateToProps, mapDispatchToProps)(VocabLevel);

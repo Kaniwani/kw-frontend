@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import debounce from 'lodash/debounce';
 import { clearToken } from 'utils/auth';
@@ -34,9 +35,9 @@ class SiteHeader extends React.Component {
   componentDidMount() {
     this.handleResize();
     window.addEventListener('resize', this.handleResize);
-    window.addEventListener('click', this.hideOffCanvasMenu);
   }
 
+  // FIXME: navlinks don't have active state?
   shouldComponentUpdate({ reviewCount, lessonCount }) {
     console.log(reviewCount, this.props.reviewCount, lessonCount, this.props.lessonCount);
     if (
@@ -50,7 +51,6 @@ class SiteHeader extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
-    window.removeEventListener('click', this.hideOffCanvasMenu);
   }
 
   handleResize = debounce(() => {
@@ -130,4 +130,4 @@ const mapStateToProps = createStructuredSelector({
   reviewCount: selectReviewCount,
 });
 
-export default connect(mapStateToProps)(SiteHeader);
+export default withRouter(connect(mapStateToProps)(SiteHeader));
