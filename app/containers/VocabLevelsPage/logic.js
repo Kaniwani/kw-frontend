@@ -35,7 +35,7 @@ export const levelLockLogic = createLogic({
   },
 
   process({ action: { payload: { id } } }) {
-    return lockLevel(id)
+    return lockLevel({ id })
       .then(() => ({ id }));
   },
 });
@@ -50,7 +50,7 @@ export const levelUnlockLogic = createLogic({
   },
 
   process({ action: { payload: { id } } }) {
-    return unlockLevel(id)
+    return unlockLevel({ id })
       .then(() => ({ id }));
   },
 });
