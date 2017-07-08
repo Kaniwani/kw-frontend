@@ -126,31 +126,28 @@ const entitiesReducer = handleActions({
     session.queue.load.success,
     app.level.load.success,
     app.levels.load.success,
-  )]: (state, { payload }) => update(state, {
-    entities: { $set: merge({}, state.entities, payload.entities) },
-  }),
+  )]: (state, { payload }) => merge({}, state, payload.entities),
   [app.level.lock.success]: (state, { payload }) => update(state, {
-    entities: { levels: { [payload.id]: { isLocked: { $set: true } } } },
+    levels: { [payload.id]: { isLocked: { $set: true } } },
   }),
   [app.level.unlock.success]: (state, { payload }) => update(state, {
-    entities: { levels: { [payload.id]: { isLocked: { $set: false } } } },
+    levels: { [payload.id]: { isLocked: { $set: false } } },
   }),
   [combineActions(
     app.review.lock.success,
     app.review.unlock.success,
   )]: (state, { payload }) => update(state, {
-    entities: { reviews: { [payload.id]: { isHidden: { $set: payload.isHidden } } } },
+    reviews: { [payload.id]: { isHidden: { $set: payload.isHidden } } },
   }),
   [app.synonym.add.success]: (state, { payload }) => update(state, {
-    entities: {
-      reviews: { [payload.reviewId]: { synonyms: { $push: [payload.id] } } },
-      synonyms: { [payload.id]: { $set: payload } } },
+    reviews: { [payload.reviewId]: { synonyms: { $push: [payload.id] } } },
+    synonyms: { [payload.id]: { $set: payload } },
   }),
   [app.synonym.remove.success]: (state, { payload }) => update(state, {
-    entities: {
-      reviews: { [payload.reviewId]: { synonyms: { $apply: (synonyms) => difference(synonyms, [payload.id]) } } },
-      synonyms: { $unset: [payload.id] },
+    reviews: { [payload.reviewId]: { synonyms: {
+      $apply: (synonyms) => difference(synonyms, [payload.id]) } },
     },
+    synonyms: { $unset: [payload.id] },
   }),
 }, entitiesState);
 

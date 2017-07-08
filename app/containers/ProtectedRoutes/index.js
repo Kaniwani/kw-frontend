@@ -42,20 +42,15 @@ export class ProtectedRoutes extends React.Component {
           <Route exact path="/contact" component={ContactPage} />
           <Route exact path="/settings" component={SettingsPage} />
           <Redirect exact path="/logout" to="/welcome" />
-          <Route path="/lessons">
+          <Route path="/:category(lessons|reviews)">
             <Switch>
               <Route exact path="/:category/session" component={SessionPage} />
               <Route exact path="/:category" component={SessionSummaryPage} />
+              <Route path="" component={NotFoundPage} />
             </Switch>
           </Route>
-          <Route path="/reviews">
-            <Switch>
-              <Route exact path="/:category/session" component={SessionPage} />
-              <Route exact path="/:category" component={SessionSummaryPage} />
-            </Switch>
-          </Route>
-          <Route exact path="/vocabulary" component={VocabLevelsPage} />
-          <Route exact path="/vocabulary/level/:id" component={VocabLevelPage} />
+          <Route exact path="/vocabulary/levels" component={VocabLevelsPage} />
+          <Route exact path="/vocabulary/levels/:id" component={VocabLevelPage} />
           <Route exact path="/vocabulary/entry/:id" component={VocabEntryPage} />
           <Route path="" component={NotFoundPage} />
         </Switch>

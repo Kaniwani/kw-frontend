@@ -16,10 +16,12 @@ import { Header, Nav } from './styles';
 
 class SiteHeader extends React.Component {
   static propTypes = {
+    lessonCount: PropTypes.number,
     reviewCount: PropTypes.number,
   };
 
   static defaultProps = {
+    lessonCount: 0,
     reviewCount: 0,
   };
 
@@ -33,6 +35,17 @@ class SiteHeader extends React.Component {
     this.handleResize();
     window.addEventListener('resize', this.handleResize);
     window.addEventListener('click', this.hideOffCanvasMenu);
+  }
+
+  shouldComponentUpdate({ reviewCount, lessonCount }) {
+    console.log(reviewCount, this.props.reviewCount, lessonCount, this.props.lessonCount);
+    if (
+      reviewCount === this.props.reviewCount &&
+      lessonCount === this.props.lessonCount
+    ) {
+      return false;
+    }
+    return true;
   }
 
   componentWillUnmount() {
@@ -69,15 +82,15 @@ class SiteHeader extends React.Component {
     const isWideViewport = !this.state.offCanvasToggleVisible;
     let onCanvasRoutes = [
       // { text: 'lessons', count: this.props.lessonCount },
-      { text: 'reviews', count: this.props.reviewCount },
-      { text: 'vocabulary' },
+      { text: 'reviews', route: '/reviews', count: this.props.reviewCount },
+      { text: 'vocabulary', route: '/vocabulary/levels' },
     ];
 
     let offCanvasRoutes = [
-      { text: 'settings' },
-      { text: 'about' },
-      { text: 'contact' },
-      { text: 'logout' },
+      { text: 'settings', route: '/settings' },
+      { text: 'about', route: '/about' },
+      { text: 'contact', route: '/contact' },
+      { text: 'logout', route: '/logout' },
     ];
 
     // show all routes in main menu if large screen
@@ -91,7 +104,7 @@ class SiteHeader extends React.Component {
         <Nav>
           <LogoLink />
           <OnCanvasMenu
-            routes={onCanvasRoutes}
+            links={onCanvasRoutes}
             handleLogout={this.handleLogout}
           />
           <OffCanvasToggle
@@ -102,7 +115,7 @@ class SiteHeader extends React.Component {
           />
           <OffCanvasMenu
             id="offCanvasMenu"
-            routes={offCanvasRoutes}
+            links={offCanvasRoutes}
             offsetTop={this.state.headerHeight}
             isVisible={this.state.offCanvasMenuActive}
             handleLogout={this.handleLogout}

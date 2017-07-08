@@ -247,6 +247,5 @@ function serializeLevel({
     id: +level,
     count: +count,
     isLocked: !unlocked,
-    isSubmitting: false, // FIXME: don't add to canonical data, store in UI state
   };
 }

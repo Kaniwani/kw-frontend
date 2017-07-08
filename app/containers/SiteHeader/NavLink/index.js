@@ -5,13 +5,19 @@ import { Li, Link, LinkButton, Text, Count } from './styles';
 
 NavLink.propTypes = {
   text: PropTypes.string.isRequired,
+  route: PropTypes.string.isRequired,
   isOffCanvas: PropTypes.bool.isRequired,
   handleLogout: PropTypes.func.isRequired,
   count: PropTypes.number,
 };
 
+NavLink.defaultProps = {
+  count: 0,
+};
+
 function NavLink({
   text,
+  route,
   count,
   isOffCanvas,
   handleLogout,
@@ -27,7 +33,7 @@ function NavLink({
       ) : (
         <Link
           plainLink
-          to={`/${text}`}
+          to={route}
         >
           <Text>
             {text}

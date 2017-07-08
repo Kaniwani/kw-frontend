@@ -6,19 +6,19 @@ import NavLink from '../NavLink';
 import { Ul } from './styles';
 
 OnCanvasMenu.propTypes = {
-  routes: PropTypes.array.isRequired,
+  links: PropTypes.array.isRequired,
   handleLogout: PropTypes.func.isRequired,
 };
 
-function OnCanvasMenu({ routes, handleLogout }) {
+function OnCanvasMenu({ links, handleLogout }) {
   return (
     <Ul>
-      {routes.map((route) => (
+      {links.map((link) => (
         <NavLink
           key={cuid()}
           handleLogout={handleLogout}
           isOffCanvas={false}
-          {...route}
+          {...link}
         />
       ))}
     </Ul>

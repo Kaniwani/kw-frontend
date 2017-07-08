@@ -1,29 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { compose, withHandlers, mapProps, shouldUpdate } from 'recompose';
+import { compose, withHandlers, shouldUpdate } from 'recompose';
 import { createStructuredSelector } from 'reselect';
 import noop from 'lodash/noop';
 import isEqual from 'lodash/isEqual';
-import isNumber from 'lodash/isNumber';
-import titleCase from 'voca/title_case';
+
 
 import actions from 'containers/App/actions';
-import { makeSelectLevel } from 'containers/App/selectors';
+import {
+  selectLevelCount,
+  selectLevelTitle,
+  selectLevelLocked,
+  selectLevelActionable,
+  selectLevelSubmitting,
+ } from 'containers/App/selectors';
 import { Wrapper, LevelLink, Title, ItemCount, LockedLabel, Button } from './styles';
 
 
 const enhance = compose(
-  mapProps(({ userLevel, lockLevel, unlockLevel, level: { id, count, isSubmitting, isLocked } }) => ({
-    isActionable: !isSubmitting && (isWithinUserWKLevel(id, userLevel) || isNotNumberedLevel(id)),
-    title: isNotNumberedLevel(id) ? titleCase(id) : id,
-    id,
-    count,
-    isLocked,
-    isSubmitting,
-    lockLevel,
-    unlockLevel,
-  })),
   withHandlers({
     handleLockClick: ({ id, isActionable, isLocked, lockLevel, unlockLevel }) => {
       if (isActionable && !isLocked) return () => lockLevel({ id });
@@ -77,7 +72,11 @@ function VocabLevel({ id, title, count, isLocked, isSubmitting, isActionable, ha
 }
 
 const mapStateToProps = createStructuredSelector({
-  level: makeSelectLevel(),
+  title: selectLevelTitle,
+  count: selectLevelCount,
+  isLocked: selectLevelLocked,
+  isActionable: selectLevelActionable,
+  isSubmitting: selectLevelSubmitting,
 });
 
 const mapDispatchToProps = (dispatch) => ({
