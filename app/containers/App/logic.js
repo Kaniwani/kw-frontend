@@ -48,6 +48,7 @@ const reloadSessionCountsLogic = createLogic({
 const levelsLoadLogic = createLogic({
   type: actions.levels.load.request,
   cancelType: actions.levels.load.cancel,
+  throttle: 60000,
   latest: true,
   warnTimeout: 10000,
   processOptions: {

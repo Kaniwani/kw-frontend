@@ -1,18 +1,21 @@
 import React from 'react';
-import { compose, branch, renderNothing, renderComponent } from 'recompose';
+import { compose, branch, renderComponent } from 'recompose';
 
+import LoadingIndicator from 'components/LoadingIndicator';
 import VocabCardList from 'components/VocabCardList';
 import VocabChipList from 'components/VocabChipList';
 
+const noIds = ({ ids }) => ids.length <= 0;
+const expandedCards = ({ isExpanded }) => isExpanded;
 const enhance = compose(
   branch(
-    ({ ids }) => ids.length <= 0,
-    renderNothing,
+    noIds,
+    renderComponent(LoadingIndicator),
     branch(
-      ({ isExpanded }) => isExpanded,
+      expandedCards,
       renderComponent(VocabCardList),
       renderComponent(VocabChipList),
-    )
+    ),
   ),
 );
 

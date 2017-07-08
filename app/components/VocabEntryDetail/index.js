@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import uuid from 'uuid';
-import { compose, withHandlers, branch, renderNothing } from 'recompose';
+import { compose, withHandlers, branch, renderNothing, renderComponent } from 'recompose';
 import titleCase from 'voca/title_case';
 import getDateInWords from 'utils/getDateInWords';
 import calculatePercentage from 'utils/calculatePercentage';
@@ -17,6 +17,7 @@ import Container from 'base/Container';
 import Element from 'base/Element';
 import P from 'base/P';
 import LockButton from 'components/LockButton';
+import LoadingIndicator from 'components/LoadingIndicator';
 import Button from 'base/Button';
 import ReadingHeader from 'components/ReadingHeader';
 import SynonymHeader from 'components/SynonymHeader';
@@ -111,7 +112,7 @@ Meanings.propTypes = {
 
 
 const enhance = compose(
-  branch(({ review }) => !review, renderNothing),
+  branch(({ review }) => !review, renderComponent(LoadingIndicator)),
   withHandlers({
     handleLockClick: ({ review: { id, isHidden }, lockReview, unlockReview }) => () =>
       isHidden ? unlockReview({ id }) : lockReview({ id }),

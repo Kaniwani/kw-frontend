@@ -69,11 +69,9 @@ export class VocabLevelPage extends React.Component { // eslint-disable-line rea
               handleToggle: this.toggleVocabListType,
             }}
           />
-          {reviewIds && (
-            <VocabListWrapper>
-              <VocabList ids={reviewIds} isExpanded={this.state.vocabListExpanded} />
-            </VocabListWrapper>
-          )}
+          <VocabListWrapper>
+            <VocabList ids={reviewIds} isExpanded={this.state.vocabListExpanded} />
+          </VocabListWrapper>
         </PageWrapper>
       </div>
     );
