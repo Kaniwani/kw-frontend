@@ -12,7 +12,7 @@ import {
 import actions from './actions';
 
 export const userLoadLogic = createLogic({
-  type: [actions.user.load.request, actions.actions.level.lock.success, actions.actions.level.unlock.success],
+  type: [actions.user.load.request, actions.level.lock.success, actions.level.unlock.success],
   cancelType: actions.user.load.cancel,
   warnTimeout: 10000,
   latest: true,
@@ -53,7 +53,7 @@ export const levelLockLogic = createLogic({
   },
 
   process({ action: { payload: { id } } }) {
-    return api.lockLevel(id)
+    return api.lockLevel({ id })
       .then(() => ({ id }));
   },
 });
@@ -68,7 +68,7 @@ export const levelUnlockLogic = createLogic({
   },
 
   process({ action: { payload: { id } } }) {
-    return api.unlockLevel(id)
+    return api.unlockLevel({ id })
       .then(() => ({ id }));
   },
 });
@@ -142,13 +142,13 @@ export const reviewUnlockLogic = createLogic({
 });
 
 export const addSynonymLogic = createLogic({
-  type: actions.review.synonym.add.request,
-  cancelType: actions.review.synonym.add.cancel,
+  type: actions.synonym.add.request,
+  cancelType: actions.synonym.add.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
-    successType: actions.review.synonym.add.success,
-    failType: actions.review.synonym.add.failure,
+    successType: actions.synonym.add.success,
+    failType: actions.synonym.add.failure,
   },
 
   process({ action: { payload: { reviewId, character, kana } } }) {
@@ -158,13 +158,13 @@ export const addSynonymLogic = createLogic({
 });
 
 export const removeSynonymLogic = createLogic({
-  type: actions.review.synonym.remove.request,
-  cancelType: actions.review.synonym.remove.cancel,
+  type: actions.synonym.remove.request,
+  cancelType: actions.synonym.remove.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
-    successType: actions.review.synonym.remove.success,
-    failType: actions.review.synonym.remove.failure,
+    successType: actions.synonym.remove.success,
+    failType: actions.synonym.remove.failure,
   },
 
   process({ action: { payload: { id, reviewId } } }) {

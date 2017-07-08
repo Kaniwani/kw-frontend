@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import pick from 'lodash/pick';
-import { denormalizeReview, denormalizeReviews } from 'shared/schemas';
+import { denormalizeReview, denormalizeReviews } from 'shared/serializers';
 import {
   selectEntities,
   selectReviewCount,

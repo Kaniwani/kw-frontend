@@ -8,18 +8,19 @@ import PageWrapper from 'base/PageWrapper';
 import VocabPageHeader from 'components/VocabPageHeader';
 import VocabLevelsList from 'components/VocabLevelsList';
 
-import actions from './actions';
-import { selectLevels, selectUserLevel } from './selectors';
+import actions from 'containers/App/actions';
+import { selectLevelIds } from 'containers/App/selectors';
 
 export class VocabLevelsPage extends React.Component {
   static propTypes = {
-    userLevel: PropTypes.number.isRequired,
     levels: PropTypes.array.isRequired,
-    levelsLoad: PropTypes.func.isRequired,
+    loadLevels: PropTypes.func.isRequired,
   }
 
   componentDidMount() {
-    this.props.levelsLoad();
+    if (!this.props.levels.length) {
+      this.props.loadLevels();
+    }
   }
 
   render() {
@@ -31,14 +32,8 @@ export class VocabLevelsPage extends React.Component {
           <meta name="description" content={`Kaniwani ${PAGE_TITLE}`} />
         </Helmet>
         <PageWrapper>
-          <VocabPageHeader
-            pageTitle={PAGE_TITLE}
-            withVocabListToggle={false}
-          />
-          <VocabLevelsList
-            levels={this.props.levels}
-            userLevel={this.props.userLevel}
-          />
+          <VocabPageHeader pageTitle={PAGE_TITLE} withVocabListToggle={false} />
+          <VocabLevelsList levels={this.props.levels} />
         </PageWrapper>
       </div>
     );
@@ -46,12 +41,11 @@ export class VocabLevelsPage extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  levels: selectLevels,
-  userLevel: selectUserLevel,
+  levels: selectLevelIds,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  levelsLoad: () => dispatch(actions.load.request()),
+  loadLevels: () => dispatch(actions.levels.load.request()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VocabLevelsPage);

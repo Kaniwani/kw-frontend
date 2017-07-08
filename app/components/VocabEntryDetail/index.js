@@ -9,8 +9,7 @@ import calculatePercentage from 'utils/calculatePercentage';
 import { createStructuredSelector } from 'reselect';
 
 import actions from 'containers/App/actions';
-// move canonical global state selectors back to global >_<
-import { selectReview } from 'containers/VocabEntryPage/selectors';
+import { selectReviewById } from 'containers/App/selectors';
 
 import H1 from 'base/H1';
 import H3 from 'base/H3';
@@ -214,7 +213,7 @@ function VocabEntryDetail({ review, handleLockClick }) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  review: selectReview,
+  review: selectReviewById,
 });
 
 export default connect(mapStateToProps, null)(enhance(VocabEntryDetail));

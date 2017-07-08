@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { compose, withHandlers, mapProps } from 'recompose';
+import { compose, shouldUpdate, withHandlers, mapProps } from 'recompose';
 import { createStructuredSelector } from 'reselect';
 import noop from 'lodash/noop';
 import isNumber from 'lodash/isNumber';
+import isEqual from 'lodash/isEqual';
 import titleCase from 'voca/title_case';
 
 import actions from 'containers/App/actions';
-import { makeSelectLevel } from 'containers/App/selectors';
+import { makeSelectLevel, selectUserLevel } from 'containers/App/selectors';
 import { Wrapper, LevelLink, Title, ItemCount, LockedLabel, Button } from './styles';
 
 const isWithinUserWKLevel = (id, userLevel) => isNumber(id) && id <= userLevel;
@@ -32,6 +33,7 @@ const enhance = compose(
       return noop;
     },
   }),
+  shouldUpdate((props, nextProps) => !isEqual(props, nextProps)),
 );
 
 VocabLevel.propTypes = {
@@ -78,6 +80,7 @@ function VocabLevel({ id, title, count, isLocked, isSubmitting, isActionable, ha
 
 const mapStateToProps = createStructuredSelector({
   level: makeSelectLevel(),
+  userLevel: selectUserLevel,
 });
 
 const mapDispatchToProps = (dispatch) => ({
