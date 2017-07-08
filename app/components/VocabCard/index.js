@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import * as COLORS from 'shared/styles/colors';
-import { makeSelectMeaningsById, makeSelectReadingsById } from 'containers/App/selectors';
-
 import { Li, Link, Dl } from './styles';
 
 VocabCard.propTypes = {
@@ -41,8 +39,8 @@ function VocabCard({ color, id, meanings, readings }) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  meanings: makeSelectMeaningsById(),
-  readings: makeSelectReadingsById(),
+  meanings: (state, { id }) => state.global.entities.reviews[id].vocabulary.meanings,
+  readings: (state, { id }) => state.global.entities.reviews[id].vocabulary.readings,
 });
 
 export default connect(mapStateToProps)(VocabCard);

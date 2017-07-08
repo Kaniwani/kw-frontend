@@ -11,7 +11,7 @@ SynonymHeader.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  removeSynonym: (payload) => dispatch(actions.review.synonym.remove.request(payload)),
+  removeSynonym: (payload) => dispatch(actions.synonym.remove.request(payload)),
 });
 
 const enhance = compose(

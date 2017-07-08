@@ -25,16 +25,7 @@ const toUniqueStringsArray = (data) => {
   return uniq(asArray);
 };
 
-const readingSchema = new schema.Entity('readings');
-const synonymSchema = new schema.Entity('synonyms');
-const vocabularySchema = new schema.Entity('vocabulary', {
-  readings: [readingSchema],
-});
-const reviewSchema = new schema.Entity('reviews', {
-  synonyms: [synonymSchema],
-  vocabulary: vocabularySchema,
-});
-
+const reviewSchema = new schema.Entity('reviews');
 const levelSchema = new schema.Entity('levels', {
   reviews: [reviewSchema],
 });

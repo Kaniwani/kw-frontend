@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import isNumber from 'lodash/isNumber';
+import calculatePercentage from 'utils/calculatePercentage';
 import titleCase from 'voca/title_case';
 
 export const selectError = (state) => state.global.ui.error;
@@ -26,11 +27,6 @@ export const createSelectEntityById = (entity, id) => createSelector(
 );
 
 export const selectReview = (state, props) => createSelectEntityById('reviews', props.id)(state);
-
-// whaaaa
-export const makeSelectReadingsByReviewId = () => createSelector();
-export const makeSelectMeaningsByReviewId = () => createSelector();
-
 export const selectIdFromParams = (_, props) => props.match.params.id;
 
 export const selectLevels = createSelectEntities('levels');
@@ -61,11 +57,48 @@ export const selectLevelLocked = createSelector(
   (level) => level.isLocked,
 );
 
-//
-// // VocabLevelPage
-// import pick from 'lodash/pick';
-//
-// const makeSelectLevelReviews = () => createSelector(
-//   [makeSelectLevel()],
-//   (level) => level && levels.ids || [],
-// );
+export const selectReviewCorrect = createSelector(
+  selectReview,
+  (review) => review && review.correct
+);
+export const selectReviewIncorrect = createSelector(
+  selectReview,
+  (review) => review && review.incorrect
+);
+export const selectReviewMeanings = createSelector(
+  selectReview,
+  (review) => review && review.vocabulary.meanings,
+);
+export const selectReviewReadings = createSelector(
+  selectReview,
+  (review) => review && review.vocabulary.readings,
+);
+
+const generateToolTip = (correct, incorrect, meanings, readings) => {
+  const correctnessText = () => {
+    const total = correct + incorrect;
+    const previouslyAnswered = total > 0;
+    return `${previouslyAnswered ? `${calculatePercentage(correct, total)}%` : '<small>N/A</small>'}`;
+  };
+  return `
+  <ul>
+    <li>
+      <span>JA </span>
+      <span lang="ja">${readings[0].kana[0]}</span>
+    </li>
+    <li>
+      <span>EN</span>
+      <span>${titleCase(meanings[0])}</span>
+    </li>
+    <li>
+      <span>RC</span>
+      <span>${correctnessText(correct, incorrect)}</span>
+    </li>
+  </ul>
+  `;
+};
+
+export const selectVocabChipToolTipMarkup = createSelector(
+  [selectReviewCorrect, selectReviewIncorrect, selectReviewMeanings, selectReviewReadings],
+  generateToolTip,
+);

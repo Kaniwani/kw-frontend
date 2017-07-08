@@ -58,9 +58,6 @@ const userState = {
 
 const entitiesState = {
   reviews: {},
-  synonyms: {},
-  vocabulary: {},
-  readings: {},
   levels: {},
 };
 
@@ -146,14 +143,12 @@ const entitiesReducer = handleActions({
     reviews: { [payload.id]: { isHidden: { $set: payload.isHidden } } },
   }),
   [app.synonym.add.success]: (state, { payload }) => update(state, {
-    reviews: { [payload.reviewId]: { synonyms: { $push: [payload.id] } } },
-    synonyms: { [payload.id]: { $set: payload } },
+    reviews: { [payload.reviewId]: { synonyms: { $push: [payload] } } },
   }),
   [app.synonym.remove.success]: (state, { payload }) => update(state, {
-    reviews: { [payload.reviewId]: { synonyms: {
-      $apply: (synonyms) => difference(synonyms, [payload.id]) } },
+    reviews: { [payload.reviewId]: {
+      synonyms: { $apply: (synonyms) => synonyms.filter((synonym) => synonym.id !== payload.id) } },
     },
-    synonyms: { $unset: [payload.id] },
   }),
 }, entitiesState);
 

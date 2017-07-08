@@ -9,7 +9,7 @@ import calculatePercentage from 'utils/calculatePercentage';
 import { createStructuredSelector } from 'reselect';
 
 import actions from 'containers/App/actions';
-import { selectReviewById } from 'containers/App/selectors';
+import { selectReview, selectReviewMeanings, selectReviewReadings } from 'containers/App/selectors';
 
 import H1 from 'base/H1';
 import H3 from 'base/H3';
@@ -35,12 +35,14 @@ Reading.propTypes = {
   character: PropTypes.string.isRequired,
 };
 
-const Readings = ({ review }) => (
+const Readings = connect(createStructuredSelector({
+  readings: selectReviewReadings,
+}))(({ readings, id }) => (
   <div>
-    {review.readings.map((reading) => (
+    {readings.map((reading) => (
       <div key={uuid()} >
         <ReadingHeader
-          id={review.id}
+          id={id}
           character={reading.character}
           tags={reading.tags}
           withKwLink={false}
@@ -51,9 +53,10 @@ const Readings = ({ review }) => (
       </div>
     ))}
   </div>
-);
+));
 Readings.propTypes = {
-  review: PropTypes.object.isRequired,
+  readings: PropTypes.array,
+  id: PropTypes.number.isRequired,
 };
 
 const Bordered = P.extend` border: 1px solid blue; `;
@@ -74,42 +77,40 @@ const Synonyms = ({ synonyms, handleAddSynonym }) => (
   </div>
 );
 Synonyms.propTypes = {
+  synonyms: PropTypes.array,
   handleAddSynonym: PropTypes.func.isRequired,
-  synonyms: PropTypes.array.isRequired,
 };
 const enhanceSynonyms = compose(
   branch(({ synonyms }) => synonyms.length < 0, renderNothing),
   connect(null, (dispatch) => ({
-    addSynonym: (payload) => dispatch(actions.review.synonym.add.request(payload)),
+    addSynonym: (payload) => dispatch(actions.synonym.add.request(payload)),
   })),
   withHandlers({
-    handleAddSynonym: ({ reviewId, addSynonym }) => () =>
-      addSynonym({ reviewId, character: '漢字', kana: 'かな' }),
+    handleAddSynonym: ({ id, addSynonym }) => () =>
+      addSynonym({ reviewId: id, character: '漢字', kana: 'かな' }),
   })
 );
 const EnhancedSynonyms = enhanceSynonyms(Synonyms);
 
 
-const Meaning = ({ review }) => {
-  const [first, ...rest] = review.meanings;
+const Meanings = connect(createStructuredSelector({
+  meanings: selectReviewMeanings,
+}))(({ meanings }) => {
+  const [first, ...rest] = meanings;
   return (
     <Container>
       <H1>{titleCase(first)}</H1>
       {rest.length > 0 && <P>{titleCase(rest.join(', '))}</P>}
     </Container>
   );
-};
-Meaning.propTypes = {
-  review: PropTypes.object.isRequired,
+});
+Meanings.propTypes = {
+  meanings: PropTypes.array,
+  id: PropTypes.number.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  lockReview: (payload) => dispatch(actions.review.lock.request(payload)),
-  unlockReview: (payload) => dispatch(actions.review.unlock.request(payload)),
-});
 
 const enhance = compose(
-  connect(null, mapDispatchToProps),
   branch(({ review }) => !review, renderNothing),
   withHandlers({
     handleLockClick: ({ review: { id, isHidden }, lockReview, unlockReview }) => () =>
@@ -123,8 +124,7 @@ VocabEntryDetail.propTypes = {
     id: PropTypes.number.isRequired,
     notes: PropTypes.string.isRequired,
     synonyms: PropTypes.array.isRequired,
-    meanings: PropTypes.array.isRequired,
-    readings: PropTypes.array.isRequired,
+    vocabulary: PropTypes.object.isRequired,
     isReviewReady: PropTypes.bool.isRequired,
     lastReviewDate: PropTypes.instanceOf(Date).isRequired,
     unlockDate: PropTypes.instanceOf(Date).isRequired,
@@ -171,12 +171,10 @@ const correctness = (correct, incorrect) => {
 };
 
 function VocabEntryDetail({ review, handleLockClick }) {
-  // FIXME: don't pass review down! pass ID (or vocab id, reading id, synonym id)
-  // and let the components select only what they need for re-rendering
-  // TODO: flat entities synonyms as well since they have unique ids!!!
+  // FIXME: don't pass review down! pass ID and let the components select only what they need for re-rendering
   return (
     <div>
-      <Meaning review={review} />
+      <Meanings id={review.id} />
       <Container>
         <Element>
           {review.isHidden ? 'Locked ' : 'Unlocked '}
@@ -188,8 +186,8 @@ function VocabEntryDetail({ review, handleLockClick }) {
           />
         </Element>
       </Container>
-      {review.readings.length > 0 && <Readings review={review} />}
-      <EnhancedSynonyms reviewId={review.id} synonyms={review.synonyms} />
+      <Readings id={review.id} />
+      <EnhancedSynonyms id={review.id} synonyms={review.synonyms} />
       <P><code>review.isReviewReady && </code> <ReviewReady>Ready for review</ReviewReady></P>
       <P><code>review.isBurned && </code> <Burned>Burned on KW!</Burned></P>
       <P><code>review.wk.isBurned &&</code> <Burned>Burned on WK!</Burned></P>
@@ -213,7 +211,12 @@ function VocabEntryDetail({ review, handleLockClick }) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  review: selectReviewById,
+  review: selectReview,
 });
 
-export default connect(mapStateToProps, null)(enhance(VocabEntryDetail));
+const mapDispatchToProps = (dispatch) => ({
+  lockReview: (payload) => dispatch(actions.review.lock.request(payload)),
+  unlockReview: (payload) => dispatch(actions.review.unlock.request(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(enhance(VocabEntryDetail));
