@@ -32,7 +32,6 @@ const reloadSessionCountsLogic = createLogic({
     actions.level.lock.success,
     actions.level.unlock.success,
   ],
-  // debounce: 15000,
   latest: true,
   processOptions: {
     successType: actions.user.load.success,
@@ -40,7 +39,7 @@ const reloadSessionCountsLogic = createLogic({
   },
 
   process() {
-    console.info('Attempting to reload session counts, try debouncing');
+    console.info('Reloading session count');
     return api.getUserProfile()
       .then((response) => serializeUser(response));
   },
@@ -72,7 +71,6 @@ const levelLockLogic = createLogic({
   },
 
   process({ action: { payload: { id } } }) {
-    console.log(id);
     return api.lockLevel({ id })
       .then(() => ({ id }));
   },
@@ -88,7 +86,6 @@ const levelUnlockLogic = createLogic({
   },
 
   process({ action: { payload: { id } } }) {
-    console.log(id);
     return api.unlockLevel({ id })
       .then(() => ({ id }));
   },

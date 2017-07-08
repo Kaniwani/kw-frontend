@@ -25,6 +25,14 @@ export const createSelectEntityById = (entity, id) => createSelector(
   (entities) => entities[id],
 );
 
+export const selectReview = (state, props) => createSelectEntityById('reviews', props.id)(state);
+
+// whaaaa
+export const makeSelectReadingsByReviewId = () => createSelector();
+export const makeSelectMeaningsByReviewId = () => createSelector();
+
+export const selectIdFromParams = (_, props) => props.match.params.id;
+
 export const selectLevels = createSelectEntities('levels');
 export const selectLevelIds = createSelector(
   selectLevels,
@@ -32,8 +40,13 @@ export const selectLevelIds = createSelector(
 );
 export const selectLevel = (state, props) => createSelectEntityById('levels', props.id)(state);
 export const makeSelectLevel = () => createSelector(selectLevel, (level) => level);
-export const isWithinUserWKLevel = (id, userLevel) => isNumber(id) && id <= userLevel;
-export const isNotNumberedLevel = (id) => !isNumber(id);
+export const makeSelectLevelReviewIds = () => (state, props) => {
+  const level = createSelectEntityById('levels', selectIdFromParams(null, props))(state);
+  return level && level.reviews;
+};
+
+const isWithinUserWKLevel = (id, userLevel) => isNumber(id) && id <= userLevel;
+const isNotNumberedLevel = (id) => !isNumber(id);
 
 export const selectLevelTitle = (state, props) => isNotNumberedLevel(props.id) ? titleCase(props.id) : props.id;
 export const selectLevelCount = createSelector(selectLevel, (level) => level.count);

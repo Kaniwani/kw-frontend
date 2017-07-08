@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import debounce from 'lodash/debounce';
+import isEqual from 'lodash/isEqual';
 import { clearToken } from 'utils/auth';
 import { breakpoints } from 'shared/styles/media';
 
@@ -39,15 +40,9 @@ class SiteHeader extends React.Component {
   }
 
   // FIXME: navlinks don't have active state? probably need a ConnectedSwitch
-  shouldComponentUpdate({ reviewCount, lessonCount }) {
-    console.log(reviewCount, this.props.reviewCount, lessonCount, this.props.lessonCount);
-    if (
-      reviewCount === this.props.reviewCount &&
-      lessonCount === this.props.lessonCount
-    ) {
-      return false;
-    }
-    return true;
+  shouldComponentUpdate(nextProps, nextState) {
+    const unchanged = isEqual(this.props, nextProps) && isEqual(this.state, nextState);
+    return !unchanged;
   }
 
   componentWillUnmount() {

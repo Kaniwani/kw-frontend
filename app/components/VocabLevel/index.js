@@ -53,7 +53,7 @@ function VocabLevel({ id, title, count, isLocked, isSubmitting, isActionable, ha
     >
       <LevelLink
         plainLink
-        to={`/vocabulary/level/${id}`}
+        to={`/vocabulary/levels/${id}`}
       >
         <Title>{title}</Title>
         <ItemCount>{count} entries</ItemCount>
