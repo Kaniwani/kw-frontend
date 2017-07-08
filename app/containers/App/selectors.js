@@ -21,7 +21,10 @@ const selectLevelIds = createSelector(
   (levels) => Object.keys(levels),
 );
 const selectLevelById = (state, { id }) => state.global.entities.levels[id];
-const makeSelectLevel = () => createSelector(selectLevelById, (level) => level);
+const makeSelectLevel = () => createSelector(
+  selectLevelById,
+  (level) => level
+);
 
 // VocabLevelPage
 import pick from 'lodash/pick';

@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { compose, shouldUpdate, withHandlers, mapProps } from 'recompose';
+import { compose, withHandlers, mapProps, shouldUpdate } from 'recompose';
 import { createStructuredSelector } from 'reselect';
 import noop from 'lodash/noop';
-import isNumber from 'lodash/isNumber';
 import isEqual from 'lodash/isEqual';
+import isNumber from 'lodash/isNumber';
 import titleCase from 'voca/title_case';
 
 import actions from 'containers/App/actions';

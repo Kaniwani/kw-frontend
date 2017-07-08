@@ -2,26 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cuid from 'cuid';
 import { compose, branch, renderNothing, shouldUpdate } from 'recompose';
+import isEqual from 'lodash/isEqual';
 
 import VocabLevel from 'components/VocabLevel';
 import { Ul } from './styles';
 
 VocabLevelsList.propTypes = {
-  levels: PropTypes.array.isRequired,
+  levelIds: PropTypes.array.isRequired,
 };
 
 const enhance = compose(
-  branch(
-    ({ levels }) => levels.length < 0,
-    renderNothing
-  ),
-  shouldUpdate((props, nextProps) => props.levels.length !== nextProps.levels.length),
+  branch(({ levelIds }) => levelIds.length < 0, renderNothing),
+  shouldUpdate((props, nextProps) => !isEqual(props.levelIds, nextProps.levelIds)),
 );
 
-function VocabLevelsList({ levels }) {
+function VocabLevelsList({ levelIds }) {
   return (
     <Ul>
-      {levels.map((id) => <VocabLevel key={cuid()} id={id} />)}
+      {levelIds.map((id) => <VocabLevel key={cuid()} id={id} />)}
     </Ul>
   );
 }

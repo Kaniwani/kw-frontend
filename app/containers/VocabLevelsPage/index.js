@@ -13,12 +13,12 @@ import { selectLevelIds } from 'containers/App/selectors';
 
 export class VocabLevelsPage extends React.Component {
   static propTypes = {
-    levels: PropTypes.array.isRequired,
+    levelIds: PropTypes.array.isRequired,
     loadLevels: PropTypes.func.isRequired,
   }
 
   componentDidMount() {
-    if (!this.props.levels.length) {
+    if (!this.props.levelIds.length) {
       this.props.loadLevels();
     }
   }
@@ -33,7 +33,7 @@ export class VocabLevelsPage extends React.Component {
         </Helmet>
         <PageWrapper>
           <VocabPageHeader pageTitle={PAGE_TITLE} withVocabListToggle={false} />
-          <VocabLevelsList levels={this.props.levels} />
+          <VocabLevelsList levelIds={this.props.levelIds} />
         </PageWrapper>
       </div>
     );
@@ -41,7 +41,7 @@ export class VocabLevelsPage extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  levels: selectLevelIds,
+  levelIds: selectLevelIds,
 });
 
 const mapDispatchToProps = (dispatch) => ({
