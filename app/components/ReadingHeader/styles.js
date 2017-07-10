@@ -3,7 +3,6 @@ import { gutter } from 'shared/styles/layout';
 
 import H3 from 'base/H3';
 import A from 'base/A';
-import TagsList from 'components/TagsList';
 
 export const Wrapper = styled.div`
   ${gutter({ type: 'outer' })}
@@ -27,9 +26,4 @@ export const VocabLink = styled(A)`
   margin: 0 .2em;
   text-decoration: underline;
   line-height: 1;
-`;
-
-export const Tags = styled(TagsList)`
-  display: flex;
-  flex-flow: row wrap;
 `;

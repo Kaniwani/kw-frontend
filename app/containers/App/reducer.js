@@ -1,6 +1,9 @@
+import { combineReducers } from 'redux';
 import { handleActions, combineActions } from 'redux-actions';
 import merge from 'lodash/merge';
+import difference from 'lodash/difference';
 import update from 'immutability-helper';
+
 /*
  * { $push: array }
  *   push() all the items in array on the target.
@@ -27,24 +30,20 @@ import update from 'immutability-helper';
 */
 
 import session from 'containers/SessionRoutes/actions';
-import levels from 'containers/VocabLevelsPage/actions';
 import app from './actions';
 
-const initialState = {
-  // FIXME: loading should be handled by relevant containers
-  loading: false,
-  error: false,
-  user: {},
-  dashboard: {},
-  /* TODO: get Tadgh to update settings with new options! */
-  settings: {
-    quiz: {
-      detail: 0, // 0-2
-      autoAdvance: {
-        active: false,
-        speed: 2000,
-      },
+// TODO: get Tadgh to update settings with new options!
+// NOTE: move defaults to serializer once api is updated to provide them
+const settingsState = {
+  quiz: {
+    detail: 0, // 0-2
+    autoAdvance: {
+      active: false,
+      speed: 2000,
     },
+  },
+  vocabulary: {
+    useAlcPro: false,
     kanjiStroke: {
       autoplay: true,
       step: 0.01,
@@ -52,72 +51,112 @@ const initialState = {
       grid: { show: true },
     },
   },
-  entities: {
-    reviews: {},
-    vocabulary: {},
-    readings: {},
-    levels: {},
+};
+
+const userState = {
+  profile: {},
+  dashboard: {},
+  settings: settingsState,
+};
+
+const entitiesState = {
+  reviews: {},
+  levels: {},
+};
+
+// FIXME: injected reducers for each route imo
+const uiState = {
+  error: false,
+  user: {
+    loading: false,
+  },
+  levels: {
+    loading: false,
+  },
+  level: {
+    loading: false,
+    submitting: [],
+  },
+  entry: {
+    loading: false,
   },
 };
 
-// FIXME: loading true/false should be handled by relevant containers
-const appReducer = handleActions({
-  [app.user.load.request]: (state) => update(state, { $merge: { loading: true } }),
-  [app.user.load.cancel]: (state) => update(state, { $merge: { loading: false } }),
-  [app.user.load.failure]: (state, { payload, error }) => {
+const uiReducer = handleActions({
+  // TODO: can we simplify some of these to add a category to the action meta instead?
+  [app.user.load.request]: (state) => ({ ...state,
+    user: { loading: true },
+  }),
+  [combineActions(
+    app.user.load.failure,
+    app.user.load.cancel,
+    app.user.load.success,
+  )]: (state) => ({ ...state,
+    user: { loading: false },
+  }),
+  [combineActions(
+    app.user.load.failure,
+  )]: (state, { payload }) => {
+    // TODO: take all errors
     // TODO: log to slack
-    console.warn('api error', error); // eslint-disable-line no-console
+    console.warn('api failure'); // eslint-disable-line no-console
     console.error(payload); // eslint-disable-line no-console
-    return update(state, { $merge: { error: payload, loading: false } });
+    return {
+      ...state, error: payload,
+    };
   },
+  [combineActions(
+    app.level.lock.request,
+    app.level.unlock.request,
+  )]: (state, { payload }) => update(state, {
+    level: { submitting: { $push: [payload.id] } },
+  }),
+  [combineActions(
+    app.level.lock.success,
+    app.level.unlock.success,
+  )]: (state, { payload }) => update(state, {
+    level: { submitting: { $apply: (ids) => difference(ids, [payload.id]) } },
+  }),
+}, uiState);
+
+const userReducer = handleActions({
   [app.user.load.success]: (state, { payload }) => update(state, {
-    $set: merge({}, state, payload, { loading: false }),
+    $set: merge({}, state, payload),
   }),
-  [app.reviews.load.success]: (state, { payload }) => update(state, {
-    entities: {
-      reviews: { $set: merge({}, state.entities.reviews, payload.entities.reviews) },
-      vocabulary: { $set: merge({}, state.entities.vocabulary, payload.entities.vocabulary) },
-      readings: { $set: merge({}, state.entities.readings, payload.entities.readings) },
-      // levels: { [payload.level]: { $set: merge({}, state.entities.levels[payload.level], { ids: payload.result }) } },
-    },
-  }),
+}, userState);
+
+const entitiesReducer = handleActions({
   [combineActions(
-    session.queue.load.success,
     app.review.load.success,
+    app.reviews.load.success,
+    session.queue.load.success,
     app.level.load.success,
-    levels.load.success,
-  )]: (state, { payload }) => update(state, {
-    entities: { $set: merge({}, state.entities, payload.entities) },
+    app.levels.load.success,
+  )]: (state, { payload }) => merge({}, state, payload.entities),
+  [app.level.lock.success]: (state, { payload }) => update(state, {
+    levels: { [payload.id]: { isLocked: { $set: true } } },
   }),
-  [app.level.load.success]: (state, { payload }) => update(state, {
-    entities: { $set: merge({}, state.entities, payload.entities) },
-  }),
-  [combineActions(
-    levels.locklevel.request,
-    levels.unlocklevel.request,
-  )]: (state, { payload }) => update(state, {
-    entities: { levels: { [payload.id]: { isSubmitting: { $set: true } } } },
-  }),
-  [levels.locklevel.success]: (state, { payload }) => update(state, {
-    entities: { levels: { [payload.id]: { $merge: { isSubmitting: false, isLocked: true } } } },
-  }),
-  [levels.unlocklevel.success]: (state, { payload }) => update(state, {
-    entities: { levels: { [payload.id]: { $merge: { isSubmitting: false, isLocked: false } } } },
+  [app.level.unlock.success]: (state, { payload }) => update(state, {
+    levels: { [payload.id]: { isLocked: { $set: false } } },
   }),
   [combineActions(
     app.review.lock.success,
     app.review.unlock.success,
   )]: (state, { payload }) => update(state, {
-    entities: { reviews: { [payload.id]: { $merge: { isHidden: payload.isHidden } } } },
+    reviews: { [payload.id]: { isHidden: { $set: payload.isHidden } } },
   }),
-  [app.review.synonym.add.success]: (state, { payload }) => update(state, {
-    entities: { reviews: { [payload.reviewId]: { synonyms: { $push: [payload] } } } },
+  [app.synonym.add.success]: (state, { payload }) => update(state, {
+    reviews: { [payload.reviewId]: { synonyms: { $push: [payload] } } },
   }),
-  [app.review.synonym.remove.success]: (state, { payload: { reviewId, id } }) => update(state, {
-    entities: { reviews: { [reviewId]: { synonyms: { $apply:
-      (synonyms) => synonyms.filter((syn) => syn.id !== id),
-    } } } },
+  [app.synonym.remove.success]: (state, { payload }) => update(state, {
+    reviews: { [payload.reviewId]: {
+      synonyms: { $apply: (synonyms) => synonyms.filter((synonym) => synonym.id !== payload.id) } },
+    },
   }),
-}, initialState);
+}, entitiesState);
 
-export default appReducer;
+export default combineReducers({
+  ui: uiReducer,
+  user: userReducer,
+  entities: entitiesReducer,
+});

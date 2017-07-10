@@ -5,8 +5,7 @@ import isString from 'lodash/isString';
 import castArray from 'lodash/castArray';
 import uniq from 'lodash/uniq';
 import condenseReadings from 'utils/condenseReadings';
-
-import { normalizeReviews, normalizeLevelReviews, normalizeLevels } from 'shared/schemas';
+import { normalize, denormalize, schema } from 'normalizr';
 
 // Add 'Common'|'Uncommon' and JLPT rank to tags list
 const combineTags = ({ tags, jlpt, common }) => {
@@ -14,7 +13,7 @@ const combineTags = ({ tags, jlpt, common }) => {
   return jlpt != null ? [jlpt, ...newTags] : newTags;
 };
 
-const setDate = (date) => date == null ? null : new Date(date);
+const dateOrNull = (date) => date == null ? null : new Date(date);
 
 const toUniqueStringsArray = (data) => {
   let asArray = data;
@@ -26,18 +25,68 @@ const toUniqueStringsArray = (data) => {
   return uniq(asArray);
 };
 
-export function serializeUserProfile({
+const reviewSchema = new schema.Entity('reviews');
+const levelSchema = new schema.Entity('levels', {
+  reviews: [reviewSchema],
+});
+
+const levelReviewsSchema = [levelSchema];
+
+export const normalizeLevels = (levels) =>
+  normalize(levels, [levelSchema]);
+
+export const denormalizeLevels = (levels, entities) =>
+  denormalize(levels, [levelSchema], entities);
+
+export const normalizeReviews = (reviews) =>
+  normalize(reviews, [reviewSchema]);
+
+export const denormalizeReviews = (reviews, entities) =>
+  denormalize(reviews, [reviewSchema], entities);
+
+export const normalizeReview = (review) =>
+  normalize(review, reviewSchema);
+
+export const denormalizeReview = (review, entities) =>
+  denormalize(review, reviewSchema, entities);
+
+export const normalizeLevelReviews = (id, reviews) =>
+  normalize([{ id, reviews }], levelReviewsSchema);
+
+export const denormalizeLevelReviews = (level, entities) =>
+  normalize([level], levelReviewsSchema, entities);
+
+export const serializeMeaning = (data) =>
+  toUniqueStringsArray(data);
+
+export const serializeLevels = (data) =>
+  normalizeLevels(data.map(serializeLevel));
+
+export const serializeLevelReviews = ({ id, response: { results } }) =>
+  normalizeLevelReviews(+id, results.map(serializeReviewEntry));
+
+export const serializeReadings = (data) =>
+  condenseReadings(data).map(serializeReading);
+
+export const serializeReviewEntries = ({ results }) =>
+  normalizeReviews(results.map(serializeReviewEntry));
+
+export const serializeStubbedReviewEntries = ({ results }) =>
+  normalizeReviews(results.map(serializeStubbedReviewEntry));
+
+
+export function serializeUser({
   email,
   profile,
 }) {
   return {
-    user: serializeUser({ email, ...profile }),
+    profile: serializeProfile({ email, ...profile }),
     dashboard: serializeDashboard(profile),
     settings: serializeSettings(profile),
   };
 }
 
-export function serializeUser({
+export function serializeProfile({
   email,
   name,
   api_key: apiKey,
@@ -52,7 +101,7 @@ export function serializeUser({
     apiKey,
     isApiValid: !!api_valid,
     currentLevel: +level,
-    joinDate: setDate(joinDate),
+    joinDate: dateOrNull(joinDate),
     unlockedLevels: unlockedLevels.map(Number),
   };
 }
@@ -76,7 +125,7 @@ export function serializeDashboard({
     reviewCount: +reviewCount,
     nextHourReviews: +nextHourReviews,
     nextDayReviews: +nextDayReviews,
-    lastWkSyncDate: setDate(lastWkSyncDate),
+    lastWkSyncDate: dateOrNull(lastWkSyncDate),
     srsCounts: coerceValsToNumber(upcaseKeys(srsCounts)),
   };
 }
@@ -97,7 +146,7 @@ export function serializeSettings({
     autoExpandIncorrect,
     minimumSrsToReview,
     onVacation,
-    vacationDate: setDate(vacationDate),
+    vacationDate: dateOrNull(vacationDate),
   };
 }
 
@@ -165,9 +214,9 @@ export function serializeReviewEntry({
 } = {}) {
   return {
     isReviewReady,
-    lastReviewDate: setDate(lastReviewDate),
-    unlockDate: setDate(unlockDate),
-    nextReviewDate: setDate(nextReviewDate),
+    lastReviewDate: dateOrNull(lastReviewDate),
+    unlockDate: dateOrNull(unlockDate),
+    nextReviewDate: dateOrNull(nextReviewDate),
     isHidden,
     isCritical,
     isBurned,
@@ -189,30 +238,5 @@ function serializeLevel({
     id: +level,
     count: +count,
     isLocked: !unlocked,
-    isSubmitting: false,
   };
-}
-
-export function serializeMeaning(data) {
-  return toUniqueStringsArray(data);
-}
-
-export function serializeLevels(data) {
-  return normalizeLevels(data.map(serializeLevel));
-}
-
-export function serializeLevelReviews({ id, response: { results } }) {
-  return normalizeLevelReviews(+id, results.map(serializeReviewEntry));
-}
-
-export function serializeReadings(data) {
-  return condenseReadings(data).map(serializeReading);
-}
-
-export function serializeReviewEntries({ results }) {
-  return normalizeReviews(results.map(serializeReviewEntry));
-}
-
-export function serializeStubbedReviewEntries({ results }) {
-  return normalizeReviews(results.map(serializeStubbedReviewEntry));
 }

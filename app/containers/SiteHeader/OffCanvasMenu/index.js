@@ -8,13 +8,13 @@ import { Wrapper, Ul } from './styles';
 
 OffCanvasMenu.propTypes = {
   id: PropTypes.string.isRequired,
-  routes: PropTypes.array.isRequired,
+  links: PropTypes.array.isRequired,
   offsetTop: PropTypes.number.isRequired,
   isVisible: PropTypes.bool.isRequired,
   handleLogout: PropTypes.func.isRequired,
 };
 
-function OffCanvasMenu({ id, routes, offsetTop, isVisible, handleLogout }) {
+function OffCanvasMenu({ id, links, offsetTop, isVisible, handleLogout }) {
   return (
     <Wrapper
       id={id}
@@ -22,12 +22,12 @@ function OffCanvasMenu({ id, routes, offsetTop, isVisible, handleLogout }) {
       isVisible={isVisible}
     >
       <Ul>
-        {routes.map((route) => (
+        {links.map((link) => (
           <NavLink
             key={cuid()}
             handleLogout={handleLogout}
             isOffCanvas
-            {...route}
+            {...link}
           />
         ))}
       </Ul>

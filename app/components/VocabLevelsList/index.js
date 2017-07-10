@@ -1,32 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose, branch, renderNothing, shouldUpdate } from 'recompose';
 import cuid from 'cuid';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { compose, branch, renderNothing, shouldUpdate } from 'recompose';
+import isEqual from 'lodash/isEqual';
 
+import { selectLevelIds } from 'containers/App/selectors';
 import VocabLevel from 'components/VocabLevel';
 import { Ul } from './styles';
 
-const enhance = compose(
-  branch(
-    ({ levels, userLevel }) => !levels.length || !userLevel,
-    renderNothing,
-  ),
-  shouldUpdate(({ levels }, nextProps) => (levels.length !== nextProps.levels.length)),
-);
-
 VocabLevelsList.propTypes = {
-  levels: PropTypes.array.isRequired,
-  userLevel: PropTypes.number.isRequired,
+  levelIds: PropTypes.array.isRequired,
 };
 
-function VocabLevelsList({ levels, userLevel }) {
+const enhance = compose(
+  branch(({ levelIds }) => levelIds.length < 0, renderNothing),
+  shouldUpdate((props, nextProps) => !isEqual(props.levelIds, nextProps.levelIds)),
+);
+
+function VocabLevelsList({ levelIds }) {
   return (
     <Ul>
-      {levels.map((id) =>
-        <VocabLevel key={cuid()} id={id} userLevel={userLevel} />
-      )}
+      {levelIds.map((id) => <VocabLevel key={cuid()} id={id} />)}
     </Ul>
   );
 }
 
-export default enhance(VocabLevelsList);
+const mapStateToProps = createStructuredSelector({
+  levelIds: selectLevelIds,
+});
+
+export default connect(mapStateToProps)(enhance(VocabLevelsList));

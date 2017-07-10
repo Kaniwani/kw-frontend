@@ -8,7 +8,7 @@ import unbind from 'wanakana/unbind';
 import { SRS_RANKS, KEYCODES } from 'shared/constants';
 import blockEvent from 'utils/blockEvent';
 import ReviewAnswer from 'components/ReviewAnswer';
-// import app from 'containers/App/actions';
+// import actions from 'containers/App/actions';
 // import reviewActions from 'containers/ReviewSession/actions';
 // import { selectAnswer, selectCurrentStreakName } from 'containers/ReviewSession/selectors';
 

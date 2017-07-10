@@ -2,40 +2,112 @@ import { createLogic } from 'redux-logic';
 import * as api from 'shared/api';
 
 import {
-  serializeUserProfile,
+  serializeUser,
+  serializeLevels,
   serializeReviewEntries,
   serializeLevelReviews,
   serializeSynonym,
 } from 'shared/serializers';
 
-import levels from 'containers/VocabLevelsPage/actions';
-import app from './actions';
+import actions from './actions';
 
-export const userLoadLogic = createLogic({
-  type: [app.user.load.request, levels.locklevel.success, levels.unlocklevel.success],
-  cancelType: app.user.load.cancel,
+const userLoadLogic = createLogic({
+  type: actions.user.load.request,
+  cancelType: actions.user.load.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
-    successType: app.user.load.success,
-    failType: app.user.load.failure,
+    successType: actions.user.load.success,
+    failType: actions.user.load.failure,
   },
 
   process() {
     return api.getUserProfile()
-      .then((response) => serializeUserProfile(response));
+      .then((response) => serializeUser(response));
   },
 });
 
-// TODO: move to review session
-export const reviewsLoadLogic = createLogic({
-  type: app.reviews.load.request,
-  cancelType: app.reviews.load.cancel,
+const reloadSessionCountsLogic = createLogic({
+  type: [
+    actions.level.lock.success,
+    actions.level.unlock.success,
+  ],
+  latest: true,
+  processOptions: {
+    successType: actions.user.load.success,
+    failType: actions.user.load.failure,
+  },
+
+  process() {
+    console.info('Reloading session count');
+    return api.getUserProfile()
+      .then((response) => serializeUser(response));
+  },
+});
+
+const levelsLoadLogic = createLogic({
+  type: actions.levels.load.request,
+  cancelType: actions.levels.load.cancel,
+  throttle: 60000,
+  latest: true,
+  warnTimeout: 10000,
+  processOptions: {
+    successType: actions.levels.load.success,
+    failType: actions.levels.load.failure,
+  },
+
+  process() {
+    return api.getLevels()
+      .then((response) => serializeLevels(response));
+  },
+});
+
+const levelLockLogic = createLogic({
+  type: actions.level.lock.request,
+  cancelType: actions.level.lock.cancel,
+  warnTimeout: 10000,
+  processOptions: {
+    successType: actions.level.lock.success,
+    failType: actions.level.lock.failure,
+  },
+
+  process({ action: { payload: { id } } }) {
+    return api.lockLevel({ id })
+      .then(() => ({ id }));
+  },
+});
+
+const levelUnlockLogic = createLogic({
+  type: actions.level.unlock.request,
+  cancelType: actions.level.unlock.cancel,
+  warnTimeout: 10000,
+  validate({ getState, action }, allow, reject) {
+    if (getState().global.ui.level.submitting.length >= 2) {
+      reject(/* actions.notifications('too many submissions, please wait')*/);
+    }
+    allow(action);
+  },
+
+  processOptions: {
+    successType: actions.level.unlock.success,
+    failType: actions.level.unlock.failure,
+  },
+
+  process({ action: { payload: { id } } }) {
+    return api.unlockLevel({ id })
+      .then(() => ({ id }));
+  },
+});
+
+
+const reviewsLoadLogic = createLogic({
+  type: actions.reviews.load.request,
+  cancelType: actions.reviews.load.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
-    successType: app.reviews.load.success,
-    failType: app.reviews.load.failure,
+    successType: actions.reviews.load.success,
+    failType: actions.reviews.load.failure,
   },
 
   process({ action: { payload: { id } } }) {
@@ -44,14 +116,14 @@ export const reviewsLoadLogic = createLogic({
   },
 });
 
-export const reviewLoadLogic = createLogic({
-  type: app.review.load.request,
-  cancelType: app.review.load.cancel,
+const reviewLoadLogic = createLogic({
+  type: actions.review.load.request,
+  cancelType: actions.review.load.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
-    successType: app.review.load.success,
-    failType: app.review.load.failure,
+    successType: actions.review.load.success,
+    failType: actions.review.load.failure,
   },
 
   process({ action: { payload: { id } } }) {
@@ -63,14 +135,14 @@ export const reviewLoadLogic = createLogic({
   },
 });
 
-export const reviewLockLogic = createLogic({
-  type: app.review.lock.request,
-  cancelType: app.review.lock.cancel,
+const reviewLockLogic = createLogic({
+  type: actions.review.lock.request,
+  cancelType: actions.review.lock.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
-    successType: app.review.lock.success,
-    failType: app.review.lock.failure,
+    successType: actions.review.lock.success,
+    failType: actions.review.lock.failure,
   },
 
   process({ action: { payload: { id } } }) {
@@ -79,14 +151,14 @@ export const reviewLockLogic = createLogic({
   },
 });
 
-export const reviewUnlockLogic = createLogic({
-  type: app.review.unlock.request,
-  cancelType: app.review.unlock.cancel,
+const reviewUnlockLogic = createLogic({
+  type: actions.review.unlock.request,
+  cancelType: actions.review.unlock.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
-    successType: app.review.unlock.success,
-    failType: app.review.unlock.failure,
+    successType: actions.review.unlock.success,
+    failType: actions.review.unlock.failure,
   },
 
   process({ action: { payload: { id } } }) {
@@ -95,14 +167,14 @@ export const reviewUnlockLogic = createLogic({
   },
 });
 
-export const addSynonymLogic = createLogic({
-  type: app.review.synonym.add.request,
-  cancelType: app.review.synonym.add.cancel,
+const addSynonymLogic = createLogic({
+  type: actions.synonym.add.request,
+  cancelType: actions.synonym.add.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
-    successType: app.review.synonym.add.success,
-    failType: app.review.synonym.add.failure,
+    successType: actions.synonym.add.success,
+    failType: actions.synonym.add.failure,
   },
 
   process({ action: { payload: { reviewId, character, kana } } }) {
@@ -111,14 +183,14 @@ export const addSynonymLogic = createLogic({
   },
 });
 
-export const removeSynonymLogic = createLogic({
-  type: app.review.synonym.remove.request,
-  cancelType: app.review.synonym.remove.cancel,
+const removeSynonymLogic = createLogic({
+  type: actions.synonym.remove.request,
+  cancelType: actions.synonym.remove.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
-    successType: app.review.synonym.remove.success,
-    failType: app.review.synonym.remove.failure,
+    successType: actions.synonym.remove.success,
+    failType: actions.synonym.remove.failure,
   },
 
   process({ action: { payload: { id, reviewId } } }) {
@@ -127,15 +199,14 @@ export const removeSynonymLogic = createLogic({
   },
 });
 
-// TODO: move to vocabLevelPage
-export const levelLoadLogic = createLogic({
-  type: app.level.load.request,
-  cancelType: app.level.load.cancel,
+const levelLoadLogic = createLogic({
+  type: actions.level.load.request,
+  cancelType: actions.level.load.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
-    successType: app.level.load.success,
-    failType: app.level.load.failure,
+    successType: actions.level.load.success,
+    failType: actions.level.load.failure,
   },
 
   process({ action: { payload: { id } } }) {
@@ -147,6 +218,10 @@ export const levelLoadLogic = createLogic({
 // All logic to be loaded
 export default [
   userLoadLogic,
+  levelsLoadLogic,
+  levelLockLogic,
+  levelUnlockLogic,
+  reloadSessionCountsLogic,
   reviewsLoadLogic,
   reviewLoadLogic,
   addSynonymLogic,

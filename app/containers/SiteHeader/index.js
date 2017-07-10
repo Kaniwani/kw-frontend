@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import debounce from 'lodash/debounce';
+import isEqual from 'lodash/isEqual';
 import { clearToken } from 'utils/auth';
 import { breakpoints } from 'shared/styles/media';
 
@@ -16,15 +18,18 @@ import { Header, Nav } from './styles';
 
 class SiteHeader extends React.Component {
   static propTypes = {
+    lessonCount: PropTypes.number,
     reviewCount: PropTypes.number,
   };
 
   static defaultProps = {
+    lessonCount: 0,
     reviewCount: 0,
   };
 
   state = {
     headerHeight: 70, // ballpark fallback
+    // FIXME: NOPE! UI redux state instead
     offCanvasMenuActive: false,
     offCanvasToggleVisible: false,
   };
@@ -32,12 +37,16 @@ class SiteHeader extends React.Component {
   componentDidMount() {
     this.handleResize();
     window.addEventListener('resize', this.handleResize);
-    window.addEventListener('click', this.hideOffCanvasMenu);
+  }
+
+  // FIXME: navlinks don't have active state? probably need a ConnectedSwitch
+  shouldComponentUpdate(nextProps, nextState) {
+    const unchanged = isEqual(this.props, nextProps) && isEqual(this.state, nextState);
+    return !unchanged;
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
-    window.removeEventListener('click', this.hideOffCanvasMenu);
   }
 
   handleResize = debounce(() => {
@@ -55,6 +64,8 @@ class SiteHeader extends React.Component {
 
   handleToggle = (event) => {
     event.stopPropagation();
+    // FIXME: nope nope nope, ui state, dispatch action!
+    // also dispatch hiding of menu on navlink click
     this.setState((prevState) => ({
       offCanvasMenuActive: !prevState.offCanvasMenuActive,
     }));
@@ -69,15 +80,15 @@ class SiteHeader extends React.Component {
     const isWideViewport = !this.state.offCanvasToggleVisible;
     let onCanvasRoutes = [
       // { text: 'lessons', count: this.props.lessonCount },
-      { text: 'reviews', count: this.props.reviewCount },
-      { text: 'vocabulary' },
+      { text: 'reviews', route: '/reviews', count: this.props.reviewCount },
+      { text: 'vocabulary', route: '/vocabulary/levels' },
     ];
 
     let offCanvasRoutes = [
-      { text: 'settings' },
-      { text: 'about' },
-      { text: 'contact' },
-      { text: 'logout' },
+      { text: 'settings', route: '/settings' },
+      { text: 'about', route: '/about' },
+      { text: 'contact', route: '/contact' },
+      { text: 'logout', route: '/logout' },
     ];
 
     // show all routes in main menu if large screen
@@ -91,7 +102,7 @@ class SiteHeader extends React.Component {
         <Nav>
           <LogoLink />
           <OnCanvasMenu
-            routes={onCanvasRoutes}
+            links={onCanvasRoutes}
             handleLogout={this.handleLogout}
           />
           <OffCanvasToggle
@@ -102,7 +113,7 @@ class SiteHeader extends React.Component {
           />
           <OffCanvasMenu
             id="offCanvasMenu"
-            routes={offCanvasRoutes}
+            links={offCanvasRoutes}
             offsetTop={this.state.headerHeight}
             isVisible={this.state.offCanvasMenuActive}
             handleLogout={this.handleLogout}
@@ -117,4 +128,4 @@ const mapStateToProps = createStructuredSelector({
   reviewCount: selectReviewCount,
 });
 
-export default connect(mapStateToProps)(SiteHeader);
+export default withRouter(connect(mapStateToProps)(SiteHeader));

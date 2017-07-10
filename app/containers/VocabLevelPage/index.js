@@ -5,29 +5,39 @@ import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import ReactTooltip from 'react-tooltip';
 
-import app from 'containers/App/actions';
+import actions from 'containers/App/actions';
+import { makeSelectLevelReviewIds, selectIdFromParams } from 'containers/App/selectors';
 import PageWrapper from 'base/PageWrapper';
 import VocabPageHeader from 'components/VocabPageHeader';
 import VocabList from 'components/VocabList';
 
 import { VocabListWrapper } from './styles';
-import { makeSelectLevelReviews } from './selectors';
 
 export class VocabLevelPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     loadLevelReviews: PropTypes.func.isRequired,
-    entries: PropTypes.array.isRequired,
-    match: PropTypes.object.isRequired,
+    reviewIds: PropTypes.array,
+    id: PropTypes.PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]).isRequired,
   }
 
-  // FIXME: state.global.settings.vocabListExpanded
+  static defaultProps = {
+    reviewIds: [],
+  }
+
+  // FIXME: state.global.ui.level.vocabListExpanded
+  // although, we probably want session summary to be small
+  // and these ones to be big
   state = {
     vocabListExpanded: true,
   }
 
   componentDidMount() {
+    const { loadLevelReviews, id } = this.props;
     // TODO: ask tadgh for custom stubbed reviews api point?
-    this.props.loadLevelReviews();
+    loadLevelReviews({ id });
   }
 
   // FIXME: create a recompose HoC for this since multiple pages have the toggle
@@ -43,7 +53,7 @@ export class VocabLevelPage extends React.Component { // eslint-disable-line rea
   }
 
   render() {
-    const { entries, match: { params: { id } } } = this.props;
+    const { reviewIds, id } = this.props;
     const PAGE_TITLE = `Vocabulary: Level ${id}`;
     return (
       <div>
@@ -59,11 +69,9 @@ export class VocabLevelPage extends React.Component { // eslint-disable-line rea
               handleToggle: this.toggleVocabListType,
             }}
           />
-          {entries && (
-            <VocabListWrapper>
-              <VocabList items={entries} isExpanded={this.state.vocabListExpanded} />
-            </VocabListWrapper>
-          )}
+          <VocabListWrapper>
+            <VocabList ids={reviewIds} isExpanded={this.state.vocabListExpanded} />
+          </VocabListWrapper>
         </PageWrapper>
       </div>
     );
@@ -71,11 +79,12 @@ export class VocabLevelPage extends React.Component { // eslint-disable-line rea
 }
 
 const mapStateToProps = createStructuredSelector({
-  entries: makeSelectLevelReviews(),
+  reviewIds: makeSelectLevelReviewIds(),
+  id: selectIdFromParams,
 });
 
-const mapDispatchToProps = (dispatch, { match: { params: { id } } }) => ({
-  loadLevelReviews: () => dispatch(app.level.load.request({ id })),
+const mapDispatchToProps = (dispatch) => ({
+  loadLevelReviews: (payload) => dispatch(actions.level.load.request(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VocabLevelPage);

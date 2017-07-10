@@ -28,7 +28,7 @@ class SessionSummaryPage extends React.Component {
     percentCorrect: PropTypes.number.isRequired,
   }
 
-  // FIXME: state.global.settings.vocabListExpanded
+  // FIXME: state.global.ui.sessionSummary.vocabListExpanded
   state = {
     vocabListExpanded: false,
   }

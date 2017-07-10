@@ -2,55 +2,42 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { createStructuredSelector } from 'reselect';
 
-import app from 'containers/App/actions';
+import actions from 'containers/App/actions';
 import PageWrapper from 'base/PageWrapper';
 import VocabEntryDetail from 'components/VocabEntryDetail';
-import { selectReview } from './selectors';
 
 export class VocabEntryPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     loadReview: PropTypes.func.isRequired,
-    review: PropTypes.oneOfType([
-      PropTypes.bool,
-      PropTypes.object,
-    ]).isRequired,
+    id: PropTypes.number.isRequired,
   }
 
-  static defaultProps = {
-    review: false,
-  };
-
   componentDidMount() {
-    this.props.loadReview();
+    this.props.loadReview(this.props.id);
   }
 
   render() {
-    const { review } = this.props;
-    const title = (review && review.meanings[0]) || '';
     return (
       <div>
         <Helmet>
-          <title>{`Vocabulary: ${title}`}</title>
-          <meta name="description" content={`Kaniwani Vocabulary: ${title}`} />
+          <title>{'Vocabulary: Entry'}</title>
+          <meta name="description" content={'Kaniwani Vocabulary: Entry'} />
         </Helmet>
         <PageWrapper>
-          <VocabEntryDetail review={review} />
+          <VocabEntryDetail id={this.props.id} />
         </PageWrapper>
       </div>
     );
   }
 }
 
-const mapStateToProps = createStructuredSelector({
-  review: selectReview,
+const mapStateToProps = (state, { match: { params: { id } } }) => ({
+  id: +id,
 });
 
-function mapDispatchToProps(dispatch, { match: { params: { id } } }) {
-  return {
-    loadReview: () => dispatch(app.review.load.request({ id })),
-  };
-}
+const mapDispatchToProps = (dispatch) => ({
+  loadReview: (id) => dispatch(actions.review.load.request({ id })),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(VocabEntryPage);

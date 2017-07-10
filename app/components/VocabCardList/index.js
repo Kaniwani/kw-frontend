@@ -8,7 +8,7 @@ import VocabCard from 'components/VocabCard';
 import { Ul } from './styles';
 
 VocabCardList.propTypes = {
-  items: PropTypes.array.isRequired,
+  ids: PropTypes.array.isRequired,
   color: PropTypes.oneOf(Object.keys(COLORS)),
 };
 
@@ -16,11 +16,11 @@ VocabCardList.defaultProps = {
   color: 'purple',
 };
 
-function VocabCardList({ items, color }) {
+
+function VocabCardList({ ids, color }) {
   return (
     <Ul>
-      {/* FIXME: ids not full items */}
-      {items.map((item) => <VocabCard key={cuid()} color={color} {...item} />)}
+      {ids.map((id) => <VocabCard key={cuid()} color={color} id={id} />)}
     </Ul>
   );
 }
