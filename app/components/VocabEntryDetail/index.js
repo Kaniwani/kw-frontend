@@ -22,8 +22,10 @@ import Button from 'base/Button';
 import ReadingHeader from 'components/ReadingHeader';
 import SynonymHeader from 'components/SynonymHeader';
 import SentencePair from 'components/SentencePair';
-import KanjiStroke from 'components/KanjiStroke';
 import StreakIcon from 'components/StreakIcon';
+import TagsList from 'components/TagsList';
+// import PitchInfo from 'components/PitchInfo';
+// import KanjiStroke from 'components/KanjiStroke';
 
 const Reading = ({ kana, character }) => (
   <Container>
@@ -48,8 +50,12 @@ const Readings = connect(createStructuredSelector({
           tags={reading.tags}
           withKwLink={false}
         />
+        <Element>
+          <TagsList tags={reading.tags} />
+        </Element>
         <Reading character={reading.character} kana={reading.kana} />
         <SentencePair reading={reading} />
+        {/* <PitchInfo character={reading.character} /> */}
         {/* <KanjiStroke character={reading.character} /> */}
       </div>
     ))}

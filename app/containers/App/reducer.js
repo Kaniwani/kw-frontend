@@ -42,11 +42,14 @@ const settingsState = {
       speed: 2000,
     },
   },
-  kanjiStroke: {
-    autoplay: true,
-    step: 0.01,
-    stroke: { order: { visible: false } },
-    grid: { show: true },
+  vocabulary: {
+    useAlcPro: false,
+    kanjiStroke: {
+      autoplay: true,
+      step: 0.01,
+      stroke: { order: { visible: false } },
+      grid: { show: true },
+    },
   },
 };
 

@@ -81,6 +81,13 @@ const levelUnlockLogic = createLogic({
   type: actions.level.unlock.request,
   cancelType: actions.level.unlock.cancel,
   warnTimeout: 10000,
+  validate({ getState, action }, allow, reject) {
+    if (getState().global.ui.level.submitting.length >= 2) {
+      reject(/* actions.notifications('too many submissions, please wait')*/);
+    }
+    allow(action);
+  },
+
   processOptions: {
     successType: actions.level.unlock.success,
     failType: actions.level.unlock.failure,

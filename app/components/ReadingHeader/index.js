@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Wrapper, Heading, VocabLink, Tags } from './styles';
+import { Wrapper, Heading, VocabLink } from './styles';
 
 ReadingHeader.propTypes = {
   id: PropTypes.number.isRequired,
   character: PropTypes.string.isRequired,
-  tags: PropTypes.array.isRequired,
+  useAlcPro: PropTypes.bool.isRequired,
   withKwLink: PropTypes.bool,
 };
 
@@ -14,7 +14,13 @@ ReadingHeader.defaultProps = {
   withKwLink: true,
 };
 
-function ReadingHeader({ id, character, tags, withKwLink }) {
+const createAlcLink = (character, useAlcPro) =>
+  `http://${useAlcPro ? 'eowpf' : 'eow'}.alc.co.jp/search?q=${encodeURIComponent(character)}`;
+const createGooLink = (character) => `http://dictionary.goo.ne.jp/srch/all/${encodeURIComponent(character)}/m0u/`;
+const createWeblioLink = (character) => `http://ejje.weblio.jp/content/${encodeURIComponent(character)}`;
+const createForvoLink = (character) => `http://forvo.com/search/${encodeURIComponent(character)}/`;
+
+function ReadingHeader({ id, character, useAlcPro, withKwLink }) {
   return (
     <Wrapper>
       <Heading>
@@ -27,6 +33,7 @@ function ReadingHeader({ id, character, tags, withKwLink }) {
       >
         WK
       </VocabLink>
+
       {withKwLink && (
         <VocabLink
           to={`/vocabulary/entry/${id}`}
@@ -36,7 +43,34 @@ function ReadingHeader({ id, character, tags, withKwLink }) {
           KW
         </VocabLink>
       )}
-      <Tags tags={tags} />
+      <VocabLink
+        href={createAlcLink(character, useAlcPro)}
+        title="View on Alc (Eijiro)"
+        external
+      >
+        ALC
+      </VocabLink>
+      <VocabLink
+        href={createGooLink(character)}
+        title="View on Goo"
+        external
+      >
+        GOO
+      </VocabLink>
+      <VocabLink
+        href={createWeblioLink(character)}
+        title="View on Weblio"
+        external
+      >
+        WEBLIO
+      </VocabLink>
+      <VocabLink
+        href={createForvoLink(character)}
+        title="View on Forvo"
+        external
+      >
+        FORVO
+      </VocabLink>
     </Wrapper>
   );
 }
