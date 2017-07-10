@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import titlecase from 'voca/title_case';
+import { compose, branch, renderNothing } from 'recompose';
+import { createStructuredSelector } from 'reselect';
+
+import { selectVocabExpanded } from 'containers/App/selectors';
 
 import { SRS_RANKS } from 'shared/constants';
 import VocabList from 'components/VocabList';
@@ -9,19 +14,30 @@ import { Wrapper } from './styles';
 
 RankedVocabList.propTypes = {
   rank: PropTypes.oneOf(Object.values(SRS_RANKS)).isRequired,
-  items: PropTypes.array.isRequired,
+  ids: PropTypes.array.isRequired,
   color: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
   isExpanded: PropTypes.bool.isRequired,
 };
 
-function RankedVocabList({ rank, items, type, color, isExpanded }) {
+function RankedVocabList({ rank, ids, color, isExpanded }) {
   return (
     <Wrapper>
-      {items.length > 0 && <StripeHeading text={titlecase(rank)} count={items.length} />}
-      <VocabList isExpanded={isExpanded} items={items} color={color} type={type} />
+      <StripeHeading text={titlecase(rank)} count={ids.length} />
+      <VocabList ids={ids} color={color} isExpanded={isExpanded} />
     </Wrapper>
   );
 }
 
-export default RankedVocabList;
+const mapStateToProps = createStructuredSelector({
+  isExpanded: selectVocabExpanded,
+});
+
+const enhance = compose(
+  connect(mapStateToProps),
+  branch(
+    ({ ids }) => ids.length < 1,
+    renderNothing,
+  )
+);
+
+export default enhance(RankedVocabList);

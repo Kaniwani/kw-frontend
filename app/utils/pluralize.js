@@ -1,9 +1,9 @@
-const makeSchema = subject => ({
+const makeSchema = (subject) => ({
   single: subject,
   plural: `${subject}s`,
 });
 
-const makeGetText = schema => descriptor => `${schema[descriptor]}`;
+const makeGetText = (schema) => (descriptor) => `${schema[descriptor]}`;
 
 export function pluralize(subject = '', amount = 1, schema) {
   const thisSchema = schema || makeSchema(subject);

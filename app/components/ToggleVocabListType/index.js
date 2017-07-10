@@ -1,22 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
+import { selectVocabExpanded } from 'containers/App/selectors';
+import actions from 'containers/App/actions';
 import { ToggleButton } from './styles';
 
 ToggleVocabListType.propTypes = {
   isExpanded: PropTypes.bool.isRequired,
-  handleClick: PropTypes.func.isRequired,
+  toggleExpanded: PropTypes.func.isRequired,
 };
 
-function ToggleVocabListType({ isExpanded, handleClick }) {
+function ToggleVocabListType({ isExpanded, toggleExpanded }) {
   return (
     <ToggleButton
       name={isExpanded ? 'CONTRACT_ALL' : 'EXPAND_ALL'}
       title={isExpanded ? 'Shrink card size' : 'Enlarge card size'}
       size="2em"
-      onClick={handleClick}
+      onClick={toggleExpanded}
     />
   );
 }
 
-export default ToggleVocabListType;
+const mapStateToProps = createStructuredSelector({
+  isExpanded: selectVocabExpanded,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  toggleExpanded: () => dispatch(actions.settings.vocabulary.expanded.toggle()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ToggleVocabListType);

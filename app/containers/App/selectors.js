@@ -1,77 +1,82 @@
 import { createSelector } from 'reselect';
 import isNumber from 'lodash/isNumber';
 import pick from 'lodash/pick';
+import groupByRank from 'utils/groupByRank';
 import calculatePercentage from 'utils/calculatePercentage';
 import titleCase from 'voca/title_case';
 
-export const selectError = (state) => state.global.ui.error;
-export const selectProfile = (state) => state.global.user.profile;
-export const selectDashboard = (state) => state.global.user.dashboard;
-export const selectSettings = (state) => state.global.settings;
-export const selectUi = (state) => state.global.ui;
-export const createSelectSessionCount = (name) => createSelector(
-  selectDashboard,
-  (dashboard) => dashboard[`${name}Count`]
-);
-export const selectUserLevel = createSelector(selectProfile, (state) => state.currentLevel);
-export const selectReviewCount = createSelectSessionCount('review');
-export const selectLessonCount = createSelectSessionCount('lesson');
+export const selectGlobal = (state) => state.global;
+export const selectIdFromMatch = (props) => +props.match.params.id;
+export const selectCategoryFromMatch = (props) => props.match.params.category;
 
-export const selectEntities = (state) => state.global.entities;
-export const createSelectEntities = (name) => createSelector(
-  selectEntities,
-  (entities) => entities[name]
-);
-export const createSelectEntityById = (entity, id) => createSelector(
-  createSelectEntities(entity),
-  (entities) => entities[id],
+export const selectUi = createSelector(selectGlobal, (state) => state.ui);
+export const selectUser = createSelector(selectGlobal, (state) => state.user);
+
+export const selectProfile = createSelector(selectUser, (state) => state.profile);
+export const selectDashboard = createSelector(selectUser, (state) => state.dashboard);
+
+export const selectSettings = createSelector(selectGlobal, (state) => state.settings);
+export const selectVocabExpanded = createSelector(selectSettings, (state) => state.vocabulary.expandedCards);
+
+export const selectLessons = createSelector(selectGlobal, (state) => state.lessons);
+export const selectLessonEntities = createSelector(selectLessons, (state) => state.entities);
+export const makeSelectLesson = (id) => createSelector(selectLessonEntities, (state) => state && state[id]);
+
+export const selectReviews = createSelector(selectGlobal, (state) => state.reviews);
+export const selectReviewEntities = createSelector(selectReviews, (state) => state.entities);
+export const makeSelectReview = (id) => createSelector(selectReviewEntities, (state) => state && state[id]);
+
+export const selectLevels = createSelector(selectGlobal, (state) => state.levels);
+export const selectLevelEntities = createSelector(selectLevels, (state) => state.entities);
+export const selectLevelIds = createSelector(selectLevels, (state) => Object.keys(state.entities));
+export const makeSelectLevel = (id) => createSelector(selectLevelEntities, (state) => state && state[id]);
+export const makeSelectLevelReviews = (id) => createSelector(makeSelectLevel(id), (state) => state && state.reviews);
+
+export const selectSessionCount = createSelector(
+  (state, { category }) => [selectDashboard(state), category],
+  ([dashboard, category]) => dashboard ? dashboard[`${category}Count`] : 0,
 );
 
-export const selectReview = (state, props) => createSelectEntityById('reviews', props.id)(state);
-export const selectIdFromParams = (_, props) => props.match.params.id;
-
-export const selectLevels = createSelectEntities('levels');
-export const selectLevelIds = createSelector(
-  selectLevels,
-  (levels) => Object.keys(levels),
-);
-export const selectLevel = (state, props) => createSelectEntityById('levels', props.id)(state);
-export const makeSelectLevel = () => createSelector(selectLevel, (level) => level);
-export const makeSelectLevelReviewIds = () => (state, props) => {
-  const level = createSelectEntityById('levels', selectIdFromParams(null, props))(state);
-  return level && level.reviews;
-};
+export const selectUserLevel = createSelector(selectProfile, (state) => state && state.currentLevel);
 
 const isWithinUserWKLevel = (id, userLevel) => isNumber(id) && id <= userLevel;
 const isNotNumberedLevel = (id) => !isNumber(id);
 
-export const selectLevelTitle = (state, props) => isNotNumberedLevel(props.id) ? titleCase(props.id) : props.id;
-export const selectLevelCount = createSelector(selectLevel, (level) => level.count);
-export const selectLevelSubmitting = (state, props) => selectUi(state).level.submitting.includes(props.id);
-export const selectLevelActionable = createSelector(
-  [makeSelectLevel(), selectUserLevel, selectLevelSubmitting],
-  ({ id }, userLevel, isSubmitting) => !isSubmitting && (isWithinUserWKLevel(id, userLevel) || isNotNumberedLevel(id)),
+export const makeSelectLevelTitle = (id) => createSelector(() =>
+  isNotNumberedLevel(id) ? titleCase(id) : id,
+);
+export const makeSelectLevelCount = (id) => createSelector(
+  makeSelectLevel(id),
+  (level) => level && level.count
+);
+export const makeSelectLevelSubmitting = (id) => createSelector(
+  selectUi,
+  (ui) => ui.levels.submitting.includes(id)
+);
+export const makeSelectLevelActionable = (id) => createSelector(
+  [selectUserLevel, makeSelectLevelSubmitting(id)],
+  (userLevel, isSubmitting) => !isSubmitting && (isWithinUserWKLevel(id, userLevel) || isNotNumberedLevel(id)),
 );
 
-export const selectLevelLocked = createSelector(
-  makeSelectLevel(),
-  (level) => level.isLocked,
+export const makeSelectLevelLocked = (id) => createSelector(
+  makeSelectLevel(id),
+  (level) => level && level.isLocked,
 );
 
-export const selectReviewCorrect = createSelector(
-  selectReview,
+export const makeSelectReviewCorrect = (id) => createSelector(
+  makeSelectReview(id),
   (review) => review && review.correct
 );
-export const selectReviewIncorrect = createSelector(
-  selectReview,
+export const makeSelectReviewIncorrect = (id) => createSelector(
+  makeSelectReview(id),
   (review) => review && review.incorrect
 );
-export const selectReviewMeanings = createSelector(
-  selectReview,
+export const makeSelectReviewMeanings = (id) => createSelector(
+  makeSelectReview(id),
   (review) => review && review.vocabulary.meanings,
 );
-export const selectReviewReadings = createSelector(
-  selectReview,
+export const makeSelectReviewReadings = (id) => createSelector(
+  makeSelectReview(id),
   (review) => review && review.vocabulary.readings,
 );
 
@@ -99,54 +104,60 @@ const generateToolTip = (correct, incorrect, meanings, readings) => {
   `;
 };
 
-export const selectVocabChipToolTipMarkup = createSelector(
-  [selectReviewCorrect, selectReviewIncorrect, selectReviewMeanings, selectReviewReadings],
+export const makeSelectVocabChipToolTipMarkup = (id) => createSelector(
+  [makeSelectReviewCorrect(id), makeSelectReviewIncorrect(id), makeSelectReviewMeanings(id), makeSelectReviewReadings(id)],
   generateToolTip,
 );
 
-export const selectSession = (state) => state.global.session;
-export const selectQueue = (state) => state.global.session.queue;
-export const selectCompleteCount = createSelector(selectSession, ({ complete }) => complete.length);
-export const selectCorrectCount = createSelector(selectSession, ({ correct }) => correct.length);
-export const selectCurrentItem = createSelector(
-  [selectEntities, selectSession],
-  (entities, { current }) => current && entities.reviews[current],
+const selectSessionByCategory = (state, { category }) =>
+  category === 'reviews' ?
+    selectReviews(state) :
+    selectLessons(state);
+
+export const selectSession = createSelector(selectSessionByCategory, (state) => state);
+
+export const makeSelectQueue = createSelector(
+  selectSession,
+  (session) => session.queue,
 );
 
-export const selectTotalCount = (state, { match: { params: { category } } }) =>
-  category === 'reviews' ?
-    selectReviewCount(state) :
-    selectLessonCount(state);
+export const makeSelectCurrentItem = createSelector(
+  selectSession,
+  ({ entities, current }) => current && entities[current],
+);
+
+export const selectCompleteCount = createSelector(
+  selectSession,
+  ({ complete }) => complete.length
+);
+
+export const selectCorrectCount = createSelector(
+  selectSession,
+  ({ correct }) => correct.length
+);
 
 export const selectRemainingCount = createSelector(
-  [selectSession, selectTotalCount],
-  ({ complete }, total) => Math.max((total - 1) /* 1 = current review */ - complete, 0),
+  [selectCompleteCount, selectSessionCount],
+  (complete, total) => Math.max((total - 1) /* 1 = current review */ - complete, 0),
 );
 
-export const makeSelectCorrectItems = () => createSelector(
-  [selectEntities, selectSession],
-  (entities, { correct }) =>
-    correct && Object.values(pick(entities.reviews, correct))
-);
-
-export const makeSelectIncorrectItems = () => createSelector(
-  [selectEntities, selectSession],
-  (entities, { incorrect }) =>
-    incorrect && Object.values(pick(entities.reviews, incorrect))
-);
-
-export const makeSelectCriticalItems = () => createSelector(
-  [selectEntities, selectSession],
-  (entities, { critical }) =>
-    critical && Object.values(pick(entities.reviews, critical))
-);
-
-export const makeSelectPercentComplete = () => createSelector(
-  [selectCorrectCount, selectTotalCount],
+export const selectPercentComplete = createSelector(
+  [selectCorrectCount, selectSessionCount],
   (correct, total) => calculatePercentage(correct, total),
 );
 
-export const makeSelectPercentCorrect = () => createSelector(
+export const selectPercentCorrect = createSelector(
   [selectCorrectCount, selectCompleteCount],
   (correct, complete) => calculatePercentage(correct, complete),
+);
+
+export const selectCorrectIds = createSelector(selectSession, ({ correct }) => correct);
+export const selectIncorrectIds = createSelector(selectSession, ({ incorrect }) => incorrect);
+export const selectCriticalIds = createSelector(selectSession, ({ critical }) => critical);
+
+export const makeSelectReviewsGroupedByRank = (ids) => createSelector(
+  selectReviewEntities,
+  (entities) => ids.every((id) => entities[id] != null) ?
+    groupByRank(ids.map((id) => ({ id, streakName: entities[id].streakName }))) :
+    {},
 );

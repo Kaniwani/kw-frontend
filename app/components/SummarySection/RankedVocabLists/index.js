@@ -1,36 +1,37 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import cuid from 'cuid';
-import { branch, renderNothing } from 'recompose';
+import flatten from 'lodash/flatten';
+import { branch, renderComponent } from 'recompose';
 
-import groupByRank from 'utils/groupByRank';
+import { makeSelectReviewsGroupedByRank } from 'containers/App/selectors';
+import Placeholder from '../Placeholder';
+
 import RankedVocabList from '../RankedVocabList';
 
-const hasNoItems = ({ items }) => !items.length;
-
-const onlyRenderIfItems = branch(
-  hasNoItems,
-  renderNothing,
-);
-
-const RankedVocab = onlyRenderIfItems(RankedVocabList);
-
 RankedVocabLists.propTypes = {
-  items: PropTypes.array.isRequired,
+  rankedEntries: PropTypes.object.isRequired,
   color: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  isExpanded: PropTypes.bool.isRequired,
 };
 
-function RankedVocabLists({ items, ...props }) {
+const withPlaceholder = branch(
+  ({ rankedEntries }) => flatten(Object.values(rankedEntries)).length < 1,
+  renderComponent(Placeholder),
+);
+
+function RankedVocabLists({ rankedEntries, color }) {
   return (
     <div>
-      {/* TODO: memoize grouping in selectors */}
-      {Object.entries(groupByRank(items)).map(([rank, entries]) =>
-        <RankedVocab key={cuid()} rank={rank} items={entries} {...props} />
+      {Object.entries(rankedEntries).map(([rank, ids]) =>
+        <RankedVocabList key={cuid()} rank={rank} ids={ids} color={color} />
       )}
     </div>
   );
 }
 
-export default RankedVocabLists;
+const mapStateToProps = (state, { ids }) => ({
+  rankedEntries: makeSelectReviewsGroupedByRank(ids)(state),
+});
+
+export default connect(mapStateToProps)(withPlaceholder(RankedVocabLists));

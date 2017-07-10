@@ -5,7 +5,28 @@ import isString from 'lodash/isString';
 import castArray from 'lodash/castArray';
 import uniq from 'lodash/uniq';
 import condenseReadings from 'utils/condenseReadings';
-import { normalize, denormalize, schema } from 'normalizr';
+
+export const serializeUserResponse = serializeUser;
+export const serializeLevelsResponse = serializeLevels;
+export const serializeReviewResponse = serializeReviewEntry;
+export const serializeAddSynonymResponse = serializeSynonym;
+export const serializeQueueResponse = ({ results }) => {
+  const reviews = serializeStubbedReviewEntries(results);
+  return {
+    reviews,
+    reviewIds: Object.keys(reviews).map(Number),
+  };
+};
+
+export const serializeLevelResponse = ({ id, results }) => {
+  const reviews = serializeReviewEntries(results);
+  return {
+    id,
+    reviews,
+    reviewIds: Object.keys(reviews).map(Number),
+  };
+};
+
 
 // Add 'Common'|'Uncommon' and JLPT rank to tags list
 const combineTags = ({ tags, jlpt, common }) => {
@@ -25,57 +46,31 @@ const toUniqueStringsArray = (data) => {
   return uniq(asArray);
 };
 
-const reviewSchema = new schema.Entity('reviews');
-const levelSchema = new schema.Entity('levels', {
-  reviews: [reviewSchema],
-});
+/* eslint-disable no-return-assign, no-sequences, no-param-reassign */
+const createHashMap = (data) => data.reduce((hash, item) => (hash[item.id] = item, hash), {});
+/* eslint-enable */
 
-const levelReviewsSchema = [levelSchema];
+function serializeLevels(levels = []) {
+  return createHashMap(levels.map(serializeLevel));
+}
 
-export const normalizeLevels = (levels) =>
-  normalize(levels, [levelSchema]);
+function serializeMeaning(data) {
+  return toUniqueStringsArray(data);
+}
 
-export const denormalizeLevels = (levels, entities) =>
-  denormalize(levels, [levelSchema], entities);
+function serializeReadings(data = []) {
+  return condenseReadings(data).map(serializeReading);
+}
 
-export const normalizeReviews = (reviews) =>
-  normalize(reviews, [reviewSchema]);
+function serializeReviewEntries(data = []) {
+  return createHashMap(data.map(serializeReviewEntry));
+}
 
-export const denormalizeReviews = (reviews, entities) =>
-  denormalize(reviews, [reviewSchema], entities);
+function serializeStubbedReviewEntries(data = []) {
+  return createHashMap(data.map(serializeStubbedReviewEntry));
+}
 
-export const normalizeReview = (review) =>
-  normalize(review, reviewSchema);
-
-export const denormalizeReview = (review, entities) =>
-  denormalize(review, reviewSchema, entities);
-
-export const normalizeLevelReviews = (id, reviews) =>
-  normalize([{ id, reviews }], levelReviewsSchema);
-
-export const denormalizeLevelReviews = (level, entities) =>
-  normalize([level], levelReviewsSchema, entities);
-
-export const serializeMeaning = (data) =>
-  toUniqueStringsArray(data);
-
-export const serializeLevels = (data) =>
-  normalizeLevels(data.map(serializeLevel));
-
-export const serializeLevelReviews = ({ id, response: { results } }) =>
-  normalizeLevelReviews(+id, results.map(serializeReviewEntry));
-
-export const serializeReadings = (data) =>
-  condenseReadings(data).map(serializeReading);
-
-export const serializeReviewEntries = ({ results }) =>
-  normalizeReviews(results.map(serializeReviewEntry));
-
-export const serializeStubbedReviewEntries = ({ results }) =>
-  normalizeReviews(results.map(serializeStubbedReviewEntry));
-
-
-export function serializeUser({
+function serializeUser({
   email,
   profile,
 }) {
@@ -86,7 +81,7 @@ export function serializeUser({
   };
 }
 
-export function serializeProfile({
+function serializeProfile({
   email,
   name,
   api_key: apiKey,
@@ -114,15 +109,17 @@ const coerceValsToNumber = (obj) =>
   Object.entries(obj).reduce((hash, [key, val]) => (hash[key] = parseInt(val, 10), hash), {});
 /* eslint-enable */
 
-export function serializeDashboard({
-  reviews_count: reviewCount = 0,
+function serializeDashboard({
+  reviews_count: reviewsCount = 0,
+  lessons_count: lessonsCount = 0,
   reviews_within_hour_count: nextHourReviews = 0,
   reviews_within_day_count: nextDayReviews = 0,
   last_wanikani_sync_date: lastWkSyncDate = null,
   srs_counts: srsCounts = ranksWithZeroCount,
 } = {}) {
   return {
-    reviewCount: +reviewCount,
+    reviewsCount: +reviewsCount,
+    lessonsCount: +lessonsCount,
     nextHourReviews: +nextHourReviews,
     nextDayReviews: +nextDayReviews,
     lastWkSyncDate: dateOrNull(lastWkSyncDate),
@@ -130,7 +127,7 @@ export function serializeDashboard({
   };
 }
 
-export function serializeSettings({
+function serializeSettings({
   follow_me: followMe,
   auto_advance_on_success: autoAdvanceCorrect,
   auto_expand_answer_on_success: autoExpandCorrect,
@@ -150,7 +147,7 @@ export function serializeSettings({
   };
 }
 
-export function serializeReading(reading) {
+function serializeReading(reading) {
   return {
     id: +reading.id,
     level: reading.level,
@@ -163,7 +160,7 @@ export function serializeReading(reading) {
   };
 }
 
-export function serializeVocabularyEntry({
+function serializeVocabularyEntry({
   id,
   meaning,
   readings,
@@ -175,10 +172,18 @@ export function serializeVocabularyEntry({
   };
 }
 
-export const serializeSynonym = ({ review: reviewId, ...rest }) => ({ reviewId, ...rest });
-export const serializeSynonyms = (list) => list.length ? list.map(serializeSynonym) : [];
+function serializeSynonym({ review: reviewId, ...rest }) {
+  return {
+    reviewId,
+    ...rest,
+  };
+}
 
-export function serializeStubbedReviewEntry({
+function serializeSynonyms(synonyms = []) {
+  return synonyms.map(serializeSynonym);
+}
+
+function serializeStubbedReviewEntry({
   id,
   correct,
   incorrect,
@@ -199,7 +204,7 @@ export function serializeStubbedReviewEntry({
   };
 }
 
-export function serializeReviewEntry({
+function serializeReviewEntry({
   needs_review: isReviewReady,
   last_studied: lastReviewDate,
   unlock_date: unlockDate,
@@ -238,5 +243,6 @@ function serializeLevel({
     id: +level,
     count: +count,
     isLocked: !unlocked,
+    reviews: [],
   };
 }
