@@ -2,11 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { createStructuredSelector } from 'reselect';
-import ReactTooltip from 'react-tooltip';
 
 import actions from 'containers/App/actions';
-import { makeSelectLevelReviewIds, selectIdFromParams } from 'containers/App/selectors';
+import {
+  selectIdFromMatch,
+  makeSelectLevelReviews,
+  selectVocabExpanded,
+ } from 'containers/App/selectors';
+
 import PageWrapper from 'base/PageWrapper';
 import VocabPageHeader from 'components/VocabPageHeader';
 import VocabList from 'components/VocabList';
@@ -16,6 +19,7 @@ import { VocabListWrapper } from './styles';
 export class VocabLevelPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     loadLevelReviews: PropTypes.func.isRequired,
+    isExpanded: PropTypes.bool.isRequired,
     reviewIds: PropTypes.array,
     id: PropTypes.PropTypes.oneOfType([
       PropTypes.number,
@@ -27,33 +31,14 @@ export class VocabLevelPage extends React.Component { // eslint-disable-line rea
     reviewIds: [],
   }
 
-  // FIXME: state.global.ui.level.vocabListExpanded
-  // although, we probably want session summary to be small
-  // and these ones to be big
-  state = {
-    vocabListExpanded: true,
-  }
-
   componentDidMount() {
     const { loadLevelReviews, id } = this.props;
     // TODO: ask tadgh for custom stubbed reviews api point?
     loadLevelReviews({ id });
   }
 
-  // FIXME: create a recompose HoC for this since multiple pages have the toggle
-  componentDidUpdate(prevProps, prevState) {
-    const switchedToCompact = (!this.state.vocabListExpanded) && prevState.vocabListExpanded;
-    if (switchedToCompact) {
-      ReactTooltip.rebuild();
-    }
-  }
-
-  toggleVocabListType = () => {
-    this.setState((prevState) => ({ vocabListExpanded: !prevState.vocabListExpanded }));
-  }
-
   render() {
-    const { reviewIds, id } = this.props;
+    const { reviewIds, id, isExpanded } = this.props;
     const PAGE_TITLE = `Vocabulary: Level ${id}`;
     return (
       <div>
@@ -62,15 +47,9 @@ export class VocabLevelPage extends React.Component { // eslint-disable-line rea
           <meta name="description" content={`Kaniwani ${PAGE_TITLE}`} />
         </Helmet>
         <PageWrapper>
-          <VocabPageHeader
-            pageTitle={PAGE_TITLE}
-            withVocabListToggle={{
-              isExpanded: this.state.vocabListExpanded,
-              handleToggle: this.toggleVocabListType,
-            }}
-          />
+          <VocabPageHeader pageTitle={PAGE_TITLE} withVocabListToggle />
           <VocabListWrapper>
-            <VocabList ids={reviewIds} isExpanded={this.state.vocabListExpanded} />
+            <VocabList ids={reviewIds} isExpanded={isExpanded} />
           </VocabListWrapper>
         </PageWrapper>
       </div>
@@ -78,9 +57,10 @@ export class VocabLevelPage extends React.Component { // eslint-disable-line rea
   }
 }
 
-const mapStateToProps = createStructuredSelector({
-  reviewIds: makeSelectLevelReviewIds(),
-  id: selectIdFromParams,
+const mapStateToProps = (state, props) => ({
+  id: selectIdFromMatch(props),
+  reviewIds: makeSelectLevelReviews(selectIdFromMatch(props))(state),
+  isExpanded: selectVocabExpanded(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

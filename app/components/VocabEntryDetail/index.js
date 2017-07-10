@@ -6,10 +6,9 @@ import { compose, withHandlers, branch, renderNothing, renderComponent } from 'r
 import titleCase from 'voca/title_case';
 import getDateInWords from 'utils/getDateInWords';
 import calculatePercentage from 'utils/calculatePercentage';
-import { createStructuredSelector } from 'reselect';
 
 import actions from 'containers/App/actions';
-import { selectReview, selectReviewMeanings, selectReviewReadings } from 'containers/App/selectors';
+import { makeSelectReview, makeSelectReviewMeanings, makeSelectReviewReadings } from 'containers/App/selectors';
 
 import H1 from 'base/H1';
 import H3 from 'base/H3';
@@ -38,8 +37,8 @@ Reading.propTypes = {
   character: PropTypes.string.isRequired,
 };
 
-const Readings = connect(createStructuredSelector({
-  readings: selectReviewReadings,
+const Readings = connect((state, { id }) => ({
+  readings: makeSelectReviewReadings(id)(state),
 }))(({ readings, id }) => (
   <div>
     {readings.map((reading) => (
@@ -84,13 +83,13 @@ const Synonyms = ({ synonyms, handleAddSynonym }) => (
   </div>
 );
 Synonyms.propTypes = {
-  synonyms: PropTypes.array,
+  synonyms: PropTypes.array.isRequired,
   handleAddSynonym: PropTypes.func.isRequired,
 };
 const enhanceSynonyms = compose(
   branch(({ synonyms }) => synonyms.length < 0, renderNothing),
   connect(null, (dispatch) => ({
-    addSynonym: (payload) => dispatch(actions.synonym.add.request(payload)),
+    addSynonym: (payload) => dispatch(actions.review.synonym.add.request(payload)),
   })),
   withHandlers({
     handleAddSynonym: ({ id, addSynonym }) => () =>
@@ -100,8 +99,8 @@ const enhanceSynonyms = compose(
 const EnhancedSynonyms = enhanceSynonyms(Synonyms);
 
 
-const Meanings = connect(createStructuredSelector({
-  meanings: selectReviewMeanings,
+const Meanings = connect((state, { id }) => ({
+  meanings: makeSelectReviewMeanings(id)(state),
 }))(({ meanings }) => {
   const [first, ...rest] = meanings;
   return (
@@ -217,8 +216,8 @@ function VocabEntryDetail({ review, handleLockClick }) {
   );
 }
 
-const mapStateToProps = createStructuredSelector({
-  review: selectReview,
+const mapStateToProps = (state, { id }) => ({
+  review: makeSelectReview(id)(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

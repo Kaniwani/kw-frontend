@@ -1,27 +1,54 @@
 import { createActions } from 'redux-actions';
 
+const actionParams = [
+  (payload) => payload,
+  (payload, meta) => meta,
+];
+
+const SYNC = actionParams;
+
 const ASYNC = {
-  REQUEST: undefined,
-  SUCCESS: undefined,
-  CANCEL: undefined,
-  FAILURE: undefined,
+  REQUEST: actionParams,
+  SUCCESS: actionParams,
+  CANCEL: actionParams,
+  FAILURE: actionParams,
 };
 
 // import actions from './actions'
 // dispatch:
-// actions.user.load.success(payload, meta) === { type 'APP/USER/LOAD/SUCCESS', payload, meta }
+// actions.user.load.success(payload, meta) === { type 'APP/USER/LOAD/SUCCESS', payload: payload, meta: meta }
 // read type via automatic toString():
 // actions.user.load.success === 'APP/USER/LOAD/SUCCESS'
 export const { app } = createActions({
   APP: {
+    SETTINGS: {
+      // FIXME: put expandedCards in summarysection && vocablevel reducer so all 4 can be independent
+      VOCABULARY: {
+        EXPANDED: {
+          TOGGLE: SYNC,
+        },
+      },
+    },
     USER: {
       LOAD: ASYNC,
     },
     REVIEWS: {
-      LOAD: ASYNC,
+      QUEUE: {
+        LOAD: ASYNC,
+      },
+      CURRENT: {
+        SET: SYNC,
+        RETURN: SYNC,
+      },
     },
-    QUEUE: {
-      LOAD: ASYNC,
+    LESSONS: {
+      QUEUE: {
+        LOAD: ASYNC,
+      },
+      CURRENT: {
+        SET: SYNC,
+        RETURN: SYNC,
+      },
     },
     LEVELS: {
       LOAD: ASYNC,
@@ -35,10 +62,10 @@ export const { app } = createActions({
       LOAD: ASYNC,
       LOCK: ASYNC,
       UNLOCK: ASYNC,
-    },
-    SYNONYM: {
-      ADD: ASYNC,
-      REMOVE: ASYNC,
+      SYNONYM: {
+        ADD: ASYNC,
+        REMOVE: ASYNC,
+      },
     },
   },
 });

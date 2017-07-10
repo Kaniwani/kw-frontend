@@ -1,15 +1,20 @@
 import { createLogic } from 'redux-logic';
+import sample from 'lodash/sample';
+import difference from 'lodash/difference';
+// TODO: inject some of these as dependencies instead?
 import * as api from 'shared/api';
 
 import {
-  serializeUser,
-  serializeLevels,
-  serializeReviewEntries,
-  serializeStubbedReviewEntries,
-  serializeLevelReviews,
-  serializeSynonym,
+  serializeUserResponse,
+  serializeLevelsResponse,
+  serializeReviewResponse,
+  serializeQueueResponse,
+  serializeLevelResponse,
+  serializeAddSynonymResponse,
 } from 'shared/serializers';
 
+// TODO: find/replace sel.selectorZ and import { selectorX, selectorY }
+import * as sel from './selectors';
 import app from './actions';
 
 const userLoadLogic = createLogic({
@@ -24,11 +29,77 @@ const userLoadLogic = createLogic({
 
   process() {
     return api.getUserProfile()
-      .then((response) => serializeUser(response));
+      .then((res) => serializeUserResponse(res));
   },
 });
 
-const reloadSessionCountsLogic = createLogic({
+const loadQueuesIfNeededLogic = createLogic({
+  type: app.user.load.success,
+  latest: true,
+  process({ getState, action }, dispatch, done) {
+    const globalState = sel.selectGlobal(getState());
+    const dashboard = sel.selectDashboard(getState());
+    const needReviewsQueue = dashboard.reviewsCount > 0 && globalState.reviews.queue.length <= 0;
+    const needLessonsQueue = dashboard.lessonsCount > 0 && globalState.lessons.queue.length <= 0;
+    if (needReviewsQueue) { dispatch(app.reviews.queue.load.request()); }
+    if (needLessonsQueue) { dispatch(app.lessons.queue.load.request()); }
+    done();
+  },
+});
+
+export const reviewsQueueLoadLogic = createLogic({
+  type: app.reviews.queue.load.request,
+  cancelType: app.reviews.queue.load.cancel,
+  warnTimeout: 8000,
+  // throttle: 10000,
+  latest: true,
+
+  processOptions: {
+    successType: app.reviews.queue.load.success,
+    failType: app.reviews.queue.load.failure,
+  },
+
+  process() {
+    return api.getCurrentReviews()
+      .then((res) => serializeQueueResponse(res));
+  },
+});
+
+const setCurrentOnQueueLoadLogic = createLogic({
+  type: app.reviews.queue.load.success,
+  latest: true,
+  process({ getState, action: { type } }, dispatch, done) {
+    const reviews = sel.selectReviews(getState());
+    const { current, queue } = reviews;
+    if (!current && queue.length) {
+      const newCurrent = reviews[sample(queue)];
+      dispatch(app.reviews.current.set(newCurrent));
+    } else {
+      console.log('Already have current: ', { current, queue });
+    }
+    done();
+  },
+});
+
+// fire after record or ignore answer || rotateReview
+const returnCurrentReviewLogic = createLogic({
+  type: app.reviews.current.return,
+  latest: true,
+  validate({ getState, action: { type } }, allow, reject) {
+    const reviews = sel.selectReviews(getState());
+    const { current, queue } = reviews;
+    let newCurrent = current;
+    if (queue.length > 1) {
+      newCurrent = reviews[sample(difference(queue, [current]))];
+      allow({ type, payload: newCurrent });
+    } else {
+      reject();
+      console.log('rejected returning current', { current, newCurrent });
+    }
+  },
+});
+
+const reloadQueueCountsLogic = createLogic({
   type: [
     app.level.lock.success,
     app.level.unlock.success,
@@ -40,9 +111,9 @@ const reloadSessionCountsLogic = createLogic({
   },
 
   process() {
-    console.info('Reloading session count');
+    console.info('Reloading queue counts');
     return api.getUserProfile()
-      .then((response) => serializeUser(response));
+      .then((res) => serializeUserResponse(res));
   },
 });
 
@@ -59,7 +130,7 @@ const levelsLoadLogic = createLogic({
 
   process() {
     return api.getLevels()
-      .then((response) => serializeLevels(response));
+      .then((res) => serializeLevelsResponse(res));
   },
 });
 
@@ -83,8 +154,12 @@ const levelUnlockLogic = createLogic({
   cancelType: app.level.unlock.cancel,
   warnTimeout: 10000,
   validate({ getState, action }, allow, reject) {
-    if (getState().global.ui.level.submitting.length >= 2) {
-      reject(/* app.notifications('too many submissions, please wait')*/);
+    // TODO: could set up a queue instead.
+    // https://github.com/jeffbski/redux-logic/tree/master/examples/notification
+    const alreadySubmitting = sel.selectUi(getState()).levels.submitting.length >= 1;
+    if (alreadySubmitting) {
+      alert('Please unlock levels one at a time. Turtles get tired too.');
+      reject(/* app.notifications.alert*/);
     }
     allow(action);
   },
@@ -100,42 +175,6 @@ const levelUnlockLogic = createLogic({
   },
 });
 
-export const queueLoadLogic = createLogic({
-  type: app.queue.load.request,
-  cancelType: app.queue.load.cancel,
-  warnTimeout: 8000,
-  processOptions: {
-    successType: app.queue.load.success,
-    failType: app.queue.load.failure,
-  },
-
-  process({ action }) {
-    console.log(action);
-    // if (category === 'lessons') {
-    //   return api.getCurrentLessons()
-    //     .then((response) => serializeStubbedReviewEntries(response));
-    // }
-    return api.getCurrentReviews()
-      .then((response) => serializeStubbedReviewEntries(response));
-  },
-});
-
-const reviewsLoadLogic = createLogic({
-  type: app.reviews.load.request,
-  cancelType: app.reviews.load.cancel,
-  warnTimeout: 10000,
-  latest: true,
-  processOptions: {
-    successType: app.reviews.load.success,
-    failType: app.reviews.load.failure,
-  },
-
-  process({ action: { payload: { id } } }) {
-    return api.getReviews({ id })
-      .then((response) => serializeReviewEntries(response));
-  },
-});
-
 const reviewLoadLogic = createLogic({
   type: app.review.load.request,
   cancelType: app.review.load.cancel,
@@ -147,11 +186,8 @@ const reviewLoadLogic = createLogic({
   },
 
   process({ action: { payload: { id } } }) {
-    // intentionally using serializeReviewEntries && { results: [response] }
-    // to force proper normalization format for reducer
-    // TODO: rename serializeReviewEntry and handle with just ( response )
     return api.getReviewEntry({ id })
-      .then((response) => serializeReviewEntries({ results: [response] }));
+      .then((res) => serializeReviewResponse(res));
   },
 });
 
@@ -188,29 +224,29 @@ const reviewUnlockLogic = createLogic({
 });
 
 const addSynonymLogic = createLogic({
-  type: app.synonym.add.request,
-  cancelType: app.synonym.add.cancel,
+  type: app.review.synonym.add.request,
+  cancelType: app.review.synonym.add.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
-    successType: app.synonym.add.success,
-    failType: app.synonym.add.failure,
+    successType: app.review.synonym.add.success,
+    failType: app.review.synonym.add.failure,
   },
 
   process({ action: { payload: { reviewId, character, kana } } }) {
     return api.addSynonym({ reviewId, character, kana })
-      .then((response) => serializeSynonym(response));
+      .then((res) => serializeAddSynonymResponse(res));
   },
 });
 
 const removeSynonymLogic = createLogic({
-  type: app.synonym.remove.request,
-  cancelType: app.synonym.remove.cancel,
+  type: app.review.synonym.remove.request,
+  cancelType: app.review.synonym.remove.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
-    successType: app.synonym.remove.success,
-    failType: app.synonym.remove.failure,
+    successType: app.review.synonym.remove.success,
+    failType: app.review.synonym.remove.failure,
   },
 
   process({ action: { payload: { id, reviewId } } }) {
@@ -231,19 +267,21 @@ const levelLoadLogic = createLogic({
 
   process({ action: { payload: { id } } }) {
     return api.getReviews({ id })
-      .then((response) => serializeLevelReviews({ id, response }));
+      .then(({ results }) => serializeLevelResponse({ id, results }));
   },
 });
 
 // All logic to be loaded
 export default [
   userLoadLogic,
-  queueLoadLogic,
+  reviewsQueueLoadLogic,
+  loadQueuesIfNeededLogic,
+  setCurrentOnQueueLoadLogic,
+  returnCurrentReviewLogic,
   levelsLoadLogic,
   levelLockLogic,
   levelUnlockLogic,
-  reloadSessionCountsLogic,
-  reviewsLoadLogic,
+  reloadQueueCountsLogic,
   reviewLoadLogic,
   addSynonymLogic,
   removeSynonymLogic,

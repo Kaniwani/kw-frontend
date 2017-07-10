@@ -10,7 +10,7 @@ import VocabLevelsPage from 'containers/VocabLevelsPage/Loadable';
 import VocabLevelPage from 'containers/VocabLevelPage/Loadable';
 import VocabEntryPage from 'containers/VocabEntryPage/Loadable';
 import SessionPage from 'containers/SessionPage/Loadable';
-import SessionSummaryPage from 'containers/SessionSummaryPage';
+import SessionSummaryPage from 'containers/SessionSummaryPage/Loadable';
 import AboutPage from 'containers/AboutPage/Loadable';
 import ContactPage from 'containers/ContactPage/Loadable';
 import SettingsPage from 'containers/SettingsPage/Loadable';
@@ -49,6 +49,7 @@ export class ProtectedRoutes extends React.Component {
               <Route path="" component={NotFoundPage} />
             </Switch>
           </Route>
+          <Route exact path="/vocabulary" component={VocabLevelsPage} />
           <Route exact path="/vocabulary/levels" component={VocabLevelsPage} />
           <Route exact path="/vocabulary/levels/:id" component={VocabLevelPage} />
           <Route exact path="/vocabulary/entry/:id" component={VocabEntryPage} />

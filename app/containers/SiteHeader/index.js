@@ -2,14 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { createStructuredSelector } from 'reselect';
 import debounce from 'lodash/debounce';
 import isEqual from 'lodash/isEqual';
 import { clearToken } from 'utils/auth';
 import { breakpoints } from 'shared/styles/media';
 
 import LogoLink from 'components/LogoLink';
-import { selectReviewCount, selectLessonCount } from 'containers/App/selectors';
+import { selectSessionCount } from 'containers/App/selectors';
 
 import OnCanvasMenu from './OnCanvasMenu';
 import OffCanvasToggle from './OffCanvasToggle';
@@ -18,13 +17,8 @@ import { Header, Nav } from './styles';
 
 class SiteHeader extends React.Component {
   static propTypes = {
-    lessonCount: PropTypes.number,
-    reviewCount: PropTypes.number,
-  };
-
-  static defaultProps = {
-    lessonCount: 0,
-    reviewCount: 0,
+    lessonsCount: PropTypes.number.isRequired,
+    reviewsCount: PropTypes.number.isRequired,
   };
 
   state = {
@@ -79,8 +73,8 @@ class SiteHeader extends React.Component {
   render() {
     const isWideViewport = !this.state.offCanvasToggleVisible;
     let onCanvasRoutes = [
-      { text: 'lessons', route: '/lessons', count: this.props.lessonCount },
-      { text: 'reviews', route: '/reviews', count: this.props.reviewCount },
+      { text: 'lessons', route: '/lessons', count: this.props.lessonsCount },
+      { text: 'reviews', route: '/reviews', count: this.props.reviewsCount },
       { text: 'vocabulary', route: '/vocabulary/levels' },
     ];
 
@@ -124,9 +118,9 @@ class SiteHeader extends React.Component {
   }
 }
 
-const mapStateToProps = createStructuredSelector({
-  reviewCount: selectReviewCount,
-  lessonCount: selectLessonCount,
+const mapStateToProps = (state) => ({
+  reviewsCount: selectSessionCount(state, { category: 'reviews' }),
+  lessonsCount: selectSessionCount(state, { category: 'lessons' }),
 });
 
 export default withRouter(connect(mapStateToProps)(SiteHeader));

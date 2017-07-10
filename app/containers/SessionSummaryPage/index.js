@@ -2,103 +2,34 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { createStructuredSelector } from 'reselect';
 
-import ReactTooltip from 'react-tooltip';
 import titleCase from 'voca/title_case';
 
 import SessionSummaryHeader from 'components/SessionSummaryHeader';
 import SessionSummaryContent from 'components/SessionSummaryContent';
 
-import actions from 'containers/App/actions';
-import {
-  selectRemainingCount,
-  selectTotalCount,
-  selectQueue,
-  makeSelectCorrectItems,
-  makeSelectIncorrectItems,
-  makeSelectCriticalItems,
-  makeSelectPercentCorrect,
-} from 'containers/App/selectors';
+import { selectCategoryFromMatch } from 'containers/App/selectors';
 
-class SessionSummaryPage extends React.Component {
-  static propTypes = {
-    match: PropTypes.object.isRequired,
-    remaining: PropTypes.number.isRequired,
-    correctItems: PropTypes.array.isRequired,
-    incorrectItems: PropTypes.array.isRequired,
-    criticalItems: PropTypes.array.isRequired,
-    percentCorrect: PropTypes.number.isRequired,
-    queue: PropTypes.arrayOf(PropTypes.number).isRequired,
-    total: PropTypes.number.isRequired,
-    loadQueue: PropTypes.func.isRequired,
-  }
+SessionSummaryPage.propTypes = {
+  category: PropTypes.string.isRequired,
+};
 
-  // FIXME: state.global.ui.sessionSummary.vocabListExpanded
-  state = {
-    vocabListExpanded: false,
-  }
-
-  componentDidMount() {
-    const { queue, total, loadQueue, match: { params: { category } } } = this.props;
-    console.log(queue, total, category, total > 0 && queue.length <= 0);
-    if (total > 0 && queue.length <= 0) {
-      loadQueue({}, { category });
-    }
-  }
-
-  // FIXME: same code is in vocabLevel page, share with a HoC instead
-  componentDidUpdate(prevProps, prevState) {
-    const switchedToCompact = !this.state.vocabListExpanded && prevState.vocabListExpanded;
-    if (switchedToCompact) {
-      ReactTooltip.rebuild();
-    }
-  }
-
-  toggleVocabListType = () => this.setState({ vocabListExpanded: !this.state.vocabListExpanded });
-
-  render() {
-    const {
-      match: { params },
-      remaining,
-      ...rest
-    } = this.props;
-
-    const categoryTitle = titleCase(params.category);
-
-    return (
-      <div>
-        <Helmet>
-          <title>{`${categoryTitle} Summary`}</title>
-          <meta name="description" content={`Kaniwani ${categoryTitle} Summary`} />
-        </Helmet>
-        <SessionSummaryHeader
-          category={params.category}
-          linkRoute={`/${params.category}/session`}
-          count={remaining}
-        />
-        <SessionSummaryContent
-          onVocabListToggle={this.toggleVocabListType}
-          vocabListExpanded={this.state.vocabListExpanded}
-          {...rest}
-        />
-      </div>
-    );
-  }
+function SessionSummaryPage({ category }) {
+  const categoryTitle = titleCase(category);
+  return (
+    <div>
+      <Helmet>
+        <title>{`${categoryTitle} Summary`}</title>
+        <meta name="description" content={`Kaniwani ${categoryTitle} Summary`} />
+      </Helmet>
+      <SessionSummaryHeader category={category} linkRoute={`/${category}/session`} />
+      <SessionSummaryContent category={category} />
+    </div>
+  );
 }
 
-const mapStateToProps = createStructuredSelector({
-  remaining: selectRemainingCount,
-  queue: selectQueue,
-  total: selectTotalCount,
-  correctItems: makeSelectCorrectItems(),
-  incorrectItems: makeSelectIncorrectItems(),
-  criticalItems: makeSelectCriticalItems(),
-  percentCorrect: makeSelectPercentCorrect(),
+const mapStateToProps = (state, props) => ({
+  category: selectCategoryFromMatch(props),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  loadQueue: (payload, meta) => dispatch(actions.queue.load.request(payload, meta)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SessionSummaryPage);
+export default connect(mapStateToProps)(SessionSummaryPage);

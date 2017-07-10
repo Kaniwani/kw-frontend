@@ -16,7 +16,7 @@ export const Title = styled.h2`
   padding: 1rem;
   margin: 0;
   text-transform: capitalize;
-  color: white;
+  color: ${COLORS.whiteLight};
   background-color: ${({ color }) => transparentize(0.05, COLORS[color])};
   text-shadow: 0.05em 0.05em 0.1em ${({ color }) => darken(0.2, COLORS[color])};
 `;

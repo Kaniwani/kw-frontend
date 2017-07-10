@@ -8,11 +8,11 @@ import isEqual from 'lodash/isEqual';
 
 import actions from 'containers/App/actions';
 import {
-  selectLevelCount,
-  selectLevelTitle,
-  selectLevelLocked,
-  selectLevelActionable,
-  selectLevelSubmitting,
+  makeSelectLevelCount,
+  makeSelectLevelTitle,
+  makeSelectLevelLocked,
+  makeSelectLevelActionable,
+  makeSelectLevelSubmitting,
  } from 'containers/App/selectors';
 import { Wrapper, LevelLink, Title, ItemCount, LockedLabel, Button } from './styles';
 
@@ -70,12 +70,12 @@ function VocabLevel({ id, title, count, isLocked, isSubmitting, isActionable, ha
   );
 }
 
-const mapStateToProps = createStructuredSelector({
-  title: selectLevelTitle,
-  count: selectLevelCount,
-  isLocked: selectLevelLocked,
-  isActionable: selectLevelActionable,
-  isSubmitting: selectLevelSubmitting,
+const mapStateToProps = (state, { id }) => ({
+  title: makeSelectLevelTitle(id)(state),
+  count: makeSelectLevelCount(id)(state),
+  isLocked: makeSelectLevelLocked(id)(state),
+  isActionable: makeSelectLevelActionable(id)(state),
+  isSubmitting: makeSelectLevelSubmitting(id)(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

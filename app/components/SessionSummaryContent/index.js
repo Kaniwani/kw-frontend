@@ -1,56 +1,62 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import PageWrapper from 'base/PageWrapper';
 import AccuracyBar from 'components/AccuracyBar';
 import SummarySection from 'components/SummarySection';
 import ToggleVocabListType from 'components/ToggleVocabListType';
 
+import {
+  selectCorrectIds,
+  selectIncorrectIds,
+  selectCriticalIds,
+  selectPercentCorrect,
+} from 'containers/App/selectors';
+
 import { Heading } from './styles';
 
 SessionSummaryContent.propTypes = {
-  correctItems: PropTypes.array.isRequired,
-  incorrectItems: PropTypes.array.isRequired,
-  criticalItems: PropTypes.array.isRequired,
+  correctIds: PropTypes.array.isRequired,
+  incorrectIds: PropTypes.array.isRequired,
+  criticalIds: PropTypes.array.isRequired,
   percentCorrect: PropTypes.number.isRequired,
-  vocabListExpanded: PropTypes.bool.isRequired,
-  onVocabListToggle: PropTypes.func.isRequired,
 };
 
 function SessionSummaryContent({
-  correctItems,
-  incorrectItems,
-  criticalItems,
+  correctIds,
+  incorrectIds,
+  criticalIds,
   percentCorrect,
-  vocabListExpanded,
-  onVocabListToggle,
 }) {
   return (
     <PageWrapper>
       <Heading>
         <AccuracyBar percent={percentCorrect} />
-        <ToggleVocabListType
-          isExpanded={vocabListExpanded}
-          handleClick={onVocabListToggle}
-        />
+        <ToggleVocabListType />
       </Heading>
       <SummarySection
-        isExpanded={vocabListExpanded}
-        items={correctItems}
-        category={'CORRECT'}
+        summaryType="INCORRECT"
+        ids={incorrectIds}
       />
       <SummarySection
-        isExpanded={vocabListExpanded}
-        items={incorrectItems}
-        category={'INCORRECT'}
+        summaryType="CORRECT"
+        ids={correctIds}
       />
       <SummarySection
-        isExpanded={vocabListExpanded}
-        items={criticalItems}
-        category={'CRITICAL'}
+        summaryType="CRITICAL"
+        ids={criticalIds}
       />
     </PageWrapper>
   );
 }
 
-export default SessionSummaryContent;
+const mapStateToProps = createStructuredSelector({
+  correctIds: selectCorrectIds,
+  incorrectIds: selectIncorrectIds,
+  criticalIds: selectCriticalIds,
+  percentCorrect: selectPercentCorrect,
+});
+
+export default connect(mapStateToProps)(SessionSummaryContent);

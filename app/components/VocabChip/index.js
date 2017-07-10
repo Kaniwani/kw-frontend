@@ -1,12 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  createStructuredSelector,
-  createSelector,
-} from 'reselect';
+import { createSelector } from 'reselect';
 
-import { selectReviewReadings, selectVocabChipToolTipMarkup } from 'containers/App/selectors';
+import { makeSelectReviewReadings, makeSelectVocabChipToolTipMarkup } from 'containers/App/selectors';
 import * as COLORS from 'shared/styles/colors';
 import { ListItem, Link, Text } from './styles';
 
@@ -37,9 +34,9 @@ function VocabChip({ id, toolTipId, toolTipMarkup, character, color }) {
   );
 }
 
-const mapStateToProps = createStructuredSelector({
-  character: createSelector(selectReviewReadings, (readings) => readings[0].character),
-  toolTipMarkup: selectVocabChipToolTipMarkup,
+const mapStateToProps = (state, props) => ({
+  character: createSelector(makeSelectReviewReadings(props.id), (readings) => readings[0].character)(state),
+  toolTipMarkup: makeSelectVocabChipToolTipMarkup(props.id)(state),
 });
 
 export default connect(mapStateToProps)(VocabChip);

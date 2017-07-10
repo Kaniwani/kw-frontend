@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 
+import { selectIdFromMatch } from 'containers/App/selectors';
 import actions from 'containers/App/actions';
 import PageWrapper from 'base/PageWrapper';
 import VocabEntryDetail from 'components/VocabEntryDetail';
@@ -32,8 +33,8 @@ export class VocabEntryPage extends React.Component { // eslint-disable-line rea
   }
 }
 
-const mapStateToProps = (state, { match: { params: { id } } }) => ({
-  id: +id,
+const mapStateToProps = (state, props) => ({
+  id: selectIdFromMatch(props),
 });
 
 const mapDispatchToProps = (dispatch) => ({

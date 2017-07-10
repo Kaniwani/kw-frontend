@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { branch, renderComponent } from 'recompose';
 
-import VocabList from 'components/VocabList';
-import Placeholder from './Placeholder';
+import pluralize from 'utils/pluralize';
 import RankedVocabLists from './RankedVocabLists';
 import { Section, Wrapper, Title } from './styles';
 
-const CATEGORIES = {
+const TYPES = {
   CORRECT: {
     color: 'green',
   },
@@ -19,57 +17,27 @@ const CATEGORIES = {
   },
 };
 
-const hasNoItems = ({ items }) => !items.length;
-const isCritical = (category) => category === 'CRITICAL';
-
-const withPlaceholder = branch(
-  hasNoItems,
-  renderComponent(Placeholder),
-);
-
-const CriticalList = withPlaceholder(VocabList);
-const RankedLists = withPlaceholder(RankedVocabLists);
-
-const getTitleText = (category, count) =>
-  isCritical(category) ?
-    `${count} critical items` :
-    `${count} answered ${category.toLowerCase()}ly`;
+const getTitleText = (name, count) =>
+  name === 'CRITICAL' ?
+    `${count} critical ${pluralize('item', count)}` :
+    `${count} ${name.toLowerCase()} ${pluralize('item', count)}`;
 
 SummarySection.propTypes = {
-  category: PropTypes.oneOf(Object.keys(CATEGORIES)).isRequired,
-  items: PropTypes.array.isRequired,
-  isExpanded: PropTypes.bool,
+  summaryType: PropTypes.oneOf(Object.keys(TYPES)).isRequired,
+  ids: PropTypes.array.isRequired,
 };
 
-SummarySection.defaultProps = {
-  isExpanded: false,
-};
-
-function SummarySection({ category, items, isExpanded }) {
-  const color = CATEGORIES[category].color;
+function SummarySection({ summaryType, ids }) {
+  const color = TYPES[summaryType].color;
   return (
     <Section>
       <Wrapper>
         <Title color={color}>
-          {getTitleText(category, items.length)}
+          {getTitleText(summaryType, ids.length)}
         </Title>
       </Wrapper>
       <Wrapper>
-        {isCritical(category) ? (
-          <CriticalList
-            isExpanded={isExpanded}
-            category={category}
-            items={items}
-            color={color}
-          />
-        ) : (
-          <RankedLists
-            isExpanded={isExpanded}
-            category={category}
-            items={items}
-            color={color}
-          />
-        )}
+        <RankedVocabLists color={color} ids={ids} summaryType={summaryType} />
       </Wrapper>
     </Section>
   );

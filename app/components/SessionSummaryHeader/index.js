@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import titleCase from 'voca/title_case';
+import { createStructuredSelector } from 'reselect';
 
 import LogoLink from 'components/LogoLink';
 import SessionLink from 'components/SessionLink';
+import { selectRemainingCount } from 'containers/App/selectors';
 
 import {
   Header,
@@ -21,6 +24,10 @@ SessionSummaryHeader.defaultProps = {
   count: 0,
   isSessionActive: false,
 };
+
+// FIXME: create isSessionActive selector
+// remainingCount > 0 + ui state was set true when 'Begin Session' is clicked?
+// remainingCount > 0 + ui state was set true when 'View Summary' from review clicked?
 
 function SessionSummaryHeader({ category, count, isSessionActive }) {
   const linkText = () => {
@@ -45,4 +52,8 @@ function SessionSummaryHeader({ category, count, isSessionActive }) {
   );
 }
 
-export default SessionSummaryHeader;
+const mapStateToProps = createStructuredSelector({
+  count: selectRemainingCount,
+});
+
+export default connect(mapStateToProps)(SessionSummaryHeader);

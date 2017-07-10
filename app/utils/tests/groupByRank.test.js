@@ -1,9 +1,10 @@
 import { SRS_RANKS } from 'shared/constants';
 import groupByRank from '../groupByRank';
+import getSrsRankName from '../getSrsRankName';
 
 const items = Array.from({ length: 25 }).map((v, i) => ({
   id: i,
-  session: { streak: Math.floor(i * 0.5) },
+  streakName: getSrsRankName(Math.floor(i * 0.5)),
 }));
 
 describe('groupByRank()', () => {
@@ -11,7 +12,7 @@ describe('groupByRank()', () => {
     expect(groupByRank()).toMatchSnapshot();
   });
 
-  it('should group entries under named srs ranks', () => {
+  it('should group ids under named srs ranks', () => {
     const grouped = groupByRank(items);
     expect(grouped).toMatchSnapshot();
     expect(grouped[SRS_RANKS.ONE].length).toMatchSnapshot();
