@@ -1,7 +1,7 @@
 import { createActions } from 'redux-actions';
 
 const ASYNC = {
-  REQUEST: undefined, // undefined results in identity fn(payload, meta) => { type: "TYPE", payload, meta }
+  REQUEST: undefined,
   SUCCESS: undefined,
   CANCEL: undefined,
   FAILURE: undefined,

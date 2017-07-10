@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import isNumber from 'lodash/isNumber';
+import pick from 'lodash/pick';
 import calculatePercentage from 'utils/calculatePercentage';
 import titleCase from 'voca/title_case';
 
@@ -101,4 +102,51 @@ const generateToolTip = (correct, incorrect, meanings, readings) => {
 export const selectVocabChipToolTipMarkup = createSelector(
   [selectReviewCorrect, selectReviewIncorrect, selectReviewMeanings, selectReviewReadings],
   generateToolTip,
+);
+
+export const selectSession = (state) => state.global.session;
+export const selectQueue = (state) => state.global.session.queue;
+export const selectCompleteCount = createSelector(selectSession, ({ complete }) => complete.length);
+export const selectCorrectCount = createSelector(selectSession, ({ correct }) => correct.length);
+export const selectCurrentItem = createSelector(
+  [selectEntities, selectSession],
+  (entities, { current }) => current && entities.reviews[current],
+);
+
+export const selectTotalCount = (state, { match: { params: { category } } }) =>
+  category === 'reviews' ?
+    selectReviewCount(state) :
+    selectLessonCount(state);
+
+export const selectRemainingCount = createSelector(
+  [selectSession, selectTotalCount],
+  ({ complete }, total) => Math.max((total - 1) /* 1 = current review */ - complete, 0),
+);
+
+export const makeSelectCorrectItems = () => createSelector(
+  [selectEntities, selectSession],
+  (entities, { correct }) =>
+    correct && Object.values(pick(entities.reviews, correct))
+);
+
+export const makeSelectIncorrectItems = () => createSelector(
+  [selectEntities, selectSession],
+  (entities, { incorrect }) =>
+    incorrect && Object.values(pick(entities.reviews, incorrect))
+);
+
+export const makeSelectCriticalItems = () => createSelector(
+  [selectEntities, selectSession],
+  (entities, { critical }) =>
+    critical && Object.values(pick(entities.reviews, critical))
+);
+
+export const makeSelectPercentComplete = () => createSelector(
+  [selectCorrectCount, selectTotalCount],
+  (correct, total) => calculatePercentage(correct, total),
+);
+
+export const makeSelectPercentCorrect = () => createSelector(
+  [selectCorrectCount, selectCompleteCount],
+  (correct, complete) => calculatePercentage(correct, complete),
 );

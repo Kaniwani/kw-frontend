@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import { handleActions, combineActions } from 'redux-actions';
 import merge from 'lodash/merge';
 import difference from 'lodash/difference';
+import union from 'lodash/union';
 import update from 'immutability-helper';
 
 /*
@@ -29,7 +30,6 @@ import update from 'immutability-helper';
  *   passes in the current value to the function and updates it with the new returned value.
 */
 
-import session from 'containers/SessionRoutes/actions';
 import app from './actions';
 
 // TODO: get Tadgh to update settings with new options!
@@ -63,6 +63,28 @@ const entitiesState = {
   reviews: {},
   levels: {},
 };
+
+const sessionState = {
+  loading: false,
+  current: false,
+  queue: [],
+  complete: [],
+  correct: [],
+  incorrect: [],
+  critical: [],
+};
+
+// FIXME: queue load should not set current
+// it should have meta info for the logic that handles queue load to decide whether to dispatch a set current action
+const sessionReducer = handleActions({
+  [app.queue.load.success]: (state, { payload }) => update(state, {
+    // current: { $set: payload.result.shift() },
+    queue: { $set: union(state.queue, payload.result) },
+    loading: { $set: false },
+  }),
+  [app.queue.load.failure]: (state, { payload }) => ({ ...state, error: payload, loading: false }),
+  [app.queue.load.cancel]: (state) => ({ ...state, loading: false }),
+}, sessionState);
 
 // FIXME: injected reducers for each route imo
 const uiState = {
@@ -129,7 +151,7 @@ const entitiesReducer = handleActions({
   [combineActions(
     app.review.load.success,
     app.reviews.load.success,
-    session.queue.load.success,
+    app.queue.load.success,
     app.level.load.success,
     app.levels.load.success,
   )]: (state, { payload }) => merge({}, state, payload.entities),
@@ -159,4 +181,5 @@ export default combineReducers({
   ui: uiReducer,
   user: userReducer,
   entities: entitiesReducer,
+  session: sessionReducer,
 });

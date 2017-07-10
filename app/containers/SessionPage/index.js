@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import titleCase from 'voca/title_case';
 
+import actions from 'containers/App/actions';
 import {
-  selectLoading,
   selectTotalCount,
   selectCompleteCount,
   selectRemainingCount,
@@ -14,8 +14,7 @@ import {
   selectCurrentItem,
   makeSelectPercentCorrect,
   makeSelectPercentComplete,
-} from 'containers/SessionRoutes/selectors';
-import actions from 'containers/App/actions';
+} from 'containers/App/selectors';
 
 import backgroundImage from 'shared/assets/img/reviews.svg';
 import ReviewAnswerContainer from 'containers/ReviewAnswerContainer';
@@ -26,7 +25,6 @@ import { Wrapper, Upper, Lower, ReviewBackgroundImg } from './styles';
 
 class SessionPage extends React.Component {
   static propTypes = {
-    loading: PropTypes.bool.isRequired,
     entry: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]).isRequired,
     queue: PropTypes.arrayOf(PropTypes.number).isRequired,
     total: PropTypes.number.isRequired,
@@ -79,7 +77,6 @@ class SessionPage extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  loading: selectLoading,
   total: selectTotalCount,
   complete: selectCompleteCount,
   remaining: selectRemainingCount,

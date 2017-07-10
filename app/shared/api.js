@@ -121,6 +121,7 @@ export const getReviews = ({
 
 export const getCriticalReviews = ({ offset, limit } = {}) => get(criticalReviewsUrl, { offset, limit });
 export const getCurrentReviews = ({ offset, limit } = {}) => get(currentReviewsUrl, { offset, limit });
+export const getCurrentLessons = () => Promise.resolve('No lessons api yet!');
 
 export const getReviewEntry = ({ id }) => get(reviewEntryUrl(id));
 export const reviewCorrect = ({ id }) => post(reviewCorrectUrl(id));

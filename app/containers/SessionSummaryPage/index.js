@@ -10,13 +10,16 @@ import titleCase from 'voca/title_case';
 import SessionSummaryHeader from 'components/SessionSummaryHeader';
 import SessionSummaryContent from 'components/SessionSummaryContent';
 
+import actions from 'containers/App/actions';
 import {
   selectRemainingCount,
+  selectTotalCount,
+  selectQueue,
   makeSelectCorrectItems,
   makeSelectIncorrectItems,
   makeSelectCriticalItems,
   makeSelectPercentCorrect,
-} from 'containers/SessionRoutes/selectors';
+} from 'containers/App/selectors';
 
 class SessionSummaryPage extends React.Component {
   static propTypes = {
@@ -26,11 +29,22 @@ class SessionSummaryPage extends React.Component {
     incorrectItems: PropTypes.array.isRequired,
     criticalItems: PropTypes.array.isRequired,
     percentCorrect: PropTypes.number.isRequired,
+    queue: PropTypes.arrayOf(PropTypes.number).isRequired,
+    total: PropTypes.number.isRequired,
+    loadQueue: PropTypes.func.isRequired,
   }
 
   // FIXME: state.global.ui.sessionSummary.vocabListExpanded
   state = {
     vocabListExpanded: false,
+  }
+
+  componentDidMount() {
+    const { queue, total, loadQueue, match: { params: { category } } } = this.props;
+    console.log(queue, total, category, total > 0 && queue.length <= 0);
+    if (total > 0 && queue.length <= 0) {
+      loadQueue({}, { category });
+    }
   }
 
   // FIXME: same code is in vocabLevel page, share with a HoC instead
@@ -75,10 +89,16 @@ class SessionSummaryPage extends React.Component {
 
 const mapStateToProps = createStructuredSelector({
   remaining: selectRemainingCount,
+  queue: selectQueue,
+  total: selectTotalCount,
   correctItems: makeSelectCorrectItems(),
   incorrectItems: makeSelectIncorrectItems(),
   criticalItems: makeSelectCriticalItems(),
   percentCorrect: makeSelectPercentCorrect(),
 });
 
-export default connect(mapStateToProps)(SessionSummaryPage);
+const mapDispatchToProps = (dispatch) => ({
+  loadQueue: (payload, meta) => dispatch(actions.queue.load.request(payload, meta)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SessionSummaryPage);

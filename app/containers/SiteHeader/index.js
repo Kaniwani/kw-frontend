@@ -9,7 +9,7 @@ import { clearToken } from 'utils/auth';
 import { breakpoints } from 'shared/styles/media';
 
 import LogoLink from 'components/LogoLink';
-import { selectReviewCount } from 'containers/App/selectors';
+import { selectReviewCount, selectLessonCount } from 'containers/App/selectors';
 
 import OnCanvasMenu from './OnCanvasMenu';
 import OffCanvasToggle from './OffCanvasToggle';
@@ -79,7 +79,7 @@ class SiteHeader extends React.Component {
   render() {
     const isWideViewport = !this.state.offCanvasToggleVisible;
     let onCanvasRoutes = [
-      // { text: 'lessons', count: this.props.lessonCount },
+      { text: 'lessons', route: '/lessons', count: this.props.lessonCount },
       { text: 'reviews', route: '/reviews', count: this.props.reviewCount },
       { text: 'vocabulary', route: '/vocabulary/levels' },
     ];
@@ -126,6 +126,7 @@ class SiteHeader extends React.Component {
 
 const mapStateToProps = createStructuredSelector({
   reviewCount: selectReviewCount,
+  lessonCount: selectLessonCount,
 });
 
 export default withRouter(connect(mapStateToProps)(SiteHeader));
