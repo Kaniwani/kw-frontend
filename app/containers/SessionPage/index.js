@@ -10,6 +10,7 @@ import {
   selectCurrentId,
   makeSelectReview,
 } from 'containers/App/selectors';
+
 import backgroundImage from 'shared/assets/img/reviews.svg';
 // import QuizInfo from 'containers/QuizInfo';
 import QuizAnswer from 'containers/QuizAnswer';
