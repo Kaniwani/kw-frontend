@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 import { SRS_RANKS } from 'shared/constants';
-import getSrsRankName from 'utils/getSrsRankName';
 import isString from 'lodash/isString';
 import castArray from 'lodash/castArray';
 import uniq from 'lodash/uniq';
@@ -197,7 +196,6 @@ function serializeStubbedReviewEntry({
     correct: +correct,
     incorrect: +incorrect,
     streak: +streak,
-    streakName: getSrsRankName(+streak),
     notes: notes == null ? '' : notes,
     synonyms: serializeSynonyms(answer_synonyms),
     vocabulary: serializeVocabularyEntry(vocabulary),
@@ -227,7 +225,6 @@ function serializeReviewEntry({
     isBurned,
     wk: {
       isBurned: !!wanikani_burned,
-      streak: +wanikani_srs_numeric,
       streakName: wanikani_srs.toUpperCase(),
     },
     ...serializeStubbedReviewEntry(rest),

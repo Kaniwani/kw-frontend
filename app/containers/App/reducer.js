@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 import { handleActions, combineActions } from 'redux-actions';
+import update from 'immutability-helper';
 import merge from 'lodash/merge';
 import union from 'lodash/union';
 import difference from 'lodash/difference';
-import update from 'immutability-helper';
 
 /*
  * { $push: array }
@@ -190,6 +190,31 @@ const reviewsReducer = handleActions({
     entities: { $set: merge({}, state.entities, payload.reviews) },
     queue: { $set: union(state.queue, payload.reviewIds) },
   }),
+  [app.reviews.current.set]: (state, { payload }) => update(state, {
+    current: { $set: payload },
+    queue: { $set: difference(state.queue, [payload]) },
+  }),
+  [app.reviews.current.return]: (state, { payload }) => update(state, {
+    queue: { $set: union(state.queue, [state.current]) },
+    current: { $set: payload },
+  }),
+  [app.reviews.correct.add]: (state, { payload }) => update(state, {
+    correct: { $push: [payload] },
+    complete: { $push: [payload] },
+  }),
+  [app.reviews.correct.remove]: (state, { payload }) => update(state, {
+    correct: { $set: difference(state.correct, [payload]) },
+    complete: { $set: difference(state.complete, [payload]) },
+  }),
+  [app.reviews.incorrect.add]: (state, { payload }) => update(state, {
+    incorrect: { $push: [payload] },
+  }),
+  [app.reviews.incorrect.remove]: (state, { payload }) => update(state, {
+    incorrect: { $set: difference(state.incorrect, [payload]) },
+  }),
+  [app.review.update]: (state, { payload }) => payload ? update(state, {
+    entities: { [payload.id]: { $set: payload } },
+  }) : state,
   [combineActions(
     app.review.lock.success,
     app.review.unlock.success,
@@ -207,7 +232,14 @@ const reviewsReducer = handleActions({
 }, initialState.reviews);
 
 const lessonsReducer = handleActions({
-  /* nada yet */
+  [app.lessons.current.set]: (state, { payload }) => update(state, {
+    current: { $set: payload },
+    queue: { $set: difference(state.queue, [payload]) },
+  }),
+  [app.lessons.current.return]: (state, { payload }) => update(state, {
+    queue: { $set: union(state.queue, [state.current]) },
+    current: { $set: payload },
+  }),
 }, initialState.lessons);
 
 export default combineReducers({

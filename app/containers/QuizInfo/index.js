@@ -10,7 +10,7 @@ import AddSynonymPanel from './AddSynonymPanel';
 
 import { Wrapper, PanelsWrapper } from './styles';
 
-class ReviewInfoContainer extends React.PureComponent {
+class QuizInfo extends React.PureComponent {
   static propTypes = {
     entry: PropTypes.object.isRequired,
     detailLevel: PropTypes.string,
@@ -112,4 +112,4 @@ class ReviewInfoContainer extends React.PureComponent {
 //   addSynonym: selectSynonymPanel
 // });
 
-export default ReviewInfoContainer;
+export default QuizInfo;

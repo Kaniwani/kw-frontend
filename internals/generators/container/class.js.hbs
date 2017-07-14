@@ -13,7 +13,7 @@ import makeSelect{{ properCase name }} from './selectors';
 
 export class {{ properCase name }} extends {{{ type }}} { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
-    load{{ titleCase name }}: PropTypes.func.isRequired,
+    load{{ properCase name }}: PropTypes.func.isRequired,
     {{ camelCase name }}State: PropTypes.string,
   }
 
@@ -40,7 +40,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch)  => ({
-  load{{ titleCase name }}: () => dispatch({{ camelCase name }}.load.request()),
+  load{{ properCase name }}: () => dispatch({{ camelCase name }}.load.request()),
 });
 {{/if}}
 

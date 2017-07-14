@@ -2,8 +2,10 @@ import { createSelector } from 'reselect';
 import isNumber from 'lodash/isNumber';
 import groupByRank from 'utils/groupByRank';
 import calculatePercentage from 'utils/calculatePercentage';
+import getSrsRankName from 'utils/getSrsRankName';
 import titleCase from 'voca/title_case';
 
+export const selectLocation = (state) => state.location;
 export const selectGlobal = (state) => state.global;
 export const selectIdFromMatch = (props) => +props.match.params.id;
 export const selectCategoryFromMatch = (props) => props.match.params.category;
@@ -67,17 +69,25 @@ export const makeSelectReviewCorrect = (id) => createSelector(
   makeSelectReview(id),
   (review) => review && review.correct
 );
+
 export const makeSelectReviewIncorrect = (id) => createSelector(
   makeSelectReview(id),
   (review) => review && review.incorrect
 );
+
 export const makeSelectReviewMeanings = (id) => createSelector(
   makeSelectReview(id),
   (review) => review && review.vocabulary.meanings,
 );
+
 export const makeSelectReviewReadings = (id) => createSelector(
   makeSelectReview(id),
   (review) => review && review.vocabulary.readings,
+);
+
+export const makeSelectReviewStreakName = (id) => createSelector(
+  makeSelectReview(id),
+  (review) => review && getSrsRankName(review.streak),
 );
 
 const generateToolTip = (correct, incorrect, meanings, readings) => {
@@ -116,14 +126,14 @@ const selectSessionByCategory = (state, { category }) =>
 
 export const selectSession = createSelector(selectSessionByCategory, (state) => state);
 
-export const makeSelectQueue = createSelector(
+export const selectQueue = createSelector(
   selectSession,
   (session) => session.queue,
 );
 
-export const makeSelectCurrentItem = createSelector(
+export const selectCurrentId = createSelector(
   selectSession,
-  ({ entities, current }) => current && entities[current],
+  ({ current }) => current,
 );
 
 export const selectCompleteCount = createSelector(
@@ -158,6 +168,6 @@ export const selectCriticalIds = createSelector(selectSession, ({ critical }) =>
 export const makeSelectReviewsGroupedByRank = (ids) => createSelector(
   selectReviewEntities,
   (entities) => ids.every((id) => entities[id] != null) ?
-    groupByRank(ids.map((id) => ({ id, streakName: entities[id].streakName }))) :
+    groupByRank(ids.map((id) => ({ id, streak: entities[id].streak }))) :
     {},
 );

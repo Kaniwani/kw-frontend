@@ -4,7 +4,7 @@ import getSrsRankName from '../getSrsRankName';
 
 const items = Array.from({ length: 25 }).map((v, i) => ({
   id: i,
-  streakName: getSrsRankName(Math.floor(i * 0.5)),
+  streak: Math.floor(i * 0.5),
 }));
 
 describe('groupByRank()', () => {

@@ -1,17 +1,17 @@
 import { createActions } from 'redux-actions';
 
-const actionParams = [
+const actionCreators = [
   (payload) => payload,
   (payload, meta) => meta,
 ];
 
-const SYNC = actionParams;
+const SYNC = actionCreators;
 
 const ASYNC = {
-  REQUEST: actionParams,
-  SUCCESS: actionParams,
-  CANCEL: actionParams,
-  FAILURE: actionParams,
+  REQUEST: actionCreators,
+  SUCCESS: actionCreators,
+  CANCEL: actionCreators,
+  FAILURE: actionCreators,
 };
 
 // import actions from './actions'
@@ -40,6 +40,14 @@ export const { app } = createActions({
         SET: SYNC,
         RETURN: SYNC,
       },
+      CORRECT: {
+        ADD: SYNC,
+        REMOVE: SYNC,
+      },
+      INCORRECT: {
+        ADD: SYNC,
+        REMOVE: SYNC,
+      },
     },
     LESSONS: {
       QUEUE: {
@@ -48,6 +56,14 @@ export const { app } = createActions({
       CURRENT: {
         SET: SYNC,
         RETURN: SYNC,
+      },
+      CORRECT: {
+        ADD: SYNC,
+        REMOVE: SYNC,
+      },
+      INCORRECT: {
+        ADD: SYNC,
+        REMOVE: SYNC,
       },
     },
     LEVELS: {
@@ -62,6 +78,7 @@ export const { app } = createActions({
       LOAD: ASYNC,
       LOCK: ASYNC,
       UNLOCK: ASYNC,
+      UPDATE: SYNC,
       SYNONYM: {
         ADD: ASYNC,
         REMOVE: ASYNC,

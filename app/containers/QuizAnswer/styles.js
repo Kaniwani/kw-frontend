@@ -8,6 +8,7 @@ import { visuallyHidden } from 'shared/styles/utils';
 import { shadowBox, innerMedium } from 'shared/styles/shadows';
 import { kilo } from 'shared/styles/typography';
 import { media } from 'shared/styles/media';
+import { fastEaseQuad } from 'shared/styles/animation';
 import { transparent, white, whiteLight, whiteDark, yellowOrange, red, green, black } from 'shared/styles/colors';
 
 const bgColorMixin = ({ marked, valid, correct, incorrect }) => {
@@ -27,7 +28,6 @@ export const AnswerWrapper = styled.div`
   position: relative;
   color: currentColor;
   background-color: ${whiteLight};
-  transition: all 150ms ease-in-out;
   ${shadowBox}
 `;
 
@@ -64,6 +64,7 @@ export const Input = styled.input`
   outline: none;
   border: 0;
   line-height: 1.75;
+  min-height: 2.2em;
   text-align: center;
   color: currentColor;
   box-shadow: ${innerMedium};
@@ -72,6 +73,7 @@ export const Input = styled.input`
   /* leave some space for streak icon / submit button */
   padding-left: 30px;
   padding-right: 40px;
+  transition: all ${fastEaseQuad};
 
   &:placeholder-shown {
     ${placeholder({ color: whiteDark })} /* focused input placeholder text color */
@@ -102,6 +104,7 @@ export const Streak = styled(StreakIcon)`
   transform: translateY(-50%);
   top: 50%;
   left: .35em;
+  transition: all ${fastEaseQuad};
 `;
 
 export const ActionButtons = styled.div`
@@ -117,6 +120,7 @@ const ActionButton = styled(IconButton)`
   align-self: center;
   color: currentColor;
   background-color: ${transparent};
+  transition: all ${fastEaseQuad};
 
   &:hover {
     opacity: 1;

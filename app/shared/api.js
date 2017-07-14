@@ -124,15 +124,25 @@ export const getCurrentReviews = ({ offset, limit } = {}) => get(currentReviewsU
 export const getCurrentLessons = () => Promise.resolve('No lessons api yet!');
 
 export const getReviewEntry = ({ id }) => get(reviewEntryUrl(id));
-export const reviewCorrect = ({ id }) => post(reviewCorrectUrl(id));
-export const reviewIncorrect = ({ id }) => post(reviewIncorrectUrl(id));
+export const recordReview = ({ id, isCorrect, previouslyIncorrect }) => {
+  const body = {
+    user_specific_id: id,
+    user_correct: isCorrect,
+    wrong_before: previouslyIncorrect,
+  };
+  return isCorrect ? post(reviewCorrectUrl(id), body) : post(reviewIncorrectUrl(id), body);
+};
+
 export const lockReview = ({ id }) => post(lockReviewUrl(id));
 export const unlockReview = ({ id }) => post(unlockReviewUrl(id));
 
 //-----------------------------------------------------------------------------
 //  SYNONYMS
 //-----------------------------------------------------------------------------
-export const addSynonym = ({ reviewId, character, kana } = {}) => post(synonymUrl, { review: reviewId, character, kana });
+export const addSynonym = ({ reviewId, character, kana } = {}) => post(
+  synonymUrl,
+  { body: { review: reviewId, character, kana } },
+);
 export const removeSynonym = ({ id }) => del(synonymEntryUrl(id));
 
 //-----------------------------------------------------------------------------

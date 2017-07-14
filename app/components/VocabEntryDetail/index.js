@@ -6,6 +6,7 @@ import { compose, withHandlers, branch, renderNothing, renderComponent } from 'r
 import titleCase from 'voca/title_case';
 import getDateInWords from 'utils/getDateInWords';
 import calculatePercentage from 'utils/calculatePercentage';
+import getSrsRankName from 'utils/getSrsRankName';
 
 import actions from 'containers/App/actions';
 import { makeSelectReview, makeSelectReviewMeanings, makeSelectReviewReadings } from 'containers/App/selectors';
@@ -141,10 +142,8 @@ VocabEntryDetail.propTypes = {
     correct: PropTypes.number.isRequired,
     incorrect: PropTypes.number.isRequired,
     streak: PropTypes.number.isRequired,
-    streakName: PropTypes.string.isRequired,
     wk: PropTypes.shape({
       isBurned: PropTypes.bool.isRequired,
-      streak: PropTypes.number.isRequired,
       streakName: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
@@ -198,7 +197,7 @@ function VocabEntryDetail({ review, handleLockClick }) {
       <P><code>review.isBurned && </code> <Burned>Burned on KW!</Burned></P>
       <P><code>review.wk.isBurned &&</code> <Burned>Burned on WK!</Burned></P>
       <P><code>review.isCritical &&</code> <Critical>Critical on KW!</Critical></P>
-      <P><code>review.streakName: </code> KW {review.streakName} <StreakIcon streakName={review.streakName} size="2em" /></P>
+      <P><code>review.streak name: </code> KW {getSrsRankName(review.streak)} <StreakIcon streakName={getSrsRankName(review.streak)} size="2em" /></P>
       <P><code>review.streakName: </code> WK {review.wk.streakName} <StreakIcon streakName={review.wk.streakName} size="2em" /></P>
       <P><code>review.lastReviewDate: </code> <BoldH>{getDateInWords(review.lastReviewDate)}</BoldH></P>
       <P><code>review.unlockDate: </code> <BoldH>{getDateInWords(review.unlockDate)}</BoldH></P>

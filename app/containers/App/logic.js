@@ -72,8 +72,7 @@ const setCurrentOnQueueLoadLogic = createLogic({
     const reviews = sel.selectReviews(getState());
     const { current, queue } = reviews;
     if (!current && queue.length) {
-      const newCurrent = reviews[sample(queue)];
-      dispatch(app.reviews.current.set(newCurrent));
+      dispatch(app.reviews.current.set());
     } else {
       console.log('Already have current: ', { current, queue });
     }
@@ -81,20 +80,54 @@ const setCurrentOnQueueLoadLogic = createLogic({
   },
 });
 
-// fire after record or ignore answer || rotateReview
+const setCurrentReviewLogic = createLogic({
+  type: app.reviews.current.set,
+  throttle: 1000,
+  transform({ getState, action }, next) {
+    const { queue } = sel.selectReviews(getState());
+    const id = sample(queue);
+    next({ ...action, payload: id });
+  },
+});
+
+const setCurrentLessonLogic = createLogic({
+  type: app.lessons.current.set,
+  throttle: 1000,
+  transform({ getState, action }, next) {
+    const { queue } = sel.selectLessons(getState());
+    const id = sample(queue);
+    next({ ...action, payload: id });
+  },
+});
+
 const returnCurrentReviewLogic = createLogic({
   type: app.reviews.current.return,
   latest: true,
-  validate({ getState, action: { type } }, allow, reject) {
-    const reviews = sel.selectReviews(getState());
-    const { current, queue } = reviews;
-    let newCurrent = current;
+  validate({ getState, action }, allow, reject) {
+    const { current, queue } = sel.selectReviews(getState());
+    let id = current;
     if (queue.length > 1) {
-      newCurrent = reviews[sample(difference(queue, [current]))];
-      allow({ type, payload: newCurrent });
+      id = sample(difference(queue, [current]));
+      allow({ ...action, payload: id });
     } else {
       reject();
-      console.log('rejected returning current', { current, newCurrent });
+      console.log('Rejected returning current', { current, id });
+    }
+  },
+});
+
+const returnCurrentLessonLogic = createLogic({
+  type: app.lessons.current.return,
+  latest: true,
+  validate({ getState, action }, allow, reject) {
+    const { current, queue } = sel.selectLessons(getState());
+    let id = current;
+    if (queue.length > 1) {
+      id = sample(difference(queue, [current]));
+      allow({ ...action, payload: id });
+    } else {
+      reject();
+      console.log('Rejected returning current', { current, id });
     }
   },
 });
@@ -277,7 +310,10 @@ export default [
   reviewsQueueLoadLogic,
   loadQueuesIfNeededLogic,
   setCurrentOnQueueLoadLogic,
+  setCurrentReviewLogic,
+  setCurrentLessonLogic,
   returnCurrentReviewLogic,
+  returnCurrentLessonLogic,
   levelsLoadLogic,
   levelLockLogic,
   levelUnlockLogic,

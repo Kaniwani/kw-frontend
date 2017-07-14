@@ -1,4 +1,5 @@
 import { SRS_RANKS } from 'shared/constants';
+import getSrsRankName from 'utils/getSrsRankName';
 
 function groupByRank(items = []) {
   const ranks = {
@@ -9,8 +10,8 @@ function groupByRank(items = []) {
     [SRS_RANKS.FIVE]: [],
   };
 
-  items.forEach(({ id, streakName }) => {
-    ranks[streakName].push(id);
+  items.forEach(({ id, streak }) => {
+    ranks[getSrsRankName(streak)].push(id);
   });
 
   return ranks;

@@ -1,72 +1,139 @@
 import { createLogic } from 'redux-logic';
+import { recordReview } from 'shared/api';
+import app from 'containers/App/actions';
+import { selectIncorrectIds } from 'containers/App/selectors';
 import quiz from './actions';
+import { selectQuizAnswer } from './selectors';
 
-// Individual exports for testing
-export const quizLogic = createLogic({
-  type: quiz.answer.check, // action type logic listens for
-  latest: true, // use response for latest request only
+import { isJapanese, isKana } from 'wanakana';
+import fixTerminalN from 'utils/fixTerminalN';
+import isEmpty from 'lodash/isEmpty';
 
-  // validate({ getState, action }, allow, reject) {
-  //   /* allow causes process hook to run, while
-  //      reject prevents process hook from running
-  //      In either case you can pass modified action
-  //      or undefined to silence the action */
-  //   allow(action); // or reject(action);
-  // },
-  //
-  // transform({ getState, action }, next) {
-  //   /* can pass modified action or undefined to silence action */
-  //   next(action);
-  // },
+const increment = (x) => x + 1;
+const decrement = (x) => Math.max(0, x - 1);
 
-  processOptions: { // influences what is dispatched
-    successType: quiz.answer.check, // apply action type/creator for success
-    failType: quiz.answer.check, // apply action type/creator on errors
+function isInputValid(input = '') {
+  return !isEmpty(input) && isJapanese(input);
+}
+
+function cleanseInput(input = '') {
+  return fixTerminalN(input.trim());
+}
+
+const stripTildes = (input = '') => input.replace(/〜~/gi, '');
+
+import flatMap from 'lodash/flatMap';
+function conglomAnswers({ synonyms, vocabulary: { readings } }) {
+  return flatMap(readings, ({ character, kana }) => [character, ...kana])
+    .concat(...synonyms)
+    .map((text) => ({ original: text, cleaned: stripTildes(text) }));
+}
+
+function findMatch(input = '', review) {
+  const cleanInput = stripTildes(input);
+  return conglomAnswers(review)
+    .reduce((result, { original, cleaned }) => cleaned === cleanInput ? original : null);
+}
+
+let pristineReview;
+
+export const quizAnswerSubmitLogic = createLogic({
+  type: quiz.answer.submit,
+  latest: true,
+
+  process({ getState, action: { payload, meta } }, dispatch, done) {
+    const { value, isMarked, isCorrect, isIncorrect } = selectQuizAnswer(getState());
+    const { currentId, review, category } = meta;
+
+    const answerValue = cleanseInput(value);
+    const isValid = isInputValid(answerValue);
+    if (!isMarked) {
+      console.log('not marked');
+      pristineReview = review;
+      if (!isValid) {
+        console.log('invalid');
+        dispatch(quiz.answer.update({ isMarked: true, isValid: false }));
+      }
+      if (isValid) {
+        console.log('valid');
+        const match = findMatch(answerValue, review);
+        const type = isKana(answerValue) ? 'kana' : 'kanji';
+        const updatedAnswer = {
+          type,
+          value: answerValue,
+          isMarked: true,
+          isValid: true,
+          isDisabled: true,
+          isCorrect: false,
+          isIncorrect: false,
+        };
+        if (match == null) {
+          console.log('no match');
+          dispatch(quiz.answer.update({ ...updatedAnswer, isIncorrect: true }));
+          dispatch(app.review.update({ ...review, incorrect: increment(review.incorrect), streak: decrement(review.streak) }));
+          dispatch(app[category].incorrect.add(currentId));
+        } else {
+          console.log('match');
+          dispatch(quiz.answer.update({ ...updatedAnswer, value: match, isCorrect: true }));
+          dispatch(app.review.update({ ...review, correct: increment(review.correct), streak: increment(review.streak) }));
+          dispatch(app[category].correct.add(currentId));
+        }
+      }
+    }
+    if (isMarked && isValid) {
+      console.log('already marked and valid');
+      if (isCorrect || isIncorrect) {
+        console.log({ isCorrect, isIncorrect });
+        dispatch(quiz.answer.record.request({ id: currentId, isCorrect, isIncorrect }, { category }));
+      } else {
+        console.log('mon dieu, c’est pas possible!');
+        // log error to slack
+      }
+    }
+    done();
   },
-
-  process({ getState, action: { payload, meta } }) { // eslint-disable-line no-unused-vars
-    if (meta) console.log('Extra info passed in action: ', meta); // eslint-disable-line no-console
-    return new Promise((resolve) => setTimeout(() => resolve(payload), 500));
-  },
-
-  /* OR using the auto-dispatching return style by omitting dispatch/done
-     Omit dispatch & done in signature and just return a value
-      - if you return an undefined then no dispatch will occur
-      - if you return an object it will be dispatched
-      - if you return a promise then dispatch the resolved/rejected action
-      - if you return an observable then dispatch next/error actions
-      - if you return an error it will be dispatched (wrapped first if action type)
-     Then you can write code like the following. See docs for more details.
-
-     process({ getState, action, requestUtil }) {
-       // return promise that resolves to the action to dispatch,
-       // I am showing how to resolve to the action I want to dispatch,
-       // but I also could have enabled the processOptions.successType
-       // and just resolved with repos for the same dispatch.
-       return API.fetchRepos(action.payload)
-         .then(repos => ({ type: FOO_SUCCESS, payload: repos }));
-     }
-  */
-
 });
 
+export const quizAnswerIgnoreLogic = createLogic({
+  type: quiz.answer.ignore,
+  validate({ getState, action }, allow, reject) {
+    const { isMarked, isCorrect, isIncorrect } = selectQuizAnswer(getState());
+    if (isMarked && (isCorrect || isIncorrect)) {
+      allow({ ...action, meta: { ...action.meta, isCorrect } });
+    } else {
+      reject();
+    }
+  },
+  process({ getState, action: { meta: { category, currentId, isCorrect } } }, dispatch, done) {
+    dispatch(app.review.update(pristineReview));
+    dispatch(app[category].current.return());
+    dispatch(app[category][isCorrect ? 'correct' : 'incorrect'].remove(currentId));
+    dispatch(quiz.answer.reset());
+    pristineReview = null;
+    done();
+  },
+});
 
-/*
-   Optional onLogicInit function, implement to run this after load
-   It runs once per load by checking if the store is the same as last
-  */
-// let lastStore; // save reference to last store to only run once
-// export function onLogicInit(store) {
-//   /* remove the next two lines to rerun on every route change back */
-//   if (lastStore === store) { return; } // only running on initial load
-//   lastStore = store; // save for load once check
-//
-//   /* perform any dispatching you need */
-//   // store.dispatch({ type: 'FOO' });
-// }
+export const quizAnswerRecordLogic = createLogic({
+  type: quiz.answer.record.request,
+  throttle: 1000,
+  processOptions: {
+    failType: quiz.answer.record.failure,
+  },
 
+  process({ getState, action: { payload, meta } }, dispatch, done) {
+    dispatch(quiz.answer.reset());
+    dispatch(app.review.update());
+    dispatch(app[meta.category].current.set());
+    const previouslyIncorrect = selectIncorrectIds(getState(), { category: meta.category }).includes(payload.id);
+    return recordReview({ ...payload, previouslyIncorrect })
+      .then(() => { done(); })
+      .catch((err) => err);
+  },
+});
 
-// All logic to be loaded
 export default [
-  quizLogic,
+  quizAnswerSubmitLogic,
+  quizAnswerIgnoreLogic,
+  quizAnswerRecordLogic,
 ];

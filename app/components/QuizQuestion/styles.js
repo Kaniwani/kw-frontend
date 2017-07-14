@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 import { white, purpleDark } from 'shared/styles/colors';
-import { centerByMargin } from 'shared/styles/layout';
-import { giga } from 'shared/styles/typography';
+import { gutter, centerByMargin } from 'shared/styles/layout';
+import { giga, gamma } from 'shared/styles/typography';
 
 import TagsList from 'components/TagsList';
 
@@ -23,13 +23,23 @@ export const QuestionWrapper = styled.div`
 `;
 
 export const Question = styled.h1`
-  ${giga}
   ${centerByMargin};
   color: ${white};
   font-weight: 700;
   letter-spacing: -0.03em;
   text-shadow: .1em .2em .4em ${purpleDark};
   padding: 2em .5em;
+`;
+
+export const Primary = styled.span`
+  ${giga}
+  display: block;
+`;
+
+export const Secondary = styled.span`
+  ${gamma}
+  ${gutter({ position: 'top', type: 'inner' })}
+  font-weight: 400;
 `;
 
 export const Tags = styled(TagsList)`

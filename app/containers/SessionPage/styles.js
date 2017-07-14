@@ -38,7 +38,7 @@ export const Lower = styled.section`
   background-color: ${backgroundImageColor};
 `;
 
-export const ReviewBackgroundImg = BackgroundImg.extend`
+export const Background = BackgroundImg.extend`
   left: 50%;
   transform: translateX(-50%);
   width: 100vw;
