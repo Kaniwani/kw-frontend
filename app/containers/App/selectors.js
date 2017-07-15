@@ -15,6 +15,7 @@ export const selectUser = createSelector(selectGlobal, (state) => state.user);
 
 export const selectProfile = createSelector(selectUser, (state) => state.profile);
 export const selectDashboard = createSelector(selectUser, (state) => state.dashboard);
+export const selectSrsCounts = createSelector(selectDashboard, (state) => state.srsCounts);
 
 export const selectSettings = createSelector(selectGlobal, (state) => state.settings);
 // FIXME: put expandedCards in summarysection && vocablevel reducer so they can be independent
