@@ -7,7 +7,7 @@ import Icon from 'components/Icon';
 import {
   selectPercentComplete,
   selectPercentCorrect,
-  selectCompleteCount,
+  selectCorrectCount,
   selectRemainingCount,
 } from 'containers/App/selectors';
 
@@ -18,11 +18,11 @@ QuizHeader.propTypes = {
   category: PropTypes.string.isRequired,
   percentComplete: PropTypes.number.isRequired,
   percentCorrect: PropTypes.number.isRequired,
-  completeCount: PropTypes.number.isRequired,
+  correctCount: PropTypes.number.isRequired,
   remainingCount: PropTypes.number.isRequired,
 };
 
-function QuizHeader({ category, percentComplete, percentCorrect, completeCount, remainingCount }) {
+function QuizHeader({ category, percentComplete, percentCorrect, correctCount, remainingCount }) {
   return (
     <div>
       <ProgressBar value={percentComplete} />
@@ -35,11 +35,11 @@ function QuizHeader({ category, percentComplete, percentCorrect, completeCount, 
             <Icon inline={false} size="1.15em" name="CHECK" />
             <Label>{`${percentCorrect || 100}%`}</Label>
           </Stat>
-          <Stat title="Reviews complete">
+          <Stat title="Items complete">
             <Icon inline={false} size="1.1em" name="ASSIGNMENT_CHECK" />
-            <Label>{completeCount}</Label>
+            <Label>{correctCount}</Label>
           </Stat>
-          <Stat title="Reviews remainingCount">
+          <Stat title="Items remaining">
             <Icon inline={false} size="1.1em" name="ASSIGNMENT_INBOX" />
             <Label>{remainingCount}</Label>
           </Stat>
@@ -52,7 +52,7 @@ function QuizHeader({ category, percentComplete, percentCorrect, completeCount, 
 const mapStateToProps = createStructuredSelector({
   percentComplete: selectPercentComplete,
   percentCorrect: selectPercentCorrect,
-  completeCount: selectCompleteCount,
+  correctCount: selectCorrectCount,
   remainingCount: selectRemainingCount,
 });
 

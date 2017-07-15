@@ -1,29 +1,23 @@
 import { createLogic } from 'redux-logic';
 import { recordReview } from 'shared/api';
+import { isJapanese, isKana } from 'wanakana';
+import fixTerminalN from 'utils/fixTerminalN';
+import isEmpty from 'lodash/isEmpty';
+import flatMap from 'lodash/flatMap';
+
 import app from 'containers/App/actions';
 import { selectIncorrectIds } from 'containers/App/selectors';
 import quiz from './actions';
 import { selectQuizAnswer } from './selectors';
 
-import { isJapanese, isKana } from 'wanakana';
-import fixTerminalN from 'utils/fixTerminalN';
-import isEmpty from 'lodash/isEmpty';
 
-const increment = (x) => x + 1;
-const decrement = (x) => Math.max(0, x - 1);
-
-function isInputValid(input = '') {
-  return !isEmpty(input) && isJapanese(input);
-}
-
-function cleanseInput(input = '') {
-  return fixTerminalN(input.trim());
-}
-
+const increment = (x = 0) => x + 1;
+const decrement = (x = 0) => Math.max(0, x - 1);
 const stripTildes = (input = '') => input.replace(/〜~/gi, '');
+const isInputValid = (input = '') => !isEmpty(input) && isJapanese(input);
+const cleanseInput = (input = '') => fixTerminalN(input.trim());
 
-import flatMap from 'lodash/flatMap';
-function conglomAnswers({ synonyms, vocabulary: { readings } }) {
+function flattenAnswers({ synonyms, vocabulary: { readings } }) {
   return flatMap(readings, ({ character, kana }) => [character, ...kana])
     .concat(...synonyms)
     .map((text) => ({ original: text, cleaned: stripTildes(text) }));
@@ -31,10 +25,11 @@ function conglomAnswers({ synonyms, vocabulary: { readings } }) {
 
 function findMatch(input = '', review) {
   const cleanInput = stripTildes(input);
-  return conglomAnswers(review)
+  return flattenAnswers(review)
     .reduce((result, { original, cleaned }) => cleaned === cleanInput ? original : null);
 }
 
+// hold onto unmodified review for ignoring answers
 let pristineReview;
 
 export const quizAnswerSubmitLogic = createLogic({
@@ -50,34 +45,34 @@ export const quizAnswerSubmitLogic = createLogic({
     if (!isMarked) {
       console.log('not marked');
       pristineReview = review;
-      if (!isValid) {
-        console.log('invalid');
-        dispatch(quiz.answer.update({ isMarked: true, isValid: false }));
-      }
-      if (isValid) {
-        console.log('valid');
-        const match = findMatch(answerValue, review);
-        const type = isKana(answerValue) ? 'kana' : 'kanji';
-        const updatedAnswer = {
-          type,
-          value: answerValue,
-          isMarked: true,
-          isValid: true,
-          isDisabled: true,
-          isCorrect: false,
-          isIncorrect: false,
-        };
-        if (match == null) {
-          console.log('no match');
-          dispatch(quiz.answer.update({ ...updatedAnswer, isIncorrect: true }));
-          dispatch(app.review.update({ ...review, incorrect: increment(review.incorrect), streak: decrement(review.streak) }));
-          dispatch(app[category].incorrect.add(currentId));
-        } else {
-          console.log('match');
-          dispatch(quiz.answer.update({ ...updatedAnswer, value: match, isCorrect: true }));
-          dispatch(app.review.update({ ...review, correct: increment(review.correct), streak: increment(review.streak) }));
-          dispatch(app[category].correct.add(currentId));
-        }
+    }
+    if (!isValid) {
+      console.log('invalid');
+      dispatch(quiz.answer.update({ isMarked: true, isValid: false }));
+    }
+    if (isValid) {
+      console.log('valid');
+      const match = findMatch(answerValue, review);
+      const type = isKana(answerValue) ? 'kana' : 'kanji';
+      const updatedAnswer = {
+        type,
+        value: answerValue,
+        isMarked: true,
+        isValid: true,
+        isDisabled: true,
+        isCorrect: false,
+        isIncorrect: false,
+      };
+      if (match == null) {
+        console.log('no match');
+        dispatch(quiz.answer.update({ ...updatedAnswer, isIncorrect: true }));
+        dispatch(app.review.update({ ...review, incorrect: increment(review.incorrect), streak: decrement(review.streak) }));
+        dispatch(app[category].incorrect.add(currentId));
+      } else {
+        console.log('match');
+        dispatch(quiz.answer.update({ ...updatedAnswer, value: match, isCorrect: true }));
+        dispatch(app.review.update({ ...review, correct: increment(review.correct), streak: increment(review.streak) }));
+        dispatch(app[category].correct.add(currentId));
       }
     }
     if (isMarked && isValid) {

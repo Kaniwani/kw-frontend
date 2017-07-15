@@ -54,6 +54,7 @@ function SessionSummaryHeader({ category, count, isSessionActive }) {
 
 const mapStateToProps = createStructuredSelector({
   count: selectRemainingCount,
+  // isSessionActive: selectSesionActive,
 });
 
 export default connect(mapStateToProps)(SessionSummaryHeader);

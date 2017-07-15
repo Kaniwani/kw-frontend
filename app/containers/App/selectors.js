@@ -136,19 +136,19 @@ export const selectCurrentId = createSelector(
   ({ current }) => current,
 );
 
-export const selectCompleteCount = createSelector(
-  selectSession,
-  ({ complete }) => complete.length
-);
-
 export const selectCorrectCount = createSelector(
   selectSession,
   ({ correct }) => correct.length
 );
 
+export const selectIncorrectCount = createSelector(
+  selectSession,
+  ({ incorrect }) => incorrect.length
+);
+
 export const selectRemainingCount = createSelector(
-  [selectCompleteCount, selectSessionCount],
-  (complete, total) => Math.max((total - 1) /* 1 = current review */ - complete, 0),
+  [selectCorrectCount, selectSessionCount],
+  (correct, total) => Math.max((total - 1) /* 1 = current review */ - correct, 0),
 );
 
 export const selectPercentComplete = createSelector(
@@ -157,8 +157,8 @@ export const selectPercentComplete = createSelector(
 );
 
 export const selectPercentCorrect = createSelector(
-  [selectCorrectCount, selectCompleteCount],
-  (correct, complete) => calculatePercentage(correct, complete),
+  [selectCorrectCount, selectIncorrectCount],
+  (correct, incorrect) => calculatePercentage(correct, correct + incorrect),
 );
 
 export const selectCorrectIds = createSelector(selectSession, ({ correct }) => correct);

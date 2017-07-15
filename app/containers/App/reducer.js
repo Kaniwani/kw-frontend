@@ -66,7 +66,6 @@ const initialState = {
     // uses same entities as reviews
     current: false,
     queue: [],
-    complete: [],
     correct: [],
     incorrect: [],
     critical: [],
@@ -75,7 +74,6 @@ const initialState = {
     entities: {},
     current: false,
     queue: [],
-    complete: [],
     correct: [],
     incorrect: [],
     critical: [],
@@ -199,15 +197,13 @@ const reviewsReducer = handleActions({
     current: { $set: payload },
   }),
   [app.reviews.correct.add]: (state, { payload }) => update(state, {
-    correct: { $push: [payload] },
-    complete: { $push: [payload] },
+    correct: { $set: union(state.correct, [payload]) },
   }),
   [app.reviews.correct.remove]: (state, { payload }) => update(state, {
     correct: { $set: difference(state.correct, [payload]) },
-    complete: { $set: difference(state.complete, [payload]) },
   }),
   [app.reviews.incorrect.add]: (state, { payload }) => update(state, {
-    incorrect: { $push: [payload] },
+    incorrect: { $set: union(state.incorrect, [payload]) },
   }),
   [app.reviews.incorrect.remove]: (state, { payload }) => update(state, {
     incorrect: { $set: difference(state.incorrect, [payload]) },
