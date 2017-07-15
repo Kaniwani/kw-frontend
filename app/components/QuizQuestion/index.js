@@ -33,12 +33,15 @@ const enhance = branch(
 
 function QuizQuestion({ meanings, readings }) {
   const [first, ...rest] = meanings;
+  const primaryTerm = titleCase(first);
+  // Enforce a min-height even if no terms by using japanese space ^_^
+  const secondaryTerms = rest.length ? titleCase(rest.join(', ')) : '　';
   return (
     <Wrapper>
       <QuestionWrapper>
         <Question>
-          <Primary>{titleCase(first)}</Primary>
-          {rest.length > 0 && <Secondary>{rest.join(', ')}</Secondary>}
+          <Primary>{primaryTerm}</Primary>
+          <Secondary>{secondaryTerms}</Secondary>
         </Question>
       </QuestionWrapper>
       <Tags tags={readings[0].tags} />

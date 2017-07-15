@@ -12,8 +12,8 @@ const selectTagColors = (text) => {
   const isJlpt = /^jlpt/i.test(text);
 
   const defaultColors = { color: 'whiteLight', bgColor: 'grey' };
-  const uncommonColors = { ...defaultColors, bgColor: 'orange' };
   const commonColors = { ...defaultColors, bgColor: 'blue' };
+  const uncommonColors = { color: 'blackLight', bgColor: 'orange' };
   const jlptColors = { color: 'blackLight', bgColor: 'tan' };
 
   switch (true) {
