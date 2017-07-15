@@ -3,6 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
+import format from 'date-fns/format';
+
+import { DATE_IN_WORDS } from 'shared/constants';
+
+import H1 from 'base/H1';
+import H2 from 'base/H2';
+import H3 from 'base/H3';
+import H4 from 'base/H4';
 
 import PageWrapper from 'base/PageWrapper';
 import {
@@ -17,17 +25,17 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
   }
 
   render() {
+    const { profile, dashboard } = this.props;
     return (
       <PageWrapper>
         <Helmet
           title="Dashboard"
           meta={[{ name: 'description', content: 'Dashboard' }]}
         />
-        <h1>HomePage!</h1>
-        <h6>profile</h6>
-        <pre><code className="language-javascript">{JSON.stringify(this.props.profile, null, 2)}</code></pre>
-        <h6>dashboard</h6>
-        <pre><code className="language-javascript">{JSON.stringify(this.props.dashboard, null, 2)}</code></pre>
+        <H1>{profile.name}</H1>
+        <H3>Next Hour: {dashboard.nextHourReviews}</H3>
+        <H3>Next Day: {dashboard.nextDayReviews}</H3>
+        <H4>Last Sync with WK: {format(dashboard.lastWkSyncDate, DATE_IN_WORDS)}</H4>
       </PageWrapper>
     );
   }
