@@ -4,6 +4,9 @@ import { isJapanese, isKana } from 'wanakana';
 import fixTerminalN from 'utils/fixTerminalN';
 import isEmpty from 'lodash/isEmpty';
 import flatMap from 'lodash/flatMap';
+import increment from 'utils/increment';
+import decrement from 'utils/decrement';
+import stripTildes from 'utils/stripTildes';
 
 import app from 'containers/App/actions';
 import { selectIncorrectIds } from 'containers/App/selectors';
@@ -11,9 +14,6 @@ import quiz from './actions';
 import { selectQuizAnswer } from './selectors';
 
 
-const increment = (x = 0) => x + 1;
-const decrement = (x = 0) => Math.max(0, x - 1);
-const stripTildes = (input = '') => input.replace(/〜~/gi, '');
 const isInputValid = (input = '') => !isEmpty(input) && isJapanese(input);
 const cleanseInput = (input = '') => fixTerminalN(input.trim());
 
@@ -42,6 +42,7 @@ export const quizAnswerSubmitLogic = createLogic({
 
     const answerValue = cleanseInput(value);
     const isValid = isInputValid(answerValue);
+    const isChecked = isCorrect || isIncorrect;
     if (!isMarked) {
       console.log('not marked');
       pristineReview = review;
@@ -50,7 +51,7 @@ export const quizAnswerSubmitLogic = createLogic({
       console.log('invalid');
       dispatch(quiz.answer.update({ isMarked: true, isValid: false }));
     }
-    if (isValid) {
+    if (!isChecked && isValid) {
       console.log('valid');
       const match = findMatch(answerValue, review);
       const type = isKana(answerValue) ? 'kana' : 'kanji';
@@ -75,8 +76,8 @@ export const quizAnswerSubmitLogic = createLogic({
         dispatch(app[category].correct.add(currentId));
       }
     }
-    if (isMarked && isValid) {
-      console.log('already marked and valid');
+    if (isChecked && isValid) {
+      console.log('already checked and valid');
       if (isCorrect || isIncorrect) {
         console.log({ isCorrect, isIncorrect });
         dispatch(quiz.answer.record.request({ id: currentId, isCorrect, isIncorrect }, { category }));

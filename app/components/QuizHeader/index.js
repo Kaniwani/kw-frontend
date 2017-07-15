@@ -33,7 +33,7 @@ function QuizHeader({ category, percentComplete, percentCorrect, correctCount, r
         <StatsWrapper>
           <Stat title="Correctness">
             <Icon inline={false} size="1.15em" name="CHECK" />
-            <Label>{`${percentCorrect || 100}%`}</Label>
+            <Label>{`${percentCorrect}%`}</Label>
           </Stat>
           <Stat title="Items complete">
             <Icon inline={false} size="1.1em" name="ASSIGNMENT_CHECK" />

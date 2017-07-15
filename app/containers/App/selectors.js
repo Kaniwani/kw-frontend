@@ -1,9 +1,11 @@
 import { createSelector } from 'reselect';
 import isNumber from 'lodash/isNumber';
+import titleCase from 'voca/title_case';
 import groupByRank from 'utils/groupByRank';
 import calculatePercentage from 'utils/calculatePercentage';
 import getSrsRankName from 'utils/getSrsRankName';
-import titleCase from 'voca/title_case';
+import increment from 'utils/increment';
+import isCritical from 'utils/isCritical';
 
 export const selectLocation = (state) => state.location;
 export const selectGlobal = (state) => state.global;
@@ -158,12 +160,22 @@ export const selectPercentComplete = createSelector(
 
 export const selectPercentCorrect = createSelector(
   [selectCorrectCount, selectIncorrectCount],
-  (correct, incorrect) => calculatePercentage(correct, correct + incorrect),
+  (correct, incorrect) => {
+    const pristine = (correct < 1 && incorrect < 1);
+    return pristine ? 100 : calculatePercentage(correct, correct + incorrect);
+  },
 );
 
 export const selectCorrectIds = createSelector(selectSession, ({ correct }) => correct);
 export const selectIncorrectIds = createSelector(selectSession, ({ incorrect }) => incorrect);
-export const selectCriticalIds = createSelector(selectSession, ({ critical }) => critical);
+export const selectCriticalIds = createSelector(
+  [selectCorrectIds, selectIncorrectIds],
+  (correctIds, incorrectIds) => {
+    const criticalCorrect = correctIds.filter(({ correct, incorrect }) => isCritical(increment(correct), incorrect));
+    const criticalIncorrect = incorrectIds.filter(({ correct, incorrect }) => isCritical(correct, increment(incorrect)));
+    return [...criticalCorrect, ...criticalIncorrect];
+  }
+);
 
 export const makeSelectReviewsGroupedByRank = (ids) => createSelector(
   selectReviewEntities,
