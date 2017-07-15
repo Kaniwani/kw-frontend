@@ -104,7 +104,9 @@
     "testRegex": "tests/.*\\.test\\.js$"
   },
   "dependencies": {
+    "britecharts": "1.7.2",
     "cuid": "1.3.8",
+    "d3-selection": "1.1.0",
     "lodash": "4.17.4",
     "polished": "1.3.0",
     "raphael": "2.2.7",
