@@ -1,17 +1,14 @@
 import { createActions } from 'redux-actions';
 
-const actionCreators = [
-  (payload) => payload,
-  (payload, meta) => meta,
-];
+const actionSignature = (payload) => payload;
 
-const SYNC = actionCreators;
+const SYNC = actionSignature;
 
 const ASYNC = {
-  REQUEST: actionCreators,
-  SUCCESS: actionCreators,
-  CANCEL: actionCreators,
-  FAILURE: actionCreators,
+  REQUEST: actionSignature,
+  SUCCESS: actionSignature,
+  CANCEL: actionSignature,
+  FAILURE: actionSignature,
 };
 
 // import actions from './actions'

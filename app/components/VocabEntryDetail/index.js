@@ -45,10 +45,8 @@ const Readings = connect((state, { id }) => ({
     {readings.map((reading) => (
       <div key={uuid()} >
         <ReadingHeader
-          id={id}
           character={reading.character}
           tags={reading.tags}
-          withKwLink={false}
         />
         <Element>
           <TagsList tags={reading.tags} />

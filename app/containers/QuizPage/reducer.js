@@ -24,7 +24,7 @@ const backupReducer = handleActions({
 }, initialState.backup);
 
 const answerReducer = handleActions({
-  [quiz.answer.set]: (state, { payload }) => merge({}, state, payload),
+  [quiz.answer.update]: (state, { payload }) => merge({}, state, payload),
   [quiz.answer.reset]: () => ({ ...initialState.answer, focus: true }),
 }, initialState.answer);
 

@@ -129,6 +129,7 @@ function serializeDashboard({
 function serializeSettings({
   follow_me: followMe,
   auto_advance_on_success: autoAdvanceCorrect,
+  auto_advance_speed: autoAdvanceSpeed,
   auto_expand_answer_on_success: autoExpandCorrect,
   auto_expand_answer_on_failure: autoExpandIncorrect,
   minimum_wk_srs_level_to_review: minimumSrsToReview,
@@ -137,12 +138,17 @@ function serializeSettings({
 } = {}) {
   return {
     followMe,
-    autoAdvanceCorrect,
-    autoExpandCorrect,
-    autoExpandIncorrect,
     minimumSrsToReview,
     onVacation,
     vacationDate: dateOrNull(vacationDate),
+    quiz: {
+      autoAdvance: {
+        active: /* autoAdvanceCorrect*/ true, // FIXME: uncomment after dev
+        speed: autoAdvanceSpeed,
+      },
+      autoExpandCorrect,
+      autoExpandIncorrect,
+    },
   };
 }
 

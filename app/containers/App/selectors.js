@@ -18,6 +18,7 @@ export const selectDashboard = createSelector(selectUser, (state) => state.dashb
 export const selectSrsCounts = createSelector(selectDashboard, (state) => state.srsCounts);
 
 export const selectSettings = createSelector(selectGlobal, (state) => state.settings);
+export const selectQuizSettings = createSelector(selectSettings, (state) => state.quiz);
 // FIXME: put expandedCards in summarysection && vocablevel reducer so they can be independent
 export const selectVocabExpanded = createSelector(selectSettings, (state) => state.vocabulary.expandedCards);
 

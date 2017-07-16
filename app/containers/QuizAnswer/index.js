@@ -58,8 +58,8 @@ export class QuizAnswer extends React.PureComponent {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { submitAnswer, category, answer } = this.props;
-    submitAnswer({ category, ...answer });
+    const { submitAnswer, category } = this.props;
+    submitAnswer({ category });
   }
 
   handleIgnore = (event) => {

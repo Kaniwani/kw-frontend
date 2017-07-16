@@ -50,11 +50,13 @@ const initialState = {
     // NOTE: move defaults to serializer once api is updated to provide them
   },
   settings: {
-    session: {
+    quiz: {
       detail: 0, // 0-2
+      autoExpandCorrect: true,
+      autoExpandIncorrect: true,
       autoAdvance: {
-        active: false,
-        speed: 2000,
+        active: true,
+        speed: 4000,
       },
     },
     vocabulary: {
@@ -194,7 +196,7 @@ const reviewsReducer = handleActions({
     queue: { $set: union(state.queue, payload.reviewIds) },
   }),
   [app.reviews.current.set]: (state, { payload }) => update(state, {
-    current: { $set: payload },
+    current: { $set: 1596 },
     queue: { $set: difference(state.queue, [payload]) },
   }),
   [app.reviews.current.return]: (state, { payload }) => update(state, {

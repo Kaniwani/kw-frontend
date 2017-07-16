@@ -12,9 +12,18 @@ import determineCriticality from 'utils/determineCriticality';
 import stripTildes from 'utils/stripTildes';
 
 import app from 'containers/App/actions';
-import { selectPreviouslyIncorrect, selectCurrentId, makeSelectReview } from 'containers/App/selectors';
+import {
+  selectPreviouslyIncorrect,
+  selectCurrentId,
+  makeSelectReview,
+  selectQuizSettings,
+ } from 'containers/App/selectors';
+
 import quiz from './actions';
 import { selectQuizAnswer, selectBackup } from './selectors';
+
+// set in quiz.advance and hold onto for clearing in quiz.answer.record
+let autoAdvanceTimeout;
 
 const isInputValid = (input = '') => !isEmpty(input) && isJapanese(input);
 const cleanseInput = (input = '') => fixTerminalN(input.trim());
@@ -22,23 +31,23 @@ const cleanseInput = (input = '') => fixTerminalN(input.trim());
 function flattenAnswers({ synonyms, vocabulary: { readings } }) {
   return flatMap(readings, ({ character, kana }) => [character, ...kana])
     .concat(...synonyms)
-    .map((text) => ({ original: text, cleaned: stripTildes(text) }));
+    .map((text) => ({ originalText: text, cleanAnswer: stripTildes(text) }));
 }
 
 function findMatch(input = '', review) {
   const cleanInput = stripTildes(input);
-  return flattenAnswers(review)
-    .reduce((result, { original, cleaned }) => cleaned === cleanInput ? original : false);
+  const match = flattenAnswers(review).find(({ cleanAnswer }) => cleanAnswer === cleanInput);
+  return match ? match.originalText : '';
 }
 
 export const submitAnswerLogic = createLogic({
   type: quiz.answer.submit,
   latest: true,
-  process({ getState, action: { payload } }, dispatch, done) {
-    const { category, value, isMarked, isDisabled, isCorrect, isIncorrect } = payload;
+  process({ getState, action: { payload: { category } } }, dispatch, done) {
     const state = getState();
-    const currentId = selectCurrentId(state, { category });
-    const review = makeSelectReview(currentId)(state, { category });
+    const { value, isMarked, isDisabled, isCorrect, isIncorrect } = selectQuizAnswer(state);
+    const id = selectCurrentId(state, { category });
+    const review = makeSelectReview(id)(state, { category });
     const previouslyIncorrect = selectPreviouslyIncorrect(state, { category });
     const answerValue = cleanseInput(value);
     const isValid = isInputValid(answerValue);
@@ -53,33 +62,21 @@ export const submitAnswerLogic = createLogic({
     }
 
     if (!isDisabled && isValid) {
-      dispatch(quiz.answer.check({ review, answerValue, previouslyIncorrect }));
+      dispatch(quiz.answer.check({ category, review, answerValue, previouslyIncorrect }));
     }
 
     if (isDisabled && isValid) {
-      if (isCorrect) {
-        dispatch(app[category].correct.add(currentId));
-        dispatch(quiz.answer.record.request({ category, id: currentId, isCorrect, previouslyIncorrect }));
-      } else if (isIncorrect && !previouslyIncorrect) {
-        dispatch(app[category].incorrect.add(currentId));
-        dispatch(quiz.answer.record.request({ category, id: currentId, isCorrect, previouslyIncorrect }));
-      } else if (isIncorrect && previouslyIncorrect) {
-        console.log('wrong, but already recorded first time');
-      } else {
-        console.log('mon dieu, c’est pas possible!'); // eslint-disable-line no-console
-        // should never happen
-        // log error to slack
-      }
-      done();
+      dispatch(quiz.answer.record.request({ category, id, isCorrect, isIncorrect, previouslyIncorrect }));
     }
+
+    done();
   },
 });
-
 
 export const checkAnswerLogic = createLogic({
   type: quiz.answer.check,
   latest: true,
-  process({ action: { payload: { review, answerValue, previouslyIncorrect } } }, dispatch, done) {
+  process({ getState, action: { payload: { category, review, answerValue, previouslyIncorrect } } }, dispatch, done) {
     const matchedAnswer = findMatch(answerValue, review);
     const type = isKana(answerValue) ? 'kana' : 'kanji';
     const updatedAnswer = {
@@ -95,7 +92,7 @@ export const checkAnswerLogic = createLogic({
 
     if (matchedAnswer) {
       dispatch(quiz.answer.update({ ...updatedAnswer, value: matchedAnswer, isCorrect: true }));
-      dispatch(quiz.answer.correct({ review }));
+      dispatch(quiz.answer.correct({ review, category }));
     } else if (!matchedAnswer) {
       dispatch(quiz.answer.update({ ...updatedAnswer, isIncorrect: true }));
       if (previouslyIncorrect) {
@@ -113,8 +110,7 @@ export const checkAnswerLogic = createLogic({
 export const incorrectAnswerLogic = createLogic({
   type: quiz.answer.incorrect,
   latest: true,
-  transform() {},
-  process({ action: { payload: { review } } }, dispatch, done) {
+  transform({ action: { type, payload: { review } } }, next) {
     const incorrect = increment(review.incorrect);
     // double decrement if close to burned
     const streak = [...SRS_RANGES.THREE, ...SRS_RANGES.FOUR].includes(streak) ?
@@ -125,10 +121,11 @@ export const incorrectAnswerLogic = createLogic({
       incorrect,
       streak,
       isCritical: determineCriticality(review.correct, incorrect),
-      isBurned: SRS_RANGES.FIVE.includes(streak),
-      isReviewReady: true,
     };
-    dispatch(app.review.update(updatedReview));
+    next({ type, payload: updatedReview });
+  },
+  process({ action: { payload } }, dispatch, done) {
+    dispatch(app.review.update(payload));
     done();
   },
 });
@@ -136,8 +133,7 @@ export const incorrectAnswerLogic = createLogic({
 export const correctAnswerLogic = createLogic({
   type: quiz.answer.correct,
   latest: true,
-  transform() {},
-  process({ action: { payload: { review } } }, dispatch, done) {
+  transform({ action: { type, payload: { review, category } } }, next) {
     const correct = increment(review.correct);
     const streak = increment(review.streak);
     const updatedReview = {
@@ -145,11 +141,15 @@ export const correctAnswerLogic = createLogic({
       correct,
       streak,
       isCritical: determineCriticality(correct, review.incorrect),
-      isBurned: SRS_RANGES.FIVE.includes(streak),
-      isReviewReady: false,
-      lastReviewDate: new Date(),
     };
-    dispatch(app.review.update(updatedReview));
+    next({ type, payload: { review: updatedReview, category } });
+  },
+  process({ getState, action: { payload: { review, category } } }, dispatch, done) {
+    const { autoAdvance } = selectQuizSettings(getState());
+    dispatch(app.review.update(review));
+    if (autoAdvance.active) {
+      dispatch(quiz.advance({ category, autoAdvance }));
+    }
     done();
   },
 });
@@ -157,6 +157,7 @@ export const correctAnswerLogic = createLogic({
 export const ignoreAnswerLogic = createLogic({
   type: quiz.answer.ignore,
   validate({ getState, action }, allow, reject) {
+    clearTimeout(autoAdvanceTimeout);
     const { isMarked, isDisabled, isCorrect, isIncorrect } = selectQuizAnswer(getState());
     if ((isMarked && isDisabled) && (isCorrect || isIncorrect)) {
       allow(action);
@@ -179,13 +180,43 @@ export const recordAnswerLogic = createLogic({
     failType: quiz.answer.record.failure,
   },
 
-  process({ action: { payload: { category, ...rest } } }, dispatch, done) {
+  validate({ getState, action: { type, payload } }, allow, reject) {
+    const { isCorrect, isIncorrect, previouslyIncorrect } = payload;
+    clearTimeout(autoAdvanceTimeout);
+
+    if (isIncorrect && previouslyIncorrect) {
+      console.log('wrong, but already recorded first time');
+      reject();
+    }
+
+    if (!isIncorrect && !isCorrect) {
+      console.log('mon dieu, c’est pas possible!'); // eslint-disable-line no-console
+      reject();
+      // TODO: should never occur so log error to slack
+    }
+
+    allow({ type, payload: { ...payload } });
+  },
+
+  process({ action: { payload: { category, id, isCorrect, isIncorrect, previouslyIncorrect, autoAdvance } } }, dispatch, done) {
+    dispatch(app[category][isCorrect ? 'correct' : 'incorrect'].add(id));
     dispatch(app[category].current.set());
     dispatch(quiz.backup.reset());
     dispatch(quiz.answer.reset());
-    return recordReview(rest)
+    return recordReview({ id, isCorrect, previouslyIncorrect })
       .then(() => { done(); })
       .catch((err) => err);
+  },
+});
+
+export const autoAdvanceLogic = createLogic({
+  type: quiz.advance,
+  process({ action: { payload: { autoAdvance, category } } }, dispatch, done) {
+    autoAdvanceTimeout = setTimeout(() => {
+      console.log('firing!');
+      dispatch(quiz.answer.submit({ category }));
+      done();
+    }, 3000);
   },
 });
 
@@ -196,4 +227,5 @@ export default [
   incorrectAnswerLogic,
   correctAnswerLogic,
   recordAnswerLogic,
+  autoAdvanceLogic,
 ];

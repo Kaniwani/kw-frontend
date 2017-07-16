@@ -4,14 +4,8 @@ import PropTypes from 'prop-types';
 import { Wrapper, Heading, VocabLink } from './styles';
 
 ReadingHeader.propTypes = {
-  id: PropTypes.number.isRequired,
   character: PropTypes.string.isRequired,
   useAlcPro: PropTypes.bool.isRequired,
-  withKwLink: PropTypes.bool,
-};
-
-ReadingHeader.defaultProps = {
-  withKwLink: true,
 };
 
 const createAlcLink = (character, useAlcPro) =>
@@ -20,7 +14,7 @@ const createGooLink = (character) => `http://dictionary.goo.ne.jp/srch/all/${enc
 const createWeblioLink = (character) => `http://ejje.weblio.jp/content/${encodeURIComponent(character)}`;
 const createForvoLink = (character) => `http://forvo.com/search/${encodeURIComponent(character)}/`;
 
-function ReadingHeader({ id, character, useAlcPro, withKwLink }) {
+function ReadingHeader({ character, useAlcPro }) {
   return (
     <Wrapper>
       <Heading>
@@ -33,16 +27,6 @@ function ReadingHeader({ id, character, useAlcPro, withKwLink }) {
       >
         WK
       </VocabLink>
-
-      {withKwLink && (
-        <VocabLink
-          to={`/vocabulary/entry/${id}`}
-          title="View on KaniWani"
-          target="_blank"
-        >
-          KW
-        </VocabLink>
-      )}
       <VocabLink
         href={createAlcLink(character, useAlcPro)}
         title="View on Alc (Eijiro)"

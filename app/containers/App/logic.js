@@ -17,6 +17,11 @@ import {
 import * as sel from './selectors';
 import app from './actions';
 
+// ensure we don't get same current item unless it's the only remaining item
+function getNewIdFromQueue(current, queue) {
+  return queue.length > 1 ? sample(difference(queue, [current])) : current;
+}
+
 const userLoadLogic = createLogic({
   type: app.user.load.request,
   cancelType: app.user.load.cancel,
@@ -65,6 +70,24 @@ export const reviewsQueueLoadLogic = createLogic({
   },
 });
 
+// export const lessonsQueueLoadLogic = createLogic({
+//   type: app.lessons.queue.load.request,
+//   cancelType: app.lessons.queue.load.cancel,
+//   warnTimeout: 8000,
+//   // throttle: 10000,
+//   latest: true,
+//
+//   processOptions: {
+//     successType: app.lessons.queue.load.success,
+//     failType: app.lessons.queue.load.failure,
+//   },
+//
+//   process() {
+//     return api.getCurrentLessons()
+//       .then((res) => serializeQueueResponse(res));
+//   },
+// });
+
 const setCurrentOnQueueLoadLogic = createLogic({
   type: app.reviews.queue.load.success,
   latest: true,
@@ -80,54 +103,37 @@ const setCurrentOnQueueLoadLogic = createLogic({
   },
 });
 
-const setCurrentReviewLogic = createLogic({
-  type: app.reviews.current.set,
-  throttle: 1000,
+const setCurrentLogic = createLogic({
+  type: [app.reviews.current.set, app.lessons.current.set],
   transform({ getState, action }, next) {
-    const { queue } = sel.selectReviews(getState());
-    const id = sample(queue);
-    next({ ...action, payload: id });
+    const state = getState();
+    const { current, queue } = (
+      action.type === `${app.reviews.current.set}` ?
+        sel.selectReviews(state) :
+        sel.selectLessons(state)
+      );
+    next({ ...action, payload: getNewIdFromQueue(current, queue) });
   },
 });
 
-const setCurrentLessonLogic = createLogic({
-  type: app.lessons.current.set,
-  throttle: 1000,
-  transform({ getState, action }, next) {
-    const { queue } = sel.selectLessons(getState());
-    const id = sample(queue);
-    next({ ...action, payload: id });
-  },
-});
-
-const returnCurrentReviewLogic = createLogic({
-  type: app.reviews.current.return,
-  latest: true,
+const returnCurrentLogic = createLogic({
+  type: [app.reviews.current.return, app.lessons.current.return],
   validate({ getState, action }, allow, reject) {
-    const { current, queue } = sel.selectReviews(getState());
-    let id = current;
+    const state = getState();
+    const { current, queue } = (
+      action.type === `${app.reviews.current.return}` ?
+        sel.selectReviews(state) :
+        sel.selectLessons(state)
+      );
+    let newId = current;
     if (queue.length > 1) {
-      id = sample(difference(queue, [current]));
-      allow({ ...action, payload: id });
+      newId = sample(difference(queue, [current]));
+      allow({ ...action, payload: newId });
     } else {
+      // TODO: something something if queue and current both empty navigate to sessionsummary?
+      // should happen automatically when routing really
+      console.log('Rejected returning current - no other queue items', { queue, current, newId });
       reject();
-      console.log('Rejected returning current', { current, id });
-    }
-  },
-});
-
-const returnCurrentLessonLogic = createLogic({
-  type: app.lessons.current.return,
-  latest: true,
-  validate({ getState, action }, allow, reject) {
-    const { current, queue } = sel.selectLessons(getState());
-    let id = current;
-    if (queue.length > 1) {
-      id = sample(difference(queue, [current]));
-      allow({ ...action, payload: id });
-    } else {
-      reject();
-      console.log('Rejected returning current', { current, id });
     }
   },
 });
@@ -192,7 +198,7 @@ const levelUnlockLogic = createLogic({
     const alreadySubmitting = sel.selectUi(getState()).levels.submitting.length >= 1;
     if (alreadySubmitting) {
       alert('Please unlock levels one at a time. Turtles get tired too.');
-      reject(/* app.notifications.alert*/);
+      reject(/* TODO: app.notifications.alert*/);
     }
     allow(action);
   },
@@ -308,12 +314,11 @@ const levelLoadLogic = createLogic({
 export default [
   userLoadLogic,
   reviewsQueueLoadLogic,
+  // lessonsQueueLoadLogic,
   loadQueuesIfNeededLogic,
   setCurrentOnQueueLoadLogic,
-  setCurrentReviewLogic,
-  setCurrentLessonLogic,
-  returnCurrentReviewLogic,
-  returnCurrentLessonLogic,
+  setCurrentLogic,
+  returnCurrentLogic,
   levelsLoadLogic,
   levelLockLogic,
   levelUnlockLogic,
