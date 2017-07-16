@@ -2,9 +2,9 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { mount } from 'enzyme';
 import { createMockStore } from 'redux-logic-test';
-import SessionPage from '../index';
+import QuizPage from '../index';
 
-describe('<SessionPage />', () => {
+describe('<QuizPage />', () => {
   let store;
   const initialState = {
     sessionPageItem: 'from sessionPage state',
@@ -17,7 +17,7 @@ describe('<SessionPage />', () => {
   it('should match baseline snapshot', () => {
     const component = mount(
       <Provider store={store}>
-        <SessionPage />
+        <QuizPage />
       </Provider>
     );
     expect(component).toMatchSnapshot();

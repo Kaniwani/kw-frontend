@@ -10,8 +10,8 @@ import HomePage from 'containers/HomePage/Loadable';
 import VocabLevelsPage from 'containers/VocabLevelsPage/Loadable';
 import VocabLevelPage from 'containers/VocabLevelPage/Loadable';
 import VocabEntryPage from 'containers/VocabEntryPage/Loadable';
-import SessionPage from 'containers/SessionPage/Loadable';
-import SessionSummaryPage from 'containers/SessionSummaryPage/Loadable';
+import QuizPage from 'containers/QuizPage/Loadable';
+import QuizSummaryPage from 'containers/QuizSummaryPage/Loadable';
 import AboutPage from 'containers/AboutPage/Loadable';
 import ContactPage from 'containers/ContactPage/Loadable';
 import SettingsPage from 'containers/SettingsPage/Loadable';
@@ -46,8 +46,8 @@ export class ProtectedRoutes extends React.Component {
           <Redirect exact path="/logout" to="/welcome" />
           <Route path="/:category(lessons|reviews)">
             <Switch>
-              <Route exact path="/:category/session" component={SessionPage} />
-              <Route exact path="/:category" component={SessionSummaryPage} />
+              <Route exact path="/:category/session" component={QuizPage} />
+              <Route exact path="/:category" component={QuizSummaryPage} />
               <Route path="" component={NotFoundPage} />
             </Switch>
           </Route>

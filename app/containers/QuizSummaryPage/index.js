@@ -5,16 +5,16 @@ import Helmet from 'react-helmet';
 
 import titleCase from 'voca/title_case';
 
-import SessionSummaryHeader from 'components/SessionSummaryHeader';
-import SessionSummaryContent from 'components/SessionSummaryContent';
+import QuizSummaryHeader from 'components/QuizSummaryHeader';
+import QuizSummaryContent from 'components/QuizSummaryContent';
 
 import { selectCategoryFromMatch } from 'containers/App/selectors';
 
-SessionSummaryPage.propTypes = {
+QuizSummaryPage.propTypes = {
   category: PropTypes.string.isRequired,
 };
 
-function SessionSummaryPage({ category }) {
+function QuizSummaryPage({ category }) {
   const categoryTitle = titleCase(category);
   return (
     <div>
@@ -22,8 +22,8 @@ function SessionSummaryPage({ category }) {
         <title>{`${categoryTitle} Summary`}</title>
         <meta name="description" content={`Kaniwani ${categoryTitle} Summary`} />
       </Helmet>
-      <SessionSummaryHeader category={category} linkRoute={`/${category}/session`} />
-      <SessionSummaryContent category={category} />
+      <QuizSummaryHeader category={category} linkRoute={`/${category}/session`} />
+      <QuizSummaryContent category={category} />
     </div>
   );
 }
@@ -32,4 +32,4 @@ const mapStateToProps = (state, props) => ({
   category: selectCategoryFromMatch(props),
 });
 
-export default connect(mapStateToProps)(SessionSummaryPage);
+export default connect(mapStateToProps)(QuizSummaryPage);

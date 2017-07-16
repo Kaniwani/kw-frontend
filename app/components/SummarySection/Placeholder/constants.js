@@ -1,9 +1,9 @@
 export const PLACEHOLDERS = {
-  CORRECT: {
+  INCORRECT: {
     text: ' 満点！',
     kaomoji: ' (๑•̀ㅂ•́)و',
   },
-  INCORRECT: {
+  CORRECT: {
     text: '零点',
     kaomoji: 'ʕノ•ᴥ•ʔノ ︵ ┻━┻',
   },

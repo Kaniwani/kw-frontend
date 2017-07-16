@@ -1,9 +1,8 @@
 import { createSelector } from 'reselect';
 
-const selectSessionDomain = (state) => state.session;
-const selectQuiz = createSelector(selectSessionDomain, (state) => state.quiz);
+const selectQuizDomain = (state) => state.quiz;
 
-export const selectQuizAnswer = createSelector(selectQuiz, (state) => state.answer);
+export const selectQuizAnswer = createSelector(selectQuizDomain, (state) => state.answer);
 export const selectAnswerValue = createSelector(selectQuizAnswer, (state) => state.value);
 export const selectAnswerMarked = createSelector(selectQuizAnswer, (state) => state.isMarked);
 export const selectAnswerFocused = createSelector(selectQuizAnswer, (state) => state.isFocused);

@@ -6,7 +6,8 @@ import { SRS_RANKS } from 'shared/constants';
 import { toKana } from 'wanakana';
 
 import { makeSelectReviewStreakName, selectCurrentId } from 'containers/App/selectors';
-import { selectQuizAnswer } from 'containers/SessionPage/selectors';
+import { selectQuizAnswer } from 'containers/QuizPage/selectors';
+import quiz from 'containers/QuizPage/actions';
 
 import {
   Form,
@@ -21,17 +22,20 @@ import {
 
 export class QuizAnswer extends React.PureComponent {
   static propTypes = {
-    handleSubmit: PropTypes.func.isRequired,
-    handleUpdate: PropTypes.func.isRequired,
-    handleIgnore: PropTypes.func.isRequired,
+    updateAnswer: PropTypes.func.isRequired,
+    submitAnswer: PropTypes.func.isRequired,
+    ignoreAnswer: PropTypes.func.isRequired,
+    category: PropTypes.string.isRequired,
     streakName: PropTypes.string,
     answer: PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      focus: PropTypes.bool.isRequired,
       isMarked: PropTypes.bool.isRequired,
-      isFocused: PropTypes.bool.isRequired,
       isValid: PropTypes.bool.isRequired,
+      isDisabled: PropTypes.bool.isRequired,
       isCorrect: PropTypes.bool.isRequired,
       isIncorrect: PropTypes.bool.isRequired,
-      isDisabled: PropTypes.bool.isRequired,
     }).isRequired,
   }
 
@@ -39,45 +43,30 @@ export class QuizAnswer extends React.PureComponent {
     streakName: SRS_RANKS.ONE,
   };
 
-  // NOTE: was used after rotating answer to set focused - but should probably do in reducer/logic instead
-  // componentDidUpdate() {
-  //   if (this.props.answer.isFocused) {
-  //     this.inputFieldRef.focus();
-  //   }
-  // }
+  componentDidUpdate() {
+    if (this.props.answer.focus) {
+      this.inputFieldRef.focus();
+    }
+  }
 
   handleInput = (event) => {
+    const { updateAnswer } = this.props;
     // TODO: could allow user to decide in settings if always hiragana or if caps for katakana is ok
     const value = toKana(event.target.value.toLowerCase(), { IMEMode: true });
-    this.props.handleUpdate({ value });
+    updateAnswer({ value });
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.handleSubmit();
+    const { submitAnswer, category, answer } = this.props;
+    submitAnswer({ category, ...answer });
   }
 
   handleIgnore = (event) => {
     event.preventDefault();
-    this.props.handleIgnore();
+    const { ignoreAnswer, category } = this.props;
+    ignoreAnswer({ category });
   }
-
-  // handleIgnore = () => {
-  //   // should really be passing these kinda details from state to sagas in the other handleFuncs
-  //   this.props.ignoreAnswer(/* this.props.answer.isCorrect*/);
-  // }
-  //
-  // handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const { answer, checkAnswer } = this.props;
-  //   // FIXME: move to logic!
-  //   // this.props.checkAnswer() // getState() in logic for answer deets
-  //   if (answer.isDisabled) {
-  //     this.props.recordAnswer();
-  //   } else if (!answer.isValid || !answer.isMarked) {
-  //     this.props.checkAnswer();
-  //   }
-  // }
 
   render() {
     const { answer, streakName } = this.props;
@@ -96,18 +85,20 @@ export class QuizAnswer extends React.PureComponent {
             Vocabulary reading
           </Label>
           <Input
-            focus={answer.isFocused}
-            disabled={answer.isDisabled}
-            marked={answer.isMarked}
             id="userAnswer"
+            innerRef={(node) => { this.inputFieldRef = node; }}
             lang="ja"
             type="text"
+            focus={answer.focus}
+            disabled={answer.isDisabled}
+            marked={answer.isMarked}
+            valid={answer.isValid}
             onChange={this.handleInput}
             value={answer.value}
             placeholder="答え"
-            autoFocus // eslint-disable-line jsx-a11y/no-autofocus
-            autoCapitalize="off"
-            autoCorrect="off"
+            autoFocus
+            autoCapitalize="none"
+            autoCorrect="none"
             autoComplete="off"
             spellCheck="false"
           />
@@ -135,12 +126,15 @@ export class QuizAnswer extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state, { category }) => {
-  const id = selectCurrentId(state, { category });
-  return {
-    streakName: makeSelectReviewStreakName(id)(state),
-    answer: selectQuizAnswer(state),
-  };
+const mapStateToProps = (state, { category }) => ({
+  answer: selectQuizAnswer(state),
+  streakName: makeSelectReviewStreakName(selectCurrentId(state, { category }))(state),
+});
+
+const mapDispatchToProps = {
+  updateAnswer: quiz.answer.update,
+  submitAnswer: quiz.answer.submit,
+  ignoreAnswer: quiz.answer.ignore,
 };
 
-export default connect(mapStateToProps)(QuizAnswer);
+export default connect(mapStateToProps, mapDispatchToProps)(QuizAnswer);

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<SessionSummaryHeader /> should match adopt count prop 1`] = `
+exports[`<QuizSummaryContent /> should match adopt count prop 1`] = `
 <styled.header>
   <styled.nav>
     <LogoLink
@@ -21,7 +21,7 @@ exports[`<SessionSummaryHeader /> should match adopt count prop 1`] = `
 </styled.header>
 `;
 
-exports[`<SessionSummaryHeader /> should match baseline snapshot 1`] = `
+exports[`<QuizSummaryContent /> should match baseline snapshot 1`] = `
 <styled.header>
   <styled.nav>
     <LogoLink

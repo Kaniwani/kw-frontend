@@ -25,8 +25,8 @@ function Input({ name, type, placeholder, isHidden, ...props }) {
       aria-hidden={isHidden}
       disabled={isHidden}
       autoComplete="on"
-      autoCapitalize="off"
-      autoCorrect="off"
+      autoCapitalize="none"
+      autoCorrect="none"
       spellCheck="false"
       {...props}
     />

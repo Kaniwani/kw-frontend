@@ -11,7 +11,7 @@ Placeholder.propTypes = {
 function Placeholder({ summaryType }) {
   return (
     <Heading>
-      <span lang="ja">{PLACEHOLDERS[summaryType].text}</span>
+      {/* <span lang="ja">{PLACEHOLDERS[summaryType].text}</span> */}
       <span>{PLACEHOLDERS[summaryType].kaomoji}</span>
     </Heading>
   );

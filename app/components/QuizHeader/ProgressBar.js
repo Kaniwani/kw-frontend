@@ -11,7 +11,6 @@ ProgressBar.defaultProps = {
   value: 0,
 };
 
-
 function ProgressBar({ value }) {
   return (
     <Bar>

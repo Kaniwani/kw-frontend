@@ -7,11 +7,10 @@
  * @param  {number} [minimum=3] Number of times item must have been answered previously
  * @return {boolean} True if item is below critical threshold
  */
-function isCritical(correct = 0, incorrect = 0, threshold = 0.75, minimum = 3) {
+function determineCriticality(correct = 0, incorrect = 0, threshold = 0.75, minimum = 3) {
   const answered = correct + incorrect;
   const correctRatio = correct / answered;
-  debugger;
-  return (answered > minimum) && (correctRatio < threshold);
+  return (answered >= minimum) && (correctRatio < threshold);
 }
 
-export default isCritical;
+export default determineCriticality;

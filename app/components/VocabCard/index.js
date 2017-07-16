@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import titleCase from 'voca/title_case';
 
 import {
   makeSelectReviewMeanings,
@@ -35,7 +36,7 @@ function VocabCard({ color, id, meanings, readings }) {
               <div className="separator" />,
             ]))}
           </div>
-          <dd className="meaning">{meanings.join(', ')}</dd>
+          <dd className="meaning">{titleCase(meanings.join(', '))}</dd>
         </Dl>
       </Link>
     </Li>

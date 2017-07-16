@@ -35,7 +35,7 @@ export const Form = styled.form`
   ${kilo}
   position: relative;
   max-width: 100%;
-  color: ${({ marked }) => marked ? white : black};
+  color: ${({ marked, valid }) => marked && valid ? white : black};
   background-color: ${transparent};
   margin: 0 0 .4rem;
   border: 0;
@@ -79,14 +79,17 @@ export const Input = styled.input`
     ${placeholder({ color: whiteDark })} /* focused input placeholder text color */
   }
 
-  ${({ marked }) => marked && css`
-    color: ${white}; /* Override Android / IE font color change */
-    -webkit-opacity: 1; /* Override iOS opacity change affecting text & background color */
-    ${placeholder({ color: white })} /* Override browser-forced color */
-    &:placeholder-shown {
-      ${placeholder({ color: white })} /* Override browser-forced color */
-    }
-  `}
+  ${({ marked, valid }) => {
+    const color = valid ? white : black;
+    return marked && css`
+      color: ${color}; /* Override Android / IE font color change */
+      -webkit-opacity: 1; /* Override iOS opacity change affecting text & background color */
+      ${placeholder({ color })} /* Override browser-forced color */
+      &:placeholder-shown {
+        ${placeholder({ color })} /* Override browser-forced color */
+      }
+    `;
+  }}
 
   &:focus {
     outline: none;

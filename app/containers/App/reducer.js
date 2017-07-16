@@ -75,7 +75,6 @@ const initialState = {
     queue: [],
     correct: [],
     incorrect: [],
-    critical: [],
   },
   reviews: {
     entities: {},
@@ -83,7 +82,6 @@ const initialState = {
     queue: [],
     correct: [],
     incorrect: [],
-    critical: [],
   },
   levels: {
     entities: {},
@@ -203,17 +201,15 @@ const reviewsReducer = handleActions({
     queue: { $set: union(state.queue, [state.current]) },
     current: { $set: payload },
   }),
+  [app.reviews.session.reset]: (state) => update(state, {
+    correct: { $set: [] },
+    incorrect: { $set: [] },
+  }),
   [app.reviews.correct.add]: (state, { payload }) => update(state, {
     correct: { $set: union(state.correct, [payload]) },
   }),
-  [app.reviews.correct.remove]: (state, { payload }) => update(state, {
-    correct: { $set: difference(state.correct, [payload]) },
-  }),
   [app.reviews.incorrect.add]: (state, { payload }) => update(state, {
     incorrect: { $set: union(state.incorrect, [payload]) },
-  }),
-  [app.reviews.incorrect.remove]: (state, { payload }) => update(state, {
-    incorrect: { $set: difference(state.incorrect, [payload]) },
   }),
   [app.review.update]: (state, { payload }) => payload ? update(state, {
     entities: { [payload.id]: { $set: payload } },
@@ -235,6 +231,10 @@ const reviewsReducer = handleActions({
 }, initialState.reviews);
 
 const lessonsReducer = handleActions({
+  [app.lessons.session.reset]: (state) => update(state, {
+    correct: { $set: [] },
+    incorrect: { $set: [] },
+  }),
   [app.lessons.current.set]: (state, { payload }) => update(state, {
     current: { $set: payload },
     queue: { $set: difference(state.queue, [payload]) },

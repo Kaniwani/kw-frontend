@@ -21,6 +21,13 @@ export const SRS_RANKS = {
   FOUR: 'ENLIGHTENED',
   FIVE: 'BURNED',
 };
+export const SRS_RANGES = {
+  ONE: [0, 1, 2, 3, 4],
+  TWO: [5, 6],
+  THREE: [7],
+  FOUR: [8],
+  FIVE: [9],
+};
 
 export const PARTS_OF_SPEECH = [
   'JLPT N1',

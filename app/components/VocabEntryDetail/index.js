@@ -198,7 +198,7 @@ function VocabEntryDetail({ review, handleLockClick }) {
       <P><code>review.wk.isBurned &&</code> <Burned>Burned on WK!</Burned></P>
       <P><code>review.isCritical &&</code> <Critical>Critical on KW!</Critical></P>
       <P><code>review.streak name: </code> KW {getSrsRankName(review.streak)} <StreakIcon streakName={getSrsRankName(review.streak)} size="2em" /></P>
-      <P><code>review.streakName: </code> WK {review.wk.streakName} <StreakIcon streakName={review.wk.streakName} size="2em" /></P>
+      <P><code>review.streakName: </code> WK {review.wk && review.wk.streakName} <StreakIcon streakName={review.wk && review.wk.streakName} size="2em" /></P>
       <P><code>review.lastReviewDate: </code> <BoldH>{getDateInWords(review.lastReviewDate)}</BoldH></P>
       <P><code>review.unlockDate: </code> <BoldH>{getDateInWords(review.unlockDate)}</BoldH></P>
       <P><code>review.nextReviewDate: </code> <BoldH>{getDateInWords(review.nextReviewDate)}</BoldH></P>

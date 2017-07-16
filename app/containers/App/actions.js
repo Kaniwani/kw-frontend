@@ -33,6 +33,9 @@ export const { app } = createActions({
       LOAD: ASYNC,
     },
     REVIEWS: {
+      SESSION: {
+        RESET: SYNC,
+      },
       QUEUE: {
         LOAD: ASYNC,
       },
@@ -50,6 +53,9 @@ export const { app } = createActions({
       },
     },
     LESSONS: {
+      SESSION: {
+        RESET: SYNC,
+      },
       QUEUE: {
         LOAD: ASYNC,
       },

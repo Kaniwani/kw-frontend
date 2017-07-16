@@ -16,9 +16,16 @@ const ASYNC = {
 
 export const { quiz } = createActions({
   QUIZ: {
-    ANSWER: {
-      SUBMIT: SYNC,
+    EDITING: {
       UPDATE: SYNC,
+      RESET: SYNC,
+    },
+    ANSWER: {
+      UPDATE: SYNC,
+      SUBMIT: SYNC,
+      CHECK: SYNC,
+      CORRECT: SYNC,
+      INCORRECT: SYNC,
       IGNORE: SYNC,
       RESET: SYNC,
       RECORD: ASYNC,

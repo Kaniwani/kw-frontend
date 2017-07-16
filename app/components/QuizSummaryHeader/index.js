@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import titleCase from 'voca/title_case';
 import { createStructuredSelector } from 'reselect';
 
-import { selectRemainingCount } from 'containers/App/selectors';
+import { selectRemainingCount, selectSessionActive } from 'containers/App/selectors';
+import app from 'containers/App/actions';
 import LogoLink from 'components/LogoLink';
 import SessionLink from './SessionLink';
 
@@ -14,22 +15,19 @@ import {
   Title,
 } from './styles';
 
-SessionSummaryHeader.propTypes = {
+QuizSummaryContent.propTypes = {
   category: PropTypes.string.isRequired,
+  resetSession: PropTypes.func.isRequired,
   isSessionActive: PropTypes.bool,
   count: PropTypes.number,
 };
 
-SessionSummaryHeader.defaultProps = {
+QuizSummaryContent.defaultProps = {
   count: 0,
   isSessionActive: false,
 };
 
-// FIXME: create isSessionActive selector
-// remainingCount > 0 + ui state was set true when 'Begin Session' is clicked?
-// remainingCount > 0 + ui state was set true when 'View Summary' from review clicked?
-
-function SessionSummaryHeader({ category, count, isSessionActive }) {
+function QuizSummaryContent({ category, count, isSessionActive, resetSession }) {
   const linkText = () => {
     if (isSessionActive && count > 0) return 'Continue Session';
     if (!isSessionActive && count > 0) return 'Begin Session';
@@ -46,6 +44,7 @@ function SessionSummaryHeader({ category, count, isSessionActive }) {
           text={linkText()}
           to={`/${category}/session`}
           count={count}
+          onClick={resetSession}
         />
       </Wrapper>
     </Header>
@@ -54,7 +53,11 @@ function SessionSummaryHeader({ category, count, isSessionActive }) {
 
 const mapStateToProps = createStructuredSelector({
   count: selectRemainingCount,
-  // isSessionActive: selectSesionActive,
+  isSessionActive: selectSessionActive,
 });
 
-export default connect(mapStateToProps)(SessionSummaryHeader);
+const mapDispatchToProps = (dispatch, { category }) => ({
+  resetSession: () => dispatch(app[category].session.reset),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuizSummaryContent);

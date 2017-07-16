@@ -8,7 +8,7 @@ export default Loadable({
       import('./index'),
     ])
     .then(([reducer, logic, component]) => {
-      injectReducer('session', reducer.default);
+      injectReducer('quiz', reducer.default);
       injectLogic(logic.default, logic.onLogicInit);
 
       return component;

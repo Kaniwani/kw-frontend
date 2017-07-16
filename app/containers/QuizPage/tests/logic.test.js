@@ -4,7 +4,7 @@ import sessionPage from '../actions';
 import sessionPageReducer from '../reducer';
 import defaultLogic from '../logic';
 
-describe('SessionPage defaultLogic', () => {
+describe('QuizPage defaultLogic', () => {
   let store;
   beforeEach(() => {
     store = createMockStore({

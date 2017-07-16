@@ -2,14 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
-import { compose, withHandlers } from 'recompose';
 import titleCase from 'voca/title_case';
 
-import {
-  selectCategoryFromMatch,
-  selectCurrentId,
-  makeSelectReview,
-} from 'containers/App/selectors';
+import { selectCategoryFromMatch } from 'containers/App/selectors';
 
 import backgroundImage from 'shared/assets/img/reviews.svg';
 // import QuizInfo from 'containers/QuizInfo';
@@ -17,13 +12,9 @@ import QuizAnswer from 'containers/QuizAnswer';
 import QuizHeader from 'components/QuizHeader';
 import QuizQuestion from 'components/QuizQuestion';
 import { Wrapper, Upper, Lower, Background } from './styles';
-import actions from './actions';
 
-SessionPage.propTypes = {
+QuizPage.propTypes = {
   category: PropTypes.string.isRequired,
-  submitAnswer: PropTypes.func.isRequired,
-  updateAnswer: PropTypes.func.isRequired,
-  ignoreAnswer: PropTypes.func.isRequired,
 };
 
 // check target isn't synonym form?
@@ -50,7 +41,7 @@ handleKeyDown = (event) => {
 }
 */
 
-function SessionPage({ category, submitAnswer, updateAnswer, ignoreAnswer }) {
+function QuizPage({ category }) {
   const title = `${titleCase(category)} Session`;
   return (
     <div>
@@ -65,12 +56,7 @@ function SessionPage({ category, submitAnswer, updateAnswer, ignoreAnswer }) {
         </Upper>
         <Lower>
           {/* <ReviewAnswerContainer category={category} /> */}
-          <QuizAnswer
-            category={category}
-            handleSubmit={submitAnswer}
-            handleUpdate={updateAnswer}
-            handleIgnore={ignoreAnswer}
-          />
+          <QuizAnswer category={category} />
           {/* <QuizInfo id={currentId} /> */}
           <Background imgSrc={backgroundImage} />
         </Lower>
@@ -79,37 +65,8 @@ function SessionPage({ category, submitAnswer, updateAnswer, ignoreAnswer }) {
   );
 }
 
-const mapStateToProps = (state, props) => {
-  const category = selectCategoryFromMatch(props);
-  const currentId = selectCurrentId(state, { category });
-  return {
-    category,
-    currentId,
-    review: makeSelectReview(currentId)(state),
-  };
-};
+const mapStateToProps = (state, props) => ({
+  category: selectCategoryFromMatch(props),
+});
 
-const mapDispatchToProps = {
-  updateAnswer: actions.answer.update,
-  submitAnswer: actions.answer.submit,
-  ignoreAnswer: actions.answer.ignore,
-};
-
-const enhance = compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  ),
-  // zermahgerd - passing props from mapStateToProps into handlers
-  // could have used connect's mergeProps, but this should be more performant
-  withHandlers({
-    updateAnswer: ({ updateAnswer, currentId, review, category }) => (payload) =>
-      updateAnswer(payload, { currentId, review, category }),
-    submitAnswer: ({ submitAnswer, currentId, review, category }) => (payload) =>
-      submitAnswer(payload, { currentId, review, category }),
-    ignoreAnswer: ({ ignoreAnswer, currentId, review, category }) => (payload) =>
-      ignoreAnswer(payload, { currentId, review, category }),
-  })
-);
-
-export default enhance(SessionPage);
+export default connect(mapStateToProps)(QuizPage);

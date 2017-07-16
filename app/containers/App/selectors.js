@@ -4,8 +4,6 @@ import titleCase from 'voca/title_case';
 import groupByRank from 'utils/groupByRank';
 import calculatePercentage from 'utils/calculatePercentage';
 import getSrsRankName from 'utils/getSrsRankName';
-import increment from 'utils/increment';
-import isCritical from 'utils/isCritical';
 
 export const selectLocation = (state) => state.location;
 export const selectGlobal = (state) => state.global;
@@ -154,28 +152,39 @@ export const selectRemainingCount = createSelector(
   (correct, total) => Math.max((total - 1) /* 1 = current review */ - correct, 0),
 );
 
+export const selectCompleteCount = createSelector(
+  [selectCorrectCount, selectIncorrectCount],
+  (correct, incorrect) => correct + incorrect,
+);
+
+export const selectSessionActive = createSelector(
+  selectCompleteCount,
+  (complete) => complete >= 1,
+);
+
 export const selectPercentComplete = createSelector(
   [selectCorrectCount, selectSessionCount],
   (correct, total) => calculatePercentage(correct, total),
 );
 
 export const selectPercentCorrect = createSelector(
-  [selectCorrectCount, selectIncorrectCount],
-  (correct, incorrect) => {
-    const pristine = (correct < 1 && incorrect < 1);
-    return pristine ? 100 : calculatePercentage(correct, correct + incorrect);
+  [selectCorrectCount, selectCompleteCount],
+  (correct, complete) => {
+    const pristine = complete < 1;
+    return pristine ? 100 : calculatePercentage(correct, complete);
   },
 );
 
 export const selectCorrectIds = createSelector(selectSession, ({ correct }) => correct);
 export const selectIncorrectIds = createSelector(selectSession, ({ incorrect }) => incorrect);
 export const selectCriticalIds = createSelector(
-  [selectCorrectIds, selectIncorrectIds],
-  (correctIds, incorrectIds) => {
-    const criticalCorrect = correctIds.filter(({ correct, incorrect }) => isCritical(increment(correct), incorrect));
-    const criticalIncorrect = incorrectIds.filter(({ correct, incorrect }) => isCritical(correct, increment(incorrect)));
-    return [...criticalCorrect, ...criticalIncorrect];
-  }
+  [selectReviewEntities, selectCorrectIds, selectIncorrectIds],
+  (reviews, correctIds, incorrectIds) => [...correctIds, ...incorrectIds].filter((id) => reviews[id].isCritical)
+);
+
+export const selectPreviouslyIncorrect = createSelector(
+  [selectCurrentId, selectIncorrectIds],
+  (currentId, incorrectIds) => incorrectIds.includes(currentId),
 );
 
 export const makeSelectReviewsGroupedByRank = (ids) => createSelector(

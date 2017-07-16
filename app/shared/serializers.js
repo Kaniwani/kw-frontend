@@ -203,10 +203,10 @@ function serializeStubbedReviewEntry({
 }
 
 function serializeReviewEntry({
-  needs_review: isReviewReady,
-  last_studied: lastReviewDate,
   unlock_date: unlockDate,
+  last_studied: lastReviewDate,
   next_review_date: nextReviewDate,
+  needs_review: isReviewReady,
   hidden: isHidden,
   critical: isCritical,
   burned: isBurned,

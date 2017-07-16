@@ -1,11 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import SessionSummaryHeader from '../index';
+import QuizSummaryContent from '../index';
 
-describe('<SessionSummaryHeader />', () => {
+describe('<QuizSummaryContent />', () => {
   it('should match baseline snapshot', () => {
     const renderedComponent = shallow(
-      <SessionSummaryHeader
+      <QuizSummaryContent
         category="review"
         linkRoute="/reviews"
       />
@@ -14,7 +14,7 @@ describe('<SessionSummaryHeader />', () => {
   });
   it('should match adopt count prop', () => {
     const renderedComponent = shallow(
-      <SessionSummaryHeader
+      <QuizSummaryContent
         category="lesson"
         linkRoute="/lessons"
         count={22}

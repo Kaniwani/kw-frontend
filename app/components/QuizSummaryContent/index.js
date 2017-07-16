@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
+import H2 from 'base/H2';
+import Container from 'base/Container';
 import PageWrapper from 'base/PageWrapper';
 import AccuracyBar from 'components/AccuracyBar';
 import SummarySection from 'components/SummarySection';
@@ -17,37 +19,44 @@ import {
 
 import { Heading } from './styles';
 
-SessionSummaryContent.propTypes = {
+QuizSummaryContent.propTypes = {
   correctIds: PropTypes.array.isRequired,
   incorrectIds: PropTypes.array.isRequired,
   criticalIds: PropTypes.array.isRequired,
   percentCorrect: PropTypes.number.isRequired,
 };
 
-function SessionSummaryContent({
+function QuizSummaryContent({
   correctIds,
   incorrectIds,
   criticalIds,
   percentCorrect,
 }) {
+  const noHistory = !incorrectIds.length && !correctIds.length && !criticalIds.length;
   return (
     <PageWrapper>
       <Heading>
         <AccuracyBar percent={percentCorrect} />
         <ToggleVocabListButton />
       </Heading>
-      <SummarySection
-        summaryType="INCORRECT"
-        ids={incorrectIds}
-      />
-      <SummarySection
-        summaryType="CORRECT"
-        ids={correctIds}
-      />
-      <SummarySection
-        summaryType="CRITICAL"
-        ids={criticalIds}
-      />
+      {noHistory ? (
+        <Container><H2>No history. Get quizzing!</H2></Container>
+      ) : (
+        <div>
+          <SummarySection
+            summaryType="INCORRECT"
+            ids={incorrectIds}
+          />
+          <SummarySection
+            summaryType="CORRECT"
+            ids={correctIds}
+          />
+          <SummarySection
+            summaryType="CRITICAL"
+            ids={criticalIds}
+          />
+        </div>
+      )}
     </PageWrapper>
   );
 }
@@ -59,4 +68,4 @@ const mapStateToProps = createStructuredSelector({
   percentCorrect: selectPercentCorrect,
 });
 
-export default connect(mapStateToProps)(SessionSummaryContent);
+export default connect(mapStateToProps)(QuizSummaryContent);
