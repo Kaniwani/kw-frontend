@@ -5191,9 +5191,9 @@ jest-snapshot@^20.0.3:
     natural-compare "^1.4.0"
     pretty-format "^20.0.3"
 
-jest-styled-components@3.3.2:
-  version "3.3.2"
-  resolved "https://registry.yarnpkg.com/jest-styled-components/-/jest-styled-components-3.3.2.tgz#cf22c7489d417cbb19d878cdc606cec83538f4f7"
+jest-styled-components@4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/jest-styled-components/-/jest-styled-components-4.0.1.tgz#9d6f088dc653612b8a44c98c62ca335a31cd6613"
   dependencies:
     css "^2.2.1"
 
@@ -7547,9 +7547,9 @@ redux-logic-test@1.0.5:
     is-promise "^2.1.0"
     loose-envify "^1.2.0"
 
-redux-logic@0.12.1:
-  version "0.12.1"
-  resolved "https://registry.yarnpkg.com/redux-logic/-/redux-logic-0.12.1.tgz#7f3c8607ed6489fc8726391b9a6929a26e166da5"
+redux-logic@0.12.2:
+  version "0.12.2"
+  resolved "https://registry.yarnpkg.com/redux-logic/-/redux-logic-0.12.2.tgz#e64cbe18e9a8244c0395409cf62d2a6643f41350"
   dependencies:
     is-observable "^0.2.0"
     is-promise "^2.1.0"
