@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import titleCase from 'voca/title_case';
 import { createStructuredSelector } from 'reselect';
 
-import LogoLink from 'components/LogoLink';
-import SessionLink from 'components/SessionLink';
 import { selectRemainingCount } from 'containers/App/selectors';
+import LogoLink from 'components/LogoLink';
+import SessionLink from './SessionLink';
 
 import {
   Header,

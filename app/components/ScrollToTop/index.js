@@ -16,7 +16,7 @@ class ScrollToTop extends React.PureComponent { // eslint-disable-line react/pre
 
   componentWillUpdate(prevProps, prevState) {
     if (!prevState.isVisible) {
-      this.setState({ isScrolling: false });
+      this.setState({ isScrolling: false }); // eslint-disable-line react/no-will-update-set-state
     }
   }
 

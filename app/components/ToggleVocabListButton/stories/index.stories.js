@@ -1,11 +1,11 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import ToggleVocabListType from '../index';
+import ToggleVocabListButton from '../index';
 
-storiesOf('components.ToggleVocabListType', module)
-  .add('ToggleVocabListType with required props', () => (
-    <ToggleVocabListType
+storiesOf('components.ToggleVocabListButton', module)
+  .add('ToggleVocabListButton with required props', () => (
+    <ToggleVocabListButton
       isExpanded
       handleClick={action('clicked!')}
     />

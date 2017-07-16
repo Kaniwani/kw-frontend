@@ -7,12 +7,12 @@ import { selectVocabExpanded } from 'containers/App/selectors';
 import actions from 'containers/App/actions';
 import { ToggleButton } from './styles';
 
-ToggleVocabListType.propTypes = {
+ToggleVocabListButton.propTypes = {
   isExpanded: PropTypes.bool.isRequired,
   toggleExpanded: PropTypes.func.isRequired,
 };
 
-function ToggleVocabListType({ isExpanded, toggleExpanded }) {
+function ToggleVocabListButton({ isExpanded, toggleExpanded }) {
   return (
     <ToggleButton
       name={isExpanded ? 'CONTRACT_ALL' : 'EXPAND_ALL'}
@@ -31,4 +31,4 @@ const mapDispatchToProps = (dispatch) => ({
   toggleExpanded: () => dispatch(actions.settings.vocabulary.expanded.toggle()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ToggleVocabListType);
+export default connect(mapStateToProps, mapDispatchToProps)(ToggleVocabListButton);

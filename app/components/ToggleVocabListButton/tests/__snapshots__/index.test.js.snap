@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ToggleVocabListType /> should match baseline snapshot 1`] = `
+exports[`<ToggleVocabListButton /> should match baseline snapshot 1`] = `
 <Styled(IconButton)
   name="CONTRACT_ALL"
   onClick={[Function]}

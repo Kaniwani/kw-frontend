@@ -5,10 +5,6 @@ import { white, grey } from 'shared/styles/colors';
 import { delta } from 'shared/styles/typography';
 import { gutter } from 'shared/styles/layout';
 
-export const Wrapper = styled.div`
-  ${gutter({ position: 'horizontal' })}
-`;
-
 export const Heading = styled.h3`
   ${delta}
   margin: 0 0 1.25em;

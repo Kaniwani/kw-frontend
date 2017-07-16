@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SearchBar from 'containers/SearchBar';
-import ToggleVocabListType from 'components/ToggleVocabListType';
+import ToggleVocabListButton from 'components/ToggleVocabListButton';
 
 import { Wrapper, Heading, Title, Controls } from './styles';
 
@@ -19,7 +19,7 @@ function VocabPageHeader({ pageTitle, withVocabListToggle }) {
       </Heading>
       <Controls>
         <SearchBar />
-        {withVocabListToggle && <ToggleVocabListType />}
+        {withVocabListToggle && <ToggleVocabListButton />}
       </Controls>
     </Wrapper>
   );

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter, Switch, Route, Redirect } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
+import ScrollToTop from 'components/ScrollToTop';
 import SiteHeader from 'containers/SiteHeader';
 import HomePage from 'containers/HomePage/Loadable';
 import VocabLevelsPage from 'containers/VocabLevelsPage/Loadable';
@@ -32,6 +33,7 @@ export class ProtectedRoutes extends React.Component {
       <div>
         <ReactTooltip id="globalTooltip" />
         {/* Notifications */}
+        <ScrollToTop />
         <Switch>
           <Route path="/:path(lessons|reviews)" /* don't render SiteHeader */ />
           <Route path="" component={SiteHeader} />
@@ -64,6 +66,7 @@ const mapDispatchToProps = (dispatch) => ({
   loadUser: () => dispatch(app.user.load.request()),
 });
 
-// location not passed to connected components if we don't use withRouter
+// NOTE: location not passed to connected components if we don't use withRouter
+// could change to ConnectedSwitch using selectLocation instead though
 // see https://reacttraining.com/react-router/web/guides/dealing-with-update-blocking
 export default withRouter(connect(null, mapDispatchToProps)(ProtectedRoutes));

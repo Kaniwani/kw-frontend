@@ -19,8 +19,8 @@ const TYPES = {
 
 const getTitleText = (name, count) =>
   name === 'CRITICAL' ?
-    `${count} critical ${pluralize('item', count)}` :
-    `${count} ${name.toLowerCase()} ${pluralize('item', count)}`;
+    `${count} critical` :
+    `${count} ${name.toLowerCase()}`;
 
 SummarySection.propTypes = {
   summaryType: PropTypes.oneOf(Object.keys(TYPES)).isRequired,
@@ -31,14 +31,8 @@ function SummarySection({ summaryType, ids }) {
   const color = TYPES[summaryType].color;
   return (
     <Section>
-      <Wrapper>
-        <Title color={color}>
-          {getTitleText(summaryType, ids.length)}
-        </Title>
-      </Wrapper>
-      <Wrapper>
-        <RankedVocabLists color={color} ids={ids} summaryType={summaryType} />
-      </Wrapper>
+      <Title color={color}>{getTitleText(summaryType, ids.length)}</Title>
+      <RankedVocabLists color={color} ids={ids} summaryType={summaryType} />
     </Section>
   );
 }

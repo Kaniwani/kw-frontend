@@ -38,6 +38,13 @@ const initialState = {
     dashboard: {
       lessonsCount: 0,
       reviewsCount: 0,
+      srsCounts: {
+        apprentice: 0,
+        guru: 0,
+        master: 0,
+        enlightened: 0,
+        burned: 0,
+      },
     },
     // TODO: get Tadgh to update settings with new options!
     // NOTE: move defaults to serializer once api is updated to provide them

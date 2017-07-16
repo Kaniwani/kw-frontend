@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import PageWrapper from 'base/PageWrapper';
 import AccuracyBar from 'components/AccuracyBar';
 import SummarySection from 'components/SummarySection';
-import ToggleVocabListType from 'components/ToggleVocabListType';
+import ToggleVocabListButton from 'components/ToggleVocabListButton';
 
 import {
   selectCorrectIds,
@@ -34,7 +34,7 @@ function SessionSummaryContent({
     <PageWrapper>
       <Heading>
         <AccuracyBar percent={percentCorrect} />
-        <ToggleVocabListType />
+        <ToggleVocabListButton />
       </Heading>
       <SummarySection
         summaryType="INCORRECT"
