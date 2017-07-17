@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import uuid from 'uuid';
+import cuid from 'cuid';
+import { compose, branch, renderNothing } from 'recompose';
+
 import { makeSelectReviewReadings } from 'containers/App/selectors';
 
-import Element from 'base/Element';
 import ReadingHeader from 'components/ReadingHeader';
 import SentencePair from 'components/SentencePair';
-import TagsList from 'components/TagsList';
+import VocabEntryLinks from 'components/VocabEntryLinks';
 // import PitchInfo from 'components/PitchInfo';
 // import KanjiStroke from 'components/KanjiStroke';
-import Reading from './Reading';
+import { Outer, Inner, ReadingContent, Reading, Character, Kana } from './styles';
 
 VocabEntryReadings.propTypes = {
   readings: PropTypes.array.isRequired,
@@ -18,20 +19,23 @@ VocabEntryReadings.propTypes = {
 
 function VocabEntryReadings({ readings }) {
   return (
-    <div>
+    <Outer>
       {readings.map((reading) => (
-        <div key={uuid()} >
+        <Inner key={cuid()}>
           <ReadingHeader character={reading.character} tags={reading.tags} />
-          <Element>
-            <TagsList tags={reading.tags} />
-          </Element>
-          <Reading character={reading.character} kana={reading.kana} />
-          <SentencePair reading={reading} />
+          <VocabEntryLinks character={reading.character} />
+          <ReadingContent>
+            <Reading>
+              <Kana>{reading.kana.join('・')}</Kana>
+              <Character>{reading.character}</Character>
+            </Reading>
+            <SentencePair reading={reading} />
+          </ReadingContent>
           {/* <PitchInfo character={reading.character} /> */}
           {/* <KanjiStroke character={reading.character} /> */}
-        </div>
-    ))}
-    </div>
+        </Inner>
+      ))}
+    </Outer>
   );
 }
 
@@ -39,4 +43,10 @@ const mapStateToProps = (state, { id }) => ({
   readings: makeSelectReviewReadings(id)(state),
 });
 
-export default connect(mapStateToProps)(VocabEntryReadings);
+const enhance = compose(
+  connect(mapStateToProps),
+  branch(({ readings }) => !readings.length, renderNothing),
+);
+
+
+export default enhance(VocabEntryReadings);

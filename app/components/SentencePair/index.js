@@ -20,8 +20,12 @@ SentencePair.propTypes = {
 function SentencePair({ sentenceEn, sentenceJa, character, kana }) {
   return (
     <Wrapper>
-      <MarkedSentence sentence={sentenceJa} character={character} kana={kana} />
-      <Sentence>{sentenceEn}</Sentence>
+      <MarkedSentence
+        sentence={sentenceJa}
+        character={character}
+        kana={kana}
+      />
+      <Sentence tabIndex="0">{sentenceEn}</Sentence>
     </Wrapper>
   );
 }

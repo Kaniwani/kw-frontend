@@ -142,8 +142,9 @@ function serializeSettings({
     onVacation,
     vacationDate: dateOrNull(vacationDate),
     quiz: {
-      autoExpandCorrect,
-      autoExpandIncorrect,
+      // FIXME: revert to vars!
+      autoExpandCorrect: true,
+      autoExpandIncorrect: true,
       autoAdvance: {
         active: autoAdvanceCorrect,
         speed: autoAdvanceSpeed,

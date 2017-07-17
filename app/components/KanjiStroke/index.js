@@ -10,12 +10,8 @@ import { selectSettings } from 'containers/App/selectors';
 import { greyLight, blackLight, purpleLight, purpleDark } from 'shared/styles/colors';
 import { rgba } from 'polished';
 
-import Container from 'base/Container';
-import Element from 'base/Element';
-
-import { Controls, ControlButton } from './styles';
+import { Wrapper, Canvas, Controls, ControlButton } from './styles';
 import dmak from './dmak-0-3-1';
-
 
 class KanjiStroke extends React.PureComponent {
   static propTypes = {
@@ -57,20 +53,18 @@ class KanjiStroke extends React.PureComponent {
 
   render() {
     return (
-      <Container>
-        <Element>
+      <Wrapper>
+        <Canvas>
           <div ref={(node) => { this.drawRef = node; }}></div>
-        </Element>
-        <Element>
-          <Controls>
-            <ControlButton name="SKIP_PREV" title="Step backwards" onClick={this.stepBack} />
-            <ControlButton name="RESTART" size="1.3em" title="Erase drawing" onClick={this.erase} />
-            <ControlButton name="PLAY" title="Play drawing" onClick={this.play} />
-            <ControlButton name="PAUSE" title="Pause drawing" onClick={this.pause} />
-            <ControlButton name="SKIP_NEXT" title="Step forwards" onClick={this.stepForward} />
-          </Controls>
-        </Element>
-      </Container>
+        </Canvas>
+        <Controls>
+          <ControlButton name="SKIP_PREV" title="Step backwards" onClick={this.stepBack} />
+          <ControlButton name="RESTART" size="1.3em" title="Erase drawing" onClick={this.erase} />
+          <ControlButton name="PLAY" title="Play drawing" onClick={this.play} />
+          <ControlButton name="PAUSE" title="Pause drawing" onClick={this.pause} />
+          <ControlButton name="SKIP_NEXT" title="Step forwards" onClick={this.stepForward} />
+        </Controls>
+      </Wrapper>
     );
   }
 }

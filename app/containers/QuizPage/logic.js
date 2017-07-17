@@ -93,16 +93,15 @@ export const checkAnswerLogic = createLogic({
     if (matchedAnswer) {
       dispatch(quiz.answer.update({ ...updatedAnswer, value: matchedAnswer, isCorrect: true }));
       dispatch(quiz.answer.correct({ review, category }));
-    } else if (!matchedAnswer) {
+    }
+
+    if (!matchedAnswer) {
       dispatch(quiz.answer.update({ ...updatedAnswer, isIncorrect: true }));
       if (previouslyIncorrect) {
         dispatch(quiz.answer.incorrect({ review }));
       }
-    } else {
-      console.log('mon dieu, c’est pas possible!'); // eslint-disable-line no-console
-      // should never happen
-      // log error to slack
     }
+    dispatch(quiz.info.update({ activePanel: 'INFO', isDisabled: false }));
     done();
   },
 });
@@ -170,6 +169,7 @@ export const ignoreAnswerLogic = createLogic({
     dispatch(app[category].current.return());
     dispatch(quiz.backup.reset());
     dispatch(quiz.answer.reset());
+    dispatch(quiz.info.reset());
     done();
   },
 });
@@ -185,14 +185,13 @@ export const recordAnswerLogic = createLogic({
     clearTimeout(autoAdvanceTimeout);
 
     if (isIncorrect && previouslyIncorrect) {
-      console.log('wrong, but already recorded first time');
       reject();
     }
 
     if (!isIncorrect && !isCorrect) {
       console.log('mon dieu, c’est pas possible!'); // eslint-disable-line no-console
-      reject();
       // TODO: should never occur so log error to slack
+      reject();
     }
 
     allow({ type, payload: { ...payload } });
@@ -203,6 +202,7 @@ export const recordAnswerLogic = createLogic({
     dispatch(app[category].current.set());
     dispatch(quiz.backup.reset());
     dispatch(quiz.answer.reset());
+    dispatch(quiz.info.reset());
     return recordReview({ id, isCorrect, previouslyIncorrect })
       .then(() => { done(); })
       .catch((err) => err);

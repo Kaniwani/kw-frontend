@@ -5,7 +5,7 @@ import tokenize from 'wanakana/tokenize';
 import stripTilde from './stripTilde';
 
 // [x, y] => 'x|y'
-const joinPipe = arr => arr.join('|');
+const joinPipe = (arr) => arr.join('|');
 
 /**
  * Splits sentence into head, match, & tail.
@@ -40,7 +40,7 @@ export default function splitSentenceByMatch(sentence = '', character = '', kana
   if (hasKana) {
     cleanKana = kana.map(stripTilde); // ['〜つけ'] => ['つけ']
     cleanKata = cleanKana.map(toKatakana); // ['〜つけ'] => ['ツケ']
-    stripKana = k => k.replace(tokenize(cleanChars).pop(), '') || k;
+    stripKana = (k) => k.replace(tokenize(cleanChars).pop(), '') || k;
     strippedKana = cleanKana.map(stripKana); // ['〜つけ'] => ['つ']
   }
 

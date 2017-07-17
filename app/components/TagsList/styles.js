@@ -7,7 +7,8 @@ import * as COLORS from 'shared/styles/colors';
 
 export const Ul = styled.ul`
   ${resetList}
-  ${gutter({ mod: 0.5 })}
+  ${gutter({ position: 'horizontal', mod: 1 })}
+  ${gutter({ position: 'vertical', mod: 0.75 })}
 `;
 
 export const Li = styled.li`
@@ -15,7 +16,8 @@ export const Li = styled.li`
   display: inline-flex;
   max-width: 100%;
   padding: .25rem .5rem .2rem;
-  ${gutter({ prop: 'margin', mod: 0.5 })}
+  ${gutter({ prop: 'margin', position: 'horizontal', mod: 0.5 })}
+  ${gutter({ prop: 'margin', position: 'vertical', mod: 0.5 })}
   line-height: 1.2;
   text-decoration: none;
   vertical-align: middle;

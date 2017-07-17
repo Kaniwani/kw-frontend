@@ -1,61 +1,63 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { branch, renderNothing } from 'recompose';
+import { compose, branch, renderNothing } from 'recompose';
 // import { connect } from 'react-redux';
 // import { createStructuredSelector } from 'reselect';
 
-import blockEvent from 'utils/blockEvent';
-import { /* ANSWER_TYPES,*/ KEYCODES } from 'shared/constants';
+import { selectInfoActivePanel } from 'containers/QuizPage/selectors';
+// import blockEvent from 'utils/blockEvent';
+// import { /* ANSWER_TYPES,*/ KEYCODES } from 'shared/constants';
 // import AddSynonymForm from 'containers/AddSynonymForm';
 
 import { PanelWrapper } from '../styles';
 
 class AddSynonymPanel extends React.Component {
-  static propTypes = {
-    submitUserSynonym: PropTypes.func.isRequired,
-    handleClose: PropTypes.func.isRequired,
-    entry: PropTypes.shape({
-      id: PropTypes.number,
-    }).isRequired,
-    // userAnswer: PropTypes.string.isRequired,
-    // answerType: PropTypes.oneOf(Object.keys(ANSWER_TYPES)).isRequired,
-  }
-
-  componentDidMount() {
-    this.panelNode.addEventListener('keydown', this.handleKeyDown);
-  }
-
-  componentWillUnmount() {
-    this.panelNode.removeEventListener('keydown', this.handleKeyDown);
-  }
-
-  /**
-   * Returns text if the field and answer types match
-   * @param  {String} [fieldType=''] Input field name
-   * @param  {String} [answerType=''] Answer type
-   * @param  {String} [text = ''] text to return on successful match
-   * @return {String} text
-   */
-  getInitialValue = (fieldType = '', answerType = '', text = '') =>
-    fieldType.toLowerCase() === answerType.toLowerCase() ? text : ''
-
-  getKeyHandler = (keycode) => ({
-    [KEYCODES.ESCAPE]: this.props.handleClose,
-  }[keycode])
-
-  handleKeyDown = (event) => {
-    const action = this.getKeyHandler(event.keyCode);
-    if (action) {
-      blockEvent(event);
-      action();
-    }
-  }
-  // synonym is currently a Map from redux-form
-  handleSubmit = (synonym) =>
-    this.props.submitUserSynonym(synonym.merge({
-      review: this.props.entry.id,
-      character: synonym.get('kanji'),
-    }));
+  // static propTypes = {
+  //   submitUserSynonym: PropTypes.func.isRequired,
+  //   handleClose: PropTypes.func.isRequired,
+  //   entry: PropTypes.shape({
+  //     id: PropTypes.number,
+  //   }).isRequired,
+  //   // userAnswer: PropTypes.string.isRequired,
+  //   // answerType: PropTypes.oneOf(Object.keys(ANSWER_TYPES)).isRequired,
+  // }
+  //
+  // componentDidMount() {
+  //   this.panelNode.addEventListener('keydown', this.handleKeyDown);
+  // }
+  //
+  // componentWillUnmount() {
+  //   this.panelNode.removeEventListener('keydown', this.handleKeyDown);
+  // }
+  //
+  // /**
+  //  * Returns text if the field and answer types match
+  //  * @param  {String} [fieldType=''] Input field name
+  //  * @param  {String} [answerType=''] Answer type
+  //  * @param  {String} [text = ''] text to return on successful match
+  //  * @return {String} text
+  //  */
+  // getInitialValue = (fieldType = '', answerType = '', text = '') =>
+  //   fieldType.toLowerCase() === answerType.toLowerCase() ? text : ''
+  //
+  // getKeyHandler = (keycode) => ({
+  //   [KEYCODES.ESCAPE]: this.props.handleClose,
+  // }[keycode])
+  //
+  // handleKeyDown = (event) => {
+  //   const action = this.getKeyHandler(event.keyCode);
+  //   if (action) {
+  //     blockEvent(event);
+  //     action();
+  //   }
+  // }
+  // // synonym is currently a Map from redux-form
+  // handleSubmit = (synonym) =>
+  //   this.props.submitUserSynonym(synonym.merge({
+  //     review: this.props.entry.id,
+  //     character: synonym.get('kanji'),
+  //   }));
 
   render() {
     // const { answerType, userAnswer } = this.props;
@@ -91,6 +93,13 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });*/
 
-const hideIfNotActive = branch(({ isActive }) => !isActive, renderNothing);
+const mapStateToProps = (state) => ({
+  activePanel: selectInfoActivePanel(state),
+});
 
-export default hideIfNotActive(/* connect(mapStateToProps, mapDispatchToProps)(*/AddSynonymPanel)/* )*/;
+const enhance = compose(
+  connect(mapStateToProps),
+  branch(({ activePanel }) => activePanel !== 'SYNONYM', renderNothing)
+);
+
+export default enhance(AddSynonymPanel);

@@ -1,14 +1,16 @@
 import styled from 'styled-components';
 import { gutter } from 'shared/styles/layout';
+import { resetList } from 'shared/styles/utils';
 
 import H3 from 'base/H3';
 import A from 'base/A';
 
 export const Wrapper = styled.div`
-  ${gutter({ type: 'outer' })}
+  ${gutter({ type: 'inner' })}
   display: flex;
   flex-flow: row wrap;
   align-items: center;
+  align-content: center;
 `;
 
 export const Heading = H3.extend`
@@ -16,14 +18,5 @@ export const Heading = H3.extend`
   opacity: .8;
   text-align: left;
   flex: 0 0 auto;
-  line-height: 1;
-  align-self: flex-start;
-`;
-
-export const VocabLink = styled(A)`
-  ${gutter({ type: 'inner' })}
-  display: block;
-  margin: 0 .2em;
-  text-decoration: underline;
   line-height: 1;
 `;

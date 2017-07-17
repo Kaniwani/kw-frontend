@@ -1,16 +1,33 @@
 import React from 'react';
-import { branch, renderNothing } from 'recompose';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose, branch, renderNothing } from 'recompose';
+
+import { makeSelectReviewNotes } from 'containers/App/selectors';
+import { selectInfoActivePanel } from 'containers/QuizPage/selectors';
 
 import { PanelWrapper } from '../styles';
 
-function NotesPanel() {
+NotesPanel.propTypes = {
+  notes: PropTypes.string.isRequired,
+};
+
+function NotesPanel({ notes }) {
   return (
     <PanelWrapper>
-      <div>Coming soon...</div>
+      <div>{notes}</div>
     </PanelWrapper>
   );
 }
 
-const hideIfNotActive = branch(({ isActive }) => !isActive, renderNothing);
+const mapStateToProps = (state, { id }) => ({
+  notes: makeSelectReviewNotes(id)(state),
+  activePanel: selectInfoActivePanel(state),
+});
 
-export default hideIfNotActive(NotesPanel);
+const enhance = compose(
+  connect(mapStateToProps),
+  branch(({ activePanel }) => activePanel !== 'NOTES', renderNothing)
+);
+
+export default enhance(NotesPanel);

@@ -15,7 +15,7 @@ VocabLevelsList.propTypes = {
 };
 
 const enhance = compose(
-  branch(({ levelIds }) => levelIds.length < 0, renderNothing),
+  branch(({ levelIds }) => !levelIds.length, renderNothing),
   shouldUpdate((props, nextProps) => !isEqual(props.levelIds, nextProps.levelIds)),
 );
 

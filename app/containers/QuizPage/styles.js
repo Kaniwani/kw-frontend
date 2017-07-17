@@ -20,7 +20,6 @@ export const Wrapper = styled.div`
 export const Upper = styled.section`
   ${gutter({ position: 'horizontal' })}
   ${gutter({ position: 'top', mod: 1.5 })} /* Space for progress bar */
-  ${gutter({ position: 'bottom', mod: 0.25 })} /* Taglist has enough already*/
   display: flex;
   flex-direction: column;
   min-height: 35vmin;

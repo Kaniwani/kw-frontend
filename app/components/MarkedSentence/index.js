@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import splitSentenceByMatch from 'utils/splitSentenceByMatch';
 import A from 'base/A';
 

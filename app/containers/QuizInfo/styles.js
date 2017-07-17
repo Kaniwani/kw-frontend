@@ -6,16 +6,16 @@ import { gutter } from 'shared/styles/layout';
 import { media } from 'shared/styles/media';
 
 export const Wrapper = styled.div`
-  z-index: 2; /* Stay above absolute ReviewBackgroundImg component */
+  z-index: 2; /* Stay above absolute Quiz Background Image */
 `;
 
 export const PanelsWrapper = Wrapper.extend`
   background-color: ${transparent};
+  position: relative;
   overflow: hidden;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  position: relative;
   max-width: 2000px;
 
   ${media().sm`
@@ -24,8 +24,10 @@ export const PanelsWrapper = Wrapper.extend`
 `;
 
 export const PanelWrapper = styled.div`
-  ${gutter({ type: 'outer' })}
   background-color: ${whiteLight};
+  display: flex;
+  flex-flow: row wrap;
+  ${gutter({ position: 'horizontal' })}
 
   &:not(:first-of-type) {
     border-top: 2px dashed ${transparentize(0.3, greyDark)};
@@ -33,11 +35,10 @@ export const PanelWrapper = styled.div`
 
   &:last-of-type {
     ${({ addPadding }) => addPadding ? 'padding-bottom: 2rem;' : ''}
+    padding-bottom: 1rem;
   }
 
   ${media().sm`
-    margin-left: .4rem;
-    margin-right: .4rem;
     &:first-child {
       border-radius: .3rem .3rem 0 0;
     }

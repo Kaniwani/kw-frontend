@@ -63,7 +63,7 @@ export const fadeOutUp = keyframes`
 export const srsRankUp = keyframes`
   0% {
     opacity: 0;
-    transform: translate3d(0, 3.5em, 0);
+    transform: translate3d(0, 3.5rem, 0);
   }
 
   30% {
@@ -79,7 +79,7 @@ export const srsRankUp = keyframes`
 export const srsRankDown = keyframes`
   0% {
     opacity: 0;
-    transform: translate3d(0, -3.5em, 0);
+    transform: translate3d(0, -3.5rem, 0);
   }
 
   30% {

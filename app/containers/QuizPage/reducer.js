@@ -6,6 +6,10 @@ import quiz from './actions';
 
 const initialState = {
   backup: false,
+  info: {
+    isDisabled: true,
+    activePanel: '',
+  },
   answer: {
     value: '',
     type: '',
@@ -17,6 +21,11 @@ const initialState = {
     isDisabled: false,
   },
 };
+
+const infoReducer = handleActions({
+  [quiz.info.update]: (state, { payload }) => ({ ...state, ...payload }),
+  [quiz.info.reset]: () => initialState.info,
+}, initialState.info);
 
 const backupReducer = handleActions({
   [quiz.backup.set]: (state, { payload }) => payload,
@@ -31,4 +40,5 @@ const answerReducer = handleActions({
 export default combineReducers({
   backup: backupReducer,
   answer: answerReducer,
+  info: infoReducer,
 });

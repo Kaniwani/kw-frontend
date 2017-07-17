@@ -1,36 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import titleCase from 'voca/title_case';
+import { connect } from 'react-redux';
+import { compose, withHandlers } from 'recompose';
+import { createStructuredSelector } from 'reselect';
 
-import { DETAIL_LEVELS } from 'shared/constants';
+import quiz from 'containers/QuizPage/actions';
+import { selectInfoActivePanel } from 'containers/QuizPage/selectors';
 import { Wrapper } from './styles';
 import Toggle from './Toggle';
 
 ToggleBar.propTypes = {
-  detailLevel: PropTypes.oneOf(Object.values(DETAIL_LEVELS)),
-  isDisabled: PropTypes.bool,
-  notes: PropTypes.shape({ isActive: PropTypes.bool }),
-  info: PropTypes.shape({ isActive: PropTypes.bool }),
-  addSynonym: PropTypes.shape({ isActive: PropTypes.bool }),
+  activePanel: PropTypes.string,
   handleInfoClick: PropTypes.func.isRequired,
   handleNotesClick: PropTypes.func.isRequired,
   handleSynonymClick: PropTypes.func.isRequired,
 };
 
 ToggleBar.defaultProps = {
-  detailLevel: DETAIL_LEVELS.LOW,
-  isDisabled: true,
-  notes: { isActive: false },
-  info: { isActive: false },
-  addSynonym: { isActive: false },
+  activePanel: 'INFO',
 };
 
+const mapStateToProps = createStructuredSelector({
+  activePanel: selectInfoActivePanel,
+});
+
+const mapDispatchToProps = {
+  updateInfo: quiz.info.update,
+};
+
+const enhance = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withHandlers({
+    handleNotesClick: ({ updateInfo }) => () => updateInfo({ activePanel: 'NOTES' }),
+    handleSynonymClick: ({ updateInfo }) => () => updateInfo({ activePanel: 'SYNONYM' }),
+    handleInfoClick: ({ updateInfo }) => () => updateInfo({ activePanel: 'INFO' }),
+  }),
+);
+
 function ToggleBar({
-  detailLevel,
-  isDisabled,
-  notes,
-  info,
-  addSynonym,
+  activePanel,
   handleNotesClick,
   handleInfoClick,
   handleSynonymClick,
@@ -38,30 +46,27 @@ function ToggleBar({
   return (
     <Wrapper>
       <Toggle
-        isActive={notes.isActive}
-        isDisabled={isDisabled}
+        isActive={activePanel === 'NOTES'}
         handleClick={handleNotesClick}
       >
         Notes
       </Toggle>
 
       <Toggle
-        isActive={info.isActive}
-        isDisabled={isDisabled}
+        isActive={activePanel === 'INFO'}
         handleClick={handleInfoClick}
       >
-        Info: {titleCase(detailLevel)}
+        Info
       </Toggle>
 
       <Toggle
-        isActive={addSynonym.isActive}
-        isDisabled={isDisabled}
+        isActive={activePanel === 'SYNONYM'}
         handleClick={handleSynonymClick}
       >
-        New Synonym
+        Add Synonym
       </Toggle>
     </Wrapper>
   );
 }
 
-export default ToggleBar;
+export default enhance(ToggleBar);

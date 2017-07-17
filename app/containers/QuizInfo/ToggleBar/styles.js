@@ -37,10 +37,6 @@ export const ToggleButton = styled.button`
   background-color: ${whiteLight};
   color: ${greyLight};
 
-  &:focus {
-    outline: none;
-  }
-
   ${({ isActive }) => isActive && `
     color: ${greyDark};
 
@@ -58,8 +54,10 @@ export const ToggleButton = styled.button`
     }
   `}
 
-  &:hover {
+  &:hover,
+  &:focus {
     color: ${greyDark};
+    outline: none;
   }
 
   &:disabled {

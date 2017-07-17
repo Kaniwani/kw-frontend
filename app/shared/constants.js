@@ -8,11 +8,7 @@
  */
 export const DATE_IN_WORDS = 'MMM Do YYYY[,] hh:mma';
 
-export const DETAIL_LEVELS = {
-  LOW: 'LOW',
-  MEDIUM: 'MEDIUM',
-  HIGH: 'HIGH',
-};
+export const DETAIL_LEVELS = ['LOW', 'MEDIUM', 'HIGH'];
 
 export const SRS_RANKS = {
   ONE: 'APPRENTICE',

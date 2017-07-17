@@ -13,7 +13,8 @@ const plainStyles = `
 const linkStyles = `
   transition: all ${fastEaseQuad};
   color: ${link};
-  &:hover {
+  &:hover,
+  &:focus {
     color: ${linkHover};
   }
 `;

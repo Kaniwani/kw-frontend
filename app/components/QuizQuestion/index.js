@@ -1,14 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { branch, renderComponent } from 'recompose';
+import { compose, branch, renderComponent } from 'recompose';
 import titleCase from 'voca/title_case';
+import getSrsRankName from 'utils/getSrsRankName';
 
 import {
   selectCurrentId,
   makeSelectReviewMeanings,
   makeSelectReviewReadings,
+  makeSelectReviewStreak,
 } from 'containers/App/selectors';
+
+import { selectAnswerDisabled, selectBackup } from 'containers/QuizPage/selectors';
 
 import LoadingIndicator from 'components/LoadingIndicator';
 
@@ -19,19 +23,37 @@ import {
   Primary,
   Secondary,
   Tags,
+  StreakAnimation,
+  StreakContent,
 } from './styles';
 
 QuizQuestion.propTypes = {
   meanings: PropTypes.array.isRequired,
   readings: PropTypes.array.isRequired,
+  answerChecked: PropTypes.bool.isRequired,
+  streak: PropTypes.number.isRequired,
+  prevStreak: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.number,
+  ]).isRequired,
 };
+// FIXME: animation wuh
+function StreakChange(from, to) {
+  const [fromName, toName] = [from, to].map(getSrsRankName);
+  const rankUp = to > from;
+  const text = `${rankUp ? '⏫' : '⏬'} ${toName}`;
+  return (
+    <StreakAnimation
+      changed={fromName !== toName}
+      rankUp={rankUp}
+      streakName={toName}
+    >
+      <StreakContent>{text}</StreakContent>
+    </StreakAnimation>
+  );
+}
 
-const enhance = branch(
-  ({ meanings, readings }) => !meanings || !readings,
-  renderComponent(LoadingIndicator)
-);
-
-function QuizQuestion({ meanings, readings }) {
+function QuizQuestion({ answerChecked, meanings, readings, streak, prevStreak }) {
   const [first, ...rest] = meanings;
   const primaryTerm = titleCase(first);
   // Enforce a min-height even if no terms by using japanese space ^_^
@@ -44,17 +66,32 @@ function QuizQuestion({ meanings, readings }) {
           <Secondary>{secondaryTerms}</Secondary>
         </Question>
       </QuestionWrapper>
-      <Tags tags={readings[0].tags} />
+      <Tags isInvisible={answerChecked} tags={readings[0].tags} />
+      <StreakChange from={prevStreak} to={streak} />
     </Wrapper>
   );
 }
 
 const mapStateToProps = (state, { category }) => {
   const id = selectCurrentId(state, { category });
+  const backup = selectBackup(state);
+  const streak = makeSelectReviewStreak(id)(state);
+  const prevStreak = backup ? backup.streak : streak;
   return {
+    answerChecked: selectAnswerDisabled(state),
     meanings: makeSelectReviewMeanings(id)(state),
     readings: makeSelectReviewReadings(id)(state),
+    streak,
+    prevStreak,
   };
 };
 
-export default connect(mapStateToProps)(enhance(QuizQuestion));
+const enhance = compose(
+  connect(mapStateToProps),
+  branch(
+    ({ meanings, readings }) => !meanings.length || !readings.length,
+    renderComponent(LoadingIndicator)
+  ),
+);
+
+export default enhance(QuizQuestion);

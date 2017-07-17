@@ -5,7 +5,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import VocabCardList from 'components/VocabCardList';
 import VocabChipList from 'components/VocabChipList';
 
-const noIds = ({ ids }) => ids.length <= 0;
+const noIds = ({ ids }) => !ids.length;
 const expandedCards = ({ isExpanded }) => isExpanded;
 const enhance = compose(
   branch(

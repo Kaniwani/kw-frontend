@@ -19,6 +19,7 @@ export const selectSrsCounts = createSelector(selectDashboard, (state) => state.
 
 export const selectSettings = createSelector(selectGlobal, (state) => state.settings);
 export const selectQuizSettings = createSelector(selectSettings, (state) => state.quiz);
+export const selectVocabularySettings = createSelector(selectSettings, (state) => state.vocabulary);
 // FIXME: put expandedCards in summarysection && vocablevel reducer so they can be independent
 export const selectVocabExpanded = createSelector(selectSettings, (state) => state.vocabulary.expandedCards);
 
@@ -90,6 +91,16 @@ export const makeSelectReviewReadings = (id) => createSelector(
 export const makeSelectReviewSynonyms = (id) => createSelector(
   makeSelectReview(id),
   (review) => review ? review.synonyms : [],
+);
+
+export const makeSelectReviewNotes = (id) => createSelector(
+  makeSelectReview(id),
+  (review) => review ? review.notes : '',
+);
+
+export const makeSelectReviewStreak = (id) => createSelector(
+  makeSelectReview(id),
+  (review) => review && review.streak,
 );
 
 export const makeSelectReviewStreakName = (id) => createSelector(

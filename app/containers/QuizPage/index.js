@@ -7,7 +7,7 @@ import titleCase from 'voca/title_case';
 import { selectCategoryFromMatch } from 'containers/App/selectors';
 
 import backgroundImage from 'shared/assets/img/reviews.svg';
-// import QuizInfo from 'containers/QuizInfo';
+import QuizInfo from 'containers/QuizInfo';
 import QuizAnswer from 'containers/QuizAnswer';
 import QuizHeader from 'components/QuizHeader';
 import QuizQuestion from 'components/QuizQuestion';
@@ -17,9 +17,8 @@ QuizPage.propTypes = {
   category: PropTypes.string.isRequired,
 };
 
-// check target isn't synonym form?
 // import { SRS_RANKS, KEYCODES } from 'shared/constants';
-//
+
 /*
 getKeyHandler = (keycode) => ({
   [KEYCODES.ENTER]: this.props.recordAnswer,
@@ -57,7 +56,7 @@ function QuizPage({ category }) {
         <Lower>
           {/* <ReviewAnswerContainer category={category} /> */}
           <QuizAnswer category={category} />
-          {/* <QuizInfo id={currentId} /> */}
+          <QuizInfo category={category} />
           <Background imgSrc={backgroundImage} />
         </Lower>
       </Wrapper>

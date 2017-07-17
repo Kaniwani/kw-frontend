@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import uuid from 'uuid';
+import cuid from 'cuid';
 import { compose, withHandlers, branch, renderNothing } from 'recompose';
 import { makeSelectReviewSynonyms } from 'containers/App/selectors';
 import actions from 'containers/App/actions';
 
-import Container from 'base/Container';
 import Element from 'base/Element';
 import Button from 'base/Button';
 import SynonymHeader from 'components/SynonymHeader';
-import Reading from 'components/VocabEntryReadings/Reading';
+import { Character, Kana } from 'components/VocabEntryReadings/styles';
 
 VocabEntrySynonyms.propTypes = {
   synonyms: PropTypes.array.isRequired,
@@ -20,18 +19,21 @@ VocabEntrySynonyms.propTypes = {
 function VocabEntrySynonyms({ synonyms, handleAddSynonym }) {
   return (
     <div>
-      <Container >
+      <Element>
         <p>This will have kanji/kana input boxes etc</p>
         <Button onClick={handleAddSynonym}>Add Synonym</Button>
-      </Container>
-      <Container flexRow>
+      </Element>
+      <Element flexRow>
         { synonyms.map(({ reviewId, id, character, kana }) => (
-          <Element key={uuid()}>
-            <SynonymHeader key={uuid()} id={id} reviewId={reviewId} />
-            <Reading character={character} kana={[kana]} />
-          </Element>
-    ))}
-      </Container>
+          <div key={cuid()}>
+            <SynonymHeader key={cuid()} id={id} reviewId={reviewId} />
+            <Element>
+              <Character>{character}</Character>
+              <Kana>{kana.join('・')}</Kana>
+            </Element>
+          </div>
+        ))}
+      </Element>
     </div>
   );
 }
@@ -46,7 +48,7 @@ const mapDispatchToProps = {
 
 const enhance = compose(
   connect(mapStateToProps, mapDispatchToProps),
-  branch(({ synonyms }) => synonyms.length < 0, renderNothing),
+  branch(({ synonyms }) => !synonyms.length, renderNothing),
   withHandlers({
     handleAddSynonym: ({ id, addSynonym }) => () =>
       addSynonym({ reviewId: id, character: '漢字', kana: 'かな' }),

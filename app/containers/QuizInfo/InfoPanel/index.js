@@ -1,36 +1,35 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-import { branch, renderNothing } from 'recompose';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose, branch, renderNothing } from 'recompose';
+import { createStructuredSelector } from 'reselect';
+import { selectInfoActivePanel } from 'containers/QuizPage/selectors';
+
+import VocabEntryReadings from 'components/VocabEntryReadings';
+import VocabEntrySynonyms from 'components/VocabEntrySynonyms';
 
 import { PanelWrapper } from '../styles';
-// import Readings from './Readings';
-// import { Synonyms } from './Synonyms';
 
 InfoPanel.propTypes = {
-  // entry: PropTypes.object.isRequired,
-  // detailLevel: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
-function InfoPanel(/* {
-  detailLevel,
-  entry: {
-    id,
-    vocabulary: {
-      readings,
-      synonyms,
-    },
-  },
-}*/) {
-  // FIXME: padding adjustments at this stage using detailLevel, not lower!
+function InfoPanel({ id }) {
   return (
     <PanelWrapper>
-      info go here
-      {/* <Readings reviewId={id} entries={readings} /> */}
-      {/* <Synonyms reviewId={id} entries={synonyms} /> */}
+      <VocabEntryReadings id={id} />
+      <VocabEntrySynonyms id={id} />
     </PanelWrapper>
   );
 }
 
-const hideIfNotActive = branch(({ isActive }) => !isActive, renderNothing);
+const mapStateToProps = createStructuredSelector({
+  activePanel: selectInfoActivePanel,
+});
 
-export default hideIfNotActive(InfoPanel);
+const enhance = compose(
+  connect(mapStateToProps),
+  branch(({ activePanel }) => activePanel !== 'INFO', renderNothing)
+);
+
+export default enhance(InfoPanel);

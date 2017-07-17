@@ -43,6 +43,7 @@ export class QuizAnswer extends React.PureComponent {
     streakName: SRS_RANKS.ONE,
   };
 
+  // NOTE: react-hotkeys might help avoid this so we can use a function + withHandlers
   componentDidUpdate() {
     if (this.props.answer.focus) {
       this.inputFieldRef.focus();

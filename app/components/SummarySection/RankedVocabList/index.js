@@ -35,7 +35,7 @@ const mapStateToProps = createStructuredSelector({
 const enhance = compose(
   connect(mapStateToProps),
   branch(
-    ({ ids }) => ids.length < 1,
+    ({ ids }) => !ids.length,
     renderNothing,
   )
 );

@@ -14,6 +14,10 @@ const ASYNC = {
 export const { quiz } = createActions({
   QUIZ: {
     ADVANCE: SYNC,
+    INFO: {
+      UPDATE: SYNC,
+      RESET: SYNC,
+    },
     BACKUP: {
       SET: SYNC,
       RESET: SYNC,

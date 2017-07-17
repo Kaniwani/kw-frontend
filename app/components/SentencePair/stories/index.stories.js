@@ -1,5 +1,5 @@
 import React from 'react';
-import uuid from 'uuid';
+import cuid from 'cuid';
 import { storiesOf } from '@storybook/react';
 
 import { readings } from 'shared/testTables';
@@ -10,7 +10,7 @@ Object.entries(readings).forEach(([key, items]) => {
   storiesOf('components.SentencePair', module)
     .add(`SentencePair ${key}`, () => (
       <div>
-        {condenseReadings(items).map(item => <SentencePair key={uuid()} entry={item} />)}
+        {condenseReadings(items).map(item => <SentencePair key={cuid()} entry={item} />)}
       </div>
     ));
 });
