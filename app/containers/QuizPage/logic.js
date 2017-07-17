@@ -213,10 +213,9 @@ export const autoAdvanceLogic = createLogic({
   type: quiz.advance,
   process({ action: { payload: { autoAdvance, category } } }, dispatch, done) {
     autoAdvanceTimeout = setTimeout(() => {
-      console.log('firing!');
       dispatch(quiz.answer.submit({ category }));
       done();
-    }, 3000);
+    }, autoAdvance.speed);
   },
 });
 

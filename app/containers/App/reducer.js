@@ -55,8 +55,8 @@ const initialState = {
       autoExpandCorrect: true,
       autoExpandIncorrect: true,
       autoAdvance: {
-        active: true,
-        speed: 4000,
+        active: false,
+        speed: 2000,
       },
     },
     vocabulary: {
@@ -196,7 +196,7 @@ const reviewsReducer = handleActions({
     queue: { $set: union(state.queue, payload.reviewIds) },
   }),
   [app.reviews.current.set]: (state, { payload }) => update(state, {
-    current: { $set: 1596 },
+    current: { $set: payload },
     queue: { $set: difference(state.queue, [payload]) },
   }),
   [app.reviews.current.return]: (state, { payload }) => update(state, {

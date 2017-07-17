@@ -141,7 +141,7 @@ export const unlockReview = ({ id }) => post(unlockReviewUrl(id));
 //-----------------------------------------------------------------------------
 export const addSynonym = ({ reviewId, character, kana } = {}) => post(
   synonymUrl,
-  { body: { review: reviewId, character, kana } },
+  { review: reviewId, character, kana },
 );
 export const removeSynonym = ({ id }) => del(synonymEntryUrl(id));
 

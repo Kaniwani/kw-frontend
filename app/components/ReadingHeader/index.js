@@ -5,7 +5,11 @@ import { Wrapper, Heading, VocabLink } from './styles';
 
 ReadingHeader.propTypes = {
   character: PropTypes.string.isRequired,
-  useAlcPro: PropTypes.bool.isRequired,
+  useAlcPro: PropTypes.bool,
+};
+
+ReadingHeader.defaultProps = {
+  useAlcPro: false,
 };
 
 const createAlcLink = (character, useAlcPro) =>

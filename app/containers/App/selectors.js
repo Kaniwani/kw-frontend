@@ -79,12 +79,17 @@ export const makeSelectReviewIncorrect = (id) => createSelector(
 
 export const makeSelectReviewMeanings = (id) => createSelector(
   makeSelectReview(id),
-  (review) => review && review.vocabulary.meanings,
+  (review) => review ? review.vocabulary.meanings : [],
 );
 
 export const makeSelectReviewReadings = (id) => createSelector(
   makeSelectReview(id),
-  (review) => review && review.vocabulary.readings,
+  (review) => review ? review.vocabulary.readings : [],
+);
+
+export const makeSelectReviewSynonyms = (id) => createSelector(
+  makeSelectReview(id),
+  (review) => review ? review.synonyms : [],
 );
 
 export const makeSelectReviewStreakName = (id) => createSelector(

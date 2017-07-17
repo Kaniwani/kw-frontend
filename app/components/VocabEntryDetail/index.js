@@ -1,119 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import uuid from 'uuid';
-import { compose, withHandlers, branch, renderNothing, renderComponent } from 'recompose';
-import titleCase from 'voca/title_case';
+import { compose, withHandlers, branch, renderComponent } from 'recompose';
+
 import getDateInWords from 'utils/getDateInWords';
 import calculatePercentage from 'utils/calculatePercentage';
 import getSrsRankName from 'utils/getSrsRankName';
 
 import actions from 'containers/App/actions';
-import { makeSelectReview, makeSelectReviewMeanings, makeSelectReviewReadings } from 'containers/App/selectors';
+import { makeSelectReview } from 'containers/App/selectors';
 
-import H1 from 'base/H1';
 import H3 from 'base/H3';
 import Container from 'base/Container';
 import Element from 'base/Element';
 import P from 'base/P';
 import LockButton from 'components/LockButton';
 import LoadingIndicator from 'components/LoadingIndicator';
-import Button from 'base/Button';
-import ReadingHeader from 'components/ReadingHeader';
-import SynonymHeader from 'components/SynonymHeader';
-import SentencePair from 'components/SentencePair';
 import StreakIcon from 'components/StreakIcon';
-import TagsList from 'components/TagsList';
-// import PitchInfo from 'components/PitchInfo';
-// import KanjiStroke from 'components/KanjiStroke';
-
-const Reading = ({ kana, character }) => (
-  <Container>
-    <H1>{character}</H1>
-    <P>{kana.join('・')}</P>
-  </Container>
-);
-Reading.propTypes = {
-  kana: PropTypes.array.isRequired,
-  character: PropTypes.string.isRequired,
-};
-
-const Readings = connect((state, { id }) => ({
-  readings: makeSelectReviewReadings(id)(state),
-}))(({ readings, id }) => (
-  <div>
-    {readings.map((reading) => (
-      <div key={uuid()} >
-        <ReadingHeader
-          character={reading.character}
-          tags={reading.tags}
-        />
-        <Element>
-          <TagsList tags={reading.tags} />
-        </Element>
-        <Reading character={reading.character} kana={reading.kana} />
-        <SentencePair reading={reading} />
-        {/* <PitchInfo character={reading.character} /> */}
-        {/* <KanjiStroke character={reading.character} /> */}
-      </div>
-    ))}
-  </div>
-));
-Readings.propTypes = {
-  readings: PropTypes.array,
-  id: PropTypes.number.isRequired,
-};
-
-const Bordered = P.extend` border: 1px solid blue; `;
-const Synonyms = ({ synonyms, handleAddSynonym }) => (
-  <div>
-    <Bordered >
-      This will have kanji/kana input boxes etc
-      <Button onClick={handleAddSynonym}>Add Synonym</Button>
-    </Bordered>
-    <Container flexRow>
-      { synonyms.map(({ reviewId, id, character, kana }) => (
-        <Element key={uuid()}>
-          <SynonymHeader key={uuid()} id={id} reviewId={reviewId} />
-          <Reading character={character} kana={[kana]} />
-        </Element>
-    ))}
-    </Container>
-  </div>
-);
-Synonyms.propTypes = {
-  synonyms: PropTypes.array.isRequired,
-  handleAddSynonym: PropTypes.func.isRequired,
-};
-const enhanceSynonyms = compose(
-  branch(({ synonyms }) => synonyms.length < 0, renderNothing),
-  connect(null, (dispatch) => ({
-    addSynonym: (payload) => dispatch(actions.review.synonym.add.request(payload)),
-  })),
-  withHandlers({
-    handleAddSynonym: ({ id, addSynonym }) => () =>
-      addSynonym({ reviewId: id, character: '漢字', kana: 'かな' }),
-  })
-);
-const EnhancedSynonyms = enhanceSynonyms(Synonyms);
-
-
-const Meanings = connect((state, { id }) => ({
-  meanings: makeSelectReviewMeanings(id)(state),
-}))(({ meanings }) => {
-  const [first, ...rest] = meanings;
-  return (
-    <Container>
-      <H1>{titleCase(first)}</H1>
-      {rest.length > 0 && <P>{titleCase(rest.join(', '))}</P>}
-    </Container>
-  );
-});
-Meanings.propTypes = {
-  meanings: PropTypes.array,
-  id: PropTypes.number.isRequired,
-};
-
 
 const enhance = compose(
   branch(({ review }) => !review, renderComponent(LoadingIndicator)),
@@ -177,7 +80,6 @@ function VocabEntryDetail({ review, handleLockClick }) {
   // FIXME: don't pass review down! pass ID and let the components select only what they need for re-rendering
   return (
     <div>
-      <Meanings id={review.id} />
       <Container>
         <Element>
           {review.isHidden ? 'Locked ' : 'Unlocked '}
@@ -189,8 +91,6 @@ function VocabEntryDetail({ review, handleLockClick }) {
           />
         </Element>
       </Container>
-      <Readings id={review.id} />
-      <EnhancedSynonyms id={review.id} synonyms={review.synonyms} />
       <P><code>review.isReviewReady && </code> <ReviewReady>Ready for review</ReviewReady></P>
       <P><code>review.isBurned && </code> <Burned>Burned on KW!</Burned></P>
       <P><code>review.wk.isBurned &&</code> <Burned>Burned on WK!</Burned></P>

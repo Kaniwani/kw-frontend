@@ -142,12 +142,12 @@ function serializeSettings({
     onVacation,
     vacationDate: dateOrNull(vacationDate),
     quiz: {
-      autoAdvance: {
-        active: /* autoAdvanceCorrect*/ true, // FIXME: uncomment after dev
-        speed: autoAdvanceSpeed,
-      },
       autoExpandCorrect,
       autoExpandIncorrect,
+      autoAdvance: {
+        active: autoAdvanceCorrect,
+        speed: autoAdvanceSpeed,
+      },
     },
   };
 }
