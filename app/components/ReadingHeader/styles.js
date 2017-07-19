@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 import { gutter } from 'shared/styles/layout';
-import { resetList } from 'shared/styles/utils';
 
 import H3 from 'base/H3';
-import A from 'base/A';
 
 export const Wrapper = styled.div`
   ${gutter({ type: 'inner' })}

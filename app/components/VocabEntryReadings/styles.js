@@ -33,12 +33,13 @@ export const Outer = styled.div`
 
 export const Reading = styled.div`
   ${gutter()}
-  flex: 1 1 auto;
+  ${gutter({ type: 'outer', prop: 'margin', position: 'right', mod: 1.5 })}
 `;
 
 export const Character = P.extend`
   ${fluidType(35, 50)}
   padding-top: 0 !important;
+  line-height: 1.2;
 `;
 
 export const Kana = P.extend`

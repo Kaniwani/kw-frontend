@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { compose, flattenProp, onlyUpdateForKeys } from 'recompose';
 
 import MarkedSentence from 'components/MarkedSentence';
-import { Wrapper, Sentence } from 'components/MarkedSentence/styles';
+import RevealSentence from 'components/RevealSentence';
+import { Wrapper } from './styles';
 
 const enhance = compose(
   flattenProp('reading'),
@@ -20,12 +21,8 @@ SentencePair.propTypes = {
 function SentencePair({ sentenceEn, sentenceJa, character, kana }) {
   return (
     <Wrapper>
-      <MarkedSentence
-        sentence={sentenceJa}
-        character={character}
-        kana={kana}
-      />
-      <Sentence tabIndex="0">{sentenceEn}</Sentence>
+      <MarkedSentence sentence={sentenceJa} character={character} kana={kana} />
+      <RevealSentence sentence={sentenceEn} />
     </Wrapper>
   );
 }
