@@ -1,23 +1,25 @@
+
 import styled from 'styled-components';
 import IconButton from 'components/IconButton';
 
 import { gutter } from 'shared/styles/layout';
 
 export const Wrapper = styled.div`
+  ${gutter()}
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
 `;
 
 export const Canvas = styled.div`
-  ${(gutter())}
+  ${gutter()}
   display: flex;
   justify-content: center;
   flex: 1 1 100%;
 `;
 
 export const Controls = styled.div`
-  ${(gutter())}
+  ${gutter()}
   display: flex;
   flex: 0 1 320px;
   align-items: center;

@@ -1,15 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose, flattenProp, onlyUpdateForKeys } from 'recompose';
 
 import MarkedSentence from 'components/MarkedSentence';
 import RevealSentence from 'components/RevealSentence';
 import { Wrapper } from './styles';
-
-const enhance = compose(
-  flattenProp('reading'),
-  onlyUpdateForKeys(['sentenceEn', 'sentenceJa', 'character', 'kana']),
-);
 
 SentencePair.propTypes = {
   sentenceEn: PropTypes.string.isRequired,
@@ -27,4 +21,4 @@ function SentencePair({ sentenceEn, sentenceJa, character, kana }) {
   );
 }
 
-export default enhance(SentencePair);
+export default SentencePair;

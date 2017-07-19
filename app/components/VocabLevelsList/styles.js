@@ -14,7 +14,7 @@ export const Ul = styled.ul`
   border: 1px solid ${rgba(greyLight, 0.5)};
   > li {
     ${gutter({ type: 'inner', position: 'horizontal' })}
-    flex: 1 0 400px;
+    flex: 1 1 400px;
     border: 1px solid ${rgba(greyLight, 0.5)};
   }
 `;

@@ -9,9 +9,10 @@ import { makeSelectReviewReadings } from 'containers/App/selectors';
 import ReadingHeader from 'components/ReadingHeader';
 import SentencePair from 'components/SentencePair';
 import VocabEntryLinks from 'components/VocabEntryLinks';
+import Reading from 'components/Reading';
 // import PitchInfo from 'components/PitchInfo';
-// import KanjiStroke from 'components/KanjiStroke';
-import { Outer, Inner, ReadingContent, Reading, Character, Kana } from './styles';
+import KanjiStroke from 'components/KanjiStroke';
+import { Ul, Li, ReadingContent } from './styles';
 
 VocabEntryReadings.propTypes = {
   readings: PropTypes.array.isRequired,
@@ -19,23 +20,25 @@ VocabEntryReadings.propTypes = {
 
 function VocabEntryReadings({ readings }) {
   return (
-    <Outer>
-      {readings.map((reading) => (
-        <Inner key={cuid()}>
-          <ReadingHeader character={reading.character} tags={reading.tags} />
-          <VocabEntryLinks character={reading.character} />
+    <Ul>
+      {readings.map(({ character, kana, sentenceEn, sentenceJa, tags }) => (
+        <Li key={cuid()}>
+          <ReadingHeader character={character} tags={tags} />
+          <VocabEntryLinks character={character} />
           <ReadingContent>
-            <Reading>
-              <Kana>{reading.kana.join('・')}</Kana>
-              <Character>{reading.character}</Character>
-            </Reading>
-            <SentencePair reading={reading} />
+            <Reading character={character} kana={kana} />
+            <SentencePair
+              sentenceEn={sentenceEn}
+              sentenceJa={sentenceJa}
+              character={character}
+              kana={kana}
+            />
           </ReadingContent>
-          {/* <PitchInfo character={reading.character} /> */}
-          {/* <KanjiStroke character={reading.character} /> */}
-        </Inner>
+          {/* <PitchInfo character={character} /> */}
+          <KanjiStroke character={character} />
+        </Li>
       ))}
-    </Outer>
+    </Ul>
   );
 }
 

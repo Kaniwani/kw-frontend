@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import { transparentize } from 'polished';
 
+import { Ul as Readings, Li, ReadingContent } from 'components/VocabEntryReadings/styles';
+import { Wrapper as Reading } from 'components/Reading/styles';
+
 import { transparent, whiteLight, greyDark } from 'shared/styles/colors';
 import { gutter } from 'shared/styles/layout';
 import { media } from 'shared/styles/media';
@@ -35,18 +38,37 @@ export const PanelWrapper = styled.div`
 
   &:last-of-type {
     ${({ addPadding }) => addPadding ? 'padding-bottom: 2rem;' : ''}
-    padding-bottom: 1rem;
+    padding-bottom: 2rem;
   }
 
   ${media().sm`
     &:first-child {
       border-radius: .3rem .3rem 0 0;
     }
+
     &:last-child {
       border-radius: 0 0 .3rem .3rem;
     }
+
     &:only-child {
       border-radius: .3rem;
+    }
+
+    & ${Readings} {
+      text-align: center;
+
+      & ${Li} {
+        align-items: center;
+      }
+
+      & ${ReadingContent} {
+        align-items: center;
+        max-width: 800px;
+      }
+
+      & ${Reading} {
+        align-items: center;
+      }
     }
   `}
 `;
