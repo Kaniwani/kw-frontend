@@ -28,6 +28,7 @@ export const Question = styled.h1`
   ${centerByMargin};
   color: ${white};
   font-weight: 700;
+  text-transform: capitalize;
   letter-spacing: -0.03em;
   text-shadow: .1em .2em .4em ${purpleDark};
   padding: 2em .5em;
@@ -59,6 +60,7 @@ export const StreakContent = styled.div`
 
 export const StreakAnimation = styled.div`
   position: relative;
+  pointer-events: none;
   overflow: visible;
   bottom: 0;
   height: 0;

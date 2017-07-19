@@ -95,7 +95,7 @@ export const makeSelectReviewSynonyms = (id) => createSelector(
 
 export const makeSelectReviewNotes = (id) => createSelector(
   makeSelectReview(id),
-  (review) => review ? review.notes : '',
+  (review) => review ? review.notes : null,
 );
 
 export const makeSelectReviewStreak = (id) => createSelector(

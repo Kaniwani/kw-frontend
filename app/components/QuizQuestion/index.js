@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, branch, renderComponent } from 'recompose';
-import titleCase from 'voca/title_case';
 import getSrsRankName from 'utils/getSrsRankName';
 
 import {
@@ -54,10 +53,9 @@ function StreakChange(from, to) {
 }
 
 function QuizQuestion({ answerChecked, meanings, readings, streak, prevStreak }) {
-  const [first, ...rest] = meanings;
-  const primaryTerm = titleCase(first);
+  const [primaryTerm, ...rest] = meanings;
   // Enforce a min-height even if no terms by using japanese space ^_^
-  const secondaryTerms = rest.length ? titleCase(rest.join(', ')) : '　';
+  const secondaryTerms = rest.length ? rest.join(', ') : '　';
   return (
     <Wrapper>
       <QuestionWrapper>

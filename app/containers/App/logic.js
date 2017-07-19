@@ -262,6 +262,20 @@ const reviewUnlockLogic = createLogic({
   },
 });
 
+const reviewNotesLogic = createLogic({
+  type: app.review.notes.request,
+  warnTimeout: 10000,
+  latest: true,
+  processOptions: {
+    failType: app.review.notes.failure,
+  },
+
+  process({ action: { payload: { id, notes } } }) {
+    return api.saveReviewNotes({ id, notes })
+      .then(() => app.review.update({ id, notes }));
+  },
+});
+
 const addSynonymLogic = createLogic({
   type: app.review.synonym.add.request,
   cancelType: app.review.synonym.add.cancel,
@@ -328,5 +342,6 @@ export default [
   removeSynonymLogic,
   reviewLockLogic,
   reviewUnlockLogic,
+  reviewNotesLogic,
   levelLoadLogic,
 ];

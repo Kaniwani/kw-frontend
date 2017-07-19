@@ -29,7 +29,7 @@ class ScrollToTop extends React.PureComponent { // eslint-disable-line react/pre
       // user scrolled greater than 1/3 viewport height
       isVisible: window.pageYOffset > (window.innerHeight / 3),
     }));
-  }, 250)
+  }, 150)
 
   scrollUp = () => {
     if (!this.state.isScrolling) {

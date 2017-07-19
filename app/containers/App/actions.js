@@ -82,6 +82,7 @@ export const { app } = createActions({
       LOCK: ASYNC,
       UNLOCK: ASYNC,
       UPDATE: SYNC,
+      NOTES: ASYNC,
       SYNONYM: {
         ADD: ASYNC,
         REMOVE: ASYNC,

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { pure } from 'recompose';
 
 import VocabEntryMeanings from 'components/VocabEntryMeanings';
 import VocabEntryReadings from 'components/VocabEntryReadings';
 import VocabEntrySynonyms from 'components/VocabEntrySynonyms';
+import VocabEntryNotes from 'components/VocabEntryNotes';
 
 VocabEntry.propTypes = {
   id: PropTypes.number.isRequired,
@@ -16,8 +16,9 @@ function VocabEntry({ id }) {
       <VocabEntryMeanings id={id} />
       <VocabEntryReadings id={id} />
       <VocabEntrySynonyms id={id} />
+      <VocabEntryNotes id={id} />
     </div>
   );
 }
 
-export default pure(VocabEntry);
+export default VocabEntry;

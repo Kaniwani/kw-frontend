@@ -23,14 +23,15 @@ const buttonStyle = css`
   user-select: none;
   cursor: pointer;
   outline: 0;
-  border: 2px solid ${({ color }) => color};
   color: ${({ color }) => color};
+  border: 2px solid ${({ bgColor }) => bgColor};
   background-color: ${({ bgColor }) => bgColor};
   transition: all ${fastEaseQuad};
 
   &:disabled {
     cursor: not-allowed;
     background-color: ${({ bgColor }) => mix(0.5, bgColor, greyDark)};
+    border-color: ${({ bgColor }) => mix(0.5, bgColor, greyDark)};
   }
 
   & {
@@ -44,6 +45,7 @@ const buttonStyle = css`
           &:hover {
             color: ${({ colorHover }) => colorHover};
             background-color: ${({ bgColorHover }) => bgColorHover};
+            border-color: ${({ colorHover }) => colorHover};
           }
 
           &:active {

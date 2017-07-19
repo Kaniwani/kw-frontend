@@ -5,6 +5,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import { createLogicMiddleware } from 'redux-logic';
+
 // import { request } from 'utils/request';
 import globalLogic from 'containers/App/logic';
 import createReducer from './reducers';

@@ -13,7 +13,10 @@ import AddSynonymPanel from './AddSynonymPanel';
 import { Wrapper, PanelsWrapper } from './styles';
 
 QuizInfo.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.number,
+  ]).isRequired,
 };
 
 function QuizInfo({ id }) {
