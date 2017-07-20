@@ -29,9 +29,12 @@ const isInputValid = (input = '') => !isEmpty(input) && isJapanese(input);
 const cleanseInput = (input = '') => fixTerminalN(input.trim());
 
 function flattenAnswers({ synonyms, vocabulary: { readings } }) {
-  return flatMap(readings, ({ character, kana }) => [character, ...kana])
-    .concat(...synonyms)
-    .map((text) => ({ originalText: text, cleanAnswer: stripTildes(text) }));
+  return flatMap(
+    [...readings, ...synonyms],
+    ({ character, kana }) => [character, ...kana]
+  ).map(
+    (text) => ({ originalText: text, cleanAnswer: stripTildes(text) })
+  );
 }
 
 function findMatch(input = '', review) {

@@ -2,96 +2,23 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { compose, branch, renderNothing } from 'recompose';
-// import { connect } from 'react-redux';
-// import { createStructuredSelector } from 'reselect';
 
 import { selectInfoActivePanel } from 'containers/QuizPage/selectors';
-// import blockEvent from 'utils/blockEvent';
-// import { /* ANSWER_TYPES,*/ KEYCODES } from 'shared/constants';
-// import AddSynonymForm from 'containers/AddSynonymForm';
+import AddSynonym from 'components/AddSynonym';
 
-import { PanelWrapper } from '../styles';
+import { PanelWrapper } from 'containers/QuizInfo/styles';
 
-class AddSynonymPanel extends React.Component {
-  // static propTypes = {
-  //   submitUserSynonym: PropTypes.func.isRequired,
-  //   handleClose: PropTypes.func.isRequired,
-  //   entry: PropTypes.shape({
-  //     id: PropTypes.number,
-  //   }).isRequired,
-  //   // userAnswer: PropTypes.string.isRequired,
-  //   // answerType: PropTypes.oneOf(Object.keys(ANSWER_TYPES)).isRequired,
-  // }
-  //
-  // componentDidMount() {
-  //   this.panelNode.addEventListener('keydown', this.handleKeyDown);
-  // }
-  //
-  // componentWillUnmount() {
-  //   this.panelNode.removeEventListener('keydown', this.handleKeyDown);
-  // }
-  //
-  // /**
-  //  * Returns text if the field and answer types match
-  //  * @param  {String} [fieldType=''] Input field name
-  //  * @param  {String} [answerType=''] Answer type
-  //  * @param  {String} [text = ''] text to return on successful match
-  //  * @return {String} text
-  //  */
-  // getInitialValue = (fieldType = '', answerType = '', text = '') =>
-  //   fieldType.toLowerCase() === answerType.toLowerCase() ? text : ''
-  //
-  // getKeyHandler = (keycode) => ({
-  //   [KEYCODES.ESCAPE]: this.props.handleClose,
-  // }[keycode])
-  //
-  // handleKeyDown = (event) => {
-  //   const action = this.getKeyHandler(event.keyCode);
-  //   if (action) {
-  //     blockEvent(event);
-  //     action();
-  //   }
-  // }
-  // // synonym is currently a Map from redux-form
-  // handleSubmit = (synonym) =>
-  //   this.props.submitUserSynonym(synonym.merge({
-  //     review: this.props.entry.id,
-  //     character: synonym.get('kanji'),
-  //   }));
+AddSynonymPanel.propTypes = {
+  id: PropTypes.number.isRequired,
+};
 
-  render() {
-    // const { answerType, userAnswer } = this.props;
-    return (
-      <PanelWrapper innerRef={(node) => { this.panelNode = node; }}>
-        {/* <AddSynonymForm
-          onSubmit={(synonym) => this.handleSubmit(synonym)}
-          userAnswer={userAnswer}
-          answerType={answerType}
-          initialValues={{
-            kanji: this.getInitialValue('kanji', answerType, userAnswer),
-            kana: this.getInitialValue('kana', answerType, userAnswer),
-          }}
-        /> */}
-        synonyms yo
-      </PanelWrapper>
-    );
-  }
+function AddSynonymPanel({ id }) {
+  return (
+    <PanelWrapper>
+      <AddSynonym id={id} />
+    </PanelWrapper>
+  );
 }
-/*
-const mapStateToProps = createStructuredSelector({
-  userAnswer: selectAnswerInput,
-  answerType: selectAnswerType,
-  reviewId: selectCurrentId,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  submitUserSynonym: (synonym) =>
-    dispatch(synonymActions.addSynonymRequest(synonym)),
-  handleClose: () => {
-    dispatch(reviewActions.updateAnswer({ focus: true }));
-    dispatch(reviewActions.updatePanels({ info: { isActive: true } }));
-  },
-});*/
 
 const mapStateToProps = (state) => ({
   activePanel: selectInfoActivePanel(state),

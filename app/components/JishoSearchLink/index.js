@@ -1,23 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { createJishoUrl } from 'shared/urls';
+import { createJishoUrl } from 'shared/api';
 import IconLink from 'components/IconLink';
 
 JishoSearchLink.propTypes = {
   keyword: PropTypes.string.isRequired,
+  visuallyHidden: PropTypes.bool,
 };
 
-function JishoSearchLink({ keyword, ...props }) {
+JishoSearchLink.defaultProps = {
+  visuallyHidden: false,
+};
+
+function JishoSearchLink({ keyword, visuallyHidden, ...props }) {
   return (
     <IconLink
       href={createJishoUrl(keyword)}
       name="WORD_SEARCH"
       title={`Search Jisho for ${keyword}`}
       size="1.8rem"
-      tabIndex="-1"
+      tabIndex={visuallyHidden ? -1 : 0}
       external
       plainLink
+      visuallyHidden={visuallyHidden}
       {...props}
     />
   );

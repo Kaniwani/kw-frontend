@@ -178,10 +178,12 @@ function serializeVocabularyEntry({
   };
 }
 
-function serializeSynonym({ review: reviewId, ...rest }) {
+function serializeSynonym({ id, review, character, kana }) {
   return {
-    reviewId,
-    ...rest,
+    id,
+    reviewId: review,
+    character,
+    kana: [kana],
   };
 }
 

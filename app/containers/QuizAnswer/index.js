@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { SRS_RANKS } from 'shared/constants';
-import { toKana } from 'wanakana';
+import toKana from 'wanakana/toKana';
 
 import { makeSelectReviewStreakName, selectCurrentId } from 'containers/App/selectors';
 import { selectQuizAnswer } from 'containers/QuizPage/selectors';
@@ -74,7 +74,6 @@ export class QuizAnswer extends React.PureComponent {
     return (
       <Form
         onSubmit={this.handleSubmit}
-        tabIndex={-1}
         marked={answer.isMarked}
         valid={answer.isValid}
         correct={answer.isCorrect}

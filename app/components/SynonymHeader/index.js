@@ -1,31 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { compose, withHandlers, setPropTypes } from 'recompose';
 
 import actions from 'containers/App/actions';
 import { Wrapper, Heading, RemoveButton } from './styles';
 
 SynonymHeader.propTypes = {
-  handleRemoveSynonym: PropTypes.func.isRequired,
+  removeSynonym: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  removeSynonym: (payload) => dispatch(actions.review.synonym.remove.request(payload)),
-});
-
-const enhance = compose(
-  connect(null, mapDispatchToProps),
-  setPropTypes({
-    reviewId: PropTypes.number.isRequired,
-    id: PropTypes.number.isRequired,
-  }),
-  withHandlers({
-    handleRemoveSynonym: ({ id, reviewId, removeSynonym }) => () => removeSynonym({ id, reviewId }),
-  }),
-);
-
-function SynonymHeader({ handleRemoveSynonym }) {
+function SynonymHeader({ removeSynonym }) {
   return (
     <Wrapper>
       <Heading>
@@ -36,10 +20,14 @@ function SynonymHeader({ handleRemoveSynonym }) {
         title="Remove Synonym"
         type="button"
         size="1.3em"
-        onClick={handleRemoveSynonym}
+        onClick={removeSynonym}
       />
     </Wrapper>
   );
 }
 
-export default enhance(SynonymHeader);
+const mapDispatchToProps = (dispatch, { id, reviewId }) => ({
+  removeSynonym: () => dispatch(actions.review.synonym.remove.request({ id, reviewId })),
+});
+
+export default connect(null, mapDispatchToProps)(SynonymHeader);

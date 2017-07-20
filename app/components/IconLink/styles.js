@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import A from 'base/A';
+import { ghost } from 'shared/styles/utils';
 import { fastEaseQuad } from 'shared/styles/animation';
 
 export const Link = styled(A)`
@@ -8,6 +9,7 @@ export const Link = styled(A)`
   cursor: pointer;
   opacity: 1;
   transform: scale(1);
+  ${({ visuallyHidden }) => visuallyHidden && ghost}
 
   &:focus,
   &:hover {

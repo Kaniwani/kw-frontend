@@ -9,8 +9,12 @@ import { makeSelectReviewHidden } from 'containers/App/selectors';
 import LockButton from 'components/LockButton';
 
 VocabEntryLock.propTypes = {
-  isHidden: PropTypes.bool.isRequired,
+  isHidden: PropTypes.bool,
   handleClick: PropTypes.func.isRequired,
+};
+
+VocabEntryLock.defaultProps = {
+  isHidden: false,
 };
 
 function VocabEntryLock({ isHidden, handleClick, ...props }) {
