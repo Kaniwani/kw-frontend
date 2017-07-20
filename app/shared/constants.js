@@ -10,6 +10,8 @@ export const DATE_IN_WORDS = 'MMM Do YYYY[,] hh:mma';
 
 export const DETAIL_LEVELS = ['LOW', 'MEDIUM', 'HIGH'];
 
+export const MAX_NOTES_LENGTH = 500;
+
 export const SRS_RANKS = {
   ONE: 'APPRENTICE',
   TWO: 'GURU',

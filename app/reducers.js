@@ -7,7 +7,8 @@ import { combineReducers } from 'redux';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 import globalReducer from 'containers/App/reducer';
-import notificationsReducer from 'containers/Notifications/reducer';
+import { reducer as formReducer } from 'redux-form';
+// import notificationsReducer from 'containers/Notifications/reducer';
 
 // Initial routing state
 const routeInitialState = {
@@ -33,7 +34,8 @@ export default function createReducer(asyncReducers) {
   return combineReducers({
     route: routeReducer,
     global: globalReducer,
-    notifications: notificationsReducer,
+    form: formReducer,
+    // notifications: notificationsReducer,
     ...asyncReducers,
   });
 }

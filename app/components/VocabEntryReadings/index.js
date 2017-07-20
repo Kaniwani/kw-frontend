@@ -11,7 +11,7 @@ import SentencePair from 'components/SentencePair';
 import VocabEntryLinks from 'components/VocabEntryLinks';
 import Reading from 'components/Reading';
 // import PitchInfo from 'components/PitchInfo';
-import KanjiStroke from 'components/KanjiStroke';
+// import KanjiStroke from 'components/KanjiStroke';
 import { Ul, Li, ReadingContent } from './styles';
 
 VocabEntryReadings.propTypes = {
@@ -35,7 +35,7 @@ function VocabEntryReadings({ readings }) {
             />
           </ReadingContent>
           {/* <PitchInfo character={character} /> */}
-          <KanjiStroke character={character} />
+          {/* <KanjiStroke character={character} /> */}
         </Li>
       ))}
     </Ul>

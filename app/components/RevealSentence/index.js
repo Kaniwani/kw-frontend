@@ -11,7 +11,7 @@ function RevealSentence({ sentence }) {
   return (
     <Wrapper tabIndex="0">
       <Sentence>{sentence}</Sentence>
-      <RevealIcon name="EYE" title="View masked sentence" />
+      <RevealIcon name="EYE" />
     </Wrapper>
   );
 }

@@ -1,12 +1,12 @@
 [![Slack Status](https://rauchg-slackin-iurjmkotad.now.sh/badge.svg)](https://rauchg-slackin-iurjmkotad.now.sh)
-[![Dependency Status](https://img.shields.io/david/Kaniwani/KW-Frontend.svg)](https://david-dm.org/Kaniwani/KanaWana)
-[![devDependency Status](https://img.shields.io/david/dev/Kaniwani/KW-Frontend.svg)](https://david-dm.org/Kaniwani/KW-Frontend#info=devDependencies)
+[![Dependency Status](https://img.shields.io/david/Kaniwani/kw-frontend.svg)](https://david-dm.org/Kaniwani/kw-frontend)
+[![devDependency Status](https://img.shields.io/david/dev/Kaniwani/kw-frontend.svg)](https://david-dm.org/Kaniwani/kw-frontend#info=devDependencies)
 [![Build Status](https://img.shields.io/travis/Kaniwani/KW-Frontend.svg)](https://travis-ci.org/Kaniwani/KW-Frontend)
 [![Test Coverage](https://img.shields.io/coveralls/Kaniwani/KW-Frontend.svg)](https://coveralls.io/github/Kaniwani/KW-Frontend)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Kaniwani/KW-Frontend/master/app/shared/assets/img/logo.png" alt="kaniwani logo" width="100px" /><h1><strong>KaniWani Frontend</strong></h1>
+  <img src="https://raw.githubusercontent.com/Kaniwani/kw-frontend/master/app/shared/assets/img/logo.png" alt="kaniwani logo" width="100px" /><h1><strong>KaniWani Frontend</strong></h1>
   <h2>Client UI</h2>
 </div>
 
@@ -19,7 +19,7 @@
 <br />
 
 ## Quick start
-1. Clone this repo using `git clone https://github.com/Kaniwani/KW-Frontend.git`
+1. Clone this repo using `git clone https://github.com/Kaniwani/kw-frontend.git`
 2. Run `yarn` to install dependencies ([get yarn here](https://yarnpkg.com/en/docs/install)).
 3. Run `npm start` to load up the development server and watch for changes.
 
@@ -35,13 +35,13 @@ The following Chrome extensions will allow you to explore the app structure whil
 - [React DevTools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
 
 ## Help
-- Visit our [Issues](https://github.com/Kaniwani/KW-Frontend/issues) page
+- Visit our [Issues](https://github.com/Kaniwani/kw-frontend/issues) page
 - Join us on [Slack](https://rauchg-slackin-iurjmkotad.now.sh)
 
 ## Thanks
 Browser Testing generously provided by  
 <a title="browserstack" href="https://www.browserstack.com/" target="_blank" rel="external noopener noreferrer">
-<img alt="browser stack logo" src="https://raw.githubusercontent.com/Kaniwani/KW-Frontend/master/app/shared/assets/img/browserstack.png"/>
+<img alt="browser stack logo" src="https://raw.githubusercontent.com/Kaniwani/kw-frontend/master/app/shared/assets/img/browserstack.png"/>
 </a>
 
 ## License

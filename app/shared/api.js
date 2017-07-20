@@ -135,6 +135,7 @@ export const recordReview = ({ id, isCorrect, previouslyIncorrect }) => {
 
 export const lockReview = ({ id }) => post(lockReviewUrl(id));
 export const unlockReview = ({ id }) => post(unlockReviewUrl(id));
+export const saveReviewNotes = ({ id, notes }) => patch(reviewEntryUrl(id), { notes });
 
 //-----------------------------------------------------------------------------
 //  SYNONYMS

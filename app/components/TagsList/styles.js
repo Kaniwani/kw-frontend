@@ -29,6 +29,7 @@ export const Li = styled.li`
 
 export const Span = styled.span`
   overflow: hidden;
+  text-transform: capitalize;
   text-overflow: ellipsis;
   white-space: nowrap;
   margin-left: .2em;

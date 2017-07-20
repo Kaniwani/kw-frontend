@@ -214,7 +214,7 @@ const reviewsReducer = handleActions({
     incorrect: { $set: union(state.incorrect, [payload]) },
   }),
   [app.review.update]: (state, { payload }) => payload ? update(state, {
-    entities: { [payload.id]: { $set: payload } },
+    entities: { [payload.id]: { $set: merge({}, state.entities[payload.id], payload) } },
   }) : state,
   [combineActions(
     app.review.lock.success,

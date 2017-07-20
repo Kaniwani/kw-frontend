@@ -16,7 +16,7 @@ export const Sentence = P.extend`
   color: ${greyDark};
   transition: all ${fastEaseQuad};
   border-radius: ${borderRadius};
-  background-color: ${rgba(greyDark, 0.92)};
+  background-color: ${rgba(greyDark, 0.95)};
 `;
 
 export const RevealIcon = styled(Icon)`

@@ -3,25 +3,24 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, branch, renderNothing } from 'recompose';
 
-import { makeSelectReviewNotes } from 'containers/App/selectors';
 import { selectInfoActivePanel } from 'containers/QuizPage/selectors';
+import VocabEntryNotes from 'components/VocabEntryNotes';
 
 import { PanelWrapper } from '../styles';
 
 NotesPanel.propTypes = {
-  notes: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
-function NotesPanel({ notes }) {
+function NotesPanel({ id }) {
   return (
     <PanelWrapper>
-      <div>{notes}</div>
+      <VocabEntryNotes id={id} rows={10} />
     </PanelWrapper>
   );
 }
 
-const mapStateToProps = (state, { id }) => ({
-  notes: makeSelectReviewNotes(id)(state),
+const mapStateToProps = (state) => ({
   activePanel: selectInfoActivePanel(state),
 });
 

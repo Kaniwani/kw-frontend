@@ -9,7 +9,7 @@ import actions from 'containers/App/actions';
 import Element from 'base/Element';
 import Button from 'base/Button';
 import SynonymHeader from 'components/SynonymHeader';
-import { Character, Kana } from 'components/VocabEntryReadings/styles';
+import { Character, Kana } from 'components/Reading/styles';
 
 VocabEntrySynonyms.propTypes = {
   synonyms: PropTypes.array.isRequired,

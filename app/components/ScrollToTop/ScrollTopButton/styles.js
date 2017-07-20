@@ -1,10 +1,12 @@
 import styled from 'styled-components';
+
 import { resetButton } from 'shared/styles/utils';
 import { shadowBox } from 'shared/styles/shadows';
 import { blueLight, pink } from 'shared/styles/colors';
+import { fastEaseQuad } from 'shared/styles/animation';
 
 const visibleMixin = ({ isVisible }) => isVisible && `
-  transition: transform .2s ease-in;
+  transition: all ${fastEaseQuad};
   transform: scale(1);
 
   &:hover {
@@ -28,8 +30,7 @@ export const StyledButton = styled.button`
   background-color: ${blueLight};
   opacity: .8;
   transform: scale(0);
-  transition: all .2s ease-in-out;
-  transition: transform .25s ease;
+  transition: all ${fastEaseQuad};
   z-index: 10;
   &:active {
     opacity: 1;

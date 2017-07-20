@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cuid from 'cuid';
-import titleCase from 'voca/title_case';
 
 import { PARTS_OF_SPEECH } from 'shared/constants';
 import { Ul, Li, Span } from './styles';
@@ -37,7 +36,7 @@ function TagsList({ tags, ...props }) {
     <Ul {...props}>
       {tags.map((text) => (
         <Li key={cuid()} {...selectTagColors(text)} >
-          <Span>{titleCase(text)}</Span>
+          <Span>{text}</Span>
         </Li>
       ))}
     </Ul>

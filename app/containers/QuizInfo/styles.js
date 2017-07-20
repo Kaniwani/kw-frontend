@@ -4,7 +4,7 @@ import { transparentize } from 'polished';
 import { Ul as Readings, Li, ReadingContent } from 'components/VocabEntryReadings/styles';
 import { Wrapper as Reading } from 'components/Reading/styles';
 
-import { transparent, whiteLight, greyDark } from 'shared/styles/colors';
+import { whiteLight, greyDark } from 'shared/styles/colors';
 import { gutter } from 'shared/styles/layout';
 import { media } from 'shared/styles/media';
 
@@ -13,62 +13,44 @@ export const Wrapper = styled.div`
 `;
 
 export const PanelsWrapper = Wrapper.extend`
-  background-color: ${transparent};
+  background-color: ${whiteLight};
   position: relative;
   overflow: hidden;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
   max-width: 2000px;
-
-  ${media().sm`
-    margin-bottom: 2rem;
-  `}
+  display: flex;
+  justify-content: center;
 `;
 
 export const PanelWrapper = styled.div`
-  background-color: ${whiteLight};
+  ${gutter({ position: 'horizontal' })}
   display: flex;
   flex-flow: row wrap;
-  ${gutter({ position: 'horizontal' })}
+  flex: 0 1 800px;
 
   &:not(:first-of-type) {
     border-top: 2px dashed ${transparentize(0.3, greyDark)};
   }
 
   &:last-of-type {
-    ${({ addPadding }) => addPadding ? 'padding-bottom: 2rem;' : ''}
     padding-bottom: 2rem;
   }
 
-  ${media().sm`
-    &:first-child {
-      border-radius: .3rem .3rem 0 0;
+  & ${Readings} {
+    text-align: center;
+
+    & ${Li} {
+      align-items: center;
     }
 
-    &:last-child {
-      border-radius: 0 0 .3rem .3rem;
+    & ${ReadingContent} {
+      align-items: center;
     }
 
-    &:only-child {
-      border-radius: .3rem;
+    & ${Reading} {
+      align-items: center;
     }
-
-    & ${Readings} {
-      text-align: center;
-
-      & ${Li} {
-        align-items: center;
-      }
-
-      & ${ReadingContent} {
-        align-items: center;
-        max-width: 800px;
-      }
-
-      & ${Reading} {
-        align-items: center;
-      }
-    }
-  `}
+  }
 `;

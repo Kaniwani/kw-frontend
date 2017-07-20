@@ -75,6 +75,7 @@ export const Dl = styled.dl`
   .meaning {
     ${gutter()}
     ${gamma}
+    text-transform: capitalize;
     margin: 0;
     flex: 0 1 55%;
     align-self: center;
