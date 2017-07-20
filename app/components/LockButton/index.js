@@ -22,15 +22,15 @@ LockButton.defaultProps = {
   isLocked: false,
 };
 
-function LockButton({ id, isSubmitting, isActionable, isLocked, handleClick, ...props }) {
+function LockButton({ isSubmitting, isActionable, isLocked, handleClick, ...props }) {
   let title = 'Not allowed';
   let icon = 'LOCK_SOLID';
   if (isSubmitting) {
     icon = 'SYNC';
     title = 'Syncing';
   } else if (isActionable) {
-    icon = isLocked ? 'LOCK_OPEN' : 'LOCK_CLOSED';
-    title = isLocked ? `Unlock ${id}` : `Lock ${id}`;
+    icon = isLocked ? 'LOCK_CLOSED' : 'LOCK_OPEN';
+    title = isLocked ? 'Unlock' : 'Lock';
   }
 
   return (

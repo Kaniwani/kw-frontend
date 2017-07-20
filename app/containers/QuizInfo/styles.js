@@ -1,18 +1,20 @@
 import styled from 'styled-components';
-import { transparentize } from 'polished';
+import { rgba } from 'polished';
 
 import { Ul as Readings, Li, ReadingContent } from 'components/VocabEntryReadings/styles';
 import { Wrapper as Reading } from 'components/Reading/styles';
 
-import { whiteLight, greyDark } from 'shared/styles/colors';
+import { whiteLight, greyLight } from 'shared/styles/colors';
 import { gutter } from 'shared/styles/layout';
-import { media } from 'shared/styles/media';
 
 export const Wrapper = styled.div`
   z-index: 2; /* Stay above absolute Quiz Background Image */
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 1 0 100%;
 `;
 
-export const PanelsWrapper = Wrapper.extend`
+export const PanelsWrapper = styled.div`
   background-color: ${whiteLight};
   position: relative;
   overflow: hidden;
@@ -22,20 +24,22 @@ export const PanelsWrapper = Wrapper.extend`
   max-width: 2000px;
   display: flex;
   justify-content: center;
+  flex: 1 0 100%;
 `;
 
 export const PanelWrapper = styled.div`
-  ${gutter({ position: 'horizontal' })}
+  ${gutter()}
   display: flex;
   flex-flow: row wrap;
+  height: 100%;
   flex: 0 1 800px;
 
   &:not(:first-of-type) {
-    border-top: 2px dashed ${transparentize(0.3, greyDark)};
+    border-top: 2px dashed ${rgba(greyLight, 0.3)};
   }
 
   &:last-of-type {
-    padding-bottom: 2rem;
+    ${gutter({ type: 'outer', position: 'bottom', mod: 3 })}
   }
 
   & ${Readings} {
@@ -43,6 +47,11 @@ export const PanelWrapper = styled.div`
 
     & ${Li} {
       align-items: center;
+      &:not(:first-of-type) {
+        ${gutter({ prop: 'margin', position: 'top' })}
+        ${gutter({ prop: 'padding', position: 'top', mod: 1.5 })}
+        border-top: 2px dashed ${rgba(greyLight, 0.3)};
+      }
     }
 
     & ${ReadingContent} {

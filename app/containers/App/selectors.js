@@ -108,6 +108,11 @@ export const makeSelectReviewStreakName = (id) => createSelector(
   (review) => review && getSrsRankName(review.streak),
 );
 
+export const makeSelectReviewHidden = (id) => createSelector(
+  makeSelectReview(id),
+  (review) => review ? review.isHidden : null,
+);
+
 const generateToolTip = (correct, incorrect, meanings, readings) => {
   const correctnessText = () => {
     const total = correct + incorrect;

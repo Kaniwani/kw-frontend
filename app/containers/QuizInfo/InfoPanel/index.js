@@ -17,7 +17,7 @@ InfoPanel.propTypes = {
 function InfoPanel({ id }) {
   return (
     <PanelWrapper>
-      <VocabEntryReadings id={id} />
+      <VocabEntryReadings id={id} showLock />
       <VocabEntrySynonyms id={id} />
     </PanelWrapper>
   );

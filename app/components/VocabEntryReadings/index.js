@@ -16,14 +16,20 @@ import { Ul, Li, ReadingContent } from './styles';
 
 VocabEntryReadings.propTypes = {
   readings: PropTypes.array.isRequired,
+  id: PropTypes.number.isRequired,
+  showLock: PropTypes.bool,
 };
 
-function VocabEntryReadings({ readings }) {
+VocabEntryReadings.defaultProps = {
+  showLock: false,
+};
+
+function VocabEntryReadings({ id, readings, showLock }) {
   return (
     <Ul>
-      {readings.map(({ character, kana, sentenceEn, sentenceJa, tags }) => (
+      {readings.map(({ character, kana, sentenceEn, sentenceJa, tags }, index) => (
         <Li key={cuid()}>
-          <ReadingHeader character={character} tags={tags} />
+          <ReadingHeader showLock={showLock && index === 0} id={id} character={character} tags={tags} />
           <VocabEntryLinks character={character} />
           <ReadingContent>
             <Reading character={character} kana={kana} />

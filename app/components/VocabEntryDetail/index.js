@@ -1,33 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { compose, withHandlers, branch, renderComponent } from 'recompose';
+import { compose, branch, renderNothing } from 'recompose';
 
 import getDateInWords from 'utils/getDateInWords';
 import calculatePercentage from 'utils/calculatePercentage';
 import getSrsRankName from 'utils/getSrsRankName';
 
-import actions from 'containers/App/actions';
+
 import { makeSelectReview } from 'containers/App/selectors';
 
 import H3 from 'base/H3';
-import Container from 'base/Container';
-import Element from 'base/Element';
 import P from 'base/P';
-import LockButton from 'components/LockButton';
-import LoadingIndicator from 'components/LoadingIndicator';
 import StreakIcon from 'components/StreakIcon';
-
-const enhance = compose(
-  branch(({ review }) => !review, renderComponent(LoadingIndicator)),
-  withHandlers({
-    handleLockClick: ({ review: { id, isHidden }, lockReview, unlockReview }) => () =>
-      isHidden ? unlockReview({ id }) : lockReview({ id }),
-  }),
-);
+import VocabEntryLock from 'components/VocabEntryLock';
 
 VocabEntryDetail.propTypes = {
-  handleLockClick: PropTypes.func.isRequired,
   review: PropTypes.shape({
     id: PropTypes.number.isRequired,
     notes: PropTypes.string.isRequired,
@@ -76,21 +64,11 @@ const correctness = (correct, incorrect) => {
   return (<span>{previouslyAnswered ? `${calculatePercentage(correct, total)}%` : 'N/A'}</span>);
 };
 
-function VocabEntryDetail({ review, handleLockClick }) {
+function VocabEntryDetail({ review }) {
   // FIXME: don't pass review down! pass ID and let the components select only what they need for re-rendering
   return (
     <div>
-      <Container>
-        <Element>
-          {review.isHidden ? 'Locked ' : 'Unlocked '}
-          <LockButton
-            inline
-            id={review.id}
-            isLocked={review.isHidden}
-            handleClick={handleLockClick}
-          />
-        </Element>
-      </Container>
+      <VocabEntryLock id={review.id} />
       <P><code>review.isReviewReady && </code> <ReviewReady>Ready for review</ReviewReady></P>
       <P><code>review.isBurned && </code> <Burned>Burned on KW!</Burned></P>
       <P><code>review.wk.isBurned &&</code> <Burned>Burned on WK!</Burned></P>
@@ -117,9 +95,9 @@ const mapStateToProps = (state, { id }) => ({
   review: makeSelectReview(id)(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  lockReview: (payload) => dispatch(actions.review.lock.request(payload)),
-  unlockReview: (payload) => dispatch(actions.review.unlock.request(payload)),
-});
+const enhance = compose(
+  connect(mapStateToProps),
+  branch(({ review }) => !review, renderNothing),
+);
 
-export default connect(mapStateToProps, mapDispatchToProps)(enhance(VocabEntryDetail));
+export default enhance(VocabEntryDetail);
