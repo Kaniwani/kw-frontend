@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { ANSWER_TYPES } from 'shared/constants';
 import JishoSearchLink from 'components/JishoSearchLink';
 import Element from 'base/Element';
 import JapaneseInput from './JapaneseInput';
 
 import { LabelText, ValidationMessage } from './styles';
+
+const ANSWER_TYPES = {
+  kanji: '漢字',
+  kana: 'かな',
+};
 
 AddSynonymField.propTypes = {
   userAnswer: PropTypes.string.isRequired,

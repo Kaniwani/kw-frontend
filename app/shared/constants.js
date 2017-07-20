@@ -8,7 +8,7 @@
  */
 export const DATE_IN_WORDS = 'MMM Do YYYY[,] hh:mma';
 
-export const DETAIL_LEVELS = ['LOW', 'MEDIUM', 'HIGH'];
+export const DETAIL_LEVELS = ['LOW', 'HIGH'];
 
 export const MAX_NOTES_LENGTH = 500;
 
@@ -58,7 +58,7 @@ export const PARTS_OF_SPEECH = [
   'Conjunction',
   'No-adjective',
   'Na-adjective',
-  // THESE ARE FROM jisho2json scrape
+  // THESE ARE FROM jisho2json entries
   // TODO: Will have to sanitise during import
   // FIXME: replace "Godan verb with x ending" to just "Godan verb"
   // FIXME: replace "Noun - used as a prefix/suffix" to just "Prefix" & "Suffix"
@@ -86,14 +86,6 @@ export const PARTS_OF_SPEECH = [
   'Godan verb with mu ending',
   'Godan verb with gu ending',
 ];
-
-export const ANSWER_TYPES = {
-  kanji: '漢字',
-  kana: 'かな',
-};
-
-export const TILDE_JA = '〜';
-export const TILDE_EN = '~';
 
 /**
  * Maps names of keys to event.which keycodes { P_LOWERCASE: 80 }

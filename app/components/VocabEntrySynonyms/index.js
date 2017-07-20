@@ -16,7 +16,7 @@ VocabEntrySynonyms.propTypes = {
 function VocabEntrySynonyms({ synonyms }) {
   return (
     <Ul>
-      { synonyms.map(({ reviewId, id, character, kana }) => (
+      {synonyms.map(({ reviewId, id, character, kana }) => (
         <Li key={cuid()}>
           <SynonymHeader key={cuid()} id={id} reviewId={reviewId} />
           <SynonymContent>

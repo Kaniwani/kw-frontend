@@ -9,7 +9,7 @@ import fixTerminalN from 'utils/fixTerminalN';
 import increment from 'utils/increment';
 import decrement from 'utils/decrement';
 import determineCriticality from 'utils/determineCriticality';
-import stripTildes from 'utils/stripTildes';
+import stripTilde from 'utils/stripTilde';
 
 import app from 'containers/App/actions';
 import {
@@ -33,12 +33,12 @@ function flattenAnswers({ synonyms, vocabulary: { readings } }) {
     [...readings, ...synonyms],
     ({ character, kana }) => [character, ...kana]
   ).map(
-    (text) => ({ originalText: text, cleanAnswer: stripTildes(text) })
+    (text) => ({ originalText: text, cleanAnswer: stripTilde(text) })
   );
 }
 
 function findMatch(input = '', review) {
-  const cleanInput = stripTildes(input);
+  const cleanInput = stripTilde(input);
   const match = flattenAnswers(review).find(({ cleanAnswer }) => cleanAnswer === cleanInput);
   return match ? match.originalText : '';
 }
