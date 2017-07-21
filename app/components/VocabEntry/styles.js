@@ -21,6 +21,7 @@ export const Wrapper = styled.div`
 `;
 
 export const MeaningsWrapper = styled.div`
+  ${gutter()}
   display: flex;
   flex-flow: row nowrap;
   align-items: center;

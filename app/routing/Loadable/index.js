@@ -22,6 +22,7 @@ const Loadable = ({ loader, loading: CustomLoadingComponent, ...rest }) =>
     emptyLoadingComponent = () => null;
 
     loadableComponent = ReactLoadable({
+      delay: 500,
       ...rest,
       loader: this.loaderWithAsyncInjectors,
       loading: CustomLoadingComponent || this.context.defaultLoadingComponent || this.emptyLoadingComponent,
