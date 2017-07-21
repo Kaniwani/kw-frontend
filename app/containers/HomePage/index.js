@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import format from 'date-fns/format';
 
@@ -30,10 +30,10 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
     const { profile, dashboard } = this.props;
     return (
       <PageWrapper>
-        <Helmet
-          title="Dashboard"
-          meta={[{ name: 'description', content: 'Dashboard' }]}
-        />
+        <Helmet>
+          <title>Dashboard</title>
+          <meta name="description" content="Kaniwani Dashboard Page" />
+        </Helmet>
         <Container flexRow>
           <Element flex="1 0 50%">
             <H1>{profile.name}</H1>

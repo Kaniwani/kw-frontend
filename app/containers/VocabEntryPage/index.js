@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 
 import { selectIdFromMatch, makeSelectReview } from 'containers/App/selectors';
 import actions from 'containers/App/actions';
@@ -28,8 +28,8 @@ export class VocabEntryPage extends React.Component {
     return (
       <div>
         <Helmet>
-          <title>{'Vocabulary: Entry'}</title>
-          <meta name="description" content={'Kaniwani Vocabulary: Entry'} />
+          <title>Vocabulary: Entry</title>
+          <meta name="description" content="Kaniwani Vocabulary: Entry" />
         </Helmet>
         <PageWrapper>
           <VocabEntry id={id} review={review} />
