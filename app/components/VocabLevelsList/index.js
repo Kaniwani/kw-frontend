@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import cuid from 'cuid';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose, branch, renderNothing, shouldUpdate } from 'recompose';
+import { compose, branch, renderComponent, shouldUpdate } from 'recompose';
 import isEqual from 'lodash/isEqual';
 
 import { selectLevelIds } from 'containers/App/selectors';
+import LoadingCrabigator from 'components/LoadingCrabigator';
 import VocabLevel from 'components/VocabLevel';
 import { Ul } from './styles';
 
@@ -15,7 +16,7 @@ VocabLevelsList.propTypes = {
 };
 
 const enhance = compose(
-  branch(({ levelIds }) => !levelIds.length, renderNothing),
+  branch(({ levelIds }) => !levelIds.length, renderComponent(LoadingCrabigator)),
   shouldUpdate((props, nextProps) => !isEqual(props.levelIds, nextProps.levelIds)),
 );
 
