@@ -63,7 +63,7 @@ const enhance = compose(
   branch(({ initialValues: { notes } }) => notes == null, renderNothing),
   reduxForm({
     form: 'vocabEntryNotes',
-    // enableReinitialize: true,
+    enableReinitialize: true,
     onSubmit: ({ notes }, dispatch, { id }) => dispatch(app.review.notes.request({ id, notes })) }),
 );
 
