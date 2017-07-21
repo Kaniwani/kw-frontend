@@ -21,12 +21,10 @@ export class {{ properCase name }} extends {{{ type }}} { // eslint-disable-line
     return (
       <div>
       {{#if wantHeaders}}
-        <Helmet
-          title="{{ properCase name }}"
-          meta={{curly true}}[
-            {{curly true}} name: 'description', content: 'Description of {{ properCase name }}' {{curly}},
-          ]{{curly}}
-        />
+        <Helmet>
+          <title>{{ properCase name }}</title>
+          <meta name="description" content="Kaniwani {{ properCase name }}" />
+        </Helmet>
       {{/if}}
         <h1>Hello {{ properCase name }}</h1>
       </div>

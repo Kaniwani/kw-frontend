@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 {{#if wantHeaders}}
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 {{/if}}
 {{#if wantActionsAndReducer}}
 import { createStructuredSelector } from 'reselect';
@@ -19,12 +19,10 @@ function {{ properCase name }}() {
   return (
     <div>
     {{#if wantHeaders}}
-      <Helmet
-        title="{{ properCase name }}"
-        meta={{curly true}}[
-          {{curly true}} name: 'description', content: 'Description of {{ properCase name }}' {{curly}},
-        ]{{curly}}
-      />
+      <Helmet>
+        <title>{{ properCase name }}</title>
+        <meta name="description" content="Kaniwani {{ properCase name }}" />
+      </Helmet>
     {{/if}}
       <h1>Hello {{ properCase name }}</h1>
     </div>

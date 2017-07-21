@@ -13,13 +13,15 @@ Toggle.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-function Toggle({ isActive, isDisabled, handleClick, children }) {
+function Toggle({ isActive, isDisabled, handleClick, children, ...props }) {
   return (
     <ToggleButton
+      type="button"
       tabIndex="0"
       onClick={handleClick}
       isActive={isActive}
       disabled={isDisabled} // html attr -> css:pseudo
+      {...props}
     >
       {children}
     </ToggleButton>

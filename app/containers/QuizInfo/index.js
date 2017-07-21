@@ -25,7 +25,7 @@ QuizInfo.propTypes = {
 function QuizInfo({ id, category, isDisabled }) {
   return (
     <Wrapper>
-      <ToggleBar />
+      <ToggleBar isDisabled={isDisabled} />
       <PanelsWrapper isDisabled={isDisabled}>
         <NotesPanel id={id} />
         <InfoPanel id={id} />

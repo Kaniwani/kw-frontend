@@ -6,6 +6,7 @@ export const selectCategory = createSelector(selectQuizDomain, (state) => state.
 export const selectBackup = createSelector(selectQuizDomain, (state) => state.backup);
 export const selectQuizInfo = createSelector(selectQuizDomain, (state) => state.info);
 export const selectInfoActivePanel = createSelector(selectQuizInfo, (state) => state.activePanel);
+export const selectInfoDetailLevel = createSelector(selectQuizInfo, (state) => state.detailLevel);
 export const selectInfoDisabled = createSelector(selectQuizInfo, (state) => state.isDisabled);
 
 export const selectQuizAnswer = createSelector(selectQuizDomain, (state) => state.answer);

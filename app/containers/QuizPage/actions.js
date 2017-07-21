@@ -16,6 +16,7 @@ export const { quiz } = createActions({
     ADVANCE: SYNC,
     INFO: {
       UPDATE: SYNC,
+      CYCLEDETAIL: SYNC,
       RESET: SYNC,
     },
     BACKUP: {
