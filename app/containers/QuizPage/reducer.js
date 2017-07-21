@@ -9,6 +9,7 @@ const initialState = {
   info: {
     isDisabled: true,
     activePanel: '',
+    detailLevel: 0,
   },
   answer: {
     value: '',
@@ -23,7 +24,8 @@ const initialState = {
 };
 
 const infoReducer = handleActions({
-  [quiz.info.update]: (state, { payload }) => ({ ...state, ...payload }),
+  [quiz.info.cycledetail]: (state) => merge({}, state, { detailLevel: state.detailLevel ? 0 : 1 }),
+  [quiz.info.update]: (state, { payload }) => merge({}, state, payload),
   [quiz.info.reset]: () => initialState.info,
 }, initialState.info);
 

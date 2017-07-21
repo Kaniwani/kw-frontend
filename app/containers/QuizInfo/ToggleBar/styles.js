@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { darken, lighten } from 'polished';
+
 import { resetButton } from 'shared/styles/utils';
 import { transparent, whiteLight, greyLight, greyDark } from 'shared/styles/colors';
 import { micro } from 'shared/styles/typography';
@@ -49,7 +51,8 @@ export const ToggleButton = styled.button`
 
   &:hover,
   &:focus {
-    color: ${greyDark};
+    color: ${darken(0.1, greyDark)};
+    background-color: ${lighten(1, whiteLight)};
     outline: none;
   }
 
