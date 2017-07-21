@@ -9,6 +9,7 @@ import { makeSelectReviewNotes } from 'containers/App/selectors';
 import { MAX_NOTES_LENGTH } from 'shared/constants';
 import Button from 'base/Button';
 
+import { Heading } from 'components/VocabEntrySynonyms/styles';
 import { Form, TextArea, Controls, Count } from './styles';
 
 const RemainingChars = formValues('notes')(({ notes }) => {
@@ -30,7 +31,7 @@ VocabEntryNotes.defaultProps = {
 function VocabEntryNotes({ rows, handleSubmit, dirty, reset }) {
   return (
     <Form onSubmit={handleSubmit}>
-      {/* TODO: autoresize height rather than our dodgy rows hack here */}
+      <Heading>Notes</Heading>
       <TextArea
         name="notes"
         component="textarea"

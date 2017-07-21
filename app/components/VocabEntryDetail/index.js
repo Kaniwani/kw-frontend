@@ -13,7 +13,6 @@ import { makeSelectReview } from 'containers/App/selectors';
 import H3 from 'base/H3';
 import P from 'base/P';
 import StreakIcon from 'components/StreakIcon';
-import VocabEntryLock from 'components/VocabEntryLock';
 
 VocabEntryDetail.propTypes = {
   review: PropTypes.shape({
@@ -68,7 +67,6 @@ function VocabEntryDetail({ review }) {
   // FIXME: don't pass review down! pass ID and let the components select only what they need for re-rendering
   return (
     <div>
-      <VocabEntryLock id={review.id} />
       <P><code>review.isReviewReady && </code> <ReviewReady>Ready for review</ReviewReady></P>
       <P><code>review.isBurned && </code> <Burned>Burned on KW!</Burned></P>
       <P><code>review.wk.isBurned &&</code> <Burned>Burned on WK!</Burned></P>

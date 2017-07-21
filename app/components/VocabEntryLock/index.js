@@ -7,6 +7,7 @@ import actions from 'containers/App/actions';
 import { makeSelectReviewHidden } from 'containers/App/selectors';
 
 import LockButton from 'components/LockButton';
+import { Wrapper, Text } from './styles';
 
 VocabEntryLock.propTypes = {
   isHidden: PropTypes.bool,
@@ -19,7 +20,10 @@ VocabEntryLock.defaultProps = {
 
 function VocabEntryLock({ isHidden, handleClick, ...props }) {
   return (
-    <LockButton isLocked={isHidden} handleClick={handleClick} {...props} />
+    <Wrapper>
+      <Text>{`${isHidden ? 'Unlock' : 'Lock'} Review`}</Text>
+      <LockButton isLocked={isHidden} handleClick={handleClick} {...props} />
+    </Wrapper>
   );
 }
 

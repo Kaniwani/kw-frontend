@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { resetList } from 'shared/styles/utils';
 
 export const Ul = styled.ul`
-${resetList}
-width: 100%;
+  ${resetList}
+  width: 100%;
 `;
 
 export const Li = styled.li`

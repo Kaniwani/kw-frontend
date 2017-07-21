@@ -15,9 +15,7 @@ ReadingHeader.propTypes = {
 function ReadingHeader({ id, showLock, tags }) {
   return (
     <Wrapper>
-      <Heading>
-        Reading
-      </Heading>
+      <Heading>Reading</Heading>
       <TagsList tags={tags} />
       {showLock && <VocabEntryLock id={id} />}
     </Wrapper>

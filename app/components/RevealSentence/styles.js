@@ -6,7 +6,7 @@ import Icon from 'components/Icon';
 
 import { gutter } from 'shared/styles/layout';
 import { borderRadius } from 'shared/styles/sizing';
-import { whiteLight, greyDark } from 'shared/styles/colors';
+import { whiteLight, greyDark, transparent } from 'shared/styles/colors';
 import { fastEaseQuad, midEaseQuad } from 'shared/styles/animation';
 
 export const Sentence = P.extend`
@@ -17,24 +17,30 @@ export const Sentence = P.extend`
   transition: all ${fastEaseQuad};
   border-radius: ${borderRadius};
   background-color: ${rgba(greyDark, 0.95)};
+  @supports( filter: blur() ) {
+    background-color: ${transparent};
+    filter: blur(5px);
+  }
 `;
 
 export const RevealIcon = styled(Icon)`
   position: absolute;
+  ${gutter({ prop: 'margin', position: 'top', mod: 0.5 })}
   left: 50%;
-  top: 50%;
-  color: ${whiteLight};
+  top: 0;
   opacity: 1;
   transition: opacity ${fastEaseQuad};
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 0);
   z-index: 1;
+  color: ${whiteLight};
+  @supports( filter: blur() ) {
+    color: ${greyDark};
+  }
 `;
 
 export const Wrapper = styled.div`
-  /* padding upsets icon translate centering */
-  ${gutter({ prop: 'margin', position: 'horizontal' })}
-  ${gutter({ prop: 'margin', position: 'bottom' })}
   position: relative;
+  align-self: flex-start;
 
   &:hover,
   &:active,
@@ -44,6 +50,9 @@ export const Wrapper = styled.div`
       outline: none;
       color: greyDark;
       background-color: transparent;
+      @supports( filter: blur() ) {
+        filter: blur(0px);
+      }
     }
     & ${RevealIcon} {
       transition: opacity ${midEaseQuad};

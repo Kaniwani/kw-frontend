@@ -62,7 +62,7 @@ export const gamma = css`
   letter-spacing: -0.02em;
 `;
 
-export const delta = generateFontSize(1.05);  // h4
+export const delta = generateFontSize(1.10);  // h4
 export const epsilon = generateFontSize(0.75);  // h5 & body
 export const zeta = generateFontSize(0.6);  // h6
 // Smaller

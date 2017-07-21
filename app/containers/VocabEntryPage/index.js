@@ -3,16 +3,20 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 
-import { selectIdFromMatch } from 'containers/App/selectors';
+import { selectIdFromMatch, makeSelectReview } from 'containers/App/selectors';
 import actions from 'containers/App/actions';
 import PageWrapper from 'base/PageWrapper';
 import VocabEntry from 'components/VocabEntry';
 import VocabEntryDetail from 'components/VocabEntryDetail';
 
-export class VocabEntryPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class VocabEntryPage extends React.Component {
   static propTypes = {
     loadReview: PropTypes.func.isRequired,
     id: PropTypes.number.isRequired,
+    review: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.bool,
+    ]).isRequired,
   }
 
   componentDidMount() {
@@ -20,7 +24,7 @@ export class VocabEntryPage extends React.Component { // eslint-disable-line rea
   }
 
   render() {
-    const { id } = this.props;
+    const { id, review } = this.props;
     return (
       <div>
         <Helmet>
@@ -28,7 +32,7 @@ export class VocabEntryPage extends React.Component { // eslint-disable-line rea
           <meta name="description" content={'Kaniwani Vocabulary: Entry'} />
         </Helmet>
         <PageWrapper>
-          <VocabEntry id={id} />
+          <VocabEntry id={id} review={review} />
           <VocabEntryDetail id={id} />
         </PageWrapper>
       </div>
@@ -36,9 +40,13 @@ export class VocabEntryPage extends React.Component { // eslint-disable-line rea
   }
 }
 
-const mapStateToProps = (state, props) => ({
-  id: selectIdFromMatch(props),
-});
+const mapStateToProps = (state, props) => {
+  const id = selectIdFromMatch(props);
+  return {
+    id,
+    review: makeSelectReview(id)(state),
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   loadReview: (id) => dispatch(actions.review.load.request({ id })),

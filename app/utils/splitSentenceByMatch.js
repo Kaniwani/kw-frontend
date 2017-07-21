@@ -1,6 +1,4 @@
-import stripOkurigana from 'wanakana/stripOkurigana';
-import toKatakana from 'wanakana/toKatakana';
-import tokenize from 'wanakana/tokenize';
+import { toKatakana, stripOkurigana, tokenize } from 'wanakana';
 
 import stripTilde from './stripTilde';
 

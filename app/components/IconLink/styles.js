@@ -7,13 +7,13 @@ import { fastEaseQuad } from 'shared/styles/animation';
 export const Link = styled(A)`
   transition: all ${fastEaseQuad}, transform 100ms linear;
   cursor: pointer;
-  opacity: 1;
+  opacity: .7;
   transform: scale(1);
   ${({ visuallyHidden }) => visuallyHidden && ghost}
 
   &:focus,
   &:hover {
-    opacity: .9;
+    opacity: 1;
     outline: none;
   }
 

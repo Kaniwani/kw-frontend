@@ -1,5 +1,5 @@
 import uniq from 'lodash/uniq';
-import isKanji from 'wanakana/isKanji';
+import { isKanji } from 'wanakana';
 
 export function splitKanji(word = '') {
   return word.split('').filter(isKanji);

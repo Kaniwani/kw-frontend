@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { SRS_RANKS } from 'shared/constants';
-import toKana from 'wanakana/toKana';
+import { toKana } from 'wanakana';
 
 import { makeSelectReviewStreakName, selectCurrentId } from 'containers/App/selectors';
 import { selectQuizAnswer } from 'containers/QuizPage/selectors';

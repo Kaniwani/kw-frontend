@@ -2,27 +2,46 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { compose, branch, renderNothing } from 'recompose';
+import isKana from 'wanakana/isKana';
 
-import { selectInfoActivePanel } from 'containers/QuizPage/selectors';
+import { selectInfoActivePanel, selectAnswerValue } from 'containers/QuizPage/selectors';
 import AddSynonym from 'components/AddSynonym';
 
 import { PanelWrapper } from 'containers/QuizInfo/styles';
 
 AddSynonymPanel.propTypes = {
   id: PropTypes.number.isRequired,
+  answerValue: PropTypes.string.isRequired,
+  answerType: PropTypes.string.isRequired,
+  initialValues: PropTypes.shape({
+    kanji: PropTypes.string,
+    kana: PropTypes.string,
+  }).isRequired,
 };
 
-function AddSynonymPanel({ id }) {
+function AddSynonymPanel(props) {
   return (
     <PanelWrapper>
-      <AddSynonym id={id} />
+      <AddSynonym {...props} />
     </PanelWrapper>
   );
 }
 
-const mapStateToProps = (state) => ({
-  activePanel: selectInfoActivePanel(state),
-});
+const mapStateToProps = (state) => {
+  const answerValue = selectAnswerValue(state);
+  const answerType = isKana(answerValue) ? 'kana' : 'kanji';
+  const kanji = answerType === 'kanji' ? answerValue : '';
+  const kana = answerType === 'kana' ? answerValue : '';
+  return {
+    activePanel: selectInfoActivePanel(state),
+    answerValue,
+    answerType,
+    initialValues: {
+      kanji,
+      kana,
+    },
+  };
+};
 
 const enhance = compose(
   connect(mapStateToProps),

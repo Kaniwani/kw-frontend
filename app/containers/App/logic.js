@@ -1,4 +1,5 @@
 import { createLogic } from 'redux-logic';
+import { reset } from 'redux-form';
 import sample from 'lodash/sample';
 import difference from 'lodash/difference';
 // TODO: inject some of these as dependencies instead?
@@ -278,7 +279,6 @@ const reviewNotesLogic = createLogic({
 
 const addSynonymLogic = createLogic({
   type: app.review.synonym.add.request,
-  cancelType: app.review.synonym.add.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
@@ -307,6 +307,18 @@ const removeSynonymLogic = createLogic({
       .then(() => ({ id, reviewId }));
   },
 });
+
+const resetSynonymFormLogic = createLogic({
+  type: app.review.synonym.add.success,
+  warnTimeout: 10000,
+  latest: true,
+
+  process(deps, dispatch, done) {
+    dispatch(reset('addSynonym'));
+    done();
+  },
+});
+
 
 const levelLoadLogic = createLogic({
   type: app.level.load.request,
@@ -340,6 +352,7 @@ export default [
   reviewLoadLogic,
   addSynonymLogic,
   removeSynonymLogic,
+  resetSynonymFormLogic,
   reviewLockLogic,
   reviewUnlockLogic,
   reviewNotesLogic,

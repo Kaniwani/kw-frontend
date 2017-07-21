@@ -1,10 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { branch, renderNothing } from 'recompose';
 
 import VocabEntryMeanings from 'components/VocabEntryMeanings';
 import VocabEntryReadings from 'components/VocabEntryReadings';
 import VocabEntrySynonyms from 'components/VocabEntrySynonyms';
 import VocabEntryNotes from 'components/VocabEntryNotes';
+import VocabEntryLock from 'components/VocabEntryLock';
+import AddSynonym from 'components/AddSynonym';
+
+import { Wrapper, MeaningsWrapper, SynonymsWrapper } from './styles';
 
 VocabEntry.propTypes = {
   id: PropTypes.number.isRequired,
@@ -12,13 +17,21 @@ VocabEntry.propTypes = {
 
 function VocabEntry({ id }) {
   return (
-    <div>
-      <VocabEntryMeanings id={id} />
+    <Wrapper>
+      <MeaningsWrapper>
+        <VocabEntryMeanings id={id} />
+        <VocabEntryLock id={id} />
+      </MeaningsWrapper>
       <VocabEntryReadings id={id} />
-      <VocabEntrySynonyms id={id} />
+      <SynonymsWrapper>
+        <AddSynonym id={id} answerValue="" answerType="" />
+        <VocabEntrySynonyms id={id} />
+      </SynonymsWrapper>
       <VocabEntryNotes id={id} />
-    </div>
+    </Wrapper>
   );
 }
 
-export default VocabEntry;
+const enhance = branch(({ id, review }) => !id || !review, renderNothing);
+
+export default enhance(VocabEntry);

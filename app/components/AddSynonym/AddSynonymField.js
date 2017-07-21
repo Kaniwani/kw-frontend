@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import JishoSearchLink from 'components/JishoSearchLink';
 import Element from 'base/Element';
+import JishoSearchLink from 'components/JishoSearchLink';
 import JapaneseInput from './JapaneseInput';
 
 import { LabelText, ValidationMessage } from './styles';
@@ -14,7 +14,7 @@ const ANSWER_TYPES = {
 
 AddSynonymField.propTypes = {
   userAnswer: PropTypes.string.isRequired,
-  answerType: PropTypes.oneOf(Object.keys(ANSWER_TYPES)).isRequired,
+  answerType: PropTypes.string.isRequired,
   input: PropTypes.object.isRequired,
   label: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
@@ -48,10 +48,10 @@ function AddSynonymField({
           label={label}
           input={input}
           placeholder={japanesePlaceholder}
-          autoFocus={!isSameAsAnswerType}
+          autoFocus={answerType !== '' && !isSameAsAnswerType}
           {...rest}
         />
-        <JishoSearchLink keyword={userAnswer} visuallyHidden={isSameAsAnswerType} />
+        <JishoSearchLink keyword={userAnswer} visuallyHidden={isSameAsAnswerType || answerType === ''} />
       </Element>
       {touched && error && (
         <Element textAlign="center">

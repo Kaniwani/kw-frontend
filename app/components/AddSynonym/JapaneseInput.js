@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bind, unbind } from 'wanakana/domUtils';
+import { bind, unbind } from 'wanakana';
 
 import { Input } from './styles';
 
@@ -22,11 +22,11 @@ class JapaneseInput extends React.Component {
         id={id}
         type={type}
         placeholder={label}
-        {...input}
         autoCapitalize="none"
         autoCorrect="none"
         autoComplete="off"
         spellCheck="false"
+        {...input}
         {...rest}
       />
     );

@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import cuid from 'cuid';
 import { compose, branch, renderNothing } from 'recompose';
+
 import { makeSelectReviewSynonyms } from 'containers/App/selectors';
 
-import SynonymHeader from 'components/SynonymHeader';
 import Reading from 'components/Reading';
-import { Ul, Li, SynonymContent } from './styles';
+import RemoveButton from './RemoveButton';
+import { Wrapper, Heading, Ul, Li } from './styles';
 
 VocabEntrySynonyms.propTypes = {
   synonyms: PropTypes.array.isRequired,
@@ -15,23 +16,23 @@ VocabEntrySynonyms.propTypes = {
 
 function VocabEntrySynonyms({ synonyms }) {
   return (
-    <Ul>
-      {synonyms.map(({ reviewId, id, character, kana }) => (
-        <Li key={cuid()}>
-          <SynonymHeader key={cuid()} id={id} reviewId={reviewId} />
-          <SynonymContent>
+    <Wrapper>
+      <Heading>Synonyms</Heading>
+      <Ul>
+        {synonyms.map(({ id, reviewId, character, kana }) => (
+          <Li key={cuid()}>
             <Reading character={character} kana={kana} />
-          </SynonymContent>
-        </Li>
-      ))}
-    </Ul>
+            <RemoveButton id={id} reviewId={reviewId} />
+          </Li>
+        ))}
+      </Ul>
+    </Wrapper>
   );
 }
 
 const mapStateToProps = (state, { id }) => ({
   synonyms: makeSelectReviewSynonyms(id)(state),
 });
-
 
 const enhance = compose(
   connect(mapStateToProps),

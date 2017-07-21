@@ -1,9 +1,18 @@
 import styled from 'styled-components';
 import { rgba, placeholder } from 'polished';
 
-import { fluidType } from 'shared/styles/utils';
+import Button from 'base/Button';
+
+import { delta } from 'shared/styles/typography';
 import { orange, greyLight, black } from 'shared/styles/colors';
 import { gutter } from 'shared/styles/layout';
+
+export const Form = styled.form`
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+`;
 
 export const Label = styled.label`
   ${gutter()}
@@ -26,9 +35,10 @@ export const ValidationMessage = styled.div`
 `;
 
 export const Input = styled.input`
-  display: inline-block;
+  ${gutter({ prop: 'margin', position: 'right' })}
+  ${delta}
+  display: inline-flex;
   max-width: 500px;
-  ${fluidType(16, 28)}
   appearance: none;
   line-height: 1.8; /* lowercase descenders are cut off otherwise */
   flex: 1 5 100px;
@@ -51,4 +61,8 @@ export const Input = styled.input`
   &::-ms-clear {
     display: none;
   }
+`;
+
+export const SubmitButton = styled(Button)`
+  ${gutter({ type: 'outer', prop: 'margin' })}
 `;
