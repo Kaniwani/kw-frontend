@@ -37,9 +37,11 @@ const keyMap = {
   showSynonym: 's',
 };
 
-// pass through event on these
-const ignoreShortcut = (answerDisabled, handler) => (event) => (
-  ['INPUT', 'TEXTAREA'].includes(event.target.nodeName) || !answerDisabled ?
+const isInputField = (event) => ['INPUT', 'TEXTAREA'].includes(event.target.nodeName);
+const isFormButton = (event) => ['submit', 'reset'].includes(event.target.type);
+const isLink = (event) => event.target.href != null;
+const guardHandler = (answerDisabled, handler) => (event) => (
+  isInputField(event) || !answerDisabled ?
     () => event :
     handler(event)
 );
@@ -57,18 +59,17 @@ function QuizPage({
   const title = `${titleCase(category)} Session`;
 
   const handlers = {
-    recordAnswer: ignoreShortcut(answerDisabled, (event) => {
-      // don't capture on form buttons or links
-      if (['submit', 'reset'].includes(event.target.type) || event.target.href != null) {
-        return event;
-      }
-      return recordAnswer() && false; // prevent propagation if we handle
-    }),
-    ignoreAnswer: ignoreShortcut(answerDisabled, () => ignoreAnswer() && false),
-    cycleInfoDetail: ignoreShortcut(answerDisabled, () => cycleInfoDetail() && false),
-    showNotes: ignoreShortcut(answerDisabled, () => showNotes() && false),
-    showInfo: ignoreShortcut(answerDisabled, () => showInfo() && false),
-    showSynonym: ignoreShortcut(answerDisabled, () => showSynonym() && false),
+    cycleInfoDetail: guardHandler(answerDisabled, () => cycleInfoDetail() && false),
+    showNotes: guardHandler(answerDisabled, () => showNotes() && false),
+    showInfo: guardHandler(answerDisabled, () => showInfo() && false),
+    showSynonym: guardHandler(answerDisabled, () => showSynonym() && false),
+    ignoreAnswer: guardHandler(answerDisabled, () => ignoreAnswer() && false),
+    recordAnswer: guardHandler(answerDisabled, (event) => (
+      isFormButton(event) || isLink(event) ?
+        event :
+        recordAnswer() && false
+      )
+    ),
   };
 
   return (
