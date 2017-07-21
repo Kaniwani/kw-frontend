@@ -22,12 +22,21 @@
         "app"
       ],
       "plugins": [
-        [
-          "transform-react-remove-prop-types",
+        ["transform-react-remove-prop-types",
           {
             "removeImport": true
           }
         ],
+        ["transform-imports", {
+           "redux-form": {
+             "transform": "redux-form/es/${member}",
+             "preventFullImport": true
+           },
+           "recompose": {
+             "transform": "recompose/${member}",
+             "preventFullImport": true
+           }
+         }],
         "transform-react-constant-elements",
         "transform-react-inline-elements"
       ]
