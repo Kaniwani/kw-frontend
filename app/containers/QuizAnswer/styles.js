@@ -7,7 +7,7 @@ import IconButton from 'components/IconButton';
 import { visuallyHidden } from 'shared/styles/utils';
 import { shadowBox, innerMedium } from 'shared/styles/shadows';
 import { kilo } from 'shared/styles/typography';
-import { media } from 'shared/styles/media';
+import { gutter } from 'shared/styles/layout';
 import { fastEaseQuad } from 'shared/styles/animation';
 import { transparent, white, whiteLight, whiteDark, yellowOrange, red, green, black } from 'shared/styles/colors';
 
@@ -32,20 +32,17 @@ export const AnswerWrapper = styled.div`
 `;
 
 export const Form = styled.form`
+  ${gutter({ prop: 'margin' })}
   ${kilo}
   position: relative;
   max-width: 100%;
   color: ${({ marked, valid }) => marked && valid ? white : black};
   background-color: ${transparent};
-  margin: 0 0 .4rem;
   border: 0;
   border-radius: 0;
   outline: none;
   appearance: none;
   z-index: 2;
-  ${media().sm`
-    margin: .4rem;
-  `}
 
   & ${AnswerWrapper} {
     ${bgColorMixin}

@@ -52,7 +52,6 @@ export class QuizAnswer extends React.PureComponent {
 
   handleInput = (event) => {
     const { updateAnswer } = this.props;
-    // TODO: could allow user to decide in settings if always hiragana or if caps for katakana is ok
     const value = toKana(event.target.value.toLowerCase(), { IMEMode: true });
     updateAnswer({ value });
   }

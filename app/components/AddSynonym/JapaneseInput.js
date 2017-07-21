@@ -1,43 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bind, unbind } from 'wanakana';
 
 import { Input } from './styles';
 
-class JapaneseInput extends React.Component {
-  componentDidMount() {
-    bind(this.imeInput);
-  }
-
-  componentWillUnmount() {
-    unbind(this.imeInput);
-  }
-
-  render() {
-    const { id, type, label, input, ...rest } = this.props;
-    return (
-      <Input
-        innerRef={(node) => { this.imeInput = node; }}
-        lang="ja"
-        id={id}
-        type={type}
-        placeholder={label}
-        autoCapitalize="none"
-        autoCorrect="none"
-        autoComplete="off"
-        spellCheck="false"
-        {...input}
-        {...rest}
-      />
-    );
-  }
-}
-
 JapaneseInput.propTypes = {
   id: PropTypes.string.isRequired,
-  input: PropTypes.object.isRequired,
-  label: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  input: PropTypes.object.isRequired,
 };
+
+function JapaneseInput({ label, input, ...rest }) {
+  return (
+    <Input
+      lang="ja"
+      placeholder={label}
+      autoCapitalize="none"
+      autoCorrect="none"
+      autoComplete="off"
+      spellCheck="false"
+      {...input}
+      {...rest}
+    />
+  );
+}
+
 
 export default JapaneseInput;

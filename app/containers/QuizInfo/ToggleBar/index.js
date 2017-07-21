@@ -20,23 +20,6 @@ ToggleBar.defaultProps = {
   activePanel: 'INFO',
 };
 
-const mapStateToProps = createStructuredSelector({
-  activePanel: selectInfoActivePanel,
-});
-
-const mapDispatchToProps = {
-  updateInfo: quiz.info.update,
-};
-
-const enhance = compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withHandlers({
-    handleNotesClick: ({ updateInfo }) => () => updateInfo({ activePanel: 'NOTES' }),
-    handleSynonymClick: ({ updateInfo }) => () => updateInfo({ activePanel: 'SYNONYM' }),
-    handleInfoClick: ({ updateInfo }) => () => updateInfo({ activePanel: 'INFO' }),
-  }),
-);
-
 function ToggleBar({
   activePanel,
   handleNotesClick,
@@ -68,5 +51,22 @@ function ToggleBar({
     </Wrapper>
   );
 }
+
+const mapStateToProps = createStructuredSelector({
+  activePanel: selectInfoActivePanel,
+});
+
+const mapDispatchToProps = {
+  updateInfo: quiz.info.update,
+};
+
+const enhance = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withHandlers({
+    handleNotesClick: ({ updateInfo }) => () => updateInfo({ activePanel: 'NOTES' }),
+    handleSynonymClick: ({ updateInfo }) => () => updateInfo({ activePanel: 'SYNONYM' }),
+    handleInfoClick: ({ updateInfo }) => () => updateInfo({ activePanel: 'INFO' }),
+  }),
+);
 
 export default enhance(ToggleBar);

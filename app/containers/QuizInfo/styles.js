@@ -9,6 +9,7 @@ import { Wrapper as RevealSentence } from 'components/RevealSentence/styles';
 
 import { whiteLight, greyLight } from 'shared/styles/colors';
 import { gutter } from 'shared/styles/layout';
+import { borderRadius } from 'shared/styles/sizing';
 
 export const Wrapper = styled.div`
   z-index: 2; /* Stay above absolute Quiz Background Image */
@@ -18,16 +19,17 @@ export const Wrapper = styled.div`
 `;
 
 export const PanelsWrapper = styled.div`
-  background-color: ${whiteLight};
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 2000px;
+  ${gutter({ prop: 'margin', position: 'horizontal' })}
+  ${gutter({ prop: 'margin', position: 'bottom' })}
   display: flex;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+  max-width: 2000px;
+  background-color: ${whiteLight};
   flex: 1 0 100%;
+  ${({ isDisabled }) => isDisabled && 'flex: 0 1 0px'}
 `;
 
 const dashedTopBorder = css`

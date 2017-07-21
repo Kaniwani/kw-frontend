@@ -11,6 +11,7 @@ import { PanelWrapper } from 'containers/QuizInfo/styles';
 
 AddSynonymPanel.propTypes = {
   id: PropTypes.number.isRequired,
+  category: PropTypes.string.isRequired,
   answerValue: PropTypes.string.isRequired,
   answerType: PropTypes.string.isRequired,
   initialValues: PropTypes.shape({

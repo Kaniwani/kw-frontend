@@ -1,39 +1,32 @@
 import styled from 'styled-components';
-import { media } from 'shared/styles/media';
-import { siteMaxWidth } from 'shared/styles/sizing';
 import { resetButton } from 'shared/styles/utils';
 import { transparent, whiteLight, greyLight, greyDark } from 'shared/styles/colors';
 import { micro } from 'shared/styles/typography';
+import { gutter } from 'shared/styles/layout';
 import { shadowBox } from 'shared/styles/shadows';
 
 export const Wrapper = styled.div`
+  ${gutter({ position: 'top', mod: 0.25 })}
+  ${gutter({ position: 'horizontal', mod: 0.5 })}
+  ${gutter({ position: 'bottom' })}
   display: flex;
   z-index: 2;
-  margin: 0;
   list-style: none;
   justify-content: center;
   background-color: ${transparent};
-  padding: 0 .4rem .4rem;
   width: 100%;
-  ${media().sm`
-    padding-left: .2rem; /* toggles have .2rem side margins */
-    padding-right: .2rem;
-    max-width: ${siteMaxWidth}px;
-    margin-left: auto;
-    margin-right: auto;
-  `}
 `;
 
 export const ToggleButton = styled.button`
   ${resetButton}
   ${micro}
   ${shadowBox}
+  ${gutter({ mod: 0.5 })}
+  ${gutter({ prop: 'margin', position: 'horizontal', mod: 0.5 })}
   position: relative;
   text-align: center;
   text-transform: uppercase;
   flex: 0 1 300px;
-  padding: .2rem;
-  margin: 0 .2rem;
   background-color: ${whiteLight};
   color: ${greyLight};
 
