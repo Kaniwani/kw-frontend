@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Field, reduxForm } from 'redux-form';
+import { reduxForm, Field, SubmissionError } from 'redux-form';
 import { compose } from 'recompose';
 import toKana from 'wanakana/toKana';
-import { required, onlyKanjiOrKana, onlyKana } from 'shared/validations';
+import { onlyKanjiOrKana, onlyKana } from 'shared/validations';
 
 import app from 'containers/App/actions';
 import quiz from 'containers/QuizPage/actions';
@@ -26,22 +26,20 @@ function AddSynonym({ handleSubmit, submitting, answerValue, answerType }) {
     <Form onSubmit={handleSubmit} >
       <Heading>Add New Synonym</Heading>
       <Field
-        name="kana"
-        type="text"
-        component={AddSynonymField}
-        label="Kana"
-        validate={[required, onlyKana]}
-        normalize={convertInput}
-        userAnswer={answerValue}
-        answerType={answerType}
-      />
-      <Field
         name="kanji"
         type="text"
         component={AddSynonymField}
         label="Kanji"
         normalize={convertInput}
-        validate={[required, onlyKanjiOrKana]}
+        userAnswer={answerValue}
+        answerType={answerType}
+      />
+      <Field
+        name="kana"
+        type="text"
+        component={AddSynonymField}
+        label="Kana"
+        normalize={convertInput}
         userAnswer={answerValue}
         answerType={answerType}
       />
@@ -60,8 +58,16 @@ const enhance = compose(
   reduxForm({
     form: 'addSynonym',
     onSubmit: ({ kanji, kana }, dispatch, { id, category }) => {
-      dispatch(app.review.synonym.add.request({ reviewId: id, character: kanji, kana }));
-      dispatch(quiz.answer.ignore({ category }));
+      const errors = {
+        kanji: onlyKanjiOrKana(kanji),
+        kana: onlyKana(kana),
+      };
+      if (Object.values(errors).some(Boolean)) {
+        throw new SubmissionError(errors);
+      } else {
+        dispatch(app.review.synonym.add.request({ reviewId: id, character: kanji, kana }));
+        dispatch(quiz.answer.ignore({ category }));
+      }
     },
   }),
 );
