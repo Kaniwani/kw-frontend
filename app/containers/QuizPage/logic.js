@@ -16,6 +16,7 @@ import {
   selectPreviouslyIncorrect,
   selectCurrentId,
   makeSelectReview,
+  makeSelectReviewNotes,
   selectQuizSettings,
  } from 'containers/App/selectors';
 
@@ -69,6 +70,9 @@ export const submitAnswerLogic = createLogic({
     }
 
     if (isDisabled && isValid) {
+      if (isIncorrect) {
+        dispatch(quiz.answer.incorrect({ review }));
+      }
       dispatch(quiz.answer.record.request({ category, id, isCorrect, isIncorrect, previouslyIncorrect }));
     }
 
@@ -80,6 +84,7 @@ export const checkAnswerLogic = createLogic({
   type: quiz.answer.check,
   latest: true,
   process({ getState, action: { payload: { category, review, answerValue, previouslyIncorrect } } }, dispatch, done) {
+    const { autoAdvance, autoExpandCorrect, autoExpandIncorrect } = selectQuizSettings(getState());
     const matchedAnswer = findMatch(answerValue, review);
     const type = isKana(answerValue) ? 'kana' : 'kanji';
     const updatedAnswer = {
@@ -96,15 +101,21 @@ export const checkAnswerLogic = createLogic({
     if (matchedAnswer) {
       dispatch(quiz.answer.update({ ...updatedAnswer, value: matchedAnswer, isCorrect: true }));
       dispatch(quiz.answer.correct({ review, category }));
+      if (autoExpandCorrect && autoAdvance.speed > 0) {
+        dispatch(quiz.info.update({ activePanel: 'INFO', isDisabled: false }));
+      }
     }
 
     if (!matchedAnswer) {
       dispatch(quiz.answer.update({ ...updatedAnswer, isIncorrect: true }));
+      if (autoExpandIncorrect) {
+        dispatch(quiz.info.update({ activePanel: 'INFO', isDisabled: false }));
+      }
       if (previouslyIncorrect) {
         dispatch(quiz.answer.incorrect({ review }));
       }
     }
-    dispatch(quiz.info.update({ activePanel: 'INFO', isDisabled: false }));
+
     done();
   },
 });
@@ -135,7 +146,11 @@ export const incorrectAnswerLogic = createLogic({
 export const correctAnswerLogic = createLogic({
   type: quiz.answer.correct,
   latest: true,
-  transform({ action: { type, payload: { review, category } } }, next) {
+  process({ getState, action: { payload: { review, category } } }, dispatch, done) {
+    const { autoAdvance } = selectQuizSettings(getState());
+    if (autoAdvance.active) {
+      dispatch(quiz.advance({ category, autoAdvance }));
+    }
     const correct = increment(review.correct);
     const streak = increment(review.streak);
     const updatedReview = {
@@ -144,14 +159,7 @@ export const correctAnswerLogic = createLogic({
       streak,
       isCritical: determineCriticality(correct, review.incorrect),
     };
-    next({ type, payload: { review: updatedReview, category } });
-  },
-  process({ getState, action: { payload: { review, category } } }, dispatch, done) {
-    const { autoAdvance } = selectQuizSettings(getState());
-    dispatch(app.review.update(review));
-    if (autoAdvance.active) {
-      dispatch(quiz.advance({ category, autoAdvance }));
-    }
+    dispatch(app.review.update(updatedReview));
     done();
   },
 });
@@ -168,7 +176,10 @@ export const ignoreAnswerLogic = createLogic({
     }
   },
   process({ getState, action: { payload: { category } } }, dispatch, done) {
-    dispatch(app.review.update(selectBackup(getState())));
+    const backup = selectBackup(getState());
+    // in case user edited notes in quiz info
+    const notes = makeSelectReviewNotes(backup.id)(getState());
+    dispatch(app.review.update(Object.assign({}, backup, { notes })));
     dispatch(app[category].current.return());
     dispatch(quiz.backup.reset());
     dispatch(quiz.answer.reset());

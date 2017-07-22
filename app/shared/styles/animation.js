@@ -10,7 +10,7 @@ export const spin = keyframes`
     transform: rotate(0deg);
   }
   to {
-    transform: rotate(-180deg);
+    transform: rotate(-360deg);
   }
 `;
 

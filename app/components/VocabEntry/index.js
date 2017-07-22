@@ -22,7 +22,7 @@ function VocabEntry({ id }) {
       </MeaningsWrapper>
       <VocabEntryReadings id={id} />
       <SynonymsWrapper>
-        <AddSynonym id={id} answerValue="" answerType="" />
+        <AddSynonym id={id} />
         <VocabEntrySynonyms id={id} />
       </SynonymsWrapper>
       <VocabEntryNotes id={id} />

@@ -5,6 +5,8 @@ import withToggle from 'decorators/withToggle';
 import * as COLORS from 'shared/styles/colors';
 import { Input } from './styles';
 
+// FIXME: withToggle sets state, derp
+// remove decorator, and just pass value(isToggled)/onChange as props
 const ToggleSwitch = withToggle(({ isToggled, toggle, id, name, ...props }) => (
   <Input
     type="checkbox"

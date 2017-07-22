@@ -2,18 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-
-import PageWrapper from 'base/PageWrapper';
-import H1 from 'base/H1';
+import { compose } from 'recompose';
+import Debug from 'utils/Debug';
 
 import app from 'containers/App/actions';
 import { selectSettings } from 'containers/App/selectors';
+
+import PageWrapper from 'base/PageWrapper';
+import H1 from 'base/H1';
+import SettingsForm from './SettingsForm';
+import AccountForm from './AccountForm';
 
 SettingsPage.propTypes = {
   settings: PropTypes.object.isRequired,
 };
 
-function SettingsPage({ settings }) {
+SettingsPage.propTypes = {
+  settings: PropTypes.object.isRequired,
+  saveSettings: PropTypes.func.isRequired,
+};
+
+function SettingsPage({ settings, saveSettings }) {
   return (
     <div>
       <Helmet>
@@ -21,19 +30,21 @@ function SettingsPage({ settings }) {
         <meta name="description" content="Kaniwani Settings Page" />
       </Helmet>
       <PageWrapper>
-        <H1>Hello SettingsPage</H1>
-        <pre><code>{JSON.stringify(settings, null, 2)}</code></pre>
+        <H1>Settings</H1>
+        <SettingsForm onSubmit={saveSettings} initialValues={settings} />
+        <AccountForm />
+        <Debug value={settings} />
       </PageWrapper>
     </div>
   );
 }
 
-const mapStateToProps = (state) => ({
-  settings: selectSettings(state),
-});
+const enhance = compose(
+  connect(
+    (state) => ({ settings: selectSettings(state) }),
+    ({ saveSettings: app.settings.save.request }),
+  ),
+);
 
-const mapDispatchToProps = (dispatch) => ({
-  saveSettings: (payload) => dispatch(app.settings.save.request(payload)),
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsPage);
+export default enhance(SettingsPage);

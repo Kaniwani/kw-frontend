@@ -3,15 +3,17 @@ import isJapanese from 'wanakana/isJapanese';
 import isKana from 'wanakana/isKana';
 
 export const onlyKanjiKana = (value = '') =>
-  (!isJapanese(value)) ?
-  'Must be a mix of kanji and okurigana' : undefined;
+  isJapanese(value) ? undefined : 'Must be a mix of kanji and okurigana';
 
 export const onlyKana = (value = '') =>
-  !isKana(value) ? 'Must be hiragana or katakana' : undefined;
+  isKana(value) ? undefined : 'Must be hiragana or katakana';
 
 export const onlyKanjiOrKana = (value = '') =>
   (isKanji(value) || isJapanese(value) || isKana(value)) ?
-  undefined : 'Must be kana, kanji, or a mix of both';
+    undefined : 'Must be kana, kanji, or a mix of both';
+
+export const resetConfirmation = (value, matcher) =>
+  value === matcher ? undefined : 'Does not match';
 
 export const required = (value) =>
   value ? undefined : 'Required';
