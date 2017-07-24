@@ -31,6 +31,7 @@ const userSyncUrl = urljoin(userUrl, 'sync'); // POST to sync with WK
 const reviewsUrl = urljoin(API_BASE, 'review'); // GET all ready reviews
 const criticalReviewsUrl = urljoin(reviewsUrl, 'critical'); // GET critical
 const currentReviewsUrl = urljoin(reviewsUrl, 'current'); // GET current review queue
+const currentLessonsUrl = urljoin(reviewsUrl, 'lesson'); // GET current lesson queue
 const reviewEntryUrl = (id) => urljoin(reviewsUrl, id); // GET single
 const reviewCorrectUrl = (id) => urljoin(reviewEntryUrl(id), 'correct'); // POST correct answer
 const reviewIncorrectUrl = (id) => urljoin(reviewEntryUrl(id), 'incorrect'); // POST incorrect answer
@@ -121,7 +122,7 @@ export const getReviews = ({
 
 export const getCriticalReviews = ({ offset, limit } = {}) => get(criticalReviewsUrl, { offset, limit });
 export const getCurrentReviews = ({ offset, limit } = {}) => get(currentReviewsUrl, { offset, limit });
-export const getCurrentLessons = () => Promise.resolve('No lessons api yet!');
+export const getCurrentLessons = ({ offset, limit } = {}) => get(currentLessonsUrl, { offset, limit });
 
 export const getReviewEntry = ({ id }) => get(reviewEntryUrl(id));
 export const recordReview = ({ id, isCorrect, previouslyIncorrect }) => {
