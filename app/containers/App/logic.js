@@ -95,8 +95,7 @@ const setCurrentOnQueueLoadLogic = createLogic({
   latest: true,
   process({ getState, action: { type } }, dispatch, done) {
     const category = (type === app.reviews.queue.load.success ? 'reviews' : 'lessons');
-
-    const action = app[category].current.set();
+    const action = app[category].current.set;
     const { current, queue } = sel[`select${titleCase(category)}`](getState());
 
     if (!current && queue.length) {

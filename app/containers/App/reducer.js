@@ -188,10 +188,10 @@ const reviewsReducer = handleActions({
   [app.level.load.success]: (state, { payload }) => update(state, {
     entities: { $set: merge({}, state.entities, payload.reviews) },
   }),
-  [combineActions(
-    app.reviews.queue.load.success,
-    app.lessons.queue.load.success,
-  )]: (state, { payload }) => update(state, {
+  [app.lessons.queue.load.success]: (state, { payload }) => update(state, {
+    entities: { $set: merge({}, state.entities, payload.reviews) },
+  }),
+  [app.reviews.queue.load.success]: (state, { payload }) => update(state, {
     entities: { $set: merge({}, state.entities, payload.reviews) },
     queue: { $set: union(state.queue, payload.reviewIds) },
   }),
@@ -233,6 +233,9 @@ const reviewsReducer = handleActions({
 }, initialState.reviews);
 
 const lessonsReducer = handleActions({
+  [app.lessons.queue.load.success]: (state, { payload }) => update(state, {
+    queue: { $set: union(state.queue, payload.reviewIds) },
+  }),
   [app.lessons.session.reset]: (state) => update(state, {
     correct: { $set: [] },
     incorrect: { $set: [] },
@@ -244,6 +247,12 @@ const lessonsReducer = handleActions({
   [app.lessons.current.return]: (state, { payload }) => update(state, {
     queue: { $set: union(state.queue, [state.current]) },
     current: { $set: payload },
+  }),
+  [app.lessons.correct.add]: (state, { payload }) => update(state, {
+    correct: { $set: union(state.correct, [payload]) },
+  }),
+  [app.lessons.incorrect.add]: (state, { payload }) => update(state, {
+    incorrect: { $set: union(state.incorrect, [payload]) },
   }),
 }, initialState.lessons);
 
