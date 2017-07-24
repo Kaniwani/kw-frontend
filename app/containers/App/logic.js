@@ -71,34 +71,37 @@ export const reviewsQueueLoadLogic = createLogic({
   },
 });
 
-// export const lessonsQueueLoadLogic = createLogic({
-//   type: app.lessons.queue.load.request,
-//   cancelType: app.lessons.queue.load.cancel,
-//   warnTimeout: 8000,
-//   // throttle: 10000,
-//   latest: true,
-//
-//   processOptions: {
-//     successType: app.lessons.queue.load.success,
-//     failType: app.lessons.queue.load.failure,
-//   },
-//
-//   process() {
-//     return api.getCurrentLessons()
-//       .then((res) => serializeQueueResponse(res));
-//   },
-// });
+export const lessonsQueueLoadLogic = createLogic({
+  type: app.lessons.queue.load.request,
+  cancelType: app.lessons.queue.load.cancel,
+  warnTimeout: 8000,
+  // throttle: 10000,
+  latest: true,
+
+  processOptions: {
+    successType: app.lessons.queue.load.success,
+    failType: app.lessons.queue.load.failure,
+  },
+
+  process() {
+    return api.getCurrentLessons()
+      .then((res) => serializeQueueResponse(res));
+  },
+});
 
 const setCurrentOnQueueLoadLogic = createLogic({
-  type: app.reviews.queue.load.success,
+  type: [app.reviews.queue.load.success, app.lessons.queue.load.success],
   latest: true,
   process({ getState, action: { type } }, dispatch, done) {
-    const reviews = sel.selectReviews(getState());
-    const { current, queue } = reviews;
+    const category = type === app.reviews.queue.load.success ? 'reviews' : 'lessons';
+
+    const action = app[category].current.set();
+    const { current, queue } = sel[`select${category.toUpperCase()}`](getState());
+
     if (!current && queue.length) {
-      dispatch(app.reviews.current.set());
+      dispatch(action());
     } else {
-      console.log('Already have current: ', { current, queue });
+      console.log(`Already have current ${category}: `, { current, queue });
     }
     done();
   },
@@ -340,7 +343,7 @@ const levelLoadLogic = createLogic({
 export default [
   userLoadLogic,
   reviewsQueueLoadLogic,
-  // lessonsQueueLoadLogic,
+  lessonsQueueLoadLogic,
   loadQueuesIfNeededLogic,
   setCurrentOnQueueLoadLogic,
   setCurrentLogic,
