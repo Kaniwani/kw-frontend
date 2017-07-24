@@ -2,6 +2,7 @@ import { createLogic } from 'redux-logic';
 import { reset } from 'redux-form';
 import sample from 'lodash/sample';
 import difference from 'lodash/difference';
+import titleCase from 'voca/title_case';
 // TODO: inject some of these as dependencies instead?
 import * as api from 'shared/api';
 
@@ -93,10 +94,10 @@ const setCurrentOnQueueLoadLogic = createLogic({
   type: [app.reviews.queue.load.success, app.lessons.queue.load.success],
   latest: true,
   process({ getState, action: { type } }, dispatch, done) {
-    const category = type === app.reviews.queue.load.success ? 'reviews' : 'lessons';
+    const category = (type === app.reviews.queue.load.success ? 'reviews' : 'lessons');
 
     const action = app[category].current.set();
-    const { current, queue } = sel[`select${category.toUpperCase()}`](getState());
+    const { current, queue } = sel[`select${titleCase(category)}`](getState());
 
     if (!current && queue.length) {
       dispatch(action());
