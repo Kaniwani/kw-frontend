@@ -194,24 +194,8 @@ export const recordAnswerLogic = createLogic({
     failType: quiz.answer.record.failure,
   },
 
-  validate({ getState, action: { type, payload } }, allow, reject) {
-    const { isCorrect, isIncorrect, previouslyIncorrect } = payload;
-    clearTimeout(autoAdvanceTimeout);
-
-    if (isIncorrect && previouslyIncorrect) {
-      reject();
-    }
-
-    if (!isIncorrect && !isCorrect) {
-      console.log('mon dieu, c’est pas possible!'); // eslint-disable-line no-console
-      // TODO: should never occur so log error to slack
-      reject();
-    }
-
-    allow({ type, payload: { ...payload } });
-  },
-
   process({ action: { payload: { category, id, isCorrect, isIncorrect, previouslyIncorrect, autoAdvance } } }, dispatch, done) {
+    clearTimeout(autoAdvanceTimeout);
     dispatch(app[category][isCorrect ? 'correct' : 'incorrect'].add(id));
     dispatch(app[category].current.set());
     dispatch(quiz.backup.reset());
