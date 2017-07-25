@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
+import { gutter } from 'shared/styles/layout';
 import { resetButton } from 'shared/styles/utils';
 import { fastEaseQuad } from 'shared/styles/animation';
 
 export const Button = styled.button`
   ${resetButton}
+  ${gutter()}
   align-self: center;
   vertical-align: middle;
   transition: all ${fastEaseQuad}, transform 100ms linear;

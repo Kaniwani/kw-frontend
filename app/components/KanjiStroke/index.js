@@ -25,6 +25,7 @@ class KanjiStroke extends React.PureComponent {
 
   state = {
     dmak: {},
+    playing: false,
     config: {
       stroke: {
         order: { attr: { fill: blackLight } },
@@ -39,17 +40,27 @@ class KanjiStroke extends React.PureComponent {
     this.instantiateSvg(onlyKanjiChars, this.state.config);
   }
 
-  play = () => this.state.dmak.render()
-  pause = () => this.state.dmak.pause()
-  erase = () => this.state.dmak.erase()
+  play = () => {
+    this.state.dmak.render();
+    this.setState({ playing: true });
+  }
+  pause = () => {
+    this.state.dmak.pause();
+    this.setState({ playing: false });
+  }
+  erase = () => {
+    if (this.state.playing) {
+      this.pause();
+    }
+    this.state.dmak.erase();
+  }
   stepBack = () => this.state.dmak.eraseLastStrokes(1)
   stepForward = () => this.state.dmak.renderNextStrokes(1)
 
   instantiateSvg(char, config) {
     const options = merge({}, config, this.props.settings, { element: this.drawRef });
-    console.log(options);
     const dmakInstance = dmak(char, options);
-    this.setState(() => ({ dmak: dmakInstance }));
+    this.setState(() => ({ dmak: dmakInstance, playing: this.props.settings.autoplay }));
   }
 
   render() {
@@ -59,10 +70,12 @@ class KanjiStroke extends React.PureComponent {
           <div ref={(node) => { this.drawRef = node; }}></div>
         </Canvas>
         <Controls>
-          <ControlButton name="SKIP_PREV" title="Step backwards" onClick={this.stepBack} />
           <ControlButton name="RESTART" size="1.3em" title="Erase drawing" onClick={this.erase} />
-          <ControlButton name="PLAY" title="Play drawing" onClick={this.play} />
-          <ControlButton name="PAUSE" title="Pause drawing" onClick={this.pause} />
+          <ControlButton name="SKIP_PREV" title="Step backwards" onClick={this.stepBack} />
+          { this.state.playing ?
+            <ControlButton name="PAUSE" title="Pause drawing" onClick={this.pause} /> :
+            <ControlButton name="PLAY" title="Play drawing" onClick={this.play} />
+          }
           <ControlButton name="SKIP_NEXT" title="Step forwards" onClick={this.stepForward} />
         </Controls>
       </Wrapper>

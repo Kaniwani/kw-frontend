@@ -6,44 +6,32 @@ import { compose, branch, renderNothing } from 'recompose';
 
 import { makeSelectReviewReadings } from 'containers/App/selectors';
 
-import ReadingHeader from 'components/ReadingHeader';
-import SentencePair from 'components/SentencePair';
-import VocabEntryLinks from 'components/VocabEntryLinks';
-import Reading from 'components/Reading';
-// import PitchInfo from 'components/PitchInfo';
-import KanjiStroke from 'components/KanjiStroke';
-import { Ul, Li, ReadingContent } from './styles';
+import VocabEntryReading from './VocabEntryReading';
+
+import { Ul } from './styles';
 
 VocabEntryReadings.propTypes = {
   readings: PropTypes.array.isRequired,
   id: PropTypes.number.isRequired,
   showLock: PropTypes.bool,
+  detailLevel: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.number,
+  ]),
 };
 
 VocabEntryReadings.defaultProps = {
   showLock: false,
+  detailLevel: true,
 };
 
-function VocabEntryReadings({ id, readings, showLock }) {
+
+function VocabEntryReadings({ readings, ...props }) {
   return (
     <Ul>
-      {readings.map(({ character, kana, sentenceEn, sentenceJa, tags }, index) => (
-        <Li key={cuid()}>
-          <ReadingHeader showLock={showLock && index === 0} id={id} character={character} tags={tags} />
-          <VocabEntryLinks character={character} />
-          <ReadingContent>
-            <Reading character={character} kana={kana} />
-            <SentencePair
-              sentenceEn={sentenceEn}
-              sentenceJa={sentenceJa}
-              character={character}
-              kana={kana}
-            />
-          </ReadingContent>
-          {/* <PitchInfo character={character} /> */}
-          <KanjiStroke character={character} />
-        </Li>
-      ))}
+      {readings.map((reading, index) =>
+        <VocabEntryReading key={cuid()} index={index} {...reading} {...props} />
+      )}
     </Ul>
   );
 }
@@ -56,6 +44,5 @@ const enhance = compose(
   connect(mapStateToProps),
   branch(({ readings }) => !readings.length, renderNothing),
 );
-
 
 export default enhance(VocabEntryReadings);

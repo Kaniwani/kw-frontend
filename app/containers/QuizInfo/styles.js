@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { rgba } from 'polished';
 
-import { Ul as Readings, Li, ReadingContent } from 'components/VocabEntryReadings/styles';
+import { Ul as ReadingsUl, Li, ReadingContent } from 'components/VocabEntryReadings/styles';
 import { Heading as SynonymHeader, Wrapper as SynonymsWrapper, Ul as Synonyms } from 'components/VocabEntrySynonyms/styles';
 import { Wrapper as Reading } from 'components/Reading/styles';
 import { Wrapper as ReadingHeader } from 'components/ReadingHeader/styles';
@@ -9,7 +9,6 @@ import { Wrapper as RevealSentence } from 'components/RevealSentence/styles';
 
 import { whiteLight, greyLight } from 'shared/styles/colors';
 import { gutter } from 'shared/styles/layout';
-import { borderRadius } from 'shared/styles/sizing';
 
 export const Wrapper = styled.div`
   z-index: 2; /* Stay above absolute Quiz Background Image */
@@ -43,8 +42,8 @@ export const PanelWrapper = styled.div`
   display: flex;
   flex-flow: row wrap;
   height: 100%;
-  flex: 0 1 800px;
   justify-content: center;
+  flex: 0 1 800px;
 
   &:last-of-type {
     ${gutter({ type: 'outer', position: 'bottom', mod: 3 })}
@@ -58,15 +57,28 @@ export const PanelWrapper = styled.div`
     justify-content: center;
   }
 
-  & ${Readings} {
+  & ${ReadingsUl} {
     text-align: center;
 
     & ${Li} {
       align-items: center;
-      &:not(:first-child) {
+    }
+
+    ${({ detailLevel }) => detailLevel < 1 && css`
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: center;
+      & ${Li} {
+        flex: 0 1 auto;
+        ${gutter({ type: 'outer', position: 'horizontal', mod: 2 })}
+      }
+    `}
+
+    ${({ detailLevel }) => detailLevel >= 1 && css`
+      & ${Li}:not(:first-child) {
         ${dashedTopBorder}
       }
-    }
+    `}
   }
 
   & ${ReadingContent} {

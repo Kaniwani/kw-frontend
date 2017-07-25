@@ -12,12 +12,20 @@ import { Wrapper, Heading, Ul, Li } from './styles';
 
 VocabEntrySynonyms.propTypes = {
   synonyms: PropTypes.array.isRequired,
+  detailLevel: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.number,
+  ]),
 };
 
-function VocabEntrySynonyms({ synonyms }) {
+VocabEntrySynonyms.defaultProps = {
+  detailLevel: true,
+};
+
+function VocabEntrySynonyms({ synonyms, detailLevel }) {
   return (
     <Wrapper>
-      <Heading>Synonyms</Heading>
+      {detailLevel >= 1 && <Heading>Synonyms</Heading>}
       <Ul>
         {synonyms.map(({ id, reviewId, character, kana }) => (
           <Li key={cuid()}>

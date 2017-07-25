@@ -11,7 +11,6 @@ import App from 'containers/App';
 
 // Import default LoadingComponent provider and LoadingIndicator that will be used as a loading component
 import DefaultLoadingComponentProvider from 'routing/DefaultLoadingComponentProvider';
-import LoadingCrabigator from 'components/LoadingCrabigator';
 
 // Load the favicon, the manifest.json file and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
@@ -33,7 +32,7 @@ const store = configureStore(initialState, history);
 
 ReactDOM.render(
   <Provider store={store}>
-    <DefaultLoadingComponentProvider component={LoadingCrabigator}>
+    <DefaultLoadingComponentProvider component={null}>
       <ConnectedRouter history={history}>
         <App />
       </ConnectedRouter>

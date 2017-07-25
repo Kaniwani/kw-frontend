@@ -16,17 +16,17 @@ export const Canvas = styled.div`
   display: flex;
   justify-content: center;
   flex: 1 1 100%;
+  min-height: 150px;
 `;
 
 export const Controls = styled.div`
   ${gutter()}
   display: flex;
-  flex: 0 1 320px;
+  flex: 0 1 auto;
+  justify-content: space-around;
   align-items: center;
-  justify-content: space-between;
 `;
 
 export const ControlButton = styled(IconButton)`
-  padding-left: 1rem;
-  padding-right: 1rem;
+  ${gutter({ position: 'horizontal', mod: 3 })}
 `;
