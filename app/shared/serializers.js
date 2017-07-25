@@ -213,7 +213,7 @@ export function deserializeSettings({
 function serializeReading(reading) {
   return {
     id: +reading.id,
-    level: reading.level,
+    level: +reading.level,
     isCommon: !!reading.common,
     character: reading.character,
     kana: toUniqueStringsArray(reading.kana),
