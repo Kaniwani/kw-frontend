@@ -146,6 +146,7 @@ const reloadQueueCountsLogic = createLogic({
   type: [
     app.level.lock.success,
     app.level.unlock.success,
+    app.settings.save.success,
   ],
   latest: true,
   processOptions: {

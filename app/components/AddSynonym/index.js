@@ -14,9 +14,14 @@ import { Form, SubmitButton } from './styles';
 
 AddSynonym.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  answerValue: PropTypes.string.isRequired,
-  answerType: PropTypes.string.isRequired,
   submitting: PropTypes.bool.isRequired,
+  answerValue: PropTypes.string,
+  answerType: PropTypes.string,
+};
+
+AddSynonym.defaultProps = {
+  answerValue: '',
+  answerType: '',
 };
 
 const convertInput = (value) => toKana(value.toLowerCase(), { IMEMode: true });

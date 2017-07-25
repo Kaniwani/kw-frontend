@@ -1,14 +1,35 @@
 import { createLogic } from 'redux-logic';
 
-// Individual exports for testing
-export const defaultLogic = createLogic({
-  type: 'nothung',
-  process({ getState, action: { payload, meta } }) { // eslint-disable-line no-unused-vars
-    if (meta) console.log('Extra info passed in action: ', meta); // eslint-disable-line no-console
-    return new Promise((resolve) => setTimeout(() => resolve(payload), 500));
+import { deserializeSettings } from 'shared/serializers';
+import * as api from 'shared/api';
+import app from 'containers/App/actions';
+import { selectProfile } from 'containers/App/selectors';
+
+export const saveSettingsLogic = createLogic({
+  type: app.settings.save.request,
+  processOptions: {
+    successType: app.settings.save.success,
+    failType: app.settings.save.failure,
+  },
+  process({ getState, action: { payload } }) {
+    const { id } = selectProfile(getState());
+    const serverSettings = deserializeSettings(payload);
+    return api.saveSettings({ id, settings: serverSettings }).then(() => payload);
+  },
+});
+
+export const resetProgressLogic = createLogic({
+  type: app.settings.resetProgress.request,
+  processOptions: {
+    successType: app.user.load.request,
+    failType: app.settings.resetProgress.failure,
+  },
+  process() {
+    return api.resetProgress();
   },
 });
 
 export default [
-  defaultLogic,
+  resetProgressLogic,
+  saveSettingsLogic,
 ];

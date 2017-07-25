@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import { createSelector } from 'reselect';
 import { isKanji } from 'wanakana';
 import merge from 'lodash/merge';
 
@@ -47,6 +47,7 @@ class KanjiStroke extends React.PureComponent {
 
   instantiateSvg(char, config) {
     const options = merge({}, config, this.props.settings, { element: this.drawRef });
+    console.log(options);
     const dmakInstance = dmak(char, options);
     this.setState(() => ({ dmak: dmakInstance }));
   }
@@ -69,8 +70,8 @@ class KanjiStroke extends React.PureComponent {
   }
 }
 
-const mapStateToProps = createStructuredSelector({
-  settings: selectSettings,
+const mapStateToProps = (state) => ({
+  settings: createSelector(selectSettings, (settings) => settings.vocabulary.kanjiStroke)(state),
 });
 
 export default connect(mapStateToProps)(KanjiStroke);

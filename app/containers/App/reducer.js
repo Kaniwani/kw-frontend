@@ -5,31 +5,6 @@ import merge from 'lodash/merge';
 import union from 'lodash/union';
 import difference from 'lodash/difference';
 
-/*
- * { $push: array }
- *   push() all the items in array on the target.
- *
- * { $unshift: array }
- *   unshift() all the items in array on the target.
- *
- * { $splice: array of arrays }
- *  for each item in arrays call splice() on the target with the parameters provided by the item.
- *  Note: The items in the  array are actionslied sequentially, so the order matters.
- *  The indices of the target may change during the operation.
- *
- * { $set: any }
- *   replace the target entirely.
- *
- * { $unset: array of strings}
- * remove the list of keys in array from the target object.
- *
- * { $merge: object }
- *   shallow merge the keys of object with the target.
- *
- * { $actionsly: function }
- *   passes in the current value to the function and updates it with the new returned value.
-*/
-
 import app from './actions';
 
 const initialState = {
@@ -38,6 +13,8 @@ const initialState = {
     dashboard: {
       lessonsCount: 0,
       reviewsCount: 0,
+      nextHourReviews: 0,
+      nextDayReviews: 0,
       srsCounts: {
         apprentice: 0,
         guru: 0,
@@ -46,29 +23,15 @@ const initialState = {
         burned: 0,
       },
     },
-    // TODO: get Tadgh to update settings with new options!
-    // NOTE: move defaults to serializer once api is updated to provide them
   },
+  // TODO: get Tadgh to update settings with new options + their defaults!
+  // NOTE: update serialize/deserializer with anything missing
   settings: {
-    quiz: {
-      detail: 0, // 0-2
-      autoExpandCorrect: true,
-      autoExpandIncorrect: true,
-      autoAdvance: {
-        active: false,
-        speed: 2000,
-      },
-    },
+    quiz: {},
     vocabulary: {
       // FIXME: put expandedCards in summarysection && vocablevel reducer so all 4 can be independent
       expandedCards: false,
-      useAlcPro: false,
-      kanjiStroke: {
-        autoplay: true,
-        step: 0.01,
-        stroke: { order: { visible: false } },
-        grid: { show: true },
-      },
+      kanjiStroke: {},
     },
   },
   lessons: {
@@ -122,6 +85,10 @@ const settingsReducer = handleActions({
   [app.user.load.success]: (state, { payload }) => update(state, {
     $set: merge({}, state, payload.settings),
   }),
+  [app.settings.save.success]: (state, { payload }) => update(state, {
+    $set: merge({}, state, payload),
+  }),
+  // FIXME: move to relevant components
   [app.settings.vocabulary.expanded.toggle]: (state) => update(state, {
     vocabulary: { expandedCards: { $apply: (value) => !value } },
   }),

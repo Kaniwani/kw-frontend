@@ -24,6 +24,8 @@ const userUrl = urljoin(API_BASE, 'user'); // GET all users (if admin, else 'me'
 const userProfileUrl = urljoin(userUrl, 'me'); // GET user profile
 const userSrsUrl = urljoin(userUrl, 'srs'); // POST to get review count
 const userSyncUrl = urljoin(userUrl, 'sync'); // POST to sync with WK
+const userResetUrl = urljoin(userUrl, 'reset'); // POST to reset KW SRS progress
+const userSettingsUrl = (id) => urljoin(API_BASE, 'profile', id); // PUT to partial update
 
 //-----------------------------------------------------------------------------
 //  REVIEWS
@@ -92,6 +94,8 @@ export const confirmPassword = () => post(confirmPasswordUrl); // finish reset p
 //-----------------------------------------------------------------------------
 export const getUsers = () => get(userUrl);
 export const getUserProfile = () => get(userProfileUrl);
+export const saveSettings = ({ id, settings }) => patch(userSettingsUrl(id), { id, ...settings });
+export const resetProgress = () => post(userResetUrl);
 export const syncKw = () => post(userSrsUrl);
 // true to force ALL users to sync with WK
 export const syncWk = ({ fullSync = false } = {}) => post(userSyncUrl, { full_sync: fullSync });

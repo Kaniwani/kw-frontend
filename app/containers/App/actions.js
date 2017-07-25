@@ -19,6 +19,8 @@ const ASYNC = {
 export const { app } = createActions({
   APP: {
     SETTINGS: {
+      RESET_PROGRESS: ASYNC,
+      SAVE: ASYNC,
       // FIXME: put expandedCards in summarysection && vocablevel reducer so all 4 can be independent
       VOCABULARY: {
         EXPANDED: {
