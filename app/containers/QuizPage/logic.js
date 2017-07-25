@@ -194,7 +194,7 @@ export const recordAnswerLogic = createLogic({
     failType: quiz.answer.record.failure,
   },
 
-  process({ action: { payload: { category, id, isCorrect, isIncorrect, previouslyIncorrect, autoAdvance } } }, dispatch, done) {
+  process({ action: { payload: { category, id, isCorrect, previouslyIncorrect } } }, dispatch, done) {
     clearTimeout(autoAdvanceTimeout);
     dispatch(app[category][isCorrect ? 'correct' : 'incorrect'].add(id));
     dispatch(app[category].current.set());

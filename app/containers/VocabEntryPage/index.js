@@ -9,6 +9,8 @@ import PageWrapper from 'base/PageWrapper';
 import VocabEntry from 'components/VocabEntry';
 import VocabEntryDetail from 'components/VocabEntryDetail';
 
+import Debug from 'utils/Debug';
+
 export class VocabEntryPage extends React.Component {
   static propTypes = {
     loadReview: PropTypes.func.isRequired,
@@ -33,6 +35,7 @@ export class VocabEntryPage extends React.Component {
         </Helmet>
         <PageWrapper>
           <VocabEntry id={id} review={review} />
+          {review && <Debug value={review} />}
           <VocabEntryDetail id={id} />
         </PageWrapper>
       </div>
