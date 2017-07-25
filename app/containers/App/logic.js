@@ -149,15 +149,10 @@ const reloadQueueCountsLogic = createLogic({
     app.settings.save.success,
   ],
   latest: true,
-  processOptions: {
-    successType: app.user.load.success,
-    failType: app.user.load.failure,
-  },
-
-  process() {
+  process(_, dispatch, done) {
     console.info('Reloading queue counts');
-    return api.getUserProfile()
-      .then((res) => serializeUserResponse(res));
+    dispatch(app.user.load.request());
+    done();
   },
 });
 
