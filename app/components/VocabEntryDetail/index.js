@@ -15,33 +15,14 @@ import P from 'base/P';
 import StreakIcon from 'components/StreakIcon';
 
 VocabEntryDetail.propTypes = {
-  review: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    notes: PropTypes.string.isRequired,
-    synonyms: PropTypes.array.isRequired,
-    vocabulary: PropTypes.object.isRequired,
-    isReviewReady: PropTypes.bool.isRequired,
-    lastReviewDate: PropTypes.instanceOf(Date).isRequired,
-    unlockDate: PropTypes.instanceOf(Date).isRequired,
-    nextReviewDate: PropTypes.instanceOf(Date).isRequired,
-    isHidden: PropTypes.bool.isRequired,
-    isCritical: PropTypes.bool.isRequired,
-    isBurned: PropTypes.bool.isRequired,
-    correct: PropTypes.number.isRequired,
-    incorrect: PropTypes.number.isRequired,
-    streak: PropTypes.number.isRequired,
-    wk: PropTypes.shape({
-      isBurned: PropTypes.bool.isRequired,
-      streakName: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
+  review: PropTypes.object.isRequired,
 };
-
 
 const Burned = H3.extend`
   display: inline-block;
   color: tomato;
 `;
+
 const Critical = H3.extend`
   display: inline-block;
   color: crimson;
@@ -80,11 +61,6 @@ function VocabEntryDetail({ review }) {
       <P><code>review.incorrect</code>:<BoldH> 3</BoldH></P>
       <P><code>correctness(correct, incorrect)</code> <BoldH>{correctness(2, 4)}</BoldH></P>
       <P><BoldH>or if</BoldH> <code>correctness(0, 0)</code> <BoldH>{correctness(0, 0)}</BoldH></P>
-      <P>
-        <code>review.notes && </code>
-        <BoldH>“This item has user notes on KW like this.
-          Probably just a single text string that is limited to 500 chars or so.”</BoldH>
-      </P>
     </div>
   );
 }

@@ -82,7 +82,7 @@ export const Wrapper = styled.li`
     & ${Button} {
       opacity: 1;
       color: ${blueLight} !important;
-      animation: ${spin} 1s linear infinite !important;
+      animation: ${spin} 1.5s linear infinite !important;
     }
   `}
 `;

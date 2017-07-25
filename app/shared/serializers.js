@@ -27,6 +27,8 @@ export const serializeLevelResponse = ({ id, results }) => {
 };
 
 
+// TODO: extract utils to nested ./file with tests
+
 // Add 'Common'|'Uncommon' and JLPT rank to tags list
 const combineTags = ({ tags, jlpt, common }) => {
   const newTags = [common ? 'Common' : 'Uncommon', ...tags];
@@ -81,21 +83,23 @@ function serializeUser({
 }
 
 function serializeProfile({
-  email,
+  id,
   name,
+  email,
   api_key: apiKey,
   api_valid,
-  level,
   join_date: joinDate,
+  level,
   unlocked_levels: unlockedLevels,
 } = {}) {
   return {
+    id,
     name,
     email,
     apiKey,
     isApiValid: !!api_valid,
-    currentLevel: +level,
     joinDate: dateOrNull(joinDate),
+    currentLevel: +level,
     unlockedLevels: unlockedLevels.map(Number),
   };
 }
@@ -113,43 +117,96 @@ function serializeDashboard({
   lessons_count: lessonsCount = 0,
   reviews_within_hour_count: nextHourReviews = 0,
   reviews_within_day_count: nextDayReviews = 0,
-  last_wanikani_sync_date: lastWkSyncDate = null,
+  next_review_date: nextReviewDate,
+  last_wanikani_sync_date: lastWkSyncDate,
   srs_counts: srsCounts = ranksWithZeroCount,
+  vacation_date: vacationDate,
 } = {}) {
   return {
     reviewsCount: +reviewsCount,
     lessonsCount: +lessonsCount,
     nextHourReviews: +nextHourReviews,
     nextDayReviews: +nextDayReviews,
+    nextReviewDate: dateOrNull(nextReviewDate),
+    vacationDate: dateOrNull(vacationDate),
     lastWkSyncDate: dateOrNull(lastWkSyncDate),
     srsCounts: coerceValsToNumber(upcaseKeys(srsCounts)),
   };
 }
 
 function serializeSettings({
-  follow_me: followMe,
-  auto_advance_on_success: autoAdvanceCorrect,
-  auto_advance_speed: autoAdvanceSpeed,
-  auto_expand_answer_on_success: autoExpandCorrect,
-  auto_expand_answer_on_failure: autoExpandIncorrect,
-  minimum_wk_srs_level_to_review: minimumSrsToReview,
-  on_vacation: onVacation,
-  vacation_date: vacationDate,
+  on_vacation: onVacation = false,
+  follow_me: followMe = true,
+  auto_advance_on_success: autoAdvanceCorrect = false,
+  auto_advance_speed: autoAdvanceSpeed = 2000,
+  auto_expand_answer_on_success: autoExpandCorrect = true,
+  auto_expand_answer_on_failure: autoExpandIncorrect = true,
+  minimum_wk_srs_level_to_review: minimumSrsToReview = SRS_RANKS.ONE,
+  use_alc_pro_link: useAlcPro = false,
+  kanji_svg_autoplay = false,
+  kanji_svg_step_speed = 0.01,
+  kanji_svg_show_strokes = false,
+  kanji_svg_show_grid = false,
 } = {}) {
   return {
-    followMe,
-    minimumSrsToReview,
-    onVacation,
-    vacationDate: dateOrNull(vacationDate),
     quiz: {
-      // FIXME: revert to vars!
-      autoExpandCorrect: true,
-      autoExpandIncorrect: true,
+      onVacation,
+      minimumSrsToReview,
+      autoExpandCorrect,
+      autoExpandIncorrect,
       autoAdvance: {
         active: autoAdvanceCorrect,
         speed: autoAdvanceSpeed,
       },
     },
+    vocabulary: {
+      followMe,
+      useAlcPro,
+      kanjiStroke: {
+        autoplay: kanji_svg_autoplay,
+        step: kanji_svg_step_speed,
+        stroke: { order: { visible: kanji_svg_show_strokes } },
+        grid: { show: kanji_svg_show_grid },
+      },
+    },
+  };
+}
+
+export function deserializeSettings({
+  quiz: {
+    onVacation: on_vacation,
+    minimumSrsToReview: minimum_wk_srs_level_to_review,
+    autoExpandCorrect: auto_expand_answer_on_success,
+    autoExpandIncorrect: auto_expand_answer_on_failure,
+    autoAdvance: {
+      active: auto_advance_on_success,
+      speed: auto_advance_speed,
+    },
+  },
+  vocabulary: {
+    followMe: follow_me,
+    useAlcPro: use_alc_pro_link,
+    kanjiStroke: {
+      autoplay: kanji_svg_autoplay,
+      step: kanji_svg_step_speed,
+      stroke: { order: { visible: kanji_svg_show_strokes } },
+      grid: { show: kanji_svg_show_grid },
+    },
+  },
+} = {}) {
+  return {
+    follow_me,
+    on_vacation,
+    minimum_wk_srs_level_to_review,
+    auto_expand_answer_on_success,
+    auto_expand_answer_on_failure,
+    auto_advance_on_success,
+    auto_advance_speed,
+    use_alc_pro_link,
+    kanji_svg_autoplay,
+    kanji_svg_step_speed,
+    kanji_svg_show_strokes,
+    kanji_svg_show_grid,
   };
 }
 

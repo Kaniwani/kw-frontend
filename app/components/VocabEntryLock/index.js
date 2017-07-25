@@ -18,6 +18,8 @@ VocabEntryLock.defaultProps = {
   isHidden: false,
 };
 
+// TODO: make the whole wrapper the button
+// and the lockbutton just a normal icon instead of reusing level lock button
 function VocabEntryLock({ isHidden, handleClick, ...props }) {
   return (
     <Wrapper>

@@ -13,7 +13,7 @@ import {
 
 import { selectAnswerDisabled, selectBackup } from 'containers/QuizPage/selectors';
 
-import LoadingIndicator from 'components/LoadingIndicator';
+import LoadingCrabigator from 'components/LoadingCrabigator';
 
 import {
   Wrapper,
@@ -88,7 +88,7 @@ const enhance = compose(
   connect(mapStateToProps),
   branch(
     ({ meanings, readings }) => !meanings.length || !readings.length,
-    renderComponent(LoadingIndicator)
+    renderComponent(LoadingCrabigator)
   ),
 );
 

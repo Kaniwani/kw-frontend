@@ -50,6 +50,9 @@ export class QuizAnswer extends React.PureComponent {
     }
   }
 
+  // TODO: could use redux-form like JapaneseInput
+  // to normalize values and mark colors etc before even getting to submitAnswer()
+  // should simplify logic a bit
   handleInput = (event) => {
     const { updateAnswer } = this.props;
     const value = toKana(event.target.value.toLowerCase(), { IMEMode: true });

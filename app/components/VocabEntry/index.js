@@ -6,7 +6,6 @@ import VocabEntryMeanings from 'components/VocabEntryMeanings';
 import VocabEntryReadings from 'components/VocabEntryReadings';
 import VocabEntrySynonyms from 'components/VocabEntrySynonyms';
 import VocabEntryNotes from 'components/VocabEntryNotes';
-import VocabEntryLock from 'components/VocabEntryLock';
 import AddSynonym from 'components/AddSynonym';
 
 import { Wrapper, MeaningsWrapper, SynonymsWrapper } from './styles';
@@ -20,11 +19,10 @@ function VocabEntry({ id }) {
     <Wrapper>
       <MeaningsWrapper>
         <VocabEntryMeanings id={id} />
-        <VocabEntryLock id={id} />
       </MeaningsWrapper>
       <VocabEntryReadings id={id} />
       <SynonymsWrapper>
-        <AddSynonym id={id} answerValue="" answerType="" />
+        <AddSynonym id={id} />
         <VocabEntrySynonyms id={id} />
       </SynonymsWrapper>
       <VocabEntryNotes id={id} />

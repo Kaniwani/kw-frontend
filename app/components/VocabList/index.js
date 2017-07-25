@@ -1,7 +1,7 @@
 import React from 'react';
 import { compose, branch, renderComponent } from 'recompose';
 
-import LoadingIndicator from 'components/LoadingIndicator';
+import LoadingCrabigator from 'components/LoadingCrabigator';
 import VocabCardList from 'components/VocabCardList';
 import VocabChipList from 'components/VocabChipList';
 
@@ -10,7 +10,7 @@ const expandedCards = ({ isExpanded }) => isExpanded;
 const enhance = compose(
   branch(
     noIds,
-    renderComponent(LoadingIndicator),
+    renderComponent(LoadingCrabigator),
     branch(
       expandedCards,
       renderComponent(VocabCardList),
