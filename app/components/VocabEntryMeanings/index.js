@@ -7,7 +7,7 @@ import { makeSelectReviewMeanings } from 'containers/App/selectors';
 import P from 'base/P';
 import VocabEntryLock from 'components/VocabEntryLock';
 
-import { Wrapper, Primary } from './styles';
+import { Wrapper, Primary, PrimaryText } from './styles';
 
 VocabEntryMeanings.propTypes = {
   meanings: PropTypes.array.isRequired,
@@ -18,7 +18,10 @@ function VocabEntryMeanings({ id, meanings }) {
   const [first, ...rest] = meanings;
   return (
     <Wrapper>
-      <Primary>{first}<VocabEntryLock id={id} /></Primary>
+      <Primary>
+        <PrimaryText>{first}</PrimaryText>
+        <VocabEntryLock id={id} />
+      </Primary>
       {rest.length > 0 && <P>{rest.join(', ')}</P>}
     </Wrapper>
   );

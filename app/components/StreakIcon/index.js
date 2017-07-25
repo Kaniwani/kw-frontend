@@ -3,11 +3,16 @@ import PropTypes from 'prop-types';
 import titleCase from 'voca/title_case';
 import { onlyUpdateForKeys } from 'recompose';
 
-import Icon from 'components/Icon';
 import { SRS_RANKS } from 'shared/constants';
+import getSrsRankName from 'utils/getSrsRankName';
+import Icon from 'components/Icon';
 
 StreakIcon.propTypes = {
-  streakName: PropTypes.oneOf(Object.values(SRS_RANKS)).isRequired,
+  streakName: PropTypes.oneOf(Object.values(SRS_RANKS)),
+};
+
+StreakIcon.defaultProps = {
+  streakName: getSrsRankName(SRS_RANKS.ONE),
 };
 
 const enhance = onlyUpdateForKeys(['streakName']);

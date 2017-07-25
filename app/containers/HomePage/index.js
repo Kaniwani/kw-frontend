@@ -15,6 +15,8 @@ import H4 from 'base/H4';
 import SrsDonut from 'components/SrsDonut';
 
 import PageWrapper from 'base/PageWrapper';
+import Debug from 'utils/Debug';
+
 import {
   selectProfile,
   selectDashboard,
@@ -45,6 +47,8 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
             <SrsDonut />
           </Element>
         </Container>
+        <Debug value={profile} />
+        <Debug value={dashboard} />
       </PageWrapper>
     );
   }

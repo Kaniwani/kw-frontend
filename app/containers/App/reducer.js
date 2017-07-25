@@ -15,13 +15,7 @@ const initialState = {
       reviewsCount: 0,
       nextHourReviews: 0,
       nextDayReviews: 0,
-      srsCounts: {
-        apprentice: 0,
-        guru: 0,
-        master: 0,
-        enlightened: 0,
-        burned: 0,
-      },
+      srsCounts: {},
     },
   },
   // TODO: get Tadgh to update settings with new options + their defaults!

@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { rgba } from 'polished';
 
-import { Ul as ReadingsUl, Li, ReadingContent } from 'components/VocabEntryReadings/styles';
+import { Ul as ReadingsUl, Li, ReadingContent, StrokeLoader } from 'components/VocabEntryReadings/styles';
 import { Heading as SynonymHeader, Wrapper as SynonymsWrapper, Ul as Synonyms } from 'components/VocabEntrySynonyms/styles';
 import { Wrapper as Reading } from 'components/Reading/styles';
 import { Wrapper as ReadingHeader } from 'components/ReadingHeader/styles';
@@ -57,6 +57,10 @@ export const PanelWrapper = styled.div`
     justify-content: center;
   }
 
+  & ${StrokeLoader} {
+    align-self: center;
+  }
+
   & ${ReadingsUl} {
     text-align: center;
 
@@ -64,7 +68,7 @@ export const PanelWrapper = styled.div`
       align-items: center;
     }
 
-    ${({ detailLevel }) => detailLevel < 1 && css`
+    ${({ detailLevel }) => detailLevel <= 1 && css`
       display: flex;
       flex-flow: row wrap;
       justify-content: center;
@@ -74,7 +78,7 @@ export const PanelWrapper = styled.div`
       }
     `}
 
-    ${({ detailLevel }) => detailLevel >= 1 && css`
+    ${({ detailLevel }) => detailLevel > 1 && css`
       & ${Li}:not(:first-child) {
         ${dashedTopBorder}
       }

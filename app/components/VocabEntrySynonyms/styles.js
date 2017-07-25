@@ -15,10 +15,15 @@ export const Wrapper = styled.div`
   align-items: center;
 `;
 
-export const Heading = H3.extend`
-  ${gutter({ type: 'outer' })}
-  margin: 0;
+export const Heading = styled.div`
+  ${gutter()}
+  display: flex;
+  flex-flow: row wrap;
   align-self: flex-start;
+`;
+
+export const HeadingText = H3.extend`
+  margin: 0;
   opacity: .8;
   text-align: left;
   flex: 0 0 auto;

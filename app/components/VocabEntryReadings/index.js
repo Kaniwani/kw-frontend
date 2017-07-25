@@ -14,15 +14,12 @@ VocabEntryReadings.propTypes = {
   readings: PropTypes.array.isRequired,
   id: PropTypes.number.isRequired,
   showLock: PropTypes.bool,
-  detailLevel: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.number,
-  ]),
+  detailLevel: PropTypes.number,
 };
 
 VocabEntryReadings.defaultProps = {
   showLock: false,
-  detailLevel: true,
+  detailLevel: 2,
 };
 
 

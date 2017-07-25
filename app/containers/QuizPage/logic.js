@@ -102,14 +102,14 @@ export const checkAnswerLogic = createLogic({
       dispatch(quiz.answer.update({ ...updatedAnswer, value: matchedAnswer, isCorrect: true }));
       dispatch(quiz.answer.correct({ review, category }));
       if (autoExpandCorrect && autoAdvance.speed > 0) {
-        dispatch(quiz.info.update({ activePanel: 'INFO', isDisabled: false }));
+        dispatch(quiz.info.update({ activePanel: 'INFO', isDisabled: false, detailLevel: 1 }));
       }
     }
 
     if (!matchedAnswer) {
       dispatch(quiz.answer.update({ ...updatedAnswer, isIncorrect: true }));
       if (autoExpandIncorrect) {
-        dispatch(quiz.info.update({ activePanel: 'INFO', isDisabled: false }));
+        dispatch(quiz.info.update({ activePanel: 'INFO', isDisabled: false, detailLevel: 0 }));
       }
       if (previouslyIncorrect) {
         dispatch(quiz.answer.incorrect({ review }));

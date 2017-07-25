@@ -6,17 +6,19 @@ import { Wrapper, Character, Kana } from './styles';
 Reading.propTypes = {
   character: PropTypes.string,
   kana: PropTypes.arrayOf(PropTypes.string),
+  detailLevel: PropTypes.number,
 };
 
 Reading.defaultProps = {
   character: '',
   kana: [],
+  detailLevel: 2,
 };
 
-function Reading({ character, kana }) {
+function Reading({ character, kana, detailLevel }) {
   return (
     <Wrapper>
-      <Kana>{kana.join('・')}</Kana>
+      {detailLevel >= 1 && <Kana>{kana.join('・')}</Kana>}
       <Character>{character}</Character>
     </Wrapper>
   );

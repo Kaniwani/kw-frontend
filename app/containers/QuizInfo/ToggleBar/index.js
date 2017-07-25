@@ -38,6 +38,12 @@ class ToggleBar extends React.Component {
   };
   onSynonymClick = () => this.props.updateInfo({ activePanel: 'SYNONYM' });
 
+  detailLevelName = (level) => {
+    if (level === 0) return 'LOW';
+    if (level === 1) return 'MID';
+    return 'HIGH';
+  }
+
   render() {
     const { activePanel, detailLevel } = this.props;
     return (
@@ -48,7 +54,7 @@ class ToggleBar extends React.Component {
           isActive={activePanel === 'INFO'}
           handleClick={this.onInfoClick}
         >
-          {`Info: ${detailLevel ? 'HIGH' : 'LOW'}`}
+          {`Info: ${this.detailLevelName(detailLevel)}`}
         </Toggle>
         <Toggle isActive={activePanel === 'SYNONYM'} handleClick={this.onSynonymClick}>Add Synonym</Toggle>
       </Wrapper>

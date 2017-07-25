@@ -23,8 +23,18 @@ const initialState = {
   },
 };
 
+/**
+ * Rotates through numbers without going above max depth
+ * @param  {Number} [level=0] level number
+ * @return {Number} Previous level incremented by 1 || 0 if above max depth
+ */
+function getRotatedLevel(level = 0) {
+  const newLevel = level + 1;
+  return newLevel > 2 ? 0 : newLevel;
+}
+
 const infoReducer = handleActions({
-  [quiz.info.cycledetail]: (state) => merge({}, state, { detailLevel: state.detailLevel ? 0 : 1 }),
+  [quiz.info.cycledetail]: (state) => merge({}, state, { detailLevel: getRotatedLevel(state.detailLevel) }),
   [quiz.info.update]: (state, { payload }) => merge({}, state, payload),
   [quiz.info.reset]: () => initialState.info,
 }, initialState.info);

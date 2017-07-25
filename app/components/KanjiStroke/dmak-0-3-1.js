@@ -13,8 +13,8 @@ const defaultOptions = {
   uri: 'http://kanjivg.tagaini.net/kanjivg/kanji/',
   skipLoad: false,
   autoplay: false,
-  height: 150,
-  width: 150,
+  height: 200,
+  width: 200,
   viewBox: {
     x: 0,
     y: 0,

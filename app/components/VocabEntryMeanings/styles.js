@@ -7,6 +7,7 @@ import { gutter } from 'shared/styles/layout';
 import { epsilon } from 'shared/styles/typography';
 
 export const Primary = styled(H1)``;
+export const PrimaryText = styled.div``;
 
 export const Wrapper = styled.div`
   ${gutter()}
@@ -14,6 +15,7 @@ export const Wrapper = styled.div`
 
   & ${Primary} {
     display: flex;
+    align-items: center;
   }
 
   & ${VocabEntryLock} {

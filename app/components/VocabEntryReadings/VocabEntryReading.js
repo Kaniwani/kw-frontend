@@ -9,7 +9,7 @@ import Reading from 'components/Reading';
 import IconButton from 'components/IconButton';
 import KanjiStroke from 'components/KanjiStroke';
 
-import { Li, ReadingContent } from './styles';
+import { Li, ReadingContent, StrokeLoader } from './styles';
 
 // prevent xhr if not rendered
 const renderKanjiStroke = (character) => <KanjiStroke character={character} />;
@@ -43,22 +43,22 @@ function VocabEntryReading({
 }) {
   return (
     <Li>
-      {detailLevel >= 1 && <ReadingHeader showLock={showLock && index === 0} id={id} character={character} tags={tags} />}
-      {detailLevel >= 1 && <VocabEntryLinks character={character} />}
+      {detailLevel > 1 && <ReadingHeader showLock={showLock && index === 0} id={id} character={character} tags={tags} />}
+      {detailLevel > 1 && <VocabEntryLinks character={character} />}
       <ReadingContent>
-        <Reading character={character} kana={kana} />
-        {detailLevel >= 1 && <SentencePair
+        <Reading character={character} kana={kana} detailLevel={detailLevel} />
+        {detailLevel > 1 && <SentencePair
           sentenceEn={sentenceEn}
           sentenceJa={sentenceJa}
           character={character}
           kana={kana}
         />}
       </ReadingContent>
-      {detailLevel >= 1 && (
-      <div>
+      {detailLevel > 1 && (
+      <StrokeLoader>
         {!showKanjiSvg && <IconButton name="BRUSH" title="View stroke diagram" size="1.8em" handleClick={toggleKanjiSvg} />}
         {showKanjiSvg && renderKanjiStroke(character)}
-      </div>
+      </StrokeLoader>
     )}
     </Li>
   );
