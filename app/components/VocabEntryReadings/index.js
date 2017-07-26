@@ -22,7 +22,6 @@ VocabEntryReadings.defaultProps = {
   detailLevel: 2,
 };
 
-
 function VocabEntryReadings({ readings, ...props }) {
   return (
     <Ul>

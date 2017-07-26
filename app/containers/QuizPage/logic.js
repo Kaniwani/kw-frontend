@@ -15,9 +15,12 @@ import app from 'containers/App/actions';
 import {
   selectPreviouslyIncorrect,
   selectCurrentId,
+  selectQuizSettings,
+  selectQueue,
+  selectRemainingCount,
+  selectCompleteCount,
   makeSelectReview,
   makeSelectReviewNotes,
-  selectQuizSettings,
  } from 'containers/App/selectors';
 
 import quiz from './actions';
@@ -202,8 +205,28 @@ export const recordAnswerLogic = createLogic({
     dispatch(quiz.answer.reset());
     dispatch(quiz.info.reset());
     return recordReview({ id, isCorrect, previouslyIncorrect })
-      .then(() => { done(); })
+      .then(() => {
+        dispatch(quiz.answer.record.success({ isCorrect, category }));
+        done();
+      })
       .catch((err) => err);
+  },
+});
+
+export const loadMoreQueueLogic = createLogic({
+  type: quiz.answer.record.success,
+  process({ getState, action: { payload: { isCorrect, category } } }, dispatch, done) {
+    if (isCorrect) {
+      const state = getState();
+      const queue = selectQueue(state, { category });
+      const remainingCount = selectRemainingCount(state, { category });
+      const completeCount = selectCompleteCount(state, { category });
+      const loadMoreQueue = remainingCount > queue.length;
+      if (loadMoreQueue) {
+        dispatch(app[category].queue.load.request({ offset: completeCount }));
+      }
+    }
+    done();
   },
 });
 
@@ -225,4 +248,5 @@ export default [
   correctAnswerLogic,
   recordAnswerLogic,
   autoAdvanceLogic,
+  loadMoreQueueLogic,
 ];

@@ -2,7 +2,6 @@ import { createLogic } from 'redux-logic';
 import { reset } from 'redux-form';
 import sample from 'lodash/sample';
 import difference from 'lodash/difference';
-import titleCase from 'voca/title_case';
 // TODO: inject some of these as dependencies instead?
 import * as api from 'shared/api';
 
@@ -19,12 +18,7 @@ import {
 import * as sel from './selectors';
 import app from './actions';
 
-// ensure we don't get same current item unless it's the only remaining item
-function getNewIdFromQueue(current, queue) {
-  return queue.length > 1 ? sample(difference(queue, [current])) : current;
-}
-
-const userLoadLogic = createLogic({
+export const userLoadLogic = createLogic({
   type: app.user.load.request,
   cancelType: app.user.load.cancel,
   warnTimeout: 10000,
@@ -40,7 +34,7 @@ const userLoadLogic = createLogic({
   },
 });
 
-const loadQueuesIfNeededLogic = createLogic({
+export const loadQueuesIfNeededLogic = createLogic({
   type: app.user.load.success,
   latest: true,
   process({ getState, action }, dispatch, done) {
@@ -58,7 +52,6 @@ export const reviewsQueueLoadLogic = createLogic({
   type: app.reviews.queue.load.request,
   cancelType: app.reviews.queue.load.cancel,
   warnTimeout: 8000,
-  // throttle: 10000,
   latest: true,
 
   processOptions: {
@@ -66,8 +59,8 @@ export const reviewsQueueLoadLogic = createLogic({
     failType: app.reviews.queue.load.failure,
   },
 
-  process() {
-    return api.getCurrentReviews()
+  process({ action: { payload } }) {
+    return api.getCurrentReviews(payload)
       .then((res) => serializeQueueResponse(res));
   },
 });
@@ -76,7 +69,6 @@ export const lessonsQueueLoadLogic = createLogic({
   type: app.lessons.queue.load.request,
   cancelType: app.lessons.queue.load.cancel,
   warnTimeout: 8000,
-  // throttle: 10000,
   latest: true,
 
   processOptions: {
@@ -84,22 +76,19 @@ export const lessonsQueueLoadLogic = createLogic({
     failType: app.lessons.queue.load.failure,
   },
 
-  process() {
-    return api.getCurrentLessons()
+  process({ action: { payload } }) {
+    return api.getCurrentLessons(payload)
       .then((res) => serializeQueueResponse(res));
   },
 });
 
-const setCurrentOnQueueLoadLogic = createLogic({
+export const setCurrentOnQueueLoadLogic = createLogic({
   type: [app.reviews.queue.load.success, app.lessons.queue.load.success],
-  latest: true,
   process({ getState, action: { type } }, dispatch, done) {
-    const category = (type === app.reviews.queue.load.success ? 'reviews' : 'lessons');
-    const action = app[category].current.set;
-    const { current, queue } = sel[`select${titleCase(category)}`](getState());
-
+    const category = type === `${app.reviews.queue.load.success}` ? 'reviews' : 'lessons';
+    const { current, queue } = sel.selectSession(getState(), { category });
     if (!current && queue.length) {
-      dispatch(action());
+      dispatch(app[category].current.set());
     } else {
       console.log(`Already have current ${category}: `, { current, queue });
     }
@@ -107,20 +96,17 @@ const setCurrentOnQueueLoadLogic = createLogic({
   },
 });
 
-const setCurrentLogic = createLogic({
+export const setCurrentLogic = createLogic({
   type: [app.reviews.current.set, app.lessons.current.set],
   transform({ getState, action }, next) {
     const state = getState();
-    const { current, queue } = (
-      action.type === `${app.reviews.current.set}` ?
-        sel.selectReviews(state) :
-        sel.selectLessons(state)
-      );
-    next({ ...action, payload: getNewIdFromQueue(current, queue) });
+    const category = action.type === `${app.reviews.current.set}` ? 'reviews' : 'lessons';
+    const { current, queue } = sel.selectSession(state, { category });
+    next({ ...action, payload: sample(difference(queue, [current])) || false });
   },
 });
 
-const returnCurrentLogic = createLogic({
+export const returnCurrentLogic = createLogic({
   type: [app.reviews.current.return, app.lessons.current.return],
   validate({ getState, action }, allow, reject) {
     const state = getState();
@@ -129,20 +115,17 @@ const returnCurrentLogic = createLogic({
         sel.selectReviews(state) :
         sel.selectLessons(state)
       );
-    let newId = current;
-    if (queue.length > 1) {
-      newId = sample(difference(queue, [current]));
+    const newId = sample(difference(queue, [current]));
+    if (newId) {
       allow({ ...action, payload: newId });
     } else {
-      // TODO: something something if queue and current both empty navigate to sessionsummary?
-      // should happen automatically when routing really
       console.log('Rejected returning current - no other queue items', { queue, current, newId });
       reject();
     }
   },
 });
 
-const reloadQueueCountsLogic = createLogic({
+export const reloadQueueCountsLogic = createLogic({
   type: [
     app.level.lock.success,
     app.level.unlock.success,
@@ -156,7 +139,7 @@ const reloadQueueCountsLogic = createLogic({
   },
 });
 
-const levelsLoadLogic = createLogic({
+export const levelsLoadLogic = createLogic({
   type: app.levels.load.request,
   cancelType: app.levels.load.cancel,
   throttle: 60000,
@@ -173,7 +156,7 @@ const levelsLoadLogic = createLogic({
   },
 });
 
-const levelLockLogic = createLogic({
+export const levelLockLogic = createLogic({
   type: app.level.lock.request,
   cancelType: app.level.lock.cancel,
   warnTimeout: 10000,
@@ -188,7 +171,7 @@ const levelLockLogic = createLogic({
   },
 });
 
-const levelUnlockLogic = createLogic({
+export const levelUnlockLogic = createLogic({
   type: app.level.unlock.request,
   cancelType: app.level.unlock.cancel,
   warnTimeout: 10000,
@@ -214,7 +197,7 @@ const levelUnlockLogic = createLogic({
   },
 });
 
-const reviewLoadLogic = createLogic({
+export const reviewLoadLogic = createLogic({
   type: app.review.load.request,
   cancelType: app.review.load.cancel,
   warnTimeout: 10000,
@@ -230,7 +213,7 @@ const reviewLoadLogic = createLogic({
   },
 });
 
-const reviewLockLogic = createLogic({
+export const reviewLockLogic = createLogic({
   type: app.review.lock.request,
   cancelType: app.review.lock.cancel,
   warnTimeout: 10000,
@@ -246,7 +229,7 @@ const reviewLockLogic = createLogic({
   },
 });
 
-const reviewUnlockLogic = createLogic({
+export const reviewUnlockLogic = createLogic({
   type: app.review.unlock.request,
   cancelType: app.review.unlock.cancel,
   warnTimeout: 10000,
@@ -262,7 +245,7 @@ const reviewUnlockLogic = createLogic({
   },
 });
 
-const reviewNotesLogic = createLogic({
+export const reviewNotesLogic = createLogic({
   type: app.review.notes.request,
   warnTimeout: 10000,
   latest: true,
@@ -276,7 +259,7 @@ const reviewNotesLogic = createLogic({
   },
 });
 
-const addSynonymLogic = createLogic({
+export const addSynonymLogic = createLogic({
   type: app.review.synonym.add.request,
   warnTimeout: 10000,
   latest: true,
@@ -291,7 +274,7 @@ const addSynonymLogic = createLogic({
   },
 });
 
-const removeSynonymLogic = createLogic({
+export const removeSynonymLogic = createLogic({
   type: app.review.synonym.remove.request,
   cancelType: app.review.synonym.remove.cancel,
   warnTimeout: 10000,
@@ -307,7 +290,7 @@ const removeSynonymLogic = createLogic({
   },
 });
 
-const resetSynonymFormLogic = createLogic({
+export const resetSynonymFormLogic = createLogic({
   type: app.review.synonym.add.success,
   warnTimeout: 10000,
   latest: true,
@@ -318,8 +301,7 @@ const resetSynonymFormLogic = createLogic({
   },
 });
 
-
-const levelLoadLogic = createLogic({
+export const levelLoadLogic = createLogic({
   type: app.level.load.request,
   cancelType: app.level.load.cancel,
   warnTimeout: 10000,

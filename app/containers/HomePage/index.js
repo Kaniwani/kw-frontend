@@ -41,6 +41,7 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
             <H1>{profile.name}</H1>
             <H3>Next Hour: {dashboard.nextHourReviews}</H3>
             <H3>Next Day: {dashboard.nextDayReviews}</H3>
+            <H4>Next Review Session: {format(dashboard.nextReviewDate, DATE_IN_WORDS)}</H4>
             <H4>Last Sync with WK: {format(dashboard.lastWkSyncDate, DATE_IN_WORDS)}</H4>
           </Element>
           <Element flex="1 0 50%">

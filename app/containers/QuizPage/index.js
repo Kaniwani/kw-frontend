@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { HotKeys } from 'react-hotkeys';
 import titleCase from 'voca/title_case';
 import { compose, withHandlers } from 'recompose';
 
 import quiz from 'containers/QuizPage/actions';
-import { selectCategoryFromMatch } from 'containers/App/selectors';
+import { selectCategoryFromMatch, selectRemainingCount, selectCurrentId } from 'containers/App/selectors';
 import { selectAnswerDisabled } from 'containers/QuizPage/selectors';
 
 import backgroundImage from 'shared/assets/img/reviews.svg';
@@ -26,6 +27,8 @@ QuizPage.propTypes = {
   showNotes: PropTypes.func.isRequired,
   showInfo: PropTypes.func.isRequired,
   showSynonym: PropTypes.func.isRequired,
+  remainingCount: PropTypes.number.isRequired,
+  current: PropTypes.number.isRequired,
 };
 
 const keyMap = {
@@ -55,6 +58,8 @@ function QuizPage({
   showNotes,
   showInfo,
   showSynonym,
+  remainingCount,
+  current,
 }) {
   const title = `${titleCase(category)} Session`;
 
@@ -72,6 +77,10 @@ function QuizPage({
     ),
   };
 
+  if (remainingCount < 1 && !current) {
+    return <Redirect to={`/${category}`} />;
+  }
+
   return (
     <div>
       <Helmet>
@@ -85,7 +94,6 @@ function QuizPage({
             <QuizQuestion category={category} />
           </Upper>
           <Lower>
-            {/* <ReviewAnswerContainer category={category} /> */}
             <QuizAnswer category={category} />
             <QuizInfo category={category} />
             <Background imgSrc={backgroundImage} />
@@ -96,10 +104,15 @@ function QuizPage({
   );
 }
 
-const mapStateToProps = (state, props) => ({
-  category: selectCategoryFromMatch(props),
-  answerDisabled: selectAnswerDisabled(state),
-});
+const mapStateToProps = (state, props) => {
+  const category = selectCategoryFromMatch(props);
+  return {
+    category,
+    answerDisabled: selectAnswerDisabled(state),
+    remainingCount: selectRemainingCount(state, { category }),
+    current: selectCurrentId(state, { category }),
+  };
+};
 
 const mapDispatchToProps = {
   recordAnswer: quiz.answer.submit, // will fall through to record logic with modified payload
