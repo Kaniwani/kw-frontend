@@ -4,10 +4,6 @@ import IconButton from 'components/IconButton';
 
 import { gutter } from 'shared/styles/layout';
 
-export const Wrapper = styled.div`
-  ${gutter()}
-`;
-
 export const Canvas = styled.div`
   ${gutter()}
   min-height: 210px;
@@ -15,6 +11,8 @@ export const Canvas = styled.div`
 
 export const Controls = styled.div`
   ${gutter()}
+  display: flex;
+  justify-content: center;
 `;
 
 export const ControlButton = styled(IconButton)`

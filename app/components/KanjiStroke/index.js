@@ -72,7 +72,7 @@ class KanjiStroke extends React.PureComponent {
 
   render() {
     return (
-      <Wrapper>
+      <div>
         <Canvas>
           <div ref={(node) => { this.drawRef = node; }}></div>
         </Canvas>
@@ -85,7 +85,7 @@ class KanjiStroke extends React.PureComponent {
           }
           <ControlButton name="SKIP_NEXT" title="Step forwards" onClick={this.stepForward} />
         </Controls>
-      </Wrapper>
+      </div>
     );
   }
 }

@@ -7,7 +7,9 @@ import { fastEaseQuad } from 'shared/styles/animation';
 export const Button = styled.button`
   ${resetButton}
   ${gutter()}
+  display: flex;
   align-self: center;
+  align-items: center;
   vertical-align: middle;
   transition: all ${fastEaseQuad}, transform 100ms linear;
   cursor: pointer;

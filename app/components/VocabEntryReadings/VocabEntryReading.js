@@ -9,7 +9,8 @@ import Reading from 'components/Reading';
 import IconButton from 'components/IconButton';
 import KanjiStroke from 'components/KanjiStroke';
 
-import { Li, ReadingContent, StrokeLoader } from './styles';
+
+import { Li, ReadingContent, StrokeLoader, StrokeLoaderText } from './styles';
 
 // prevent xhr if not rendered
 const renderKanjiStroke = (character) => <KanjiStroke character={character} />;
@@ -56,7 +57,17 @@ function VocabEntryReading({
       </ReadingContent>
       {detailLevel > 1 && (
       <StrokeLoader>
-        {!showKanjiSvg && <IconButton name="BRUSH" title="View stroke diagram" size="1.8em" handleClick={toggleKanjiSvg} />}
+        {!showKanjiSvg && (
+          <IconButton
+            inline
+            name="BRUSH"
+            title="View stroke diagram"
+            size="1.8em"
+            handleClick={toggleKanjiSvg}
+          >
+            <StrokeLoaderText>Strokes</StrokeLoaderText>
+          </IconButton>
+        )}
         {showKanjiSvg && renderKanjiStroke(character)}
       </StrokeLoader>
     )}
