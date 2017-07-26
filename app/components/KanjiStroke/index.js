@@ -37,7 +37,15 @@ class KanjiStroke extends React.PureComponent {
 
   componentDidMount() {
     const onlyKanjiChars = this.props.character.split('').filter(isKanji).join('');
-    this.instantiateSvg(onlyKanjiChars, this.state.config);
+    this.instantiateSvg(
+      onlyKanjiChars,
+      merge(
+        {},
+        this.state.config,
+        this.props.settings,
+        { element: this.drawRef, drew: (finished) => finished && this.setState({ playing: false }) },
+      )
+    );
   }
 
   play = () => {
@@ -58,8 +66,7 @@ class KanjiStroke extends React.PureComponent {
   stepForward = () => this.state.dmak.renderNextStrokes(1)
 
   instantiateSvg(char, config) {
-    const options = merge({}, config, this.props.settings, { element: this.drawRef });
-    const dmakInstance = dmak(char, options);
+    const dmakInstance = dmak(char, config);
     this.setState(() => ({ dmak: dmakInstance, playing: this.props.settings.autoplay }));
   }
 

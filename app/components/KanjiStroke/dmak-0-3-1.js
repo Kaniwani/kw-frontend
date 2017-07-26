@@ -53,7 +53,7 @@ const defaultOptions = {
   loaded: () => {},
   erased: () => {},
   drew: () => {},
-  finishedCallback: () => {},
+  finished: () => {},
 };
 
 function Dmak(text, config) {
@@ -110,12 +110,13 @@ function Dmak(text, config) {
     const cb = () => {
       drawStroke(papers[strokes[pointer].char], strokes[pointer], timeouts.drawing, options);
 
-      // Execute custom callback "drew" here
-      options.drew(pointer);
-
       pointer += 1;
       timeouts.play.shift();
+
+      // Execute custom callback "drew" here
+      options.drew(strokes.length === pointer);
     };
+
     let delay = 0;
 
     // Before drawing clear any remaining erasing timeouts
@@ -302,7 +303,6 @@ function drawStroke(paper, stroke, timeouts, options) {
 
 
 // Draw a single next to
-
 function showStrokeOrder(paper, stroke, options) {
   stroke.object.text = paper.text(stroke.text.x, stroke.text.y, stroke.text.value);
   stroke.object.text.attr(options.stroke.order.attr);
@@ -423,10 +423,10 @@ function parseResponse(response, code) {
     }
   }
 
-      // Start parsing
+  // Start parsing
   __parse(dom.getElementById(`kvg:${code}`));
 
-      // And finally add order mark information
+  // And finally add order mark information
   for (let i = 0; i < texts.length; i += 1) {
     data[i].text = {
       value: texts[i].textContent,

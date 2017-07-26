@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
 
 export const Canvas = styled.div`
   ${gutter()}
-  min-height: 150px;
+  min-height: 210px;
 `;
 
 export const Controls = styled.div`
