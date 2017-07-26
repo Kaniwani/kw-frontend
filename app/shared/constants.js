@@ -13,6 +13,7 @@ export const DETAIL_LEVELS = ['LOW', 'HIGH'];
 export const MAX_NOTES_LENGTH = 500;
 
 export const SRS_RANKS = {
+  ZERO: 'UNTRAINED',
   ONE: 'APPRENTICE',
   TWO: 'GURU',
   THREE: 'MASTER',

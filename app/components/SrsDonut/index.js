@@ -15,11 +15,12 @@ import 'britecharts/dist/css/charts/donut.css';
 class SrsDonut extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     srsCounts: PropTypes.shape({
-      apprentice: PropTypes.number,
-      guru: PropTypes.number,
-      master: PropTypes.number,
-      enlightened: PropTypes.number,
-      burened: PropTypes.number,
+      UNTRAINED: PropTypes.number,
+      APPRENTICE: PropTypes.number,
+      GURU: PropTypes.number,
+      MASTER: PropTypes.number,
+      ENLIGHTENED: PropTypes.number,
+      BURNED: PropTypes.number,
     }).isRequired,
   }
 

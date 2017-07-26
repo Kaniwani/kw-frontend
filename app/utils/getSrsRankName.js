@@ -12,6 +12,7 @@ export default function getSrsRankName(streak) {
     case (streak > 7): return SRS_RANKS.FOUR;
     case (streak > 6): return SRS_RANKS.THREE;
     case (streak > 4): return SRS_RANKS.TWO;
+    case (streak > 0): return SRS_RANKS.ONE;
     default: return SRS_RANKS.ONE;
   }
 }

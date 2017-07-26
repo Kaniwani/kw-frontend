@@ -37,6 +37,7 @@ export const link = blueLight;
 export const linkHover = blueDark;
 
 export const SRS_COLORS = {
+  UNTRAINED: teal,
   APPRENTICE: pink,
   GURU: purpleLight,
   MASTER: blueDark,
