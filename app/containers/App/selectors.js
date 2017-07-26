@@ -1,9 +1,11 @@
 import { createSelector } from 'reselect';
 import isNumber from 'lodash/isNumber';
 import titleCase from 'voca/title_case';
+
 import groupByRank from 'utils/groupByRank';
 import calculatePercentage from 'utils/calculatePercentage';
 import getSrsRankName from 'utils/getSrsRankName';
+import filterRomajiReadings from 'utils/filterRomajiReadings';
 
 export const selectLocation = (state) => state.location;
 export const selectGlobal = (state) => state.global;
@@ -81,6 +83,11 @@ export const makeSelectReviewIncorrect = (id) => createSelector(
 export const makeSelectReviewMeanings = (id) => createSelector(
   makeSelectReview(id),
   (review) => review ? review.vocabulary.meanings : [],
+);
+
+export const makeSelectQuizMeanings = (id) => createSelector(
+  makeSelectReview(id),
+  (review) => review ? filterRomajiReadings(review.vocabulary.meanings, review.vocabulary.readings) : [],
 );
 
 export const makeSelectReviewReadings = (id) => createSelector(

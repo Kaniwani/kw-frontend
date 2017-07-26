@@ -28,7 +28,10 @@ QuizPage.propTypes = {
   showInfo: PropTypes.func.isRequired,
   showSynonym: PropTypes.func.isRequired,
   remainingCount: PropTypes.number.isRequired,
-  current: PropTypes.number.isRequired,
+  current: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.number,
+  ]).isRequired,
 };
 
 const keyMap = {

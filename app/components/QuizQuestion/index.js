@@ -6,7 +6,7 @@ import getSrsRankName from 'utils/getSrsRankName';
 
 import {
   selectCurrentId,
-  makeSelectReviewMeanings,
+  makeSelectQuizMeanings,
   makeSelectReviewReadings,
   makeSelectReviewStreak,
 } from 'containers/App/selectors';
@@ -77,7 +77,7 @@ const mapStateToProps = (state, { category }) => {
   const prevStreak = backup ? backup.streak : streak;
   return {
     answerChecked: selectAnswerDisabled(state),
-    meanings: makeSelectReviewMeanings(id)(state),
+    meanings: makeSelectQuizMeanings(id)(state),
     readings: makeSelectReviewReadings(id)(state),
     streak,
     prevStreak,
