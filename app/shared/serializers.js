@@ -58,6 +58,9 @@ export const serializeQueueResponse = ({ results }) => {
   };
 };
 
+export const serializeVocabularySearch = ({ results }) =>
+  results.reduce((list, { review }) => review ? list.concat(review) : list, []);
+
 export const serializeLevelResponse = ({ id, results }) => {
   const reviews = serializeReviewEntries(results);
   return {
@@ -79,7 +82,7 @@ function serializeReadings(data = []) {
   return condenseReadings(data).map(serializeReading);
 }
 
-function serializeReviewEntries(data = []) {
+export function serializeReviewEntries(data = []) {
   return createHashMap(data.map(serializeReviewEntry));
 }
 

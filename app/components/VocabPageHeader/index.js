@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { pure } from 'recompose';
 
-// import SearchBar from 'containers/SearchBar';
+import SearchBar from 'containers/SearchBar';
 import ToggleVocabListButton from 'components/ToggleVocabListButton';
+import VocabSearchResults from './VocabSearchResults';
 
 import { Wrapper, Heading, Title, Controls } from './styles';
 
@@ -26,20 +27,20 @@ function VocabPageHeader({
   withVocabListToggle,
 }) {
   return (
-    <Wrapper>
-      <Heading>
-        <Title>{pageTitle}</Title>
-      </Heading>
-      <Controls>
-        {/* <SearchBar /> */}
-        {withVocabListToggle && (
-          <ToggleVocabListButton
-            cardsExpanded={cardsExpanded}
-            toggleCardsExpanded={toggleCardsExpanded}
-          />
-        )}
-      </Controls>
-    </Wrapper>
+    <div>
+      <Wrapper>
+        <Heading>
+          <Title>{pageTitle}</Title>
+        </Heading>
+        <Controls>
+          <SearchBar />
+          {withVocabListToggle && (
+            <ToggleVocabListButton cardsExpanded={cardsExpanded} toggleCardsExpanded={toggleCardsExpanded} />
+          )}
+        </Controls>
+      </Wrapper>
+      <VocabSearchResults cardsExpanded={cardsExpanded} />
+    </div>
   );
 }
 

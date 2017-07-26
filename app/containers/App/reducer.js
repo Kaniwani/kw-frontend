@@ -7,6 +7,7 @@ import app from './actions';
 
 export const initialState = {
   announcements: [],
+  searchResults: [],
   profile: {
     lessonsCount: 0,
     reviewsCount: 0,
@@ -47,6 +48,11 @@ export const initialState = {
     },
   },
 };
+
+const searchReducer = handleActions({
+  [app.review.search.request]: () => initialState.searchResults,
+  [app.review.search.success]: (state, { payload }) => payload.ids,
+}, initialState.searchResults);
 
 const announcementsReducer = handleActions({
   [app.announcements.load.success]: (state, { payload }) => payload,
@@ -155,8 +161,9 @@ const lessonSummaryReducer = handleActions({
 const entitiesReducer = handleActions({
   [app.clearGlobalState]: () => initialState.entities,
   [combineActions(
+    app.reviews.update,
     app.reviews.queue.load.success,
-    app.lessons.queue.load.success
+    app.lessons.queue.load.success,
   )]: (state, { payload }) => update(state, {
     reviews: { $set: merge({}, state.reviews, payload.reviews) },
   }),
@@ -199,9 +206,10 @@ const entitiesReducer = handleActions({
 }, initialState.entities);
 
 const reducers = {
+  announcements: announcementsReducer,
+  searchResults: searchReducer,
   profile: profileReducer,
   settings: settingsReducer,
-  announcements: announcementsReducer,
   entities: entitiesReducer,
   queue: combineReducers({
     reviews: reviewQueueReducer,

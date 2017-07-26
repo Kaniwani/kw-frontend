@@ -5,7 +5,7 @@ import { gutter } from 'shared/styles/layout';
 import { fastEaseQuad } from 'shared/styles/animation';
 
 export const ToggleButton = styled(IconButton)`
-  ${gutter({ position: 'horizontal' })}
+  ${gutter({ position: 'horizontal', mod: 2 })}
   line-height: 1;
   font-size: 1.3em;
   transition: all ${fastEaseQuad}, transform 100ms linear;

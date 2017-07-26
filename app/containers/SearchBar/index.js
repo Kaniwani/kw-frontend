@@ -1,46 +1,43 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { reduxForm, Field } from 'redux-form';
 
-import { Form, SearchInput, SubmitButton } from './styles';
+import { isRomaji, isJapanese } from 'wanakana';
+import app from 'containers/App/actions';
 
+import InputField from './InputField';
+import { Form, SubmitButton } from './styles';
 const COMPONENT_HEIGHT_EM = 2.25;
 
-export class SearchBar extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  // TODO: props from redux state / redux-form
-  state = {
-    inputValue: '',
-    isSubmitting: false,
-  };
+SearchBar.propTypes = {
+  submitting: PropTypes.bool.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+};
 
-  handleInputChange = (event) => {
-    this.setState({ inputValue: event.target.value });
-  }
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-    this.setState({ isSubmitting: true });
-  }
-
-  render() {
-    return (
-      <Form onSubmit={this.handleSubmit}>
-        <SearchInput
-          lang="ja"
-          value={this.state.inputValue}
-          onChange={this.handleInputChange}
-          placeholder="意味, かな, 漢字"
-        />
-        <SubmitButton
-          type="submit"
-          size={`${COMPONENT_HEIGHT_EM / 2}em`}
-          name={this.state.isSubmitting ? 'SYNC' : 'SEARCH'}
-          title={this.state.isSubmitting ? 'Searching...' : `Search vocabulary for: ${this.state.inputValue}`}
-          color="whiteLight"
-          bgColor="blueLight"
-          isSubmitting={this.state.isSubmitting}
-        />
-      </Form>
-    );
-  }
+function SearchBar({ submitting, handleSubmit }) {
+  return (
+    <Form onSubmit={handleSubmit}>
+      <Field name="searchInput" label="Search vocabulary" component={InputField} lang="ja" placeholder="意味, かな, 漢字" />
+      <SubmitButton
+        type="submit"
+        size={`${COMPONENT_HEIGHT_EM / 2}em`}
+        name={submitting ? 'SYNC' : 'SEARCH'}
+        title={submitting ? 'Searching...' : 'Search vocabulary'}
+        color="whiteLight"
+        bgColor="blueLight"
+        isSubmitting={submitting}
+      />
+    </Form>
+  );
 }
 
-export default SearchBar;
+export default reduxForm({
+  form: 'searchBar',
+  onSubmit: ({ searchInput }, dispatch) => {
+    const payload = {
+      meaningContains: isRomaji(searchInput) ? searchInput : '',
+      readingContains: isJapanese(searchInput) ? searchInput : '',
+    };
+    return dispatch(app.review.search.request(payload));
+  },
+})(SearchBar);

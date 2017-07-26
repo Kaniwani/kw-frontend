@@ -2,7 +2,7 @@ import { createLogic } from 'redux-logic';
 import { push } from 'react-router-redux';
 import localForage from 'localforage';
 import { purgeStoredState } from 'redux-persist';
-import { difference } from 'lodash';
+import { uniq, difference } from 'lodash';
 import * as reduxFormActions from 'redux-form';
 
 // TODO: inject some of these in store.js as logic dependencies instead?
@@ -14,10 +14,12 @@ import {
   serializeUserResponse,
   serializeLevelsResponse,
   serializeReviewResponse,
+  serializeReviewEntries,
   serializeQueueResponse,
   serializeLevelResponse,
   serializeAnnouncementsResponse,
   serializeAddSynonymResponse,
+  serializeVocabularySearch,
 } from 'shared/serializers';
 
 import { selectLevelsSubmitting } from 'containers/VocabLevelsPage/selectors';
@@ -66,7 +68,7 @@ export const userLoginLogic = createLogic({
 });
 
 export const loginRedirectLogic = createLogic({
-  type: [app.user.login.success],
+  type: app.user.login.success,
   process({ action }, dispatch, done) {
     setToken(action.payload);
     dispatch(push('/'));
@@ -109,7 +111,6 @@ export const userLogoutLogic = createLogic({
 
 export const userLoadLogic = createLogic({
   type: app.user.load.request,
-  cancelType: app.user.load.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
@@ -166,7 +167,6 @@ export const forceWkSrsLogic = createLogic({
 
 export const announcementsLoadLogic = createLogic({
   type: app.announcements.load.request,
-  cancelType: app.announcements.load.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
@@ -182,7 +182,6 @@ export const announcementsLoadLogic = createLogic({
 
 export const reviewsQueueLoadLogic = createLogic({
   type: app.reviews.queue.load.request,
-  cancelType: app.reviews.queue.load.cancel,
   warnTimeout: 8000,
   latest: true,
 
@@ -202,7 +201,6 @@ export const reviewsQueueLoadLogic = createLogic({
 
 export const lessonsQueueLoadLogic = createLogic({
   type: app.lessons.queue.load.request,
-  cancelType: app.lessons.queue.load.cancel,
   warnTimeout: 8000,
   latest: true,
 
@@ -219,7 +217,6 @@ export const lessonsQueueLoadLogic = createLogic({
 
 export const levelsLoadLogic = createLogic({
   type: app.levels.load.request,
-  cancelType: app.levels.load.cancel,
   throttle: 60000,
   latest: true,
   warnTimeout: 10000,
@@ -283,9 +280,37 @@ export const levelUnlockLogic = createLogic({
   },
 });
 
+export const reviewSearchLogic = createLogic({
+  type: app.review.search.request,
+  warnTimeout: 10000,
+  latest: true,
+  processOptions: {
+    failType: app.review.search.failure,
+  },
+
+  process({ getState, action: { payload } }, dispatch, done) {
+    dispatch(startSubmit('searchBar'));
+    return api.getVocabulary(payload)
+      .then(({ body }) => {
+        const persistedReviews = sel.selectReviewEntities(getState());
+        const allIds = uniq(serializeVocabularySearch(body));
+        const haveIds = allIds.reduce((list, id) => persistedReviews[id] ? list.concat(id) : list, []);
+        const missingIds = difference(allIds, haveIds);
+        console.log(allIds, haveIds, missingIds);
+        dispatch(app.review.search.success({ ids: haveIds, loading: true, finished: false }));
+        Promise.all(missingIds.map((id) => api.getReviewEntry({ id }).then(((res) => res.body))))
+          .then((missingReviews) => {
+            dispatch(stopSubmit('searchBar'));
+            dispatch(app.reviews.update({ reviews: serializeReviewEntries(missingReviews) }));
+            dispatch(app.review.search.success({ ids: allIds, loading: false, finished: true }));
+            done();
+          });
+      });
+  },
+});
+
 export const reviewLoadLogic = createLogic({
   type: app.review.load.request,
-  cancelType: app.review.load.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
@@ -301,7 +326,6 @@ export const reviewLoadLogic = createLogic({
 
 export const reviewLockLogic = createLogic({
   type: app.review.lock.request,
-  cancelType: app.review.lock.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
@@ -317,7 +341,6 @@ export const reviewLockLogic = createLogic({
 
 export const reviewUnlockLogic = createLogic({
   type: app.review.unlock.request,
-  cancelType: app.review.unlock.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
@@ -362,7 +385,6 @@ export const addSynonymLogic = createLogic({
 
 export const removeSynonymLogic = createLogic({
   type: app.review.synonym.remove.request,
-  cancelType: app.review.synonym.remove.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
@@ -378,7 +400,6 @@ export const removeSynonymLogic = createLogic({
 
 export const levelLoadLogic = createLogic({
   type: app.level.load.request,
-  cancelType: app.level.load.cancel,
   warnTimeout: 10000,
   latest: true,
   processOptions: {
@@ -430,11 +451,11 @@ export default [
   reviewsQueueLoadLogic,
   lessonsQueueLoadLogic,
   loadQueuesIfNeededLogic,
-  // setCurrentOnQueueLoadLogic,
   levelsLoadLogic,
   levelLockLogic,
   levelUnlockLogic,
   reviewLoadLogic,
+  reviewSearchLogic,
   addSynonymLogic,
   removeSynonymLogic,
   reviewLockLogic,

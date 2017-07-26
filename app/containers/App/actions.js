@@ -39,6 +39,7 @@ export const { app } = createActions({
     },
     REVIEWS: {
       RESET_SUMMARY: SYNC,
+      UPDATE: SYNC,
       QUEUE: {
         LOAD: ASYNC,
         CLEAR: SYNC,
@@ -86,6 +87,7 @@ export const { app } = createActions({
       UNLOCK: ASYNC,
     },
     REVIEW: {
+      SEARCH: ASYNC,
       LOAD: ASYNC,
       LOCK: ASYNC,
       UNLOCK: ASYNC,

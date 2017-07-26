@@ -10,6 +10,10 @@ const initialState = {
   lessons: {
     loading: false,
   },
+  search: {
+    loading: false,
+    finished: false,
+  },
   reviews: {
     loading: false,
   },
@@ -17,6 +21,18 @@ const initialState = {
 
 export default handleActions({
   [app.user.load.request]: (state) => update(state, { user: { loading: { $set: true } } }),
+  [app.review.search.request]: (state) => update(state, {
+    search: {
+      loading: { $set: true },
+      finished: { $set: false },
+    },
+  }),
+  [app.review.search.success]: (state, { payload }) => update(state, {
+    search: {
+      loading: { $set: payload.loading },
+      finished: { $set: payload.finished },
+    },
+  }),
   [app.reviews.queue.load.request]: (state) => update(state, { reviews: { loading: { $set: true } } }),
   [app.lessons.queue.load.request]: (state) => update(state, { lessons: { loading: { $set: true } } }),
   [combineActions(

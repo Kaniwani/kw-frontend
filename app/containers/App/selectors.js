@@ -42,6 +42,8 @@ export const selectLevelIds = createDeepEqualSelector(selectLevelEntities, (leve
 export const makeSelectLevel = (id) => createDeepEqualSelector(selectLevelEntities, (levels) => levels && levels[id]);
 export const makeSelectLevelReviews = (id) => createDeepEqualSelector(makeSelectLevel(id), (level) => level && level.reviews);
 
+export const selectSearchIds = (state) => state.searchResults;
+
 export const selectAnnouncements = (state) => state.announcements;
 export const makeSelectAnnouncement = (id) => createDeepEqualSelector(selectAnnouncements, (announcements) => announcements && announcements[id]);
 

@@ -162,8 +162,7 @@ export const getVocabulary = ({
   offset,
   limit,
   meaningContains,
-  readingsKanaContains,
-  readingsCharacterContains,
+  readingContains,
 } = {}) => get(
   vocabularyUrl,
   {
@@ -171,8 +170,7 @@ export const getVocabulary = ({
     offset,
     limit,
     meaning_contains: meaningContains,
-    readings_kana_contains: readingsKanaContains,
-    readings_character_contains: readingsCharacterContains,
+    reading_contains: readingContains,
   }
 );
 

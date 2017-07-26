@@ -4,16 +4,20 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
 import actions from 'containers/App/actions';
-import { selectIdFromMatch, makeSelectLevelReviews, makeSelectLevelPrevLoaded } from 'containers/App/selectors';
+import {
+  selectIdFromMatch,
+  makeSelectLevelReviews,
+  makeSelectLevelPrevLoaded,
+} from 'containers/App/selectors';
 
 import PageWrapper from 'base/PageWrapper';
-import A from 'base/A';
+import Container from 'base/Container';
 import H3 from 'base/H3';
+import A from 'base/A';
 import VocabPageHeader from 'components/VocabPageHeader';
 import VocabList from 'components/VocabList';
 
 import { makeSelectLevelLoading } from './selectors';
-import { VocabListWrapper } from './styles';
 
 export class VocabLevelPage extends React.Component {
   static propTypes = {
@@ -59,12 +63,12 @@ export class VocabLevelPage extends React.Component {
             toggleCardsExpanded={this.toggleCardsExpanded}
             withVocabListToggle
           />
-          <VocabListWrapper>
+          <Container>
             <VocabList prevLoaded={prevLoaded} ids={reviewIds} isExpanded={this.state.cardsExpanded} />
             {!isLoading && reviewIds.length < 1 && (
               <H3>All entries hidden. Check your WaniKani filtering in <A to="/settings">Settings</A></H3>
             )}
-          </VocabListWrapper>
+          </Container>
         </PageWrapper>
       </div>
     );
