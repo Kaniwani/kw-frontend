@@ -8,7 +8,7 @@ import { makeSelectReviewSynonyms } from 'containers/App/selectors';
 
 import Reading from 'components/Reading';
 import RemoveButton from './RemoveButton';
-import { Wrapper, Heading, Ul, Li } from './styles';
+import { Wrapper, Heading, HeadingText, Ul, Li } from './styles';
 
 VocabEntrySynonyms.propTypes = {
   synonyms: PropTypes.array.isRequired,
@@ -22,11 +22,15 @@ VocabEntrySynonyms.defaultProps = {
 function VocabEntrySynonyms({ synonyms, detailLevel }) {
   return (
     <Wrapper>
-      {detailLevel > 1 && <Heading>Synonyms</Heading>}
+      {detailLevel > 1 && (
+        <Heading>
+          <HeadingText>Synonyms</HeadingText>
+        </Heading>
+      )}
       <Ul>
         {synonyms.map(({ id, reviewId, character, kana }) => (
           <Li key={cuid()}>
-            <Reading character={character} kana={kana} />
+            <Reading character={character} kana={kana} detailLevel={detailLevel} />
             <RemoveButton id={id} reviewId={reviewId} />
           </Li>
         ))}
