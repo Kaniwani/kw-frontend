@@ -3,6 +3,7 @@ import getSrsRankName from 'utils/getSrsRankName';
 
 function groupByRank(items = []) {
   const ranks = {
+    [SRS_RANKS.ZERO]: [],
     [SRS_RANKS.ONE]: [],
     [SRS_RANKS.TWO]: [],
     [SRS_RANKS.THREE]: [],
