@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SearchBar from 'containers/SearchBar';
+// import SearchBar from 'containers/SearchBar';
 import ToggleVocabListButton from 'components/ToggleVocabListButton';
 
 import { Wrapper, Heading, Title, Controls } from './styles';
@@ -18,7 +18,7 @@ function VocabPageHeader({ pageTitle, withVocabListToggle }) {
         <Title>{pageTitle}</Title>
       </Heading>
       <Controls>
-        <SearchBar />
+        {/* <SearchBar /> */}
         {withVocabListToggle && <ToggleVocabListButton />}
       </Controls>
     </Wrapper>

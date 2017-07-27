@@ -9,9 +9,11 @@ export const Wrapper = styled.div`
   ${gutter({ type: 'outer', position: 'horizontal' })}
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
   align-content: center;
   align-items: center;
+  /* // uncomment when search reintroduced
+  justify-content: space-between;
+  */
 `;
 
 export const Title = H1.extend`
@@ -23,13 +25,18 @@ export const Title = H1.extend`
 export const Heading = styled.div`
   ${gutter({ type: 'outer', position: 'vertical' })}
   display: flex;
+  /* // uncomment when search reintroduced
   flex: 3 1 auto;
+  */
 `;
 
 export const Controls = styled.div`
   ${delta}
   display: flex;
+  margin-left: 1rem;
+  /* // uncomment when search reintroduced
   justify-content: center;
   align-content: center;
   flex: 1 0 300px;
+  */
 `;
