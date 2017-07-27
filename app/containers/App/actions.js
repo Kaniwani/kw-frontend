@@ -30,6 +30,7 @@ export const { app } = createActions({
     },
     USER: {
       LOAD: ASYNC,
+      SRS: ASYNC,
     },
     REVIEWS: {
       SESSION: {

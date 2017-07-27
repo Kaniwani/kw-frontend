@@ -48,6 +48,13 @@ export const loadQueuesIfNeededLogic = createLogic({
   },
 });
 
+export const forceSrsLogic = createLogic({
+  type: app.user.srs.request,
+  process() {
+    return api.syncKw().then((res) => { console.log(res); });
+  },
+});
+
 export const reviewsQueueLoadLogic = createLogic({
   type: app.reviews.queue.load.request,
   cancelType: app.reviews.queue.load.cancel,
@@ -320,6 +327,7 @@ export const levelLoadLogic = createLogic({
 // All logic to be loaded
 export default [
   userLoadLogic,
+  forceSrsLogic,
   reviewsQueueLoadLogic,
   lessonsQueueLoadLogic,
   loadQueuesIfNeededLogic,
