@@ -1,10 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`groupByRank() should group entries under named srs ranks 1`] = `
+exports[`groupByRank() should group ids under named srs ranks 1`] = `
 Object {
   "APPRENTICE": Array [
-    0,
-    1,
     2,
     3,
     4,
@@ -37,18 +35,24 @@ Object {
     14,
     15,
   ],
+  "UNTRAINED": Array [
+    0,
+    1,
+  ],
 }
 `;
 
-exports[`groupByRank() should group entries under named srs ranks 2`] = `10`;
+exports[`groupByRank() should group ids under named srs ranks 2`] = `2`;
 
-exports[`groupByRank() should group entries under named srs ranks 3`] = `4`;
+exports[`groupByRank() should group ids under named srs ranks 3`] = `8`;
 
-exports[`groupByRank() should group entries under named srs ranks 4`] = `2`;
+exports[`groupByRank() should group ids under named srs ranks 4`] = `4`;
 
-exports[`groupByRank() should group entries under named srs ranks 5`] = `2`;
+exports[`groupByRank() should group ids under named srs ranks 5`] = `2`;
 
-exports[`groupByRank() should group entries under named srs ranks 6`] = `7`;
+exports[`groupByRank() should group ids under named srs ranks 6`] = `2`;
+
+exports[`groupByRank() should group ids under named srs ranks 7`] = `7`;
 
 exports[`groupByRank() should have a safe default 1`] = `
 Object {
@@ -57,5 +61,6 @@ Object {
   "ENLIGHTENED": Array [],
   "GURU": Array [],
   "MASTER": Array [],
+  "UNTRAINED": Array [],
 }
 `;

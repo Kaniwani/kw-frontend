@@ -32,14 +32,14 @@ exports[`getUniqueKanji() should work with only kana 1`] = `Array []`;
 
 exports[`getUniqueKanji() should work with prefixes 1`] = `
 Array [
-  "各",
+  "漬",
+  "才",
 ]
 `;
 
 exports[`getUniqueKanji() should work with suffixes 1`] = `
 Array [
-  "漬",
-  "才",
+  "各",
 ]
 `;
 
@@ -54,19 +54,19 @@ Array [
 
 exports[`splitKanji() should only return kanji 2`] = `
 Array [
-  "各",
+  "漬",
 ]
 `;
 
 exports[`splitKanji() should only return kanji 3`] = `
 Array [
-  "漬",
+  "才",
 ]
 `;
 
 exports[`splitKanji() should only return kanji 4`] = `
 Array [
-  "才",
+  "各",
 ]
 `;
 

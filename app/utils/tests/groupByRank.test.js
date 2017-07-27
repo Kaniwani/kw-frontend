@@ -1,7 +1,7 @@
 import { SRS_RANKS } from 'shared/constants';
 import groupByRank from '../groupByRank';
 
-const items = Array.from({ length: 25 }).map((v, i) => ({
+const items = Array.from({ length: 25 }).map((_, i) => ({
   id: i,
   streak: Math.floor(i * 0.5),
 }));
