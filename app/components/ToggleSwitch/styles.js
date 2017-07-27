@@ -3,12 +3,12 @@ import { darken, transparentize, timingFunctions } from 'polished';
 import * as COLORS from 'shared/styles/colors';
 
 // toggle background
-const beforeMixin = ({ isToggled, width, height, toggleOnColor, toggleOffColor }) => {
+const beforeMixin = ({ checked, width, height, toggleOnColor, toggleOffColor }) => {
   const position = `
-    position: ${isToggled ? 'absolute' : 'relative'};
+    position: ${checked ? 'absolute' : 'relative'};
   `;
-  const bgColor = isToggled ? COLORS[toggleOnColor] : COLORS[toggleOffColor];
-  const boxShadow = isToggled && `
+  const bgColor = checked ? COLORS[toggleOnColor] : COLORS[toggleOffColor];
+  const boxShadow = checked && `
     box-shadow: inset 0 0 8px -2px ${COLORS.greyDark},
       0 -4px 8px -3px ${transparentize(0.3, COLORS.greyLight)},
       0 2px 6px ${COLORS.whiteDark};
@@ -30,8 +30,8 @@ const beforeMixin = ({ isToggled, width, height, toggleOnColor, toggleOffColor }
 };
 
 // toggle knob
-const afterMixin = ({ isToggled, width, height }) => {
-  const transform = `translateX(${isToggled ? '2px' : `calc((${width} - (${width} /3)) + 2px)`})`;
+const afterMixin = ({ checked, width, height }) => {
+  const transform = `translateX(${checked ? '2px' : `calc((${width} - (${width} /3)) + 2px)`})`;
   return css`
     display: block;
     visibility: visible;

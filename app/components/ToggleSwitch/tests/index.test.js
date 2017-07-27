@@ -9,7 +9,8 @@ describe('<ToggleSwitch />', () => {
       <ToggleSwitch
         id="toggle1"
         name="someToggle1"
-        isToggled
+        checked
+        onChange={() => {}}
       />
     );
     expect(renderedComponent).toMatchStyledComponentsSnapshot();
