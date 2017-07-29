@@ -220,10 +220,9 @@ export const loadMoreQueueLogic = createLogic({
       const state = getState();
       const queue = selectQueue(state, { category });
       const remainingCount = selectRemainingCount(state, { category });
-      const completeCount = selectCompleteCount(state, { category });
-      const loadMoreQueue = remainingCount > queue.length;
-      if (loadMoreQueue) {
-        dispatch(app[category].queue.load.request({ offset: completeCount }));
+      const moreQueueNeeded = queue.length < 15 && remainingCount > (queue.length + 1 /* current question */);
+      if (moreQueueNeeded) {
+        dispatch(app[category].queue.load.request());
       }
     }
     done();
