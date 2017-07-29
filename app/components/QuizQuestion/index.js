@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { compose, branch, renderComponent, shouldUpdate } from 'recompose';
 import isEqual from 'lodash/isEqual';
 import getSrsRankName from 'utils/getSrsRankName';
+import titleCase from 'voca/title_case';
 
 import {
   selectCurrentId,

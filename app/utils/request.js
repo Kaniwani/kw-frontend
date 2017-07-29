@@ -20,44 +20,45 @@ function request(url = '', { method, headers, body } = {}) {
   const token = getToken();
   const combinedHeaders = {
     ...headers,
-    Authorization: `JWT ${token}`,
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };
+  if (token) {
+    combinedHeaders.Authorization = `JWT ${token}`;
+  }
   const config = { method, headers: combinedHeaders, body: JSON.stringify(body) };
   // no body allowed for these
   if (['GET', 'DELETE'].includes(method)) {
     delete config.body;
   }
-  return fetch(finalUrl, config)
-    .then(checkStatus)
-    .then(parseJSON);
+
+  return goFetch(finalUrl, config);
 }
 
-/**
- * Parses the JSON returned by a network request
- * @param  {object} response A response from a network request
- * @return {object}          The parsed JSON from the request
- */
-function parseJSON(response) {
-  if (response.status === 204) {
-    return response; // no JSON
-  }
-  return response.json();
-}
+function goFetch(url, options) {
+  return fetch(url, options)
+    .then((res) => {
+      const headers = {};
+      res.headers.forEach((value, name) => { headers[name] = value; });
 
-/**
- * Checks if a network request came back fine, and throws an error if not
- * @param  {object} response A response from a network request
- * @return {object|undefined} Returns either the response, or throws an error
- */
-function checkStatus(response = { status: 404, statusText: 'No response!' }) {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  }
-  const error = new Error(response.statusText);
-  error.response = response;
-  return error;
+      const response = {
+        status: res.status,
+        headers,
+      };
+
+      if (res.status !== 204) {
+        return res.json().then((body) => ({ ...response, body }));
+      }
+
+      return Promise.resolve(response);
+    })
+    .then((response) => {
+      if (response.status >= 200 && response.status < 300) {
+        return Promise.resolve(response);
+      }
+
+      return Promise.reject(response);
+    });
 }
 
 /**

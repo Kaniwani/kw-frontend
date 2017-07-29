@@ -9,8 +9,6 @@ import PageWrapper from 'base/PageWrapper';
 import VocabEntry from 'components/VocabEntry';
 import VocabEntryDetail from 'components/VocabEntryDetail';
 
-import Debug from 'utils/Debug';
-
 export class VocabEntryPage extends React.Component {
   static propTypes = {
     loadReview: PropTypes.func.isRequired,
@@ -25,6 +23,8 @@ export class VocabEntryPage extends React.Component {
     this.props.loadReview(this.props.id);
   }
 
+  // TODO: rather than pass down id, we could store in a super simple reducer,
+  // then select deep inside individual components
   render() {
     const { id, review } = this.props;
     return (
@@ -35,7 +35,6 @@ export class VocabEntryPage extends React.Component {
         </Helmet>
         <PageWrapper>
           <VocabEntry id={id} review={review} />
-          {review && <Debug value={review} />}
           <VocabEntryDetail id={id} />
         </PageWrapper>
       </div>

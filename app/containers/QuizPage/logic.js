@@ -36,9 +36,7 @@ function flattenAnswers({ synonyms, vocabulary: { readings } }) {
   return flatMap(
     [...readings, ...synonyms],
     ({ character, kana }) => [character, ...kana]
-  ).map(
-    (text) => ({ originalText: text, cleanAnswer: stripTilde(text) })
-  );
+  ).map((text) => ({ originalText: text, cleanAnswer: stripTilde(text) }));
 }
 
 function findMatch(input = '', review) {

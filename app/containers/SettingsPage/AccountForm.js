@@ -7,7 +7,7 @@ import { compose } from 'recompose';
 
 import app from 'containers/App/actions';
 import { selectProfile } from 'containers/App/selectors';
-import { resetConfirmation } from 'shared/validations';
+import { valueMatches } from 'shared/validations';
 
 import H2 from 'base/H2';
 import H4 from 'base/H4';
@@ -41,9 +41,11 @@ InputField.defaultProps = {
 
 AccountForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
+  submitting: PropTypes.bool.isRequired,
+  submitSucceeded: PropTypes.bool.isRequired,
 };
 
-function AccountForm({ handleSubmit }) {
+function AccountForm({ handleSubmit, submitting, submitSucceeded }) {
   return (
     <Form onSubmit={handleSubmit}>
       <Section>
@@ -52,9 +54,12 @@ function AccountForm({ handleSubmit }) {
           <H4>Reset Kaniwani Progress</H4>
           <Field name="confirmation" label="Enter your username to confirm:" component={InputField} />
         </SubSection>
-        {/* TODO: submitting animation */}
         <Controls>
-          <Button type="submit">Reset Progress</Button>
+          <Button type="submit">
+            {(submitting && 'Submitting') ||
+            (submitSucceeded && 'Reset!') ||
+            'Reset Progress'}
+          </Button>
         </Controls>
       </Section>
     </Form>
@@ -76,7 +81,7 @@ const enhance = compose(
     form: 'account',
     onSubmit: ({ confirmation }, dispatch, { name }) => {
       const errors = {
-        confirmation: resetConfirmation(confirmation, name),
+        confirmation: valueMatches(confirmation, name),
       };
       if (Object.values(errors).some(Boolean)) {
         throw new SubmissionError(errors);

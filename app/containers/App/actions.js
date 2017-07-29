@@ -29,6 +29,9 @@ export const { app } = createActions({
       },
     },
     USER: {
+      REGISTER: ASYNC,
+      LOGIN: ASYNC,
+      RESET_PASSWORD: ASYNC,
       LOAD: ASYNC,
       SRS: ASYNC,
     },

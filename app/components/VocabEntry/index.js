@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { branch, renderNothing } from 'recompose';
+import { compose, onlyUpdateForKeys, branch, renderNothing } from 'recompose';
 
 import VocabEntryMeanings from 'components/VocabEntryMeanings';
 import VocabEntryReadings from 'components/VocabEntryReadings';
@@ -30,6 +30,9 @@ function VocabEntry({ id }) {
   );
 }
 
-const enhance = branch(({ id, review }) => !id || !review, renderNothing);
+const enhance = compose(
+  branch(({ id, review }) => !id || !review, renderNothing),
+  onlyUpdateForKeys(['id']),
+);
 
 export default enhance(VocabEntry);

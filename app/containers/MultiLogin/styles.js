@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { transparentize, darken, placeholder, timingFunctions } from 'polished';
 
-import { whiteLight, greyLight, greyDark, red } from 'shared/styles/colors';
+import { whiteLight, greyLight, greyDark, red, transparent } from 'shared/styles/colors';
 import { fastEaseQuad } from 'shared/styles/animation';
 import { delta, ffHeading } from 'shared/styles/typography';
 import { resetList, resetButton, visuallyHidden } from 'shared/styles/utils';
@@ -10,18 +10,37 @@ import IconLink from 'components/IconLink';
 
 const maxWidth = '20rem';
 
-export const Form = styled.form`
+export const Wrapper = styled.div`
   display: flex;
   position: relative;
   z-index: 2;
-  width: ${maxWidth};
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
   align-items: center;
   flex-direction: column;
   justify-content: center;
   margin-top: .25rem;
+`;
+
+export const SelectWrapper = styled.div`
+  display: flex;
+  position: relative;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: ${maxWidth};
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
+export const Form = styled.form`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: ${maxWidth};
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 export const SelectList = styled.ul`
@@ -69,17 +88,14 @@ export const Label = styled.label`
 
 export const InputField = styled.input`
   ${delta}
-  display: inline-flex;
-  height: 2.5rem;
-  max-width: ${maxWidth};
+  display: flex;
+  flex: 1 1 100%;
+  text-align: center;
+  padding: .2rem .3rem;
   width: 100%;
   border: none;
   border-radius: 10px;
   background-color: ${whiteLight};
-  text-align: center;
-  padding: .2rem .3rem;
-  margin: .25rem auto;
-  transition: all ${fastEaseQuad};
   ${placeholder({ color: greyLight })}
 
   &:focus {
@@ -87,17 +103,47 @@ export const InputField = styled.input`
     outline: none;
   }
 
-  /*hide stupid X on IE*/
+  /* override chrome autocomplete yellow bg*/
+  &:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px ${whiteLight} inset;
+  }
+
+  /*override stupid X on IE*/
   &::-ms-clear {
     display: none;
   }
+`;
+
+export const InputWrapper = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+  max-width: ${maxWidth};
+  height: 2.5rem;
+  width: 100%;
+  border: none;
+  margin: .25rem auto;
+  transition: all ${fastEaseQuad};
 
   &[aria-hidden="true"] {
     height: 0;
     margin: 0;
     padding: 0;
-    border: none;
   }
+
+  &[aria-hidden="true"] ${InputField} {
+    height: 0;
+    margin: 0;
+    border: none;
+    padding: 0;
+  }
+`;
+
+export const ValidationMessage = styled.div`
+  padding: .2rem;
+  text-align: center;
+  flex: 1 0 100%;
+  font-style: italic;
+  color: ${red};
 `;
 
 export const SelectedPointer = styled.span`
@@ -144,26 +190,14 @@ export const SubmitButton = styled.button`
   }
 `;
 
-const hideMixin = ({ isHidden }) => isHidden && css`
-  height: 0;
-  margin: 0;
-  padding: 0;
-  border: none;
-  pointer-events: none;
-  visibility: hidden;
-  & ${ApiLink} {
-    transform: scale(0);
-  }
-`;
-
 export const ApiLink = styled(IconLink)`
   position: absolute;
   right: .25em;
   top: 50%;
-  background-color: ${whiteLight};
+  background-color: ${transparent};
   opacity: .65;
-  ${hideMixin}
   transform: translateY(-50%) scale(1);
+
   &:active {
     opacity: 1;
     transform: translateY(-50%) scale(.9);
@@ -176,5 +210,19 @@ export const ApiInput = styled.div`
   width: 100%;
   border: none;
   border-radius: 10px;
-  ${hideMixin}
+
+  ${({ isHidden }) => isHidden && css`
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+    pointer-events: none;
+    visibility: hidden;
+    & ${ApiLink} {
+      height: 0;
+      visibility: hidden;
+      opacity: 0;
+      transform: scale(0);
+    }
+  `}
 `;

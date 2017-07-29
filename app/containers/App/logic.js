@@ -29,7 +29,7 @@ export const userLoadLogic = createLogic({
 
   process() {
     return api.getUserProfile()
-      .then((res) => serializeUserResponse(res));
+      .then(({ body }) => serializeUserResponse(body));
   },
 });
 
@@ -49,8 +49,11 @@ export const loadQueuesIfNeededLogic = createLogic({
 
 export const forceSrsLogic = createLogic({
   type: app.user.srs.request,
-  process() {
-    return api.syncKw().then((res) => { console.log(res); });
+  process({ action }, dispatch, done) {
+    return api.syncKw().then(({ body }) => {
+      dispatch(app.user.load.success({ dashboard: { reviewsCount: body.review_count } }));
+      done();
+    });
   },
 });
 
@@ -67,7 +70,7 @@ export const reviewsQueueLoadLogic = createLogic({
 
   process({ action: { payload } }) {
     return api.getCurrentReviews(payload)
-      .then((res) => serializeQueueResponse(res));
+      .then(({ body }) => serializeQueueResponse(body));
   },
 });
 
@@ -84,7 +87,7 @@ export const lessonsQueueLoadLogic = createLogic({
 
   process({ action: { payload } }) {
     return api.getCurrentLessons(payload)
-      .then((res) => serializeQueueResponse(res));
+      .then(({ body }) => serializeQueueResponse(body));
   },
 });
 
@@ -164,7 +167,7 @@ export const levelsLoadLogic = createLogic({
 
   process() {
     return api.getLevels()
-      .then((res) => serializeLevelsResponse(res));
+      .then(({ body }) => serializeLevelsResponse(body));
   },
 });
 
@@ -221,7 +224,7 @@ export const reviewLoadLogic = createLogic({
 
   process({ action: { payload: { id } } }) {
     return api.getReviewEntry({ id })
-      .then((res) => serializeReviewResponse(res));
+      .then(({ body }) => serializeReviewResponse(body));
   },
 });
 
@@ -282,7 +285,7 @@ export const addSynonymLogic = createLogic({
 
   process({ action: { payload: { reviewId, character, kana } } }) {
     return api.addSynonym({ reviewId, character, kana })
-      .then((res) => serializeAddSynonymResponse(res));
+      .then(({ body }) => serializeAddSynonymResponse(body));
   },
 });
 
@@ -314,7 +317,7 @@ export const levelLoadLogic = createLogic({
 
   process({ action: { payload: { id } } }) {
     return api.getReviews({ id })
-      .then(({ results }) => serializeLevelResponse({ id, results }));
+      .then(({ body: { results } }) => serializeLevelResponse({ id, results }));
   },
 });
 
