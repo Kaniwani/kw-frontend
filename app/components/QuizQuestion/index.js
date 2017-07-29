@@ -15,6 +15,7 @@ import {
 import { selectAnswerDisabled, selectBackup } from 'containers/QuizPage/selectors';
 
 import LoadingCrabigator from 'components/LoadingCrabigator';
+import TagsList from 'components/TagsList';
 
 import {
   Wrapper,
@@ -22,9 +23,7 @@ import {
   Question,
   Primary,
   Secondary,
-  Tags,
   StreakAnimation,
-  StreakContent,
 } from './styles';
 
 QuizQuestion.propTypes = {
@@ -38,18 +37,15 @@ QuizQuestion.propTypes = {
   ]).isRequired,
 };
 
-// FIXME: animation wuh
-function StreakChange(from, to) {
+// FIXME: use react-motion or react-anime for animation
+function StreakChange({ from, to }) {
   const [fromName, toName] = [from, to].map(getSrsRankName);
   const rankUp = to > from;
-  const text = `${rankUp ? '⏫' : '⏬'} ${toName}`;
+  const changed = fromName !== toName;
+  const glyph = rankUp ? '⏫' : '⏬';
   return (
-    <StreakAnimation
-      changed={fromName !== toName}
-      rankUp={rankUp}
-      streakName={toName}
-    >
-      <StreakContent>{text}</StreakContent>
+    <StreakAnimation streakName={toName}>
+      {changed ? `${glyph}  ${titleCase(toName)}` : '　'}
     </StreakAnimation>
   );
 }
@@ -66,8 +62,7 @@ function QuizQuestion({ answerChecked, meanings, readings, streak, prevStreak })
           <Secondary>{secondaryTerms}</Secondary>
         </Question>
       </QuestionWrapper>
-      <Tags isInvisible={answerChecked} tags={readings[0].tags} />
-      <StreakChange from={prevStreak} to={streak} />
+      {answerChecked ? <StreakChange from={prevStreak} to={streak} /> : <TagsList tags={readings[0].tags} />}
     </Wrapper>
   );
 }
