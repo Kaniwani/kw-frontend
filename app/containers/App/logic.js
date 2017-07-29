@@ -1,5 +1,4 @@
 import { createLogic } from 'redux-logic';
-import { reset } from 'redux-form';
 import sample from 'lodash/sample';
 import difference from 'lodash/difference';
 // TODO: inject some of these as dependencies instead?
@@ -188,7 +187,7 @@ export const levelUnlockLogic = createLogic({
     const alreadySubmitting = sel.selectUi(getState()).levels.submitting.length >= 1;
     if (alreadySubmitting) {
       alert('Please unlock levels one at a time. Turtles get tired too.');
-      reject(/* TODO: app.notifications.alert*/);
+      reject(/* TODO: app.notifications.alert */);
     }
     allow(action);
   },
@@ -297,17 +296,6 @@ export const removeSynonymLogic = createLogic({
   },
 });
 
-export const resetSynonymFormLogic = createLogic({
-  type: app.review.synonym.add.success,
-  warnTimeout: 10000,
-  latest: true,
-
-  process(deps, dispatch, done) {
-    dispatch(reset('addSynonym'));
-    done();
-  },
-});
-
 export const levelLoadLogic = createLogic({
   type: app.level.load.request,
   cancelType: app.level.load.cancel,
@@ -341,7 +329,6 @@ export default [
   reviewLoadLogic,
   addSynonymLogic,
   removeSynonymLogic,
-  resetSynonymFormLogic,
   reviewLockLogic,
   reviewUnlockLogic,
   reviewNotesLogic,

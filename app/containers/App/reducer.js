@@ -202,7 +202,7 @@ const lessonsReducer = handleActions({
     incorrect: { $set: [] },
   }),
   [app.lessons.current.set]: (state, { payload }) => update(state, {
-    current: { $set: 4883 },
+    current: { $set: payload },
     queue: { $set: difference(state.queue, [payload]) },
   }),
   [app.lessons.current.return]: (state, { payload }) => update(state, {
