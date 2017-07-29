@@ -96,7 +96,7 @@ export const setCurrentOnQueueLoadLogic = createLogic({
     if (!current && queue.length) {
       dispatch(app[category].current.set());
     } else {
-      console.log(`Already have current ${category}: `, { current, queue });
+      console.log('Loaded more queue but already have current: ', { current, category, queue });
     }
     done();
   },
@@ -104,11 +104,17 @@ export const setCurrentOnQueueLoadLogic = createLogic({
 
 export const setCurrentLogic = createLogic({
   type: [app.reviews.current.set, app.lessons.current.set],
-  transform({ getState, action }, next) {
+  validate({ getState, action }, next) {
     const state = getState();
     const category = action.type === `${app.reviews.current.set}` ? 'reviews' : 'lessons';
     const { current, queue } = sel.selectSession(state, { category });
-    next({ ...action, payload: sample(difference(queue, [current])) || false });
+    const newId = sample(difference(queue, [current]));
+    if (newId || queue.length) {
+      next({ ...action, payload: newId });
+    } else {
+      console.log('Current was the only remaining item', { queue, current, newId });
+      next({ ...action, payload: current });
+    }
   },
 });
 
