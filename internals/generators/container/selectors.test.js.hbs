@@ -2,7 +2,7 @@ import select{{ properCase name }}Domain, { makeSelect{{ properCase name }} } fr
 
 describe('{{ properCase name }} selectors', () => {
   const state = { {{ camelCase name }}: 'winner!' };
-  const {{ properCase name }}Domain = select{{ properCase name }}Domain()(state);
+  const {{ properCase name }}Domain = select{{ properCase name }}Domain(state);
   const select{{ properCase name }} = makeSelect{{ properCase name}}();
 
   it('selecting {{ camelCase name }} domain state should match snapshot', () => {

@@ -3,7 +3,7 @@ import selectWelcomePageDomain, { makeSelectWelcomePage } from '../selectors';
 
 describe('WelcomePage selectors', () => {
   const state = { welcomePage: 'winner!' };
-  const WelcomePageDomain = selectWelcomePageDomain()(state);
+  const WelcomePageDomain = selectWelcomePageDomain(state);
   const selectWelcomePage = makeSelectWelcomePage();
 
   it('selecting welcomePage domain state should match snapshot', () => {

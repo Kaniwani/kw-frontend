@@ -2,7 +2,7 @@ import selectQuizPageDomain, { makeSelectQuizPage } from '../selectors';
 
 describe('QuizPage selectors', () => {
   const state = { sessionPage: 'winner!' };
-  const QuizPageDomain = selectQuizPageDomain()(state);
+  const QuizPageDomain = selectQuizPageDomain(state);
   const selectQuizPage = makeSelectQuizPage();
 
   it('selecting sessionPage domain state should match snapshot', () => {
