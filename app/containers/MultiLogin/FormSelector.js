@@ -45,7 +45,7 @@ function FormSelector({ activePanel, setActivePanel, registerSelected, resetSele
               type="button"
               isActive={activePanel === PANEL}
               setActivePanel={setActivePanel}
-              tabIndex={activePanel === PANEL ? -1 : 1}
+              tabIndex={activePanel === PANEL ? -1 : 0}
             >
               {PANEL}
             </EnhancedSelectListItem>
