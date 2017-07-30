@@ -31,13 +31,18 @@ function QuizSummaryContent({
   incorrectIds,
   criticalIds,
   percentCorrect,
+  cardsExpanded,
+  toggleCardsExpanded,
 }) {
   const noHistory = !incorrectIds.length && !correctIds.length && !criticalIds.length;
   return (
     <PageWrapper>
       <Heading>
         <AccuracyBar percent={percentCorrect} />
-        <ToggleVocabListButton />
+        <ToggleVocabListButton
+          cardsExpanded={cardsExpanded}
+          toggleCardsExpanded={toggleCardsExpanded}
+        />
       </Heading>
       {noHistory ? (
         <Container><H2>No history. Get quizzing!</H2></Container>
@@ -46,14 +51,17 @@ function QuizSummaryContent({
           <SummarySection
             summaryType="INCORRECT"
             ids={incorrectIds}
+            cardsExpanded={cardsExpanded}
           />
           <SummarySection
             summaryType="CORRECT"
             ids={correctIds}
+            cardsExpanded={cardsExpanded}
           />
           <SummarySection
             summaryType="CRITICAL"
             ids={criticalIds}
+            cardsExpanded={cardsExpanded}
           />
         </div>
       )}
@@ -68,4 +76,12 @@ const mapStateToProps = createStructuredSelector({
   percentCorrect: selectPercentCorrect,
 });
 
-export default connect(mapStateToProps)(QuizSummaryContent);
+const enhance = compose(
+  connect(mapStateToProps),
+  withStateHandlers(
+    { cardsExpanded: false },
+    { toggleCardsExpanded: ({ cardsExpanded }) => () => ({ cardsExpanded: !cardsExpanded }) },
+  ),
+);
+
+export default enhance(QuizSummaryContent);

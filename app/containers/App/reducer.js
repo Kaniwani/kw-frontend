@@ -23,8 +23,6 @@ const initialState = {
   settings: {
     quiz: {},
     vocabulary: {
-      // FIXME: put expandedCards in summarysection && vocablevel reducer so all 4 can be independent
-      expandedCards: false,
       kanjiStroke: {},
     },
   },

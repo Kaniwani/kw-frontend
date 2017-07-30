@@ -9,9 +9,21 @@ import { Wrapper, Heading, Title, Controls } from './styles';
 VocabPageHeader.propTypes = {
   pageTitle: PropTypes.string.isRequired,
   withVocabListToggle: PropTypes.bool.isRequired,
+  cardsExpanded: PropTypes.bool,
+  toggleCardsExpanded: PropTypes.func,
 };
 
-function VocabPageHeader({ pageTitle, withVocabListToggle }) {
+VocabPageHeader.defaultProps = {
+  cardsExpanded: true,
+  toggleCardsExpanded: () => {},
+};
+
+function VocabPageHeader({
+  pageTitle,
+  cardsExpanded,
+  toggleCardsExpanded,
+  withVocabListToggle,
+}) {
   return (
     <Wrapper>
       <Heading>
@@ -19,10 +31,15 @@ function VocabPageHeader({ pageTitle, withVocabListToggle }) {
       </Heading>
       <Controls>
         {/* <SearchBar /> */}
-        {withVocabListToggle && <ToggleVocabListButton />}
+        {withVocabListToggle && (
+          <ToggleVocabListButton
+            cardsExpanded={cardsExpanded}
+            toggleCardsExpanded={toggleCardsExpanded}
+          />
+        )}
       </Controls>
     </Wrapper>
   );
 }
 
-export default VocabPageHeader;
+export default pure(VocabPageHeader);
