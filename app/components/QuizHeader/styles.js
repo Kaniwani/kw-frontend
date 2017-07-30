@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { pure } from 'recompose';
 
 import { fluidType } from 'shared/styles/utils';
 import { white, whiteLight, blackLight } from 'shared/styles/colors';
@@ -56,10 +57,10 @@ export const Label = styled.div`
   font-size: .95em;
 `;
 
-export const SummaryLink = styled(Link)`
+export const SummaryLink = pure(styled(Link)`
   display: block;
   cursor: pointer;
   color: currentColor;
   /* svg doesn't reach viewbox edges, let's make the left alignment with gutter more visually pleasing */
   transform: translateX(-0.1em)
-`;
+`);

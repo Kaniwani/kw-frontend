@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import loginBackground from 'shared/assets/img/login.svg';
 import MultiLogin from 'containers/MultiLogin';
 import { Wrapper, Title, WelcomeBackgroundImg } from './styles';
-import makeSelectWelcomePage from './selectors';
+import { makeSelectWelcomePage } from './selectors';
 
 export class WelcomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
@@ -25,7 +25,7 @@ export class WelcomePage extends React.Component { // eslint-disable-line react/
 }
 
 const mapStateToProps = createStructuredSelector({
-  WelcomePage: makeSelectWelcomePage(),
+  welcomePage: makeSelectWelcomePage,
 });
 
 function mapDispatchToProps(dispatch) {

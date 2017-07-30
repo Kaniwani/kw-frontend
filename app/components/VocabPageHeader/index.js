@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { pure } from 'recompose';
 
 // import SearchBar from 'containers/SearchBar';
 import ToggleVocabListButton from 'components/ToggleVocabListButton';

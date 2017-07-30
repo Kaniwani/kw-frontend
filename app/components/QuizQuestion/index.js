@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { compose, branch, renderComponent } from 'recompose';
+import { compose, branch, renderComponent, shouldUpdate } from 'recompose';
+import isEqual from 'lodash/isEqual';
 import getSrsRankName from 'utils/getSrsRankName';
 
 import {
@@ -36,6 +37,7 @@ QuizQuestion.propTypes = {
     PropTypes.number,
   ]).isRequired,
 };
+
 // FIXME: animation wuh
 function StreakChange(from, to) {
   const [fromName, toName] = [from, to].map(getSrsRankName);
@@ -89,6 +91,12 @@ const enhance = compose(
   branch(
     ({ meanings, readings }) => !meanings.length || !readings.length,
     renderComponent(LoadingCrabigator)
+  ),
+  shouldUpdate(
+    ({ answerChecked, meanings, readings, streak }, nextProps) => (
+      answerChecked !== nextProps.answerChecked || streak !== nextProps.streak ||
+      !isEqual(meanings, nextProps.meanings) || !isEqual(readings, nextProps.readings)
+    )
   ),
 );
 

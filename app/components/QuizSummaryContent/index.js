@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { compose, withStateHandlers } from 'recompose';
 
 import H2 from 'base/H2';
 import Container from 'base/Container';
