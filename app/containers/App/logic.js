@@ -197,8 +197,9 @@ export const levelUnlockLogic = createLogic({
     if (alreadySubmitting) {
       alert('Please unlock levels one at a time. Turtles get tired too.');
       reject(/* TODO: app.notifications.alert */);
+    } else {
+      allow(action);
     }
-    allow(action);
   },
 
   processOptions: {
