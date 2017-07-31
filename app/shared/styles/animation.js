@@ -35,18 +35,13 @@ export const shake = keyframes`
   }
 
   10%, 40%, 70% {
-    transform: translate3d(-8px, 0, 0);
+    transform: translate3d(-.6rem, 0, 0);
   }
 
   25%, 55%, 85% {
-    transform: translate3d(8px, 0, 0);
+    transform: translate3d(.6rem, 0, 0);
   }
 }`;
-
-// .shake {
-//   animation: shake .6s;
-//   animation-fill-mode: both;
-// }
 
 export const fadeOutUp = keyframes`
   0% {

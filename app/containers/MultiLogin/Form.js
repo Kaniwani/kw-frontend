@@ -15,7 +15,9 @@ import {
 } from 'shared/api';
 
 import {
-  passwordValidation,
+  requiredValid,
+  emailValid,
+  passwordValid,
   valueMatches,
 } from 'shared/validations';
 
@@ -33,7 +35,6 @@ import Input from './Input';
 import {
   Form,
   SubmitButton,
-  ApiInput,
   ApiLink,
   ValidationMessage,
 } from './styles';
@@ -45,8 +46,8 @@ FormView.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   mainInputName: PropTypes.string.isRequired,
   mainInputText: PropTypes.string.isRequired,
-  error: PropTypes.array.isRequired,
   submitting: PropTypes.bool.isRequired,
+  error: PropTypes.array,
 };
 
 function FormView({
@@ -95,14 +96,13 @@ function FormView({
         placeholder="Confirm Password"
         isHidden={loginSelected || resetSelected}
       />
-      <ApiInput isHidden={loginSelected || resetSelected}>
-        <Field
-          label="Enter WaniKani API key"
-          name="apiKey"
-          component={Input}
-          placeholder="WaniKani API key"
-          isHidden={loginSelected || resetSelected}
-        />
+      <Field
+        label="Enter WaniKani API key"
+        name="apiKey"
+        component={Input}
+        placeholder="WaniKani API key"
+        isHidden={loginSelected || resetSelected}
+      >
         <ApiLink
           title="Get WK API key"
           name="HELP"
@@ -110,9 +110,8 @@ function FormView({
           href="https://www.wanikani.com/settings/account#public-api-key"
           isHidden={loginSelected || resetSelected}
           external
-        >
-        </ApiLink>
-      </ApiInput>
+        />
+      </Field>
       {error && <ValidationMessage>{error}</ValidationMessage>}
       <SubmitButton type="submit">
         {(submitting && 'Submitting') ||
@@ -149,7 +148,7 @@ const enhance = compose(
   reduxForm({
     form: 'multiLogin',
     onSubmit: (values, dispatch, props) => {
-      const { username, email, apiKey, password, confirmPassword } = values;
+      const { username, email, password, confirmPassword, apiKey } = values;
       const { loginSelected, registerSelected, resetSelected } = props;
 
       if (loginSelected) {
@@ -162,8 +161,15 @@ const enhance = compose(
       }
 
       if (registerSelected) {
-        if (passwordValidation(password) || valueMatches(password, confirmPassword)) {
-          throw new SubmissionError({ confirmPassword: 'Passwords do not match' });
+        const errors = {
+          username: requiredValid(username),
+          email: emailValid(email),
+          password: passwordValid(password) || valueMatches(password, confirmPassword),
+          confirmPassword: passwordValid(confirmPassword) || valueMatches(password, confirmPassword),
+          apiKey: requiredValid(apiKey),
+        };
+        if (Object.values(errors).some(Boolean)) {
+          throw new SubmissionError(errors);
         } else {
           return registerUser({ username, email, password, apiKey })
             .then(() => loginUser({ username, password }).then(({ body: { token } }) => {

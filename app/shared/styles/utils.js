@@ -86,23 +86,19 @@ export const resetButton = `
   overflow: visible;
   padding: 0;
   appearance: none !important;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
 
-  &::-moz-focus-inner,
   &::-moz-focus-inner {
-    border: 0;
-    padding: 0;
+    border: 0 !important;
+    padding: 0 !important;
   }
 `;
 
-export const hidden = `
-  display: none !important;
-`;
-
-/* hidden but still takes up space, to be used with inline icons generally */
+/* hidden but still takes up space, to avoid layout reflows */
 export const ghost = `
+  visibility: hidden !important;
   opacity: 0 !important;
   pointer-events: none !important;
   cursor: none !important;

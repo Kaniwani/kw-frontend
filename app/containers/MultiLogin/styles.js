@@ -3,20 +3,17 @@ import { transparentize, darken, placeholder, timingFunctions } from 'polished';
 
 import { whiteLight, greyLight, greyDark, red, transparent } from 'shared/styles/colors';
 import { fastEaseQuad } from 'shared/styles/animation';
-import { delta, ffHeading } from 'shared/styles/typography';
+import { ffHeading, delta } from 'shared/styles/typography';
+import { gutter } from 'shared/styles/layout';
 import { resetList, resetButton, visuallyHidden } from 'shared/styles/utils';
 
 import IconLink from 'components/IconLink';
 
-const maxWidth = '20rem';
+const maxWidth = '23rem';
 
 export const Wrapper = styled.div`
-  display: flex;
   position: relative;
   z-index: 2;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
   margin-top: .25rem;
 `;
 
@@ -88,10 +85,10 @@ export const Label = styled.label`
 
 export const InputField = styled.input`
   ${delta}
+  ${gutter({ mod: 2 })}
   display: flex;
-  flex: 1 1 100%;
+  flex: 1 0 2.5rem;
   text-align: center;
-  padding: .2rem .3rem;
   width: 100%;
   border: none;
   border-radius: 10px;
@@ -114,36 +111,58 @@ export const InputField = styled.input`
   }
 `;
 
-export const InputWrapper = styled.div`
-  display: flex;
-  flex-flow: column nowrap;
-  max-width: ${maxWidth};
-  height: 2.5rem;
-  width: 100%;
-  border: none;
-  margin: .25rem auto;
-  transition: all ${fastEaseQuad};
+export const ApiLink = styled(IconLink)`
+  position: absolute;
+  top: .5rem;
+  right: .25em;
+  background-color: ${transparent};
+  opacity: .65;
+  transform: scale(1);
 
-  &[aria-hidden="true"] {
-    height: 0;
-    margin: 0;
-    padding: 0;
-  }
-
-  &[aria-hidden="true"] ${InputField} {
-    height: 0;
-    margin: 0;
-    border: none;
-    padding: 0;
+  &:active {
+    opacity: 1;
+    transform: scale(.9);
   }
 `;
 
 export const ValidationMessage = styled.div`
-  padding: .2rem;
+  ${gutter()}
+  ${gutter({ prop: 'margin', position: 'top' })}
   text-align: center;
-  flex: 1 0 100%;
+  flex: 1 0 auto;
   font-style: italic;
   color: ${red};
+`;
+
+export const InputWrapper = styled.div`
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  max-width: ${maxWidth};
+  max-height: 5rem;
+  width: 100%;
+  border: none;
+  margin: .25rem auto;
+  transition: all 300ms ${timingFunctions('easeOutSine')};
+
+  &[aria-hidden="true"] {
+    transition: all 150ms ${timingFunctions('easeOutSine')};
+    max-height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+    ${InputField},
+    ${ValidationMessage} {
+      border: none;
+    }
+
+    ${ApiLink} {
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(-33%) scale(0);
+    }
+  }
 `;
 
 export const SelectedPointer = styled.span`
@@ -156,8 +175,8 @@ export const SelectedPointer = styled.span`
   width: 0;
   transition: transform 150ms ${timingFunctions('easeOutSine')};
   ${({ position }) => {
-    if (position === 'left') return 'transform: translateX(-6.5rem);';
-    if (position === 'right') return 'transform: translateX(6.5rem);';
+    if (position === 'left') return 'transform: translateX(-7.8rem);';
+    if (position === 'right') return 'transform: translateX(7.6rem);';
     return 'transform: translateX(0px);';
   }}
 `;
@@ -188,41 +207,4 @@ export const SubmitButton = styled.button`
   &:active {
     background-color: ${transparentize(0.1, darken(0.1, red))};
   }
-`;
-
-export const ApiLink = styled(IconLink)`
-  position: absolute;
-  right: .25em;
-  top: 50%;
-  background-color: ${transparent};
-  opacity: .65;
-  transform: translateY(-50%) scale(1);
-
-  &:active {
-    opacity: 1;
-    transform: translateY(-50%) scale(.9);
-  }
-`;
-
-export const ApiInput = styled.div`
-  position: relative;
-  max-width: ${maxWidth};
-  width: 100%;
-  border: none;
-  border-radius: 10px;
-
-  ${({ isHidden }) => isHidden && css`
-    height: 0;
-    margin: 0;
-    padding: 0;
-    border: none;
-    pointer-events: none;
-    visibility: hidden;
-    & ${ApiLink} {
-      height: 0;
-      visibility: hidden;
-      opacity: 0;
-      transform: scale(0);
-    }
-  `}
 `;

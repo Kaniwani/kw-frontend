@@ -9,13 +9,14 @@ Input.propTypes = {
   meta: PropTypes.object.isRequired,
   placeholder: PropTypes.string.isRequired,
   isHidden: PropTypes.bool,
+  children: PropTypes.node,
 };
 
 Input.defaultProps = {
   isHidden: false,
 };
 
-function Input({ label, input, meta, placeholder, isHidden, ...props }) {
+function Input({ label, input, meta, placeholder, isHidden, children, ...props }) {
   return (
     <InputWrapper aria-hidden={isHidden}>
       <Label htmlFor={input.name}>{label}</Label>
@@ -30,7 +31,8 @@ function Input({ label, input, meta, placeholder, isHidden, ...props }) {
         {...input}
         {...props}
       />
-      {meta.error && <ValidationMessage>{meta.error}</ValidationMessage>}
+      {children}
+      {!isHidden && meta.error && <ValidationMessage>{meta.error}</ValidationMessage>}
     </InputWrapper>
   );
 }
