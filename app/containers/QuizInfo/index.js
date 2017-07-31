@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 // import { cycleDetailLevel } from './utils';
 import { selectCurrentId } from 'containers/App/selectors';
-import { selectInfoDisabled } from 'containers/QuizPage/selectors';
+import { selectInfoDisabled, selectInfoActivePanel } from 'containers/QuizPage/selectors';
 
 import ToggleBar from './ToggleBar';
 import InfoPanel from './InfoPanel';
@@ -22,11 +22,11 @@ QuizInfo.propTypes = {
   isDisabled: PropTypes.bool.isRequired,
 };
 
-function QuizInfo({ id, category, isDisabled }) {
+function QuizInfo({ id, category, isDisabled, activePanel }) {
   return (
     <Wrapper>
       <ToggleBar isDisabled={isDisabled} />
-      <PanelsWrapper isDisabled={isDisabled}>
+      <PanelsWrapper isMinimized={!activePanel}>
         <NotesPanel id={id} />
         <InfoPanel id={id} />
         <AddSynonymPanel id={id} category={category} />
@@ -37,6 +37,7 @@ function QuizInfo({ id, category, isDisabled }) {
 
 const mapStateToProps = (state, { category }) => ({
   id: selectCurrentId(state, { category }),
+  activePanel: selectInfoActivePanel(state),
   isDisabled: selectInfoDisabled(state),
 });
 

@@ -18,7 +18,6 @@ import {
   selectQuizSettings,
   selectQueue,
   selectRemainingCount,
-  selectCompleteCount,
   makeSelectReview,
   makeSelectReviewNotes,
  } from 'containers/App/selectors';
@@ -102,15 +101,18 @@ export const checkAnswerLogic = createLogic({
     if (matchedAnswer) {
       dispatch(quiz.answer.update({ ...updatedAnswer, value: matchedAnswer, isCorrect: true }));
       dispatch(quiz.answer.correct({ review, category }));
+      dispatch(quiz.info.update({ isDisabled: false, detailLevel: 1 }));
+
       if (autoExpandCorrect && autoAdvance.speed > 0) {
-        dispatch(quiz.info.update({ activePanel: 'INFO', isDisabled: false, detailLevel: 1 }));
+        dispatch(quiz.info.update({ activePanel: 'INFO' }));
       }
     }
 
     if (!matchedAnswer) {
       dispatch(quiz.answer.update({ ...updatedAnswer, isIncorrect: true }));
+      dispatch(quiz.info.update({ isDisabled: false, detailLevel: 0 }));
       if (autoExpandIncorrect) {
-        dispatch(quiz.info.update({ activePanel: 'INFO', isDisabled: false, detailLevel: 0 }));
+        dispatch(quiz.info.update({ activePanel: 'INFO' }));
       }
       if (previouslyIncorrect) {
         dispatch(quiz.answer.incorrect({ review }));

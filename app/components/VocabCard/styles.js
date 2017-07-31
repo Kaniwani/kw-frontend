@@ -2,8 +2,9 @@ import styled from 'styled-components';
 import { transparentize, darken } from 'polished';
 
 import * as COLORS from 'shared/styles/colors';
-import { ffHeading, mega, gamma, delta } from 'shared/styles/typography';
+import { ffHeading, delta } from 'shared/styles/typography';
 import { borderRadius } from 'shared/styles/sizing';
+import { fluidType } from 'shared/styles/utils';
 import { gutter } from 'shared/styles/layout';
 
 import A from 'base/A';
@@ -66,7 +67,7 @@ export const Dl = styled.dl`
 
     .character {
       ${gutter()}
-      ${mega}
+      ${fluidType(30, 50, 400, 2000)};
       word-break: keep-all;
       text-shadow: 0 2px 2px ${({ color }) => transparentize(0.3, darken(0.2, COLORS[color]))};
     }
@@ -74,7 +75,7 @@ export const Dl = styled.dl`
 
   .meaning {
     ${gutter()}
-    ${gamma}
+    ${delta}
     text-transform: capitalize;
     margin: 0;
     flex: 0 1 55%;
