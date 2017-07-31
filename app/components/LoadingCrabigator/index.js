@@ -1,6 +1,8 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
+
 import { transparent } from 'shared/styles/colors';
+import { gutter } from 'shared/styles/layout';
 
 const fadeOut = keyframes`
   50% { opacity: 0; }
@@ -10,18 +12,20 @@ const fadeIn = keyframes`
 `;
 
 const LayoutWrapper = styled.div`
+  ${gutter({ type: 'outer', mod: 2 })}
   display: flex;
   width: 100%;
   height: 100%;
   flex: 1 0 100%;
   justify-content: center;
   align-items: center;
+  align-content: center;
 `;
 
 const SvgWrapper = styled.div`
   position: relative;
-  width: 20vmin;
-  height: 10vmin;
+  width: 30vmin;
+  height: 20vmin;
   background-repeat: no-repeat;
   background-color: ${transparent};
   transition: all 200ms ease-in-out;

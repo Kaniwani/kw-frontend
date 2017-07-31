@@ -85,7 +85,7 @@ export const resetButton = `
   line-height: normal;
   overflow: visible;
   padding: 0;
-  appearance: none;
+  appearance: none !important;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;

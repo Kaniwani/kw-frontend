@@ -121,6 +121,7 @@ const ActionButton = styled(IconButton)`
   color: currentColor;
   background-color: ${transparent};
   transition: all ${fastEaseQuad};
+  padding: 0 !important;
 
   &:hover {
     opacity: 1;

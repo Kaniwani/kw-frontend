@@ -14,6 +14,7 @@ export const Button = styled.button`
   transition: all ${fastEaseQuad}, transform 100ms linear;
   cursor: pointer;
   opacity: .7;
+  transform: scale(1);
 
   &:not(:disabled) {
     &:focus,
