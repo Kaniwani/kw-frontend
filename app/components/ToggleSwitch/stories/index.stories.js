@@ -7,14 +7,16 @@ storiesOf('components.ToggleSwitch', module)
     <ToggleSwitch
       id="toggle1"
       name="someToggle1"
-      isToggled
+      checked
+      onChange={() => {}}
     />
   ))
   .add('ToggleSwitch with custom props', () => (
     <ToggleSwitch
       id="toggle2"
       name="someToggle2"
-      isToggled={false}
+      checked={false}
+      onChange={() => {}}
       width="12rem"
       height="4rem"
       toggleOnColor="purple"

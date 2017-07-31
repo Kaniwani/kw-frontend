@@ -12,7 +12,7 @@ StreakIcon.propTypes = {
 };
 
 StreakIcon.defaultProps = {
-  streakName: getSrsRankName(SRS_RANKS.ONE),
+  streakName: getSrsRankName(SRS_RANKS.ZERO),
 };
 
 const enhance = onlyUpdateForKeys(['streakName']);

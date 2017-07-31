@@ -64,15 +64,22 @@ function AddSynonym({ handleSubmit, submitting, answerValue, answerType }) {
 const enhance = compose(
   reduxForm({
     form: 'addSynonym',
-    onSubmit: ({ kanji, kana }, dispatch, { id, category }) => {
+    onSubmit: ({ kanji, kana }, dispatch, { answerType }) => {
       const errors = {
         kanji: onlyKanjiOrKana(kanji),
         kana: onlyKana(kana),
       };
       if (Object.values(errors).some(Boolean)) {
         throw new SubmissionError(errors);
-      } else {
-        dispatch(app.review.synonym.add.request({ reviewId: id, character: kanji, kana }));
+      }
+      return { kanji, kana, answerType };
+    },
+    onSubmitSuccess: ({ kanji, kana, answerType }, dispatch, { id, category, reset }) => {
+      const inQuiz = answerType != null;
+      dispatch(app.review.synonym.add.request({ reviewId: id, character: kanji, kana }));
+      reset();
+
+      if (inQuiz) {
         dispatch(quiz.answer.ignore({ category }));
       }
     },

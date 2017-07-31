@@ -1,26 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import withToggle from 'decorators/withToggle';
 import * as COLORS from 'shared/styles/colors';
 import { Input } from './styles';
-
-// FIXME: withToggle sets state, derp
-// remove decorator, and just pass value(isToggled)/onChange as props
-const ToggleSwitch = withToggle(({ isToggled, toggle, id, name, ...props }) => (
-  <Input
-    type="checkbox"
-    id={id}
-    name={name}
-    isToggled={isToggled}
-    onChange={toggle}
-    {...props}
-  />)
-);
 
 ToggleSwitch.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  checked: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
   width: PropTypes.string,
   height: PropTypes.string,
   toggleOnColor: PropTypes.oneOf(Object.keys(COLORS)),
@@ -34,5 +22,17 @@ ToggleSwitch.defaultProps = {
   toggleOffColor: 'red',
 };
 
+function ToggleSwitch({ checked, onChange, id, name, ...props }) {
+  return (
+    <Input
+      type="checkbox"
+      id={id}
+      name={name}
+      checked={checked}
+      onChange={onChange}
+      {...props}
+    />
+  );
+}
 
 export default ToggleSwitch;

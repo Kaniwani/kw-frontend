@@ -23,8 +23,6 @@ const initialState = {
   settings: {
     quiz: {},
     vocabulary: {
-      // FIXME: put expandedCards in summarysection && vocablevel reducer so all 4 can be independent
-      expandedCards: false,
       kanjiStroke: {},
     },
   },
@@ -202,7 +200,7 @@ const lessonsReducer = handleActions({
     incorrect: { $set: [] },
   }),
   [app.lessons.current.set]: (state, { payload }) => update(state, {
-    current: { $set: 4883 },
+    current: { $set: payload },
     queue: { $set: difference(state.queue, [payload]) },
   }),
   [app.lessons.current.return]: (state, { payload }) => update(state, {

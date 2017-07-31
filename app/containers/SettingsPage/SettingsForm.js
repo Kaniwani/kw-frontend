@@ -1,7 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
 import { reduxForm, Field } from 'redux-form';
 import cuid from 'cuid';
+
+import app from 'containers/App/actions';
+import { selectSettings } from 'containers/App/selectors';
+
 import titleCase from 'voca/title_case';
 
 import { SRS_RANKS } from 'shared/constants';
@@ -210,8 +216,17 @@ function SettingsForm({ handleSubmit }) {
   );
 }
 
+const enhance = compose(
+  connect(
+    (state) => ({ initialValues: selectSettings(state) }),
+    ({ saveSettings: app.settings.save.request }),
+  ),
+  reduxForm({
+    form: 'settings',
+    onSubmit: (values, dispatch, { saveSettings }) => saveSettings(values),
+  }),
+);
 
-export default reduxForm({
-  form: 'settings',
-  enableReinitialize: true,
-})(SettingsForm);
+
+// TODO: on
+export default enhance(SettingsForm);

@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { white, purpleDark, SRS_COLORS } from 'shared/styles/colors';
 import { gutter, centerByMargin } from 'shared/styles/layout';
@@ -6,7 +6,7 @@ import { giga, gamma } from 'shared/styles/typography';
 import { borderRadius } from 'shared/styles/sizing';
 import { slowEaseQuad } from 'shared/styles/animation';
 
-import TagsList from 'components/TagsList';
+import H4 from 'base/H4';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -45,43 +45,12 @@ export const Secondary = styled.span`
   font-weight: 400;
 `;
 
-export const Tags = styled(TagsList)`
-  ${({ isInvisible }) => isInvisible && 'opacity: 0;'}
-`;
-
-export const StreakContent = styled.div`
-  ${gutter()}
-  position: absolute;
-  top: 0;
-  opacity: 0;
-  background-color: crimson;
-  border-radius: ${borderRadius};
-`;
-
-export const StreakAnimation = styled.div`
-  position: relative;
-  pointer-events: none;
-  overflow: visible;
-  bottom: 0;
-  height: 0;
-  display: flex;
-  justify-content: center;
+export const StreakAnimation = H4.extend`
+  ${gutter({ prop: 'margin' })} /* match TagList height */
+  line-height: 1;
   text-align: center;
+  align-self: center;
   color: ${white};
   z-index: 4;
-  ${({ changed, streakName, rankUp }) => changed && css`
-    & ${StreakContent} {
-      background-color: ${SRS_COLORS[streakName]};
-      opacity: 1;
-      transition: all ${slowEaseQuad} 0s normal both running;
-      ${rankUp && css`
-        top: 2.5rem;
-      `}
-      ${!rankUp && css`
-        top: -2.3rem;
-      `}
-    }
-  `}
-
-
+  border-radius: ${borderRadius};
 `;

@@ -40,7 +40,7 @@ export class QuizAnswer extends React.PureComponent {
   }
 
   static defaultProps = {
-    streakName: SRS_RANKS.ONE,
+    streakName: SRS_RANKS.ZERO,
   };
 
   // NOTE: react-hotkeys might help avoid this so we can use a function + withHandlers

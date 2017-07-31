@@ -67,7 +67,7 @@ class SiteHeader extends React.Component {
 
   handleLogout = () => {
     clearToken();
-    this.props.history.push('/logout'); // eslint-disable-line react/prop-types
+    this.props.history.push('/welcome'); // eslint-disable-line react/prop-types
   }
 
   render() {

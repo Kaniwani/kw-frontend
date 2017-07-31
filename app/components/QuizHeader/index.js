@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { compose, onlyUpdateForPropTypes, setPropTypes } from 'recompose';
+
 import Icon from 'components/Icon';
 
 import {
@@ -14,15 +16,33 @@ import {
 import { Wrapper, SummaryLink, StatsWrapper, Stat, Label } from './styles';
 import ProgressBar from './ProgressBar';
 
-QuizHeader.propTypes = {
-  category: PropTypes.string.isRequired,
-  percentComplete: PropTypes.number.isRequired,
-  percentCorrect: PropTypes.number.isRequired,
-  correctCount: PropTypes.number.isRequired,
-  remainingCount: PropTypes.number.isRequired,
-};
+const mapStateToProps = createStructuredSelector({
+  percentComplete: selectPercentComplete,
+  percentCorrect: selectPercentCorrect,
+  correctCount: selectCorrectCount,
+  remainingCount: selectRemainingCount,
+});
 
-function QuizHeader({ category, percentComplete, percentCorrect, correctCount, remainingCount }) {
+/* eslint-disable react/prop-types */
+const enhance = compose(
+  connect(mapStateToProps),
+  onlyUpdateForPropTypes,
+  setPropTypes({
+    category: PropTypes.string.isRequired,
+    percentComplete: PropTypes.number.isRequired,
+    percentCorrect: PropTypes.number.isRequired,
+    correctCount: PropTypes.number.isRequired,
+    remainingCount: PropTypes.number.isRequired,
+  })
+);
+
+function QuizHeader({
+  category,
+  percentComplete,
+  percentCorrect,
+  correctCount,
+  remainingCount,
+}) {
   return (
     <div>
       <ProgressBar value={percentComplete} />
@@ -41,7 +61,7 @@ function QuizHeader({ category, percentComplete, percentCorrect, correctCount, r
           </Stat>
           <Stat title="Items remaining">
             <Icon inline={false} size="1.1em" name="ASSIGNMENT_INBOX" />
-            <Label>{remainingCount}</Label>
+            <Label>{remainingCount - 1}</Label> {/* 1 = current review */}
           </Stat>
         </StatsWrapper>
       </Wrapper>
@@ -49,11 +69,4 @@ function QuizHeader({ category, percentComplete, percentCorrect, correctCount, r
   );
 }
 
-const mapStateToProps = createStructuredSelector({
-  percentComplete: selectPercentComplete,
-  percentCorrect: selectPercentCorrect,
-  correctCount: selectCorrectCount,
-  remainingCount: selectRemainingCount,
-});
-
-export default connect(mapStateToProps)(QuizHeader);
+export default enhance(QuizHeader);

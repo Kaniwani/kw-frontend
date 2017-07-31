@@ -12,15 +12,17 @@ export const onlyKanjiOrKana = (value = '') =>
   (isKanji(value) || isJapanese(value) || isKana(value)) ?
     undefined : 'Must be kana, kanji, or a mix of both';
 
-export const resetConfirmation = (value, matcher) =>
-  value === matcher ? undefined : 'Does not match';
+export const valueMatches = (value, matcher) =>
+  value && value === matcher ? undefined : 'Does not match';
 
-export const required = (value) =>
+export const requiredValidation = (value) =>
   value ? undefined : 'Required';
 
-export const number = (value) =>
+export const passwordValidation = (value) =>
+  value && value.length <= 4 ? undefined : 'Password must be greater than 4 characters';
+
+export const numberValidation = (value) =>
   value && isNaN(Number(value)) ? 'Must be a number' : undefined;
 
-export const email = (value) =>
-  value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ?
-  'Invalid email address' : undefined;
+export const emailValidation = (value) =>
+  !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'Invalid email address' : undefined;

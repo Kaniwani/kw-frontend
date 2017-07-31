@@ -43,7 +43,6 @@ export class ProtectedRoutes extends React.Component {
           <Route exact path="/about" component={AboutPage} />
           <Route exact path="/contact" component={ContactPage} />
           <Route exact path="/settings" component={SettingsPage} />
-          <Redirect exact path="/logout" to="/welcome" />
           <Route path="/:category(lessons|reviews)">
             <Switch>
               <Route exact path="/:category/session" component={QuizPage} />

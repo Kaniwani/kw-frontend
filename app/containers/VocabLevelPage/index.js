@@ -7,7 +7,6 @@ import actions from 'containers/App/actions';
 import {
   selectIdFromMatch,
   makeSelectLevelReviews,
-  selectVocabExpanded,
  } from 'containers/App/selectors';
 
 import PageWrapper from 'base/PageWrapper';
@@ -19,7 +18,6 @@ import { VocabListWrapper } from './styles';
 export class VocabLevelPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     loadLevelReviews: PropTypes.func.isRequired,
-    isExpanded: PropTypes.bool.isRequired,
     reviewIds: PropTypes.array,
     id: PropTypes.PropTypes.oneOfType([
       PropTypes.number,
@@ -31,14 +29,20 @@ export class VocabLevelPage extends React.Component { // eslint-disable-line rea
     reviewIds: [],
   }
 
+  state = {
+    cardsExpanded: true,
+  }
+
   componentDidMount() {
     const { loadLevelReviews, id } = this.props;
     // TODO: ask tadgh for custom stubbed reviews api point?
     loadLevelReviews({ id });
   }
 
+  toggleCardsExpanded = () => this.setState({ cardsExpanded: !this.state.cardsExpanded });
+
   render() {
-    const { reviewIds, id, isExpanded } = this.props;
+    const { reviewIds, id } = this.props;
     const PAGE_TITLE = `Vocabulary: Level ${id}`;
     return (
       <div>
@@ -47,9 +51,17 @@ export class VocabLevelPage extends React.Component { // eslint-disable-line rea
           <meta name="description" content={`Kaniwani ${PAGE_TITLE}`} />
         </Helmet>
         <PageWrapper>
-          <VocabPageHeader pageTitle={PAGE_TITLE} withVocabListToggle />
+          <VocabPageHeader
+            pageTitle={PAGE_TITLE}
+            cardsExpanded={this.state.cardsExpanded}
+            toggleCardsExpanded={this.toggleCardsExpanded}
+            withVocabListToggle
+          />
           <VocabListWrapper>
-            <VocabList ids={reviewIds} isExpanded={isExpanded} />
+            <VocabList
+              ids={reviewIds}
+              isExpanded={this.state.cardsExpanded}
+            />
           </VocabListWrapper>
         </PageWrapper>
       </div>
@@ -60,7 +72,6 @@ export class VocabLevelPage extends React.Component { // eslint-disable-line rea
 const mapStateToProps = (state, props) => ({
   id: selectIdFromMatch(props),
   reviewIds: makeSelectLevelReviews(selectIdFromMatch(props))(state),
-  isExpanded: selectVocabExpanded(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

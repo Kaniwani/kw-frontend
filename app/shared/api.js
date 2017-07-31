@@ -2,12 +2,12 @@ import urljoin from 'url-join';
 import { get, put, post, patch, del } from 'utils/request';
 
 const BASE_URL = '//localhost:8000'; // FIXME: change for production
-const API_BASE = urljoin(BASE_URL, 'api', 'v1');
+const KW_API_BASE = urljoin(BASE_URL, 'api', 'v1');
 
 //-----------------------------------------------------------------------------
 //  AUTHORIZATION
 //-----------------------------------------------------------------------------
-const authUrl = urljoin(API_BASE, 'auth');
+const authUrl = urljoin(KW_API_BASE, 'auth');
 const userLoginUrl = urljoin(authUrl, 'login');
 const userCredentialsUrl = urljoin(authUrl, 'me'); // GET / PATCH
 const registerUrl = urljoin(authUrl, 'register'); // POST
@@ -15,22 +15,22 @@ const activateUrl = urljoin(authUrl, 'activate'); // POST
 const usernameUrl = urljoin(authUrl, 'username'); // POST
 const passwordUrl = urljoin(authUrl, 'password'); // POST
 const resetPasswordUrl = urljoin(passwordUrl, 'reset'); // POST
-const confirmPasswordUrl = urljoin(resetPasswordUrl, 'confirm'); // POST
+const confirmPasswordUrl = (confirmToken) => urljoin(resetPasswordUrl, confirmToken); // POST
 
 //-----------------------------------------------------------------------------
 //  USER
 //-----------------------------------------------------------------------------
-const userUrl = urljoin(API_BASE, 'user'); // GET all users (if admin, else 'me')
+const userUrl = urljoin(KW_API_BASE, 'user'); // GET all users (if admin, else 'me')
 const userProfileUrl = urljoin(userUrl, 'me'); // GET user profile
 const userSrsUrl = urljoin(userUrl, 'srs'); // POST to get review count
 const userSyncUrl = urljoin(userUrl, 'sync'); // POST to sync with WK
 const userResetUrl = urljoin(userUrl, 'reset'); // POST to reset KW SRS progress
-const userSettingsUrl = (id) => urljoin(API_BASE, 'profile', id); // PUT to partial update
+const userSettingsUrl = (id) => urljoin(KW_API_BASE, 'profile', id); // PUT to partial update
 
 //-----------------------------------------------------------------------------
 //  REVIEWS
 //-----------------------------------------------------------------------------
-const reviewsUrl = urljoin(API_BASE, 'review'); // GET all ready reviews
+const reviewsUrl = urljoin(KW_API_BASE, 'review'); // GET all ready reviews
 const criticalReviewsUrl = urljoin(reviewsUrl, 'critical'); // GET critical
 const currentReviewsUrl = urljoin(reviewsUrl, 'current'); // GET current review queue
 const currentLessonsUrl = urljoin(reviewsUrl, 'lesson'); // GET current lesson queue
@@ -43,17 +43,17 @@ const unlockReviewUrl = (id) => urljoin(reviewEntryUrl(id), 'unhide'); // POST
 //-----------------------------------------------------------------------------
 //  SYNONYMS
 //-----------------------------------------------------------------------------
-const synonymUrl = urljoin(API_BASE, 'synonym'); // POST add, GET get all
+const synonymUrl = urljoin(KW_API_BASE, 'synonym'); // POST add, GET get all
 const synonymEntryUrl = (id) => urljoin(synonymUrl, id); // DELETE remove, GET one
 
 //-----------------------------------------------------------------------------
 //  VOCABULARY
 //-----------------------------------------------------------------------------
-const vocabularyUrl = urljoin(API_BASE, 'vocabulary'); // GET everything!
+const vocabularyUrl = urljoin(KW_API_BASE, 'vocabulary'); // GET everything!
 const vocabularyEntryUrl = (id) => urljoin(vocabularyUrl, id); // GET one
-const readingUrl = urljoin(API_BASE, 'reading'); // GET all
+const readingUrl = urljoin(KW_API_BASE, 'reading'); // GET all
 const readingEntryUrl = (id) => urljoin(readingUrl, id); // GET one
-const levelsUrl = urljoin(API_BASE, 'level'); // GET all
+const levelsUrl = urljoin(KW_API_BASE, 'level'); // GET all
 const levelEntryUrl = (id) => urljoin(levelsUrl, id); // GET one
 const lockLevelUrl = (id) => urljoin(levelEntryUrl(id), 'lock'); // POST lock
 const unlockLevelUrl = (id) => urljoin(levelEntryUrl(id), 'unlock'); // POST unlock
@@ -61,18 +61,18 @@ const unlockLevelUrl = (id) => urljoin(levelEntryUrl(id), 'unlock'); // POST unl
 //-----------------------------------------------------------------------------
 //  GENERAL
 //-----------------------------------------------------------------------------
-const faqUrl = urljoin(API_BASE, 'faq'); // GET all, POST create
+const faqUrl = urljoin(KW_API_BASE, 'faq'); // GET all, POST create
 const faqEntryUrl = (id) => urljoin(faqUrl, id); // GET, PUT update, PATCH partial update, DELETE
-const announcementUrl = urljoin(API_BASE, 'announcement'); // GET all, POST create
+const announcementUrl = urljoin(KW_API_BASE, 'announcement'); // GET all, POST create
 const announcementEntryUrl = (id) => urljoin(announcementUrl, id); // GET one, PUT update, PATCH  partial update, DELETE
-const contactUrl = urljoin(API_BASE, 'contact');
+const contactUrl = urljoin(KW_API_BASE, 'contact');
 
 //-----------------------------------------------------------------------------
 //  EXTERNAL
 //-----------------------------------------------------------------------------
 export const createJishoApiUrl = (keyword) => `//jisho.org/api/v1/search/words?keyword=${keyword}`;
 export const createJishoUrl = (keyword) => `//jisho.org/search/${keyword}`;
-
+export const createWkApiUrl = (slug) => urljoin('https://www.wanikani.com/api/', slug); // V1
 
 //-----------------------------------------------------------------------------
 //  AUTHORIZATION
@@ -80,13 +80,13 @@ export const createJishoUrl = (keyword) => `//jisho.org/search/${keyword}`;
 export const getUserAuth = ({ id, username, email } = {}) => get(userCredentialsUrl, { id, username, email });
 export const loginUser = ({ username, password } = {}) => post(userLoginUrl, { username, password });
 export const updateUserAuth = ({ id, username, email } = {}) => patch(userCredentialsUrl, { id, username, email });
-export const registerUser = ({ email, username, password, apiKey } = {}) =>
+export const registerUser = ({ email = '', username = '', password = '', apiKey = '' } = {}) =>
   post(registerUrl, { email, username, password, api_key: apiKey });
 
 export const activateUser = ({ uid } = {}) => post(activateUrl, { uid });
 export const changeUsername = ({ username } = {}) => post(usernameUrl, { username });
 export const changePassword = ({ password } = {}) => post(passwordUrl, { password });
-export const resetPassword = ({ email } = {}) => post(resetPasswordUrl, { email }); // send password reset email.
+export const resetPassword = ({ email = '' } = {}) => post(resetPasswordUrl, { email }); // send password reset email.
 export const confirmPassword = () => post(confirmPasswordUrl); // finish reset password process
 
 //-----------------------------------------------------------------------------

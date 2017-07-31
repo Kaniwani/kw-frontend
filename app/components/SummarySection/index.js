@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { pure } from 'recompose';
 
-import pluralize from 'utils/pluralize';
 import RankedVocabLists from './RankedVocabLists';
-import { Section, Wrapper, Title } from './styles';
+import { Section, Title } from './styles';
 
 const TYPES = {
   CORRECT: {
@@ -25,16 +25,22 @@ const getTitleText = (name, count) =>
 SummarySection.propTypes = {
   summaryType: PropTypes.oneOf(Object.keys(TYPES)).isRequired,
   ids: PropTypes.array.isRequired,
+  cardsExpanded: PropTypes.bool.isRequired,
 };
 
-function SummarySection({ summaryType, ids }) {
+function SummarySection({ summaryType, ids, cardsExpanded }) {
   const color = TYPES[summaryType].color;
   return (
     <Section>
       <Title color={color}>{getTitleText(summaryType, ids.length)}</Title>
-      <RankedVocabLists color={color} ids={ids} summaryType={summaryType} />
+      <RankedVocabLists
+        color={color}
+        ids={ids}
+        summaryType={summaryType}
+        cardsExpanded={cardsExpanded}
+      />
     </Section>
   );
 }
 
-export default SummarySection;
+export default pure(SummarySection);

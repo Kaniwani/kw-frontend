@@ -6,6 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import format from 'date-fns/format';
 
 import { DATE_IN_WORDS } from 'shared/constants';
+import app from 'containers/App/actions';
 
 import Element from 'base/Element';
 import Container from 'base/Container';
@@ -26,10 +27,11 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
   static propTypes = {
     profile: PropTypes.object,
     dashboard: PropTypes.object,
+    forceSrs: PropTypes.func.isRequired,
   }
 
   render() {
-    const { profile, dashboard } = this.props;
+    const { profile, dashboard, forceSrs } = this.props;
     return (
       <PageWrapper>
         <Helmet>
@@ -48,6 +50,7 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
             <SrsDonut />
           </Element>
         </Container>
+        <button type="button" onClick={forceSrs}>force srs</button>
         <Debug value={profile} />
         <Debug value={dashboard} />
       </PageWrapper>
@@ -61,4 +64,8 @@ const mapStateToProps = createStructuredSelector({
   dashboard: selectDashboard,
 });
 
-export default connect(mapStateToProps)(HomePage);
+const mapDispatchToProps = {
+  forceSrs: app.user.srs.request,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

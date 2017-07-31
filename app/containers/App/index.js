@@ -10,6 +10,7 @@ import { hasToken } from 'utils/auth';
 // must be React.Component not stateless for Loadable to work
 class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
+    const loggedIn = hasToken();
     return (
       <div>
         <Helmet titleTemplate="%s - KaniWani">
@@ -17,7 +18,7 @@ class App extends React.Component { // eslint-disable-line react/prefer-stateles
         </Helmet>
         <Switch>
           <Route exact path="/welcome" component={WelcomePage} />
-          <Route path="" render={() => hasToken() ? <ProtectedRoutes /> : <Redirect to="/welcome" />} />
+          <Route path="" render={() => loggedIn ? <ProtectedRoutes /> : <Redirect to="/welcome" />} />
         </Switch>
       </div>
     );

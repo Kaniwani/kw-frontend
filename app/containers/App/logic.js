@@ -1,5 +1,4 @@
 import { createLogic } from 'redux-logic';
-import { reset } from 'redux-form';
 import sample from 'lodash/sample';
 import difference from 'lodash/difference';
 // TODO: inject some of these as dependencies instead?
@@ -30,7 +29,7 @@ export const userLoadLogic = createLogic({
 
   process() {
     return api.getUserProfile()
-      .then((res) => serializeUserResponse(res));
+      .then(({ body }) => serializeUserResponse(body));
   },
 });
 
@@ -48,6 +47,16 @@ export const loadQueuesIfNeededLogic = createLogic({
   },
 });
 
+export const forceSrsLogic = createLogic({
+  type: app.user.srs.request,
+  process({ action }, dispatch, done) {
+    return api.syncKw().then(({ body }) => {
+      dispatch(app.user.load.success({ dashboard: { reviewsCount: body.review_count } }));
+      done();
+    });
+  },
+});
+
 export const reviewsQueueLoadLogic = createLogic({
   type: app.reviews.queue.load.request,
   cancelType: app.reviews.queue.load.cancel,
@@ -61,7 +70,7 @@ export const reviewsQueueLoadLogic = createLogic({
 
   process({ action: { payload } }) {
     return api.getCurrentReviews(payload)
-      .then((res) => serializeQueueResponse(res));
+      .then(({ body }) => serializeQueueResponse(body));
   },
 });
 
@@ -78,7 +87,7 @@ export const lessonsQueueLoadLogic = createLogic({
 
   process({ action: { payload } }) {
     return api.getCurrentLessons(payload)
-      .then((res) => serializeQueueResponse(res));
+      .then(({ body }) => serializeQueueResponse(body));
   },
 });
 
@@ -90,7 +99,7 @@ export const setCurrentOnQueueLoadLogic = createLogic({
     if (!current && queue.length) {
       dispatch(app[category].current.set());
     } else {
-      console.log(`Already have current ${category}: `, { current, queue });
+      console.log('Loaded more queue but already have current: ', { current, category, queue });
     }
     done();
   },
@@ -98,11 +107,17 @@ export const setCurrentOnQueueLoadLogic = createLogic({
 
 export const setCurrentLogic = createLogic({
   type: [app.reviews.current.set, app.lessons.current.set],
-  transform({ getState, action }, next) {
+  validate({ getState, action }, next) {
     const state = getState();
     const category = action.type === `${app.reviews.current.set}` ? 'reviews' : 'lessons';
     const { current, queue } = sel.selectSession(state, { category });
-    next({ ...action, payload: sample(difference(queue, [current])) || false });
+    const newId = sample(difference(queue, [current]));
+    if (newId || queue.length) {
+      next({ ...action, payload: newId });
+    } else {
+      console.log('Current was the only remaining item', { queue, current, newId });
+      next({ ...action, payload: current });
+    }
   },
 });
 
@@ -152,7 +167,7 @@ export const levelsLoadLogic = createLogic({
 
   process() {
     return api.getLevels()
-      .then((res) => serializeLevelsResponse(res));
+      .then(({ body }) => serializeLevelsResponse(body));
   },
 });
 
@@ -181,7 +196,7 @@ export const levelUnlockLogic = createLogic({
     const alreadySubmitting = sel.selectUi(getState()).levels.submitting.length >= 1;
     if (alreadySubmitting) {
       alert('Please unlock levels one at a time. Turtles get tired too.');
-      reject(/* TODO: app.notifications.alert*/);
+      reject(/* TODO: app.notifications.alert */);
     }
     allow(action);
   },
@@ -209,7 +224,7 @@ export const reviewLoadLogic = createLogic({
 
   process({ action: { payload: { id } } }) {
     return api.getReviewEntry({ id })
-      .then((res) => serializeReviewResponse(res));
+      .then(({ body }) => serializeReviewResponse(body));
   },
 });
 
@@ -270,7 +285,7 @@ export const addSynonymLogic = createLogic({
 
   process({ action: { payload: { reviewId, character, kana } } }) {
     return api.addSynonym({ reviewId, character, kana })
-      .then((res) => serializeAddSynonymResponse(res));
+      .then(({ body }) => serializeAddSynonymResponse(body));
   },
 });
 
@@ -290,17 +305,6 @@ export const removeSynonymLogic = createLogic({
   },
 });
 
-export const resetSynonymFormLogic = createLogic({
-  type: app.review.synonym.add.success,
-  warnTimeout: 10000,
-  latest: true,
-
-  process(deps, dispatch, done) {
-    dispatch(reset('addSynonym'));
-    done();
-  },
-});
-
 export const levelLoadLogic = createLogic({
   type: app.level.load.request,
   cancelType: app.level.load.cancel,
@@ -313,13 +317,14 @@ export const levelLoadLogic = createLogic({
 
   process({ action: { payload: { id } } }) {
     return api.getReviews({ id })
-      .then(({ results }) => serializeLevelResponse({ id, results }));
+      .then(({ body: { results } }) => serializeLevelResponse({ id, results }));
   },
 });
 
 // All logic to be loaded
 export default [
   userLoadLogic,
+  forceSrsLogic,
   reviewsQueueLoadLogic,
   lessonsQueueLoadLogic,
   loadQueuesIfNeededLogic,
@@ -333,7 +338,6 @@ export default [
   reviewLoadLogic,
   addSynonymLogic,
   removeSynonymLogic,
-  resetSynonymFormLogic,
   reviewLockLogic,
   reviewUnlockLogic,
   reviewNotesLogic,

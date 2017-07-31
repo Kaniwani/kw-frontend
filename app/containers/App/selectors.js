@@ -178,7 +178,7 @@ export const selectIncorrectCount = createSelector(
 
 export const selectRemainingCount = createSelector(
   [selectCorrectCount, selectSessionCount],
-  (correct, total) => Math.max((total - 1) /* 1 = current review */ - correct, 0),
+  (correct, total) => Math.max(total - correct, 0),
 );
 
 export const selectCompleteCount = createSelector(
