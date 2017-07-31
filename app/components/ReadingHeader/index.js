@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import TagsList from 'components/TagsList';
 import VocabEntryLock from 'components/VocabEntryLock';
 
-import { Wrapper, Heading } from './styles';
+import { Wrapper/* , Heading */ } from './styles';
 
 ReadingHeader.propTypes = {
   tags: PropTypes.array.isRequired,
@@ -15,7 +15,7 @@ ReadingHeader.propTypes = {
 function ReadingHeader({ id, showLock, tags }) {
   return (
     <Wrapper>
-      <Heading>Reading</Heading>
+      {/* <Heading>Reading</Heading> */}
       <TagsList tags={tags} />
       {showLock && <VocabEntryLock id={id} />}
     </Wrapper>

@@ -28,7 +28,7 @@ export const PanelsWrapper = styled.div`
   max-width: 2000px;
   background-color: ${whiteLight};
   flex: 1 0 100%;
-  ${({ isDisabled }) => isDisabled && 'flex: 0 1 0px'}
+  ${({ isMinimized }) => isMinimized && 'flex: 0 1 0px'}
 `;
 
 const dashedTopBorder = css`
