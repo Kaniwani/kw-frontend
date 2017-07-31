@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { handleActions, combineActions } from 'redux-actions';
+// import { REHYDRATE } from 'redux-persist/constants';
 import update from 'immutability-helper';
 import merge from 'lodash/merge';
 import union from 'lodash/union';
@@ -68,12 +69,14 @@ const initialState = {
 };
 
 const userReducer = handleActions({
+  // [REHYDRATE]: (state, { payload }) => ({ ...state, ...payload.global.user }),
   [app.user.load.success]: (state, { payload }) => update(state, {
     $set: merge({}, state, { dashboard: payload.dashboard, profile: payload.profile }),
   }),
 }, initialState.user);
 
 const settingsReducer = handleActions({
+  // [REHYDRATE]: (state, { payload }) => ({ ...state, ...payload.global.settings }),
   [app.user.load.success]: (state, { payload }) => update(state, {
     $set: merge({}, state, payload.settings),
   }),
@@ -87,6 +90,7 @@ const settingsReducer = handleActions({
 }, initialState.settings);
 
 const uiReducer = handleActions({
+  // [REHYDRATE]: (state, { payload }) => ({ ...state, ...payload.global.ui }),
   // TODO: can we simplify some of these to add a category to the action meta instead?
   [app.user.load.request]: (state) => update(state, {
     user: { loading: { $set: true } },
@@ -124,6 +128,7 @@ const uiReducer = handleActions({
 }, initialState.ui);
 
 const levelsReducer = handleActions({
+  // [REHYDRATE]: (state, { payload }) => ({ ...state, ...payload.global.levels }),
   [combineActions(
     app.levels.load.success,
   )]: (state, { payload }) => update(state, {
@@ -141,6 +146,7 @@ const levelsReducer = handleActions({
 }, initialState.levels);
 
 const reviewsReducer = handleActions({
+  // [REHYDRATE]: (state, { payload }) => ({ ...state, ...payload.global.reviews }),
   [app.review.load.success]: (state, { payload }) => update(state, {
     entities: { [payload.id]: { $set: payload } },
   }),
@@ -192,6 +198,7 @@ const reviewsReducer = handleActions({
 }, initialState.reviews);
 
 const lessonsReducer = handleActions({
+  // [REHYDRATE]: (state, { payload }) => ({ ...state, ...payload.global.lessons }),
   [app.lessons.queue.load.success]: (state, { payload }) => update(state, {
     queue: { $set: union(state.queue, payload.reviewIds) },
   }),

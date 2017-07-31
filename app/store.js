@@ -5,6 +5,11 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import { createLogicMiddleware } from 'redux-logic';
+import createActionBuffer from 'redux-action-buffer';
+import { autoRehydrate, persistStore } from 'redux-persist';
+import { REHYDRATE } from 'redux-persist/constants';
+import createCompressor from 'redux-persist-transform-compress';
+import localForage from 'localforage';
 
 // import { request } from 'utils/request';
 import globalLogic from 'containers/App/logic';
@@ -13,12 +18,13 @@ import createReducer from './reducers';
 export default function configureStore(initialState = {}, history) {
   // inject helpers, we could make an "import request from 'utils/request'" available to all logic
   // const injectedHelpers = { request };
-  const logicMiddleware = createLogicMiddleware(globalLogic, /* injectedHelpers*/);
+  const logicMiddleware = createLogicMiddleware(globalLogic, /* injectedHelpers */);
 
   // Create the store with two middlewares
   // 1. logicMiddleware: enables redux-logic
   // 2. routerMiddleware: Syncs the location/URL path to the state
   const middlewares = [
+    createActionBuffer(REHYDRATE), // make sure to apply this after redux-thunk et al.
     logicMiddleware,
     routerMiddleware(history),
   ];
@@ -30,6 +36,7 @@ export default function configureStore(initialState = {}, history) {
   }
 
   const enhancers = [
+    autoRehydrate(),
     applyMiddleware(...middlewares),
   ];
 
@@ -45,8 +52,12 @@ export default function configureStore(initialState = {}, history) {
   const store = createStore(
     createReducer(),
     initialState,
-    composeEnhancers(...enhancers)
+    composeEnhancers(...enhancers),
   );
+
+  // persist state to localStorage
+  const compressor = createCompressor(/* { whitelist: ['someGiganticReducer'], blacklist: ['someSpecialReducer'] } */);
+  persistStore(store, { storage: localForage, transforms: [compressor] });
 
   // Extensions
   store.logicMiddleware = logicMiddleware;
