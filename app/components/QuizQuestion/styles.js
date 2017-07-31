@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 
-import { white, purpleDark, SRS_COLORS } from 'shared/styles/colors';
+import { white, purpleDark } from 'shared/styles/colors';
 import { gutter, centerByMargin } from 'shared/styles/layout';
 import { giga, gamma } from 'shared/styles/typography';
 import { borderRadius } from 'shared/styles/sizing';
-import { slowEaseQuad } from 'shared/styles/animation';
 
 import H4 from 'base/H4';
 
@@ -31,16 +30,16 @@ export const Question = styled.h1`
   text-transform: capitalize;
   letter-spacing: -0.03em;
   text-shadow: .1em .2em .4em ${purpleDark};
-  padding: 2em .5em;
+  padding: 5vw .5rem;
 `;
 
-export const Primary = styled.span`
+export const Primary = styled.div`
   ${giga}
-  display: block;
 `;
 
-export const Secondary = styled.span`
+export const Secondary = styled.div`
   ${gamma}
+  line-height: 1.3;
   ${gutter({ position: 'top' })}
   font-weight: 400;
 `;

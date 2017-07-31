@@ -22,7 +22,7 @@ export const Upper = styled.section`
   ${gutter({ position: 'top', mod: 1.5 })} /* Space for progress bar */
   display: flex;
   flex-direction: column;
-  min-height: 35vmin;
+  min-height: 30vmin;
   background-color: #6a3bbc;
   background-image: linear-gradient(180deg, #774ac6, #5f35a9);
   background-repeat: repeat-x;
