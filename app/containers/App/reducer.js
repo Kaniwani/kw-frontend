@@ -8,16 +8,13 @@ import difference from 'lodash/difference';
 import app from './actions';
 
 export const initialState = {
-  persistExpiresAt: '',
-  user: {
-    profile: {},
-    dashboard: {
-      lessonsCount: 0,
-      reviewsCount: 0,
-      nextHourReviews: 0,
-      nextDayReviews: 0,
-      srsCounts: {},
-    },
+  profile: {},
+  dashboard: {
+    lessonsCount: 0,
+    reviewsCount: 0,
+    nextHourReviews: 0,
+    nextDayReviews: 0,
+    srsCounts: {},
   },
   // TODO: get Tadgh to update settings with new options + their defaults!
   // NOTE: update serialize/deserializer with anything missing
@@ -49,11 +46,13 @@ export const initialState = {
   },
 };
 
-const userReducer = handleActions({
-  [app.user.load.success]: (state, { payload }) => update(state, {
-    $set: merge({}, state, { dashboard: payload.dashboard, profile: payload.profile }),
-  }),
-}, initialState.user);
+const profileReducer = handleActions({
+  [app.user.load.success]: (state, { payload }) => payload.profile,
+}, initialState.profile);
+
+const dashboardReducer = handleActions({
+  [app.user.load.success]: (state, { payload }) => payload.dashboard,
+}, initialState.dashboard);
 
 const settingsReducer = handleActions({
   [app.user.load.success]: (state, { payload }) => update(state, {
@@ -161,7 +160,8 @@ const entitiesReducer = handleActions({
 }, initialState.entities);
 
 export default combineReducers({
-  user: userReducer,
+  profile: profileReducer,
+  dashboard: dashboardReducer,
   settings: settingsReducer,
   entities: entitiesReducer,
   session: combineReducers({

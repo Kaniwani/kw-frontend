@@ -3,7 +3,6 @@ import isNumber from 'lodash/isNumber';
 import titleCase from 'voca/title_case';
 import isBefore from 'date-fns/is_before';
 import addMinutes from 'date-fns/add_minutes';
-import addSeconds from 'date-fns/add_seconds';
 
 import groupByRank from 'utils/groupByRank';
 import calculatePercentage from 'utils/calculatePercentage';
@@ -18,9 +17,8 @@ export const selectEntities = (state) => state.global.entities;
 export const selectIdFromMatch = (props) => +props.match.params.id;
 export const selectCategoryFromMatch = (props) => props.match.params.category;
 
-const selectUser = (state) => state.global.user;
-export const selectProfile = createSelector(selectUser, (user) => user.profile);
-export const selectDashboard = createSelector(selectUser, (user) => user.dashboard);
+export const selectProfile = (state) => state.global.profile;
+export const selectDashboard = (state) => state.global.dashboard;
 export const selectSrsCounts = createSelector(selectDashboard, (dashboard) => dashboard.srsCounts);
 
 export const selectSettings = (state) => state.global.settings;
@@ -151,7 +149,7 @@ export const selectSessionLastActivity = createSelector(
 
 export const selectSessionActive = createSelector(
   selectSessionLastActivity,
-  (lastActivity) => lastActivity != null && isBefore(lastActivity, addSeconds(new Date(), SESSION_EXPIRY_MINUTES)),
+  (lastActivity) => lastActivity != null && isBefore(lastActivity, addMinutes(new Date(), SESSION_EXPIRY_MINUTES)),
 );
 
 export const selectQueue = createSelector(

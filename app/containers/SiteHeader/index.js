@@ -75,10 +75,10 @@ class SiteHeader extends React.Component {
     let onCanvasRoutes = [
       { text: 'lessons', route: '/lessons', count: this.props.lessonsCount },
       { text: 'reviews', route: '/reviews', count: this.props.reviewsCount },
-      { text: 'vocabulary', route: '/vocabulary/levels' },
     ];
 
     let offCanvasRoutes = [
+      { text: 'vocabulary', route: '/vocabulary/levels' },
       { text: 'settings', route: '/settings' },
       { text: 'about', route: '/about' },
       { text: 'contact', route: '/contact' },
