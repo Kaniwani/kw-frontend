@@ -147,7 +147,7 @@ export const returnCurrentLogic = createLogic({
   },
 });
 
-export const reloadQueueCountsLogic = createLogic({
+export const reloadSessionCountsLogic = createLogic({
   type: [
     app.level.lock.success,
     app.level.unlock.success,
@@ -155,7 +155,6 @@ export const reloadQueueCountsLogic = createLogic({
   ],
   latest: true,
   process(_, dispatch, done) {
-    console.info('Reloading queue counts');
     dispatch(app.user.load.request());
     done();
   },
@@ -342,7 +341,7 @@ export default [
   levelsLoadLogic,
   levelLockLogic,
   levelUnlockLogic,
-  reloadQueueCountsLogic,
+  reloadSessionCountsLogic,
   reviewLoadLogic,
   addSynonymLogic,
   removeSynonymLogic,

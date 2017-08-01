@@ -19,7 +19,7 @@ export const Wrapper = styled.div`
   flex: 1 0 auto;
 `;
 
-// peel off bgColor prop so it's not applied to <A/> as html attr
+// peel off bgColor/isDisabled so not applied to <A/> as html attrs
 export const LinkBlock = styled(({ bgColor, isDisabled, children, ...rest }) => <A {...rest}>{children}</A>)`
   display: inline-flex;
   line-height: 1;

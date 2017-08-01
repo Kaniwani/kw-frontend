@@ -58,6 +58,7 @@ export default function configureStore(initialState = {}, history) {
   );
 
   persistStore(store, {
+    storage: localForage,
     whitelist: ['global'],
     transforms: [createCompressor()],
   });

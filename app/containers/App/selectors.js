@@ -1,11 +1,16 @@
 import { createSelector } from 'reselect';
 import isNumber from 'lodash/isNumber';
 import titleCase from 'voca/title_case';
+import isBefore from 'date-fns/is_before';
+import addMinutes from 'date-fns/add_minutes';
+import addSeconds from 'date-fns/add_seconds';
 
 import groupByRank from 'utils/groupByRank';
 import calculatePercentage from 'utils/calculatePercentage';
 import getSrsRankName from 'utils/getSrsRankName';
 import filterRomajiReadings from 'utils/filterRomajiReadings';
+
+import { SESSION_EXPIRY_MINUTES } from 'shared/constants';
 
 export const selectLocation = (state) => state.location;
 export const selectGlobal = (state) => state.global;
@@ -13,9 +18,7 @@ export const selectEntities = (state) => state.global.entities;
 export const selectIdFromMatch = (props) => +props.match.params.id;
 export const selectCategoryFromMatch = (props) => props.match.params.category;
 
-export const selectUi = (state) => state.global.ui;
-export const selectUser = (state) => state.global.user;
-
+const selectUser = (state) => state.global.user;
 export const selectProfile = createSelector(selectUser, (user) => user.profile);
 export const selectDashboard = createSelector(selectUser, (user) => user.dashboard);
 export const selectSrsCounts = createSelector(selectDashboard, (dashboard) => dashboard.srsCounts);
@@ -141,6 +144,16 @@ export const makeSelectVocabChipToolTipMarkup = (id) => createSelector(
 
 export const selectSessionByCategory = (state, { category }) => category === 'reviews' ? selectReviewSession(state) : selectLessonSession(state);
 
+export const selectSessionLastActivity = createSelector(
+  selectSessionByCategory,
+  (session) => session.lastActivity,
+);
+
+export const selectSessionActive = createSelector(
+  selectSessionLastActivity,
+  (lastActivity) => lastActivity != null && isBefore(lastActivity, addSeconds(new Date(), SESSION_EXPIRY_MINUTES)),
+);
+
 export const selectQueue = createSelector(
   selectSessionByCategory,
   (session) => session.queue,
@@ -169,11 +182,6 @@ export const selectRemainingCount = createSelector(
 export const selectCompleteCount = createSelector(
   [selectCorrectCount, selectIncorrectCount],
   (correct, incorrect) => correct + incorrect,
-);
-
-export const selectSessionActive = createSelector(
-  [selectCompleteCount, selectRemainingCount],
-  (complete, remaining) => complete > 0 && remaining > 0,
 );
 
 export const selectPercentComplete = createSelector(

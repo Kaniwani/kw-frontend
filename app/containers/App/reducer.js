@@ -33,12 +33,14 @@ export const initialState = {
   },
   session: {
     lessons: {
+      lastActivity: null,
       current: false,
       queue: [],
       correct: [],
       incorrect: [],
     },
     reviews: {
+      lastActivity: null,
       current: false,
       queue: [],
       correct: [],
@@ -64,7 +66,7 @@ const settingsReducer = handleActions({
 
 const reviewSessionReducer = handleActions({
   [app.reviews.queue.load.success]: (state, { payload }) => update(state, {
-    queue: { $set: union(state.queue, payload.reviewIds) },
+    queue: { $set: union(state.queue, payload.reviewIds) },  // TODO: replace as "ids" in serializer/logic etc
   }),
   [app.reviews.current.set]: (state, { payload }) => update(state, {
     current: { $set: payload },
@@ -76,15 +78,23 @@ const reviewSessionReducer = handleActions({
   }),
   [app.reviews.correct.add]: (state, { payload }) => update(state, {
     correct: { $set: union(state.correct, [payload]) },
+    lastActivity: { $set: Date.now() },
   }),
   [app.reviews.incorrect.add]: (state, { payload }) => update(state, {
     incorrect: { $set: union(state.incorrect, [payload]) },
+    lastActivity: { $set: Date.now() },
+  }),
+  [app.reviews.resetSession]: (state) => update(state, {
+    correct: { $set: [] },
+    incorrect: { $set: [] },
   }),
 }, initialState.session.reviews);
 
+// TODO: can probably unduplicate these
+// perhaps part of setting "category" in session state root
 const lessonSessionReducer = handleActions({
   [app.lessons.queue.load.success]: (state, { payload }) => update(state, {
-    queue: { $set: union(state.queue, payload.reviewIds) },
+    queue: { $set: union(state.queue, payload.reviewIds) }, // TODO: replace as "ids" in serializer/logic etc
   }),
   [app.lessons.current.set]: (state, { payload }) => update(state, {
     current: { $set: payload },
@@ -96,10 +106,15 @@ const lessonSessionReducer = handleActions({
   }),
   [app.lessons.correct.add]: (state, { payload }) => update(state, {
     correct: { $set: union(state.correct, [payload]) },
-    /* TODO: set a date that session should expire at */
+    lastActivity: { $set: Date.now() },
   }),
   [app.lessons.incorrect.add]: (state, { payload }) => update(state, {
     incorrect: { $set: union(state.incorrect, [payload]) },
+    lastActivity: { $set: Date.now() },
+  }),
+  [app.lessons.resetSession]: (state) => update(state, {
+    correct: { $set: [] },
+    incorrect: { $set: [] },
   }),
 }, initialState.session.lessons);
 

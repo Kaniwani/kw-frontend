@@ -8,7 +8,7 @@ import { clearToken } from 'utils/auth';
 import { breakpoints } from 'shared/styles/media';
 
 import LogoLink from 'components/LogoLink';
-import { selectRemainingCount } from 'containers/App/selectors';
+import { selectSessionCount } from 'containers/App/selectors';
 
 import OnCanvasMenu from './OnCanvasMenu';
 import OffCanvasToggle from './OffCanvasToggle';
@@ -119,8 +119,8 @@ class SiteHeader extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  reviewsCount: selectRemainingCount(state, { category: 'reviews' }),
-  lessonsCount: selectRemainingCount(state, { category: 'lessons' }),
+  reviewsCount: selectSessionCount(state, { category: 'reviews' }),
+  lessonsCount: selectSessionCount(state, { category: 'lessons' }),
 });
 
 export default withRouter(connect(mapStateToProps)(SiteHeader));

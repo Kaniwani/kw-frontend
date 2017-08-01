@@ -4,8 +4,11 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, withStateHandlers } from 'recompose';
 
-import H2 from 'base/H2';
+import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
+
 import Container from 'base/Container';
+import H2 from 'base/H2';
+import H4 from 'base/H4';
 import PageWrapper from 'base/PageWrapper';
 import AccuracyBar from 'components/AccuracyBar';
 import SummarySection from 'components/SummarySection';
@@ -16,6 +19,7 @@ import {
   selectIncorrectIds,
   selectCriticalIds,
   selectPercentCorrect,
+  selectSessionLastActivity,
 } from 'containers/App/selectors';
 
 import { Heading } from './styles';
@@ -25,6 +29,7 @@ QuizSummaryContent.propTypes = {
   incorrectIds: PropTypes.array.isRequired,
   criticalIds: PropTypes.array.isRequired,
   percentCorrect: PropTypes.number.isRequired,
+  lastActivity: PropTypes.number,
 };
 
 function QuizSummaryContent({
@@ -32,6 +37,7 @@ function QuizSummaryContent({
   incorrectIds,
   criticalIds,
   percentCorrect,
+  lastActivity,
   cardsExpanded,
   toggleCardsExpanded,
 }) {
@@ -64,6 +70,15 @@ function QuizSummaryContent({
             ids={criticalIds}
             cardsExpanded={cardsExpanded}
           />
+          {lastActivity != null && (
+            <Container>
+              <H4>
+                Last session activity: {
+                  distanceInWordsToNow(lastActivity, { includeSeconds: true })
+                } ago
+              </H4>
+            </Container>
+          )}
         </div>
       )}
     </PageWrapper>
@@ -75,6 +90,7 @@ const mapStateToProps = createStructuredSelector({
   incorrectIds: selectIncorrectIds,
   criticalIds: selectCriticalIds,
   percentCorrect: selectPercentCorrect,
+  lastActivity: selectSessionLastActivity,
 });
 
 const enhance = compose(

@@ -29,7 +29,9 @@ export const { app } = createActions({
       LOAD: ASYNC,
       SRS: ASYNC,
     },
+    // TODO: rename as session > reviews???
     REVIEWS: {
+      RESET_SESSION: SYNC,
       QUEUE: {
         LOAD: ASYNC,
       },
@@ -46,7 +48,9 @@ export const { app } = createActions({
         REMOVE: SYNC,
       },
     },
+    // TODO: rename as session > lessons???
     LESSONS: {
+      RESET_SESSION: SYNC,
       QUEUE: {
         LOAD: ASYNC,
       },

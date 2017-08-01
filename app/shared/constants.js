@@ -4,6 +4,7 @@ const BASE_URL = process.env.NODE_ENV !== 'production' ? DEV_DOMAIN : PROD_DOMAI
 
 export const KW_API_BASE = `${BASE_URL}/api/v1`;
 
+export const SESSION_EXPIRY_MINUTES = 30;
 /**
  * Format string for use with 'date-fns/format'
  * @type {String}

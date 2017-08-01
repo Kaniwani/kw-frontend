@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import titleCase from 'voca/title_case';
+import noop from 'lodash/noop';
 import { createStructuredSelector } from 'reselect';
 
-import { selectRemainingCount, selectSessionActive } from 'containers/App/selectors';
+import { selectSessionCount, selectSessionActive } from 'containers/App/selectors';
+import app from 'containers/App/actions';
 import LogoLink from 'components/LogoLink';
 import SessionLink from './SessionLink';
 
@@ -16,20 +18,16 @@ import {
 
 QuizSummaryHeader.propTypes = {
   category: PropTypes.string.isRequired,
-  isSessionActive: PropTypes.bool,
-  remainingCount: PropTypes.number,
+  sessionActive: PropTypes.bool.isRequired,
+  sessionCount: PropTypes.number.isRequired,
+  resetSession: PropTypes.func.isRequired,
 };
 
-QuizSummaryHeader.defaultProps = {
-  remainingCount: 0,
-  isSessionActive: false,
-};
-
-function QuizSummaryHeader({ category, remainingCount, isSessionActive }) {
+function QuizSummaryHeader({ category, sessionCount, sessionActive, resetSession }) {
   const linkText = () => {
-    if (isSessionActive) return 'Continue Session';
-    if (!isSessionActive) return 'Begin Session';
-    return `No ${titleCase(category)}`;
+    if (sessionCount < 1) return `No ${titleCase(category)}`;
+    if (sessionActive) return 'Continue Session';
+    return 'Begin Session';
   };
 
   return (
@@ -38,10 +36,11 @@ function QuizSummaryHeader({ category, remainingCount, isSessionActive }) {
         <LogoLink />
         <Title>{titleCase(category)} Summary</Title>
         <SessionLink
-          isDisabled={remainingCount < 1}
+          isDisabled={sessionCount < 1}
           text={linkText()}
           to={`/${category}/session`}
-          count={remainingCount}
+          count={sessionCount}
+          handleClick={!sessionActive ? resetSession : noop}
         />
       </Wrapper>
     </Header>
@@ -49,8 +48,12 @@ function QuizSummaryHeader({ category, remainingCount, isSessionActive }) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  remainingCount: selectRemainingCount,
-  isSessionActive: selectSessionActive,
+  sessionCount: selectSessionCount,
+  sessionActive: selectSessionActive,
 });
 
-export default connect(mapStateToProps)(QuizSummaryHeader);
+const mapDispatchToProps = (dispatch, { category }) => ({
+  resetSession: () => dispatch(app[category].resetSession()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuizSummaryHeader);
