@@ -5,10 +5,11 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import { createLogicMiddleware } from 'redux-logic';
-import createActionBuffer from 'redux-action-buffer';
 import { autoRehydrate, persistStore } from 'redux-persist';
 import { REHYDRATE } from 'redux-persist/constants';
+
 import createCompressor from 'redux-persist-transform-compress';
+import createActionBuffer from 'redux-action-buffer';
 import localForage from 'localforage';
 
 // import { request } from 'utils/request';
@@ -21,10 +22,11 @@ export default function configureStore(initialState = {}, history) {
   const logicMiddleware = createLogicMiddleware(globalLogic, /* injectedHelpers */);
 
   // Create the store with two middlewares
-  // 1. logicMiddleware: enables redux-logic
-  // 2. routerMiddleware: Syncs the location/URL path to the state
+  // 1. createActionBuffer: collects any early logic actions and only fires them *after* state has rehydrated
+  // 2. logicMiddleware: enables redux-logic
+  // 3. routerMiddleware: Syncs the location/URL path to the state
   const middlewares = [
-    createActionBuffer(REHYDRATE), // make sure to apply this after redux-thunk et al.
+    createActionBuffer(REHYDRATE),
     logicMiddleware,
     routerMiddleware(history),
   ];
@@ -55,9 +57,10 @@ export default function configureStore(initialState = {}, history) {
     composeEnhancers(...enhancers),
   );
 
-  // persist state to localStorage
-  const compressor = createCompressor(/* { whitelist: ['someGiganticReducer'], blacklist: ['someSpecialReducer'] } */);
-  persistStore(store, { storage: localForage, transforms: [compressor] });
+  persistStore(store, {
+    whitelist: ['global'],
+    transforms: [createCompressor()],
+  });
 
   // Extensions
   store.logicMiddleware = logicMiddleware;

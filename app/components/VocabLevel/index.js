@@ -1,19 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { compose, pure, withHandlers, shouldUpdate } from 'recompose';
-import { createStructuredSelector } from 'reselect';
+import { compose, withHandlers, pure } from 'recompose';
 import noop from 'lodash/noop';
-import isEqual from 'lodash/isEqual';
 
 import actions from 'containers/App/actions';
 import {
   makeSelectLevelCount,
   makeSelectLevelTitle,
   makeSelectLevelLocked,
-  makeSelectLevelActionable,
-  makeSelectLevelSubmitting,
  } from 'containers/App/selectors';
+
+import {
+   makeSelectLevelActionable,
+   makeSelectLevelSubmitting,
+ } from 'containers/VocabLevelsPage/selectors';
+
 import { Wrapper, LevelLink, Title, ItemCount, LockedLabel, Button } from './styles';
 
 
@@ -25,7 +27,7 @@ const enhance = compose(
       return noop;
     },
   }),
-  // pure,
+  pure,
 );
 
 VocabLevel.propTypes = {

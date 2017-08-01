@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 import { handleActions, combineActions } from 'redux-actions';
-// import { REHYDRATE } from 'redux-persist/constants';
 import update from 'immutability-helper';
 import merge from 'lodash/merge';
 import union from 'lodash/union';
@@ -8,7 +7,8 @@ import difference from 'lodash/difference';
 
 import app from './actions';
 
-const initialState = {
+export const initialState = {
+  persistExpiresAt: '',
   user: {
     profile: {},
     dashboard: {
@@ -27,137 +27,43 @@ const initialState = {
       kanjiStroke: {},
     },
   },
-  lessons: {
-    // uses same entities as reviews
-    current: false,
-    queue: [],
-    correct: [],
-    incorrect: [],
+  entities: {
+    reviews: {},
+    levels: {},
   },
-  reviews: {
-    entities: {},
-    current: false,
-    queue: [],
-    correct: [],
-    incorrect: [],
-  },
-  levels: {
-    entities: {},
-  },
-  ui: {
-    error: false,
-    user: {
-      loading: false,
+  session: {
+    lessons: {
+      current: false,
+      queue: [],
+      correct: [],
+      incorrect: [],
     },
     reviews: {
-      loading: false,
-    },
-    lessons: {
-      loading: false,
-    },
-    levels: {
-      loading: false,
-      submitting: [],
-    },
-    level: {
-      loading: false,
-    },
-    entry: {
-      loading: false,
+      current: false,
+      queue: [],
+      correct: [],
+      incorrect: [],
     },
   },
 };
 
 const userReducer = handleActions({
-  // [REHYDRATE]: (state, { payload }) => ({ ...state, ...payload.global.user }),
   [app.user.load.success]: (state, { payload }) => update(state, {
     $set: merge({}, state, { dashboard: payload.dashboard, profile: payload.profile }),
   }),
 }, initialState.user);
 
 const settingsReducer = handleActions({
-  // [REHYDRATE]: (state, { payload }) => ({ ...state, ...payload.global.settings }),
   [app.user.load.success]: (state, { payload }) => update(state, {
     $set: merge({}, state, payload.settings),
   }),
   [app.settings.save.success]: (state, { payload }) => update(state, {
     $set: merge({}, state, payload),
   }),
-  // FIXME: move to relevant components
-  [app.settings.vocabulary.expanded.toggle]: (state) => update(state, {
-    vocabulary: { expandedCards: { $apply: (value) => !value } },
-  }),
 }, initialState.settings);
 
-const uiReducer = handleActions({
-  // [REHYDRATE]: (state, { payload }) => ({ ...state, ...payload.global.ui }),
-  // TODO: can we simplify some of these to add a category to the action meta instead?
-  [app.user.load.request]: (state) => update(state, {
-    user: { loading: { $set: true } },
-  }),
-  [combineActions(
-    app.user.load.failure,
-    app.user.load.cancel,
-    app.user.load.success,
-  )]: (state) => update(state, {
-    user: { loading: { $set: false } },
-  }),
-  [combineActions(
-    app.user.load.failure,
-  )]: (state, { payload }) => {
-    // TODO: take all errors
-    // TODO: log to slack
-    console.warn('api failure'); // eslint-disable-line no-console
-    console.error(payload); // eslint-disable-line no-console
-    return update(state, {
-      user: { error: { $set: payload } },
-    });
-  },
-  [combineActions(
-    app.level.lock.request,
-    app.level.unlock.request,
-  )]: (state, { payload }) => update(state, {
-    levels: { submitting: { $push: [payload.id] } },
-  }),
-  [combineActions(
-    app.level.lock.success,
-    app.level.unlock.success,
-  )]: (state, { payload }) => update(state, {
-    levels: { submitting: { $apply: (ids) => difference(ids, [payload.id]) } },
-  }),
-}, initialState.ui);
-
-const levelsReducer = handleActions({
-  // [REHYDRATE]: (state, { payload }) => ({ ...state, ...payload.global.levels }),
-  [combineActions(
-    app.levels.load.success,
-  )]: (state, { payload }) => update(state, {
-    entities: { $set: merge({}, state.entities, payload) },
-  }),
-  [app.level.load.success]: (state, { payload }) => update(state, {
-    entities: { [payload.id]: { $set: merge({}, state.entities[payload.id], { reviews: payload.reviewIds }) } },
-  }),
-  [app.level.lock.success]: (state, { payload }) => update(state, {
-    entities: { [payload.id]: { isLocked: { $set: true } } },
-  }),
-  [app.level.unlock.success]: (state, { payload }) => update(state, {
-    entities: { [payload.id]: { isLocked: { $set: false } } },
-  }),
-}, initialState.levels);
-
-const reviewsReducer = handleActions({
-  // [REHYDRATE]: (state, { payload }) => ({ ...state, ...payload.global.reviews }),
-  [app.review.load.success]: (state, { payload }) => update(state, {
-    entities: { [payload.id]: { $set: payload } },
-  }),
-  [app.level.load.success]: (state, { payload }) => update(state, {
-    entities: { $set: merge({}, state.entities, payload.reviews) },
-  }),
-  [app.lessons.queue.load.success]: (state, { payload }) => update(state, {
-    entities: { $set: merge({}, state.entities, payload.reviews) },
-  }),
+const reviewSessionReducer = handleActions({
   [app.reviews.queue.load.success]: (state, { payload }) => update(state, {
-    entities: { $set: merge({}, state.entities, payload.reviews) },
     queue: { $set: union(state.queue, payload.reviewIds) },
   }),
   [app.reviews.current.set]: (state, { payload }) => update(state, {
@@ -168,43 +74,17 @@ const reviewsReducer = handleActions({
     queue: { $set: union(state.queue, [state.current]) },
     current: { $set: payload },
   }),
-  [app.reviews.session.reset]: (state) => update(state, {
-    correct: { $set: [] },
-    incorrect: { $set: [] },
-  }),
   [app.reviews.correct.add]: (state, { payload }) => update(state, {
     correct: { $set: union(state.correct, [payload]) },
   }),
   [app.reviews.incorrect.add]: (state, { payload }) => update(state, {
     incorrect: { $set: union(state.incorrect, [payload]) },
   }),
-  [app.review.update]: (state, { payload }) => payload ? update(state, {
-    entities: { [payload.id]: { $set: merge({}, state.entities[payload.id], payload) } },
-  }) : state,
-  [combineActions(
-    app.review.lock.success,
-    app.review.unlock.success,
-  )]: (state, { payload }) => update(state, {
-    entities: { [payload.id]: { isHidden: { $set: payload.isHidden } } },
-  }),
-  [app.review.synonym.add.success]: (state, { payload }) => update(state, {
-    entities: { [payload.reviewId]: { synonyms: { $push: [payload] } } },
-  }),
-  [app.review.synonym.remove.success]: (state, { payload }) => update(state, {
-    entities: { [payload.reviewId]: {
-      synonyms: { $apply: (synonyms) => synonyms.filter((synonym) => synonym.id !== payload.id) } },
-    },
-  }),
-}, initialState.reviews);
+}, initialState.session.reviews);
 
-const lessonsReducer = handleActions({
-  // [REHYDRATE]: (state, { payload }) => ({ ...state, ...payload.global.lessons }),
+const lessonSessionReducer = handleActions({
   [app.lessons.queue.load.success]: (state, { payload }) => update(state, {
     queue: { $set: union(state.queue, payload.reviewIds) },
-  }),
-  [app.lessons.session.reset]: (state) => update(state, {
-    correct: { $set: [] },
-    incorrect: { $set: [] },
   }),
   [app.lessons.current.set]: (state, { payload }) => update(state, {
     current: { $set: payload },
@@ -216,17 +96,61 @@ const lessonsReducer = handleActions({
   }),
   [app.lessons.correct.add]: (state, { payload }) => update(state, {
     correct: { $set: union(state.correct, [payload]) },
+    /* TODO: set a date that session should expire at */
   }),
   [app.lessons.incorrect.add]: (state, { payload }) => update(state, {
     incorrect: { $set: union(state.incorrect, [payload]) },
   }),
-}, initialState.lessons);
+}, initialState.session.lessons);
+
+const entitiesReducer = handleActions({
+  [combineActions(
+    app.reviews.queue.load.success,
+    app.lessons.queue.load.success
+  )]: (state, { payload }) => update(state, {
+    reviews: { $set: merge({}, state.reviews, payload.reviews) },
+  }),
+  [app.levels.load.success]: (state, { payload }) => update(state, {
+    levels: { $set: merge({}, state.levels, payload) },
+  }),
+  [app.level.load.success]: (state, { payload }) => update(state, {
+    levels: { [payload.id]: { $set: merge({}, state.levels[payload.id], { reviews: payload.reviewIds }) } },
+    reviews: { $set: merge({}, state.reviews, payload.reviews) },
+  }),
+  [app.review.load.success]: (state, { payload }) => update(state, {
+    reviews: { [payload.id]: { $set: payload } },
+  }),
+  [app.review.update]: (state, { payload }) => payload ? update(state, {
+    reviews: { [payload.id]: { $set: merge({}, state.reviews[payload.id], payload) } },
+  }) : state,
+  [app.review.synonym.add.success]: (state, { payload }) => update(state, {
+    reviews: { [payload.reviewId]: { synonyms: { $push: [payload] } } },
+  }),
+  [app.review.synonym.remove.success]: (state, { payload }) => update(state, {
+    reviews: { [payload.reviewId]: {
+      synonyms: { $apply: (synonyms) => synonyms.filter((synonym) => synonym.id !== payload.id) } },
+    },
+  }),
+  [combineActions(
+    app.review.lock.success,
+    app.review.unlock.success,
+  )]: (state, { payload }) => update(state, {
+    reviews: { [payload.id]: { isHidden: { $set: payload.isHidden } } },
+  }),
+  [app.level.lock.success]: (state, { payload }) => update(state, {
+    levels: { [payload.id]: { isLocked: { $set: true } } },
+  }),
+  [app.level.unlock.success]: (state, { payload }) => update(state, {
+    levels: { [payload.id]: { isLocked: { $set: false } } },
+  }),
+}, initialState.entities);
 
 export default combineReducers({
-  ui: uiReducer,
   user: userReducer,
   settings: settingsReducer,
-  reviews: reviewsReducer,
-  lessons: lessonsReducer,
-  levels: levelsReducer,
+  entities: entitiesReducer,
+  session: combineReducers({
+    reviews: reviewSessionReducer,
+    lessons: lessonSessionReducer,
+  }),
 });

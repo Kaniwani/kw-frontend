@@ -22,9 +22,7 @@ const enhance = compose(
 
 function VocabLevelsList({ levelIds }) {
   return (
-    <Ul>
-      {levelIds.map((id) => <VocabLevel key={cuid()} id={id} />)}
-    </Ul>
+    <Ul>{levelIds.map((id) => <VocabLevel key={cuid()} id={id} />)}</Ul>
   );
 }
 

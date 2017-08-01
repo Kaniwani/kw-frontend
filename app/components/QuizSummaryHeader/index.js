@@ -5,7 +5,6 @@ import titleCase from 'voca/title_case';
 import { createStructuredSelector } from 'reselect';
 
 import { selectRemainingCount, selectSessionActive } from 'containers/App/selectors';
-import app from 'containers/App/actions';
 import LogoLink from 'components/LogoLink';
 import SessionLink from './SessionLink';
 
@@ -15,22 +14,21 @@ import {
   Title,
 } from './styles';
 
-QuizSummaryContent.propTypes = {
+QuizSummaryHeader.propTypes = {
   category: PropTypes.string.isRequired,
-  resetSession: PropTypes.func.isRequired,
   isSessionActive: PropTypes.bool,
-  count: PropTypes.number,
+  remainingCount: PropTypes.number,
 };
 
-QuizSummaryContent.defaultProps = {
-  count: 0,
+QuizSummaryHeader.defaultProps = {
+  remainingCount: 0,
   isSessionActive: false,
 };
 
-function QuizSummaryContent({ category, count, isSessionActive, resetSession }) {
+function QuizSummaryHeader({ category, remainingCount, isSessionActive }) {
   const linkText = () => {
-    if (isSessionActive && count > 0) return 'Continue Session';
-    if (!isSessionActive && count > 0) return 'Begin Session';
+    if (isSessionActive) return 'Continue Session';
+    if (!isSessionActive) return 'Begin Session';
     return `No ${titleCase(category)}`;
   };
 
@@ -40,11 +38,10 @@ function QuizSummaryContent({ category, count, isSessionActive, resetSession }) 
         <LogoLink />
         <Title>{titleCase(category)} Summary</Title>
         <SessionLink
-          isDisabled={count <= 0}
+          isDisabled={remainingCount < 1}
           text={linkText()}
           to={`/${category}/session`}
-          count={count}
-          onClick={resetSession}
+          count={remainingCount}
         />
       </Wrapper>
     </Header>
@@ -52,12 +49,8 @@ function QuizSummaryContent({ category, count, isSessionActive, resetSession }) 
 }
 
 const mapStateToProps = createStructuredSelector({
-  count: selectRemainingCount,
+  remainingCount: selectRemainingCount,
   isSessionActive: selectSessionActive,
 });
 
-const mapDispatchToProps = (dispatch, { category }) => ({
-  resetSession: () => dispatch(app[category].session.reset),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(QuizSummaryContent);
+export default connect(mapStateToProps)(QuizSummaryHeader);

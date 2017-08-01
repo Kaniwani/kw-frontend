@@ -1,7 +1,7 @@
 import { createLogic } from 'redux-logic';
 import sample from 'lodash/sample';
 import difference from 'lodash/difference';
-// TODO: inject some of these as dependencies instead?
+// TODO: inject some of these as in store.js as logic dependencies instead?
 import * as api from 'shared/api';
 
 import {
@@ -13,6 +13,7 @@ import {
   serializeAddSynonymResponse,
 } from 'shared/serializers';
 
+import { selectLevelsSubmitting } from 'containers/VocabLevelsPage/selectors';
 // TODO: find/replace sel.selectorZ and import { selectorX, selectorY }
 import * as sel from './selectors';
 import app from './actions';
@@ -37,10 +38,16 @@ export const loadQueuesIfNeededLogic = createLogic({
   type: app.user.load.success,
   latest: true,
   process({ getState, action }, dispatch, done) {
-    const globalState = sel.selectGlobal(getState());
-    const dashboard = sel.selectDashboard(getState());
-    const needReviewsQueue = dashboard.reviewsCount > 0 && globalState.reviews.queue.length <= 0;
-    const needLessonsQueue = dashboard.lessonsCount > 0 && globalState.lessons.queue.length <= 0;
+    const state = getState();
+    const { reviewCount, lessonCount, reviewQueue, lessonQueue } = ({
+      reviewCount: sel.selectSessionCount(state, { category: 'reviews' }),
+      lessonCount: sel.selectSessionCount(state, { category: 'lessons' }),
+      reviewQueue: sel.selectQueue(state, { category: 'reviews' }),
+      lessonQueue: sel.selectQueue(state, { category: 'lessons' }),
+    });
+
+    const needReviewsQueue = reviewCount > 0 && reviewQueue.length <= 0;
+    const needLessonsQueue = lessonCount > 0 && lessonQueue.length <= 0;
     if (needReviewsQueue) { dispatch(app.reviews.queue.load.request()); }
     if (needLessonsQueue) { dispatch(app.lessons.queue.load.request()); }
     done();
@@ -95,7 +102,7 @@ export const setCurrentOnQueueLoadLogic = createLogic({
   type: [app.reviews.queue.load.success, app.lessons.queue.load.success],
   process({ getState, action: { type } }, dispatch, done) {
     const category = type === `${app.reviews.queue.load.success}` ? 'reviews' : 'lessons';
-    const { current, queue } = sel.selectSession(getState(), { category });
+    const { current, queue } = sel.selectSessionByCategory(getState(), { category });
     if (!current && queue.length) {
       dispatch(app[category].current.set());
     } else {
@@ -110,7 +117,7 @@ export const setCurrentLogic = createLogic({
   validate({ getState, action }, next) {
     const state = getState();
     const category = action.type === `${app.reviews.current.set}` ? 'reviews' : 'lessons';
-    const { current, queue } = sel.selectSession(state, { category });
+    const { current, queue } = sel.selectSessionByCategory(state, { category });
     const newId = sample(difference(queue, [current]));
     if (newId || queue.length) {
       next({ ...action, payload: newId });
@@ -127,8 +134,8 @@ export const returnCurrentLogic = createLogic({
     const state = getState();
     const { current, queue } = (
       action.type === `${app.reviews.current.return}` ?
-        sel.selectReviews(state) :
-        sel.selectLessons(state)
+        sel.selectReviewSession(state) :
+        sel.selectLessonSession(state)
       );
     const newId = sample(difference(queue, [current]));
     if (newId) {
@@ -193,7 +200,7 @@ export const levelUnlockLogic = createLogic({
   validate({ getState, action }, allow, reject) {
     // TODO: could set up a queue instead.
     // https://github.com/jeffbski/redux-logic/tree/master/examples/notification
-    const alreadySubmitting = sel.selectUi(getState()).levels.submitting.length >= 1;
+    const alreadySubmitting = selectLevelsSubmitting(getState()).length >= 1;
     if (alreadySubmitting) {
       alert('Please unlock levels one at a time. Turtles get tired too.');
       reject(/* TODO: app.notifications.alert */);

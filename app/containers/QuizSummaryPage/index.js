@@ -22,7 +22,7 @@ function QuizSummaryPage({ category }) {
         <title>{`${categoryTitle} Summary`}</title>
         <meta name="description" content={`Kaniwani ${categoryTitle} Summary`} />
       </Helmet>
-      <QuizSummaryHeader category={category} linkRoute={`/${category}/session`} />
+      <QuizSummaryHeader category={category} />
       <QuizSummaryContent category={category} />
     </div>
   );
