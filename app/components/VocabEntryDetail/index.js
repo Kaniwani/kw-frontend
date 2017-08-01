@@ -7,12 +7,12 @@ import getDateInWords from 'utils/getDateInWords';
 import calculatePercentage from 'utils/calculatePercentage';
 import getSrsRankName from 'utils/getSrsRankName';
 
-
 import { makeSelectReview } from 'containers/App/selectors';
 
 import H3 from 'base/H3';
 import P from 'base/P';
 import StreakIcon from 'components/StreakIcon';
+import VocabEntryNotes from 'components/VocabEntryNotes';
 
 VocabEntryDetail.propTypes = {
   review: PropTypes.object.isRequired,
@@ -48,19 +48,19 @@ function VocabEntryDetail({ review }) {
   // FIXME: don't pass review down! pass ID and let the components select only what they need for re-rendering
   return (
     <div>
-      <P><code>review.isReviewReady && </code> <ReviewReady>Ready for review</ReviewReady></P>
-      <P><code>review.isBurned && </code> <Burned>Burned on KW!</Burned></P>
-      <P><code>review.wk.isBurned &&</code> <Burned>Burned on WK!</Burned></P>
-      <P><code>review.isCritical &&</code> <Critical>Critical on KW!</Critical></P>
-      <P><code>review.streak name: </code> KW {getSrsRankName(review.streak)} <StreakIcon streakName={getSrsRankName(review.streak)} size="2em" /></P>
-      <P><code>review.streakName: </code> WK {review.wk && review.wk.streakName} <StreakIcon streakName={review.wk && review.wk.streakName} size="2em" /></P>
-      <P><code>review.lastReviewDate: </code> <BoldH>{getDateInWords(review.lastReviewDate)}</BoldH></P>
-      <P><code>review.unlockDate: </code> <BoldH>{getDateInWords(review.unlockDate)}</BoldH></P>
-      <P><code>review.nextReviewDate: </code> <BoldH>{getDateInWords(review.nextReviewDate)}</BoldH></P>
-      <P><code>review.correct</code>:<BoldH> 1</BoldH></P>
-      <P><code>review.incorrect</code>:<BoldH> 3</BoldH></P>
-      <P><code>correctness(correct, incorrect)</code> <BoldH>{correctness(2, 4)}</BoldH></P>
-      <P><BoldH>or if</BoldH> <code>correctness(0, 0)</code> <BoldH>{correctness(0, 0)}</BoldH></P>
+      <P>{review.isReviewReady && <ReviewReady>Ready for review</ReviewReady> }</P>
+      <P>{review.isBurned && <Burned>Burned on KW!</Burned>}</P>
+      <P>{review.wk.isBurned && <Burned>Burned on WK!</Burned>}</P>
+      <P>{review.isCritical && <Critical>Critical on KW!</Critical>}</P>
+      <P>KW {getSrsRankName(review.streak)} <StreakIcon streakName={getSrsRankName(review.streak)} size="2em" /></P>
+      <P>WK {review.wk && review.wk.streakName} <StreakIcon streakName={review.wk && review.wk.streakName} size="2em" /></P>
+      <P>Unlocked on <BoldH>{getDateInWords(review.unlockDate)}</BoldH></P>
+      <P>Last reviewed on <BoldH>{getDateInWords(review.lastReviewDate)}</BoldH></P>
+      <P>Next upcoming review <BoldH>{getDateInWords(review.nextReviewDate)}</BoldH></P>
+      <P>Times correct: <BoldH>{review.correct}</BoldH></P>
+      <P>Times incorrect: <BoldH>{review.incorrect}</BoldH></P>
+      <P>Correctness<BoldH>{correctness(review.correct, review.incorrect)}</BoldH></P>
+      <VocabEntryNotes id={review.id} />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
@@ -8,6 +9,17 @@ import actions from 'containers/App/actions';
 import PageWrapper from 'base/PageWrapper';
 import VocabEntry from 'components/VocabEntry';
 import VocabEntryDetail from 'components/VocabEntryDetail';
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-flow: row-wrap;
+  & > div:first-child {
+    flex: 2 1 66%;
+  }
+  & > div:last-child {
+    text-align: right;
+  }
+`;
 
 export class VocabEntryPage extends React.Component {
   static propTypes = {
@@ -34,8 +46,10 @@ export class VocabEntryPage extends React.Component {
           <meta name="description" content="Kaniwani Vocabulary: Entry" />
         </Helmet>
         <PageWrapper>
-          <VocabEntry id={id} review={review} />
-          <VocabEntryDetail id={id} />
+          <Wrapper>
+            <VocabEntry id={id} review={review} />
+            <VocabEntryDetail id={id} />
+          </Wrapper>
         </PageWrapper>
       </div>
     );

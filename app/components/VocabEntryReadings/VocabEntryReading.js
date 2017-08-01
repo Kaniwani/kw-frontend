@@ -44,33 +44,37 @@ function VocabEntryReading({
 }) {
   return (
     <Li>
-      {detailLevel > 1 && <ReadingHeader showLock={showLock && index === 0} id={id} character={character} tags={tags} />}
-      {detailLevel > 1 && <VocabEntryLinks character={character} />}
+      {detailLevel > 1 && (
+        <ReadingHeader showLock={showLock && index === 0} id={id} character={character} tags={tags} />
+      )}
       <ReadingContent>
         <Reading character={character} kana={kana} detailLevel={detailLevel} />
-        {detailLevel > 1 && <SentencePair
-          sentenceEn={sentenceEn}
-          sentenceJa={sentenceJa}
-          character={character}
-          kana={kana}
-        />}
-      </ReadingContent>
-      {detailLevel > 1 && (
-      <StrokeLoader>
-        {!showKanjiSvg && (
-          <IconButton
-            inline
-            name="BRUSH"
-            title="View stroke diagram"
-            size="1.8em"
-            handleClick={toggleKanjiSvg}
-          >
-            <StrokeLoaderText>Strokes</StrokeLoaderText>
-          </IconButton>
+        {detailLevel > 1 && (
+          <StrokeLoader>
+            {!showKanjiSvg && (
+              <IconButton
+                inline
+                name="BRUSH"
+                title="View stroke diagram"
+                size="1.8em"
+                handleClick={toggleKanjiSvg}
+              >
+                <StrokeLoaderText>Strokes</StrokeLoaderText>
+              </IconButton>
+            )}
+            {showKanjiSvg && renderKanjiStroke(character)}
+          </StrokeLoader>
         )}
-        {showKanjiSvg && renderKanjiStroke(character)}
-      </StrokeLoader>
-    )}
+        {detailLevel > 1 && (
+          <SentencePair
+            sentenceEn={sentenceEn}
+            sentenceJa={sentenceJa}
+            character={character}
+            kana={kana}
+          />
+        )}
+      </ReadingContent>
+      {detailLevel > 1 && <VocabEntryLinks character={character} />}
     </Li>
   );
 }
