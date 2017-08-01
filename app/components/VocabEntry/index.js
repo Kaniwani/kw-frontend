@@ -5,7 +5,6 @@ import { compose, onlyUpdateForKeys, branch, renderNothing } from 'recompose';
 import VocabEntryMeanings from 'components/VocabEntryMeanings';
 import VocabEntryReadings from 'components/VocabEntryReadings';
 import VocabEntrySynonyms from 'components/VocabEntrySynonyms';
-import VocabEntryNotes from 'components/VocabEntryNotes';
 import AddSynonym from 'components/AddSynonym';
 
 import { Wrapper, MeaningsWrapper, SynonymsWrapper } from './styles';
@@ -25,7 +24,6 @@ function VocabEntry({ id }) {
         <AddSynonym id={id} />
         <VocabEntrySynonyms id={id} />
       </SynonymsWrapper>
-      <VocabEntryNotes id={id} />
     </Wrapper>
   );
 }
