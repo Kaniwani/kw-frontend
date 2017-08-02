@@ -2212,9 +2212,9 @@ create-react-class@^15.5.2, create-react-class@^15.5.3, create-react-class@^15.6
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
 
-cross-env@5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/cross-env/-/cross-env-5.0.1.tgz#ff4e72ea43b47da2486b43a7f2043b2609e44913"
+cross-env@5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/cross-env/-/cross-env-5.0.2.tgz#d39fd2fa28c1b5cfb91e7058d1efe8b4fcb01334"
   dependencies:
     cross-spawn "^5.1.0"
     is-windows "^1.0.0"
@@ -4385,9 +4385,9 @@ html-tag-names@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/html-tag-names/-/html-tag-names-1.1.1.tgz#f8a076113f16e393518937f6b3b5d22296755d4a"
 
-html-webpack-plugin@2.29.0:
-  version "2.29.0"
-  resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-2.29.0.tgz#e987f421853d3b6938c8c4c8171842e5fd17af23"
+html-webpack-plugin@2.30.1:
+  version "2.30.1"
+  resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-2.30.1.tgz#7f9c421b7ea91ec460f56527d78df484ee7537d5"
   dependencies:
     bluebird "^3.4.7"
     html-minifier "^3.2.3"
@@ -5248,9 +5248,9 @@ jest-snapshot@^20.0.3:
     natural-compare "^1.4.0"
     pretty-format "^20.0.3"
 
-jest-styled-components@4.2.2:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/jest-styled-components/-/jest-styled-components-4.2.2.tgz#8b4cc442e26a6ad8d8806360c4cea2117f8a62a7"
+jest-styled-components@4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/jest-styled-components/-/jest-styled-components-4.3.0.tgz#3ba64eabe5e83e4f16f4e8db7b532a2fffb74b76"
   dependencies:
     css "^2.2.1"
 
@@ -7358,13 +7358,13 @@ react-komposer@^2.0.0:
     react-stubber "^1.0.0"
     shallowequal "^0.2.2"
 
-react-loadable@4.0.3:
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/react-loadable/-/react-loadable-4.0.3.tgz#296c5cdfba3d402d66d2120d52fc08c2ca1f3088"
+react-loadable@4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/react-loadable/-/react-loadable-4.0.4.tgz#ae96837729eeb7fd0d3bb1dc01dc0053ac147874"
   dependencies:
     import-inspector "^2.0.0"
     is-webpack-bundle "^1.0.0"
-    webpack-require-weak "^1.0.0"
+    webpack-require-weak "^1.0.1"
 
 react-modal@^1.7.6, react-modal@^1.7.7:
   version "1.7.7"
@@ -8675,6 +8675,10 @@ time-stamp@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/time-stamp/-/time-stamp-1.1.0.tgz#764a5a11af50561921b133f3b44e618687e0f5c3"
 
+time-stamp@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/time-stamp/-/time-stamp-2.0.0.tgz#95c6a44530e15ba8d6f4a3ecb8c3a3fac46da357"
+
 timed-out@^3.0.0:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/timed-out/-/timed-out-3.1.3.tgz#95860bfcc5c76c277f8f8326fd0f5b2e20eba217"
@@ -9073,9 +9077,9 @@ walker@~1.0.5:
   dependencies:
     makeerror "1.0.x"
 
-wanakana@2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/wanakana/-/wanakana-2.2.0.tgz#feccbf4edf28e090832685f91329065291c14311"
+wanakana@2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/wanakana/-/wanakana-2.2.2.tgz#f2b6616785d25a7ac339455a8b39b8fc3c7fe8f8"
 
 ware@^1.2.0:
   version "1.3.0"
@@ -9117,7 +9121,17 @@ webidl-conversions@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-4.0.1.tgz#8015a17ab83e7e1b311638486ace81da6ce206a0"
 
-webpack-dev-middleware@1.11.0, webpack-dev-middleware@^1.10.2:
+webpack-dev-middleware@1.12.0:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/webpack-dev-middleware/-/webpack-dev-middleware-1.12.0.tgz#d34efefb2edda7e1d3b5dbe07289513219651709"
+  dependencies:
+    memory-fs "~0.4.1"
+    mime "^1.3.4"
+    path-is-absolute "^1.0.0"
+    range-parser "^1.0.3"
+    time-stamp "^2.0.0"
+
+webpack-dev-middleware@^1.10.2:
   version "1.11.0"
   resolved "https://registry.yarnpkg.com/webpack-dev-middleware/-/webpack-dev-middleware-1.11.0.tgz#09691d0973a30ad1f82ac73a12e2087f0a4754f9"
   dependencies:
@@ -9144,7 +9158,7 @@ webpack-hot-middleware@^2.18.0:
     querystring "^0.2.0"
     strip-ansi "^3.0.0"
 
-webpack-require-weak@^1.0.0:
+webpack-require-weak@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/webpack-require-weak/-/webpack-require-weak-1.0.1.tgz#a6a8e60871bebbe5b085a915ab0af633a412433f"
   dependencies:
