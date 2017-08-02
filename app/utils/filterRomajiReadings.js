@@ -13,7 +13,9 @@ import toHiragana from 'wanakana/toHiragana';
  */
 const filterRomajiReadings = (meanings = [], readings = []) => {
   const kanaReadings = flatMap(readings, ({ kana }) => kana);
-  const filteredMeanings = meanings.filter((meaning) => !kanaReadings.includes(toHiragana(meaning)));
+  const filteredMeanings = meanings.filter(
+    (meaning) => !kanaReadings.some((reading) => RegExp(reading, 'gi').test(toHiragana(meaning)))
+  );
   return filteredMeanings.length ? filteredMeanings : meanings;
 };
 
