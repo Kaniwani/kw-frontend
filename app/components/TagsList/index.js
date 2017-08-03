@@ -25,15 +25,17 @@ const selectTagColors = (text) => {
 
 TagsList.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.oneOf(PARTS_OF_SPEECH)),
+  isHidden: PropTypes.bool,
 };
 
 TagsList.defaultProps = {
   tags: [],
+  isHidden: false,
 };
 
-function TagsList({ tags, ...props }) {
+function TagsList({ tags, isHidden, ...props }) {
   return (
-    <Ul {...props}>
+    <Ul isHidden={isHidden} {...props}>
       {tags.map((text) => (
         <Li key={cuid()} {...selectTagColors(text)} >
           <Span>{text}</Span>

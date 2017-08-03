@@ -58,7 +58,7 @@ export const fadeOutUp = keyframes`
 export const srsRankUp = keyframes`
   0% {
     opacity: 0;
-    transform: translate3d(0, 3.5rem, 0);
+    transform: translateY(3.75rem);
   }
 
   30% {
@@ -67,14 +67,14 @@ export const srsRankUp = keyframes`
 
   100% {
     opacity: 1;
-    transform: translate3d(0, 0, 0);
+    transform: translateY(0);
   }
 }`;
 
 export const srsRankDown = keyframes`
   0% {
     opacity: 0;
-    transform: translate3d(0, -3.5rem, 0);
+    transform: translateY(-3.75rem);
   }
 
   30% {
@@ -83,6 +83,6 @@ export const srsRankDown = keyframes`
 
   100% {
     opacity: 1;
-    transform: translate3d(0, 0, 0);
+    transform: translateY(0);
   }
 }`;

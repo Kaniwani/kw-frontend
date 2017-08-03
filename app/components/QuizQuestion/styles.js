@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 
-import { white, purpleDark } from 'shared/styles/colors';
+import { white, purpleDark, SRS_COLORS } from 'shared/styles/colors';
 import { gutter, centerByMargin } from 'shared/styles/layout';
 import { giga, gamma } from 'shared/styles/typography';
 import { borderRadius } from 'shared/styles/sizing';
+import { srsRankUp, srsRankDown } from 'shared/styles/animation';
 
-import H4 from 'base/H4';
+import H6 from 'base/H6';
 
 export const Wrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -44,12 +46,33 @@ export const Secondary = styled.div`
   font-weight: 400;
 `;
 
-export const StreakAnimation = H4.extend`
-  ${gutter({ prop: 'margin' })} /* match TagList height */
-  line-height: 1;
-  text-align: center;
-  align-self: center;
-  color: ${white};
+export const StreakAnimationWrapper = styled.div`
+  ${gutter()}
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   z-index: 4;
+  display: flex;
+  justify-content: center;
+`;
+
+export const StreakAnimationContent = H6.extend`
+  display: flex;
+  ${gutter({ position: 'vertical', mod: 0 })}
+  ${gutter({ position: 'horizontal' })}
+  align-content: center;
+  align-items: center;
+  color: ${white};
   border-radius: ${borderRadius};
+  opacity: 0;
+  text-transform: capitalize;
+
+  ${({ changed, streakName, rankUp }) => changed && `
+    background-color: ${SRS_COLORS[streakName]};
+    animation: ${rankUp ? srsRankUp : srsRankDown} .75s ease 0s 1 normal both running;
+  `}
+`;
+
+export const StreakText = styled.div`
+  ${gutter({ position: 'right', mod: 2 })}
 `;

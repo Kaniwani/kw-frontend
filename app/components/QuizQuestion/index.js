@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, branch, renderComponent, shouldUpdate } from 'recompose';
 import isEqual from 'lodash/isEqual';
-import getSrsRankName from 'utils/getSrsRankName';
-import titleCase from 'voca/title_case';
 
 import {
   selectCurrentId,
@@ -17,6 +15,7 @@ import { selectAnswerDisabled, selectBackup } from 'containers/QuizPage/selector
 
 import LoadingCrabigator from 'components/LoadingCrabigator';
 import TagsList from 'components/TagsList';
+import StreakChange from './StreakChange';
 
 import {
   Wrapper,
@@ -24,7 +23,6 @@ import {
   Question,
   Primary,
   Secondary,
-  StreakAnimation,
 } from './styles';
 
 QuizQuestion.propTypes = {
@@ -38,19 +36,6 @@ QuizQuestion.propTypes = {
   ]).isRequired,
 };
 
-// FIXME: use react-motion or react-anime for animation
-function StreakChange({ from, to }) {
-  const [fromName, toName] = [from, to].map(getSrsRankName);
-  const rankUp = to > from;
-  const changed = fromName !== toName;
-  const glyph = rankUp ? '⏫' : '⏬';
-  return (
-    <StreakAnimation streakName={toName}>
-      {changed ? `${glyph}  ${titleCase(toName)}` : '　'}
-    </StreakAnimation>
-  );
-}
-
 function QuizQuestion({ answerChecked, meanings, readings, streak, prevStreak }) {
   const [primaryTerm, ...rest] = meanings;
   // Enforce a min-height even if no terms by using japanese space ^_^
@@ -63,7 +48,8 @@ function QuizQuestion({ answerChecked, meanings, readings, streak, prevStreak })
           <Secondary>{secondaryTerms}</Secondary>
         </Question>
       </QuestionWrapper>
-      {answerChecked ? <StreakChange from={prevStreak} to={streak} /> : <TagsList tags={readings[0].tags} />}
+      <TagsList tags={readings[0].tags} isHidden={answerChecked} />
+      {answerChecked && <StreakChange from={prevStreak} to={streak} />}
     </Wrapper>
   );
 }

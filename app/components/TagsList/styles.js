@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { resetList, fluidType } from 'shared/styles/utils';
+import { resetList, fluidType, ghost } from 'shared/styles/utils';
 import { gutter } from 'shared/styles/layout';
 import { borderRadius } from 'shared/styles/sizing';
 import * as COLORS from 'shared/styles/colors';
@@ -9,6 +9,7 @@ export const Ul = styled.ul`
   ${resetList}
   ${gutter({ position: 'horizontal', mod: 1 })}
   ${gutter({ position: 'vertical', mod: 0.75 })}
+  ${({ isHidden }) => isHidden && ghost}
 `;
 
 export const Li = styled.li`
