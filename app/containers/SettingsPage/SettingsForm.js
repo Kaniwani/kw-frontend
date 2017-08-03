@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { compose } from 'recompose';
+import { compose, branch, renderNothing } from 'recompose';
 import { reduxForm, Field } from 'redux-form';
 import cuid from 'cuid';
 
@@ -10,7 +10,7 @@ import { selectSettings } from 'containers/App/selectors';
 
 import titleCase from 'voca/title_case';
 
-import { SRS_RANKS } from 'shared/constants';
+import { WK_SRS_RANKS } from 'shared/constants';
 
 import H2 from 'base/H2';
 import H4 from 'base/H4';
@@ -115,9 +115,9 @@ function SettingsForm({ handleSubmit }) {
         <H2>Quiz</H2>
         <Field
           name="minimumSrsToReview"
-          label="Only review items above WaniKani SRS: "
+          label="Only review items at or above WaniKani: "
           component={SelectField}
-          options={Object.values(SRS_RANKS)}
+          options={Object.values(WK_SRS_RANKS)}
         />
         <Field
           name="onVacation"
@@ -221,8 +221,10 @@ const enhance = compose(
     (state) => ({ initialValues: selectSettings(state) }),
     ({ saveSettings: app.settings.save.request }),
   ),
+  branch(({ initialValues }) => Object.keys(initialValues).length < 1, renderNothing),
   reduxForm({
     form: 'settings',
+    enableReinitialize: true,
     onSubmit: (values, dispatch, { saveSettings }) => saveSettings(values),
   }),
 );

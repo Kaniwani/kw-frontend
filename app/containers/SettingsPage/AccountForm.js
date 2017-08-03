@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { reduxForm, Field, SubmissionError } from 'redux-form';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import { compose } from 'recompose';
+import { compose, branch, renderNothing } from 'recompose';
 
 import app from 'containers/App/actions';
 import { selectProfile } from 'containers/App/selectors';
@@ -48,9 +48,9 @@ AccountForm.propTypes = {
 function AccountForm({ handleSubmit, submitting, submitSucceeded }) {
   return (
     <Form onSubmit={handleSubmit}>
-      <Section>
+      <Section name="">
         <H2>Account</H2>
-        <SubSection>
+        <SubSection name="">
           <H4>Reset Kaniwani Progress</H4>
           <Field name="confirmation" label="Enter your username to confirm:" component={InputField} />
         </SubSection>
@@ -68,7 +68,7 @@ function AccountForm({ handleSubmit, submitting, submitSucceeded }) {
 
 
 const mapStateToProps = (state) => ({
-  name: createSelector(selectProfile, (profile) => profile.name)(state),
+  name: createSelector(selectProfile, (profile) => profile && profile.name)(state),
 });
 
 const mapDispatchToProps = {
@@ -77,6 +77,7 @@ const mapDispatchToProps = {
 
 const enhance = compose(
   connect(mapStateToProps, mapDispatchToProps),
+  branch(({ name }) => !name, renderNothing),
   reduxForm({
     form: 'account',
     onSubmit: ({ confirmation }, dispatch, { name }) => {

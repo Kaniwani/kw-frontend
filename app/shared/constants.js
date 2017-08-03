@@ -17,6 +17,14 @@ export const DATE_IN_WORDS = 'MMM Do YYYY[,] hh:mma';
 
 export const MAX_NOTES_LENGTH = 500;
 
+export const WK_SRS_RANKS = {
+  ONE: 'APPRENTICE',
+  TWO: 'GURU',
+  THREE: 'MASTER',
+  FOUR: 'ENLIGHTENED',
+  FIVE: 'BURNED',
+};
+
 export const SRS_RANKS = {
   ZERO: 'UNTRAINED',
   ONE: 'APPRENTICE',

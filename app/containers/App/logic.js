@@ -243,6 +243,8 @@ export const reloadSessionCountsLogic = createLogic({
   ],
   latest: true,
   process(_, dispatch, done) {
+    dispatch(app.reviews.clearQueue());
+    dispatch(app.lessons.clearQueue());
     dispatch(app.user.load.request());
     done();
   },

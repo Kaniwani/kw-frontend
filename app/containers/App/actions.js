@@ -34,6 +34,7 @@ export const { app } = createActions({
     // TODO: rename as session > reviews???
     REVIEWS: {
       RESET_SESSION: SYNC,
+      CLEAR_QUEUE: SYNC,
       QUEUE: {
         LOAD: ASYNC,
       },
@@ -53,6 +54,7 @@ export const { app } = createActions({
     // TODO: rename as session > lessons???
     LESSONS: {
       RESET_SESSION: SYNC,
+      CLEAR_QUEUE: SYNC,
       QUEUE: {
         LOAD: ASYNC,
       },

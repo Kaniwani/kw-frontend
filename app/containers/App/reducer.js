@@ -18,12 +18,7 @@ export const initialState = {
   },
   // TODO: get Tadgh to update settings with new options + their defaults!
   // NOTE: update serialize/deserializer with anything missing
-  settings: {
-    quiz: {},
-    vocabulary: {
-      kanjiStroke: {},
-    },
-  },
+  settings: {},
   entities: {
     reviews: {},
     levels: {},
@@ -64,6 +59,9 @@ const settingsReducer = handleActions({
 }, initialState.settings);
 
 const reviewSessionReducer = handleActions({
+  [app.reviews.clearQueue]: (state) => update(state, {
+    queue: { $set: [] },
+  }),
   [app.reviews.queue.load.success]: (state, { payload }) => update(state, {
     queue: { $set: union(state.queue, payload.reviewIds) },  // TODO: replace as "ids" in serializer/logic etc
   }),
@@ -92,6 +90,9 @@ const reviewSessionReducer = handleActions({
 // TODO: can probably unduplicate these
 // perhaps part of setting "category" in session state root
 const lessonSessionReducer = handleActions({
+  [app.lessons.clearQueue]: (state) => update(state, {
+    queue: { $set: [] },
+  }),
   [app.lessons.queue.load.success]: (state, { payload }) => update(state, {
     queue: { $set: union(state.queue, payload.reviewIds) }, // TODO: replace as "ids" in serializer/logic etc
   }),

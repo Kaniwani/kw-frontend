@@ -6,6 +6,7 @@ import { orange } from 'shared/styles/colors';
 import { FormSection } from 'redux-form';
 
 export const Form = styled.form`
+  ${gutter()};
   display: flex;
   flex-flow: row wrap;
 `;
@@ -46,8 +47,9 @@ export const Note = styled.div`
 `;
 
 export const ValidationMessage = styled.div`
+  ${gutter()}
   flex: 1 0 100%;
-  font-size: .8em;
+  font-size: .9em;
   font-style: italic;
   color: ${orange};
 `;
