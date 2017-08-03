@@ -31,6 +31,11 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
 
   render() {
     const { profile, dashboard, forceSrs } = this.props;
+    const nextReviewStatus = (reviewsCount, nextReviewDate) => {
+      if (!reviewsCount && nextReviewDate == null) return 'None unlocked';
+      if (isPast(nextReviewDate)) return 'Now!';
+      return distanceInWordsToNow(nextReviewDate, { includeSeconds: true, suffix: true });
+    };
     return (
       <PageWrapper>
         <Helmet>
@@ -40,11 +45,7 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
         <Container flexRow>
           <Element flex="1 0 50%">
             <H1>{profile.name}</H1>
-            <H4>Next Review Session: {
-              isPast(dashboard.nextReviewDate) ? 'Now!' :
-              distanceInWordsToNow(dashboard.nextReviewDate, { includeSeconds: true, suffix: true })
-            }
-            </H4>
+            <H4>Next Review Session: {nextReviewStatus(dashboard.reviewsCount, dashboard.nextReviewDate)}</H4>
             <H4>Next Hour Reviews: {dashboard.nextHourReviews}</H4>
             <H4>Next Day Reviews: {dashboard.nextDayReviews}</H4>
             <H4>Last Sync with WK: {
