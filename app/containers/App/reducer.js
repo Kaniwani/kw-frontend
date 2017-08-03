@@ -159,7 +159,7 @@ const entitiesReducer = handleActions({
   }),
 }, initialState.entities);
 
-export default combineReducers({
+const reducers = combineReducers({
   profile: profileReducer,
   dashboard: dashboardReducer,
   settings: settingsReducer,
@@ -169,3 +169,12 @@ export default combineReducers({
     lessons: lessonSessionReducer,
   }),
 });
+
+const appReducer = (state, action) => {
+  // this ensures that if user1 logs out and user2 logs in,
+  // in the same browser window, they won't receive user1's state
+  const priorStateOrInitialState = action.type === `${app.clearGlobalState}` ? undefined : state;
+  return reducers(priorStateOrInitialState, action);
+};
+
+export default appReducer;

@@ -1,8 +1,14 @@
 import { createLogic } from 'redux-logic';
+import { push } from 'react-router-redux';
+import localForage from 'localforage';
+import { purgeStoredState } from 'redux-persist';
+import { startSubmit, stopSubmit } from 'redux-form';
 import sample from 'lodash/sample';
 import difference from 'lodash/difference';
-// TODO: inject some of these as in store.js as logic dependencies instead?
+
+// TODO: inject some of these in store.js as logic dependencies instead?
 import * as api from 'shared/api';
+import { setToken, clearToken } from 'utils/auth';
 
 import {
   serializeUserResponse,
@@ -17,6 +23,88 @@ import { selectLevelsSubmitting } from 'containers/VocabLevelsPage/selectors';
 // TODO: find/replace sel.selectorZ and import { selectorX, selectorY }
 import * as sel from './selectors';
 import app from './actions';
+
+export const userRegisterLogic = createLogic({
+  type: app.user.register.request,
+  process({ action: { payload } }, dispatch, done) {
+    const form = 'multiLogin';
+    dispatch(startSubmit(form));
+    api.registerUser(payload)
+      .then(() => {
+        dispatch(app.user.login.request(payload));
+        dispatch(stopSubmit(form));
+        done();
+      })
+      .catch(({ body }) => {
+        dispatch(stopSubmit(form, { ...body, apiKey: body.api_key, _error: body.non_field_errors }));
+        dispatch(app.user.register.failure(body));
+        done();
+      });
+  },
+});
+
+export const userLoginLogic = createLogic({
+  type: app.user.login.request,
+  process({ action: { payload } }, dispatch, done) {
+    const form = 'multiLogin';
+    dispatch(startSubmit(form));
+    api.loginUser(payload)
+      .then(({ body: { token } }) => {
+        dispatch(app.user.login.success(token));
+        dispatch(stopSubmit(form));
+        done();
+      })
+      .catch(({ body }) => {
+        dispatch(app.user.login.failure(body));
+        dispatch(stopSubmit(form, { ...body, _error: body.non_field_errors }));
+        done();
+      });
+  },
+});
+
+export const loginRedirectLogic = createLogic({
+  type: [app.user.login.success],
+  process({ action }, dispatch, done) {
+    setToken(action.payload);
+    dispatch(push('/'));
+    done();
+  },
+});
+
+export const userResetPasswordLogic = createLogic({
+  type: app.user.resetPassword.request,
+  process({ action: { payload } }, dispatch, done) {
+    const form = 'multiLogin';
+    dispatch(startSubmit(form));
+    api.resetPassword(payload)
+      .then((res) => {
+        dispatch(app.user.resetPassword.success(res));
+        dispatch(stopSubmit(form));
+        // TODO: notify user
+        done();
+      })
+      .catch(({ body }) => {
+        dispatch(stopSubmit(form, { ...body, _error: body.non_field_errors }));
+        dispatch(app.user.resetPassword.failure(body));
+        done();
+      });
+  },
+});
+
+export const userLogoutLogic = createLogic({
+  type: app.user.logout,
+  process({ action }, dispatch, done) {
+    clearToken();
+    purgeStoredState({ storage: localForage }).then(() => {
+      console.log('persisted state purged');
+    }).catch(() => {
+      console.warn('persisted state failed to purge');
+    });
+    dispatch(app.clearGlobalState());
+    dispatch(push('/welcome'));
+    done();
+  },
+});
 
 export const userLoadLogic = createLogic({
   type: app.user.load.request,
@@ -330,6 +418,11 @@ export const levelLoadLogic = createLogic({
 
 // All logic to be loaded
 export default [
+  userLoginLogic,
+  userRegisterLogic,
+  loginRedirectLogic,
+  userResetPasswordLogic,
+  userLogoutLogic,
   userLoadLogic,
   forceSrsLogic,
   reviewsQueueLoadLogic,

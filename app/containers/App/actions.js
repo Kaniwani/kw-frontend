@@ -18,6 +18,7 @@ const ASYNC = {
 // actions.user.load.success === 'APP/USER/LOAD/SUCCESS'
 export const { app } = createActions({
   APP: {
+    CLEAR_GLOBAL_STATE: SYNC,
     SETTINGS: {
       SAVE: ASYNC,
       RESET_PROGRESS: ASYNC, // USER action instead?
@@ -26,6 +27,7 @@ export const { app } = createActions({
       REGISTER: ASYNC,
       LOGIN: ASYNC,
       RESET_PASSWORD: ASYNC,
+      LOGOUT: SYNC,
       LOAD: ASYNC,
       SRS: ASYNC,
     },

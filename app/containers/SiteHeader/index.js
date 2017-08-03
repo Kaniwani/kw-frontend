@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import debounce from 'lodash/debounce';
 import isEqual from 'lodash/isEqual';
-import { clearToken } from 'utils/auth';
 import { breakpoints } from 'shared/styles/media';
 
 import LogoLink from 'components/LogoLink';
 import { selectSessionCount } from 'containers/App/selectors';
+import app from 'containers/App/actions';
 
 import OnCanvasMenu from './OnCanvasMenu';
 import OffCanvasToggle from './OffCanvasToggle';
@@ -19,6 +19,7 @@ class SiteHeader extends React.Component {
   static propTypes = {
     lessonsCount: PropTypes.number.isRequired,
     reviewsCount: PropTypes.number.isRequired,
+    logoutUser: PropTypes.func.isRequired,
   };
 
   state = {
@@ -65,11 +66,6 @@ class SiteHeader extends React.Component {
     }));
   }
 
-  handleLogout = () => {
-    clearToken();
-    this.props.history.push('/welcome'); // eslint-disable-line react/prop-types
-  }
-
   render() {
     const isWideViewport = !this.state.offCanvasToggleVisible;
     let onCanvasRoutes = [
@@ -97,7 +93,7 @@ class SiteHeader extends React.Component {
           <LogoLink />
           <OnCanvasMenu
             links={onCanvasRoutes}
-            handleLogout={this.handleLogout}
+            handleLogout={this.props.logoutUser}
           />
           <OffCanvasToggle
             isVisible={this.state.offCanvasToggleVisible}
@@ -110,7 +106,7 @@ class SiteHeader extends React.Component {
             links={offCanvasRoutes}
             offsetTop={this.state.headerHeight}
             isVisible={this.state.offCanvasMenuActive}
-            handleLogout={this.handleLogout}
+            handleLogout={this.props.logoutUser}
           />
         </Nav>
       </Header>
@@ -123,4 +119,8 @@ const mapStateToProps = (state) => ({
   lessonsCount: selectSessionCount(state, { category: 'lessons' }),
 });
 
-export default withRouter(connect(mapStateToProps)(SiteHeader));
+const mapDispatchToProps = ({
+  logoutUser: app.user.logout,
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SiteHeader));
