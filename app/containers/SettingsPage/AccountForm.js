@@ -7,7 +7,7 @@ import { compose } from 'recompose';
 
 import app from 'containers/App/actions';
 import { selectProfile } from 'containers/App/selectors';
-import { valueMatches } from 'shared/validations';
+import { doValuesMatch } from 'shared/validations';
 
 import H2 from 'base/H2';
 import H4 from 'base/H4';
@@ -81,7 +81,7 @@ const enhance = compose(
     form: 'account',
     onSubmit: ({ confirmation }, dispatch, { name }) => {
       const errors = {
-        confirmation: valueMatches(confirmation, name),
+        confirmation: doValuesMatch(confirmation, name),
       };
       if (Object.values(errors).some(Boolean)) {
         throw new SubmissionError(errors);

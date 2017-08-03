@@ -8,20 +8,20 @@ import { Wrapper, LinkBlock, Left, Right, InboxIcon, Count } from './styles';
 SessionLink.propTypes = {
   text: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,
-  count: PropTypes.number,
+  count: PropTypes.number.isRequired,
   color: PropTypes.oneOf(Object.keys(COLORS)),
   isDisabled: PropTypes.bool,
+  handleClick: PropTypes.func.isRequired,
 };
 
 SessionLink.defaultProps = {
-  count: 0,
   color: 'blue',
   isDisabled: false,
 };
 
-function SessionLink({ text, to, count, color, isDisabled }) {
+function SessionLink({ text, to, count, color, isDisabled, handleClick }) {
   return (
-    <Wrapper>
+    <Wrapper onClick={handleClick}>
       <LinkBlock plainLink isDisabled={isDisabled} bgColor={color} to={to}>
         <Left>{text}</Left>
         <Right title="Remaining reviews">

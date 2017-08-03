@@ -1,8 +1,14 @@
 import { createLogic } from 'redux-logic';
+import { push } from 'react-router-redux';
+import localForage from 'localforage';
+import { purgeStoredState } from 'redux-persist';
+import { startSubmit, stopSubmit } from 'redux-form';
 import sample from 'lodash/sample';
 import difference from 'lodash/difference';
-// TODO: inject some of these as dependencies instead?
+
+// TODO: inject some of these in store.js as logic dependencies instead?
 import * as api from 'shared/api';
+import { setToken, clearToken } from 'utils/auth';
 
 import {
   serializeUserResponse,
@@ -13,9 +19,92 @@ import {
   serializeAddSynonymResponse,
 } from 'shared/serializers';
 
+import { selectLevelsSubmitting } from 'containers/VocabLevelsPage/selectors';
 // TODO: find/replace sel.selectorZ and import { selectorX, selectorY }
 import * as sel from './selectors';
 import app from './actions';
+
+export const userRegisterLogic = createLogic({
+  type: app.user.register.request,
+  process({ action: { payload } }, dispatch, done) {
+    const form = 'multiLogin';
+    dispatch(startSubmit(form));
+    api.registerUser(payload)
+      .then(() => {
+        dispatch(app.user.login.request(payload));
+        dispatch(stopSubmit(form));
+        done();
+      })
+      .catch(({ body }) => {
+        dispatch(stopSubmit(form, { ...body, apiKey: body.api_key, _error: body.non_field_errors }));
+        dispatch(app.user.register.failure(body));
+        done();
+      });
+  },
+});
+
+export const userLoginLogic = createLogic({
+  type: app.user.login.request,
+  process({ action: { payload } }, dispatch, done) {
+    const form = 'multiLogin';
+    dispatch(startSubmit(form));
+    api.loginUser(payload)
+      .then(({ body: { token } }) => {
+        dispatch(app.user.login.success(token));
+        dispatch(stopSubmit(form));
+        done();
+      })
+      .catch(({ body }) => {
+        dispatch(app.user.login.failure(body));
+        dispatch(stopSubmit(form, { ...body, _error: body.non_field_errors }));
+        done();
+      });
+  },
+});
+
+export const loginRedirectLogic = createLogic({
+  type: [app.user.login.success],
+  process({ action }, dispatch, done) {
+    setToken(action.payload);
+    dispatch(push('/'));
+    done();
+  },
+});
+
+export const userResetPasswordLogic = createLogic({
+  type: app.user.resetPassword.request,
+  process({ action: { payload } }, dispatch, done) {
+    const form = 'multiLogin';
+    dispatch(startSubmit(form));
+    api.resetPassword(payload)
+      .then((res) => {
+        dispatch(app.user.resetPassword.success(res));
+        dispatch(stopSubmit(form));
+        // TODO: notify user
+        done();
+      })
+      .catch(({ body }) => {
+        dispatch(stopSubmit(form, { ...body, _error: body.non_field_errors }));
+        dispatch(app.user.resetPassword.failure(body));
+        done();
+      });
+  },
+});
+
+export const userLogoutLogic = createLogic({
+  type: app.user.logout,
+  process({ action }, dispatch, done) {
+    clearToken();
+    purgeStoredState({ storage: localForage }).then(() => {
+      console.log('persisted state purged');
+    }).catch(() => {
+      console.warn('persisted state failed to purge');
+    });
+    dispatch(app.clearGlobalState());
+    dispatch(push('/welcome'));
+    done();
+  },
+});
 
 export const userLoadLogic = createLogic({
   type: app.user.load.request,
@@ -37,10 +126,16 @@ export const loadQueuesIfNeededLogic = createLogic({
   type: app.user.load.success,
   latest: true,
   process({ getState, action }, dispatch, done) {
-    const globalState = sel.selectGlobal(getState());
-    const dashboard = sel.selectDashboard(getState());
-    const needReviewsQueue = dashboard.reviewsCount > 0 && globalState.reviews.queue.length <= 0;
-    const needLessonsQueue = dashboard.lessonsCount > 0 && globalState.lessons.queue.length <= 0;
+    const state = getState();
+    const { reviewCount, lessonCount, reviewQueue, lessonQueue } = ({
+      reviewCount: sel.selectSessionCount(state, { category: 'reviews' }),
+      lessonCount: sel.selectSessionCount(state, { category: 'lessons' }),
+      reviewQueue: sel.selectQueue(state, { category: 'reviews' }),
+      lessonQueue: sel.selectQueue(state, { category: 'lessons' }),
+    });
+
+    const needReviewsQueue = reviewCount > 0 && reviewQueue.length <= 0;
+    const needLessonsQueue = lessonCount > 0 && lessonQueue.length <= 0;
     if (needReviewsQueue) { dispatch(app.reviews.queue.load.request()); }
     if (needLessonsQueue) { dispatch(app.lessons.queue.load.request()); }
     done();
@@ -95,7 +190,7 @@ export const setCurrentOnQueueLoadLogic = createLogic({
   type: [app.reviews.queue.load.success, app.lessons.queue.load.success],
   process({ getState, action: { type } }, dispatch, done) {
     const category = type === `${app.reviews.queue.load.success}` ? 'reviews' : 'lessons';
-    const { current, queue } = sel.selectSession(getState(), { category });
+    const { current, queue } = sel.selectSessionByCategory(getState(), { category });
     if (!current && queue.length) {
       dispatch(app[category].current.set());
     } else {
@@ -110,7 +205,7 @@ export const setCurrentLogic = createLogic({
   validate({ getState, action }, next) {
     const state = getState();
     const category = action.type === `${app.reviews.current.set}` ? 'reviews' : 'lessons';
-    const { current, queue } = sel.selectSession(state, { category });
+    const { current, queue } = sel.selectSessionByCategory(state, { category });
     const newId = sample(difference(queue, [current]));
     if (newId || queue.length) {
       next({ ...action, payload: newId });
@@ -127,8 +222,8 @@ export const returnCurrentLogic = createLogic({
     const state = getState();
     const { current, queue } = (
       action.type === `${app.reviews.current.return}` ?
-        sel.selectReviews(state) :
-        sel.selectLessons(state)
+        sel.selectReviewSession(state) :
+        sel.selectLessonSession(state)
       );
     const newId = sample(difference(queue, [current]));
     if (newId) {
@@ -140,7 +235,7 @@ export const returnCurrentLogic = createLogic({
   },
 });
 
-export const reloadQueueCountsLogic = createLogic({
+export const reloadSessionCountsLogic = createLogic({
   type: [
     app.level.lock.success,
     app.level.unlock.success,
@@ -148,7 +243,6 @@ export const reloadQueueCountsLogic = createLogic({
   ],
   latest: true,
   process(_, dispatch, done) {
-    console.info('Reloading queue counts');
     dispatch(app.user.load.request());
     done();
   },
@@ -193,7 +287,7 @@ export const levelUnlockLogic = createLogic({
   validate({ getState, action }, allow, reject) {
     // TODO: could set up a queue instead.
     // https://github.com/jeffbski/redux-logic/tree/master/examples/notification
-    const alreadySubmitting = sel.selectUi(getState()).levels.submitting.length >= 1;
+    const alreadySubmitting = selectLevelsSubmitting(getState()).length >= 1;
     if (alreadySubmitting) {
       alert('Please unlock levels one at a time. Turtles get tired too.');
       reject(/* TODO: app.notifications.alert */);
@@ -324,6 +418,11 @@ export const levelLoadLogic = createLogic({
 
 // All logic to be loaded
 export default [
+  userLoginLogic,
+  userRegisterLogic,
+  loginRedirectLogic,
+  userResetPasswordLogic,
+  userLogoutLogic,
   userLoadLogic,
   forceSrsLogic,
   reviewsQueueLoadLogic,
@@ -335,7 +434,7 @@ export default [
   levelsLoadLogic,
   levelLockLogic,
   levelUnlockLogic,
-  reloadQueueCountsLogic,
+  reloadSessionCountsLogic,
   reviewLoadLogic,
   addSynonymLogic,
   removeSynonymLogic,

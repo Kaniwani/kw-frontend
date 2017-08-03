@@ -8,7 +8,7 @@ import titleCase from 'voca/title_case';
 import { compose, withHandlers } from 'recompose';
 
 import quiz from 'containers/QuizPage/actions';
-import { selectCategoryFromMatch, selectRemainingCount, selectCurrentId } from 'containers/App/selectors';
+import { selectCategoryFromMatch, selectCurrentId } from 'containers/App/selectors';
 import { selectAnswerDisabled } from 'containers/QuizPage/selectors';
 
 import backgroundImage from 'shared/assets/img/reviews.svg';
@@ -27,7 +27,6 @@ QuizPage.propTypes = {
   showNotes: PropTypes.func.isRequired,
   showInfo: PropTypes.func.isRequired,
   showSynonym: PropTypes.func.isRequired,
-  remainingCount: PropTypes.number.isRequired,
   current: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.number,
@@ -61,7 +60,6 @@ function QuizPage({
   showNotes,
   showInfo,
   showSynonym,
-  remainingCount,
   current,
 }) {
   const title = `${titleCase(category)} Session`;
@@ -73,14 +71,11 @@ function QuizPage({
     showSynonym: guardHandler(answerDisabled, () => showSynonym() && false),
     ignoreAnswer: guardHandler(answerDisabled, () => ignoreAnswer() && false),
     recordAnswer: guardHandler(answerDisabled, (event) => (
-      isFormButton(event) || isLink(event) ?
-        event :
-        recordAnswer() && false
-      )
+      isFormButton(event) || isLink(event) ? event : recordAnswer() && false)
     ),
   };
 
-  if (remainingCount < 1 && !current) {
+  if (!current) {
     return <Redirect to={`/${category}`} />;
   }
 
@@ -111,9 +106,8 @@ const mapStateToProps = (state, props) => {
   const category = selectCategoryFromMatch(props);
   return {
     category,
-    answerDisabled: selectAnswerDisabled(state),
-    remainingCount: selectRemainingCount(state, { category }),
     current: selectCurrentId(state, { category }),
+    answerDisabled: selectAnswerDisabled(state),
   };
 };
 

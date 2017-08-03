@@ -7,7 +7,7 @@ import { spin } from 'shared/styles/animation';
 
 import IconButton from 'components/IconButton';
 
-import { COMPONENT_HEIGHT_EM } from './constants';
+import { COMPONENT_HEIGHT_EM } from './index';
 
 const inputHeight = COMPONENT_HEIGHT_EM;
 const iconHeight = COMPONENT_HEIGHT_EM / 2; // should match <SubmitButton size="24px" /> in `../index`

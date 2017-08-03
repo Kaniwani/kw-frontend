@@ -24,7 +24,6 @@ function Input({ label, input, meta, placeholder, isHidden, children, ...props }
         id={input.name}
         placeholder={placeholder}
         disabled={isHidden}
-        autoComplete="on"
         autoCapitalize="none"
         autoCorrect="none"
         spellCheck="false"
@@ -32,7 +31,7 @@ function Input({ label, input, meta, placeholder, isHidden, children, ...props }
         {...props}
       />
       {children}
-      {!isHidden && meta.error && <ValidationMessage>{meta.error}</ValidationMessage>}
+      {!isHidden && meta.touched && meta.error && <ValidationMessage>{meta.error}</ValidationMessage>}
     </InputWrapper>
   );
 }

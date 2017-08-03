@@ -1,18 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
-// import { createStructuredSelector } from 'reselect';
 
-import { COMPONENT_HEIGHT_EM } from './constants';
 import { Form, SearchInput, SubmitButton } from './styles';
 
-// import makeSelectSearchBar from './selectors';
+const COMPONENT_HEIGHT_EM = 2.25;
 
 export class SearchBar extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  static propTypes = {
-    dispatch: PropTypes.func,
-  }
-
   // TODO: props from redux state / redux-form
   state = {
     inputValue: '',
@@ -51,14 +43,4 @@ export class SearchBar extends React.Component { // eslint-disable-line react/pr
   }
 }
 
-// const mapStateToProps = createStructuredSelector({
-//   SearchBar: makeSelectSearchBar(),
-// });
-//
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     dispatch,
-//   };
-// }
-
-export default /* connect(mapStateToProps, mapDispatchToProps)(*/SearchBar/* )*/;
+export default SearchBar;

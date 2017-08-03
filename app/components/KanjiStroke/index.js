@@ -5,12 +5,12 @@ import { createSelector } from 'reselect';
 import { isKanji } from 'wanakana';
 import merge from 'lodash/merge';
 
-import { selectSettings } from 'containers/App/selectors';
+import { selectVocabularySettings } from 'containers/App/selectors';
 
 import { greyLight, blackLight, purpleLight, purpleDark } from 'shared/styles/colors';
 import { rgba } from 'polished';
 
-import { Wrapper, Canvas, Controls, ControlButton } from './styles';
+import { Canvas, Controls, ControlButton } from './styles';
 import dmak from './dmak-0-3-1';
 
 class KanjiStroke extends React.PureComponent {
@@ -91,7 +91,7 @@ class KanjiStroke extends React.PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-  settings: createSelector(selectSettings, (settings) => settings.vocabulary.kanjiStroke)(state),
+  settings: createSelector(selectVocabularySettings, (settings) => settings.kanjiStroke)(state),
 });
 
 export default connect(mapStateToProps)(KanjiStroke);

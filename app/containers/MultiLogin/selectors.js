@@ -38,9 +38,4 @@ export const selectMainInputText = createSelector(
   }
 );
 
-export const selectMainInputName = createSelector(
-  selectResetSelected,
-  (resetSelected) => !resetSelected ? 'username' : 'email'
-);
-
 export default selectMultiLoginDomain;

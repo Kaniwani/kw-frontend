@@ -18,27 +18,22 @@ const ASYNC = {
 // actions.user.load.success === 'APP/USER/LOAD/SUCCESS'
 export const { app } = createActions({
   APP: {
+    CLEAR_GLOBAL_STATE: SYNC,
     SETTINGS: {
-      RESET_PROGRESS: ASYNC,
       SAVE: ASYNC,
-      // FIXME: put expandedCards in summarysection && vocablevel reducer so all 4 can be independent
-      VOCABULARY: {
-        EXPANDED: {
-          TOGGLE: SYNC,
-        },
-      },
+      RESET_PROGRESS: ASYNC, // USER action instead?
     },
     USER: {
       REGISTER: ASYNC,
       LOGIN: ASYNC,
       RESET_PASSWORD: ASYNC,
+      LOGOUT: SYNC,
       LOAD: ASYNC,
       SRS: ASYNC,
     },
+    // TODO: rename as session > reviews???
     REVIEWS: {
-      SESSION: {
-        RESET: SYNC,
-      },
+      RESET_SESSION: SYNC,
       QUEUE: {
         LOAD: ASYNC,
       },
@@ -55,10 +50,9 @@ export const { app } = createActions({
         REMOVE: SYNC,
       },
     },
+    // TODO: rename as session > lessons???
     LESSONS: {
-      SESSION: {
-        RESET: SYNC,
-      },
+      RESET_SESSION: SYNC,
       QUEUE: {
         LOAD: ASYNC,
       },

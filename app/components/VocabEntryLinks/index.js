@@ -10,7 +10,7 @@ import { Ul, VocabLink } from './styles';
 const createGooLink = (character) => `http://dictionary.goo.ne.jp/srch/all/${encodeURIComponent(character)}/m0u/`;
 const createWeblioLink = (character) => `http://ejje.weblio.jp/content/${encodeURIComponent(character)}`;
 const createForvoLink = (character) => `http://forvo.com/search/${encodeURIComponent(character)}/`;
-const createWaniKaniVocabLink = (character) => `https://wanikani.com/vocabulary/${encodeURIComponent(character)}`;
+const createWkVocabLink = (character) => `https://wanikani.com/vocabulary/${encodeURIComponent(character)}`;
 const createAlcLink = (character, useAlcPro) => `http://${useAlcPro ? 'eowpf' : 'eow'}.alc.co.jp/search?q=${encodeURIComponent(character)}`;
 
 VocabEntryLinks.propTypes = {
@@ -20,7 +20,7 @@ VocabEntryLinks.propTypes = {
 
 function VocabEntryLinks({ character, useAlcPro }) {
   const links = [
-    { name: 'WK', href: createWaniKaniVocabLink(character) },
+    { name: 'WK', href: createWkVocabLink(character) },
     { name: 'Alc', href: createAlcLink(character, useAlcPro) },
     { name: 'Goo', href: createGooLink(character) },
     { name: 'Weblio', href: createWeblioLink(character) },

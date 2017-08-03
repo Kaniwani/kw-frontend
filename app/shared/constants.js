@@ -1,3 +1,10 @@
+const DEV_DOMAIN = 'http://localhost:8000';
+const PROD_DOMAIN = 'https://kaniwani.com';
+const BASE_URL = process.env.NODE_ENV !== 'production' ? DEV_DOMAIN : PROD_DOMAIN;
+
+export const KW_API_BASE = `${BASE_URL}/api/v1`;
+
+export const SESSION_EXPIRY_MINUTES = 30;
 /**
  * Format string for use with 'date-fns/format'
  * @type {String}
@@ -7,8 +14,6 @@
  * // => 12:00am, Nov 2nd 2014
  */
 export const DATE_IN_WORDS = 'MMM Do YYYY[,] hh:mma';
-
-export const DETAIL_LEVELS = ['LOW', 'HIGH'];
 
 export const MAX_NOTES_LENGTH = 500;
 
@@ -20,8 +25,10 @@ export const SRS_RANKS = {
   FOUR: 'ENLIGHTENED',
   FIVE: 'BURNED',
 };
+
 export const SRS_RANGES = {
-  ONE: [0, 1, 2, 3, 4],
+  ZERO: [0],
+  ONE: [1, 2, 3, 4],
   TWO: [5, 6],
   THREE: [7],
   FOUR: [8],
@@ -87,40 +94,3 @@ export const PARTS_OF_SPEECH = [
   'Godan verb with mu ending',
   'Godan verb with gu ending',
 ];
-
-/**
- * Maps names of keys to event.which keycodes { P_LOWERCASE: 80 }
- * @type {Object}
- * @example
- * KEYCODES.ENTER
- * // => 13
- */
-export const KEYCODES = {
-  F_LOWERCASE: 70,
-  K_LOWERCASE: 75,
-  N_LOWERCASE: 78,
-  P_LOWERCASE: 80,
-  S_LOWERCASE: 83,
-  I_LOWERCASE: 73,
-  BACKSPACE: 8,
-  FORWARD_SLASH: 191,
-  BACK_SLASH: 220,
-  ENTER: 13,
-  DELETE: 46,
-  TAB: 9,
-  ESCAPE: 27,
-  SPACE: 32,
-  LEFT: 37,
-  UP: 38,
-  RIGHT: 39,
-  DOWN: 40,
-  PRIME: 222,
-  COLON: 186,
-  EQUALS: 187,
-  COMMA: 188,
-  HYPHEN: 189,
-  PERIOD: 190,
-  BACKTICK: 192,
-  BRACKET_LEFT: 219,
-  BRACKET_RIGHT: 221,
-};

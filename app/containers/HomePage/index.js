@@ -3,15 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
-import format from 'date-fns/format';
+import isPast from 'date-fns/is_past';
+import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 
-import { DATE_IN_WORDS } from 'shared/constants';
 import app from 'containers/App/actions';
 
 import Element from 'base/Element';
 import Container from 'base/Container';
 import H1 from 'base/H1';
-import H3 from 'base/H3';
 import H4 from 'base/H4';
 import SrsDonut from 'components/SrsDonut';
 
@@ -41,10 +40,16 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
         <Container flexRow>
           <Element flex="1 0 50%">
             <H1>{profile.name}</H1>
-            <H3>Next Hour: {dashboard.nextHourReviews}</H3>
-            <H3>Next Day: {dashboard.nextDayReviews}</H3>
-            <H4>Next Review Session: {format(dashboard.nextReviewDate, DATE_IN_WORDS)}</H4>
-            <H4>Last Sync with WK: {format(dashboard.lastWkSyncDate, DATE_IN_WORDS)}</H4>
+            <H4>Next Review Session: {
+              isPast(dashboard.nextReviewDate) ? 'Now!' :
+              distanceInWordsToNow(dashboard.nextReviewDate, { includeSeconds: true, suffix: true })
+            }
+            </H4>
+            <H4>Next Hour Reviews: {dashboard.nextHourReviews}</H4>
+            <H4>Next Day Reviews: {dashboard.nextDayReviews}</H4>
+            <H4>Last Sync with WK: {
+              distanceInWordsToNow(dashboard.lastWkSyncDate, { includeSeconds: true, suffix: true })
+            } ago</H4>
           </Element>
           <Element flex="1 0 50%">
             <SrsDonut />

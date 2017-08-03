@@ -12,14 +12,15 @@ export const onlyKanjiOrKana = (value = '') =>
   (isKanji(value) || isJapanese(value) || isKana(value)) ?
     undefined : 'Must be kana, kanji, or a mix of both';
 
-export const valueMatches = (value, matcher) =>
+export const doValuesMatch = (value, matcher) =>
   value && value === matcher ? undefined : 'Does not match';
 
 export const requiredValid = (value) =>
   value ? undefined : 'Required';
 
-export const passwordValid = (value) =>
-  value && value.length > 4 ? undefined : 'Length must be greater than 4';
+export const minLengthValid = (value) => value.length > 4 ? undefined : 'Length must be greater than 4';
+
+export const confirmPasswordValid = (value, allValues) => doValuesMatch(value, allValues.password);
 
 export const numberValid = (value) =>
   !value || !isNaN(Number(value)) ? undefined : 'Must be a number';

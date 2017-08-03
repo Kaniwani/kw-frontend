@@ -3,22 +3,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, lifecycle } from 'recompose';
 import { createStructuredSelector } from 'reselect';
-import { reduxForm, SubmissionError, Field } from 'redux-form';
+import { reduxForm, Field } from 'redux-form';
 import { Redirect } from 'react-router-dom';
 
-import { hasToken, setToken } from 'utils/auth';
-
-import {
-  registerUser,
-  loginUser,
-  resetPassword,
-} from 'shared/api';
+import { hasToken } from 'utils/auth';
+import app from 'containers/App/actions';
 
 import {
   requiredValid,
   emailValid,
-  passwordValid,
-  valueMatches,
+  minLengthValid,
+  confirmPasswordValid,
 } from 'shared/validations';
 
 import {
@@ -26,7 +21,6 @@ import {
   selectLoginSelected,
   selectResetSelected,
   selectRegisterSelected,
-  selectMainInputName,
   selectMainInputText,
 } from './selectors';
 
@@ -44,7 +38,6 @@ FormView.propTypes = {
   registerSelected: PropTypes.bool.isRequired,
   resetSelected: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  mainInputName: PropTypes.string.isRequired,
   mainInputText: PropTypes.string.isRequired,
   submitting: PropTypes.bool.isRequired,
   error: PropTypes.array,
@@ -55,7 +48,6 @@ function FormView({
   loginSelected,
   registerSelected,
   resetSelected,
-  mainInputName,
   mainInputText,
   error,
   submitting,
@@ -65,12 +57,13 @@ function FormView({
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} autoComplete="on">
       <Field
-        label={`Enter ${mainInputName}`}
-        name={mainInputName}
+        label={`Enter ${!resetSelected ? 'username' : 'email'}`}
+        name={!resetSelected ? 'username' : 'email'}
         component={Input}
         placeholder={mainInputText}
+        validate={!resetSelected ? [requiredValid] : [requiredValid, emailValid]}
       />
       <Field
         label="Enter email"
@@ -78,6 +71,7 @@ function FormView({
         component={Input}
         type="email"
         placeholder="Email"
+        validate={registerSelected && [requiredValid, emailValid]}
         isHidden={loginSelected || resetSelected}
       />
       <Field
@@ -86,6 +80,7 @@ function FormView({
         component={Input}
         type="password"
         placeholder="Password"
+        validate={!resetSelected && [requiredValid, minLengthValid]}
         isHidden={resetSelected}
       />
       <Field
@@ -94,13 +89,15 @@ function FormView({
         component={Input}
         type="password"
         placeholder="Confirm Password"
-        isHidden={loginSelected || resetSelected}
+        validate={registerSelected && [requiredValid, minLengthValid, confirmPasswordValid]}
+        isHidden={(loginSelected || resetSelected)}
       />
       <Field
         label="Enter WaniKani API key"
         name="apiKey"
         component={Input}
         placeholder="WaniKani API key"
+        validate={registerSelected && [requiredValid]}
         isHidden={loginSelected || resetSelected}
       >
         <ApiLink
@@ -128,61 +125,27 @@ const mapStateToProps = createStructuredSelector({
   loginSelected: selectLoginSelected,
   resetSelected: selectResetSelected,
   registerSelected: selectRegisterSelected,
-  mainInputName: selectMainInputName,
   mainInputText: selectMainInputText,
 });
-
-
-const handleSubmissionResponse = (res) => {
-  console.log('submission response', res);
-};
-
-const handleSubmissionError = (err) => {
-  console.warn('submission error', err);
-  const errors = { ...err.body, apiKey: err.body.api_key, _error: err.body.non_field_errors };
-  throw new SubmissionError(errors);
-};
 
 const enhance = compose(
   connect(mapStateToProps),
   reduxForm({
     form: 'multiLogin',
     onSubmit: (values, dispatch, props) => {
-      const { username, email, password, confirmPassword, apiKey } = values;
+      const { username, email, password, apiKey } = values;
       const { loginSelected, registerSelected, resetSelected } = props;
 
-      if (loginSelected) {
-        // FIXME: dispatch login instead (which sets token and redirect) so register can use dispatch login
-        return loginUser({ username, password })
-          .then(({ body: { token } }) => {
-            setToken(token);
-          })
-          .catch(handleSubmissionError);
+      if (registerSelected) {
+        dispatch(app.user.register.request({ username, email, password, apiKey }));
       }
 
-      if (registerSelected) {
-        const errors = {
-          username: requiredValid(username),
-          email: emailValid(email),
-          password: passwordValid(password) || valueMatches(password, confirmPassword),
-          confirmPassword: passwordValid(confirmPassword) || valueMatches(password, confirmPassword),
-          apiKey: requiredValid(apiKey),
-        };
-        if (Object.values(errors).some(Boolean)) {
-          throw new SubmissionError(errors);
-        } else {
-          return registerUser({ username, email, password, apiKey })
-            .then(() => loginUser({ username, password }).then(({ body: { token } }) => {
-              setToken(token);
-            }))
-            .catch(handleSubmissionError);
-        }
+      if (loginSelected) {
+        dispatch(app.user.login.request({ username, password }));
       }
 
       if (resetSelected) {
-        return resetPassword({ email })
-          .then(handleSubmissionResponse)
-          .catch(handleSubmissionError);
+        dispatch(app.user.resetPassword.request({ email }));
       }
     },
   }),

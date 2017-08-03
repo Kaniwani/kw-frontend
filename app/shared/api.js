@@ -1,8 +1,6 @@
 import urljoin from 'url-join';
 import { get, put, post, patch, del } from 'utils/request';
-
-const BASE_URL = '//localhost:8000'; // FIXME: change for production
-const KW_API_BASE = urljoin(BASE_URL, 'api', 'v1');
+import { KW_API_BASE } from 'shared/constants';
 
 //-----------------------------------------------------------------------------
 //  AUTHORIZATION
