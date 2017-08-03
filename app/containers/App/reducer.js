@@ -129,7 +129,10 @@ const entitiesReducer = handleActions({
     levels: { $set: merge({}, state.levels, payload) },
   }),
   [app.level.load.success]: (state, { payload }) => update(state, {
-    levels: { [payload.id]: { reviews: { $set: payload.reviewIds } } },
+    levels: { [payload.id]: {
+      reviews: { $set: payload.reviewIds },
+      prevLoaded: { $set: true },
+    } },
     reviews: { $set: merge({}, state.reviews, payload.reviews) },
   }),
   [app.review.load.success]: (state, { payload }) => update(state, {

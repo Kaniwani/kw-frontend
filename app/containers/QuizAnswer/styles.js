@@ -93,7 +93,7 @@ export const Input = styled.input`
   }}
 
   ${({ ignored }) => ignored && `
-    animation: ${shake} .4s linear;
+    animation: ${shake} .6s linear;
   `}
 
   &:focus {

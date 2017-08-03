@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
 import actions from 'containers/App/actions';
-import { selectIdFromMatch, makeSelectLevelReviews } from 'containers/App/selectors';
+import { selectIdFromMatch, makeSelectLevelReviews, makeSelectLevelPrevLoaded } from 'containers/App/selectors';
 
 import PageWrapper from 'base/PageWrapper';
 import A from 'base/A';
@@ -23,11 +23,13 @@ export class VocabLevelPage extends React.Component {
       PropTypes.number,
       PropTypes.string,
     ]).isRequired,
-    levelLoading: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    prevLoaded: PropTypes.bool,
   }
 
   static defaultProps = {
     reviewIds: [],
+    prevLoaded: false,
   }
 
   state = {
@@ -42,7 +44,7 @@ export class VocabLevelPage extends React.Component {
   toggleCardsExpanded = () => this.setState({ cardsExpanded: !this.state.cardsExpanded });
 
   render() {
-    const { reviewIds, id, levelLoading } = this.props;
+    const { reviewIds, id, isLoading, prevLoaded } = this.props;
     const PAGE_TITLE = `Vocabulary: Level ${id}`;
     return (
       <div>
@@ -58,8 +60,8 @@ export class VocabLevelPage extends React.Component {
             withVocabListToggle
           />
           <VocabListWrapper>
-            <VocabList levelLoading={levelLoading} ids={reviewIds} isExpanded={this.state.cardsExpanded} />
-            {!levelLoading && reviewIds.length < 1 && (
+            <VocabList prevLoaded={prevLoaded} ids={reviewIds} isExpanded={this.state.cardsExpanded} />
+            {!isLoading && reviewIds.length < 1 && (
               <H3>All entries hidden. Check your WaniKani filtering in <A to="/settings">Settings</A></H3>
             )}
           </VocabListWrapper>
@@ -74,7 +76,8 @@ const mapStateToProps = (state, props) => {
   return {
     id,
     reviewIds: makeSelectLevelReviews(id)(state),
-    levelLoading: makeSelectLevelLoading(id)(state),
+    isLoading: makeSelectLevelLoading(id)(state),
+    prevLoaded: makeSelectLevelPrevLoaded(id)(state),
   };
 };
 

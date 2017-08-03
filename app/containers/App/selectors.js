@@ -52,9 +52,9 @@ export const makeSelectLevelVocabCount = (id) => createSelector(
   (level) => level && level.count
 );
 
-export const makeSelectLevelReviewCount = (id) => createSelector(
+export const makeSelectLevelPrevLoaded = (id) => createSelector(
   makeSelectLevel(id),
-  (level) => level && level.reviews.length
+  (level) => level && level.prevLoaded,
 );
 
 export const makeSelectLevelLocked = (id) => createSelector(
