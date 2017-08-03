@@ -34,13 +34,30 @@ export const shake = keyframes`
     transform: translate3d(0, 0, 0);
   }
 
-  10%, 40%, 70% {
-    transform: translate3d(-.6rem, 0, 0);
+  10% {
+    transform: translate3d(-6%, 0, 0);
   }
 
-  25%, 55%, 85% {
-    transform: translate3d(.6rem, 0, 0);
+  25% {
+    transform: translate3d(6%, 0, 0);
   }
+
+  40% {
+    transform: translate3d(-8%, 0, 0);
+  }
+
+  55% {
+    transform: translate3d(8%, 0, 0);
+  }
+
+  70% {
+    transform: translate3d(-4%, 0, 0);
+  }
+
+  85% {
+    transform: translate3d(4%, 0, 0);
+  }
+
 }`;
 
 export const fadeOutUp = keyframes`

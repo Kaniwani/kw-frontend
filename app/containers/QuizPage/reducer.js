@@ -19,6 +19,7 @@ const initialState = {
     isValid: false,
     isCorrect: false,
     isIncorrect: false,
+    isIgnored: false,
     isDisabled: false,
   },
 };

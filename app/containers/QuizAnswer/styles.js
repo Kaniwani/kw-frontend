@@ -8,12 +8,15 @@ import { visuallyHidden } from 'shared/styles/utils';
 import { shadowBox, innerMedium } from 'shared/styles/shadows';
 import { kilo } from 'shared/styles/typography';
 import { gutter } from 'shared/styles/layout';
-import { fastEaseQuad } from 'shared/styles/animation';
-import { transparent, white, whiteLight, whiteDark, yellowOrange, red, green, black } from 'shared/styles/colors';
+import { fastEaseQuad, shake } from 'shared/styles/animation';
+import { transparent, white, whiteLight, whiteDark, black, yellowOrange, red, green, orange } from 'shared/styles/colors';
 
-const bgColorMixin = ({ marked, valid, correct, incorrect }) => {
+const bgColorMixin = ({ marked, valid, correct, incorrect, ignored }) => {
   if (marked && !valid) {
     return `background-color: ${yellowOrange};`;
+  }
+  if (ignored) {
+    return `background-color: ${orange};`;
   }
   if (correct) {
     return `background-color: ${green};`;
@@ -35,6 +38,7 @@ export const Form = styled.form`
   ${gutter({ prop: 'margin' })}
   ${kilo}
   position: relative;
+  overflow: hidden;
   max-width: 100%;
   color: ${({ marked, valid }) => marked && valid ? white : black};
   background-color: ${transparent};
@@ -88,6 +92,10 @@ export const Input = styled.input`
     `;
   }}
 
+  ${({ ignored }) => ignored && `
+    animation: ${shake} .4s linear;
+  `}
+
   &:focus {
     outline: none;
   }
@@ -105,6 +113,7 @@ export const Streak = styled(StreakIcon)`
   top: 50%;
   left: .35em;
   transition: all ${fastEaseQuad};
+  z-index: 2;
 `;
 
 export const ActionButtons = styled.div`
@@ -122,6 +131,7 @@ const ActionButton = styled(IconButton)`
   background-color: ${transparent};
   transition: all ${fastEaseQuad};
   padding: 0 !important;
+  z-index: 2;
 
   &:hover {
     opacity: 1;

@@ -16,4 +16,5 @@ export const selectAnswerFocused = createSelector(selectQuizAnswer, (state) => s
 export const selectAnswerValid = createSelector(selectQuizAnswer, (state) => state.isValid);
 export const selectAnswerCorrect = createSelector(selectQuizAnswer, (state) => state.isCorrect);
 export const selectAnswerIncorrect = createSelector(selectQuizAnswer, (state) => state.isIncorrect);
+export const selectAnswerIgnored = createSelector(selectQuizAnswer, (state) => state.isIgnored);
 export const selectAnswerDisabled = createSelector(selectQuizAnswer, (state) => state.isDisabled);

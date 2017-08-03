@@ -34,6 +34,7 @@ export class QuizAnswer extends React.PureComponent {
       isMarked: PropTypes.bool.isRequired,
       isValid: PropTypes.bool.isRequired,
       isDisabled: PropTypes.bool.isRequired,
+      isIgnored: PropTypes.bool.isRequired,
       isCorrect: PropTypes.bool.isRequired,
       isIncorrect: PropTypes.bool.isRequired,
     }).isRequired,
@@ -80,6 +81,7 @@ export class QuizAnswer extends React.PureComponent {
         valid={answer.isValid}
         correct={answer.isCorrect}
         incorrect={answer.isIncorrect}
+        ignored={answer.isIgnored}
       >
         <AnswerWrapper>
           <Streak streakName={streakName} size="1.15em" />
@@ -92,6 +94,7 @@ export class QuizAnswer extends React.PureComponent {
             lang="ja"
             type="text"
             focus={answer.focus}
+            ignored={answer.isIgnored}
             disabled={answer.isDisabled}
             marked={answer.isMarked}
             valid={answer.isValid}
