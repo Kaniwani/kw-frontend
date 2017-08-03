@@ -5964,10 +5964,6 @@ lru-cache@^4.0.1:
     pseudomap "^1.0.1"
     yallist "^2.0.0"
 
-lz-string@^1.4.4:
-  version "1.4.4"
-  resolved "https://registry.yarnpkg.com/lz-string/-/lz-string-1.4.4.tgz#c0d8eaf36059f705796e1e344811cf4c498d3a26"
-
 macaddress@^0.2.8:
   version "0.2.8"
   resolved "https://registry.yarnpkg.com/macaddress/-/macaddress-0.2.8.tgz#5904dc537c39ec6dbefeae902327135fa8511f12"
@@ -7788,13 +7784,6 @@ redux-logic@0.12.2:
     is-observable "^0.2.0"
     is-promise "^2.1.0"
     loose-envify "^1.2.0"
-
-redux-persist-transform-compress@4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/redux-persist-transform-compress/-/redux-persist-transform-compress-4.2.0.tgz#5089e299df7130878fca45f97ffe82888ba02690"
-  dependencies:
-    json-stringify-safe "^5.0.1"
-    lz-string "^1.4.4"
 
 redux-persist@4.8.3:
   version "4.8.3"

@@ -275,10 +275,7 @@ function serializeReviewEntry({
   needs_review: isReviewReady,
   hidden: isHidden,
   critical: isCritical,
-  burned: isBurned,
-  wanikani_burned,
   wanikani_srs_numeric,
-  wanikani_srs,
   ...rest
 } = {}) {
   return {
@@ -288,10 +285,8 @@ function serializeReviewEntry({
     nextReviewDate: dateOrNull(nextReviewDate),
     isHidden,
     isCritical,
-    isBurned,
     wk: {
-      isBurned: !!wanikani_burned,
-      streakName: wanikani_srs.toUpperCase(),
+      streak: +wanikani_srs_numeric,
     },
     ...serializeStubbedReviewEntry(rest),
   };

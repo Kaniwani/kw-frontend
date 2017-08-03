@@ -46,9 +46,15 @@ export const isNotNumberedLevel = (id) => !isNumber(id);
 export const makeSelectLevelTitle = (id) => createSelector(() =>
   isNotNumberedLevel(id) ? titleCase(id) : id,
 );
-export const makeSelectLevelCount = (id) => createSelector(
+
+export const makeSelectLevelVocabCount = (id) => createSelector(
   makeSelectLevel(id),
   (level) => level && level.count
+);
+
+export const makeSelectLevelReviewCount = (id) => createSelector(
+  makeSelectLevel(id),
+  (level) => level && level.reviews.length
 );
 
 export const makeSelectLevelLocked = (id) => createSelector(

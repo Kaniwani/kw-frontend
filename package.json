@@ -130,7 +130,6 @@
     "redux-form": "7.0.3",
     "redux-logic": "0.12.2",
     "redux-persist": "4.8.3",
-    "redux-persist-transform-compress": "4.2.0",
     "reselect": "3.0.1",
     "sanitize.css": "5.0.0",
     "styled-components": "2.1.1",

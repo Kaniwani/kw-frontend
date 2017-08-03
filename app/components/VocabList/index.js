@@ -5,11 +5,10 @@ import LoadingCrabigator from 'components/LoadingCrabigator';
 import VocabCardList from 'components/VocabCardList';
 import VocabChipList from 'components/VocabChipList';
 
-const noIds = ({ ids }) => !ids.length;
 const expandedCards = ({ isExpanded }) => isExpanded;
 const enhance = compose(
   branch(
-    noIds,
+    ({ levelLoading }) => levelLoading,
     renderComponent(LoadingCrabigator),
     branch(
       expandedCards,

@@ -8,7 +8,6 @@ import { createLogicMiddleware } from 'redux-logic';
 import { autoRehydrate, persistStore } from 'redux-persist';
 import { REHYDRATE } from 'redux-persist/constants';
 
-import createCompressor from 'redux-persist-transform-compress';
 import createActionBuffer from 'redux-action-buffer';
 import localForage from 'localforage';
 
@@ -60,7 +59,7 @@ export default function configureStore(initialState = {}, history) {
   persistStore(store, {
     storage: localForage,
     whitelist: ['global'],
-    transforms: [createCompressor()],
+    debounce: 1500,
   });
 
   // Extensions

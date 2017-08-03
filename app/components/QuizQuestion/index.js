@@ -26,6 +26,7 @@ import {
 } from './styles';
 
 QuizQuestion.propTypes = {
+  category: PropTypes.string.isRequired,
   meanings: PropTypes.array.isRequired,
   readings: PropTypes.array.isRequired,
   answerChecked: PropTypes.bool.isRequired,
@@ -36,7 +37,7 @@ QuizQuestion.propTypes = {
   ]).isRequired,
 };
 
-function QuizQuestion({ answerChecked, meanings, readings, streak, prevStreak }) {
+function QuizQuestion({ category, meanings, readings, streak, prevStreak, answerChecked }) {
   const [primaryTerm, ...rest] = meanings;
   // Enforce a min-height even if no terms by using japanese space ^_^
   const secondaryTerms = rest.length ? rest.join(', ') : '　';
@@ -49,7 +50,7 @@ function QuizQuestion({ answerChecked, meanings, readings, streak, prevStreak })
         </Question>
       </QuestionWrapper>
       <TagsList tags={readings[0].tags} isHidden={answerChecked} />
-      {answerChecked && <StreakChange from={prevStreak} to={streak} />}
+      {answerChecked && category === 'reviews' && <StreakChange from={prevStreak} to={streak} />}
     </Wrapper>
   );
 }

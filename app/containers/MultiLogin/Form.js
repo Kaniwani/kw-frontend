@@ -71,7 +71,7 @@ function FormView({
         component={Input}
         type="email"
         placeholder="Email"
-        validate={registerSelected && [requiredValid, emailValid]}
+        validate={registerSelected ? [requiredValid, emailValid] : []}
         isHidden={loginSelected || resetSelected}
       />
       <Field
@@ -80,7 +80,7 @@ function FormView({
         component={Input}
         type="password"
         placeholder="Password"
-        validate={!resetSelected && [requiredValid, minLengthValid]}
+        validate={!resetSelected ? [requiredValid, minLengthValid] : []}
         isHidden={resetSelected}
       />
       <Field
@@ -89,7 +89,7 @@ function FormView({
         component={Input}
         type="password"
         placeholder="Confirm Password"
-        validate={registerSelected && [requiredValid, minLengthValid, confirmPasswordValid]}
+        validate={registerSelected ? [requiredValid, minLengthValid, confirmPasswordValid] : []}
         isHidden={(loginSelected || resetSelected)}
       />
       <Field
@@ -97,7 +97,7 @@ function FormView({
         name="apiKey"
         component={Input}
         placeholder="WaniKani API key"
-        validate={registerSelected && [requiredValid]}
+        validate={registerSelected ? [requiredValid] : []}
         isHidden={loginSelected || resetSelected}
       >
         <ApiLink

@@ -47,6 +47,10 @@ function goFetch(url, options) {
       };
 
       if (res.status !== 204) {
+        if (res.status === 403) {
+          console.log(res);
+          console.log(res.json());
+        }
         return res.json().then((body) => ({ ...response, body }));
       }
 

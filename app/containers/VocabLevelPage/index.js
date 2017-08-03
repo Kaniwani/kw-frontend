@@ -4,18 +4,18 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
 import actions from 'containers/App/actions';
-import {
-  selectIdFromMatch,
-  makeSelectLevelReviews,
- } from 'containers/App/selectors';
+import { selectIdFromMatch, makeSelectLevelReviews } from 'containers/App/selectors';
 
 import PageWrapper from 'base/PageWrapper';
+import A from 'base/A';
+import H3 from 'base/H3';
 import VocabPageHeader from 'components/VocabPageHeader';
 import VocabList from 'components/VocabList';
 
+import { makeSelectLevelLoading } from './selectors';
 import { VocabListWrapper } from './styles';
 
-export class VocabLevelPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class VocabLevelPage extends React.Component {
   static propTypes = {
     loadLevelReviews: PropTypes.func.isRequired,
     reviewIds: PropTypes.array,
@@ -23,6 +23,7 @@ export class VocabLevelPage extends React.Component { // eslint-disable-line rea
       PropTypes.number,
       PropTypes.string,
     ]).isRequired,
+    levelLoading: PropTypes.bool.isRequired,
   }
 
   static defaultProps = {
@@ -35,14 +36,13 @@ export class VocabLevelPage extends React.Component { // eslint-disable-line rea
 
   componentDidMount() {
     const { loadLevelReviews, id } = this.props;
-    // TODO: ask tadgh for custom stubbed reviews api point?
     loadLevelReviews({ id });
   }
 
   toggleCardsExpanded = () => this.setState({ cardsExpanded: !this.state.cardsExpanded });
 
   render() {
-    const { reviewIds, id } = this.props;
+    const { reviewIds, id, levelLoading } = this.props;
     const PAGE_TITLE = `Vocabulary: Level ${id}`;
     return (
       <div>
@@ -58,10 +58,10 @@ export class VocabLevelPage extends React.Component { // eslint-disable-line rea
             withVocabListToggle
           />
           <VocabListWrapper>
-            <VocabList
-              ids={reviewIds}
-              isExpanded={this.state.cardsExpanded}
-            />
+            <VocabList levelLoading={levelLoading} ids={reviewIds} isExpanded={this.state.cardsExpanded} />
+            {!levelLoading && reviewIds.length < 1 && (
+              <H3>All entries hidden. Check your WaniKani filtering in <A to="/settings">Settings</A></H3>
+            )}
           </VocabListWrapper>
         </PageWrapper>
       </div>
@@ -69,10 +69,14 @@ export class VocabLevelPage extends React.Component { // eslint-disable-line rea
   }
 }
 
-const mapStateToProps = (state, props) => ({
-  id: selectIdFromMatch(props),
-  reviewIds: makeSelectLevelReviews(selectIdFromMatch(props))(state),
-});
+const mapStateToProps = (state, props) => {
+  const id = selectIdFromMatch(props);
+  return {
+    id,
+    reviewIds: makeSelectLevelReviews(id)(state),
+    levelLoading: makeSelectLevelLoading(id)(state),
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   loadLevelReviews: (payload) => dispatch(actions.level.load.request(payload)),

@@ -50,7 +50,7 @@ function VocabEntryDetail({ review }) {
   return (
     <div>
       <P>KW {getSrsRankName(review.streak)} <StreakIcon streakName={getSrsRankName(review.streak)} size="2em" /></P>
-      <P>WK {review.wk && review.wk.streakName} <StreakIcon streakName={review.wk && review.wk.streakName} size="2em" /></P>
+      <P>WK {review.wk && getSrsRankName(review.wk.streak)} <StreakIcon streakName={review.wk && getSrsRankName(review.wk.streak)} size="2em" /></P>
       {<ReviewReady>Next review: {reviewStatus(review)}</ReviewReady> }
       {review.isCritical && <Critical>Critical!</Critical>}
       <P>Unlocked on <BoldH>{getDateInWords(review.unlockDate)}</BoldH></P>

@@ -59,7 +59,7 @@ const settingsReducer = handleActions({
 }, initialState.settings);
 
 const reviewSessionReducer = handleActions({
-  [app.reviews.clearQueue]: (state) => update(state, {
+  [app.reviews.queue.clear]: (state) => update(state, {
     queue: { $set: [] },
   }),
   [app.reviews.queue.load.success]: (state, { payload }) => update(state, {
@@ -90,7 +90,7 @@ const reviewSessionReducer = handleActions({
 // TODO: can probably unduplicate these
 // perhaps part of setting "category" in session state root
 const lessonSessionReducer = handleActions({
-  [app.lessons.clearQueue]: (state) => update(state, {
+  [app.lessons.queue.clear]: (state) => update(state, {
     queue: { $set: [] },
   }),
   [app.lessons.queue.load.success]: (state, { payload }) => update(state, {
@@ -129,7 +129,7 @@ const entitiesReducer = handleActions({
     levels: { $set: merge({}, state.levels, payload) },
   }),
   [app.level.load.success]: (state, { payload }) => update(state, {
-    levels: { [payload.id]: { $set: merge({}, state.levels[payload.id], { reviews: payload.reviewIds }) } },
+    levels: { [payload.id]: { reviews: { $set: payload.reviewIds } } },
     reviews: { $set: merge({}, state.reviews, payload.reviews) },
   }),
   [app.review.load.success]: (state, { payload }) => update(state, {
@@ -153,7 +153,7 @@ const entitiesReducer = handleActions({
     reviews: { [payload.id]: { isHidden: { $set: payload.isHidden } } },
   }),
   [app.level.lock.success]: (state, { payload }) => update(state, {
-    levels: { [payload.id]: { isLocked: { $set: true } } },
+    levels: { [payload.id]: { isLocked: { $set: true }, reviews: { $set: [] } } },
   }),
   [app.level.unlock.success]: (state, { payload }) => update(state, {
     levels: { [payload.id]: { isLocked: { $set: false } } },

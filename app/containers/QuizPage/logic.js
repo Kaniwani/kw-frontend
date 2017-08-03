@@ -183,6 +183,7 @@ export const ignoreAnswerLogic = createLogic({
     // in case user edited notes in quiz info
     const notes = makeSelectReviewNotes(backup.id)(getState());
     dispatch(app.review.update(Object.assign({}, backup, { notes })));
+
     dispatch(quiz.answer.update({ isIgnored: true }));
     dispatch(quiz.info.reset());
     // allow animation to occur
@@ -197,23 +198,18 @@ export const ignoreAnswerLogic = createLogic({
 
 export const recordAnswerLogic = createLogic({
   type: quiz.answer.record.request,
-  processOptions: {
-    failType: quiz.answer.record.failure,
-  },
-
   process({ action: { payload: { category, id, isCorrect, previouslyIncorrect } } }, dispatch, done) {
     clearTimeout(autoAdvanceTimeout);
     dispatch(app[category][isCorrect ? 'correct' : 'incorrect'].add(id));
     dispatch(app[category].current.set());
-    dispatch(quiz.backup.reset());
     dispatch(quiz.answer.reset());
+    dispatch(quiz.backup.reset());
     dispatch(quiz.info.reset());
-    return recordReview({ id, isCorrect, previouslyIncorrect })
-      .then(() => {
-        dispatch(quiz.answer.record.success({ isCorrect, category }));
-        done();
-      })
-      .catch((err) => err);
+
+    recordReview({ id, isCorrect, previouslyIncorrect })
+      .then(() => dispatch(quiz.answer.record.success({ isCorrect, category })))
+      .catch((err) => dispatch(quiz.answer.record.failure(err)));
+    done();
   },
 });
 

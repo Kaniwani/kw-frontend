@@ -17,7 +17,9 @@ export const saveSettingsLogic = createLogic({
     api.saveSettings({ id, settings: serverSettings })
       .then(() => {
         if (payload.quiz.minimumSrsToReview !== minimumSrsToReview) {
-          dispatch(app.reviews.clearQueue());
+          dispatch(app.reviews.queue.clear());
+          dispatch(app.lessons.queue.clear());
+          dispatch(app.user.load.request());
         }
         dispatch(app.settings.save.success(payload));
         done();
@@ -32,7 +34,7 @@ export const resetProgressLogic = createLogic({
   },
   process(_, dispatch, done) {
     api.resetProgress().then(() => {
-      dispatch(app.reviews.clearQueue());
+      dispatch(app.reviews.queue.clear());
       dispatch(app.user.load.request());
       done();
     });

@@ -6,9 +6,9 @@ import noop from 'lodash/noop';
 
 import actions from 'containers/App/actions';
 import {
-  makeSelectLevelCount,
   makeSelectLevelTitle,
   makeSelectLevelLocked,
+  makeSelectLevelVocabCount,
  } from 'containers/App/selectors';
 
 import {
@@ -39,26 +39,23 @@ VocabLevel.propTypes = {
     PropTypes.number,
     PropTypes.string,
   ]).isRequired,
-  count: PropTypes.number.isRequired,
   isLocked: PropTypes.bool.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   isActionable: PropTypes.bool.isRequired,
   handleLockClick: PropTypes.func.isRequired,
+  vocabCount: PropTypes.number.isRequired,
 };
 
-function VocabLevel({ id, title, count, isLocked, isSubmitting, isActionable, handleLockClick }) {
+function VocabLevel({ id, title, vocabCount, isLocked, isSubmitting, isActionable, handleLockClick }) {
   return (
     <Wrapper
       isLocked={isLocked}
       isSubmitting={isSubmitting}
       isActionable={isActionable}
     >
-      <LevelLink
-        plainLink
-        to={`/vocabulary/levels/${id}`}
-      >
+      <LevelLink plainLink to={`/vocabulary/levels/${id}`}>
         <Title>{title}</Title>
-        <ItemCount>{count} entries</ItemCount>
+        <ItemCount>{vocabCount} entries</ItemCount>
         <LockedLabel>{(isSubmitting && 'Syncing') || (isLocked && 'Locked')}</LockedLabel>
       </LevelLink>
       <Button
@@ -74,10 +71,10 @@ function VocabLevel({ id, title, count, isLocked, isSubmitting, isActionable, ha
 
 const mapStateToProps = (state, { id }) => ({
   title: makeSelectLevelTitle(id)(state),
-  count: makeSelectLevelCount(id)(state),
   isLocked: makeSelectLevelLocked(id)(state),
   isActionable: makeSelectLevelActionable(id)(state),
   isSubmitting: makeSelectLevelSubmitting(id)(state),
+  vocabCount: makeSelectLevelVocabCount(id)(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

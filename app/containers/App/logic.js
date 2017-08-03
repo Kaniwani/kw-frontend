@@ -235,21 +235,6 @@ export const returnCurrentLogic = createLogic({
   },
 });
 
-export const reloadSessionCountsLogic = createLogic({
-  type: [
-    app.level.lock.success,
-    app.level.unlock.success,
-    app.settings.save.success,
-  ],
-  latest: true,
-  process(_, dispatch, done) {
-    dispatch(app.reviews.clearQueue());
-    dispatch(app.lessons.clearQueue());
-    dispatch(app.user.load.request());
-    done();
-  },
-});
-
 export const levelsLoadLogic = createLogic({
   type: app.levels.load.request,
   cancelType: app.levels.load.cancel,
@@ -269,22 +254,25 @@ export const levelsLoadLogic = createLogic({
 
 export const levelLockLogic = createLogic({
   type: app.level.lock.request,
-  cancelType: app.level.lock.cancel,
   warnTimeout: 10000,
   processOptions: {
-    successType: app.level.lock.success,
     failType: app.level.lock.failure,
   },
 
-  process({ action: { payload: { id } } }) {
-    return api.lockLevel({ id })
-      .then(() => ({ id }));
+  process({ action: { payload: { id } } }, dispatch, done) {
+    api.lockLevel({ id })
+      .then(() => {
+        dispatch(app.reviews.queue.clear());
+        dispatch(app.lessons.queue.clear());
+        dispatch(app.level.lock.success({ id }));
+        dispatch(app.user.load.request());
+        done();
+      });
   },
 });
 
 export const levelUnlockLogic = createLogic({
   type: app.level.unlock.request,
-  cancelType: app.level.unlock.cancel,
   warnTimeout: 10000,
   validate({ getState, action }, allow, reject) {
     // TODO: could set up a queue instead.
@@ -299,13 +287,17 @@ export const levelUnlockLogic = createLogic({
   },
 
   processOptions: {
-    successType: app.level.unlock.success,
     failType: app.level.unlock.failure,
   },
 
-  process({ action: { payload: { id } } }) {
-    return api.unlockLevel({ id })
-      .then(() => ({ id }));
+  process({ action: { payload: { id } } }, dispatch, done) {
+    api.unlockLevel({ id })
+      .then(() => {
+        dispatch(app.level.load.request({ id }));
+        dispatch(app.level.unlock.success({ id }));
+        dispatch(app.user.load.request());
+        done();
+      });
   },
 });
 
@@ -436,7 +428,6 @@ export default [
   levelsLoadLogic,
   levelLockLogic,
   levelUnlockLogic,
-  reloadSessionCountsLogic,
   reviewLoadLogic,
   addSynonymLogic,
   removeSynonymLogic,

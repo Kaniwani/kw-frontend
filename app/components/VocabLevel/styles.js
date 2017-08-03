@@ -40,7 +40,7 @@ export const Wrapper = styled.li`
   display: flex;
   background-color: ${white};
   transition: background-color ${fastEaseQuad};
-  ${({ isLocked }) => isLocked && css`
+  ${({ isActionable, isLocked }) => (isLocked || !isActionable) && css`
     & ${LevelLink} {
       pointer-events: none;
     }
