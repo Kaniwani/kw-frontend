@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
-import isNumber from 'lodash/isNumber';
+import isFinite from 'lodash/isFinite';
 import { selectUserLevel, isNotNumberedLevel } from 'containers/App/selectors';
 
-const isWithinUserWKLevel = (id, userLevel) => isNumber(id) && id <= userLevel;
+const isWithinUserWKLevel = (id, userLevel) => isFinite(+id) && +id <= userLevel;
 
 const selectVocabLevelsDomain = (state) => state.vocabLevels;
 

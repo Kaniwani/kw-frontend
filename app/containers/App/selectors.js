@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import isNumber from 'lodash/isNumber';
+import isFinite from 'lodash/isFinite';
 import titleCase from 'voca/title_case';
 import isBefore from 'date-fns/is_before';
 import addMinutes from 'date-fns/add_minutes';
@@ -42,7 +42,7 @@ export const selectSessionCount = createSelector(
 
 export const selectUserLevel = createSelector(selectProfile, (state) => state && state.currentLevel);
 
-export const isNotNumberedLevel = (id) => !isNumber(id);
+export const isNotNumberedLevel = (id) => !isFinite(+id);
 export const makeSelectLevelTitle = (id) => createSelector(() =>
   isNotNumberedLevel(id) ? titleCase(id) : id,
 );
