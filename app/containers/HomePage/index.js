@@ -32,7 +32,7 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
   render() {
     const { profile, dashboard, forceSrs } = this.props;
     const nextReviewStatus = (reviewsCount, nextReviewDate) => {
-      if (!reviewsCount && nextReviewDate == null) return 'None unlocked';
+      if (!reviewsCount && nextReviewDate == null) return 'No reviews available';
       if (isPast(nextReviewDate)) return 'Now!';
       return distanceInWordsToNow(nextReviewDate, { includeSeconds: true, suffix: true });
     };

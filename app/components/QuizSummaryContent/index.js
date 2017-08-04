@@ -52,7 +52,7 @@ function QuizSummaryContent({
         />
       </Heading>
       {noHistory ? (
-        <Container><H2>No history. Get quizzing!</H2></Container>
+        <Container><H2>No recent history.</H2></Container>
       ) : (
         <div>
           <SummarySection
