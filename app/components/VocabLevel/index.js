@@ -78,7 +78,9 @@ const mapStateToProps = (state, { id }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  lockLevel: (payload) => dispatch(actions.level.lock.request(payload)),
+  lockLevel: (payload) => {
+    window.confirm('This will reset your KW SRS for this level. Are you sure you want to continue?') ? dispatch(actions.level.lock.request(payload)) : noop();
+  },
   unlockLevel: (payload) => dispatch(actions.level.unlock.request(payload)),
 });
 
