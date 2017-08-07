@@ -6,7 +6,9 @@ import endsWith from 'voca/ends_with';
  * @return {string} text with trailing 'n' -> 'ん'
  */
 function fixTerminalN(input = '') {
-  return endsWith(input, 'n') ? `${input.slice(0, -1)}ん` : input;
+  const en = 'n';
+  const ja = 'ｎ';
+  return (endsWith(input, en) || endsWith(input, ja)) ? `${input.slice(0, -1)}ん` : input;
 }
 
 export default fixTerminalN;
