@@ -285,9 +285,7 @@ function serializeReviewEntry({
     nextReviewDate: dateOrNull(nextReviewDate),
     isHidden,
     isCritical,
-    wk: {
-      streak: +wanikani_srs_numeric,
-    },
+    wkStreak: +wanikani_srs_numeric,
     ...serializeStubbedReviewEntry(rest),
   };
 }

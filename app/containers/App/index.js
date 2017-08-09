@@ -1,18 +1,25 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import styled from 'styled-components';
 
 import WelcomePage from 'containers/WelcomePage';
 import ProtectedRoutes from 'containers/ProtectedRoutes';
 
 import { hasToken } from 'utils/auth';
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 100%;
+`;
+
 // must be React.Component not stateless for Loadable to work
 class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const loggedIn = hasToken();
     return (
-      <div>
+      <Wrapper>
         <Helmet titleTemplate="%s - KaniWani">
           <meta name="description" content="KaniWani - An English to Japanese SRS Quiz App" />
         </Helmet>
@@ -20,7 +27,7 @@ class App extends React.Component { // eslint-disable-line react/prefer-stateles
           <Route exact path="/welcome" component={WelcomePage} />
           <Route path="" render={() => loggedIn ? <ProtectedRoutes /> : <Redirect to="/welcome" />} />
         </Switch>
-      </div>
+      </Wrapper>
     );
   }
 }

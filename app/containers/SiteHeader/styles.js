@@ -8,6 +8,7 @@ import { bottomLight } from 'shared/styles/shadows';
 export const Header = styled.header`
   ${centerByPadding}
   ${gutter({ prop: 'margin', position: 'bottom', type: 'outer' })} /* logo unfortunately adds height already */
+  grid-area: Header;
   position: relative;
   background-color: ${white};
   box-shadow: ${bottomLight};

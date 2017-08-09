@@ -11,14 +11,8 @@ import VocabEntry from 'components/VocabEntry';
 import VocabEntryDetail from 'components/VocabEntryDetail';
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-flow: row-wrap;
-  & > div:first-child {
-    flex: 2 1 66%;
-  }
-  & > div:last-child {
-    text-align: right;
-  }
+  ${'' /* display: grid;
+  grid-template-columns: repeat(2, 1fr); */}
 `;
 
 export class VocabEntryPage extends React.Component {
@@ -35,8 +29,9 @@ export class VocabEntryPage extends React.Component {
     this.props.loadReview(this.props.id);
   }
 
-  // TODO: rather than pass down id, we could store in a super simple reducer,
+  // TODO: rather than pass down id or review, we could store in a super simple reducer,
   // then select deep inside individual components
+  // OR: use recompose shouldComponentUpdate() liberally
   render() {
     const { id, review } = this.props;
     return (

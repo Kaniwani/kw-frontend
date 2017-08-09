@@ -5,61 +5,44 @@ import { compose, branch, renderNothing } from 'recompose';
 
 import getDateInWords from 'utils/getDateInWords';
 import calculatePercentage from 'utils/calculatePercentage';
-import getSrsRankName from 'utils/getSrsRankName';
 
 import { makeSelectReview } from 'containers/App/selectors';
 
-import H3 from 'base/H3';
-import P from 'base/P';
-import StreakIcon from 'components/StreakIcon';
 import VocabEntryNotes from 'components/VocabEntryNotes';
+import StreakStatus from './StreakStatus';
+import Status from './Status';
+import CriticalStatus from './CriticalStatus';
+import ReviewStatus from './ReviewStatus';
+import QuizStatus from './QuizStatus';
+
+import { Wrapper } from './styles';
 
 VocabEntryDetail.propTypes = {
   review: PropTypes.object.isRequired,
 };
 
-const Critical = H3.extend`
-  display: inline-block;
-  color: crimson;
-`;
-
-const ReviewReady = H3.extend`
-  display: inline-block;
-  color: blue;
-`;
-
-const BoldH = H3.extend`
-  display: inline-block;
-  color: rebeccaPurple;
-`;
-
 const correctness = (correct, incorrect) => {
   const total = correct + incorrect;
   const previouslyAnswered = total > 0;
-  return (<span>{previouslyAnswered ? `${calculatePercentage(correct, total)}%` : 'N/A'}</span>);
+  return previouslyAnswered ? calculatePercentage(correct, total) : 0;
 };
 
 function VocabEntryDetail({ review }) {
-  const reviewStatus = (item) => {
-    if (item.isHidden) return 'Hidden';
-    if (item.isReviewReady) return 'Now';
-    if (item.nextReviewDate) return getDateInWords(item.nextReviewDate);
-    return 'N/A';
-  };
-  // FIXME: don't pass review down! pass ID and let the components select only what they need for re-rendering
   return (
-    <div>
-      <P>KW {getSrsRankName(review.streak)} <StreakIcon streakName={getSrsRankName(review.streak)} size="2em" /></P>
-      <P>WK {review.wk && getSrsRankName(review.wk.streak)} <StreakIcon streakName={review.wk && getSrsRankName(review.wk.streak)} size="2em" /></P>
-      {<ReviewReady>Next review: {reviewStatus(review)}</ReviewReady> }
-      {review.isCritical && <Critical>Critical!</Critical>}
-      <P>Unlocked on <BoldH>{getDateInWords(review.unlockDate)}</BoldH></P>
-      <P>Last reviewed on <BoldH>{getDateInWords(review.lastReviewDate)}</BoldH></P>
-      <P>Times correct: <BoldH>{review.correct}</BoldH></P>
-      <P>Times incorrect: <BoldH>{review.incorrect}</BoldH></P>
-      <P>Correctness<BoldH>{correctness(review.correct, review.incorrect)}</BoldH></P>
+    <Wrapper>
+      <StreakStatus category="KW" streak={review.streak} />
+      <StreakStatus category="WK" streak={review.wkStreak} />
+      <Status text="Unlocked" status={getDateInWords(review.unlockDate)} />
+      <Status text="Last reviewed" status={getDateInWords(review.lastReviewDate)} />
+      <ReviewStatus review={review} />
+      <div style={{ display: 'flex', width: '100%' }}>
+        <QuizStatus text="Correct" status={review.correct} />
+        <QuizStatus text="Incorrect" status={review.incorrect} />
+        <QuizStatus text="Correctness" status={correctness(review.correct, review.incorrect) || 'N/A'} />
+      </div>
+      <CriticalStatus isCritical={review.isCritical} />
       <VocabEntryNotes id={review.id} />
-    </div>
+    </Wrapper>
   );
 }
 

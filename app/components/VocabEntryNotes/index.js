@@ -31,7 +31,7 @@ VocabEntryNotes.defaultProps = {
 function VocabEntryNotes({ rows, handleSubmit, dirty, reset }) {
   return (
     <Form onSubmit={handleSubmit}>
-      <Heading>Notes</Heading>
+      <Heading><b>Notes:</b></Heading>
       <TextArea
         name="notes"
         component="textarea"

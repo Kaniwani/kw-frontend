@@ -5,8 +5,8 @@ import { withRouter, Switch, Route } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
 import ScrollToTop from 'components/ScrollToTop';
-import SiteHeader from 'containers/SiteHeader';
-import SiteFooter from 'components/SiteFooter';
+import SiteHeader from 'containers/SiteHeader/Loadable';
+import SiteFooter from 'components/SiteFooter/Loadable';
 import HomePage from 'containers/HomePage/Loadable';
 import VocabLevelsPage from 'containers/VocabLevelsPage/Loadable';
 import VocabLevelPage from 'containers/VocabLevelPage/Loadable';
@@ -19,6 +19,20 @@ import SettingsPage from 'containers/SettingsPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import { app } from 'containers/App/actions';
+import styled from 'styled-components';
+const Page = styled.div`
+  display: flex;
+  flex: 1 0 100%;
+  flex-flow: column nowrap;
+  & header,
+  & footer {
+    flex: 0 0 auto;
+  }
+
+  & main {
+    flex: 1 0 auto;
+  }
+`;
 
 export class ProtectedRoutes extends React.Component {
   static propTypes = {
@@ -31,7 +45,7 @@ export class ProtectedRoutes extends React.Component {
 
   render() {
     return (
-      <div>
+      <Page>
         <ReactTooltip id="globalTooltip" />
         {/* Notifications */}
         <ScrollToTop />
@@ -39,29 +53,31 @@ export class ProtectedRoutes extends React.Component {
           <Route path="/:path(lessons|reviews)" /* don't render SiteHeader */ />
           <Route path="" component={SiteHeader} />
         </Switch>
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/about" component={AboutPage} />
-          <Route exact path="/contact" component={ContactPage} />
-          <Route exact path="/settings" component={SettingsPage} />
-          <Route path="/:category(lessons|reviews)">
-            <Switch>
-              <Route exact path="/:category/session" component={QuizPage} />
-              <Route exact path="/:category" component={QuizSummaryPage} />
-              <Route path="" component={NotFoundPage} />
-            </Switch>
-          </Route>
-          <Route exact path="/vocabulary" component={VocabLevelsPage} />
-          <Route exact path="/vocabulary/levels" component={VocabLevelsPage} />
-          <Route exact path="/vocabulary/levels/:id" component={VocabLevelPage} />
-          <Route exact path="/vocabulary/entry/:id" component={VocabEntryPage} />
-          <Route path="" component={NotFoundPage} />
-        </Switch>
+        <main>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/about" component={AboutPage} />
+            <Route exact path="/contact" component={ContactPage} />
+            <Route exact path="/settings" component={SettingsPage} />
+            <Route path="/:category(lessons|reviews)">
+              <Switch>
+                <Route exact path="/:category/session" component={QuizPage} />
+                <Route exact path="/:category" component={QuizSummaryPage} />
+                <Route path="" component={NotFoundPage} />
+              </Switch>
+            </Route>
+            <Route exact path="/vocabulary" component={VocabLevelsPage} />
+            <Route exact path="/vocabulary/levels" component={VocabLevelsPage} />
+            <Route exact path="/vocabulary/levels/:id" component={VocabLevelPage} />
+            <Route exact path="/vocabulary/entry/:id" component={VocabEntryPage} />
+            <Route path="" component={NotFoundPage} />
+          </Switch>
+        </main>
         <Switch>
           <Route path="/:path(lessons|reviews)" /* don't render SiteFooter */ />
           <Route path="" component={SiteFooter} />
         </Switch>
-      </div>
+      </Page>
     );
   }
 }

@@ -12,7 +12,7 @@ import KanjiStroke from 'components/KanjiStroke';
 
 import { Li, ReadingContent, StrokeLoader, StrokeLoaderText } from './styles';
 
-// prevent xhr if not rendered
+// avoids xhr if not called
 const renderKanjiStroke = (character) => <KanjiStroke character={character} />;
 
 VocabEntryReading.propTypes = {

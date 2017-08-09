@@ -29,5 +29,7 @@ export const StrokeLoader = styled.div`
 `;
 
 export const StrokeLoaderText = H4.extend`
+  ${gutter()}
+  ${gutter({ position: 'bottom', mod: 0.5 })}
   display: inline-flex;
 `;

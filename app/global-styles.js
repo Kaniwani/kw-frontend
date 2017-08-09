@@ -12,7 +12,7 @@ import {
 injectGlobal`
   html {
     box-sizing: border-box;
-    height: 100vh;
+    height: 100%;
     max-width: 100vw;
     overflow-x: hidden;
   }
@@ -25,11 +25,14 @@ injectGlobal`
 
   body {
     ${epsilon}
+    min-height: 100%;
     margin: 0;
     padding: 0;
     font-family: ${ffBody};
     color: ${blackLight};
     line-height: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   [lang="ja"],
@@ -42,8 +45,9 @@ injectGlobal`
   }
 
   #app {
-    min-height: 100%;
-    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 100%;
   }
 
   *:focus {

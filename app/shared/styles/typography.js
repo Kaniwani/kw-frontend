@@ -4,7 +4,7 @@ import { gutter } from 'shared/styles/layout';
 import { fluidType } from 'shared/styles/utils';
 
 /* 300, 400, 700 weights available */
-export const ffBody = '"Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif';
+export const ffBody = '"Liberation Sans", "Helvetica Neue", Helvetica, Arial, sans-serif';
 export const ffHeading = '"Ubuntu", Helvetica, Arial, sans-serif';
 export const ffJapanese = '"Hiragino Kaku Gothic Pro", "Takao Pゴシック", "Meiryo", "Yu Gothic", "ヒラギノ角ゴ Pro W3", "メイリオ", "Osaka", "MS PGothic", "ＭＳ Ｐゴシック", sans-serif';
 
@@ -62,9 +62,9 @@ export const gamma = css`
   letter-spacing: -0.02em;
 `;
 
-export const delta = generateFontSize(1.10);  // h4
-export const epsilon = generateFontSize(0.75);  // h5 & body
-export const zeta = generateFontSize(0.6);  // h6
+export const delta = generateFontSize(1.10); // h4
+export const epsilon = generateFontSize(0.75); // h5 & body
+export const zeta = generateFontSize(0.6); // h6
 // Smaller
 export const milli = 'font-size: .85em;'; // <small>
 export const micro = 'font-size: .7em;';

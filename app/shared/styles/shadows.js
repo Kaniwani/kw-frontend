@@ -8,5 +8,5 @@ export const outerLine = '0 0 .1em .1em rgba(0, 0, 0, .3)';
 export const bottomLight = '0 1px 8px rgba(59, 59, 59, .1)';
 
 export const shadowBox = `
-  box-shadow: .1rem .1rem .1rem #e1e1e1;
+  box-shadow: .05rem .05rem .1rem rgba(0,0,0, 0.2);
 `;
