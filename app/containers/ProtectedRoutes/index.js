@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { withRouter, Switch, Route } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
 import ScrollToTop from 'components/ScrollToTop';
 import SiteHeader from 'containers/SiteHeader';
+import SiteFooter from 'components/SiteFooter';
 import HomePage from 'containers/HomePage/Loadable';
 import VocabLevelsPage from 'containers/VocabLevelsPage/Loadable';
 import VocabLevelPage from 'containers/VocabLevelPage/Loadable';
@@ -55,6 +56,10 @@ export class ProtectedRoutes extends React.Component {
           <Route exact path="/vocabulary/levels/:id" component={VocabLevelPage} />
           <Route exact path="/vocabulary/entry/:id" component={VocabEntryPage} />
           <Route path="" component={NotFoundPage} />
+        </Switch>
+        <Switch>
+          <Route path="/:path(lessons|reviews)" /* don't render SiteFooter */ />
+          <Route path="" component={SiteFooter} />
         </Switch>
       </div>
     );
