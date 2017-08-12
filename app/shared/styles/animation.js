@@ -35,27 +35,27 @@ export const shake = keyframes`
   }
 
   10% {
-    transform: translate3d(-6%, 0, 0);
-  }
-
-  25% {
-    transform: translate3d(6%, 0, 0);
-  }
-
-  40% {
-    transform: translate3d(-8%, 0, 0);
-  }
-
-  55% {
-    transform: translate3d(8%, 0, 0);
-  }
-
-  70% {
     transform: translate3d(-4%, 0, 0);
   }
 
-  85% {
+  25% {
     transform: translate3d(4%, 0, 0);
+  }
+
+  40% {
+    transform: translate3d(-6%, 0, 0);
+  }
+
+  55% {
+    transform: translate3d(6%, 0, 0);
+  }
+
+  70% {
+    transform: translate3d(-3%, 0, 0);
+  }
+
+  85% {
+    transform: translate3d(3%, 0, 0);
   }
 
 }`;

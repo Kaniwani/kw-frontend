@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
   z-index: 2; /* Stay above absolute Quiz Background Image */
   display: flex;
   flex-flow: column nowrap;
-  flex: 1 0 100%;
+  flex: 1 1 100%;
 `;
 
 export const PanelsWrapper = styled.div`
@@ -27,7 +27,7 @@ export const PanelsWrapper = styled.div`
   max-width: 100%;
   max-width: 2000px;
   background-color: ${whiteLight};
-  flex: 1 0 100%;
+  flex: 1 1 100%;
   ${({ isMinimized }) => isMinimized && 'flex: 0 1 0px'}
 `;
 

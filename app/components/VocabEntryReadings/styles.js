@@ -23,6 +23,7 @@ export const ReadingContent = styled.div`
 `;
 
 export const StrokeLoader = styled.div`
+  ${gutter({ position: 'vertical', mod: 1.5 })}  
   flex: 0 1 auto;
   align-self: flex-start;
 `;

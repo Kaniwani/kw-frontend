@@ -29,6 +29,7 @@ const bgColorMixin = ({ marked, valid, correct, incorrect, ignored }) => {
 
 export const AnswerWrapper = styled.div`
   position: relative;
+  overflow: hidden;
   color: currentColor;
   background-color: ${whiteLight};
   ${shadowBox}
@@ -37,8 +38,6 @@ export const AnswerWrapper = styled.div`
 export const Form = styled.form`
   ${gutter({ prop: 'margin' })}
   ${kilo}
-  position: relative;
-  overflow: hidden;
   max-width: 100%;
   color: ${({ marked, valid }) => marked && valid ? white : black};
   background-color: ${transparent};
@@ -93,7 +92,7 @@ export const Input = styled.input`
   }}
 
   ${({ ignored }) => ignored && `
-    animation: ${shake} .6s linear;
+    animation: ${shake} .45s ease-in-out;
   `}
 
   &:focus {
@@ -104,7 +103,7 @@ export const Input = styled.input`
   &::-ms-clear {
     display: none;
   }
-`;
+  `;
 
 export const Streak = styled(StreakIcon)`
   display: block;
@@ -114,7 +113,7 @@ export const Streak = styled(StreakIcon)`
   left: .35em;
   transition: all ${fastEaseQuad};
   z-index: 2;
-`;
+  `;
 
 export const ActionButtons = styled.div`
   display: flex;
@@ -122,7 +121,7 @@ export const ActionButtons = styled.div`
   right: 0;
   top: 0;
   height: 100%;
-`;
+  `;
 
 const ActionButton = styled(IconButton)`
   height: 100%;
@@ -136,9 +135,9 @@ const ActionButton = styled(IconButton)`
   &:hover {
     opacity: 1;
   }
-`;
+  `;
 
 export const SubmitButton = ActionButton;
 export const IgnoreButton = ActionButton.extend`
  opacity: .5;
-`;
+  `;

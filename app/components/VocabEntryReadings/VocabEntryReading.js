@@ -50,22 +50,6 @@ function VocabEntryReading({
       <ReadingContent>
         <Reading character={character} kana={kana} detailLevel={detailLevel} />
         {detailLevel > 1 && (
-          <StrokeLoader>
-            {!showKanjiSvg && (
-              <IconButton
-                inline
-                name="BRUSH"
-                title="View stroke diagram"
-                size="1.8em"
-                handleClick={toggleKanjiSvg}
-              >
-                <StrokeLoaderText>Strokes</StrokeLoaderText>
-              </IconButton>
-            )}
-            {showKanjiSvg && renderKanjiStroke(character)}
-          </StrokeLoader>
-        )}
-        {detailLevel > 1 && (
           <SentencePair
             sentenceEn={sentenceEn}
             sentenceJa={sentenceJa}
@@ -75,6 +59,22 @@ function VocabEntryReading({
         )}
       </ReadingContent>
       {detailLevel > 1 && <VocabEntryLinks character={character} />}
+      {detailLevel > 1 && (
+        <StrokeLoader>
+          {!showKanjiSvg && (
+            <IconButton
+              inline
+              name="BRUSH"
+              title="View stroke diagram"
+              size="1.8em"
+              handleClick={toggleKanjiSvg}
+            >
+              <StrokeLoaderText>Strokes</StrokeLoaderText>
+            </IconButton>
+          )}
+          {showKanjiSvg && renderKanjiStroke(character)}
+        </StrokeLoader>
+      )}
     </Li>
   );
 }
