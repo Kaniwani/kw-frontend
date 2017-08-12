@@ -1,6 +1,5 @@
 import { injectGlobal } from 'styled-components';
-import { greyDark, blackLight, purpleLight } from 'shared/styles/colors';
-import { media } from 'shared/styles/media';
+import { greyDark, blackLight, pink } from 'shared/styles/colors';
 import {
   ffBody,
   ffHeading,
@@ -49,10 +48,10 @@ injectGlobal`
 
   *:focus {
     outline: none;
-    ${media().sm`
+    .user-is-tabbing & {
       opacity: 1;
-      /* outline: ${purpleLight} auto 3px; */
-    `}
+      outline: ${pink} auto .2rem !important;
+    }
   }
 
   h1, h2, h3, h4, h5, h6 {

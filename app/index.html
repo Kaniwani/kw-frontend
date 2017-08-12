@@ -8,6 +8,7 @@
     <meta name="theme-color" content="#8523e7">
     <title>Kaniwani</title>
     <style>
+      /* inline stylesheet to display loading indicator while uncached js bundle loads */
       .loading-wrapper {
         position: relative;
         top: 2rem;
@@ -49,7 +50,7 @@
     <!-- Display a message if JS has been disabled on the browser. -->
     <noscript>If you're seeing this message, that means <strong>JavaScript has been disabled on your browser</strong>, please <strong>enable JS</strong> to make this app work.</noscript>
 
-    <!-- The app hooks into this div and will replace the loading animation-->
+    <!-- The app hooks into this div and will replace the loading animation on load -->
     <div id="app">
       <div class="loading-wrapper">
         <svg
@@ -78,5 +79,26 @@
       </div>
     </div>
     <!-- A lot of magic happens in this file. HtmlWebpackPlugin automatically includes all assets (e.g. bundle.js, main.css) with the correct HTML tags, which is why they are missing in this HTML file. Don't add any assets here! (Check out webpackconfig.js if you want to know more) -->
+    <script>
+      const IS_TABBING = 'user-is-tabbing';
+      /**
+       * Adds a css class to body element to enable highlight ring for focusable elements
+       * @param  {Object} event event
+       * @returns {none} adds class on `tab` keydown
+       */
+      function addTabbingState({ keyCode }) {
+        const TAB = 9;
+        if (keyCode === TAB) {
+          document.body.classList.add(IS_TABBING);
+        }
+      }
+
+      function removeTabbingState() {
+        document.body.classList.remove(IS_TABBING);
+      }
+
+      window.addEventListener('keydown', addTabbingState);
+      window.addEventListener('mouseout', removeTabbingState);
+    </script>
   </body>
 </html>
