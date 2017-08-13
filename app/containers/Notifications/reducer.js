@@ -7,7 +7,7 @@ export default function Notifications(state = [], action = {}) {
       return state.concat({ ...rest, uid: action.uid });
     }
     case HIDE_NOTIFICATION:
-      return state.filter(notification => notification.uid !== action.uid);
+      return state.filter((notification) => notification.uid !== action.uid);
     default:
       return state;
   }

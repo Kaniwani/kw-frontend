@@ -26,7 +26,7 @@ function parseResponse(responseObj, character) {
     vocabResults.forEach((result) => {
       const title = result.getAttribute('title');
       const readings = result.textContent.replace(/\s+/g, '').replace('・', '');
-      debugger;
+
       if (title === character && kana.some((k) => readings.includes(k))) {
         const spans = result.getElementsByTagName('span');
         if (spans != null) {

@@ -8,6 +8,7 @@ export const Button = styled.button`
   ${resetButton}
   ${gutter()}
   display: flex;
+  justify-content: center;
   align-self: center;
   align-items: center;
   vertical-align: middle;

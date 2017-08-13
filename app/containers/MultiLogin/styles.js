@@ -42,24 +42,25 @@ export const Form = styled.form`
 
 export const SelectList = styled.ul`
   ${resetList}
-  ${''/* FIXME: flex fallback + supports */}
-  display: grid;
+  display: flex;
+  justify-content: space-between;
   max-width: ${maxWidth};
   font-size: .9em;
   width: 100%;
-  grid-template-columns: 1fr 1fr 1fr;
   margin-bottom: -.3rem;
+  & li {
+    flex: 1 1 33%;
+  }
 `;
 
-export const SelectListItem = styled.button`
-  ${resetButton}
+export const SelectListItem = styled.li`
   width: 100%;
   text-align: center;
   color: ${greyDark};
   cursor: pointer;
   font-weight: 600;
   text-transform: uppercase;
-  opacity: .6;
+  opacity: .5;
   padding-top: .5rem;
   padding-bottom: .5rem;
 

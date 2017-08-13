@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Icon from 'components/Icon';
-import { Button } from './styles';
+import Button from 'base/Button';
 
 IconButton.propTypes = {
   name: PropTypes.string.isRequired,
@@ -17,10 +17,12 @@ IconButton.propTypes = {
   handleClick: PropTypes.func,
   inline: PropTypes.bool,
   children: PropTypes.node,
+  plainButton: PropTypes.bool,
 };
 
 IconButton.defaultProps = {
   type: 'button',
+  plainButton: true,
   color: 'currentColor',
   size: '1.5em',
   disabled: false,
@@ -29,14 +31,10 @@ IconButton.defaultProps = {
   handleClick: (event) => event, /* passthrough, for submit buttons in forms with onSubmit */
 };
 
-function IconButton({ name, title, color, size, type, inline, handleClick, disabled, children, ...props }) {
+function IconButton({ name, title, color, size, inline, children, ...props }) {
   return (
     <Button
-      type={type}
-      title={title}
       aria-label={title}
-      onClick={handleClick}
-      disabled={disabled}
       {...props}
     >
       {children}

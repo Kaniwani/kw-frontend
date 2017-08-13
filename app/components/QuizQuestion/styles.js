@@ -1,10 +1,12 @@
 import styled from 'styled-components';
+import { darken } from 'polished';
 
 import { white, purpleDark, SRS_COLORS } from 'shared/styles/colors';
 import { gutter, centerByMargin } from 'shared/styles/layout';
 import { giga, gamma } from 'shared/styles/typography';
 import { borderRadius } from 'shared/styles/sizing';
 import { srsRankUp, srsRankDown } from 'shared/styles/animation';
+import { outerLight } from 'shared/styles/shadows';
 
 import H6 from 'base/H6';
 
@@ -47,8 +49,8 @@ export const Secondary = styled.div`
 `;
 
 export const StreakAnimationWrapper = styled.div`
-  ${gutter()}
   position: absolute;
+  ${gutter({ position: 'vertical', prop: 'margin' })}
   bottom: 0;
   width: 100%;
   z-index: 4;
@@ -57,9 +59,12 @@ export const StreakAnimationWrapper = styled.div`
 `;
 
 export const StreakAnimationContent = H6.extend`
+  ${gutter({ position: 'horizontal', mod: 3 })}
+  box-shadow: ${outerLight};
   display: flex;
-  ${gutter({ position: 'vertical', mod: 0 })}
-  ${gutter({ position: 'horizontal' })}
+  min-width: 8em;
+  text-align: center;
+  justify-content: center;
   align-content: center;
   align-items: center;
   color: ${white};
@@ -68,6 +73,7 @@ export const StreakAnimationContent = H6.extend`
   text-transform: capitalize;
 
   ${({ changed, streakName, rankUp }) => changed && `
+    border: 1px solid ${darken(0.1, SRS_COLORS[streakName])};
     background-color: ${SRS_COLORS[streakName]};
     animation: ${rankUp ? srsRankUp : srsRankDown} .75s ease 0s 1 normal both running;
   `}

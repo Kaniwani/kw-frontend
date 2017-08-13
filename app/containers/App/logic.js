@@ -224,7 +224,7 @@ export const returnCurrentLogic = createLogic({
       action.type === `${app.reviews.current.return}` ?
         sel.selectReviewSession(state) :
         sel.selectLessonSession(state)
-      );
+    );
     const newId = sample(difference(queue, [current]));
     if (newId) {
       allow({ ...action, payload: newId });

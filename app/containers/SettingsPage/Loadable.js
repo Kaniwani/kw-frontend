@@ -6,9 +6,9 @@ export default Loadable({
       import('./logic'),
       import('./index'),
     ])
-    .then(([logic, component]) => {
-      injectLogic(logic.default, logic.onLogicInit);
+      .then(([logic, component]) => {
+        injectLogic(logic.default, logic.onLogicInit);
 
-      return component;
-    }),
+        return component;
+      }),
 });

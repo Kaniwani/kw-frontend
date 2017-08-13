@@ -7,9 +7,8 @@ import { gutter } from 'shared/styles/layout';
 
 export const Ul = styled.ul`
   ${resetList}
-  ${gutter({ position: 'horizontal' })}
+  ${gutter()}
   display: flex;
-  flex: 1 1 100%;
 `;
 
 export const VocabLink = styled(A)`

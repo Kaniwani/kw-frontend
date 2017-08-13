@@ -8,10 +8,12 @@ import { orange, greyLight, black } from 'shared/styles/colors';
 import { gutter } from 'shared/styles/layout';
 
 export const Form = styled.form`
+  ${gutter()}
   display: flex;
   flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
+  align-items: inherit;
+  justify-content: inherit;
+  align-content: inherit;
 `;
 
 export const Label = styled.label`
@@ -38,10 +40,9 @@ export const Input = styled.input`
   ${gutter({ prop: 'margin', position: 'right' })}
   ${delta}
   display: inline-flex;
-  max-width: 500px;
   appearance: none;
   line-height: 1.8; /* lowercase descenders are cut off otherwise */
-  flex: 1 5 100px;
+  flex: 0 1 100px;
   vertical-align: middle;
   padding: 0 .5rem;
   border: 1px solid ${rgba(greyLight, 0.3)};
@@ -65,4 +66,5 @@ export const Input = styled.input`
 
 export const SubmitButton = styled(Button)`
   ${gutter({ type: 'outer', prop: 'margin' })}
+  align-self: center;
 `;

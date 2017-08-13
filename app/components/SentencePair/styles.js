@@ -5,4 +5,6 @@ export const Wrapper = styled.div`
   ${gutter()}
   display: flex;
   flex-flow: column nowrap;
+  align-items: inherit;
+  max-width: 30rem;
 `;

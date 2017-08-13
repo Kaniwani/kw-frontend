@@ -10,6 +10,6 @@ storiesOf('components.VocabLevelsList', module)
     <VocabLevelsList
       levels={levels}
       userWKLevel={34}
-      handleLevelLock={level => action(`handle level lock: level ${level}`)}
+      handleLevelLock={(level) => action(`handle level lock: level ${level}`)}
     />
   ));

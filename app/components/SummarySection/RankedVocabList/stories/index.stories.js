@@ -6,7 +6,7 @@ import { SRS_RANKS } from 'shared/constants';
 import { TYPES } from '../../constants';
 import RankedVocabList from '../index';
 
-Object.keys(TYPES).filter(type => type !== 'critical').forEach((type) => {
+Object.keys(TYPES).filter((type) => type !== 'critical').forEach((type) => {
   storiesOf('components.SummarySection.RankedVocabList', module)
     .add(`${type} RankedVocabList with rank=${SRS_RANKS.ONE}`, () => (
       <RankedVocabList
@@ -16,5 +16,5 @@ Object.keys(TYPES).filter(type => type !== 'critical').forEach((type) => {
         color={TYPES[type].color}
         isExpanded={false}
       />
-  ));
+    ));
 });

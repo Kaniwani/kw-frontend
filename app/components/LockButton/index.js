@@ -12,7 +12,8 @@ LockButton.propTypes = {
   isActionable: PropTypes.bool,
   isSubmitting: PropTypes.bool,
   isLocked: PropTypes.bool,
-  handleClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
+  children: PropTypes.any,
 };
 
 LockButton.defaultProps = {
@@ -20,9 +21,10 @@ LockButton.defaultProps = {
   isActionable: true,
   isSubmitting: false,
   isLocked: false,
+  children: false,
 };
 
-function LockButton({ isSubmitting, isActionable, isLocked, handleClick, ...props }) {
+function LockButton({ isSubmitting, isActionable, isLocked, onClick, children, ...props }) {
   let title = 'Not allowed';
   let icon = 'LOCK_SOLID';
   if (isSubmitting) {
@@ -38,9 +40,11 @@ function LockButton({ isSubmitting, isActionable, isLocked, handleClick, ...prop
       name={icon}
       title={title}
       disabled={!isActionable}
-      handleClick={handleClick}
+      onClick={onClick}
       {...props}
-    />
+    >
+      {children}
+    </IconButton>
   );
 }
 

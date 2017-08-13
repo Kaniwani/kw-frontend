@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   width: 180px;
   background: ${white};
   height: auto;
-  top: ${props => props.offsetTop}px;
+  top: ${(props) => props.offsetTop}px;
   right: -180px;
   z-index: 10;
   transition: right 400ms cubic-bezier(0.55, 0, 0.1, 1);

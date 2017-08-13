@@ -1,12 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import titleCase from 'voca/title_case';
 import getSrsRankName from 'utils/getSrsRankName';
 import StreakIcon from 'components/StreakIcon';
 
-import Element from 'base/Element';
 import H5 from 'base/H5';
+
+const Wrapper = styled.span`
+  &:first-of-type {
+    margin-right: .75rem;
+  }
+`;
+const Text = H5.extend`
+  display: inline-flex;
+`;
 
 StreakStatus.propTypes = {
   streak: PropTypes.number.isRequired,
@@ -15,10 +23,10 @@ StreakStatus.propTypes = {
 
 function StreakStatus({ streak, category }) {
   return (
-    <Element flexRow alignItems="center">
-      <H5>{category}: {titleCase(getSrsRankName(streak))}</H5>
-      <StreakIcon streakName={getSrsRankName(streak)} size="2em" />
-    </Element>
+    <Wrapper>
+      <Text>{category}: </Text>
+      <StreakIcon streakName={getSrsRankName(streak)} size="1.75em" />
+    </Wrapper>
   );
 }
 

@@ -5,6 +5,7 @@ import cuid from 'cuid';
 import { compose, withHandlers, mapProps } from 'recompose';
 import { createStructuredSelector } from 'reselect';
 
+import { KEYCODES } from 'shared/constants';
 import { PANELS } from './constants';
 import multiLogin from './actions';
 import { selectActivePanel, selectRegisterSelected, selectResetSelected } from './selectors';
@@ -25,12 +26,20 @@ FormSelector.propTypes = {
 
 const EnhancedSelectListItem = compose(
   withHandlers({
-    setActivePanel: ({ setActivePanel, panel }) => (event) => {
-      event.preventDefault();
+    setActivePanel: ({ setActivePanel, panel }) => () => {
       setActivePanel(panel);
     },
+    handlePanelKeydown: ({ setActivePanel, panel }) => ({ keyCode }) => {
+      if (keyCode === KEYCODES.SPACE || keyCode === KEYCODES.ENTER) {
+        setActivePanel(panel);
+      }
+    },
   }),
-  mapProps(({ setActivePanel, ...props }) => ({ onClick: setActivePanel, ...props })),
+  mapProps(({ setActivePanel, handlePanelKeydown, ...props }) => ({
+    onClick: setActivePanel,
+    onKeyDown: handlePanelKeydown,
+    ...props,
+  })),
 )(SelectListItem);
 
 function FormSelector({ activePanel, setActivePanel, registerSelected, resetSelected }) {
@@ -38,18 +47,15 @@ function FormSelector({ activePanel, setActivePanel, registerSelected, resetSele
     <SelectWrapper>
       <SelectList plainList>
         {PANELS.map((PANEL) => (
-          <li key={cuid()}>
-            <EnhancedSelectListItem
-              plainButton
-              panel={PANEL}
-              type="button"
-              isActive={activePanel === PANEL}
-              setActivePanel={setActivePanel}
-              tabIndex={activePanel === PANEL ? -1 : 0}
-            >
-              {PANEL}
-            </EnhancedSelectListItem>
-          </li>
+          <EnhancedSelectListItem
+            key={cuid()}
+            panel={PANEL}
+            isActive={activePanel === PANEL}
+            setActivePanel={setActivePanel}
+            tabIndex={activePanel === PANEL ? -1 : 0}
+          >
+            {PANEL}
+          </EnhancedSelectListItem>
         ))}
       </SelectList>
       <SelectedPointer position={(registerSelected && 'left') || (resetSelected && 'right')} />

@@ -5,16 +5,19 @@ import { greyDark } from 'shared/styles/colors';
 import { epsilon } from 'shared/styles/typography';
 import { fastEaseQuad } from 'shared/styles/animation';
 import { resetButton } from 'shared/styles/utils';
+import { gutter } from 'shared/styles/layout';
 
 import A from 'base/A';
 
 const buttonStyle = css`
+  ${gutter()}
   ${epsilon}
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
   box-sizing: border-box;
-  padding: .25em .4em;
-  min-width: 6em;
-  text-align: center;
+  min-width: 8em;
   text-decoration: none;
   appearance: none;
   border-radius: 4px;
@@ -28,10 +31,8 @@ const buttonStyle = css`
   background-color: ${({ bgColor }) => bgColor};
   transition: all ${fastEaseQuad};
 
-  &:disabled {
-    cursor: not-allowed;
-    background-color: ${({ bgColor }) => mix(0.5, bgColor, greyDark)};
-    border-color: ${({ bgColor }) => mix(0.5, bgColor, greyDark)};
+  &:focus {
+    outline: none;
   }
 
   & {
@@ -39,6 +40,11 @@ const buttonStyle = css`
         ${resetButton}
         min-width: auto;
       ` : css`
+        &:disabled {
+          cursor: not-allowed;
+          background-color: ${({ bgColor }) => mix(0.5, bgColor, greyDark)};
+          border-color: ${({ bgColor }) => mix(0.5, bgColor, greyDark)};
+        }
         &:not(:disabled) {
           &:active,
           &:focus,
@@ -54,7 +60,7 @@ const buttonStyle = css`
           }
         }
       `
-    }
+}
   }
 `;
 

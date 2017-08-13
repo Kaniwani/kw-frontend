@@ -4,9 +4,19 @@ import IconButton from 'components/IconButton';
 
 import { gutter } from 'shared/styles/layout';
 
-export const Canvas = styled.div`
+export const Wrapper = styled.div`
   ${gutter()}
-  min-height: 210px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+`;
+
+export const Canvas = styled.div`
+  min-height: 200px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Controls = styled.div`

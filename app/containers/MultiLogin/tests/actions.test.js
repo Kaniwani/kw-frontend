@@ -10,7 +10,7 @@ describe('MULTILOGIN actions', () => {
       const expected = {
         type: 'MULTILOGIN/LOAD/REQUEST',
         payload: 'payloadval',
-        meta: 'metaval'
+        meta: 'metaval',
       };
       expect(actual).toEqual(expected);
     });

@@ -8,7 +8,6 @@ import { onlyKanjiOrKana, onlyKana } from 'shared/validations';
 import app from 'containers/App/actions';
 import quiz from 'containers/QuizPage/actions';
 
-import { Heading, HeadingText } from 'components/VocabEntrySynonyms/styles';
 import AddSynonymField from './AddSynonymField';
 import { Form, SubmitButton } from './styles';
 
@@ -24,14 +23,11 @@ AddSynonym.defaultProps = {
   answerType: '',
 };
 
-const convertInput = (value) => toKana(value.toLowerCase(), { IMEMode: true });
+const convertInput = (value) => toKana(value, { IMEMode: true });
 
 function AddSynonym({ handleSubmit, submitting, answerValue, answerType }) {
   return (
     <Form onSubmit={handleSubmit} >
-      <Heading>
-        <HeadingText>Add New Synonym</HeadingText>
-      </Heading>
       <Field
         name="kanji"
         type="text"

@@ -68,9 +68,14 @@ const contactUrl = urljoin(KW_API_BASE, 'contact');
 //-----------------------------------------------------------------------------
 //  EXTERNAL
 //-----------------------------------------------------------------------------
+export const createWkApiUrl = (slug) => urljoin('https://www.wanikani.com/api/', slug); // V1
 export const createJishoApiUrl = (keyword) => `//jisho.org/api/v1/search/words?keyword=${keyword}`;
 export const createJishoUrl = (keyword) => `//jisho.org/search/${keyword}`;
-export const createWkApiUrl = (slug) => urljoin('https://www.wanikani.com/api/', slug); // V1
+export const createGooUrl = (keyword) => `http://dictionary.goo.ne.jp/srch/all/${encodeURIComponent(keyword)}/m0u/`;
+export const createWeblioUrl = (keyword) => `http://ejje.weblio.jp/content/${encodeURIComponent(keyword)}`;
+export const createForvoUrl = (keyword) => `http://forvo.com/search/${encodeURIComponent(keyword)}/`;
+export const createWkVocabUrl = (keyword) => `https://wanikani.com/vocabulary/${encodeURIComponent(keyword)}`;
+export const createAlcUrl = (keyword, useAlcPro) => `http://${useAlcPro ? 'eowpf' : 'eow'}.alc.co.jp/search?q=${encodeURIComponent(keyword)}`;
 
 //-----------------------------------------------------------------------------
 //  AUTHORIZATION

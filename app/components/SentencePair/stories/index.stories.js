@@ -10,7 +10,7 @@ Object.entries(readings).forEach(([key, items]) => {
   storiesOf('components.SentencePair', module)
     .add(`SentencePair ${key}`, () => (
       <div>
-        {condenseReadings(items).map(item => <SentencePair key={cuid()} entry={item} />)}
+        {condenseReadings(items).map((item) => <SentencePair key={cuid()} entry={item} />)}
       </div>
     ));
 });

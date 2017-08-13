@@ -10,7 +10,7 @@ describe('QUIZANSWER actions', () => {
       const expected = {
         type: 'QUIZANSWER/LOAD/REQUEST',
         payload: 'payloadval',
-        meta: 'metaval'
+        meta: 'metaval',
       };
       expect(actual).toEqual(expected);
     });
