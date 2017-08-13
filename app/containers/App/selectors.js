@@ -20,6 +20,7 @@ export const selectCategoryFromMatch = (props) => props.match.params.category;
 export const selectProfile = (state) => state.global.profile;
 export const selectDashboard = (state) => state.global.dashboard;
 export const selectSrsCounts = createSelector(selectDashboard, (dashboard) => dashboard.srsCounts);
+export const selectNextReviewDate = createSelector(selectDashboard, (dashboard) => dashboard.nextReviewDate);
 
 export const selectSettings = (state) => state.global.settings;
 export const selectQuizSettings = createSelector(selectSettings, (settings) => settings.quiz);
