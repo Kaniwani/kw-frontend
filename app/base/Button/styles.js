@@ -34,6 +34,10 @@ const buttonStyle = css`
     border-color: ${({ bgColor }) => mix(0.5, bgColor, greyDark)};
   }
 
+  &:focus {
+    outline: none;
+  }
+
   & {
     ${({ plainButton }) => plainButton ? css`
         ${resetButton}
@@ -54,7 +58,7 @@ const buttonStyle = css`
           }
         }
       `
-    }
+}
   }
 `;
 

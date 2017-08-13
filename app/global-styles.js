@@ -52,10 +52,12 @@ injectGlobal`
 
   *:focus {
     outline: none;
-    .user-is-tabbing & {
-      opacity: 1;
-      outline: ${pink} auto .2rem !important;
-    }
+  }
+
+  /* inputs and buttons already have fancy focus states */
+  .user-is-tabbing :not([type="submit"]):not(input):focus {
+    opacity: 1;
+    outline: ${pink} auto .2rem;
   }
 
   h1, h2, h3, h4, h5, h6 {

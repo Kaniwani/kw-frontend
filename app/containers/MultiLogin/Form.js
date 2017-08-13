@@ -51,7 +51,7 @@ function FormView({
   mainInputText,
   error,
   submitting,
- }) {
+}) {
   if (hasToken()) {
     return <Redirect to="/" />;
   }
@@ -106,6 +106,7 @@ function FormView({
           color="black"
           href="https://www.wanikani.com/settings/account#public-api-key"
           isHidden={loginSelected || resetSelected}
+          tabIndex={loginSelected || resetSelected ? -1 : 0}
           external
         />
       </Field>

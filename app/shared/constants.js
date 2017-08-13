@@ -102,3 +102,8 @@ export const PARTS_OF_SPEECH = [
   'Godan verb with mu ending',
   'Godan verb with gu ending',
 ];
+
+export const KEYCODES = {
+  SPACE: 32,
+  ENTER: 13,
+};
