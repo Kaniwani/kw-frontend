@@ -23,7 +23,7 @@ export const Li = styled.li`
   text-decoration: none;
   vertical-align: middle;
   align-items: center;
-  color: ${({ color }) => COLORS[color]};
+  color: ${({ textColor }) => COLORS[textColor]};
   background-color: ${({ bgColor }) => COLORS[bgColor]};
   border-radius: ${borderRadius};
 `;

@@ -13,13 +13,13 @@ const selectTagColors = (text) => {
   const isVerb = /verb/i.test(text);
   const isAdj = /adj/i.test(text);
 
-  const defaultColors = { color: 'whiteLight', bgColor: 'grey' };
-  const commonColors = { ...defaultColors, bgColor: 'blue' };
-  const uncommonColors = { color: 'whiteLight', bgColor: 'orange' };
-  const jlptColors = { color: 'blackLight', bgColor: 'tan' };
-  const verbColors = { color: 'whiteLight', bgColor: 'teal' };
-  const adjColors = { color: 'blackLight', bgColor: 'yellow' };
-  const nounColors = { color: 'whiteLight', bgColor: 'purpleLight' };
+  const defaultColors = { textColor: 'whiteLight', bgColor: 'grey' };
+  const commonColors = { textColor: 'whiteLight', bgColor: 'blue' };
+  const uncommonColors = { textColor: 'whiteLight', bgColor: 'orange' };
+  const jlptColors = { textColor: 'blackLight', bgColor: 'tan' };
+  const verbColors = { textColor: 'whiteLight', bgColor: 'teal' };
+  const adjColors = { textColor: 'blackLight', bgColor: 'yellow' };
+  const nounColors = { textColor: 'whiteLight', bgColor: 'purpleLight' };
 
   switch (true) {
     case isCommon: return commonColors;
