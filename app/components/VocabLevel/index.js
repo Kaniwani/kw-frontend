@@ -9,12 +9,12 @@ import {
   makeSelectLevelTitle,
   makeSelectLevelLocked,
   makeSelectLevelVocabCount,
- } from 'containers/App/selectors';
+} from 'containers/App/selectors';
 
 import {
-   makeSelectLevelActionable,
-   makeSelectLevelSubmitting,
- } from 'containers/VocabLevelsPage/selectors';
+  makeSelectLevelActionable,
+  makeSelectLevelSubmitting,
+} from 'containers/VocabLevelsPage/selectors';
 
 import { Wrapper, LevelLink, Title, ItemCount, LockedLabel, Button } from './styles';
 
@@ -63,7 +63,7 @@ function VocabLevel({ id, title, vocabCount, isLocked, isSubmitting, isActionabl
         isLocked={isLocked}
         isSubmitting={isSubmitting}
         isActionable={isActionable}
-        handleClick={handleLockClick}
+        onClick={handleLockClick}
       />
     </Wrapper>
   );

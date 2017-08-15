@@ -28,4 +28,4 @@ storiesOf('base.Ruby', module)
       <Ruby furi="う">受</Ruby>
       <Ruby>けた</Ruby>
     </P>
-    ));
+  ));

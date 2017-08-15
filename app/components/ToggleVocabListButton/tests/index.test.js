@@ -9,7 +9,7 @@ describe('<ToggleVocabListButton />', () => {
         isExpanded
         handleClick={jest.fn()}
       />
-     );
+    );
 
     expect(renderedComponent).toMatchSnapshot();
   });

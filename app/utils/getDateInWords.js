@@ -10,5 +10,5 @@ import { DATE_IN_WORDS } from 'shared/constants';
  * // => Wednesday 2 July 2014
  */
 export default function getDateInWords(date) {
-  return date != null ? format(date, DATE_IN_WORDS) : 'unknown';
+  return date != null ? format(date, DATE_IN_WORDS) : 'N/A';
 }

@@ -5,7 +5,7 @@ import { vocabs } from 'shared/testTables';
 import { TYPES } from '../../constants';
 import RankedVocabLists from '../index';
 
-Object.keys(TYPES).filter(type => type !== 'critical').forEach((type) => {
+Object.keys(TYPES).filter((type) => type !== 'critical').forEach((type) => {
   storiesOf('components.SummarySection.RankedVocabLists', module)
     .add(`${type} RankedVocabLists`, () => (
       <RankedVocabLists
@@ -14,5 +14,5 @@ Object.keys(TYPES).filter(type => type !== 'critical').forEach((type) => {
         color={TYPES[type].color}
         isExpanded={false}
       />
-  ));
+    ));
 });

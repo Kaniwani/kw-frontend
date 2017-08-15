@@ -63,7 +63,7 @@ const reviewSessionReducer = handleActions({
     queue: { $set: [] },
   }),
   [app.reviews.queue.load.success]: (state, { payload }) => update(state, {
-    queue: { $set: union(state.queue, payload.reviewIds) },  // TODO: replace as "ids" in serializer/logic etc
+    queue: { $set: union(state.queue, payload.reviewIds) }, // TODO: replace as "ids" in serializer/logic etc
   }),
   [app.reviews.current.set]: (state, { payload }) => update(state, {
     current: { $set: payload },

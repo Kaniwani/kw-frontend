@@ -7,24 +7,23 @@ import actions from 'containers/App/actions';
 import { makeSelectReviewHidden } from 'containers/App/selectors';
 
 import LockButton from 'components/LockButton';
-import { Wrapper, Text } from './styles';
 
-VocabEntryLock.propTypes = {
+import { Text } from './styles';
+
+ReviewLock.propTypes = {
   isHidden: PropTypes.bool,
-  handleClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
-VocabEntryLock.defaultProps = {
+ReviewLock.defaultProps = {
   isHidden: false,
 };
 
-function VocabEntryLock({ isHidden, handleClick, ...props }) {
+function ReviewLock({ isHidden, onClick, ...props }) {
   return (
-    <Wrapper>
-      <LockButton isLocked={isHidden} handleClick={handleClick} {...props}>
-        <Text>{`${isHidden ? 'Unlock' : 'Lock'} Review`}</Text>
-      </LockButton>
-    </Wrapper>
+    <LockButton plainButton={false} bgColor="grey" colorHover="grey" isLocked={isHidden} onClick={onClick} {...props}>
+      <Text>{`${isHidden ? 'Unlock' : 'Lock'} Review`}</Text>
+    </LockButton>
   );
 }
 
@@ -41,9 +40,9 @@ const enhance = compose(
   connect(mapStateToProps, mapDispatchToProps),
   branch(({ isHidden }) => isHidden === null, renderNothing),
   withHandlers({
-    handleClick: ({ id, isHidden, lockReview, unlockReview }) => () =>
+    onClick: ({ id, isHidden, lockReview, unlockReview }) => () =>
       isHidden ? unlockReview({ id }) : lockReview({ id }),
   }),
 );
 
-export default enhance(VocabEntryLock);
+export default enhance(ReviewLock);

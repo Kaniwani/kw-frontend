@@ -10,7 +10,7 @@ describe('SESSIONPAGE actions', () => {
       const expected = {
         type: 'SESSIONPAGE/LOAD/REQUEST',
         payload: 'payloadval',
-        meta: 'metaval'
+        meta: 'metaval',
       };
       expect(actual).toEqual(expected);
     });

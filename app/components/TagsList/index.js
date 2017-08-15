@@ -9,16 +9,25 @@ const selectTagColors = (text) => {
   const isCommon = /^common/i.test(text);
   const isUncommon = /^uncommon/i.test(text);
   const isJlpt = /^jlpt/i.test(text);
+  const isNoun = /noun/i.test(text);
+  const isVerb = /verb/i.test(text);
+  const isAdj = /adj/i.test(text);
 
   const defaultColors = { color: 'whiteLight', bgColor: 'grey' };
   const commonColors = { ...defaultColors, bgColor: 'blue' };
-  const uncommonColors = { color: 'blackLight', bgColor: 'orange' };
+  const uncommonColors = { color: 'whiteLight', bgColor: 'orange' };
   const jlptColors = { color: 'blackLight', bgColor: 'tan' };
+  const verbColors = { color: 'whiteLight', bgColor: 'teal' };
+  const adjColors = { color: 'blackLight', bgColor: 'yellow' };
+  const nounColors = { color: 'whiteLight', bgColor: 'purpleLight' };
 
   switch (true) {
     case isCommon: return commonColors;
     case isUncommon: return uncommonColors;
     case isJlpt: return jlptColors;
+    case isNoun: return nounColors;
+    case isVerb: return verbColors;
+    case isAdj: return adjColors;
     default: return defaultColors;
   }
 };

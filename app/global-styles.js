@@ -1,5 +1,5 @@
 import { injectGlobal } from 'styled-components';
-import { greyDark, blackLight, pink } from 'shared/styles/colors';
+import { greyDark, blackLight, blueLight } from 'shared/styles/colors';
 import {
   ffBody,
   ffHeading,
@@ -54,10 +54,10 @@ injectGlobal`
     outline: none;
   }
 
-  /* inputs and buttons already have fancy focus states */
-  .user-is-tabbing :not([type="submit"]):not(input):focus {
+  /* inputs already have fancy focus states */
+  .user-is-tabbing :not(input):focus {
     opacity: 1;
-    outline: ${pink} auto .2rem;
+    outline: ${blueLight} auto .2rem;
   }
 
   h1, h2, h3, h4, h5, h6 {

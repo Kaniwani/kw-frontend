@@ -8,19 +8,25 @@ import { borderRadius } from 'shared/styles/sizing';
 import { greyLight, grey, black, orange, red } from 'shared/styles/colors';
 
 export const Form = styled.form`
-  ${gutter()}
+  ${gutter({ position: 'vertical' })}
+  ${gutter({ position: 'horizontal', mod: 2 })}
   display: flex;
   flex-flow: column nowrap;
+  justify-content: inherit;
+  align-content: inherit;
+  align-items: inherit;
   width: 100%;
-  max-width: 800px;
+  min-width: 320px;
+  max-width: 75vw;
 `;
 
 export const TextArea = styled(Field)`
   ${gutter({ type: 'outer', prop: 'padding' })}
-  ${gutter({ prop: 'margin', position: 'vertical' })}
+  ${gutter({ type: 'outer', prop: 'margin' })}
   ${placeholder({ color: grey })};
   ${zeta}
-
+  width: 100%;
+  max-width: 100%;
   resize: none;
   border-radius: ${borderRadius};
 
@@ -30,6 +36,8 @@ export const TextArea = styled(Field)`
 `;
 
 export const Controls = styled.div`
+  ${gutter({ prop: 'margin', position: 'vertical' })}
+  ${gutter({ type: 'outer', position: 'horizontal', prop: 'padding' })}
   display: flex;
   justify-content: flex-end;
   & > button {

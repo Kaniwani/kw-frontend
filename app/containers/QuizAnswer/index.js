@@ -114,7 +114,7 @@ export class QuizAnswer extends React.PureComponent {
                 type="button"
                 title="Ignore answer"
                 size="1.4em"
-                handleClick={this.handleIgnore}
+                onClick={this.handleIgnore}
               />
             )}
             <SubmitButton
@@ -122,7 +122,7 @@ export class QuizAnswer extends React.PureComponent {
               type="submit"
               title="Submit answer"
               size="1.75em"
-              handleClick={this.handleSubmit}
+              onClick={this.handleSubmit}
             />
           </ActionButtons>
         </AnswerWrapper>

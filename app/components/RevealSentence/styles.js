@@ -40,7 +40,6 @@ export const RevealIcon = styled(Icon)`
 
 export const Wrapper = styled.div`
   position: relative;
-  align-self: flex-start;
 
   &:hover,
   &:active,
@@ -48,7 +47,7 @@ export const Wrapper = styled.div`
     & ${Sentence} {
       transition: all ${midEaseQuad};
       outline: none;
-      color: greyDark;
+      color: ${greyDark};
       background-color: transparent;
       @supports( filter: blur() ) {
         filter: blur(0px);

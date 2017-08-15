@@ -6,8 +6,8 @@ export default Loadable({
       import('./reducer'),
       import('./index'),
     ])
-    .then(([reducer, component]) => {
-      injectReducer('vocabLevel', reducer.default);
-      return component;
-    }),
+      .then(([reducer, component]) => {
+        injectReducer('vocabLevel', reducer.default);
+        return component;
+      }),
 });

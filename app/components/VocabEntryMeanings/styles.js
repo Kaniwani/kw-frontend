@@ -1,27 +1,20 @@
 import styled from 'styled-components';
 
-import { Wrapper as VocabEntryLock } from 'components/VocabEntryLock/styles';
-import H1 from 'base/H1';
-
 import { gutter } from 'shared/styles/layout';
-import { epsilon } from 'shared/styles/typography';
+import { giga } from 'shared/styles/typography';
 
-export const Primary = styled(H1)``;
-export const PrimaryText = styled.div``;
+import H1 from 'base/H1';
+import P from 'base/P';
 
 export const Wrapper = styled.div`
   ${gutter()}
   text-transform: capitalize;
+`;
 
-  & ${Primary} {
-    display: flex;
-    align-items: center;
-  }
+export const Primary = H1.extend`
+  ${giga}
+`;
 
-  & ${VocabEntryLock} {
-    ${gutter({ type: 'outer', position: 'left', mod: 4 })}
-    ${epsilon}
-    font-weight: 400;
-    align-self: flex-end;
-  }
+export const Secondary = styled(P)`
+  ${gutter({ type: 'outer', position: 'horizontal' })}
 `;

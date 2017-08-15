@@ -16,7 +16,7 @@ class Notifications extends React.PureComponent {
 
   componentWillReceiveProps(nextProps) {
     const { notifications } = nextProps;
-    const notificationIds = notifications.map(notification => notification.uid);
+    const notificationIds = notifications.map((notification) => notification.uid);
 
     // Get all active notifications from react-notification-system
     // and remove all where uid is not found in the reducer
@@ -64,8 +64,8 @@ const mapStateToProps = () => createStructuredSelector({
   notifications: selectNotifications(),
 });
 
-const mapDispatchToProps = dispatch => ({
-  hideNotification: id => dispatch(actions.hide(id)),
+const mapDispatchToProps = (dispatch) => ({
+  hideNotification: (id) => dispatch(actions.hide(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notifications);

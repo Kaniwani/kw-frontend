@@ -39,16 +39,16 @@ class SrsDonut extends React.PureComponent { // eslint-disable-line react/prefer
     const containerWidth = 400;
     if (donutContainer.node()) {
       donutChart
-          .width(containerWidth)
-          .height(containerWidth / 1.8)
-          .externalRadius(containerWidth / 5)
-          .internalRadius(containerWidth / 10);
-          // .on('customMouseOver', (data) => {
-          //   legendChart.highlight(data.data.id);
-          // })
-          // .on('customMouseOut', () => {
-          //   legendChart.clearHighlight();
-          // });
+        .width(containerWidth)
+        .height(containerWidth / 1.8)
+        .externalRadius(containerWidth / 5)
+        .internalRadius(containerWidth / 10);
+      // .on('customMouseOver', (data) => {
+      //   legendChart.highlight(data.data.id);
+      // })
+      // .on('customMouseOut', () => {
+      //   legendChart.clearHighlight();
+      // });
 
       donutContainer.datum(donutData).call(donutChart);
     }

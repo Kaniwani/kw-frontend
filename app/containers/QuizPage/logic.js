@@ -20,7 +20,7 @@ import {
   selectRemainingCount,
   makeSelectReview,
   makeSelectReviewNotes,
- } from 'containers/App/selectors';
+} from 'containers/App/selectors';
 
 import quiz from './actions';
 import { selectQuizAnswer, selectBackup } from './selectors';

@@ -7,10 +7,10 @@ export default Loadable({
       import('./logic'),
       import('./index'),
     ])
-    .then(([reducer, logic, component]) => {
-      injectReducer('multiLogin', reducer.default);
-      injectLogic(logic.default, logic.onLogicInit);
+      .then(([reducer, logic, component]) => {
+        injectReducer('multiLogin', reducer.default);
+        injectLogic(logic.default, logic.onLogicInit);
 
-      return component;
-    }),
+        return component;
+      }),
 });

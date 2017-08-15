@@ -1,19 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStateHandlers } from 'recompose';
 
-import ReadingHeader from 'components/ReadingHeader';
 import SentencePair from 'components/SentencePair';
-import VocabEntryLinks from 'components/VocabEntryLinks';
+import ReadingLinks from 'components/ReadingLinks';
 import Reading from 'components/Reading';
-import IconButton from 'components/IconButton';
 import KanjiStroke from 'components/KanjiStroke';
+import TagsList from 'components/TagsList';
 
-
-import { Li, ReadingContent, StrokeLoader, StrokeLoaderText } from './styles';
-
-// avoids xhr if not called
-const renderKanjiStroke = (character) => <KanjiStroke character={character} />;
+import { Li, ReadingContent, StrokeContent } from './styles';
 
 VocabEntryReading.propTypes = {
   character: PropTypes.string.isRequired,
@@ -21,12 +15,6 @@ VocabEntryReading.propTypes = {
   sentenceEn: PropTypes.string.isRequired,
   sentenceJa: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,
-  index: PropTypes.number.isRequired,
-  id: PropTypes.number.isRequired,
-  detailLevel: PropTypes.number.isRequired,
-  showLock: PropTypes.bool.isRequired,
-  showKanjiSvg: PropTypes.bool.isRequired,
-  toggleKanjiSvg: PropTypes.func.isRequired,
 };
 
 function VocabEntryReading({
@@ -35,53 +23,25 @@ function VocabEntryReading({
   sentenceEn,
   sentenceJa,
   tags,
-  index,
-  id,
-  detailLevel,
-  showLock,
-  toggleKanjiSvg,
-  showKanjiSvg,
 }) {
   return (
     <Li>
-      {detailLevel > 1 && (
-        <ReadingHeader showLock={showLock && index === 0} id={id} character={character} tags={tags} />
-      )}
       <ReadingContent>
-        <Reading character={character} kana={kana} detailLevel={detailLevel} />
-        {detailLevel > 1 && (
-          <SentencePair
-            sentenceEn={sentenceEn}
-            sentenceJa={sentenceJa}
-            character={character}
-            kana={kana}
-          />
-        )}
+        <Reading character={character} kana={kana} />
+        <TagsList tags={tags} />
+        <SentencePair
+          sentenceEn={sentenceEn}
+          sentenceJa={sentenceJa}
+          character={character}
+          kana={kana}
+        />
+        <ReadingLinks character={character} />
       </ReadingContent>
-      {detailLevel > 1 && <VocabEntryLinks character={character} />}
-      {detailLevel > 1 && (
-        <StrokeLoader>
-          {!showKanjiSvg && (
-            <IconButton
-              inline
-              name="BRUSH"
-              title="View stroke diagram"
-              size="1.8em"
-              handleClick={toggleKanjiSvg}
-            >
-              <StrokeLoaderText>Strokes</StrokeLoaderText>
-            </IconButton>
-          )}
-          {showKanjiSvg && renderKanjiStroke(character)}
-        </StrokeLoader>
-      )}
+      <StrokeContent>
+        <KanjiStroke settings={{ autoplay: false }} character={character} />
+      </StrokeContent>
     </Li>
   );
 }
 
-const enhance = withStateHandlers(
-  () => ({ showKanjiSvg: false }),
-  { toggleKanjiSvg: () => () => ({ showKanjiSvg: true }) },
-);
-
-export default enhance(VocabEntryReading);
+export default VocabEntryReading;

@@ -5,10 +5,11 @@ import { compose, branch, renderNothing } from 'recompose';
 import { createStructuredSelector } from 'reselect';
 import { selectInfoActivePanel, selectInfoDetailLevel } from 'containers/QuizPage/selectors';
 
-import VocabEntryReadings from 'components/VocabEntryReadings';
-import VocabEntrySynonyms from 'components/VocabEntrySynonyms';
+import QuizInfoReadings from 'components/QuizInfoReadings';
+import QuizInfoSynonyms from 'components/QuizInfoSynonyms';
+import ReviewLock from 'components/ReviewLock';
 
-import { PanelWrapper } from '../styles';
+import { QuizInfoWrapper, LockWrapper } from '../styles';
 
 InfoPanel.propTypes = {
   id: PropTypes.number.isRequired,
@@ -17,10 +18,11 @@ InfoPanel.propTypes = {
 
 function InfoPanel({ id, detailLevel }) {
   return (
-    <PanelWrapper detailLevel={detailLevel}>
-      <VocabEntryReadings id={id} detailLevel={detailLevel} showLock />
-      <VocabEntrySynonyms id={id} detailLevel={detailLevel} />
-    </PanelWrapper>
+    <QuizInfoWrapper detailLevel={detailLevel}>
+      <QuizInfoReadings id={id} detailLevel={detailLevel} />
+      <QuizInfoSynonyms id={id} detailLevel={detailLevel} />
+      {detailLevel > 1 && <LockWrapper><ReviewLock id={id} /></LockWrapper>}
+    </QuizInfoWrapper>
   );
 }
 

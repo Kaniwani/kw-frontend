@@ -84,7 +84,7 @@ const SelectField = ({ input, options, label, note }) => (
       <select id={input.name} {...input}>
         {options.map((text) => (
           <option key={cuid()} value={text}>{titleCase(text)}</option>
-      ))}
+        ))}
       </select>
     </Label>
     {note && <Note>{note}</Note>}

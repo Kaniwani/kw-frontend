@@ -12,22 +12,12 @@ import { Ul } from './styles';
 
 VocabEntryReadings.propTypes = {
   readings: PropTypes.array.isRequired,
-  id: PropTypes.number.isRequired,
-  showLock: PropTypes.bool,
-  detailLevel: PropTypes.number,
-};
-
-VocabEntryReadings.defaultProps = {
-  showLock: false,
-  detailLevel: 2,
 };
 
 function VocabEntryReadings({ readings, ...props }) {
   return (
     <Ul>
-      {readings.map((reading, index) =>
-        <VocabEntryReading key={cuid()} index={index} {...reading} {...props} />
-      )}
+      {readings.map((reading) => <VocabEntryReading key={cuid()} {...reading} {...props} />)}
     </Ul>
   );
 }

@@ -10,7 +10,7 @@ import { selectVocabularySettings } from 'containers/App/selectors';
 import { greyLight, blackLight, purpleLight, purpleDark } from 'shared/styles/colors';
 import { rgba } from 'polished';
 
-import { Canvas, Controls, ControlButton } from './styles';
+import { Wrapper, Canvas, Controls, ControlButton } from './styles';
 import dmak from './dmak-0-3-1';
 
 class KanjiStroke extends React.PureComponent {
@@ -72,10 +72,8 @@ class KanjiStroke extends React.PureComponent {
 
   render() {
     return (
-      <div>
-        <Canvas>
-          <div ref={(node) => { this.drawRef = node; }}></div>
-        </Canvas>
+      <Wrapper>
+        <Canvas innerRef={(node) => { this.drawRef = node; }}></Canvas>
         <Controls>
           <ControlButton name="RESTART" size="1.3em" title="Erase drawing" onClick={this.erase} />
           <ControlButton name="SKIP_PREV" title="Step backwards" onClick={this.stepBack} />
@@ -85,13 +83,13 @@ class KanjiStroke extends React.PureComponent {
           }
           <ControlButton name="SKIP_NEXT" title="Step forwards" onClick={this.stepForward} />
         </Controls>
-      </div>
+      </Wrapper>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  settings: createSelector(selectVocabularySettings, (settings) => settings.kanjiStroke)(state),
+const mapStateToProps = (state, props) => ({
+  settings: createSelector(selectVocabularySettings, (settings) => Object.assign({}, settings.kanjiStroke, props.settings))(state),
 });
 
 export default connect(mapStateToProps)(KanjiStroke);

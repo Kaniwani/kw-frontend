@@ -7,14 +7,14 @@ import Button from '../index';
 const href = 'http://google.com';
 const to = '/';
 const children = (<h1>Test</h1>);
-const mountComponent = props => mount(
+const mountComponent = (props) => mount(
   <MemoryRouter>
     <Button {...props}>
       {children}
     </Button>
   </MemoryRouter>
 );
-const shallowComponent = props => shallow(
+const shallowComponent = (props) => shallow(
   <Button {...props}>
     {children}
   </Button>

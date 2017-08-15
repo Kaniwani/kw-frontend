@@ -8,12 +8,12 @@ import VocabEntryDetail from '../index';
 
 vocabs.forEach((entry) => {
   storiesOf('components.VocabEntryDetail', module)
-  .add(`VocabEntryDetail with default props: ${entry.readings[0].character}`, () => (
-    <VocabEntryDetail
-      entry={{
-        ...entry,
-        readings: condenseReadings(entry.readings),
-      }}
-    />
-  ));
+    .add(`VocabEntryDetail with default props: ${entry.readings[0].character}`, () => (
+      <VocabEntryDetail
+        entry={{
+          ...entry,
+          readings: condenseReadings(entry.readings),
+        }}
+      />
+    ));
 });

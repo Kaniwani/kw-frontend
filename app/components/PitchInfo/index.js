@@ -23,7 +23,7 @@ function PitchInfo(character, pitchNum, pitchNum2) {
       {renderPitchLink(pitchNum)}
       {pitchNum2 && (
         <div>or
-        {createPitchText(pitchNum2)}
+          {createPitchText(pitchNum2)}
           {renderPitchLink(pitchNum2)}
         </div>
       )}
