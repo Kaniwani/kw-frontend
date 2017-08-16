@@ -176,15 +176,6 @@ function SettingsForm({ handleSubmit }) {
         />
         <SubSection name="kanjiStroke">
           <H4>Kanji Stroke Diagrams</H4>
-          {/*
-          TODO: Show in quiz info:
-          NOTE: Still shows on vocabulary pages */}
-          <Field
-            name="autoplay"
-            label="Autoplay on load: "
-            component={ToggleField}
-            parse={(value) => !!value}
-          />
           <Field
             name="stroke.order.visible"
             label="Show stroke order numbers: "

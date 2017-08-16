@@ -143,7 +143,6 @@ function serializeSettings({
   auto_expand_answer_on_failure: autoExpandIncorrect = true,
   minimum_wk_srs_level_to_review: minimumSrsToReview = SRS_RANKS.ONE,
   use_alc_pro_link: useAlcPro = false,
-  kanji_svg_autoplay = true,
   kanji_svg_step_speed = 0.01,
   kanji_svg_show_strokes = false,
   kanji_svg_show_grid = true,
@@ -163,7 +162,6 @@ function serializeSettings({
       followMe,
       useAlcPro,
       kanjiStroke: {
-        autoplay: kanji_svg_autoplay,
         step: kanji_svg_step_speed,
         stroke: { order: { visible: kanji_svg_show_strokes } },
         grid: { show: kanji_svg_show_grid },

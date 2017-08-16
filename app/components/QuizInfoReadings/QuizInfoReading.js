@@ -12,7 +12,7 @@ import TagsList from 'components/TagsList';
 import { Li, ReadingContent, StrokeLoader, StrokeLoaderText } from './styles';
 
 // avoids xhr if not called
-const renderKanjiStroke = (character) => <KanjiStroke character={character} />;
+const renderKanjiStroke = (character) => <KanjiStroke settings={{ autoplay: true }} character={character} />;
 
 QuizInfoReading.propTypes = {
   character: PropTypes.string.isRequired,
