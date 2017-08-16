@@ -14,11 +14,11 @@ import {
 export const StyledElement = styled.div`
   ${fullRowMixin}
   ${flexMixin}
-  ${flexCenterMixin}
-  ${flexShorthandMixin}
   ${alignContentMixin}
   ${alignItemsMixin}
   ${alignSelfMixin}
   ${justifyContentMixin}
   ${textAlignMixin}
+  ${flexCenterMixin}
+  ${flexShorthandMixin}
 `;

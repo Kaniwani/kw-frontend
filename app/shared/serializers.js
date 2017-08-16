@@ -105,21 +105,21 @@ function serializeProfile({
 }
 
 /* eslint-disable no-param-reassign, no-return-assign, no-sequences */
-const ranksWithZeroCount = Object.values(SRS_RANKS).reduce((hash, key) => (hash[key] = 0, hash), {});
 const upcaseKeys = (obj) =>
   Object.entries(obj).reduce((hash, [key, val]) => (hash[key.toUpperCase()] = +val, hash), {});
 const coerceValsToNumber = (obj) =>
   Object.entries(obj).reduce((hash, [key, val]) => (hash[key] = parseInt(val, 10), hash), {});
 /* eslint-enable */
 
+
 function serializeDashboard({
-  reviews_count: reviewsCount = 0,
-  lessons_count: lessonsCount = 0,
-  reviews_within_hour_count: nextHourReviews = 0,
-  reviews_within_day_count: nextDayReviews = 0,
+  reviews_count: reviewsCount,
+  lessons_count: lessonsCount,
+  reviews_within_hour_count: nextHourReviews,
+  reviews_within_day_count: nextDayReviews,
   next_review_date: nextReviewDate,
   last_wanikani_sync_date: lastWkSyncDate,
-  srs_counts: srsCounts = ranksWithZeroCount,
+  srs_counts: srsCounts,
   vacation_date: vacationDate,
 } = {}) {
   return {
@@ -130,7 +130,7 @@ function serializeDashboard({
     nextReviewDate: dateOrNull(nextReviewDate),
     vacationDate: dateOrNull(vacationDate),
     lastWkSyncDate: dateOrNull(lastWkSyncDate),
-    srsCounts: coerceValsToNumber(upcaseKeys(srsCounts)),
+    srsCounts: upcaseKeys(srsCounts),
   };
 }
 

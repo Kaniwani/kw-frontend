@@ -9,13 +9,14 @@ import isPast from 'date-fns/is_past';
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 
 import H4 from 'base/H4';
+import Element from 'base/Element';
 import { selectSessionCount, selectNextReviewDate } from 'containers/App/selectors';
 
 ReviewStatus.propTypes = {
   updateStatus: PropTypes.func.isRequired,
   reviewStatusText: PropTypes.string.isRequired,
   reviewsCount: PropTypes.number.isRequired,
-  nextReviewDate: nullable(PropTypes.instanceOf(Date)).isRequired,
+  nextReviewDate: nullable(PropTypes.instanceOf(Date)),
 };
 
 function getReviewStatusText({ reviewsCount, nextReviewDate }) {
@@ -26,7 +27,7 @@ function getReviewStatusText({ reviewsCount, nextReviewDate }) {
 
 function ReviewStatus({ updateStatus, reviewStatusText, reviewsCount, nextReviewDate }) {
   return (
-    <div>
+    <Element flexRow flexCenter>
       {/* TODO: button linking to reviews like previous KW */}
       <H4>Next Review: {reviewStatusText}</H4>
       <ReactInterval
@@ -34,7 +35,7 @@ function ReviewStatus({ updateStatus, reviewStatusText, reviewsCount, nextReview
         timeout={5000}
         callback={() => updateStatus({ reviewsCount, nextReviewDate })}
       />
-    </div>
+    </Element>
   );
 }
 

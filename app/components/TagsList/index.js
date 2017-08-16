@@ -21,7 +21,7 @@ const selectTagColors = (text) => {
     jlpt: { textColor: 'blackLight', bgColor: 'tan' },
     noun: { textColor: 'whiteLight', bgColor: 'purpleLight' },
     adverb: { textColor: 'whiteLight', bgColor: 'pink' },
-    verb: { textColor: 'whiteLight', bgColor: 'teal' },
+    verb: { textColor: 'blackLight', bgColor: 'teal' },
     adj: { textColor: 'blackLight', bgColor: 'yellow' },
   };
 

@@ -152,6 +152,17 @@ export const forceSrsLogic = createLogic({
   },
 });
 
+export const forceWkSrsLogic = createLogic({
+  type: app.user.wksrs.request,
+  process({ action }, dispatch, done) {
+    return api.syncWk().then(({ body }) => {
+      console.log(body);
+      // dispatch(app.user.load.success({ dashboard: { reviewsCount: body.review_count } }));
+      done();
+    });
+  },
+});
+
 export const reviewsQueueLoadLogic = createLogic({
   type: app.reviews.queue.load.request,
   cancelType: app.reviews.queue.load.cancel,
@@ -419,6 +430,7 @@ export default [
   userLogoutLogic,
   userLoadLogic,
   forceSrsLogic,
+  forceWkSrsLogic,
   reviewsQueueLoadLogic,
   lessonsQueueLoadLogic,
   loadQueuesIfNeededLogic,

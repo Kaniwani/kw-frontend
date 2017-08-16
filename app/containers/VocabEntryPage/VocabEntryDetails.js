@@ -64,9 +64,10 @@ function VocabEntryDetails({ review }) {
       <Status text="Next review" status={getReviewStatusText(isHidden, isReviewReady, nextReviewDate)} />
       <Status text="Last reviewed" status={getDateInWords(lastReviewDate)} />
       <Status text="Unlocked" status={getDateInWords(unlockDate)} />
+      {/* TODO: horizontal britecharts bar graphs */}
       <Status text="Correct" status={correct} />
       <Status text="Incorrect" status={incorrect} />
-      <Status text="Correctness" status={`${calculatePercentage(correct, correct + incorrect)}%` || 'N/A'} />
+      <Status text="Accuracy" status={`${calculatePercentage(correct, correct + incorrect)}%` || 'N/A'} />
       <Status text="Critical" status={isCritical ? 'Yes' : 'Nope!'} />
     </ColumnContainer>
   );

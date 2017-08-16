@@ -1,6 +1,8 @@
 // TODO: consider using Chromatism to create a more unified color scheme
 // https://github.com/toish/chromatism
 
+import { mix } from 'polished';
+
 export const whiteLight = '#fafafa';
 export const white = '#f0f0f0';
 export const whiteDark = '#d9d9d9';
@@ -17,8 +19,9 @@ export const blueLight = '#30c0f9';
 export const blue = '#4c81d6';
 export const blueDark = '#2e50dc';
 export const green = '#7fd468';
-export const teal = '#30b59b';
+export const teal = '#19d6b1';
 export const pink = '#ff00c3';
+export const pinkLight = mix(0.7, whiteLight, pink);
 export const red = '#e2325b';
 export const orange = '#f66f46';
 export const yellowOrange = '#ffd800';
@@ -37,7 +40,7 @@ export const link = blueLight;
 export const linkHover = blueDark;
 
 export const SRS_COLORS = {
-  UNTRAINED: teal,
+  UNTRAINED: pinkLight,
   APPRENTICE: pink,
   GURU: purpleLight,
   MASTER: blueDark,

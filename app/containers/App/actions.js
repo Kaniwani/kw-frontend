@@ -30,6 +30,7 @@ export const { app } = createActions({
       LOGOUT: SYNC,
       LOAD: ASYNC,
       SRS: ASYNC,
+      WKSRS: ASYNC,
     },
     // TODO: rename as session > reviews???
     REVIEWS: {
