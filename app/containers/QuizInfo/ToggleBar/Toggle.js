@@ -17,6 +17,7 @@ function Toggle({ isActive, isDisabled, handleClick, children, ...props }) {
   return (
     <ToggleButton
       type="button"
+      className="quizToggle"
       tabIndex="0"
       onClick={handleClick}
       isActive={isActive}

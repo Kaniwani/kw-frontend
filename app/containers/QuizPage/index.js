@@ -44,6 +44,7 @@ const keyMap = {
 
 const isInputField = (event) => ['INPUT', 'TEXTAREA'].includes(event.target.nodeName);
 const isFormButton = (event) => ['submit', 'reset'].includes(event.target.type);
+const isQuizToggle = (event) => event.target.matches('.quizToggle');
 const isLink = (event) => event.target.href != null;
 const guardHandler = (answerDisabled, handler) => (event) => (
   isInputField(event) || !answerDisabled ?
@@ -65,7 +66,9 @@ function QuizPage({
   const title = `${titleCase(category)} Session`;
 
   const handlers = {
-    cycleInfoDetail: guardHandler(answerDisabled, () => cycleInfoDetail() && false),
+    cycleInfoDetail: guardHandler(answerDisabled, (event) =>
+      isQuizToggle(event) ? event : cycleInfoDetail() && false
+    ),
     showNotes: guardHandler(answerDisabled, () => showNotes() && false),
     showInfo: guardHandler(answerDisabled, () => showInfo() && false),
     showSynonym: guardHandler(answerDisabled, () => showSynonym() && false),
