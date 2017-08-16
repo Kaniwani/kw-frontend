@@ -8,8 +8,7 @@ import { borderRadius } from 'shared/styles/sizing';
 import { greyLight, grey, black, orange, red } from 'shared/styles/colors';
 
 export const Form = styled.form`
-  ${gutter({ position: 'vertical' })}
-  ${gutter({ position: 'horizontal', mod: 2 })}
+  ${gutter({ type: 'outer' })}
   display: flex;
   flex-flow: column nowrap;
   justify-content: inherit;
@@ -22,7 +21,6 @@ export const Form = styled.form`
 
 export const TextArea = styled(Field)`
   ${gutter({ type: 'outer', prop: 'padding' })}
-  ${gutter({ type: 'outer', prop: 'margin' })}
   ${placeholder({ color: grey })};
   ${zeta}
   width: 100%;
@@ -36,9 +34,9 @@ export const TextArea = styled(Field)`
 `;
 
 export const Controls = styled.div`
-  ${gutter({ prop: 'margin', position: 'vertical' })}
-  ${gutter({ type: 'outer', position: 'horizontal', prop: 'padding' })}
+  ${gutter({ type: 'outer', prop: 'margin', position: 'vertical' })}
   display: flex;
+  align-self: flex-end;
   justify-content: flex-end;
   & > button {
     ${gutter({ prop: 'margin', position: 'horizontal' })}
