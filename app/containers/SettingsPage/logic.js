@@ -32,8 +32,8 @@ export const resetProgressLogic = createLogic({
   processOptions: {
     failType: app.settings.resetProgress.failure,
   },
-  process(_, dispatch, done) {
-    api.resetProgress().then(() => {
+  process({ action: { payload } }, dispatch, done) {
+    api.resetProgress(payload).then(() => {
       dispatch(app.reviews.queue.clear());
       dispatch(app.user.load.request());
       done();

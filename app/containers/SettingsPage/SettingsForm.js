@@ -3,12 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, branch, renderNothing } from 'recompose';
 import { reduxForm, Field } from 'redux-form';
-import cuid from 'cuid';
 
 import app from 'containers/App/actions';
 import { selectSettings } from 'containers/App/selectors';
-
-import titleCase from 'voca/title_case';
 
 import { WK_SRS_RANKS } from 'shared/constants';
 
@@ -17,7 +14,11 @@ import H4 from 'base/H4';
 import A from 'base/A';
 import Button from 'base/Button';
 
-import { Form, Section, SubSection, Block, Label, Note, Controls } from './styles';
+import SelectField from './SelectField';
+import ToggleField from './ToggleField';
+import RangeField from './RangeField';
+
+import { Form, Section, SubSection, Controls } from './styles';
 
 const milliToSec = (value = 0) => +value * 1000;
 const secToMilli = (value = 0) => +value / 1000;
@@ -25,84 +26,6 @@ const secToMilli = (value = 0) => +value / 1000;
 // NOTE: these only work for the integers 1-10, my math-fu is not strong
 const toKanjiStrokeStep = (value) => ((10 - +value) + 1) / 100; // 1 => 0.1, 10 => 0.01
 const fromKanjiStrokeStep = (value) => Math.round(10 - ((+value * 100) - 1)); // 0.1 => 1, 0.01 => 10
-
-const ToggleField = ({ input, label, note }) => (
-  <Block>
-    <Label htmlFor={input.namename}>
-      <span>{label || input.name}</span>
-      <input id={input.namename} type="checkbox" {...input} checked={input.value} />
-    </Label>
-    {note && <Note>{note}</Note>}
-  </Block>
-);
-ToggleField.propTypes = {
-  input: PropTypes.object.isRequired,
-  label: PropTypes.string.isRequired,
-  note: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element,
-  ]),
-};
-
-ToggleField.defaultProps = {
-  note: '',
-};
-
-const RangeField = ({ input, min, max, step, label, note, display }) => (
-  <Block>
-    <Label htmlFor={input.name}>
-      <span>{label || input.name}</span>
-      <input id={input.name} type="range" {...input} min={min} max={max} step={step} />
-      <div>{display(input.value)}</div>
-    </Label>
-    {note && <Note>{note}</Note>}
-  </Block>
-);
-
-RangeField.propTypes = {
-  input: PropTypes.object.isRequired,
-  min: PropTypes.number.isRequired,
-  max: PropTypes.number.isRequired,
-  step: PropTypes.number.isRequired,
-  label: PropTypes.string.isRequired,
-  note: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element,
-  ]),
-  display: PropTypes.func,
-};
-
-RangeField.defaultProps = {
-  display: (x) => x,
-  note: '',
-};
-
-const SelectField = ({ input, options, label, note }) => (
-  <Block>
-    <Label htmlFor={input.name}>
-      <span>{label || input.name}</span>
-      <select id={input.name} {...input}>
-        {options.map((text) => (
-          <option key={cuid()} value={text}>{titleCase(text)}</option>
-        ))}
-      </select>
-    </Label>
-    {note && <Note>{note}</Note>}
-  </Block>
-);
-SelectField.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
-  input: PropTypes.object.isRequired,
-  label: PropTypes.string.isRequired,
-  note: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element,
-  ]),
-};
-
-SelectField.defaultProps = {
-  note: '',
-};
 
 SettingsForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,

@@ -14,24 +14,26 @@ const selectTagColors = (text) => {
   const isVerb = /verb/i.test(text);
   const isAdj = /adj/i.test(text);
 
-  const defaultColors = { textColor: 'whiteLight', bgColor: 'grey' };
-  const commonColors = { textColor: 'whiteLight', bgColor: 'blue' };
-  const uncommonColors = { textColor: 'whiteLight', bgColor: 'orange' };
-  const jlptColors = { textColor: 'blackLight', bgColor: 'tan' };
-  const nounColors = { textColor: 'whiteLight', bgColor: 'purpleLight' };
-  const adverbColors = { textColor: 'whiteLight', bgColor: 'pink' };
-  const verbColors = { textColor: 'whiteLight', bgColor: 'teal' };
-  const adjColors = { textColor: 'blackLight', bgColor: 'yellow' };
+  const colors = {
+    default: { textColor: 'whiteLight', bgColor: 'grey' },
+    common: { textColor: 'whiteLight', bgColor: 'blue' },
+    uncommon: { textColor: 'whiteLight', bgColor: 'orange' },
+    jlpt: { textColor: 'blackLight', bgColor: 'tan' },
+    noun: { textColor: 'whiteLight', bgColor: 'purpleLight' },
+    adverb: { textColor: 'whiteLight', bgColor: 'pink' },
+    verb: { textColor: 'whiteLight', bgColor: 'teal' },
+    adj: { textColor: 'blackLight', bgColor: 'yellow' },
+  };
 
   switch (true) {
-    case isCommon: return commonColors;
-    case isUncommon: return uncommonColors;
-    case isJlpt: return jlptColors;
-    case isNoun: return nounColors;
-    case isAdverb: return adverbColors;
-    case isVerb: return verbColors;
-    case isAdj: return adjColors;
-    default: return defaultColors;
+    case isCommon: return colors.common;
+    case isUncommon: return colors.uncommon;
+    case isJlpt: return colors.jlpt;
+    case isNoun: return colors.noun;
+    case isAdverb: return colors.adverb;
+    case isVerb: return colors.verb;
+    case isAdj: return colors.adj;
+    default: return colors.default;
   }
 };
 

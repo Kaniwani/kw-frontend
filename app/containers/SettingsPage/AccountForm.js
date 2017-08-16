@@ -7,52 +7,33 @@ import { compose, branch, renderNothing } from 'recompose';
 
 import app from 'containers/App/actions';
 import { selectProfile } from 'containers/App/selectors';
-import { doValuesMatch } from 'shared/validations';
+import { doValuesMatch, numberValid } from 'shared/validations';
 
 import H2 from 'base/H2';
 import H4 from 'base/H4';
 import Button from 'base/Button';
 
-import { Form, Section, SubSection, Block, Label, Note, ValidationMessage, Controls } from './styles';
+import RangeField from './RangeField';
+import InputField from './InputField';
 
-const InputField = ({ input, meta, label, note }) => (
-  <Block>
-    <Label htmlFor={input.name}>
-      <span>{label || input.name}</span>
-      <input id={input.name} type="text" placeholder="名前" {...input} />
-    </Label>
-    {meta.touched && meta.error && <ValidationMessage>{meta.error}</ValidationMessage>}
-    {note && <Note>{note}</Note>}
-  </Block>
-);
-InputField.propTypes = {
-  input: PropTypes.object.isRequired,
-  meta: PropTypes.object.isRequired,
-  label: PropTypes.string.isRequired,
-  note: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element,
-  ]),
-};
-
-InputField.defaultProps = {
-  note: '',
-};
+import { Form, Section, SubSection, Controls } from './styles';
 
 AccountForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   submitSucceeded: PropTypes.bool.isRequired,
+  currentLevel: PropTypes.number.isRequired,
 };
 
-function AccountForm({ handleSubmit, submitting, submitSucceeded }) {
+function AccountForm({ currentLevel, handleSubmit, submitting, submitSucceeded }) {
   return (
     <Form onSubmit={handleSubmit}>
       <Section name="">
         <H2>Account</H2>
         <SubSection name="">
           <H4>Reset Kaniwani Progress</H4>
-          <Field name="confirmation" label="Enter your username to confirm:" component={InputField} />
+          <Field name="resetLevel" label="Continue from level:" component={RangeField} min={1} max={currentLevel} step={1} />
+          <Field name="confirmation" label="Enter username to confirm:" component={InputField} />
         </SubSection>
         <Controls>
           <Button type="submit">
@@ -69,6 +50,8 @@ function AccountForm({ handleSubmit, submitting, submitSucceeded }) {
 
 const mapStateToProps = (state) => ({
   name: createSelector(selectProfile, (profile) => profile && profile.name)(state),
+  currentLevel: createSelector(selectProfile, (profile) => profile && profile.currentLevel)(state),
+  initialValues: { resetLevel: 1 },
 });
 
 const mapDispatchToProps = {
@@ -80,14 +63,16 @@ const enhance = compose(
   branch(({ name }) => !name, renderNothing),
   reduxForm({
     form: 'account',
-    onSubmit: ({ confirmation }, dispatch, { name }) => {
+    onSubmit: ({ confirmation, resetLevel }, dispatch, { name }) => {
+      console.log(resetLevel);
       const errors = {
         confirmation: doValuesMatch(confirmation, name),
+        resetLevel: numberValid(resetLevel),
       };
       if (Object.values(errors).some(Boolean)) {
         throw new SubmissionError(errors);
       } else {
-        return dispatch(app.settings.resetProgress.request());
+        return dispatch(app.settings.resetProgress.request({ level: resetLevel }));
       }
     },
   })

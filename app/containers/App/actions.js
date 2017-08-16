@@ -21,7 +21,7 @@ export const { app } = createActions({
     CLEAR_GLOBAL_STATE: SYNC,
     SETTINGS: {
       SAVE: ASYNC,
-      RESET_PROGRESS: ASYNC, // USER action instead?
+      RESET_PROGRESS: ASYNC,
     },
     USER: {
       REGISTER: ASYNC,

@@ -98,7 +98,7 @@ export const confirmPassword = () => post(confirmPasswordUrl); // finish reset p
 export const getUsers = () => get(userUrl);
 export const getUserProfile = () => get(userProfileUrl);
 export const saveSettings = ({ id, settings }) => patch(userSettingsUrl(id), { id, ...settings });
-export const resetProgress = () => post(userResetUrl);
+export const resetProgress = ({ level }) => post(userResetUrl, { level });
 export const syncKw = () => post(userSrsUrl);
 // true to force ALL users to sync with WK
 export const syncWk = ({ fullSync = false } = {}) => post(userSyncUrl, { full_sync: fullSync });
