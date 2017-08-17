@@ -8,20 +8,16 @@ import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 import app from 'containers/App/actions';
 
 import Container from 'base/Container';
-import Element from 'base/Element';
-import H1 from 'base/H1';
 import H4 from 'base/H4';
 import SrsChart from 'components/SrsChart';
 import UpcomingReviewsChart from 'components/UpcomingReviewsChart';
+import Announcements from 'components/Announcements';
 
 import PageWrapper from 'base/PageWrapper';
 import ReviewStatus from 'components/ReviewStatus';
 import Debug from 'utils/Debug';
 
-import {
-  selectProfile,
-  selectDashboard,
-} from 'containers/App/selectors';
+import { selectProfile, selectDashboard } from 'containers/App/selectors';
 
 export class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
@@ -41,21 +37,18 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
           <meta name="description" content="Kaniwani Dashboard Page" />
         </Helmet>
         <Container>
+          <button type="button" onClick={forceSrs}>force kw srs</button>
+          <button type="button" onClick={forceWkSrs}>force wk srs</button>
           <ReviewStatus />
+          <H4 style={{ textAlign: 'center' }}>
+            Last Sync with WaniKani: {distanceInWordsToNow(dashboard.lastWkSyncDate, { includeSeconds: true, suffix: true })} ago
+          </H4>
           <UpcomingReviewsChart />
           <SrsChart />
         </Container>
         <Container>
-          <H4>Recently Unlocked</H4>
+          <Announcements />
         </Container>
-        <Container>
-          <H4>Announcements</H4>
-        </Container>
-        <button type="button" onClick={forceSrs}>force kw srs</button>
-        <button type="button" onClick={forceWkSrs}>force wk srs</button>
-        <H4>Last Sync with WK: {
-          distanceInWordsToNow(dashboard.lastWkSyncDate, { includeSeconds: true, suffix: true })
-        } ago</H4>
         <Debug value={profile} />
         <Debug value={dashboard} />
       </PageWrapper>
@@ -71,7 +64,6 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = {
   forceSrs: app.user.srs.request,
-  forceWkSrs: app.user.wksrs.request,
-};
+  forceWkSrs: app.user.wksrs.request };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

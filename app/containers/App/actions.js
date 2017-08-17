@@ -19,6 +19,9 @@ const ASYNC = {
 export const { app } = createActions({
   APP: {
     CLEAR_GLOBAL_STATE: SYNC,
+    ANNOUNCEMENTS: {
+      LOAD: ASYNC,
+    },
     SETTINGS: {
       SAVE: ASYNC,
       RESET_PROGRESS: ASYNC,

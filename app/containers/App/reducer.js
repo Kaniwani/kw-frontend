@@ -8,6 +8,7 @@ import difference from 'lodash/difference';
 import app from './actions';
 
 export const initialState = {
+  announcements: [],
   profile: {},
   dashboard: {
     lessonsCount: 0,
@@ -18,7 +19,10 @@ export const initialState = {
   },
   // TODO: get Tadgh to update settings with new options + their defaults!
   // NOTE: update serialize/deserializer with anything missing
-  settings: {},
+  settings: {
+    quiz: {},
+    vocabulary: {},
+  },
   entities: {
     reviews: {},
     levels: {},
@@ -40,6 +44,10 @@ export const initialState = {
     },
   },
 };
+
+const announcementsReducer = handleActions({
+  [app.announcements.load.success]: (state, { payload }) => payload.results,
+}, initialState.announcements);
 
 const profileReducer = handleActions({
   [app.user.load.success]: (state, { payload }) => payload.profile,
@@ -164,6 +172,7 @@ const entitiesReducer = handleActions({
 }, initialState.entities);
 
 const reducers = combineReducers({
+  announcements: announcementsReducer,
   profile: profileReducer,
   dashboard: dashboardReducer,
   settings: settingsReducer,

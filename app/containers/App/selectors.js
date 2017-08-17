@@ -25,6 +25,7 @@ export const selectNextReviewDate = createSelector(selectDashboard, (dashboard) 
 export const selectSettings = (state) => state.global.settings;
 export const selectQuizSettings = createSelector(selectSettings, (settings) => settings.quiz);
 export const selectVocabularySettings = createSelector(selectSettings, (settings) => settings.vocabulary);
+export const selectOnVacation = createSelector(selectQuizSettings, (quiz) => quiz.onVacation);
 
 export const selectLessonSession = (state) => state.global.session.lessons;
 export const selectReviewSession = (state) => state.global.session.reviews;
@@ -35,6 +36,9 @@ export const selectLevelEntities = createSelector(selectEntities, (entities) => 
 export const selectLevelIds = createSelector(selectLevelEntities, (levels) => Object.keys(levels));
 export const makeSelectLevel = (id) => createSelector(selectLevelEntities, (levels) => levels && levels[id]);
 export const makeSelectLevelReviews = (id) => createSelector(makeSelectLevel(id), (level) => level && level.reviews);
+
+export const selectAnnouncements = (state) => state.global.announcements;
+export const makeSelectAnnouncement = (id) => createSelector(selectAnnouncements, (announcements) => announcements && announcements[id]);
 
 export const selectSessionCount = createSelector(
   (state, { category }) => [selectDashboard(state), category],

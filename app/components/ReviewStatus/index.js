@@ -10,22 +10,24 @@ import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 
 import H4 from 'base/H4';
 import Element from 'base/Element';
-import { selectSessionCount, selectNextReviewDate } from 'containers/App/selectors';
+import { selectSessionCount, selectOnVacation, selectNextReviewDate } from 'containers/App/selectors';
 
 ReviewStatus.propTypes = {
   updateStatus: PropTypes.func.isRequired,
   reviewStatusText: PropTypes.string.isRequired,
   reviewsCount: PropTypes.number.isRequired,
+  onVacation: PropTypes.bool.isRequired,
   nextReviewDate: nullable(PropTypes.instanceOf(Date)),
 };
 
-function getReviewStatusText({ reviewsCount, nextReviewDate }) {
+function getReviewStatusText({ onVacation, reviewsCount, nextReviewDate }) {
+  if (onVacation) return 'On Vacation!';
   if (!reviewsCount && nextReviewDate == null) return 'No reviews available';
   if (isPast(nextReviewDate)) return 'Now!';
   return distanceInWordsToNow(nextReviewDate, { includeSeconds: true, suffix: true });
 }
 
-function ReviewStatus({ updateStatus, reviewStatusText, reviewsCount, nextReviewDate }) {
+function ReviewStatus({ updateStatus, reviewStatusText, onVacation, reviewsCount, nextReviewDate }) {
   return (
     <Element flexRow flexCenter>
       {/* TODO: button linking to reviews like previous KW */}
@@ -33,7 +35,7 @@ function ReviewStatus({ updateStatus, reviewStatusText, reviewsCount, nextReview
       <ReactInterval
         enabled
         timeout={5000}
-        callback={() => updateStatus({ reviewsCount, nextReviewDate })}
+        callback={() => updateStatus({ onVacation, reviewsCount, nextReviewDate })}
       />
     </Element>
   );
@@ -42,14 +44,15 @@ function ReviewStatus({ updateStatus, reviewStatusText, reviewsCount, nextReview
 const mapStateToProps = (state) => ({
   reviewsCount: selectSessionCount(state, { category: 'reviews' }),
   nextReviewDate: selectNextReviewDate(state),
+  vacationDate: selectOnVacation(state),
 });
 
 const enhance = compose(
   connect(mapStateToProps),
   withStateHandlers(
     (props) => ({ reviewStatusText: getReviewStatusText(props) }),
-    { updateStatus: () => ({ reviewsCount, nextReviewDate }) => ({
-      reviewStatusText: getReviewStatusText({ reviewsCount, nextReviewDate }),
+    { updateStatus: () => ({ onVacation, reviewsCount, nextReviewDate }) => ({
+      reviewStatusText: getReviewStatusText({ onVacation, reviewsCount, nextReviewDate }),
     }) },
   )
 );

@@ -41,16 +41,17 @@ class SrsChart extends React.Component { // eslint-disable-line react/prefer-sta
       id,
     }));
 
-    const containerWidth = (document.body.clientWidth / 2);
+    const donutChartWidth = Math.max(320, document.body.clientWidth / 3);
     const colorList = Object.values(SRS_COLORS);
+
     if (donutContainer.node()) {
       donutChart
         .isAnimated(true)
         .colorSchema(colorList)
-        .width(320)
-        .height(containerWidth / 1.9)
-        .externalRadius(containerWidth / 5)
-        .internalRadius(containerWidth / 10)
+        .width(donutChartWidth)
+        .height(donutChartWidth / 2)
+        .externalRadius(donutChartWidth / 4.5)
+        .internalRadius(donutChartWidth / 9)
         .on('customMouseOver', (data) => {
           legendChart.highlight(data.data.id);
         })
@@ -60,6 +61,7 @@ class SrsChart extends React.Component { // eslint-disable-line react/prefer-sta
 
       legendChart
         .width(320)
+        .margin({ top: 10, right: 10, left: 10, bottom: 10 })
         .colorSchema(colorList)
         .numberFormat('d'); // whole integer
 

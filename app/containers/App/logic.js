@@ -156,12 +156,33 @@ export const forceWkSrsLogic = createLogic({
   type: app.user.wksrs.request,
   process({ action }, dispatch, done) {
     return api.syncWk().then(({ body }) => {
-      console.log(body);
+      console.log('forcewkresponse', body);
       // dispatch(app.user.load.success({ dashboard: { reviewsCount: body.review_count } }));
       done();
     });
   },
 });
+
+
+export const announcementsLoadLogic = createLogic({
+  type: app.announcements.load.request,
+  cancelType: app.announcements.load.cancel,
+  warnTimeout: 10000,
+  latest: true,
+  processOptions: {
+    successType: app.announcements.load.success,
+    failType: app.announcements.load.failure,
+  },
+
+  process() {
+    return api.getAnnouncements()
+      .then(({ body }) => {
+        console.log('announcementsbody', body);
+        return body;
+      });
+  },
+});
+
 
 export const reviewsQueueLoadLogic = createLogic({
   type: app.reviews.queue.load.request,
@@ -431,6 +452,7 @@ export default [
   userLoadLogic,
   forceSrsLogic,
   forceWkSrsLogic,
+  announcementsLoadLogic,
   reviewsQueueLoadLogic,
   lessonsQueueLoadLogic,
   loadQueuesIfNeededLogic,
