@@ -5,15 +5,10 @@ const BASE_URL = process.env.NODE_ENV !== 'production' ? DEV_DOMAIN : PROD_DOMAI
 export const KW_API_BASE = `${BASE_URL}/api/v1`;
 
 export const SESSION_EXPIRY_MINUTES = 30;
-/**
- * Format string for use with 'date-fns/format'
- * @type {String}
- * @example
- * import format from 'date-fns/format'
- * format(new Date(2014, 11, 2), DATE_IN_WORDS)
- * // => 12:00am, Nov 2nd 2014
- */
-export const DATE_IN_WORDS = 'MMM Do YYYY[,] hh:mma';
+
+export const DATE_FORMAT = 'MMM Do YYYY';
+export const TIME_FORMAT = 'hh:mma';
+export const DATE_TIME_FORMAT = `${DATE_FORMAT}[,] ${TIME_FORMAT}`;
 
 export const MAX_NOTES_LENGTH = 500;
 

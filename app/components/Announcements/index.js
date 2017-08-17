@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { compose, branch, renderNothing } from 'recompose';
+import { compose } from 'recompose';
+import cuid from 'cuid';
 
 import { createStructuredSelector } from 'reselect';
 
 import app from 'containers/App/actions';
 import { selectAnnouncements } from 'containers/App/selectors';
 
-import Debug from 'utils/Debug';
+import Announcement from './Announcement';
 
 class Announcements extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
@@ -23,8 +24,7 @@ class Announcements extends React.Component { // eslint-disable-line react/prefe
   render() {
     return (
       <div>
-        <h1>Announcements</h1>
-        <Debug value={this.props.items} />
+        {this.props.items.map((item) => <Announcement key={cuid()} {...item} />)}
       </div>
     );
   }
@@ -40,7 +40,6 @@ const mapDispatchToProps = ({
 
 const enhance = compose(
   connect(mapStateToProps, mapDispatchToProps),
-  branch(({ items }) => items.length < 1, renderNothing),
 );
 
 export default enhance(Announcements);

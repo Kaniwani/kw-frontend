@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, branch, renderNothing } from 'recompose';
+import format from 'date-fns/format';
 
+import { DATE_FORMAT } from 'shared/constants';
 import nullable from 'utils/propNullable';
 import getDateInWords from 'utils/getDateInWords';
 import calculatePercentage from 'utils/calculatePercentage';
@@ -61,9 +63,9 @@ function VocabEntryDetails({ review }) {
         <StreakStatus category="KW" streak={streak} />
         <StreakStatus category="WK" streak={wkStreak} />
       </div>
-      <Status text="Next review" status={getReviewStatusText(isHidden, isReviewReady, nextReviewDate)} />
+      <Status text="Unlocked" status={format(unlockDate, DATE_FORMAT)} />
       <Status text="Last reviewed" status={getDateInWords(lastReviewDate)} />
-      <Status text="Unlocked" status={getDateInWords(unlockDate)} />
+      <Status text="Next review" status={getReviewStatusText(isHidden, isReviewReady, nextReviewDate)} />
       {/* TODO: horizontal britecharts bar graphs */}
       <Status text="Correct" status={correct} />
       <Status text="Incorrect" status={incorrect} />

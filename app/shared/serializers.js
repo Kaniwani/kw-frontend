@@ -5,27 +5,6 @@ import castArray from 'lodash/castArray';
 import uniq from 'lodash/uniq';
 import condenseReadings from 'utils/condenseReadings';
 
-export const serializeUserResponse = serializeUser;
-export const serializeLevelsResponse = serializeLevels;
-export const serializeReviewResponse = serializeReviewEntry;
-export const serializeAddSynonymResponse = serializeSynonym;
-export const serializeQueueResponse = ({ results }) => {
-  const reviews = serializeStubbedReviewEntries(results);
-  return {
-    reviews,
-    reviewIds: Object.keys(reviews).map(Number),
-  };
-};
-
-export const serializeLevelResponse = ({ id, results }) => {
-  const reviews = serializeReviewEntries(results);
-  return {
-    id,
-    reviews,
-    reviewIds: Object.keys(reviews).map(Number),
-  };
-};
-
 
 // TODO: extract utils to nested ./file with tests
 
@@ -50,6 +29,34 @@ const toUniqueStringsArray = (data) => {
 /* eslint-disable no-return-assign, no-sequences, no-param-reassign */
 const createHashMap = (data) => data.reduce((hash, item) => (hash[item.id] = item, hash), {});
 /* eslint-enable */
+
+
+export const serializeUserResponse = serializeUser;
+export const serializeLevelsResponse = serializeLevels;
+export const serializeReviewResponse = serializeReviewEntry;
+export const serializeAddSynonymResponse = serializeSynonym;
+export const serializeAnnouncementsResponse = ({ results }) => results.slice(0, 10).map(({ pub_date, title, body }) => ({
+  title,
+  body,
+  pubDate: dateOrNull(pub_date),
+}));
+
+export const serializeQueueResponse = ({ results }) => {
+  const reviews = serializeStubbedReviewEntries(results);
+  return {
+    reviews,
+    reviewIds: Object.keys(reviews).map(Number),
+  };
+};
+
+export const serializeLevelResponse = ({ id, results }) => {
+  const reviews = serializeReviewEntries(results);
+  return {
+    id,
+    reviews,
+    reviewIds: Object.keys(reviews).map(Number),
+  };
+};
 
 function serializeLevels(levels = []) {
   return createHashMap(levels.map(serializeLevel));

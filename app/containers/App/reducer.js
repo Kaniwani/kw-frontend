@@ -46,7 +46,7 @@ export const initialState = {
 };
 
 const announcementsReducer = handleActions({
-  [app.announcements.load.success]: (state, { payload }) => payload.results,
+  [app.announcements.load.success]: (state, { payload }) => payload,
 }, initialState.announcements);
 
 const profileReducer = handleActions({

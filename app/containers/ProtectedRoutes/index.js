@@ -24,12 +24,12 @@ const Page = styled.div`
   display: flex;
   flex: 1 0 100%;
   flex-flow: column nowrap;
-  & header,
-  & footer {
+  & > header,
+  & > footer {
     flex: 0 0 auto;
   }
 
-  & main {
+  & > main {
     flex: 1 0 auto;
   }
 `;

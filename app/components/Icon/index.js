@@ -6,8 +6,8 @@ import ICONS from './constants';
 import { SVGWrapper, SVG } from './styles';
 
 Icon.propTypes = {
-  inline: PropTypes.bool,
   name: PropTypes.oneOf(Object.keys(ICONS)).isRequired,
+  inline: PropTypes.bool,
   color: PropTypes.oneOf(Object.keys(COLORS)),
   size: PropTypes.string,
 };

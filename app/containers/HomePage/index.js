@@ -49,8 +49,8 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
         <Container>
           <Announcements />
         </Container>
-        <Debug value={profile} />
-        <Debug value={dashboard} />
+        {/* <Debug value={profile} />
+        <Debug value={dashboard} /> */}
       </PageWrapper>
     );
   }

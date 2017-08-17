@@ -16,6 +16,7 @@ import {
   serializeReviewResponse,
   serializeQueueResponse,
   serializeLevelResponse,
+  serializeAnnouncementsResponse,
   serializeAddSynonymResponse,
 } from 'shared/serializers';
 
@@ -176,10 +177,7 @@ export const announcementsLoadLogic = createLogic({
 
   process() {
     return api.getAnnouncements()
-      .then(({ body }) => {
-        console.log('announcementsbody', body);
-        return body;
-      });
+      .then(({ body }) => serializeAnnouncementsResponse(body));
   },
 });
 
