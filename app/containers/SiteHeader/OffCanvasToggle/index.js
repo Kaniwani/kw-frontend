@@ -2,31 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { branch, renderNothing } from 'recompose';
 
-import { Toggle, ToggleDot } from './styles';
+import { Toggle } from './styles';
 
 OffCanvasToggle.propTypes = {
-  isActive: PropTypes.bool,
-  ariaControls: PropTypes.string.isRequired,
   handleToggle: PropTypes.func.isRequired,
 };
 
-OffCanvasToggle.defaultProps = {
-  isActive: false,
-};
-
-function OffCanvasToggle({ isActive, handleToggle, ariaControls }) {
+function OffCanvasToggle({ handleToggle }) {
   return (
-    <Toggle
-      type="button"
-      aria-label="navigation menu"
-      aria-controls={ariaControls}
-      aria-expanded={isActive}
-      onClick={handleToggle}
-    >
-      <ToggleDot />
-      <ToggleDot />
-      <ToggleDot />
-    </Toggle>
+    <Toggle name="MENU" title="Open menu" onClick={handleToggle} size="2.5em" />
   );
 }
 

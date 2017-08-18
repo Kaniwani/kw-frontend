@@ -8,6 +8,8 @@ import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 import app from 'containers/App/actions';
 
 import Container from 'base/Container';
+import Element from 'base/Element';
+import H2 from 'base/H2';
 import H4 from 'base/H4';
 import SrsChart from 'components/SrsChart';
 import UpcomingReviewsChart from 'components/UpcomingReviewsChart';
@@ -15,7 +17,7 @@ import Announcements from 'components/Announcements';
 
 import PageWrapper from 'base/PageWrapper';
 import ReviewStatus from 'components/ReviewStatus';
-import Debug from 'utils/Debug';
+// import Debug from 'utils/Debug';
 
 import { selectProfile, selectDashboard } from 'containers/App/selectors';
 
@@ -37,16 +39,27 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
           <meta name="description" content="Kaniwani Dashboard Page" />
         </Helmet>
         <Container>
-          <button type="button" onClick={forceSrs}>force kw srs</button>
-          <button type="button" onClick={forceWkSrs}>force wk srs</button>
+          {/* <button type="button" onClick={forceSrs}>force kw srs</button>
+          <button type="button" onClick={forceWkSrs}>force wk srs</button> */}
           <ReviewStatus />
-          <H4 style={{ textAlign: 'center' }}>
-            Last Sync with WaniKani: {distanceInWordsToNow(dashboard.lastWkSyncDate, { includeSeconds: true, suffix: true })} ago
-          </H4>
+          <Element flexRow flexCenter>
+            <H4>
+              Last Sync with WaniKani: {distanceInWordsToNow(dashboard.lastWkSyncDate, { includeSeconds: true, suffix: true })} ago
+            </H4>
+          </Element>
+          <Element flexRow flexCenter>
+            <H2>Coming Up</H2>
+          </Element>
           <UpcomingReviewsChart />
+          <Element flexRow flexCenter>
+            <H2>Progress</H2>
+          </Element>
           <SrsChart />
         </Container>
         <Container>
+          <Element flexRow flexCenter>
+            <H2>Announcements</H2>
+          </Element>
           <Announcements />
         </Container>
         {/* <Debug value={profile} />

@@ -77,6 +77,10 @@ class UpcomingReviewsChart extends React.Component { // eslint-disable-line reac
     window.addEventListener('resize', this.redrawChart);
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.redrawChart);
+  }
+
   redrawChart = debounce(() => {
     const newWidth = this.chartContainerRef.getBoundingClientRect().width;
     const blockSize = getBlockSize(newWidth, this.state.dataset.length);

@@ -122,6 +122,10 @@ export const POLYMER_ICONS = {
     viewBox: '0 0 24 24',
     path: 'M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z',
   },
+  MENU: {
+    viewBox: '0 0 24 24',
+    path: 'M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z',
+  },
   PLAY: {
     viewBox: '0 0 24 24',
     path: 'M8 5v14l11-7z',

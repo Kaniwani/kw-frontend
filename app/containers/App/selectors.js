@@ -11,7 +11,8 @@ import filterRomajiReadings from 'utils/filterRomajiReadings';
 
 import { SESSION_EXPIRY_MINUTES } from 'shared/constants';
 
-export const selectLocation = (state) => state.location;
+export const selectLocation = (state) => state.route.location;
+export const selectLocationPath = createSelector(selectLocation, (location) => location && location.pathname);
 export const selectGlobal = (state) => state.global;
 export const selectEntities = (state) => state.global.entities;
 export const selectIdFromMatch = (props) => +props.match.params.id;

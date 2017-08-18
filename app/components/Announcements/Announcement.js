@@ -13,7 +13,10 @@ import { Article, Header, Title, TitleText, Toggle, Time } from './styles';
 Announcement.propTypes = {
   title: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
-  pubDate: PropTypes.instanceOf(Date).isRequired,
+  pubDate: PropTypes.oneOfType([
+    PropTypes.instanceOf(Date),
+    PropTypes.string,
+  ]).isRequired,
   isOpened: PropTypes.bool.isRequired,
   toggleOpen: PropTypes.func.isRequired,
 };

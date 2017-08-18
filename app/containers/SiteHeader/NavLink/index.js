@@ -40,8 +40,7 @@ function NavLink({
             {count > 0 && <Count disabled={count < 1}>{count}</Count>}
           </Text>
         </Link>
-      )
-      }
+      )}
     </Li>
   );
 }

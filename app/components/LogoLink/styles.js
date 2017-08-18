@@ -10,7 +10,6 @@ const linkStyle = css`
   position: relative;
   vertical-align: middle;
   align-self: center;
-  margin-right: auto;
   flex: 0 0 auto;
   width: ${({ size }) => size}; /*CSS instead of html width attr to support non-pixel units*/
   height: ${({ size }) => size}; /*Prevents scaling issue in IE*/

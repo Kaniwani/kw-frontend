@@ -1,29 +1,56 @@
-import styled, { css } from 'styled-components';
-import { transparentize } from 'polished';
+import styled, { css, injectGlobal } from 'styled-components';
+import { rgba } from 'polished';
 
-import { black, white, whiteDark } from 'shared/styles/colors';
+import { whiteLight, purpleLight } from 'shared/styles/colors';
 import { resetList } from 'shared/styles/utils';
+import { midEaseQuad } from 'shared/styles/animation';
+
+import IconButton from 'components/IconButton';
+
+/* eslint-disable no-unused-expressions */
+injectGlobal`
+  body {
+    transform: translateX(0);
+    transition: transform 0.5s;
+    &.offCanvasMenu--isOpen {
+      transform: translateX(-50%);
+    }
+  }
+`;
+/* eslint-enable */
 
 export const Wrapper = styled.div`
-  position: absolute;
-  width: 180px;
-  background: ${white};
-  height: auto;
-  top: ${(props) => props.offsetTop}px;
-  right: -180px;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  background: ${rgba(purpleLight, 0.9)};
+  color: ${whiteLight};
   z-index: 10;
-  transition: right 400ms cubic-bezier(0.55, 0, 0.1, 1);
-  border-top: 1px solid ${transparentize(0.5, whiteDark)};
-  border-bottom-left-radius: 10px;
+  visibility: hidden;
+  transform: translateX(100%);
+  transition: transform ${midEaseQuad}, visibility 0s 0.5s;
 
   ${({ isVisible }) => isVisible && css`
-    right: -1px; /* -1px avoids potential subpixel gap >_< */
-    box-shadow: -1px 1px 3px ${transparentize(0.8, black)};
+    visibility: visible;
+    transform: translateX(50%);
+    transition: transform ${midEaseQuad};
   `}
 `;
 
 export const Ul = styled.ul`
   ${resetList}
+  margin-top: 4rem;
+  width: 100%;
   display: flex;
   flex-direction: column;
+`;
+
+export const CloseButton = styled(IconButton)`
+  position: absolute;
+  right: .8rem;
+  top: .8rem;
+  overflow: hidden;
+  z-index: 100;
 `;

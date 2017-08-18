@@ -1,12 +1,11 @@
 import styled, { css } from 'styled-components';
-import { transparentize } from 'polished';
 
 import A from 'base/A';
 
 import { resetButton } from 'shared/styles/utils';
-import { whiteDark, grey, blueLight, purple } from 'shared/styles/colors';
-import { epsilon } from 'shared/styles/typography';
-import { media } from 'shared/styles/media';
+import { grey, blueLight, purple } from 'shared/styles/colors';
+import { epsilon, giga } from 'shared/styles/typography';
+import { gutter } from 'shared/styles/layout';
 
 export const Text = styled.span`
   position: relative;
@@ -41,6 +40,7 @@ export const Count = styled.span`
 `;
 
 const linkStyle = css`
+  ${gutter({ type: 'outer' })}
   display: flex;
   font-size: 1.25em;
   font-weight: 600;
@@ -48,13 +48,8 @@ const linkStyle = css`
   justify-content: center;
   line-height: 1;
   align-items: center;
-  padding: .75em;
   cursor: pointer;
   color: ${({ disabled }) => disabled ? grey : 'currentColor'};
-
-  ${media('max').sm`
-    padding: 0 .4em;
-  `}
 
   &:hover,
   &:focus,
@@ -81,14 +76,16 @@ export const Li = styled.li`
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
+  max-height: 70px;
 
   ${({ isOffCanvas }) => isOffCanvas && css`
-    flex: 1 0 auto;
-    border-bottom: 1px solid ${transparentize(0.25, whiteDark)};
+    ${giga}
+
     ${Link},
     ${LinkButton} {
-      padding: 1rem 1rem .4rem;
       width: 100%;
+      height: 100%;
 
       &:hover:not(.active) > ${Text}:after {
         opacity: 0;

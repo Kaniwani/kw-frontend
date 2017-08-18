@@ -4,23 +4,19 @@ import cuid from 'cuid';
 
 import NavLink from '../NavLink';
 
-import { Wrapper, Ul } from './styles';
+import { Wrapper, Ul, CloseButton } from './styles';
 
 OffCanvasMenu.propTypes = {
-  id: PropTypes.string.isRequired,
   links: PropTypes.array.isRequired,
-  offsetTop: PropTypes.number.isRequired,
   isVisible: PropTypes.bool.isRequired,
   handleLogout: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
 };
 
-function OffCanvasMenu({ id, links, offsetTop, isVisible, handleLogout }) {
+function OffCanvasMenu({ links, isVisible, handleLogout, handleClose }) {
   return (
-    <Wrapper
-      id={id}
-      offsetTop={offsetTop}
-      isVisible={isVisible}
-    >
+    <Wrapper isVisible={isVisible}>
+      <CloseButton onClick={handleClose} name="CLOSE" title="Close menu" size="3rem" />
       <Ul>
         {links.map((link) => (
           <NavLink

@@ -7,7 +7,7 @@ import isEqual from 'lodash/isEqual';
 import { breakpoints } from 'shared/styles/media';
 
 import LogoLink from 'components/LogoLink';
-import { selectSessionCount } from 'containers/App/selectors';
+import { selectSessionCount, selectLocationPath } from 'containers/App/selectors';
 import app from 'containers/App/actions';
 
 import OnCanvasMenu from './OnCanvasMenu';
@@ -19,12 +19,11 @@ class SiteHeader extends React.Component {
   static propTypes = {
     lessonsCount: PropTypes.number.isRequired,
     reviewsCount: PropTypes.number.isRequired,
+    locationPath: PropTypes.string.isRequired,
     logoutUser: PropTypes.func.isRequired,
   };
 
   state = {
-    headerHeight: 70, // ballpark fallback
-    // FIXME: NOPE! UI redux state instead
     offCanvasMenuActive: false,
     offCanvasToggleVisible: false,
   };
@@ -40,30 +39,31 @@ class SiteHeader extends React.Component {
     return !unchanged;
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.locationPath !== prevProps.locationPath) {
+      setTimeout(this.hideOffCanvasMenu, 300);
+    }
+  }
+
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
   }
 
   handleResize = debounce(() => {
+    this.hideOffCanvasMenu();
     this.setState(() => ({
-      headerHeight: this.HeaderRef.clientHeight,
       offCanvasToggleVisible: window.innerWidth <= breakpoints.md,
     }));
   }, 150);
 
   hideOffCanvasMenu = () => {
-    if (this.state.offCanvasMenuActive === true) {
-      this.setState({ offCanvasMenuActive: false });
-    }
+    this.setState({ offCanvasMenuActive: false });
+    document.body.classList.remove('offCanvasMenu--isOpen');
   }
 
-  handleToggle = (event) => {
-    event.stopPropagation();
-    // FIXME: nope nope nope, ui state, dispatch action!
-    // also dispatch hiding of menu on navlink click
-    this.setState((prevState) => ({
-      offCanvasMenuActive: !prevState.offCanvasMenuActive,
-    }));
+  showOffCanvasMenu = () => {
+    this.setState({ offCanvasMenuActive: true });
+    document.body.classList.add('offCanvasMenu--isOpen');
   }
 
   render() {
@@ -97,16 +97,13 @@ class SiteHeader extends React.Component {
           />
           <OffCanvasToggle
             isVisible={this.state.offCanvasToggleVisible}
-            isActive={this.state.offCanvasMenuActive}
-            handleToggle={this.handleToggle}
-            ariaControls="offCanvasMenu"
+            handleToggle={this.showOffCanvasMenu}
           />
           <OffCanvasMenu
-            id="offCanvasMenu"
             links={offCanvasRoutes}
-            offsetTop={this.state.headerHeight}
             isVisible={this.state.offCanvasMenuActive}
             handleLogout={this.props.logoutUser}
+            handleClose={this.hideOffCanvasMenu}
           />
         </Nav>
       </Header>
@@ -117,6 +114,7 @@ class SiteHeader extends React.Component {
 const mapStateToProps = (state) => ({
   reviewsCount: selectSessionCount(state, { category: 'reviews' }),
   lessonsCount: selectSessionCount(state, { category: 'lessons' }),
+  locationPath: selectLocationPath(state),
 });
 
 const mapDispatchToProps = ({
