@@ -4,6 +4,7 @@ import { transparentize } from 'polished';
 import { centerByPadding, gutter } from 'shared/styles/layout';
 import { white, whiteDark } from 'shared/styles/colors';
 import { bottomLight } from 'shared/styles/shadows';
+import { resetList } from 'shared/styles/utils';
 
 export const Header = styled.header`
   ${centerByPadding}
@@ -21,4 +22,10 @@ export const Nav = styled.nav`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+`;
+
+export const Ul = styled.ul`
+  ${resetList}
+  display: flex;
+  justify-content: center;
 `;

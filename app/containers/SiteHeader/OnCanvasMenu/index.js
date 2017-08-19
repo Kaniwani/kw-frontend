@@ -3,11 +3,15 @@ import PropTypes from 'prop-types';
 import cuid from 'cuid';
 
 import NavLink from '../NavLink';
-import { Ul } from './styles';
+import { Ul } from '../styles';
 
 OnCanvasMenu.propTypes = {
   links: PropTypes.array.isRequired,
-  handleLogout: PropTypes.func.isRequired,
+  handleLogout: PropTypes.func,
+};
+
+OnCanvasMenu.defaultProps = {
+  handleLogout: () => {},
 };
 
 function OnCanvasMenu({ links, handleLogout }) {

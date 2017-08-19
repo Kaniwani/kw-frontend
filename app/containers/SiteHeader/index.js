@@ -19,13 +19,19 @@ class SiteHeader extends React.Component {
   static propTypes = {
     lessonsCount: PropTypes.number.isRequired,
     reviewsCount: PropTypes.number.isRequired,
-    locationPath: PropTypes.string.isRequired,
     logoutUser: PropTypes.func.isRequired,
+    locationPath: PropTypes.string,
   };
 
   state = {
     offCanvasMenuActive: false,
-    offCanvasToggleVisible: false,
+    additionalRoutes: [
+      { text: 'vocabulary', route: '/vocabulary/levels' },
+      { text: 'settings', route: '/settings' },
+      { text: 'about', route: '/about' },
+      { text: 'contact', route: '/contact' },
+      { text: 'logout', route: '/logout' },
+    ],
   };
 
   componentDidMount() {
@@ -52,7 +58,7 @@ class SiteHeader extends React.Component {
   handleResize = debounce(() => {
     this.hideOffCanvasMenu();
     this.setState(() => ({
-      offCanvasToggleVisible: window.innerWidth <= breakpoints.md,
+      isWideViewport: window.innerWidth > breakpoints.md,
     }));
   }, 150);
 
@@ -67,40 +73,19 @@ class SiteHeader extends React.Component {
   }
 
   render() {
-    const isWideViewport = !this.state.offCanvasToggleVisible;
-    let onCanvasRoutes = [
+    const sessionRoutes = [
       { text: 'lessons', route: '/lessons', count: this.props.lessonsCount },
       { text: 'reviews', route: '/reviews', count: this.props.reviewsCount },
     ];
-
-    let offCanvasRoutes = [
-      { text: 'vocabulary', route: '/vocabulary/levels' },
-      { text: 'settings', route: '/settings' },
-      { text: 'about', route: '/about' },
-      { text: 'contact', route: '/contact' },
-      { text: 'logout', route: '/logout' },
-    ];
-
-    // show all routes in main menu if large screen
-    if (isWideViewport) {
-      onCanvasRoutes = onCanvasRoutes.concat(offCanvasRoutes);
-      offCanvasRoutes = [];
-    }
-
     return (
       <Header innerRef={(node) => { this.HeaderRef = node; }}>
         <Nav>
           <LogoLink />
-          <OnCanvasMenu
-            links={onCanvasRoutes}
-            handleLogout={this.props.logoutUser}
-          />
-          <OffCanvasToggle
-            isVisible={this.state.offCanvasToggleVisible}
-            handleToggle={this.showOffCanvasMenu}
-          />
+          <div style={{ margin: '0 auto 0 .5rem' }}><OnCanvasMenu links={sessionRoutes} /></div>
+          {this.state.isWideViewport && <OnCanvasMenu links={this.state.additionalRoutes} handleLogout={this.props.logoutUser} />}
+          <OffCanvasToggle isVisible={!this.state.isWideViewport} handleToggle={this.showOffCanvasMenu} />
           <OffCanvasMenu
-            links={offCanvasRoutes}
+            links={this.state.additionalRoutes}
             isVisible={this.state.offCanvasMenuActive}
             handleLogout={this.props.logoutUser}
             handleClose={this.hideOffCanvasMenu}
