@@ -49,7 +49,7 @@ class SrsChart extends React.Component { // eslint-disable-line react/prefer-sta
         .isAnimated(true)
         .colorSchema(colorList)
         .width(donutChartWidth)
-        .height(donutChartWidth / 2)
+        .height(donutChartWidth / 2.2)
         .externalRadius(donutChartWidth / 4.5)
         .internalRadius(donutChartWidth / 9)
         .on('customMouseOver', (data) => {

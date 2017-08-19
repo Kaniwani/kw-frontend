@@ -8,7 +8,7 @@ import nullable from 'utils/propNullable';
 import isPast from 'date-fns/is_past';
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 
-import H4 from 'base/H4';
+import H3 from 'base/H3';
 import Element from 'base/Element';
 import { selectSessionCount, selectOnVacation, selectNextReviewDate } from 'containers/App/selectors';
 
@@ -31,7 +31,7 @@ function ReviewStatus({ updateStatus, reviewStatusText, onVacation, reviewsCount
   return (
     <Element flexRow flexCenter>
       {/* TODO: button linking to reviews like previous KW */}
-      <H4>Next Review: {reviewStatusText}</H4>
+      <H3>Next Review: {reviewStatusText}</H3>
       <ReactInterval
         enabled
         timeout={5000}

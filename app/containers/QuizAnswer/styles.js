@@ -9,14 +9,11 @@ import { shadowBox, innerMedium } from 'shared/styles/shadows';
 import { kilo } from 'shared/styles/typography';
 import { gutter } from 'shared/styles/layout';
 import { fastEaseQuad, shake } from 'shared/styles/animation';
-import { transparent, white, whiteLight, whiteDark, black, yellowOrange, red, green, orange } from 'shared/styles/colors';
+import { transparent, white, whiteLight, whiteDark, black, yellowOrange, red, green } from 'shared/styles/colors';
 
-const bgColorMixin = ({ marked, valid, correct, incorrect, ignored }) => {
+const bgColorMixin = ({ marked, valid, correct, incorrect }) => {
   if (marked && !valid) {
     return `background-color: ${yellowOrange};`;
-  }
-  if (ignored) {
-    return `background-color: ${orange};`;
   }
   if (correct) {
     return `background-color: ${green};`;
@@ -91,8 +88,8 @@ export const Input = styled.input`
     `;
   }}
 
-  ${({ ignored }) => ignored && `
-    animation: ${shake} .45s ease-in-out;
+  ${({ marked, valid }) => marked && !valid && `
+    animation: ${shake} .35s ease-in-out;
   `}
 
   &:focus {

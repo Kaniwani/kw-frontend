@@ -10,7 +10,6 @@ import IconButton from 'components/IconButton';
 /* eslint-disable no-unused-expressions */
 injectGlobal`
   body {
-    transform: translateX(0);
     transition: transform 0.5s;
     &.offCanvasMenu--isOpen {
       transform: translateX(-50%);
@@ -25,7 +24,7 @@ export const Wrapper = styled.div`
   height: 100%;
   top: 0;
   right: 0;
-  background: ${rgba(purpleLight, 0.9)};
+  background: ${rgba(purpleLight, 0.95)};
   color: ${whiteLight};
   z-index: 10;
   visibility: hidden;

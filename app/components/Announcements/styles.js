@@ -28,7 +28,7 @@ export const Header = styled.header`
 `;
 
 export const Toggle = styled(Button)`
-  border-bottom: 2px dashed ${greyLight};
+  border-bottom: 1px solid ${greyLight};
 `;
 
 export const Title = styled.div`

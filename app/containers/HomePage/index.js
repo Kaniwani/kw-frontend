@@ -47,12 +47,16 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
               Last Sync with WaniKani: {distanceInWordsToNow(dashboard.lastWkSyncDate, { includeSeconds: true, suffix: true })} ago
             </H4>
           </Element>
+        </Container>
+        <Container>
           <Element flexRow flexCenter>
             <H2>Coming Up</H2>
           </Element>
           <UpcomingReviewsChart />
+        </Container>
+        <Container>
           <Element flexRow flexCenter>
-            <H2>Progress</H2>
+            <H2>SRS Progress</H2>
           </Element>
           <SrsChart />
         </Container>

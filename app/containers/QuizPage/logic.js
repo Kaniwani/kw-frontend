@@ -182,9 +182,8 @@ export const ignoreAnswerLogic = createLogic({
     const backup = selectBackup(getState());
     // in case user edited notes in quiz info
     const notes = makeSelectReviewNotes(backup.id)(getState());
-    dispatch(app.review.update(Object.assign({}, backup, { notes })));
-
     dispatch(quiz.answer.update({ isIgnored: true }));
+    dispatch(app.review.update(Object.assign({}, backup, { notes })));
     dispatch(quiz.info.reset());
     // allow animation to occur
     setTimeout(() => {
@@ -192,7 +191,7 @@ export const ignoreAnswerLogic = createLogic({
       dispatch(quiz.backup.reset());
       dispatch(quiz.answer.reset());
       done();
-    }, 600);
+    }, 700);
   },
 });
 

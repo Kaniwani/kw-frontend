@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import getSrsRankName from 'utils/getSrsRankName';
+import Icon from 'components/Icon';
 import StreakIcon from 'components/StreakIcon';
 
 import {
@@ -14,18 +15,31 @@ import {
 StreakChange.propTypes = {
   from: PropTypes.number.isRequired,
   to: PropTypes.number.isRequired,
+  ignored: PropTypes.bool,
 };
 
-function StreakChange({ from, to }) {
-  const [fromName, toName] = [from, to].map(getSrsRankName);
-  const rankUp = to > from;
-  const changed = fromName !== toName;
-  const iconName = rankUp ? 'ARROW_UP' : 'ARROW_DOWN';
+StreakChange.defaultProps = {
+  ignored: false,
+};
+
+function StreakChange({ from, to, ignored }) {
+  let [fromName, toName] = [from, to].map(getSrsRankName); // eslint-disable-line prefer-const
+  const iconName = toName;
+  let rankUp;
+  let changed;
+  if (ignored) {
+    rankUp = true;
+    changed = true;
+    toName = 'IGNORED';
+  } else {
+    rankUp = to > from;
+    changed = fromName !== toName;
+  }
 
   return (
     <StreakAnimationWrapper>
-      <StreakAnimationContent streakName={toName} changed={changed} rankUp={rankUp}>
-        <StreakIcon name={iconName} />
+      <StreakAnimationContent ignored={ignored} streakName={toName} changed={changed} rankUp={rankUp}>
+        {ignored ? <Icon name="ATTENTION" title="Answer Ignored" /> : <StreakIcon streakName={iconName} />}
         <StreakText>{toName.toLowerCase()}</StreakText>
       </StreakAnimationContent>
     </StreakAnimationWrapper>

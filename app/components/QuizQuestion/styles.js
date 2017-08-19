@@ -72,13 +72,16 @@ export const StreakAnimationContent = H6.extend`
   opacity: 0;
   text-transform: capitalize;
 
-  ${({ changed, streakName, rankUp }) => changed && `
-    border: 1px solid ${darken(0.1, SRS_COLORS[streakName])};
-    background-color: ${SRS_COLORS[streakName]};
-    animation: ${rankUp ? srsRankUp : srsRankDown} .75s ease 0s 1 normal both running;
-  `}
-`;
+  ${({ ignored, changed, streakName, rankUp }) => {
+    const color = ignored ? 'orange' : SRS_COLORS[streakName];
+    return changed && `
+      border: 1px solid ${darken(0.1, color)};
+      background-color: ${color};
+      animation: ${rankUp ? srsRankUp : srsRankDown} .75s ease 0s 1 normal both running;
+    `;
+  }}
+  `;
 
 export const StreakText = styled.div`
   ${gutter({ position: 'right', mod: 2 })}
-`;
+  `;

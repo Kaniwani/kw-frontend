@@ -16,7 +16,6 @@ VocabCardList.defaultProps = {
   color: 'purple',
 };
 
-
 function VocabCardList({ ids, color }) {
   return (
     <Ul>

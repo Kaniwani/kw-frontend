@@ -161,7 +161,7 @@ export const selectSessionLastActivity = createSelector(
 
 export const selectSessionActive = createSelector(
   selectSessionLastActivity,
-  (lastActivity) => lastActivity != null && isBefore(lastActivity, addMinutes(new Date(), SESSION_EXPIRY_MINUTES)),
+  (lastActivity) => lastActivity != null && isBefore(new Date(), addMinutes(Date(lastActivity), SESSION_EXPIRY_MINUTES)),
 );
 
 export const selectQueue = createSelector(

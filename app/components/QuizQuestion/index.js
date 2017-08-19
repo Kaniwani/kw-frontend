@@ -11,7 +11,7 @@ import {
   makeSelectReviewStreak,
 } from 'containers/App/selectors';
 
-import { selectAnswerDisabled, selectBackup } from 'containers/QuizPage/selectors';
+import { selectAnswerDisabled, selectAnswerIgnored, selectBackup } from 'containers/QuizPage/selectors';
 
 import LoadingCrabigator from 'components/LoadingCrabigator';
 import TagsList from 'components/TagsList';
@@ -29,7 +29,8 @@ QuizQuestion.propTypes = {
   category: PropTypes.string.isRequired,
   meanings: PropTypes.array.isRequired,
   readings: PropTypes.array.isRequired,
-  answerChecked: PropTypes.bool.isRequired,
+  answerDisabled: PropTypes.bool.isRequired,
+  answerIgnored: PropTypes.bool.isRequired,
   streak: PropTypes.number.isRequired,
   prevStreak: PropTypes.oneOfType([
     PropTypes.bool,
@@ -37,7 +38,7 @@ QuizQuestion.propTypes = {
   ]).isRequired,
 };
 
-function QuizQuestion({ category, meanings, readings, streak, prevStreak, answerChecked }) {
+function QuizQuestion({ category, meanings, readings, streak, prevStreak, answerDisabled, answerIgnored }) {
   const [primaryTerm, ...rest] = meanings;
   // Enforce a min-height even if no terms by using japanese space ^_^
   const secondaryTerms = rest.length ? rest.join(', ') : '　';
@@ -49,8 +50,8 @@ function QuizQuestion({ category, meanings, readings, streak, prevStreak, answer
           <Secondary>{secondaryTerms}</Secondary>
         </Question>
       </QuestionWrapper>
-      <TagsList tags={readings[0].tags} isHidden={answerChecked} />
-      {answerChecked && category === 'reviews' && <StreakChange from={prevStreak} to={streak} />}
+      <TagsList tags={readings[0].tags} isHidden={answerDisabled} />
+      {answerDisabled && category === 'reviews' && <StreakChange from={prevStreak} to={streak} ignored={answerIgnored} />}
     </Wrapper>
   );
 }
@@ -61,7 +62,8 @@ const mapStateToProps = (state, { category }) => {
   const streak = makeSelectReviewStreak(id)(state);
   const prevStreak = backup ? backup.streak : streak;
   return {
-    answerChecked: selectAnswerDisabled(state),
+    answerDisabled: selectAnswerDisabled(state),
+    answerIgnored: selectAnswerIgnored(state),
     meanings: makeSelectQuizMeanings(id)(state),
     readings: makeSelectReviewReadings(id)(state),
     streak,
@@ -76,8 +78,8 @@ const enhance = compose(
     renderComponent(LoadingCrabigator)
   ),
   shouldUpdate(
-    ({ answerChecked, meanings, readings, streak }, nextProps) => (
-      answerChecked !== nextProps.answerChecked || streak !== nextProps.streak ||
+    ({ answerDisabled, meanings, readings, streak }, nextProps) => (
+      nextProps.answerIgnored || answerDisabled !== nextProps.answerDisabled || streak !== nextProps.streak ||
       !isEqual(meanings, nextProps.meanings) || !isEqual(readings, nextProps.readings)
     )
   ),
