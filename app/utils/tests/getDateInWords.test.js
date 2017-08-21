@@ -6,7 +6,7 @@ describe('getDateInWords()', () => {
   });
 
   it('should return a string formatted date', () => {
-    const staticDate = new Date(2014, 10, 2);
+    const staticDate = Date(2014, 10, 2);
     expect(getDateInWords(staticDate)).toMatchSnapshot();
   });
 });

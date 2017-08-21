@@ -21,12 +21,12 @@ export const selectCategoryFromMatch = (props) => props.match.params.category;
 export const selectProfile = (state) => state.global.profile;
 export const selectDashboard = (state) => state.global.dashboard;
 export const selectSrsCounts = createSelector(selectDashboard, (dashboard) => dashboard.srsCounts);
-export const selectNextReviewDate = createSelector(selectDashboard, (dashboard) => dashboard.nextReviewDate);
+export const selectNextReviewDate = createSelector(selectDashboard, (dashboard) => dashboard.nextReviewDate || false);
+export const selectVacationDate = createSelector(selectDashboard, (dashboard) => dashboard.vacationDate || false);
 
 export const selectSettings = (state) => state.global.settings;
 export const selectQuizSettings = createSelector(selectSettings, (settings) => settings.quiz);
 export const selectVocabularySettings = createSelector(selectSettings, (settings) => settings.vocabulary);
-export const selectOnVacation = createSelector(selectQuizSettings, (quiz) => quiz.onVacation);
 
 export const selectLessonSession = (state) => state.global.session.lessons;
 export const selectReviewSession = (state) => state.global.session.reviews;
@@ -161,7 +161,11 @@ export const selectSessionLastActivity = createSelector(
 
 export const selectSessionActive = createSelector(
   selectSessionLastActivity,
-  (lastActivity) => lastActivity != null && isBefore(new Date(), addMinutes(Date(lastActivity), SESSION_EXPIRY_MINUTES)),
+  (lastActivity) => {
+    const expiryDate = addMinutes(lastActivity, SESSION_EXPIRY_MINUTES);
+    const isActive = lastActivity && isBefore(Date(), expiryDate);
+    return isActive;
+  }
 );
 
 export const selectQueue = createSelector(

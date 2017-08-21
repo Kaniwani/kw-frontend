@@ -4,38 +4,38 @@ import { connect } from 'react-redux';
 import { compose, withStateHandlers } from 'recompose';
 import ReactInterval from 'react-interval';
 
-import nullable from 'utils/propNullable';
 import isPast from 'date-fns/is_past';
+import format from 'date-fns/format';
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 
+import { DATE_FORMAT } from 'shared/constants';
 import H3 from 'base/H3';
 import Element from 'base/Element';
-import { selectSessionCount, selectOnVacation, selectNextReviewDate } from 'containers/App/selectors';
+import { selectSessionCount, selectVacationDate, selectNextReviewDate } from 'containers/App/selectors';
 
 ReviewStatus.propTypes = {
   updateStatus: PropTypes.func.isRequired,
   reviewStatusText: PropTypes.string.isRequired,
   reviewsCount: PropTypes.number.isRequired,
-  onVacation: PropTypes.bool.isRequired,
-  nextReviewDate: nullable(PropTypes.instanceOf(Date)),
+  vacationDate: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.oneOf([false])]).isRequired,
+  nextReviewDate: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.oneOf([false])]).isRequired,
 };
 
-function getReviewStatusText({ onVacation, reviewsCount, nextReviewDate }) {
-  if (onVacation) return 'On Vacation!';
-  if (!reviewsCount && nextReviewDate == null) return 'No reviews available';
-  if (isPast(nextReviewDate)) return 'Now!';
-  return distanceInWordsToNow(nextReviewDate, { includeSeconds: true, suffix: true });
+function getReviewStatusText({ vacationDate, reviewsCount, nextReviewDate }) {
+  if (vacationDate) return `On Vacation since ${format(vacationDate, DATE_FORMAT)}`;
+  if (!reviewsCount && !nextReviewDate) return 'Next Review: No reviews unlocked';
+  if (isPast(nextReviewDate)) return 'Reviews Ready!';
+  return `Next Review: ${distanceInWordsToNow(nextReviewDate, { includeSeconds: true, suffix: true })}`;
 }
 
-function ReviewStatus({ updateStatus, reviewStatusText, onVacation, reviewsCount, nextReviewDate }) {
+function ReviewStatus({ updateStatus, reviewStatusText, vacationDate, reviewsCount, nextReviewDate }) {
   return (
     <Element flexRow flexCenter>
-      {/* TODO: button linking to reviews like previous KW */}
-      <H3>Next Review: {reviewStatusText}</H3>
+      <H3>{reviewStatusText}</H3>
       <ReactInterval
         enabled
         timeout={5000}
-        callback={() => updateStatus({ onVacation, reviewsCount, nextReviewDate })}
+        callback={() => updateStatus({ vacationDate, reviewsCount, nextReviewDate })}
       />
     </Element>
   );
@@ -44,15 +44,15 @@ function ReviewStatus({ updateStatus, reviewStatusText, onVacation, reviewsCount
 const mapStateToProps = (state) => ({
   reviewsCount: selectSessionCount(state, { category: 'reviews' }),
   nextReviewDate: selectNextReviewDate(state),
-  vacationDate: selectOnVacation(state),
+  vacationDate: selectVacationDate(state),
 });
 
 const enhance = compose(
   connect(mapStateToProps),
   withStateHandlers(
     (props) => ({ reviewStatusText: getReviewStatusText(props) }),
-    { updateStatus: () => ({ onVacation, reviewsCount, nextReviewDate }) => ({
-      reviewStatusText: getReviewStatusText({ onVacation, reviewsCount, nextReviewDate }),
+    { updateStatus: () => ({ vacationDate, reviewsCount, nextReviewDate }) => ({
+      reviewStatusText: getReviewStatusText({ vacationDate, reviewsCount, nextReviewDate }),
     }) },
   )
 );

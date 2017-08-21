@@ -5,7 +5,7 @@ import titleCase from 'voca/title_case';
 import noop from 'lodash/noop';
 import { createStructuredSelector } from 'reselect';
 
-import { selectSessionCount, selectSessionActive } from 'containers/App/selectors';
+import { selectRemainingCount, selectSessionActive } from 'containers/App/selectors';
 import app from 'containers/App/actions';
 import LogoLink from 'components/LogoLink';
 import SessionLink from './SessionLink';
@@ -23,13 +23,13 @@ QuizSummaryHeader.propTypes = {
   resetSession: PropTypes.func.isRequired,
 };
 
-function QuizSummaryHeader({ category, sessionCount, sessionActive, resetSession }) {
-  const linkText = () => {
-    if (sessionCount < 1) return `No ${titleCase(category)}`;
-    if (sessionActive) return 'Continue Session';
-    return 'Begin Session';
-  };
+const linkText = (sessionCount, sessionActive, category) => {
+  if (sessionCount < 1) return `No ${titleCase(category)}`;
+  if (sessionActive) return 'Continue Session';
+  return 'Begin Session';
+};
 
+function QuizSummaryHeader({ category, sessionCount, sessionActive, resetSession }) {
   return (
     <Header>
       <Wrapper>
@@ -37,7 +37,7 @@ function QuizSummaryHeader({ category, sessionCount, sessionActive, resetSession
         <Title>{titleCase(category)} Summary</Title>
         <SessionLink
           isDisabled={sessionCount < 1}
-          text={linkText()}
+          text={linkText(sessionCount, sessionActive, category)}
           to={`/${category}/session`}
           count={sessionCount}
           handleClick={!sessionActive ? resetSession : noop}
@@ -48,7 +48,7 @@ function QuizSummaryHeader({ category, sessionCount, sessionActive, resetSession
 }
 
 const mapStateToProps = createStructuredSelector({
-  sessionCount: selectSessionCount,
+  sessionCount: selectRemainingCount,
   sessionActive: selectSessionActive,
 });
 

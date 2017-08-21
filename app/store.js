@@ -7,6 +7,7 @@ import { routerMiddleware } from 'react-router-redux';
 import { createLogicMiddleware } from 'redux-logic';
 import { autoRehydrate, persistStore } from 'redux-persist';
 import { REHYDRATE } from 'redux-persist/constants';
+import jsonTransform from 'utils/jsonTransform';
 
 import createActionBuffer from 'redux-action-buffer';
 import localForage from 'localforage';
@@ -60,6 +61,7 @@ export default function configureStore(initialState = {}, history) {
     storage: localForage,
     whitelist: ['global'],
     debounce: 1500,
+    transforms: [jsonTransform],
   });
 
   // Extensions

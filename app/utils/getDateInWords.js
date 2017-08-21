@@ -6,7 +6,7 @@ import { DATE_TIME_FORMAT } from 'shared/constants';
  * @param  {Date} date js Date()
  * @return {String} date in words
  * @example
- * format(new Date(2014, 6, 2), DATE_TIME_FORMAT)
+ * format(Date(2014, 6, 2), DATE_TIME_FORMAT)
  * // => Wednesday 2 July 2014
  */
 export default function getDateInWords(date) {

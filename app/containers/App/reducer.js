@@ -29,14 +29,14 @@ export const initialState = {
   },
   session: {
     lessons: {
-      lastActivity: null,
+      lastActivity: false,
       current: false,
       queue: [],
       correct: [],
       incorrect: [],
     },
     reviews: {
-      lastActivity: null,
+      lastActivity: false,
       current: false,
       queue: [],
       correct: [],
@@ -83,11 +83,11 @@ const reviewSessionReducer = handleActions({
   }),
   [app.reviews.correct.add]: (state, { payload }) => update(state, {
     correct: { $set: union(state.correct, [payload]) },
-    lastActivity: { $set: Date.now() },
+    lastActivity: { $set: Date() },
   }),
   [app.reviews.incorrect.add]: (state, { payload }) => update(state, {
     incorrect: { $set: union(state.incorrect, [payload]) },
-    lastActivity: { $set: Date.now() },
+    lastActivity: { $set: Date() },
   }),
   [app.reviews.resetSession]: (state) => update(state, {
     correct: { $set: [] },
@@ -114,11 +114,11 @@ const lessonSessionReducer = handleActions({
   }),
   [app.lessons.correct.add]: (state, { payload }) => update(state, {
     correct: { $set: union(state.correct, [payload]) },
-    lastActivity: { $set: Date.now() },
+    lastActivity: { $set: Date() },
   }),
   [app.lessons.incorrect.add]: (state, { payload }) => update(state, {
     incorrect: { $set: union(state.incorrect, [payload]) },
-    lastActivity: { $set: Date.now() },
+    lastActivity: { $set: Date() },
   }),
   [app.lessons.resetSession]: (state) => update(state, {
     correct: { $set: [] },

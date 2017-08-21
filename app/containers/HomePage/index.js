@@ -31,7 +31,6 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
 
   render() {
     const { profile, dashboard, forceSrs, forceWkSrs } = this.props;
-
     return (
       <PageWrapper>
         <Helmet>

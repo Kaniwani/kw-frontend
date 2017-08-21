@@ -29,7 +29,9 @@ QuizSummaryContent.propTypes = {
   incorrectIds: PropTypes.array.isRequired,
   criticalIds: PropTypes.array.isRequired,
   percentCorrect: PropTypes.number.isRequired,
-  lastActivity: PropTypes.number,
+  cardsExpanded: PropTypes.bool.isRequired,
+  toggleCardsExpanded: PropTypes.func.isRequired,
+  lastActivity: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.oneOf([false])]).isRequired,
 };
 
 function QuizSummaryContent({
@@ -70,7 +72,7 @@ function QuizSummaryContent({
             ids={criticalIds}
             cardsExpanded={cardsExpanded}
           />
-          {lastActivity != null && (
+          {lastActivity && (
             <Container>
               <H4>
                 Last session activity: {

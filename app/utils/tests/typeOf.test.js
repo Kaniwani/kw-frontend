@@ -11,7 +11,7 @@ describe('typeOf', () => {
     expect(typeOf(new Map())).toBe('map');
     expect(typeOf(new Set())).toBe('set');
     expect(typeOf(/re/gi)).toBe('regexp');
-    expect(typeOf(new Date())).toBe('date');
+    expect(typeOf(Date())).toBe('date');
     expect(typeOf(() => {})).toBe('function');
     expect(typeOf(() => {})).toBe('function');
     expect(typeOf(true)).toBe('boolean');

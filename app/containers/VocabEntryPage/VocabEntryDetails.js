@@ -5,7 +5,6 @@ import { compose, branch, renderNothing } from 'recompose';
 import format from 'date-fns/format';
 
 import { DATE_FORMAT } from 'shared/constants';
-import nullable from 'utils/propNullable';
 import getDateInWords from 'utils/getDateInWords';
 import calculatePercentage from 'utils/calculatePercentage';
 
@@ -34,9 +33,9 @@ VocabEntryDetails.propTypes = {
     isHidden: PropTypes.bool.isRequired,
     isReviewReady: PropTypes.bool.isRequired,
     isCritical: PropTypes.bool.isRequired,
-    nextReviewDate: nullable(PropTypes.instanceOf(Date)).isRequired,
-    lastReviewDate: nullable(PropTypes.instanceOf(Date)).isRequired,
-    unlockDate: nullable(PropTypes.instanceOf(Date)).isRequired,
+    nextReviewDate: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.oneOf([false])]).isRequired,
+    lastReviewDate: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.oneOf([false])]).isRequired,
+    unlockDate: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.oneOf([false])]).isRequired,
   }).isRequired,
 };
 

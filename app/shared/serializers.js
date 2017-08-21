@@ -4,7 +4,7 @@ import isString from 'lodash/isString';
 import castArray from 'lodash/castArray';
 import uniq from 'lodash/uniq';
 import condenseReadings from 'utils/condenseReadings';
-
+import parse from 'date-fns/parse';
 
 // TODO: extract utils to nested ./file with tests
 
@@ -14,7 +14,7 @@ const combineTags = ({ tags, jlpt, common }) => {
   return jlpt != null ? [jlpt, ...newTags] : newTags;
 };
 
-const dateOrNull = (date) => date == null ? null : new Date(date);
+const dateOrFalse = (date) => date && date != null ? parse(date) : false;
 
 const toUniqueStringsArray = (data) => {
   let asArray = data;
@@ -38,7 +38,7 @@ export const serializeAddSynonymResponse = serializeSynonym;
 export const serializeAnnouncementsResponse = ({ results }) => results.slice(0, 10).map(({ pub_date, title, body }) => ({
   title,
   body,
-  pubDate: dateOrNull(pub_date),
+  pubDate: dateOrFalse(pub_date),
 }));
 
 export const serializeQueueResponse = ({ results }) => {
@@ -105,7 +105,7 @@ function serializeProfile({
     email,
     apiKey,
     isApiValid: !!api_valid,
-    joinDate: dateOrNull(joinDate),
+    joinDate: dateOrFalse(joinDate),
     currentLevel: +level,
     unlockedLevels: unlockedLevels.map(Number),
   };
@@ -134,9 +134,9 @@ function serializeDashboard({
     lessonsCount: +lessonsCount,
     nextHourReviews: +nextHourReviews,
     nextDayReviews: +nextDayReviews,
-    nextReviewDate: dateOrNull(nextReviewDate),
-    vacationDate: dateOrNull(vacationDate),
-    lastWkSyncDate: dateOrNull(lastWkSyncDate),
+    nextReviewDate: dateOrFalse(nextReviewDate),
+    vacationDate: dateOrFalse(vacationDate),
+    lastWkSyncDate: dateOrFalse(lastWkSyncDate),
     srsCounts: upcaseKeys(srsCounts),
   };
 }
@@ -285,9 +285,9 @@ function serializeReviewEntry({
 } = {}) {
   return {
     isReviewReady,
-    lastReviewDate: dateOrNull(lastReviewDate),
-    unlockDate: dateOrNull(unlockDate),
-    nextReviewDate: dateOrNull(nextReviewDate),
+    lastReviewDate: dateOrFalse(lastReviewDate),
+    unlockDate: dateOrFalse(unlockDate),
+    nextReviewDate: dateOrFalse(nextReviewDate),
     isHidden,
     isCritical,
     wkStreak: +wanikani_srs_numeric,
