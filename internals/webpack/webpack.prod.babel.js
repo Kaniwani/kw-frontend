@@ -17,12 +17,16 @@ module.exports = require('./webpack.base.babel')({
   },
 
   plugins: [
+    // create a dedicated vendor bundle
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       children: true,
       minChunks: 2,
       async: true,
     }),
+
+    // hoist modules rather than fn() wrap
+    new webpack.optimize.ModuleConcatenationPlugin(),
 
     // Minify and optimize the index.html
     new HtmlWebpackPlugin({

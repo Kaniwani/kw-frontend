@@ -105,11 +105,15 @@ module.exports = (options) => ({
     ],
     mainFields: [
       'browser',
-      'jsnext:main',
+      'module',
       'main',
     ],
   },
   devtool: options.devtool,
   target: 'web', // Make web variables accessible to webpack, e.g. window
+  // prevent "can't resolve fs" errors when building dll
+  node: {
+    fs: 'empty',
+  },
   performance: options.performance || {},
 });
