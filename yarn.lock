@@ -972,7 +972,7 @@ babel-plugin-transform-strict-mode@^6.24.1:
     babel-runtime "^6.22.0"
     babel-types "^6.24.1"
 
-babel-polyfill@6.26.0, babel-polyfill@^6.26.0:
+babel-polyfill@^6.26.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-polyfill/-/babel-polyfill-6.26.0.tgz#379937abc67d7895970adc621f284cd966cf2153"
   dependencies:
@@ -7056,6 +7056,22 @@ react-cosmos-loader@^2.0.0-beta.22:
     react-cosmos-state-proxy "^2.0.0-beta.22"
     react-cosmos-utils "^2.0.0-beta.22"
 
+react-cosmos-redux-proxy@2.0.0-beta.22:
+  version "2.0.0-beta.22"
+  resolved "https://registry.yarnpkg.com/react-cosmos-redux-proxy/-/react-cosmos-redux-proxy-2.0.0-beta.22.tgz#6127e64e08af7d31f1f7f6ce6d50f847f7103516"
+  dependencies:
+    lodash.omit "^4.5.0"
+    prop-types "^15.5.10"
+    react-cosmos-utils "^2.0.0-beta.22"
+    redux "^3.6.0"
+
+react-cosmos-router-proxy@2.0.0-beta.22:
+  version "2.0.0-beta.22"
+  resolved "https://registry.yarnpkg.com/react-cosmos-router-proxy/-/react-cosmos-router-proxy-2.0.0-beta.22.tgz#f2726a644108547bbdfe7f8e4693e3fb075374a6"
+  dependencies:
+    prop-types "^15.5.10"
+    react-cosmos-utils "^2.0.0-beta.22"
+
 react-cosmos-state-proxy@^2.0.0-beta.22:
   version "2.0.0-beta.22"
   resolved "https://registry.yarnpkg.com/react-cosmos-state-proxy/-/react-cosmos-state-proxy-2.0.0-beta.22.tgz#c2065dc8c70d7f4d8ea1bd134a806745278c77d9"
@@ -7461,7 +7477,7 @@ redux-persist@4.9.1:
     lodash "^4.17.4"
     lodash-es "^4.17.4"
 
-redux@3.7.2:
+redux@3.7.2, redux@^3.6.0:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/redux/-/redux-3.7.2.tgz#06b73123215901d25d065be342eb026bc1c8537b"
   dependencies:

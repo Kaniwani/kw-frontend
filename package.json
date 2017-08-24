@@ -200,6 +200,8 @@
     "plop": "1.8.1",
     "pre-commit": "1.2.2",
     "prop-types": "15.5.10",
+    "react-cosmos-redux-proxy": "2.0.0-beta.22",
+    "react-cosmos-router-proxy": "2.0.0-beta.22",
     "react-cosmos-webpack": "2.0.0-beta.22",
     "react-test-renderer": "15.6.1",
     "redux-freeze": "0.1.5",

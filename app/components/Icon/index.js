@@ -19,6 +19,7 @@ Icon.defaultProps = {
 };
 
 function Icon({ name, inline, color, size, ...props }) {
+  const NAME = ICONS[name] || {};
   return (
     <SVGWrapper
       inline={inline}
@@ -31,9 +32,9 @@ function Icon({ name, inline, color, size, ...props }) {
         width="100%"
         height="100%"
         preserveAspectRatio="xMidYMid meet"
-        viewBox={ICONS[name].viewBox}
+        viewBox={NAME.viewBox}
       >
-        <path d={ICONS[name].path} />
+        <path d={NAME.path} />
       </SVG>
     </SVGWrapper>
   );

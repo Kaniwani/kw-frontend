@@ -4,15 +4,14 @@ import { connect } from 'react-redux';
 import { compose, branch, renderNothing } from 'recompose';
 import format from 'date-fns/format';
 
+import { makeSelectReview } from 'containers/App/selectors';
 import { DATE_FORMAT } from 'shared/constants';
 import getDateInWords from 'utils/getDateInWords';
 import calculatePercentage from 'utils/calculatePercentage';
 
-import StreakStatus from 'components/VocabEntryDetail/StreakStatus';
-import Status from 'components/VocabEntryDetail/Status';
 import ReviewLock from 'components/ReviewLock';
-
-import { makeSelectReview } from 'containers/App/selectors';
+import StreakStatus from './StreakStatus';
+import Status from './Status';
 
 import { ColumnContainer, LockContainer } from './styles';
 
