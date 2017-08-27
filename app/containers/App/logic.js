@@ -94,7 +94,7 @@ export const userResetPasswordLogic = createLogic({
 
 export const userLogoutLogic = createLogic({
   type: app.user.logout,
-  process({ action }, dispatch, done) {
+  process(_, dispatch, done) {
     clearToken();
     purgeStoredState({ storage: localForage }).then(() => {
       console.log('persisted state purged');
@@ -126,7 +126,7 @@ export const userLoadLogic = createLogic({
 export const loadQueuesIfNeededLogic = createLogic({
   type: app.user.load.success,
   latest: true,
-  process({ getState, action }, dispatch, done) {
+  process({ getState }, dispatch, done) {
     const state = getState();
     const { reviewCount, lessonCount, reviewQueue, lessonQueue } = ({
       reviewCount: sel.selectSessionCount(state, { category: 'reviews' }),
@@ -145,9 +145,9 @@ export const loadQueuesIfNeededLogic = createLogic({
 
 export const forceSrsLogic = createLogic({
   type: app.user.srs.request,
-  process({ action }, dispatch, done) {
+  process(_, dispatch, done) {
     return api.syncKw().then(({ body }) => {
-      dispatch(app.user.load.success({ dashboard: { reviewsCount: body.review_count } }));
+      dispatch(app.user.load.success({ profile: { reviewsCount: body.review_count } }));
       done();
     });
   },
@@ -155,10 +155,10 @@ export const forceSrsLogic = createLogic({
 
 export const forceWkSrsLogic = createLogic({
   type: app.user.wksrs.request,
-  process({ action }, dispatch, done) {
+  process(_, dispatch, done) {
     return api.syncWk().then(({ body }) => {
       console.log('forcewkresponse', body);
-      // dispatch(app.user.load.success({ dashboard: { reviewsCount: body.review_count } }));
+      // dispatch(app.user.load.success({ profile: { reviewsCount: body.review_count } }));
       done();
     });
   },
@@ -219,30 +219,41 @@ export const lessonsQueueLoadLogic = createLogic({
 export const setCurrentOnQueueLoadLogic = createLogic({
   type: [app.reviews.queue.load.success, app.lessons.queue.load.success],
   process({ getState, action: { type } }, dispatch, done) {
+    const state = getState();
     const category = type === `${app.reviews.queue.load.success}` ? 'reviews' : 'lessons';
-    const { current, queue } = sel.selectSessionByCategory(getState(), { category });
-    if (!current && queue.length) {
+    const currentId = sel.selectCurrentId(state, { category });
+    const queue = sel.selectQueue(state, { category });
+    if (!currentId && queue.length) {
       dispatch(app[category].current.set());
+      done();
     } else {
-      console.log('Loaded more queue but already have current: ', { current, category, queue });
+      console.log('Loaded more queue but already have currentId: ', { currentId, category, queue });
     }
-    done();
   },
 });
 
 export const setCurrentLogic = createLogic({
   type: [app.reviews.current.set, app.lessons.current.set],
-  validate({ getState, action }, next) {
+  validate({ getState, action }, allow, reject) {
     const state = getState();
     const category = action.type === `${app.reviews.current.set}` ? 'reviews' : 'lessons';
-    const { current, queue } = sel.selectSessionByCategory(state, { category });
-    const newId = sample(difference(queue, [current]));
+    const current = sel.selectCurrent(state, { category });
+    const queue = sel.selectQueue(state, { category });
+    const correct = sel.selectCorrectIds(state, { category });
+    const newId = sample(difference(queue, [current.id]));
     if (newId || queue.length) {
-      next({ ...action, payload: newId });
-    } else {
-      console.log('Current was the only remaining item', { queue, current, newId });
-      next({ ...action, payload: current });
+      const newCurrent = sel.selectReviewEntities(state)[newId];
+      allow({ ...action, payload: newCurrent });
     }
+    if (!newId && current.id && !correct.includes(current.id)) {
+      console.log('Current was the only remaining item', { queue, current, newId });
+      allow({ ...action, payload: current });
+    }
+    if (!newId) {
+      console.log('End of queue?');
+      allow({ ...action, payload: { id: undefined } });
+    }
+    reject();
   },
 });
 
@@ -250,16 +261,15 @@ export const returnCurrentLogic = createLogic({
   type: [app.reviews.current.return, app.lessons.current.return],
   validate({ getState, action }, allow, reject) {
     const state = getState();
-    const { current, queue } = (
-      action.type === `${app.reviews.current.return}` ?
-        sel.selectReviewSession(state) :
-        sel.selectLessonSession(state)
-    );
-    const newId = sample(difference(queue, [current]));
+    const category = action.type === `${app.reviews.current.return}` ? 'reviews' : 'lessons';
+    const currentId = sel.selectCurrentId(state, { category });
+    const queue = sel.selectQueue(state, { category });
+    const newId = sample(difference(queue, [currentId]));
     if (newId) {
-      allow({ ...action, payload: newId });
+      const newCurrent = sel.selectReviewEntities(state)[newId];
+      allow({ ...action, payload: { newCurrent, currentId } });
     } else {
-      console.log('Rejected returning current - no other queue items', { queue, current, newId });
+      console.log('Rejected returning current - no other queue items', { queue, currentId, newId });
       reject();
     }
   },

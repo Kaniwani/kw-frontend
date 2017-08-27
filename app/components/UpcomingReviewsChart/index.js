@@ -18,7 +18,7 @@ import 'britecharts/dist/css/charts/bar.css';
 import Element from 'base/Element';
 
 // FIXME: replace mock data with server data
-const genName = (count, index) => `${format(addHours(Date(), index + 1), 'ha')}`;
+const genName = (count, index) => `${format(addHours(new Date(), index + 1), 'ha')}`;
 const genCount = () => ~~(Math.random() * 100);
 
 // combine counts into hour blocks using latest hour as label

@@ -5,17 +5,17 @@ import { compose, branch, renderComponent, shouldUpdate } from 'recompose';
 import isEqual from 'lodash/isEqual';
 
 import {
-  selectCurrentId,
+  selectCurrent,
   makeSelectQuizMeanings,
   makeSelectReviewReadings,
   makeSelectReviewStreak,
 } from 'containers/App/selectors';
 
-import { selectAnswerDisabled, selectAnswerIgnored, selectBackup } from 'containers/QuizPage/selectors';
+import { selectAnswerDisabled, selectAnswerIgnored } from 'containers/QuizPage/selectors';
 
 import LoadingCrabigator from 'components/LoadingCrabigator';
 import TagsList from 'components/TagsList';
-import StreakChange from './StreakChange';
+import Flyover from './Flyover';
 
 import {
   Wrapper,
@@ -51,16 +51,14 @@ function QuizQuestion({ category, meanings, readings, streak, prevStreak, answer
         </Question>
       </QuestionWrapper>
       <TagsList tags={readings[0].tags} isHidden={answerDisabled} />
-      {answerDisabled && category === 'reviews' && <StreakChange from={prevStreak} to={streak} ignored={answerIgnored} />}
+      {answerDisabled && category === 'reviews' && <Flyover from={prevStreak} to={streak} ignored={answerIgnored} />}
     </Wrapper>
   );
 }
 
 const mapStateToProps = (state, { category }) => {
-  const id = selectCurrentId(state, { category });
-  const backup = selectBackup(state);
-  const streak = makeSelectReviewStreak(id)(state);
-  const prevStreak = backup ? backup.streak : streak;
+  const { id, streak } = selectCurrent(state, { category });
+  const prevStreak = makeSelectReviewStreak(id)(state);
   return {
     answerDisabled: selectAnswerDisabled(state),
     answerIgnored: selectAnswerIgnored(state),

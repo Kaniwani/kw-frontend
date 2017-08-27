@@ -59,7 +59,7 @@ export default function configureStore(initialState = {}, history) {
 
   persistStore(store, {
     storage: localForage,
-    whitelist: ['global'],
+    whitelist: ['profile', 'settings', 'entities', 'queue', 'summary'],
     debounce: 1500,
     transforms: [jsonTransform],
   });

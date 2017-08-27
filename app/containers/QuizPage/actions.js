@@ -19,10 +19,6 @@ export const { quiz } = createActions({
       CYCLEDETAIL: SYNC,
       RESET: SYNC,
     },
-    BACKUP: {
-      SET: SYNC,
-      RESET: SYNC,
-    },
     ANSWER: {
       UPDATE: SYNC,
       SUBMIT: SYNC,

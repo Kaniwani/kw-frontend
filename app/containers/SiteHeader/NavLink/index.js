@@ -6,13 +6,14 @@ import { Li, Link, LinkButton, Text, Count } from './styles';
 NavLink.propTypes = {
   text: PropTypes.string.isRequired,
   route: PropTypes.string.isRequired,
-  isOffCanvas: PropTypes.bool.isRequired,
   handleLogout: PropTypes.func.isRequired,
+  isOffCanvas: PropTypes.bool,
   count: PropTypes.number,
 };
 
 NavLink.defaultProps = {
   count: 0,
+  isOffCanvas: false,
 };
 
 function NavLink({

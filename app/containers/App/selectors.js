@@ -4,32 +4,29 @@ import titleCase from 'voca/title_case';
 import isBefore from 'date-fns/is_before';
 import addMinutes from 'date-fns/add_minutes';
 
+import { SESSION_EXPIRY_MINUTES } from 'shared/constants';
 import groupByRank from 'utils/groupByRank';
 import calculatePercentage from 'utils/calculatePercentage';
 import getSrsRankName from 'utils/getSrsRankName';
 import filterRomajiReadings from 'utils/filterRomajiReadings';
 
-import { SESSION_EXPIRY_MINUTES } from 'shared/constants';
-
 export const selectLocation = (state) => state.route.location;
 export const selectLocationPath = createSelector(selectLocation, (location) => location && location.pathname);
-export const selectGlobal = (state) => state.global;
-export const selectEntities = (state) => state.global.entities;
+export const selectEntities = (state) => state.entities;
+export const selectUi = (state) => state.ui;
 export const selectIdFromMatch = (props) => +props.match.params.id;
 export const selectCategoryFromMatch = (props) => props.match.params.category;
 
-export const selectProfile = (state) => state.global.profile;
-export const selectDashboard = (state) => state.global.dashboard;
-export const selectSrsCounts = createSelector(selectDashboard, (dashboard) => dashboard.srsCounts);
-export const selectNextReviewDate = createSelector(selectDashboard, (dashboard) => dashboard.nextReviewDate || false);
-export const selectVacationDate = createSelector(selectDashboard, (dashboard) => dashboard.vacationDate || false);
+export const selectProfile = (state) => state.profile;
+export const selectSrsCounts = createSelector(selectProfile, (profile) => profile.srsCounts);
+export const selectNextReviewDate = createSelector(selectProfile, (profile) => profile.nextReviewDate || false);
+export const selectVacationDate = createSelector(selectProfile, (profile) => profile.vacationDate || false);
+export const selectLastWkSyncDate = createSelector(selectProfile, (profile) => profile.lastWkSyncDate || false);
 
-export const selectSettings = (state) => state.global.settings;
+export const selectSettings = (state) => state.settings;
 export const selectQuizSettings = createSelector(selectSettings, (settings) => settings.quiz);
 export const selectVocabularySettings = createSelector(selectSettings, (settings) => settings.vocabulary);
 
-export const selectLessonSession = (state) => state.global.session.lessons;
-export const selectReviewSession = (state) => state.global.session.reviews;
 export const selectReviewEntities = createSelector(selectEntities, (entities) => entities.reviews);
 export const makeSelectReview = (id) => createSelector(selectReviewEntities, (reviews) => reviews && reviews[id]);
 
@@ -38,12 +35,12 @@ export const selectLevelIds = createSelector(selectLevelEntities, (levels) => Ob
 export const makeSelectLevel = (id) => createSelector(selectLevelEntities, (levels) => levels && levels[id]);
 export const makeSelectLevelReviews = (id) => createSelector(makeSelectLevel(id), (level) => level && level.reviews);
 
-export const selectAnnouncements = (state) => state.global.announcements;
+export const selectAnnouncements = (state) => state.announcements;
 export const makeSelectAnnouncement = (id) => createSelector(selectAnnouncements, (announcements) => announcements && announcements[id]);
 
 export const selectSessionCount = createSelector(
-  (state, { category }) => [selectDashboard(state), category],
-  ([dashboard, category]) => dashboard ? dashboard[`${category}Count`] : 0,
+  (state, { category }) => [selectProfile(state), category],
+  ([profile, category]) => profile ? profile[`${category}Count`] : 0,
 );
 
 export const selectUserLevel = createSelector(selectProfile, (state) => state && state.currentLevel);
@@ -152,39 +149,46 @@ export const makeSelectVocabChipToolTipMarkup = (id) => createSelector(
   generateToolTip,
 );
 
-export const selectSessionByCategory = (state, { category }) => category === 'reviews' ? selectReviewSession(state) : selectLessonSession(state);
+export const selectQueue = (state, { category }) => state.queue[category];
+export const selectSession = (state, { category }) => state.session[category];
+export const selectSummary = (state, { category }) => state.summary[category];
 
-export const selectSessionLastActivity = createSelector(
-  selectSessionByCategory,
+export const selectLastActivity = createSelector(
+  selectSummary,
   (session) => session.lastActivity,
 );
 
 export const selectSessionActive = createSelector(
-  selectSessionLastActivity,
-  (lastActivity) => {
+  [selectLastActivity, selectQueue],
+  (lastActivity, queue) => {
     const expiryDate = addMinutes(lastActivity, SESSION_EXPIRY_MINUTES);
-    const isActive = lastActivity && isBefore(Date(), expiryDate);
+    const isActive = lastActivity && queue.length > 0 && isBefore(new Date(), expiryDate);
     return isActive;
   }
 );
 
-export const selectQueue = createSelector(
-  selectSessionByCategory,
-  (session) => session.queue,
-);
-
-export const selectCurrentId = createSelector(
-  selectSessionByCategory,
+export const selectCurrent = createSelector(
+  selectSession,
   ({ current }) => current,
 );
 
+export const selectCurrentId = createSelector(
+  selectCurrent,
+  (current) => current.id,
+);
+
+export const selectCurrentStreakName = createSelector(
+  selectCurrent,
+  (current) => getSrsRankName(current.streak),
+);
+
 export const selectCorrectCount = createSelector(
-  selectSessionByCategory,
+  selectSession,
   ({ correct }) => correct.length
 );
 
 export const selectIncorrectCount = createSelector(
-  selectSessionByCategory,
+  selectSession,
   ({ incorrect }) => incorrect.length
 );
 
@@ -193,34 +197,41 @@ export const selectRemainingCount = createSelector(
   (correct, total) => Math.max(total - correct, 0),
 );
 
-export const selectCompleteCount = createSelector(
-  [selectCorrectCount, selectIncorrectCount],
-  (correct, incorrect) => correct + incorrect,
-);
-
 export const selectPercentComplete = createSelector(
   [selectCorrectCount, selectSessionCount],
   (correct, total) => calculatePercentage(correct, total),
 );
 
+const calculateCorrectPercentage = (correct, incorrect) => {
+  const complete = correct + incorrect;
+  const pristine = complete < 1;
+  return pristine ? 100 : calculatePercentage(correct, complete);
+};
+
 export const selectPercentCorrect = createSelector(
-  [selectCorrectCount, selectCompleteCount],
-  (correct, complete) => {
-    const pristine = complete < 1;
-    return pristine ? 100 : calculatePercentage(correct, complete);
-  },
+  [selectCorrectCount, selectIncorrectCount],
+  calculateCorrectPercentage
 );
 
-export const selectCorrectIds = createSelector(selectSessionByCategory, ({ correct }) => correct);
-export const selectIncorrectIds = createSelector(selectSessionByCategory, ({ incorrect }) => incorrect);
-export const selectCriticalIds = createSelector(
-  [selectReviewEntities, selectCorrectIds, selectIncorrectIds],
-  (reviews, correctIds, incorrectIds) => [...correctIds, ...incorrectIds].filter((id) => reviews[id].isCritical)
-);
-
+export const selectCorrectIds = createSelector(selectSession, ({ correct }) => correct);
+export const selectIncorrectIds = createSelector(selectSession, ({ incorrect }) => incorrect);
 export const selectPreviouslyIncorrect = createSelector(
   [selectCurrentId, selectIncorrectIds],
   (currentId, incorrectIds) => incorrectIds.includes(currentId),
+);
+
+export const selectSummaryCorrectIds = createSelector(selectSummary, ({ correct }) => correct);
+export const selectSummaryIncorrectIds = createSelector(selectSummary, ({ incorrect }) => incorrect);
+export const selectSummaryCriticalIds = createSelector(
+  [selectReviewEntities, selectSummaryCorrectIds, selectSummaryIncorrectIds],
+  (reviews, correctIds, incorrectIds) => [...correctIds, ...incorrectIds].filter((id) => reviews[id].isCritical)
+);
+export const selectSummaryCorrectCount = createSelector(selectSummaryCorrectIds, (correct) => correct.length);
+export const selectSummaryIncorrectCount = createSelector(selectSummaryIncorrectIds, (incorrect) => incorrect.length);
+
+export const selectSummaryPercentCorrect = createSelector(
+  [selectSummaryCorrectCount, selectSummaryIncorrectCount],
+  calculateCorrectPercentage
 );
 
 const entityExists = (entities) => (id) => entities[id] != null;

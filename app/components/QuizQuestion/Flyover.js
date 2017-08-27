@@ -5,24 +5,19 @@ import getSrsRankName from 'utils/getSrsRankName';
 import Icon from 'components/Icon';
 import StreakIcon from 'components/StreakIcon';
 
-import {
-  StreakAnimationWrapper,
-  StreakAnimationContent,
-  StreakText,
-} from './styles';
+import { FlyoverWrapper, FlyoverContent } from './styles';
 
-
-StreakChange.propTypes = {
+Flyover.propTypes = {
   from: PropTypes.number.isRequired,
   to: PropTypes.number.isRequired,
   ignored: PropTypes.bool,
 };
 
-StreakChange.defaultProps = {
+Flyover.defaultProps = {
   ignored: false,
 };
 
-function StreakChange({ from, to, ignored }) {
+function Flyover({ from, to, ignored }) {
   let [fromName, toName] = [from, to].map(getSrsRankName); // eslint-disable-line prefer-const
   const iconName = toName;
   let rankUp;
@@ -37,13 +32,13 @@ function StreakChange({ from, to, ignored }) {
   }
 
   return (
-    <StreakAnimationWrapper>
-      <StreakAnimationContent ignored={ignored} streakName={toName} changed={changed} rankUp={rankUp}>
-        {ignored ? <Icon name="ATTENTION" title="Answer Ignored" /> : <StreakIcon streakName={iconName} />}
-        <StreakText>{toName.toLowerCase()}</StreakText>
-      </StreakAnimationContent>
-    </StreakAnimationWrapper>
+    <FlyoverWrapper>
+      <FlyoverContent ignored={ignored} streakName={toName} changed={changed} rankUp={rankUp}>
+        {ignored ? <Icon name="ATTENTION" title="Answer Ignored" size="1.25em" /> : <StreakIcon streakName={iconName} size="1.25em" />}
+        <div>{toName.toLowerCase()}</div>
+      </FlyoverContent>
+    </FlyoverWrapper>
   );
 }
 
-export default StreakChange;
+export default Flyover;

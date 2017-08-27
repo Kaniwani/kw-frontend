@@ -14,16 +14,14 @@ import stripTilde from 'utils/stripTilde';
 import app from 'containers/App/actions';
 import {
   selectPreviouslyIncorrect,
-  selectCurrentId,
   selectQuizSettings,
   selectQueue,
   selectRemainingCount,
-  makeSelectReview,
-  makeSelectReviewNotes,
+  selectCurrent,
 } from 'containers/App/selectors';
 
 import quiz from './actions';
-import { selectQuizAnswer, selectBackup } from './selectors';
+import { selectQuizAnswer } from './selectors';
 
 // set in quiz.advance and hold onto for clearing in quiz.answer.record
 let autoAdvanceTimeout;
@@ -49,31 +47,25 @@ export const submitAnswerLogic = createLogic({
   latest: true,
   process({ getState, action: { payload: { category } } }, dispatch, done) {
     const state = getState();
-    const { value, isMarked, isDisabled, isCorrect, isIncorrect } = selectQuizAnswer(state);
-    const id = selectCurrentId(state, { category });
-    const review = makeSelectReview(id)(state, { category });
+    const { value, isDisabled, isCorrect, isIncorrect } = selectQuizAnswer(state);
+    const current = selectCurrent(state, { category });
     const previouslyIncorrect = selectPreviouslyIncorrect(state, { category });
     const answerValue = cleanseInput(value);
     const isValid = isInputValid(answerValue);
-
-    if (!isMarked) {
-      // hold onto unmodified review for ignoring answers
-      dispatch(quiz.backup.set(review));
-    }
 
     if (!isValid) {
       dispatch(quiz.answer.update({ isMarked: true, isValid: false }));
     }
 
     if (!isDisabled && isValid) {
-      dispatch(quiz.answer.check({ category, review, answerValue, previouslyIncorrect }));
+      dispatch(quiz.answer.check({ category, current, answerValue, previouslyIncorrect }));
     }
 
     if (isDisabled && isValid) {
       if (isIncorrect) {
-        dispatch(quiz.answer.incorrect({ review }));
+        dispatch(quiz.answer.incorrect({ category, current }));
       }
-      dispatch(quiz.answer.record.request({ category, id, isCorrect, isIncorrect, previouslyIncorrect }));
+      dispatch(quiz.answer.record.request({ category, current, isCorrect, isIncorrect, previouslyIncorrect }));
     }
 
     done();
@@ -83,9 +75,9 @@ export const submitAnswerLogic = createLogic({
 export const checkAnswerLogic = createLogic({
   type: quiz.answer.check,
   latest: true,
-  process({ getState, action: { payload: { category, review, answerValue, previouslyIncorrect } } }, dispatch, done) {
+  process({ getState, action: { payload: { category, current, answerValue, previouslyIncorrect } } }, dispatch, done) {
     const { autoAdvance, autoExpandCorrect, autoExpandIncorrect } = selectQuizSettings(getState());
-    const matchedAnswer = findMatch(answerValue, review);
+    const matchedAnswer = findMatch(answerValue, current);
     const type = isKana(answerValue) ? 'kana' : 'kanji';
     const updatedAnswer = {
       type,
@@ -100,7 +92,7 @@ export const checkAnswerLogic = createLogic({
 
     if (matchedAnswer) {
       dispatch(quiz.answer.update({ ...updatedAnswer, value: matchedAnswer, isCorrect: true }));
-      dispatch(quiz.answer.correct({ review, category }));
+      dispatch(quiz.answer.correct({ current, category }));
       dispatch(quiz.info.update({ isDisabled: false, detailLevel: 1 }));
 
       if (autoExpandCorrect && autoAdvance.speed > 0) {
@@ -115,7 +107,7 @@ export const checkAnswerLogic = createLogic({
         dispatch(quiz.info.update({ activePanel: 'INFO' }));
       }
       if (previouslyIncorrect) {
-        dispatch(quiz.answer.incorrect({ review }));
+        dispatch(quiz.answer.incorrect({ category, current }));
       }
     }
 
@@ -126,22 +118,19 @@ export const checkAnswerLogic = createLogic({
 export const incorrectAnswerLogic = createLogic({
   type: quiz.answer.incorrect,
   latest: true,
-  transform({ action: { type, payload: { review } } }, next) {
-    const incorrect = increment(review.incorrect);
+  process({ action: { payload: { category, current } } }, dispatch, done) {
+    const incorrect = increment(current.incorrect);
     // double decrement if close to burned
     const streak = [...SRS_RANGES.THREE, ...SRS_RANGES.FOUR].includes(streak) ?
-      decrement(review.streak - 1) :
-      decrement(review.streak);
+      decrement(current.streak - 1) :
+      decrement(current.streak);
     const updatedReview = {
-      ...review,
+      ...current,
       incorrect,
       streak,
-      isCritical: determineCriticality(review.correct, incorrect),
+      isCritical: determineCriticality(current.correct, incorrect),
     };
-    next({ type, payload: updatedReview });
-  },
-  process({ action: { payload } }, dispatch, done) {
-    dispatch(app.review.update(payload));
+    dispatch(app[category].current.update(updatedReview));
     done();
   },
 });
@@ -149,20 +138,20 @@ export const incorrectAnswerLogic = createLogic({
 export const correctAnswerLogic = createLogic({
   type: quiz.answer.correct,
   latest: true,
-  process({ getState, action: { payload: { review, category } } }, dispatch, done) {
+  process({ getState, action: { payload: { current, category } } }, dispatch, done) {
     const { autoAdvance } = selectQuizSettings(getState());
     if (autoAdvance.active) {
       dispatch(quiz.advance({ category, autoAdvance }));
     }
-    const correct = increment(review.correct);
-    const streak = increment(review.streak);
+    const correct = increment(current.correct);
+    const streak = increment(current.streak);
     const updatedReview = {
-      ...review,
+      ...current,
       correct,
       streak,
-      isCritical: determineCriticality(correct, review.incorrect),
+      isCritical: determineCriticality(correct, current.incorrect),
     };
-    dispatch(app.review.update(updatedReview));
+    dispatch(app[category].current.update(updatedReview));
     done();
   },
 });
@@ -178,17 +167,12 @@ export const ignoreAnswerLogic = createLogic({
       reject();
     }
   },
-  process({ getState, action: { payload: { category } } }, dispatch, done) {
-    const backup = selectBackup(getState());
-    // in case user edited notes in quiz info
-    const notes = makeSelectReviewNotes(backup.id)(getState());
+  process({ action: { payload: { category } } }, dispatch, done) {
     dispatch(quiz.answer.update({ isIgnored: true }));
-    dispatch(app.review.update(Object.assign({}, backup, { notes })));
     dispatch(quiz.info.reset());
     // allow animation to occur
     setTimeout(() => {
       dispatch(app[category].current.return());
-      dispatch(quiz.backup.reset());
       dispatch(quiz.answer.reset());
       done();
     }, 700);
@@ -197,18 +181,24 @@ export const ignoreAnswerLogic = createLogic({
 
 export const recordAnswerLogic = createLogic({
   type: quiz.answer.record.request,
-  process({ action: { payload: { category, id, isCorrect, previouslyIncorrect } } }, dispatch, done) {
+  process({ action: { payload: { category, current, isCorrect, previouslyIncorrect } } }, dispatch, done) {
+    const { id } = current;
     clearTimeout(autoAdvanceTimeout);
+    dispatch(app[category].current.update(current));
     dispatch(app[category][isCorrect ? 'correct' : 'incorrect'].add(id));
     dispatch(app[category].current.set());
     dispatch(quiz.answer.reset());
-    dispatch(quiz.backup.reset());
     dispatch(quiz.info.reset());
 
     recordReview({ id, isCorrect, previouslyIncorrect })
-      .then(() => dispatch(quiz.answer.record.success({ isCorrect, category })))
-      .catch((err) => dispatch(quiz.answer.record.failure(err)));
-    done();
+      .then(() => {
+        dispatch(quiz.answer.record.success({ isCorrect, category }));
+        done();
+      })
+      .catch((err) => {
+        dispatch(quiz.answer.record.failure(err));
+        done();
+      });
   },
 });
 
@@ -219,7 +209,8 @@ export const loadMoreQueueLogic = createLogic({
       const state = getState();
       const queue = selectQueue(state, { category });
       const remainingCount = selectRemainingCount(state, { category });
-      const moreQueueNeeded = queue.length < 15 && remainingCount > (queue.length + 1 /* current question */);
+      const moreQueueNeeded = queue.length < 15 && remainingCount > queue.length;
+      console.log({ queueLength: queue.length, remainingCount, moreQueueNeeded });
       if (moreQueueNeeded) {
         dispatch(app[category].queue.load.request());
       }

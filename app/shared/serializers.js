@@ -28,24 +28,26 @@ const toUniqueStringsArray = (data) => {
 
 /* eslint-disable no-return-assign, no-sequences, no-param-reassign */
 const createHashMap = (data) => data.reduce((hash, item) => (hash[item.id] = item, hash), {});
+const formatSrsCounts = (obj) =>
+  Object.entries(obj).reduce((hash, [key, val]) => (hash[key.toUpperCase()] = +val, hash), {});
 /* eslint-enable */
-
 
 export const serializeUserResponse = serializeUser;
 export const serializeLevelsResponse = serializeLevels;
 export const serializeReviewResponse = serializeReviewEntry;
 export const serializeAddSynonymResponse = serializeSynonym;
-export const serializeAnnouncementsResponse = ({ results }) => results.slice(0, 10).map(({ pub_date, title, body }) => ({
-  title,
-  body,
-  pubDate: dateOrFalse(pub_date),
-}));
+export const serializeAnnouncementsResponse = ({ results }) =>
+  results.slice(0, 10).map(({ pub_date, title, body }) => ({
+    title,
+    body,
+    pubDate: dateOrFalse(pub_date),
+  }));
 
 export const serializeQueueResponse = ({ results }) => {
   const reviews = serializeStubbedReviewEntries(results);
   return {
     reviews,
-    reviewIds: Object.keys(reviews).map(Number),
+    ids: Object.keys(reviews).map(Number),
   };
 };
 
@@ -54,7 +56,7 @@ export const serializeLevelResponse = ({ id, results }) => {
   return {
     id,
     reviews,
-    reviewIds: Object.keys(reviews).map(Number),
+    ids: Object.keys(reviews).map(Number),
   };
 };
 
@@ -84,7 +86,6 @@ function serializeUser({
 }) {
   return {
     profile: serializeProfile({ email, ...profile }),
-    dashboard: serializeDashboard(profile),
     settings: serializeSettings(profile),
   };
 }
@@ -97,7 +98,14 @@ function serializeProfile({
   api_valid,
   join_date: joinDate,
   level,
-  unlocked_levels: unlockedLevels,
+  unlocked_levels: unlockedLevels, reviews_count: reviewsCount,
+  lessons_count: lessonsCount,
+  reviews_within_hour_count: nextHourReviews,
+  reviews_within_day_count: nextDayReviews,
+  next_review_date: nextReviewDate,
+  last_wanikani_sync_date: lastWkSyncDate,
+  srs_counts: srsCounts,
+  vacation_date: vacationDate,
 } = {}) {
   return {
     id,
@@ -108,28 +116,6 @@ function serializeProfile({
     joinDate: dateOrFalse(joinDate),
     currentLevel: +level,
     unlockedLevels: unlockedLevels.map(Number),
-  };
-}
-
-/* eslint-disable no-param-reassign, no-return-assign, no-sequences */
-const upcaseKeys = (obj) =>
-  Object.entries(obj).reduce((hash, [key, val]) => (hash[key.toUpperCase()] = +val, hash), {});
-const coerceValsToNumber = (obj) =>
-  Object.entries(obj).reduce((hash, [key, val]) => (hash[key] = parseInt(val, 10), hash), {});
-/* eslint-enable */
-
-
-function serializeDashboard({
-  reviews_count: reviewsCount,
-  lessons_count: lessonsCount,
-  reviews_within_hour_count: nextHourReviews,
-  reviews_within_day_count: nextDayReviews,
-  next_review_date: nextReviewDate,
-  last_wanikani_sync_date: lastWkSyncDate,
-  srs_counts: srsCounts,
-  vacation_date: vacationDate,
-} = {}) {
-  return {
     reviewsCount: +reviewsCount,
     lessonsCount: +lessonsCount,
     nextHourReviews: +nextHourReviews,
@@ -137,7 +123,7 @@ function serializeDashboard({
     nextReviewDate: dateOrFalse(nextReviewDate),
     vacationDate: dateOrFalse(vacationDate),
     lastWkSyncDate: dateOrFalse(lastWkSyncDate),
-    srsCounts: upcaseKeys(srsCounts),
+    srsCounts: formatSrsCounts(srsCounts),
   };
 }
 

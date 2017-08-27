@@ -75,7 +75,9 @@ export class ProtectedRoutes extends React.Component {
         </main>
         <Switch>
           <Route path="/:path(lessons|reviews)" /* don't render SiteFooter */ />
-          <Route path="" component={SiteFooter} />
+          <Route path="/:path(vocabulary|settings|about|contact)" component={SiteFooter} />
+          <Route exact path="/" component={SiteFooter} />
+          <Route path="" /* don't render SiteFooter for 404s */ />
         </Switch>
       </Page>
     );

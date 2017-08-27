@@ -44,6 +44,7 @@ export const { app } = createActions({
       },
       CURRENT: {
         SET: SYNC,
+        UPDATE: SYNC,
         RETURN: SYNC,
       },
       CORRECT: {
@@ -64,6 +65,7 @@ export const { app } = createActions({
       },
       CURRENT: {
         SET: SYNC,
+        UPDATE: SYNC,
         RETURN: SYNC,
       },
       CORRECT: {

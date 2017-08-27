@@ -15,11 +15,11 @@ import SummarySection from 'components/SummarySection';
 import ToggleVocabListButton from 'components/ToggleVocabListButton';
 
 import {
-  selectCorrectIds,
-  selectIncorrectIds,
-  selectCriticalIds,
-  selectPercentCorrect,
-  selectSessionLastActivity,
+  selectSummaryCorrectIds,
+  selectSummaryIncorrectIds,
+  selectSummaryCriticalIds,
+  selectSummaryPercentCorrect,
+  selectLastActivity,
 } from 'containers/App/selectors';
 
 import { Heading } from './styles';
@@ -44,6 +44,7 @@ function QuizSummaryContent({
   toggleCardsExpanded,
 }) {
   const noHistory = !incorrectIds.length && !correctIds.length && !criticalIds.length;
+  console.log({ lastActivity, lastActivityType: typeof lastActivity });
   return (
     <PageWrapper>
       <Heading>
@@ -88,11 +89,11 @@ function QuizSummaryContent({
 }
 
 const mapStateToProps = createStructuredSelector({
-  correctIds: selectCorrectIds,
-  incorrectIds: selectIncorrectIds,
-  criticalIds: selectCriticalIds,
-  percentCorrect: selectPercentCorrect,
-  lastActivity: selectSessionLastActivity,
+  correctIds: selectSummaryCorrectIds,
+  incorrectIds: selectSummaryIncorrectIds,
+  criticalIds: selectSummaryCriticalIds,
+  percentCorrect: selectSummaryPercentCorrect,
+  lastActivity: selectLastActivity,
 });
 
 const enhance = compose(

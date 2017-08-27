@@ -8,7 +8,7 @@ import { borderRadius } from 'shared/styles/sizing';
 import { srsRankUp, srsRankDown } from 'shared/styles/animation';
 import { outerLight } from 'shared/styles/shadows';
 
-import H6 from 'base/H6';
+import H4 from 'base/H4';
 
 export const Wrapper = styled.div`
   position: relative;
@@ -48,7 +48,7 @@ export const Secondary = styled.div`
   font-weight: 400;
 `;
 
-export const StreakAnimationWrapper = styled.div`
+export const FlyoverWrapper = styled.div`
   position: absolute;
   ${gutter({ position: 'vertical', prop: 'margin' })}
   bottom: 0;
@@ -58,13 +58,13 @@ export const StreakAnimationWrapper = styled.div`
   justify-content: center;
 `;
 
-export const StreakAnimationContent = H6.extend`
+export const FlyoverContent = H4.extend`
   ${gutter({ position: 'horizontal', mod: 3 })}
   box-shadow: ${outerLight};
   display: flex;
-  min-width: 8em;
+  min-width: 6em;
   text-align: center;
-  justify-content: center;
+  justify-content: flex-start;
   align-content: center;
   align-items: center;
   color: ${white};
@@ -80,8 +80,8 @@ export const StreakAnimationContent = H6.extend`
       animation: ${rankUp ? srsRankUp : srsRankDown} .75s ease 0s 1 normal both running;
     `;
   }}
-  `;
 
-export const StreakText = styled.div`
-  ${gutter({ position: 'right', mod: 2 })}
+  & > * {
+    ${gutter({ prop: 'margin', position: 'horizontal', mod: 0.5 })}
+  }
   `;

@@ -18,29 +18,29 @@ import {
 
 QuizSummaryHeader.propTypes = {
   category: PropTypes.string.isRequired,
-  sessionActive: PropTypes.bool.isRequired,
-  sessionCount: PropTypes.number.isRequired,
+  isActive: PropTypes.bool.isRequired,
+  remainingCount: PropTypes.number.isRequired,
   resetSession: PropTypes.func.isRequired,
 };
 
-const linkText = (sessionCount, sessionActive, category) => {
-  if (sessionCount < 1) return `No ${titleCase(category)}`;
-  if (sessionActive) return 'Continue Session';
+const linkText = (remainingCount, isActive, category) => {
+  if (remainingCount < 1) return `No ${titleCase(category)}`;
+  if (isActive) return 'Continue Session';
   return 'Begin Session';
 };
 
-function QuizSummaryHeader({ category, sessionCount, sessionActive, resetSession }) {
+function QuizSummaryHeader({ category, remainingCount, isActive, resetSession }) {
   return (
     <Header>
       <Wrapper>
         <LogoLink />
         <Title>{titleCase(category)} Summary</Title>
         <SessionLink
-          isDisabled={sessionCount < 1}
-          text={linkText(sessionCount, sessionActive, category)}
+          isDisabled={remainingCount < 1}
+          text={linkText(remainingCount, isActive, category)}
           to={`/${category}/session`}
-          count={sessionCount}
-          handleClick={!sessionActive ? resetSession : noop}
+          count={remainingCount}
+          handleClick={!isActive && remainingCount > 0 ? resetSession : noop}
         />
       </Wrapper>
     </Header>
@@ -48,8 +48,8 @@ function QuizSummaryHeader({ category, sessionCount, sessionActive, resetSession
 }
 
 const mapStateToProps = createStructuredSelector({
-  sessionCount: selectRemainingCount,
-  sessionActive: selectSessionActive,
+  isActive: selectSessionActive,
+  remainingCount: selectRemainingCount,
 });
 
 const mapDispatchToProps = (dispatch, { category }) => ({

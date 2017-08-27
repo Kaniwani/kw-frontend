@@ -1,21 +1,34 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import Element from 'base/Element';
-import A from 'base/A';
+import app from 'containers/App/actions';
+// FIXME: extract from SiteHeader to components
+import NavLink from 'containers/SiteHeader/NavLink';
 
 import { Footer } from './styles';
 
-function SiteFooter() {
+SiteFooter.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+};
+
+function SiteFooter({ logoutUser }) {
   return (
     <Footer>
-      <Element><A plainLink to="/about">About</A></Element>
-      <Element><A plainLink to="/vocabulary">Vocabulary</A></Element>
-      <Element><A plainLink to="/settings">Settings</A></Element>
-      <Element><A plainLink to="/logout">Logout</A></Element>
-      <Element><A plainLink to="/about">Contact</A></Element>
-      <Element><A plainLink to="/about">FAQ</A></Element>
+      <NavLink route="/lessons" text="lessons" />
+      <NavLink route="/reviews" text="reviews" />
+      <NavLink route="/vocabulary" text="vocabulary" />
+      <NavLink route="/settings" text="settings" />
+      <NavLink route="/about" text="about" />
+      <NavLink route="/contact" text="contact" />
+      <NavLink route="/faq" text="faq" />
+      <NavLink route="/logout" text="logout" handleLogout={logoutUser} />
     </Footer>
   );
 }
 
-export default SiteFooter;
+const mapDispatchToProps = ({
+  logoutUser: app.user.logout,
+});
+
+export default connect(null, mapDispatchToProps)(SiteFooter);

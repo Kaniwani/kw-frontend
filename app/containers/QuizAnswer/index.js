@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { SRS_RANKS } from 'shared/constants';
 import { toKana } from 'wanakana';
 
-import { makeSelectReviewStreakName, selectCurrentId } from 'containers/App/selectors';
+import { selectCurrentStreakName } from 'containers/App/selectors';
 import { selectQuizAnswer } from 'containers/QuizPage/selectors';
 import quiz from 'containers/QuizPage/actions';
 
@@ -133,7 +133,7 @@ export class QuizAnswer extends React.PureComponent {
 
 const mapStateToProps = (state, { category }) => ({
   answer: selectQuizAnswer(state),
-  streakName: makeSelectReviewStreakName(selectCurrentId(state, { category }))(state),
+  streakName: selectCurrentStreakName(state, { category }),
 });
 
 const mapDispatchToProps = {

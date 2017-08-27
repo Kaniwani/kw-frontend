@@ -9,8 +9,7 @@ import app from './actions';
 
 export const initialState = {
   announcements: [],
-  profile: {},
-  dashboard: {
+  profile: {
     lessonsCount: 0,
     reviewsCount: 0,
     nextHourReviews: 0,
@@ -27,18 +26,30 @@ export const initialState = {
     reviews: {},
     levels: {},
   },
+  queue: {
+    reviews: [],
+    lessons: [],
+  },
   session: {
     lessons: {
+      current: {},
+      correct: [],
+      incorrect: [],
+    },
+    reviews: {
+      current: {},
+      correct: [],
+      incorrect: [],
+    },
+  },
+  summary: {
+    lessons: {
       lastActivity: false,
-      current: false,
-      queue: [],
       correct: [],
       incorrect: [],
     },
     reviews: {
       lastActivity: false,
-      current: false,
-      queue: [],
       correct: [],
       incorrect: [],
     },
@@ -50,14 +61,12 @@ const announcementsReducer = handleActions({
 }, initialState.announcements);
 
 const profileReducer = handleActions({
+  [app.clearGlobalState]: () => initialState.profile,
   [app.user.load.success]: (state, { payload }) => payload.profile,
 }, initialState.profile);
 
-const dashboardReducer = handleActions({
-  [app.user.load.success]: (state, { payload }) => payload.dashboard,
-}, initialState.dashboard);
-
 const settingsReducer = handleActions({
+  [app.clearGlobalState]: () => initialState.settings,
   [app.user.load.success]: (state, { payload }) => update(state, {
     $set: merge({}, state, payload.settings),
   }),
@@ -66,67 +75,94 @@ const settingsReducer = handleActions({
   }),
 }, initialState.settings);
 
+const reviewQueueReducer = handleActions({
+  [app.clearGlobalState]: () => initialState.queue.reviews,
+  [app.reviews.queue.clear]: () => [],
+  [app.reviews.queue.load.success]: (state, { payload }) => union(state, payload.ids),
+  [app.reviews.current.set]: (state, { payload }) => difference(state, [payload.id]),
+  [app.reviews.current.return]: (state, { payload: { currentId } }) => union(state, [currentId]),
+}, initialState.queue.reviews);
+
+const lessonQueueReducer = handleActions({
+  [app.clearGlobalState]: () => initialState.queue.lessons,
+  [app.lessons.queue.clear]: () => [],
+  [app.lessons.queue.load.success]: (state, { payload }) => union(state, payload.ids),
+  [app.lessons.current.set]: (state, { payload }) => difference(state, [payload.id]),
+  [app.lessons.current.return]: (state, { payload: { currentId } }) => union(state, [currentId]),
+}, initialState.queue.lessons);
+
 const reviewSessionReducer = handleActions({
-  [app.reviews.queue.clear]: (state) => update(state, {
-    queue: { $set: [] },
-  }),
-  [app.reviews.queue.load.success]: (state, { payload }) => update(state, {
-    queue: { $set: union(state.queue, payload.reviewIds) }, // TODO: replace as "ids" in serializer/logic etc
-  }),
+  [app.clearGlobalState]: () => initialState.session.reviews,
   [app.reviews.current.set]: (state, { payload }) => update(state, {
     current: { $set: payload },
-    queue: { $set: difference(state.queue, [payload]) },
   }),
-  [app.reviews.current.return]: (state, { payload }) => update(state, {
-    queue: { $set: union(state.queue, [state.current]) },
+  [app.reviews.current.update]: (state, { payload }) => update(state, {
     current: { $set: payload },
+  }),
+  [app.reviews.current.return]: (state, { payload: { newCurrent } }) => update(state, {
+    current: { $set: newCurrent },
   }),
   [app.reviews.correct.add]: (state, { payload }) => update(state, {
     correct: { $set: union(state.correct, [payload]) },
-    lastActivity: { $set: Date() },
   }),
   [app.reviews.incorrect.add]: (state, { payload }) => update(state, {
     incorrect: { $set: union(state.incorrect, [payload]) },
-    lastActivity: { $set: Date() },
+  }),
+}, initialState.session.reviews);
+
+const lessonSessionReducer = handleActions({
+  [app.clearGlobalState]: () => initialState.session.lessons,
+  [app.lessons.current.set]: (state, { payload }) => update(state, {
+    current: { $set: payload },
+  }),
+  [app.lessons.current.update]: (state, { payload }) => update(state, {
+    current: { $set: payload },
+  }),
+  [app.lessons.current.return]: (state, { payload: { newCurrent } }) => update(state, {
+    current: { $set: newCurrent },
+  }),
+  [app.lessons.correct.add]: (state, { payload }) => update(state, {
+    correct: { $set: union(state.correct, [payload]) },
+  }),
+  [app.lessons.incorrect.add]: (state, { payload }) => update(state, {
+    incorrect: { $set: union(state.incorrect, [payload]) },
+  }),
+}, initialState.session.lessons);
+
+const reviewSummaryReducer = handleActions({
+  [app.clearGlobalState]: () => initialState.summary.reviews,
+  [app.reviews.correct.add]: (state, { payload }) => update(state, {
+    correct: { $set: union(state.correct, [payload]) },
+    lastActivity: { $set: new Date() },
+  }),
+  [app.reviews.incorrect.add]: (state, { payload }) => update(state, {
+    incorrect: { $set: union(state.incorrect, [payload]) },
+    lastActivity: { $set: new Date() },
   }),
   [app.reviews.resetSession]: (state) => update(state, {
     correct: { $set: [] },
     incorrect: { $set: [] },
   }),
-}, initialState.session.reviews);
+}, initialState.summary.reviews);
 
-// TODO: can probably unduplicate these
-// perhaps part of setting "category" in session state root
-const lessonSessionReducer = handleActions({
-  [app.lessons.queue.clear]: (state) => update(state, {
-    queue: { $set: [] },
-  }),
-  [app.lessons.queue.load.success]: (state, { payload }) => update(state, {
-    queue: { $set: union(state.queue, payload.reviewIds) }, // TODO: replace as "ids" in serializer/logic etc
-  }),
-  [app.lessons.current.set]: (state, { payload }) => update(state, {
-    current: { $set: payload },
-    queue: { $set: difference(state.queue, [payload]) },
-  }),
-  [app.lessons.current.return]: (state, { payload }) => update(state, {
-    queue: { $set: union(state.queue, [state.current]) },
-    current: { $set: payload },
-  }),
+const lessonSummaryReducer = handleActions({
+  [app.clearGlobalState]: () => initialState.summary.lessons,
   [app.lessons.correct.add]: (state, { payload }) => update(state, {
     correct: { $set: union(state.correct, [payload]) },
-    lastActivity: { $set: Date() },
+    lastActivity: { $set: new Date() },
   }),
   [app.lessons.incorrect.add]: (state, { payload }) => update(state, {
     incorrect: { $set: union(state.incorrect, [payload]) },
-    lastActivity: { $set: Date() },
+    lastActivity: { $set: new Date() },
   }),
   [app.lessons.resetSession]: (state) => update(state, {
     correct: { $set: [] },
     incorrect: { $set: [] },
   }),
-}, initialState.session.lessons);
+}, initialState.summary.lessons);
 
 const entitiesReducer = handleActions({
+  [app.clearGlobalState]: () => initialState.entities,
   [combineActions(
     app.reviews.queue.load.success,
     app.lessons.queue.load.success
@@ -138,7 +174,7 @@ const entitiesReducer = handleActions({
   }),
   [app.level.load.success]: (state, { payload }) => update(state, {
     levels: { [payload.id]: {
-      reviews: { $set: payload.reviewIds },
+      reviews: { $set: payload.ids },
       prevLoaded: { $set: true },
     } },
     reviews: { $set: merge({}, state.reviews, payload.reviews) },
@@ -171,23 +207,23 @@ const entitiesReducer = handleActions({
   }),
 }, initialState.entities);
 
-const reducers = combineReducers({
-  announcements: announcementsReducer,
+const reducers = {
   profile: profileReducer,
-  dashboard: dashboardReducer,
   settings: settingsReducer,
+  announcements: announcementsReducer,
   entities: entitiesReducer,
+  queue: combineReducers({
+    reviews: reviewQueueReducer,
+    lessons: lessonQueueReducer,
+  }),
+  summary: combineReducers({
+    reviews: reviewSummaryReducer,
+    lessons: lessonSummaryReducer,
+  }),
   session: combineReducers({
     reviews: reviewSessionReducer,
     lessons: lessonSessionReducer,
   }),
-});
-
-const appReducer = (state, action) => {
-  // this ensures that if user1 logs out and user2 logs in,
-  // in the same browser window, they won't receive user1's state
-  const priorStateOrInitialState = action.type === `${app.clearGlobalState}` ? undefined : state;
-  return reducers(priorStateOrInitialState, action);
 };
 
-export default appReducer;
+export default reducers;

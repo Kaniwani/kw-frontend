@@ -64,7 +64,7 @@ function VocabEntryDetails({ review }) {
       <Status text="Unlocked" status={format(unlockDate, DATE_FORMAT)} />
       <Status text="Last reviewed" status={getDateInWords(lastReviewDate)} />
       <Status text="Next review" status={getReviewStatusText(isHidden, isReviewReady, nextReviewDate)} />
-      {/* TODO: horizontal britecharts bar graphs */}
+      {/* TODO: horizontal britecharts bar graphs ? */}
       <Status text="Correct" status={correct} />
       <Status text="Incorrect" status={incorrect} />
       <Status text="Accuracy" status={`${calculatePercentage(correct, correct + incorrect)}%` || 'N/A'} />

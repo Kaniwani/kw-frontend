@@ -6,7 +6,9 @@
 import { combineReducers } from 'redux';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
-import globalReducer from 'containers/App/reducer';
+import globalReducers from 'containers/App/reducer';
+
+import uiReducer from 'shared/reducers';
 import { reducer as formReducer } from 'redux-form';
 // import notificationsReducer from 'containers/Notifications/reducer';
 
@@ -32,9 +34,10 @@ function routeReducer(state = routeInitialState, { type, payload }) {
 // Creates the main reducer with the asynchronously loaded ones
 export default function createReducer(asyncReducers) {
   return combineReducers({
+    ...globalReducers,
     route: routeReducer,
-    global: globalReducer,
     form: formReducer,
+    ui: uiReducer,
     // notifications: notificationsReducer,
     ...asyncReducers,
   });

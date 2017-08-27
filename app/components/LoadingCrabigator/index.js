@@ -61,8 +61,8 @@ const LoadingCrabigator = () => (
         preserveAspectRatio="xMinYMin meet"
       >
         <path id="eyeBg" fill="#fff" d="M84 30h20v19H84z" />
-        <path id="neckBg" fill="#d0efdb" d="M79 92h44v38H79z" />
         <path id="pinkClawStep1" fill="#f36353" d="M135 155c1.3 1.7 0 6.3 0 6.3h-6.3v6.2h-12.4v6.3h-12.5v6.2H85v-6.3H72.5v-12.4h6.3V155H85v-6.3h6.3v-6.2S126 143 135 155zm-43.8 15.6v-3H85v6.2h6.3zm0-28h6.3z" />
+        <path id="neckBg" fill="#d0efdb" d="M79 92h44v38H79z" />
         <path id="pinkClawStep2" opacity="0" fill="#f36353" d="M103.8 167.5H91.3v6.3H78.8v-12.6H85V155h6.3v-17l12.8.8z" />
         <path id="shell" fill="#ba8a59" d="M228.8 167.5h-12.6v-6.3H160V155h-13c.4-45.7 1-49 .5-75H160v-6.3h25v-6.2h50v6.3h18.8V80H266v6.3h6.3v6.2h6.3v6.3h6.2v12.5h6.3v12.5h6.6s-.4 5.2 0 12.5c1.6 27.4 4.5 24.5-18.8 25-20.7.3-12-3.8-12.4 6.2h-25z" />
         <path id="headTail" fill="#8ac249" d="M122.5 92.5h-6.3v6.3H78.8v-6.3h-6.2v-6.3H60V80h-6.3v-6.3H41.3v-6.2H35v-6.3h-6.3V55h-6.2V42.5h6.3v-6.3h18.7v6.3h6.3v-6.3h12.5V30h12.5v-6.3h18.7V30H110v6.3h12.5v6.2h6.3v6.3h6.2V55h6.3v12.5h6.2V80h6.3c0 20-8.3 30-11.3 44-3.8 17-20.5 17.7-20.5 5.6l.5-37zm-18.8-50v-6.3h-6.2V30h-6.3v6.3H85v6.2h6.3v6.3h12.5zm-12.5-3V36h6.3v6.3h-6.3zM285 155v-6.3h6.3v-12.4H310v6.2h43.8v-6.3H366V130h6.3v12.5H366v6.3h-6v6.2h-18.8v6.3H285z" />

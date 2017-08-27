@@ -61,7 +61,7 @@ function QuizHeader({
           </Stat>
           <Stat title="Items remaining">
             <Icon inline={false} size="1.1em" name="ASSIGNMENT_INBOX" />
-            <Label>{remainingCount - 1}</Label> {/* 1 = current review */}
+            <Label>{remainingCount}</Label>
           </Stat>
         </StatsWrapper>
       </Wrapper>
