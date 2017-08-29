@@ -22,52 +22,48 @@ function AboutPage() {
         <Container>
           <Element>
             <H1 >What’s this all about then?</H1>
-            <P style={{ maxWidth: '760px' }}>KaniWani is a companion website to <A href="http://www.wanikani.com" external>WaniKani</A>, an SRS tool for kanji and vocabulary memorization. We felt that WaniKani helped a lot with being able to recognize and read Kanji, but didn’t help enough when trying to recall words without the visual stimulation of the Kanji. KaniWani attempts to bridge that gap by using your WaniKani vocabulary to force you to do the opposite of what you are used to.</P>
+            <P constrain>KaniWani is a companion website to <A href="http://www.wanikani.com" external>WaniKani</A>, an SRS tool for kanji and vocabulary memorization. We felt that WaniKani helped a lot with being able to recognize and read Kanji, but didn’t help enough when trying to recall words without the visual stimulation of the Kanji. KaniWani attempts to bridge that gap by using your WaniKani vocabulary to force you to do the opposite of what you are used to.</P>
           </Element>
         </Container>
 
         <Container flex flexRow flexWrap>
           <Element flex="1 0 320px">
             <H2 >Moving Forward</H2>
-            <P>KaniWani starts off at your current WK level, so you don’t have to go through all the previous levels unless you want to.</P>
+            <P constrain>KaniWani starts off at your current WK level, so you don’t have to go through all the previous levels unless you want to.</P>
           </Element>
           <Element flex="1 0 320px">
             <H2 >Unlocking the Past</H2>
-            <P>Manually <A to="/vocabulary">unlock or relock previous levels</A> or even individual words to manage the vocabulary in your review schedule.</P>
+            <P constrain>Manually <A to="/vocabulary">unlock or relock previous levels</A> or even individual words to manage the vocabulary in your review schedule.</P>
           </Element>
           <Element flex="1 0 320px">
             <H2 >Keyboard Warrior</H2>
-            <P>During reviews, press <strong>P</strong> to show the Phonetic reading, <strong>k</strong> to show the actual Kanji in the vocabulary, and <strong>f</strong> shows both <em>(a la WaniKani)</em>.</P>
+            <P constrain>During reviews, press <strong>P</strong> to show the Phonetic reading, <strong>k</strong> to show the actual Kanji in the vocabulary, and <strong>f</strong> shows both <em>(a la WaniKani)</em>.</P>
           </Element>
           <Element flex="1 0 320px">
             <H2 >Speedy Gonzales</H2>
-            <P>Fly through your reviews by turning on the auto advance feature when you enter a correct answer, or show yourself all possible answers on failure.</P>
+            <P constrain>Fly through your reviews by turning on the auto advance feature when you enter a correct answer, or show yourself all possible answers on failure.</P>
           </Element>
           <Element flex="1 0 320px">
             <H2 >Next Time Gadget</H2>
-            <P>When your answer has been marked incorrect, but you totally knew what it was, like, 本気で！ Press <strong>/</strong> on your keyboard or vehemently smack the <strong>x</strong> icon to ignore your failure.</P>
+            <P constrain>When your answer has been marked incorrect, but you totally knew what it was, like, 本気で！ Press <strong>/</strong> on your keyboard or vehemently smack the <strong>x</strong> icon to ignore your failure.</P>
           </Element>
           <Element flex="1 0 320px">
             <H2 >Follow WaniKani</H2>
-            <P>You unlock new KaniWani vocab as you unlock new WaniKani vocab. Toggle features on the <A to="/settings">settings</A> page.</P>
+            <P constrain>You unlock new KaniWani vocab as you unlock new WaniKani vocab. Toggle features on the <A to="/settings">settings</A> page.</P>
           </Element>
           <Element flex="1 0 320px">
             <H2 >Vocab Synergy</H2>
-            <P>Words in WaniKani that have the same identical base meaning but different readings get combined. For example, when you see the word “Father” you can answer either “ちちおや” or “おとうさん” <em>(but not Anakin Skywalker)</em>.</P>
+            <P constrain>Words in WaniKani that have the same identical base meaning but different readings get combined. For example, when you see the word “Father” you can answer either “ちちおや” or “おとうさん” <em>(but not Anakin Skywalker)</em>.</P>
           </Element>
           <Element flex="1 0 320px">
             <H2 >Science Repeat... Science!</H2>
-            <P>The algorithm is identical to WaniKani’s SRS <em>(Spaced Repetition System)</em>, in that the more often you correctly answer a review, the less often you will see it — until it is burnt.</P>
-          </Element>
-          <Element flex="1 0 320px">
-            <H2 >Artisnal Artistry</H2>
-            <P>Feast your eyes on the colorful designs generously provided by <A href="mailto:mike_hoorn@hotmail.com?subject=mail from Kaniwani">Mike</A>. We think they’re the cutest 怪獣 this side of the 日本海.</P>
+            <P constrain>The algorithm is identical to WaniKani’s SRS <em>(Spaced Repetition System)</em>, in that the more often you correctly answer a review, the less often you will see it — until it is burnt.</P>
           </Element>
         </Container>
 
         <Container flex flexColumn flexCenter>
           <Element flex flexRow flexCenter>
-            <P textAlign="center">
+            <P constrain textAlign="center">
               <em>Contributions gratefully accepted for ongoing development, webhosting, and <span lang="ja">日本酒</span>.</em>
             </P>
           </Element>

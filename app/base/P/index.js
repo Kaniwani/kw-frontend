@@ -8,6 +8,7 @@ const alignMixin = ({ align }) => `
 `;
 
 const textAlignMixin = ({ textAlign }) => textAlign && `text-align: ${textAlign};`;
+const constrainMixin = ({ constrain }) => constrain && 'max-width: 45em;';
 
 export const P = styled.p`
   ${gutter()}
@@ -15,6 +16,7 @@ export const P = styled.p`
   ${bodyRhythm}
   ${alignMixin}
   ${textAlignMixin}
+  ${constrainMixin}
 `;
 
 export default P;
