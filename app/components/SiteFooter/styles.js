@@ -1,17 +1,15 @@
 import styled from 'styled-components';
 
 import { gutter, centerByPadding } from 'shared/styles/layout';
+import { blackDark, whiteDark } from 'shared/styles/colors';
 
 export const Footer = styled.footer`
-  ${gutter({ position: 'vertical', mod: 10 })}
+  ${gutter({ position: 'top', mod: 4 })}
+  ${gutter({ position: 'bottom', mod: 1 })}
   ${centerByPadding}
+  position: relative;
   grid-area: Footer;
-  display: flex;
   margin-top: auto;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  background-color: black;
-  color: white;
+  background-color: ${blackDark};
+  color: ${whiteDark};
 `;

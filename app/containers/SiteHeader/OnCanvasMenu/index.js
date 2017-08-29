@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cuid from 'cuid';
 
-import NavLink from '../NavLink';
+import NavLink from 'components/NavLink';
 import { Ul } from '../styles';
 
 OnCanvasMenu.propTypes = {
