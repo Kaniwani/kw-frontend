@@ -29,18 +29,18 @@ SiteFooter.propTypes = {
 function SiteFooter({ logoutUser }) {
   return (
     <Footer>
-      <Element style={{ position: 'relative' }} flex flexRow justifyContent="flex-end">
-        <Links flex flexRow flexWrap flexCenter>
-          <Element flex flexColumn>
+      <Element style={{ position: 'relative' }} flexRow justifyContent="flex-end">
+        <Links flexRow flexWrap flexCenter>
+          <Element flexColumn>
             <NavLink route="/lessons" text="lessons" />
             <NavLink route="/reviews" text="reviews" />
           </Element>
-          <Element flex flexColumn>
+          <Element flexColumn>
             <NavLink route="/vocabulary" text="vocabulary" />
             <NavLink route="/settings" text="settings" />
             <NavLink route="/logout" text="logout" handleLogout={logoutUser} />
           </Element>
-          <Element flex flexColumn>
+          <Element flexColumn>
             <NavLink route="/about" text="about" />
             <NavLink route="/contact" text="contact" />
           </Element>

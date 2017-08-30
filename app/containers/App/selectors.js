@@ -6,6 +6,7 @@ import addMinutes from 'date-fns/add_minutes';
 
 import { SESSION_EXPIRY_MINUTES } from 'shared/constants';
 import groupByRank from 'utils/groupByRank';
+import dateOrFalse from 'utils/dateOrFalse';
 import calculatePercentage from 'utils/calculatePercentage';
 import getSrsRankName from 'utils/getSrsRankName';
 import filterRomajiReadings from 'utils/filterRomajiReadings';
@@ -19,9 +20,9 @@ export const selectCategoryFromMatch = (props) => props.match.params.category;
 
 export const selectProfile = (state) => state.profile;
 export const selectSrsCounts = createSelector(selectProfile, (profile) => profile.srsCounts);
-export const selectNextReviewDate = createSelector(selectProfile, (profile) => profile.nextReviewDate || false);
-export const selectVacationDate = createSelector(selectProfile, (profile) => profile.vacationDate || false);
-export const selectLastWkSyncDate = createSelector(selectProfile, (profile) => profile.lastWkSyncDate || false);
+export const selectNextReviewDate = createSelector(selectProfile, (profile) => dateOrFalse(profile.nextReviewDate));
+export const selectVacationDate = createSelector(selectProfile, (profile) => dateOrFalse(profile.vacationDate));
+export const selectLastWkSyncDate = createSelector(selectProfile, (profile) => dateOrFalse(profile.lastWkSyncDate));
 
 export const selectSettings = (state) => state.settings;
 export const selectQuizSettings = createSelector(selectSettings, (settings) => settings.quiz);
@@ -153,16 +154,16 @@ export const selectQueue = (state, { category }) => state.queue[category];
 export const selectSession = (state, { category }) => state.session[category];
 export const selectSummary = (state, { category }) => state.summary[category];
 
-export const selectLastActivity = createSelector(
+export const selectLastActivityDate = createSelector(
   selectSummary,
-  (session) => session.lastActivity,
+  (session) => dateOrFalse(session.lastActivityDate),
 );
 
 export const selectSessionActive = createSelector(
-  [selectLastActivity, selectQueue],
-  (lastActivity, queue) => {
-    const expiryDate = addMinutes(lastActivity, SESSION_EXPIRY_MINUTES);
-    const isActive = lastActivity && queue.length > 0 && isBefore(new Date(), expiryDate);
+  [selectLastActivityDate, selectQueue],
+  (lastActivityDate, queue) => {
+    const expiryDate = addMinutes(lastActivityDate, SESSION_EXPIRY_MINUTES);
+    const isActive = lastActivityDate && queue.length > 0 && isBefore(new Date(), expiryDate);
     return isActive;
   }
 );

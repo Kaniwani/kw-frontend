@@ -4,7 +4,7 @@ import isString from 'lodash/isString';
 import castArray from 'lodash/castArray';
 import uniq from 'lodash/uniq';
 import condenseReadings from 'utils/condenseReadings';
-import parse from 'date-fns/parse';
+import dateOrFalse from 'utils/dateOrFalse';
 
 // TODO: extract utils to nested ./file with tests
 
@@ -13,8 +13,6 @@ const combineTags = ({ tags, jlpt, common }) => {
   const newTags = [common ? 'Common' : 'Uncommon', ...tags];
   return jlpt != null ? [jlpt, ...newTags] : newTags;
 };
-
-const dateOrFalse = (date) => date && date != null ? parse(date) : false;
 
 const toUniqueStringsArray = (data) => {
   let asArray = data;

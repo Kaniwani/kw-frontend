@@ -184,7 +184,7 @@ export const recordAnswerLogic = createLogic({
   process({ action: { payload: { category, current, isCorrect, previouslyIncorrect } } }, dispatch, done) {
     const { id } = current;
     clearTimeout(autoAdvanceTimeout);
-    dispatch(app[category].current.update(current));
+    dispatch(app.review.update(current));
     dispatch(app[category][isCorrect ? 'correct' : 'incorrect'].add(id));
     dispatch(app[category].current.set());
     dispatch(quiz.answer.reset());

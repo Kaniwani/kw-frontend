@@ -19,7 +19,7 @@ import {
   selectSummaryIncorrectIds,
   selectSummaryCriticalIds,
   selectSummaryPercentCorrect,
-  selectLastActivity,
+  selectLastActivityDate,
 } from 'containers/App/selectors';
 
 import { Heading } from './styles';
@@ -31,7 +31,7 @@ QuizSummaryContent.propTypes = {
   percentCorrect: PropTypes.number.isRequired,
   cardsExpanded: PropTypes.bool.isRequired,
   toggleCardsExpanded: PropTypes.func.isRequired,
-  lastActivity: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.oneOf([false])]).isRequired,
+  lastActivityDate: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.oneOf([false])]).isRequired,
 };
 
 function QuizSummaryContent({
@@ -39,12 +39,11 @@ function QuizSummaryContent({
   incorrectIds,
   criticalIds,
   percentCorrect,
-  lastActivity,
+  lastActivityDate,
   cardsExpanded,
   toggleCardsExpanded,
 }) {
   const noHistory = !incorrectIds.length && !correctIds.length && !criticalIds.length;
-  console.log({ lastActivity, lastActivityType: typeof lastActivity });
   return (
     <PageWrapper>
       <Heading>
@@ -73,11 +72,11 @@ function QuizSummaryContent({
             ids={criticalIds}
             cardsExpanded={cardsExpanded}
           />
-          {lastActivity && (
+          {lastActivityDate && (
             <Container>
               <H4>
                 Last session activity: {
-                  distanceInWordsToNow(lastActivity, { includeSeconds: true })
+                  distanceInWordsToNow(lastActivityDate, { includeSeconds: true })
                 } ago
               </H4>
             </Container>
@@ -93,7 +92,7 @@ const mapStateToProps = createStructuredSelector({
   incorrectIds: selectSummaryIncorrectIds,
   criticalIds: selectSummaryCriticalIds,
   percentCorrect: selectSummaryPercentCorrect,
-  lastActivity: selectLastActivity,
+  lastActivityDate: selectLastActivityDate,
 });
 
 const enhance = compose(
