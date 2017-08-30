@@ -28,36 +28,36 @@ function AboutPage() {
 
         <Container flex flexRow flexWrap>
           <Element flex="1 0 320px">
-            <H2 >Moving Forward</H2>
-            <P constrain>KaniWani starts off at your current WK level, so you don’t have to go through all the previous levels unless you want to.</P>
+            <H2>Moving Forward</H2>
+            <P constrain>KaniWani starts off at your current WK level, so you don’t have to go through all the previous levels unless you want to. Complete lessons to introduce words into your regular review schedule.</P>
           </Element>
           <Element flex="1 0 320px">
-            <H2 >Unlocking the Past</H2>
-            <P constrain>Manually <A to="/vocabulary">unlock or relock previous levels</A> or even individual words to manage the vocabulary in your review schedule.</P>
+            <H2>Unlocking the Past</H2>
+            <P constrain>Manually <A to="/vocabulary">unlock and relock previous levels</A>, or even individual words to filter the vocabulary in your review schedule.</P>
           </Element>
           <Element flex="1 0 320px">
-            <H2 >Keyboard Warrior</H2>
-            <P constrain>During reviews, press <strong>P</strong> to show the Phonetic reading, <strong>k</strong> to show the actual Kanji in the vocabulary, and <strong>f</strong> shows both <em>(a la WaniKani)</em>.</P>
+            <H2>Keyboard Warrior</H2>
+            <P constrain>After answering a question, press <strong>spacebar</strong> to cycle through the information panel detail levels, <strong>n</strong> to view and edit your notes, and <strong>s</strong> to add a new answer synonym.</P>
           </Element>
           <Element flex="1 0 320px">
-            <H2 >Speedy Gonzales</H2>
+            <H2>Speedy Gonzales</H2>
             <P constrain>Fly through your reviews by turning on the auto advance feature when you enter a correct answer, or show yourself all possible answers on failure.</P>
           </Element>
           <Element flex="1 0 320px">
-            <H2 >Next Time Gadget</H2>
+            <H2>Next Time Gadget</H2>
             <P constrain>When your answer has been marked incorrect, but you totally knew what it was, like, 本気で！ Press <strong>/</strong> on your keyboard or vehemently smack the <strong>x</strong> icon to ignore your failure.</P>
           </Element>
           <Element flex="1 0 320px">
-            <H2 >Follow WaniKani</H2>
+            <H2>Follow WaniKani</H2>
             <P constrain>You unlock new KaniWani vocab as you unlock new WaniKani vocab. Toggle features on the <A to="/settings">settings</A> page.</P>
           </Element>
           <Element flex="1 0 320px">
-            <H2 >Vocab Synergy</H2>
-            <P constrain>Words in WaniKani that have the same identical base meaning but different readings get combined. For example, when you see the word “Father” you can answer either “ちちおや” or “おとうさん” <em>(but not Anakin Skywalker)</em>.</P>
+            <H2>Vocab Synergy</H2>
+            <P constrain>Words in WaniKani that have the same <em>identical</em> base meaning but different readings get combined. For example, when you see the word “Arrow” you can answer either “や” or “やじるし”. If the meanings are slightly different but you consider your answer valid - you can add it as a KW answer synonym during reviews or on the item’s vocabulary page.</P>
           </Element>
           <Element flex="1 0 320px">
-            <H2 >Science Repeat... Science!</H2>
-            <P constrain>The algorithm is identical to WaniKani’s SRS <em>(Spaced Repetition System)</em>, in that the more often you correctly answer a review, the less often you will see it — until it is burnt.</P>
+            <H2>Science Repeat... Science!</H2>
+            <P constrain>The algorithm is the same to WaniKani’s SRS <em>(Spaced Repetition System)</em>, in that the more often you correctly answer a review, the less often you will see it — until it is burnt.</P>
           </Element>
         </Container>
 
