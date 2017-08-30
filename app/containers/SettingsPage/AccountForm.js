@@ -13,8 +13,8 @@ import H2 from 'base/H2';
 import H4 from 'base/H4';
 import Button from 'base/Button';
 
-import RangeField from './RangeField';
 import InputField from './InputField';
+import RangeField from './RangeField';
 
 import { Form, Section, SubSection, Controls } from './styles';
 
@@ -33,7 +33,7 @@ function AccountForm({ currentLevel, handleSubmit, submitting, submitSucceeded }
         <SubSection name="">
           <H4>Reset Kaniwani Progress</H4>
           <Field name="resetLevel" label="Continue from level:" component={RangeField} min={1} max={currentLevel} step={1} />
-          <Field name="confirmation" label="Enter username to confirm:" component={InputField} />
+          <Field name="confirmation" label="Enter username to confirm:" placeholder="名前" component={InputField} />
         </SubSection>
         <Controls>
           <Button type="submit">
@@ -64,7 +64,6 @@ const enhance = compose(
   reduxForm({
     form: 'account',
     onSubmit: ({ confirmation, resetLevel }, dispatch, { name }) => {
-      console.log(resetLevel);
       const errors = {
         confirmation: doValuesMatch(confirmation, name),
         resetLevel: numberValid(resetLevel),

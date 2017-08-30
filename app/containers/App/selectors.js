@@ -19,6 +19,8 @@ export const selectIdFromMatch = (props) => +props.match.params.id;
 export const selectCategoryFromMatch = (props) => props.match.params.category;
 
 export const selectProfile = (state) => state.profile;
+export const selectName = createSelector(selectProfile, (profile) => profile.name);
+export const selectEmail = createSelector(selectProfile, (profile) => profile.email);
 export const selectSrsCounts = createSelector(selectProfile, (profile) => profile.srsCounts);
 export const selectNextReviewDate = createSelector(selectProfile, (profile) => dateOrFalse(profile.nextReviewDate));
 export const selectVacationDate = createSelector(selectProfile, (profile) => dateOrFalse(profile.vacationDate));

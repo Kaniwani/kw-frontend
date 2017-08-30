@@ -450,6 +450,28 @@ export const levelLoadLogic = createLogic({
   },
 });
 
+export const contactLogic = createLogic({
+  type: app.contact.request,
+  warnTimeout: 10000,
+
+  process({ action: { payload } }, dispatch, done) {
+    const form = 'contact';
+    dispatch(startSubmit(form));
+    api.sendContactMessage(payload)
+      .then(() => {
+        dispatch(app.contact.success());
+        dispatch(stopSubmit(form));
+        done();
+      })
+      .catch(({ body }) => {
+        dispatch(stopSubmit(form, { ...body }));
+        // TODO: failure notification
+        dispatch(app.contact.failure(body));
+        done();
+      });
+  },
+});
+
 // All logic to be loaded
 export default [
   userLoginLogic,
@@ -477,4 +499,5 @@ export default [
   reviewUnlockLogic,
   reviewNotesLogic,
   levelLoadLogic,
+  contactLogic,
 ];

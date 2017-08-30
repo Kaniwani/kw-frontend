@@ -18,6 +18,7 @@ const ASYNC = {
 // actions.user.load.success === 'APP/USER/LOAD/SUCCESS'
 export const { app } = createActions({
   APP: {
+    CONTACT: ASYNC,
     CLEAR_GLOBAL_STATE: SYNC,
     ANNOUNCEMENTS: {
       LOAD: ASYNC,
