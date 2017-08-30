@@ -31,16 +31,9 @@ export const initialState = {
     lessons: [],
   },
   session: {
-    lessons: {
-      current: {},
-      correct: [],
-      incorrect: [],
-    },
-    reviews: {
-      current: {},
-      correct: [],
-      incorrect: [],
-    },
+    current: {},
+    correct: [],
+    incorrect: [],
   },
   summary: {
     lessons: {
@@ -91,43 +84,42 @@ const lessonQueueReducer = handleActions({
   [app.lessons.current.return]: (state, { payload: { currentId } }) => union(state, [currentId]),
 }, initialState.queue.lessons);
 
-const reviewSessionReducer = handleActions({
-  [app.clearGlobalState]: () => initialState.session.reviews,
-  [app.reviews.current.set]: (state, { payload }) => update(state, {
+const sessionReducer = handleActions({
+  [combineActions(
+    app.clearGlobalState,
+    app.resetSession,
+  )]: () => initialState.session,
+  [combineActions(
+    app.lessons.current.set,
+    app.reviews.current.set,
+  )]: (state, { payload }) => update(state, {
     current: { $set: payload },
   }),
-  [app.reviews.current.update]: (state, { payload }) => update(state, {
+  [combineActions(
+    app.lessons.current.update,
+    app.reviews.current.update,
+  )]: (state, { payload }) => update(state, {
     current: { $set: payload },
   }),
-  [app.reviews.current.return]: (state, { payload: { newCurrent } }) => update(state, {
+  [combineActions(
+    app.lessons.current.return,
+    app.reviews.current.return,
+  )]: (state, { payload: { newCurrent } }) => update(state, {
     current: { $set: newCurrent },
   }),
-  [app.reviews.correct.add]: (state, { payload }) => update(state, {
+  [combineActions(
+    app.lessons.correct.add,
+    app.reviews.correct.add,
+  )]: (state, { payload }) => update(state, {
     correct: { $set: union(state.correct, [payload]) },
   }),
-  [app.reviews.incorrect.add]: (state, { payload }) => update(state, {
+  [combineActions(
+    app.lessons.incorrect.add,
+    app.reviews.incorrect.add,
+  )]: (state, { payload }) => update(state, {
     incorrect: { $set: union(state.incorrect, [payload]) },
   }),
-}, initialState.session.reviews);
-
-const lessonSessionReducer = handleActions({
-  [app.clearGlobalState]: () => initialState.session.lessons,
-  [app.lessons.current.set]: (state, { payload }) => update(state, {
-    current: { $set: payload },
-  }),
-  [app.lessons.current.update]: (state, { payload }) => update(state, {
-    current: { $set: payload },
-  }),
-  [app.lessons.current.return]: (state, { payload: { newCurrent } }) => update(state, {
-    current: { $set: newCurrent },
-  }),
-  [app.lessons.correct.add]: (state, { payload }) => update(state, {
-    correct: { $set: union(state.correct, [payload]) },
-  }),
-  [app.lessons.incorrect.add]: (state, { payload }) => update(state, {
-    incorrect: { $set: union(state.incorrect, [payload]) },
-  }),
-}, initialState.session.lessons);
+}, initialState.session);
 
 const reviewSummaryReducer = handleActions({
   [app.clearGlobalState]: () => initialState.summary.reviews,
@@ -139,7 +131,7 @@ const reviewSummaryReducer = handleActions({
     incorrect: { $set: union(state.incorrect, [payload]) },
     lastActivityDate: { $set: new Date() },
   }),
-  [app.reviews.resetSession]: (state) => update(state, {
+  [app.reviews.resetSummary]: (state) => update(state, {
     correct: { $set: [] },
     incorrect: { $set: [] },
   }),
@@ -155,7 +147,7 @@ const lessonSummaryReducer = handleActions({
     incorrect: { $set: union(state.incorrect, [payload]) },
     lastActivityDate: { $set: new Date() },
   }),
-  [app.lessons.resetSession]: (state) => update(state, {
+  [app.lessons.resetSummary]: (state) => update(state, {
     correct: { $set: [] },
     incorrect: { $set: [] },
   }),
@@ -216,13 +208,10 @@ const reducers = {
     reviews: reviewQueueReducer,
     lessons: lessonQueueReducer,
   }),
+  session: sessionReducer,
   summary: combineReducers({
     reviews: reviewSummaryReducer,
     lessons: lessonSummaryReducer,
-  }),
-  session: combineReducers({
-    reviews: reviewSessionReducer,
-    lessons: lessonSessionReducer,
   }),
 };
 

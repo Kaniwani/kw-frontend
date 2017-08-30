@@ -3,7 +3,6 @@ import { push } from 'react-router-redux';
 import localForage from 'localforage';
 import { purgeStoredState } from 'redux-persist';
 import { startSubmit, stopSubmit } from 'redux-form';
-import sample from 'lodash/sample';
 import difference from 'lodash/difference';
 
 // TODO: inject some of these in store.js as logic dependencies instead?
@@ -96,11 +95,9 @@ export const userLogoutLogic = createLogic({
   type: app.user.logout,
   process(_, dispatch, done) {
     clearToken();
-    purgeStoredState({ storage: localForage }).then(() => {
-      console.log('persisted state purged');
-    }).catch(() => {
-      console.warn('persisted state failed to purge');
-    });
+    purgeStoredState({ storage: localForage })
+      .then(() => { console.info('persisted state purged'); })
+      .catch((err) => { console.warn('persisted state failed to purge: ', err); });
     dispatch(app.clearGlobalState());
     dispatch(push('/welcome'));
     done();
@@ -164,7 +161,6 @@ export const forceWkSrsLogic = createLogic({
   },
 });
 
-
 export const announcementsLoadLogic = createLogic({
   type: app.announcements.load.request,
   cancelType: app.announcements.load.cancel,
@@ -181,7 +177,6 @@ export const announcementsLoadLogic = createLogic({
   },
 });
 
-
 export const reviewsQueueLoadLogic = createLogic({
   type: app.reviews.queue.load.request,
   cancelType: app.reviews.queue.load.cancel,
@@ -193,9 +188,12 @@ export const reviewsQueueLoadLogic = createLogic({
     failType: app.reviews.queue.load.failure,
   },
 
-  process({ action: { payload } }) {
+  process({ getState, action: { payload } }) {
     return api.getCurrentReviews(payload)
-      .then(({ body }) => serializeQueueResponse(body));
+      .then(({ body }) => {
+        const { reviews, ids } = serializeQueueResponse(body);
+        return { reviews, ids: difference(ids, [sel.selectCurrentId(getState())]) };
+      });
   },
 });
 
@@ -213,65 +211,6 @@ export const lessonsQueueLoadLogic = createLogic({
   process({ action: { payload } }) {
     return api.getCurrentLessons(payload)
       .then(({ body }) => serializeQueueResponse(body));
-  },
-});
-
-export const setCurrentOnQueueLoadLogic = createLogic({
-  type: [app.reviews.queue.load.success, app.lessons.queue.load.success],
-  process({ getState, action: { type } }, dispatch, done) {
-    const state = getState();
-    const category = type === `${app.reviews.queue.load.success}` ? 'reviews' : 'lessons';
-    const currentId = sel.selectCurrentId(state, { category });
-    const queue = sel.selectQueue(state, { category });
-    if (!currentId && queue.length) {
-      dispatch(app[category].current.set());
-      done();
-    } else {
-      console.log('Loaded more queue but already have currentId: ', { currentId, category, queue });
-    }
-  },
-});
-
-export const setCurrentLogic = createLogic({
-  type: [app.reviews.current.set, app.lessons.current.set],
-  validate({ getState, action }, allow, reject) {
-    const state = getState();
-    const category = action.type === `${app.reviews.current.set}` ? 'reviews' : 'lessons';
-    const current = sel.selectCurrent(state, { category });
-    const queue = sel.selectQueue(state, { category });
-    const correct = sel.selectCorrectIds(state, { category });
-    const newId = sample(difference(queue, [current.id]));
-    if (newId || queue.length) {
-      const newCurrent = sel.selectReviewEntities(state)[newId];
-      allow({ ...action, payload: newCurrent });
-    }
-    if (!newId && current.id && !correct.includes(current.id)) {
-      console.log('Current was the only remaining item', { queue, current, newId });
-      allow({ ...action, payload: current });
-    }
-    if (!newId) {
-      console.log('End of queue?');
-      allow({ ...action, payload: { id: undefined } });
-    }
-    reject();
-  },
-});
-
-export const returnCurrentLogic = createLogic({
-  type: [app.reviews.current.return, app.lessons.current.return],
-  validate({ getState, action }, allow, reject) {
-    const state = getState();
-    const category = action.type === `${app.reviews.current.return}` ? 'reviews' : 'lessons';
-    const currentId = sel.selectCurrentId(state, { category });
-    const queue = sel.selectQueue(state, { category });
-    const newId = sample(difference(queue, [currentId]));
-    if (newId) {
-      const newCurrent = sel.selectReviewEntities(state)[newId];
-      allow({ ...action, payload: { newCurrent, currentId } });
-    } else {
-      console.log('Rejected returning current - no other queue items', { queue, currentId, newId });
-      reject();
-    }
   },
 });
 
@@ -486,9 +425,7 @@ export default [
   reviewsQueueLoadLogic,
   lessonsQueueLoadLogic,
   loadQueuesIfNeededLogic,
-  setCurrentOnQueueLoadLogic,
-  setCurrentLogic,
-  returnCurrentLogic,
+  // setCurrentOnQueueLoadLogic,
   levelsLoadLogic,
   levelLockLogic,
   levelUnlockLogic,

@@ -20,6 +20,7 @@ export const { app } = createActions({
   APP: {
     CONTACT: ASYNC,
     CLEAR_GLOBAL_STATE: SYNC,
+    RESET_SESSION: SYNC,
     ANNOUNCEMENTS: {
       LOAD: ASYNC,
     },
@@ -36,9 +37,8 @@ export const { app } = createActions({
       SRS: ASYNC,
       WKSRS: ASYNC,
     },
-    // TODO: rename as session > reviews???
     REVIEWS: {
-      RESET_SESSION: SYNC,
+      RESET_SUMMARY: SYNC,
       QUEUE: {
         LOAD: ASYNC,
         CLEAR: SYNC,
@@ -57,9 +57,8 @@ export const { app } = createActions({
         REMOVE: SYNC,
       },
     },
-    // TODO: rename as session > lessons???
     LESSONS: {
-      RESET_SESSION: SYNC,
+      RESET_SUMMARY: SYNC,
       QUEUE: {
         LOAD: ASYNC,
         CLEAR: SYNC,

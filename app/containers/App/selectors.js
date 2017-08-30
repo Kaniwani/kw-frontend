@@ -1,10 +1,7 @@
 import { createSelector } from 'reselect';
 import isFinite from 'lodash/isFinite';
 import titleCase from 'voca/title_case';
-import isBefore from 'date-fns/is_before';
-import addMinutes from 'date-fns/add_minutes';
 
-import { SESSION_EXPIRY_MINUTES } from 'shared/constants';
 import groupByRank from 'utils/groupByRank';
 import dateOrFalse from 'utils/dateOrFalse';
 import calculatePercentage from 'utils/calculatePercentage';
@@ -152,22 +149,13 @@ export const makeSelectVocabChipToolTipMarkup = (id) => createSelector(
   generateToolTip,
 );
 
+export const selectSession = (state) => state.session;
 export const selectQueue = (state, { category }) => state.queue[category];
-export const selectSession = (state, { category }) => state.session[category];
 export const selectSummary = (state, { category }) => state.summary[category];
 
 export const selectLastActivityDate = createSelector(
   selectSummary,
   (session) => dateOrFalse(session.lastActivityDate),
-);
-
-export const selectSessionActive = createSelector(
-  [selectLastActivityDate, selectQueue],
-  (lastActivityDate, queue) => {
-    const expiryDate = addMinutes(lastActivityDate, SESSION_EXPIRY_MINUTES);
-    const isActive = lastActivityDate && queue.length > 0 && isBefore(new Date(), expiryDate);
-    return isActive;
-  }
 );
 
 export const selectCurrent = createSelector(
@@ -177,7 +165,7 @@ export const selectCurrent = createSelector(
 
 export const selectCurrentId = createSelector(
   selectCurrent,
-  (current) => current.id,
+  (current) => current.id || false,
 );
 
 export const selectCurrentStreakName = createSelector(
@@ -216,10 +204,10 @@ export const selectPercentCorrect = createSelector(
   calculateCorrectPercentage
 );
 
-export const selectCorrectIds = createSelector(selectSession, ({ correct }) => correct);
-export const selectIncorrectIds = createSelector(selectSession, ({ incorrect }) => incorrect);
+export const selectSessionCorrectIds = createSelector(selectSession, ({ correct }) => correct);
+export const selectSessionIncorrectIds = createSelector(selectSession, ({ incorrect }) => incorrect);
 export const selectPreviouslyIncorrect = createSelector(
-  [selectCurrentId, selectIncorrectIds],
+  [selectCurrentId, selectSessionIncorrectIds],
   (currentId, incorrectIds) => incorrectIds.includes(currentId),
 );
 

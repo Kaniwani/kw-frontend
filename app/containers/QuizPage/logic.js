@@ -2,6 +2,8 @@ import { createLogic } from 'redux-logic';
 import { isJapanese, isKana } from 'wanakana';
 import isEmpty from 'lodash/isEmpty';
 import flatMap from 'lodash/flatMap';
+import sample from 'lodash/sample';
+import difference from 'lodash/difference';
 
 import { recordReview } from 'shared/api';
 import { SRS_RANGES } from 'shared/constants';
@@ -18,6 +20,9 @@ import {
   selectQueue,
   selectRemainingCount,
   selectCurrent,
+  selectCurrentId,
+  selectSessionCorrectIds,
+  selectReviewEntities,
 } from 'containers/App/selectors';
 
 import quiz from './actions';
@@ -42,13 +47,56 @@ function findMatch(input = '', review) {
   return match ? match.originalText : '';
 }
 
+export const setCurrentLogic = createLogic({
+  type: [app.reviews.current.set, app.lessons.current.set],
+  validate({ getState, action }, allow, reject) {
+    const state = getState();
+    const category = action.type === `${app.reviews.current.set}` ? 'reviews' : 'lessons';
+    const current = selectCurrent(state);
+    const queue = selectQueue(state, { category });
+    const correct = selectSessionCorrectIds(state);
+    const newId = sample(difference(queue, [current.id]));
+    if (newId || queue.length) {
+      const newCurrent = selectReviewEntities(state)[newId];
+      allow({ ...action, payload: newCurrent });
+    }
+    if (!newId && current.id && !correct.includes(current.id)) {
+      console.log('Current was the only remaining item', { queue, current, newId });
+      allow({ ...action, payload: current });
+    }
+    if (!newId) {
+      console.log('End of queue?');
+      allow({ ...action, payload: { id: undefined } });
+    }
+    reject();
+  },
+});
+
+export const returnCurrentLogic = createLogic({
+  type: [app.reviews.current.return, app.lessons.current.return],
+  validate({ getState, action }, allow, reject) {
+    const state = getState();
+    const category = action.type === `${app.reviews.current.return}` ? 'reviews' : 'lessons';
+    const currentId = selectCurrentId(state);
+    const queue = selectQueue(state, { category });
+    const newId = sample(difference(queue, [currentId]));
+    if (newId) {
+      const newCurrent = selectReviewEntities(state)[newId];
+      allow({ ...action, payload: { newCurrent, currentId } });
+    } else {
+      console.log('Rejected returning current - no other queue items', { queue, currentId, newId });
+      reject();
+    }
+  },
+});
+
 export const submitAnswerLogic = createLogic({
   type: quiz.answer.submit,
   latest: true,
   process({ getState, action: { payload: { category } } }, dispatch, done) {
     const state = getState();
     const { value, isDisabled, isCorrect, isIncorrect } = selectQuizAnswer(state);
-    const current = selectCurrent(state, { category });
+    const current = selectCurrent(state);
     const previouslyIncorrect = selectPreviouslyIncorrect(state, { category });
     const answerValue = cleanseInput(value);
     const isValid = isInputValid(answerValue);
@@ -63,7 +111,7 @@ export const submitAnswerLogic = createLogic({
 
     if (isDisabled && isValid) {
       if (isIncorrect) {
-        dispatch(quiz.answer.incorrect({ category, current }));
+        dispatch(quiz.answer.incorrect({ category, current, previouslyIncorrect }));
       }
       dispatch(quiz.answer.record.request({ category, current, isCorrect, isIncorrect, previouslyIncorrect }));
     }
@@ -118,18 +166,23 @@ export const checkAnswerLogic = createLogic({
 export const incorrectAnswerLogic = createLogic({
   type: quiz.answer.incorrect,
   latest: true,
-  process({ action: { payload: { category, current } } }, dispatch, done) {
+  process({ action: { payload: { category, current, previouslyIncorrect } } }, dispatch, done) {
     const incorrect = increment(current.incorrect);
-    // double decrement if close to burned
-    const streak = [...SRS_RANGES.THREE, ...SRS_RANGES.FOUR].includes(streak) ?
-      decrement(current.streak - 1) :
-      decrement(current.streak);
+    let streak;
+    // only decrement if first time incorrect in session
+    if (!previouslyIncorrect) {
+      streak = [...SRS_RANGES.THREE, ...SRS_RANGES.FOUR].includes(streak) ?
+        decrement(current.streak - 1) : // double decrement if close to burned
+        Math.max(decrement(current.streak), 1); // disallow dropping to "lesson" status
+    }
+
     const updatedReview = {
       ...current,
       incorrect,
       streak,
       isCritical: determineCriticality(current.correct, incorrect),
     };
+
     dispatch(app[category].current.update(updatedReview));
     done();
   },
@@ -185,7 +238,10 @@ export const recordAnswerLogic = createLogic({
     const { id } = current;
     clearTimeout(autoAdvanceTimeout);
     dispatch(app.review.update(current));
-    dispatch(app[category][isCorrect ? 'correct' : 'incorrect'].add(id));
+    // prevent appearance in both correct and incorrect
+    if (!previouslyIncorrect) {
+      dispatch(app[category][isCorrect ? 'correct' : 'incorrect'].add(id));
+    }
     dispatch(app[category].current.set());
     dispatch(quiz.answer.reset());
     dispatch(quiz.info.reset());
@@ -209,10 +265,11 @@ export const loadMoreQueueLogic = createLogic({
       const state = getState();
       const queue = selectQueue(state, { category });
       const remainingCount = selectRemainingCount(state, { category });
-      const moreQueueNeeded = queue.length < 15 && remainingCount > queue.length;
+      const moreQueueNeeded = queue.length < 10 && remainingCount > (queue.length + 1 /* current */);
       console.log({ queueLength: queue.length, remainingCount, moreQueueNeeded });
       if (moreQueueNeeded) {
         dispatch(app[category].queue.load.request());
+        done();
       }
     }
     done();
@@ -230,6 +287,8 @@ export const autoAdvanceLogic = createLogic({
 });
 
 export default [
+  setCurrentLogic,
+  returnCurrentLogic,
   submitAnswerLogic,
   ignoreAnswerLogic,
   checkAnswerLogic,

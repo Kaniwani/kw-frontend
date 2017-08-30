@@ -20,23 +20,26 @@ QuizInfo.propTypes = {
   ]).isRequired,
   category: PropTypes.string.isRequired,
   isDisabled: PropTypes.bool.isRequired,
+  activePanel: PropTypes.string.isRequired,
 };
 
 function QuizInfo({ id, category, isDisabled, activePanel }) {
   return (
     <Wrapper>
       <ToggleBar isDisabled={isDisabled} />
-      <PanelsWrapper isMinimized={!activePanel}>
-        <NotesPanel id={id} />
-        <InfoPanel id={id} />
-        <AddSynonymPanel id={id} category={category} />
-      </PanelsWrapper>
+      {Number.isFinite(id) && (
+        <PanelsWrapper isMinimized={!activePanel}>
+          <NotesPanel id={id} />
+          <InfoPanel id={id} />
+          <AddSynonymPanel id={id} category={category} />
+        </PanelsWrapper>
+      )}
     </Wrapper>
   );
 }
 
-const mapStateToProps = (state, { category }) => ({
-  id: selectCurrentId(state, { category }),
+const mapStateToProps = (state) => ({
+  id: selectCurrentId(state),
   activePanel: selectInfoActivePanel(state),
   isDisabled: selectInfoDisabled(state),
 });

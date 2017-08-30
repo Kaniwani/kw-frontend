@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { HotKeys } from 'react-hotkeys';
 import titleCase from 'voca/title_case';
-import { compose, branch, renderComponent } from 'recompose';
+import { compose } from 'recompose';
 
 import app from 'containers/App/actions';
 import quiz from 'containers/QuizPage/actions';
@@ -13,7 +13,6 @@ import { selectUi, selectCategoryFromMatch, selectCurrent } from 'containers/App
 import { selectAnswerDisabled } from 'containers/QuizPage/selectors';
 
 import backgroundImage from 'shared/assets/img/reviews.svg';
-import LoadingCrabigator from 'components/LoadingCrabigator';
 import QuizInfo from 'containers/QuizInfo';
 import QuizAnswer from 'containers/QuizAnswer';
 import QuizHeader from 'components/QuizHeader';
@@ -38,6 +37,7 @@ class QuizPage extends React.Component {
   static propTypes = {
     isLoading: PropTypes.bool.isRequired,
     current: PropTypes.object.isRequired,
+    resetSession: PropTypes.func.isRequired,
     redirectToSummary: PropTypes.func.isRequired,
     setNewCurrent: PropTypes.func.isRequired,
     category: PropTypes.string.isRequired,
@@ -58,6 +58,11 @@ class QuizPage extends React.Component {
     if (!this.props.current.id) {
       this.props.redirectToSummary();
     }
+  }
+
+  componentWillUnmount() {
+    this.props.resetSession();
+    this.props.loadUser();
   }
 
   guardHandler = (event, handler) => (
@@ -130,12 +135,14 @@ const mapStateToProps = (state, props) => {
   return {
     category,
     isLoading: selectUi(state)[category].loading,
-    current: selectCurrent(state, { category }),
+    current: selectCurrent(state),
     answerDisabled: selectAnswerDisabled(state),
   };
 };
 
 const mapDispatchToProps = (dispatch, props) => ({
+  loadUser: () => dispatch(app.user.load.request()),
+  resetSession: () => dispatch(app.resetSession()),
   redirectToSummary: () => dispatch(push(`/${selectCategoryFromMatch(props)}`)),
   recordAnswer: (payload) => dispatch(quiz.answer.submit(payload)),
   ignoreAnswer: (payload) => dispatch(quiz.answer.ignore(payload)),
