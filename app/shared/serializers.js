@@ -126,8 +126,8 @@ function serializeProfile({
 }
 
 function serializeSettings({
-  on_vacation: onVacation = false,
-  follow_me: followMe = true,
+  on_vacation: onVacation,
+  follow_me: followMe,
   auto_advance_on_success: autoAdvanceCorrect = false,
   auto_advance_speed: autoAdvanceSpeed = 2000,
   auto_expand_answer_on_success: autoExpandCorrect = true,
