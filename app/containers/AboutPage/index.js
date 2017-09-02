@@ -10,6 +10,7 @@ import H2 from 'base/H2';
 import H3 from 'base/H3';
 import A from 'base/A';
 import P from 'base/P';
+import Abbr from 'base/Abbr';
 
 function AboutPage() {
   return (
@@ -22,7 +23,7 @@ function AboutPage() {
         <Container>
           <Element>
             <H1 >What’s this all about then?</H1>
-            <P constrain>KaniWani is a companion website to <A href="http://www.wanikani.com" external>WaniKani</A>, an SRS tool for kanji and vocabulary memorization. We felt that WaniKani helped a lot with being able to recognize and read Kanji, but didn’t help enough when trying to recall words without the visual stimulation of the Kanji. KaniWani attempts to bridge that gap by using your WaniKani vocabulary to force you to do the opposite of what you are used to.</P>
+            <P constrain>KaniWani is a companion website to <A href="http://www.wanikani.com" external>WaniKani</A>, an <Abbr title="Spaced Repetition System">SRS</Abbr> tool for kanji and vocabulary memorization. We felt that WaniKani helped a lot with being able to recognize and read Kanji, but didn’t help enough when trying to recall words without the visual stimulation of the Kanji. KaniWani attempts to bridge that gap by using your WaniKani vocabulary to force you to do the opposite of what you are used to.</P>
           </Element>
         </Container>
 
@@ -33,31 +34,27 @@ function AboutPage() {
           </Element>
           <Element flex="1 0 320px">
             <H2>Unlocking the Past</H2>
-            <P constrain>Manually <A to="/vocabulary">unlock and relock previous levels</A>, or even individual words to filter the vocabulary in your review schedule.</P>
+            <P constrain>Manually unlock and relock previous levels in the vocabulary section, or even individual words to filter the vocabulary in your review schedule. You can further filter your reviews by WaniKani SRS rank on the settings page.</P>
           </Element>
           <Element flex="1 0 320px">
             <H2>Keyboard Warrior</H2>
-            <P constrain>After answering a question, press <strong>spacebar</strong> to cycle through the information panel detail levels, <strong>n</strong> to view and edit your notes, and <strong>s</strong> to add a new answer synonym.</P>
-          </Element>
-          <Element flex="1 0 320px">
-            <H2>Speedy Gonzales</H2>
-            <P constrain>Fly through your reviews by turning on the auto advance feature when you enter a correct answer, or show yourself all possible answers on failure.</P>
+            <P constrain>After answering a question, press <strong>spacebar</strong> to cycle through the information panel detail levels, <strong>n</strong> to view and edit your notes, <strong>f</strong> to switch back to info, and <strong>s</strong> to add a new answer synonym.</P>
           </Element>
           <Element flex="1 0 320px">
             <H2>Next Time Gadget</H2>
-            <P constrain>When your answer has been marked incorrect, but you totally knew what it was, like, 本気で！ Press <strong>/</strong> on your keyboard or vehemently smack the <strong>x</strong> icon to ignore your failure.</P>
+            <P constrain>When your answer has been marked incorrect, but you totally knew what it was, like, 本気で！ You can press  <strong>/</strong> <small>(forward slash)</small> on your keyboard or vehemently tap the <strong>x</strong> icon to ignore your failure.</P>
           </Element>
           <Element flex="1 0 320px">
             <H2>Follow WaniKani</H2>
-            <P constrain>You unlock new KaniWani vocab as you unlock new WaniKani vocab. Toggle features on the <A to="/settings">settings</A> page.</P>
-          </Element>
-          <Element flex="1 0 320px">
-            <H2>Vocab Synergy</H2>
-            <P constrain>Words in WaniKani that have the same <em>identical</em> base meaning but different readings get combined. For example, when you see the word “Arrow” you can answer either “や” or “やじるし”. If the meanings are slightly different but you consider your answer valid - you can add it as a KW answer synonym during reviews or on the item’s vocabulary page.</P>
+            <P constrain>Automatically sync with WaniKani and unlock new levels here as you level up there. If you wish to reset or suspend your WaniKani account, we recommend turning this feature <strong>off</strong> to prevent future syncing.</P>
           </Element>
           <Element flex="1 0 320px">
             <H2>Science Repeat... Science!</H2>
-            <P constrain>The algorithm is the same to WaniKani’s SRS <em>(Spaced Repetition System)</em>, in that the more often you correctly answer a review, the less often you will see it — until it is burnt.</P>
+            <P constrain>The algorithm is the same as WaniKani’s SRS, in that the more often you correctly answer a review, the less often you will see it — until it is burnt.</P>
+          </Element>
+          <Element flex="1 0 320px">
+            <H2>Vocab Synergy</H2>
+            <P constrain>Words in WaniKani that have the same <strong>identical</strong> base meaning but different readings get combined. For example, when you see the word “Arrow” you can answer either “や” or “やじるし”. If the meanings are slightly different but you consider your answer valid - you can add it as a KW answer synonym during reviews or on the item’s vocabulary page.</P>
           </Element>
         </Container>
 
@@ -82,7 +79,7 @@ function AboutPage() {
         </Container>
         <Container flex flexColumn flexCenter>
           <Element>
-            <H3>Browser Testing generously provided by</H3>
+            <H3>Powered by</H3>
           </Element>
           <Element style={{ height: '3.5rem' }}>
             <A plainLink href="https://www.browserstack.com/" external>

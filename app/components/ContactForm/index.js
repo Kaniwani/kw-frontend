@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { compose, branch, renderNothing } from 'recompose';
 
+import { requiredValid, emailValid } from 'shared/validations';
 import { selectName, selectEmail } from 'containers/App/selectors';
 
 import app from 'containers/App/actions';
@@ -28,9 +29,25 @@ ContactForm.defaultProps = {
 function ContactForm({ rows, handleSubmit, submitting, submitSucceeded }) {
   return (
     <Form onSubmit={handleSubmit}>
-      <Field name="name" label="Your Name:" component={InputField} />
-      <Field name="email" label="Preferred Email:" component={InputField} />
-      <Field name="body" label="Message:" component={TextAreaField} rows={rows} />
+      <Field
+        name="name"
+        label="Your Name:"
+        component={InputField}
+        validate={[requiredValid]}
+      />
+      <Field
+        name="email"
+        label="Preferred Email:"
+        component={InputField}
+        validate={[requiredValid, emailValid]}
+      />
+      <Field
+        name="body"
+        label="Message:"
+        component={TextAreaField}
+        rows={rows}
+        validate={[requiredValid]}
+      />
       <Controls>
         <Button type="submit" disabled={submitting}>
           {(submitting && 'Submitting') ||

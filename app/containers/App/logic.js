@@ -2,7 +2,7 @@ import { createLogic } from 'redux-logic';
 import { push } from 'react-router-redux';
 import localForage from 'localforage';
 import { purgeStoredState } from 'redux-persist';
-import { startSubmit, stopSubmit } from 'redux-form';
+import { startSubmit, stopSubmit, reset } from 'redux-form';
 import difference from 'lodash/difference';
 
 // TODO: inject some of these in store.js as logic dependencies instead?
@@ -398,12 +398,14 @@ export const contactLogic = createLogic({
     dispatch(startSubmit(form));
     api.sendContactMessage(payload)
       .then(() => {
+        // FIXME: server response sends CSRF token and no json which errors in fetch decode (despite 202 response)
         dispatch(app.contact.success());
         dispatch(stopSubmit(form));
         done();
       })
       .catch(({ body }) => {
         dispatch(stopSubmit(form, { ...body }));
+        dispatch(reset(form));
         // TODO: failure notification
         dispatch(app.contact.failure(body));
         done();
