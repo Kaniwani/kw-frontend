@@ -7,7 +7,7 @@ import isEqual from 'lodash/isEqual';
 import { breakpoints } from 'shared/styles/media';
 
 import LogoLink from 'components/LogoLink';
-import { selectSessionCount, selectLocationPath } from 'containers/App/selectors';
+import { selectSessionCount, selectLocationPath, selectVacationDate } from 'containers/App/selectors';
 import app from 'containers/App/actions';
 
 import OnCanvasMenu from './OnCanvasMenu';
@@ -20,6 +20,7 @@ class SiteHeader extends React.Component {
     lessonsCount: PropTypes.number.isRequired,
     reviewsCount: PropTypes.number.isRequired,
     logoutUser: PropTypes.func.isRequired,
+    onVacation: PropTypes.bool.isRequired,
     locationPath: PropTypes.string,
   };
 
@@ -73,9 +74,10 @@ class SiteHeader extends React.Component {
   }
 
   render() {
+    const { lessonsCount, reviewsCount, onVacation } = this.props;
     const sessionRoutes = [
-      { text: 'lessons', route: '/lessons', count: this.props.lessonsCount },
-      { text: 'reviews', route: '/reviews', count: this.props.reviewsCount },
+      { text: 'lessons', route: '/lessons', count: onVacation ? 0 : lessonsCount, disabled: onVacation },
+      { text: 'reviews', route: '/reviews', count: onVacation ? 0 : reviewsCount, disabled: onVacation },
     ];
     return (
       <Header innerRef={(node) => { this.HeaderRef = node; }}>
@@ -100,6 +102,7 @@ const mapStateToProps = (state) => ({
   reviewsCount: selectSessionCount(state, { category: 'reviews' }),
   lessonsCount: selectSessionCount(state, { category: 'lessons' }),
   locationPath: selectLocationPath(state),
+  onVacation: !!selectVacationDate(state),
 });
 
 const mapDispatchToProps = ({

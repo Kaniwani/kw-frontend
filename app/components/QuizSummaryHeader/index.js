@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import noop from 'lodash/noop';
 import titleCase from 'voca/title_case';
-import { createStructuredSelector } from 'reselect';
 
-import { selectRemainingCount } from 'containers/App/selectors';
+import { selectRemainingCount, selectVacationDate } from 'containers/App/selectors';
 import app from 'containers/App/actions';
 import LogoLink from 'components/LogoLink';
 import SessionLink from './SessionLink';
@@ -19,11 +18,12 @@ import {
 QuizSummaryHeader.propTypes = {
   category: PropTypes.string.isRequired,
   remainingCount: PropTypes.number.isRequired,
+  onVacation: PropTypes.bool.isRequired,
   resetSummary: PropTypes.func.isRequired,
 };
 
-function QuizSummaryHeader({ category, remainingCount, resetSummary }) {
-  const isDisabled = remainingCount < 1;
+function QuizSummaryHeader({ category, remainingCount, onVacation, resetSummary }) {
+  const isDisabled = onVacation || remainingCount < 1;
   return (
     <Header>
       <Wrapper>
@@ -31,7 +31,7 @@ function QuizSummaryHeader({ category, remainingCount, resetSummary }) {
         <Title>{titleCase(category)} Summary</Title>
         <SessionLink
           isDisabled={isDisabled}
-          text={isDisabled ? `No ${titleCase(category)}` : 'Begin Session'}
+          text={(onVacation && 'On Vacation!') || (isDisabled ? `No ${titleCase(category)}` : 'Begin Session')}
           to={`/${category}/session`}
           count={remainingCount}
           handleClick={isDisabled ? noop : resetSummary}
@@ -41,8 +41,9 @@ function QuizSummaryHeader({ category, remainingCount, resetSummary }) {
   );
 }
 
-const mapStateToProps = createStructuredSelector({
-  remainingCount: selectRemainingCount,
+const mapStateToProps = (state, props) => ({
+  remainingCount: selectRemainingCount(state, props),
+  onVacation: !!selectVacationDate(state),
 });
 
 const mapDispatchToProps = (dispatch, { category }) => ({

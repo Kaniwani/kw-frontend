@@ -10,23 +10,26 @@ NavLink.propTypes = {
   handleLogout: PropTypes.func.isRequired,
   isOffCanvas: PropTypes.bool,
   count: PropTypes.number,
+  disabled: PropTypes.bool,
 };
 
 NavLink.defaultProps = {
   count: 0,
   isOffCanvas: false,
   handleLogout: noop,
+  disabled: false,
 };
 
 function NavLink({
   text,
   route,
   count,
+  disabled,
   isOffCanvas,
   handleLogout,
 }) {
   return (
-    <Li isOffCanvas={isOffCanvas}>
+    <Li isOffCanvas={isOffCanvas} disabled={disabled} title={disabled && 'On Vacation!'}>
       {text === 'logout' ? (
         <LinkButton onClick={handleLogout}>
           <Text>
@@ -36,6 +39,7 @@ function NavLink({
       ) : (
         <Link
           plainLink
+          disabled={disabled}
           to={route}
         >
           <Text>

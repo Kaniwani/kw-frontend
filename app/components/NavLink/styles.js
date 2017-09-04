@@ -49,7 +49,7 @@ const linkStyle = css`
   line-height: 1;
   align-items: center;
   cursor: pointer;
-  color: ${({ disabled }) => disabled ? grey : 'currentColor'};
+  color: currentColor;
 
   &:hover,
   &:focus,
@@ -60,6 +60,11 @@ const linkStyle = css`
       width: 100%;
     }
   }
+
+  ${({ disabled }) => disabled && `
+    color: grey;
+    pointer-events: none;
+  `}
 `;
 
 export const Link = styled(A)`
@@ -96,4 +101,8 @@ export const Li = styled.li`
       bottom: 0;
     }
   `};
+
+  ${({ disabled }) => disabled && `
+    cursor: not-allowed;
+  `}
 `;
