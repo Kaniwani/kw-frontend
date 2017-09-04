@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, branch, renderComponent, shouldUpdate } from 'recompose';
-import isEqual from 'lodash/isEqual';
+import { isEqual } from 'lodash';
 
 import {
   selectCurrent,

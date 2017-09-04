@@ -1,9 +1,7 @@
 import { combineReducers } from 'redux';
 import { handleActions, combineActions } from 'redux-actions';
 import update from 'immutability-helper';
-import merge from 'lodash/merge';
-import union from 'lodash/union';
-import difference from 'lodash/difference';
+import { merge, union, difference } from 'lodash';
 
 import app from './actions';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import titlecase from 'voca/title_case';
+import { titleCase } from 'voca';
 import { branch, renderNothing } from 'recompose';
 
 import { SRS_RANKS } from 'shared/constants';
@@ -18,7 +18,7 @@ RankedVocabList.propTypes = {
 function RankedVocabList({ rank, ids, color, cardsExpanded }) {
   return (
     <Wrapper>
-      <StripeHeading text={titlecase(rank)} count={ids.length} />
+      <StripeHeading text={titleCase(rank)} count={ids.length} />
       <VocabList ids={ids} color={color} isExpanded={cardsExpanded} />
     </Wrapper>
   );

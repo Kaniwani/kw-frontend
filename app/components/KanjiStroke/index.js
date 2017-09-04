@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { isKanji } from 'wanakana';
-import merge from 'lodash/merge';
+import { merge } from 'lodash';
 
 import { selectVocabularySettings } from 'containers/App/selectors';
 

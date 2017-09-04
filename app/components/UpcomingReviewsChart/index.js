@@ -2,12 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import addHours from 'date-fns/add_hours';
-import format from 'date-fns/format';
-import debounce from 'lodash/debounce';
-import chunk from 'lodash/chunk';
-import last from 'lodash/last';
-import sumBy from 'lodash/sumBy';
+import { addHours, format } from 'date-fns';
+import { debounce, chunk, last, sumBy } from 'lodash';
 
 import { SRS_COLORS } from 'shared/styles/colors';
 import { select } from 'd3-selection';

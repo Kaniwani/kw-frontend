@@ -4,7 +4,7 @@ import cuid from 'cuid';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, branch, renderComponent, shouldUpdate } from 'recompose';
-import isEqual from 'lodash/isEqual';
+import { isEqual } from 'lodash';
 
 import { selectLevelIds } from 'containers/App/selectors';
 import LoadingCrabigator from 'components/LoadingCrabigator';

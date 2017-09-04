@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import cuid from 'cuid';
-import flatten from 'lodash/flatten';
+import { flatten } from 'lodash';
 import { compose, branch, renderComponent } from 'recompose';
 
 import { makeSelectReviewsGroupedByRank } from 'containers/App/selectors';

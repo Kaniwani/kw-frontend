@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import debounce from 'lodash/debounce';
-import isEqual from 'lodash/isEqual';
+import { debounce, isEqual } from 'lodash';
 import { breakpoints } from 'shared/styles/media';
 
 import LogoLink from 'components/LogoLink';

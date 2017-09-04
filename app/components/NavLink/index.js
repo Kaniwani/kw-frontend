@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import noop from 'lodash/noop';
+import { noop } from 'lodash';
 
 import { Li, Link, LinkButton, Text, Count } from './styles';
 

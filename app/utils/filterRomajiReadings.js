@@ -1,5 +1,5 @@
-import flatMap from 'lodash/flatMap';
-import toHiragana from 'wanakana/toHiragana';
+import { flatMap } from 'lodash';
+import { toHiragana } from 'wanakana';
 
 /**
  * Removes meanings that are romaji versions of valid answers

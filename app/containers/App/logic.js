@@ -2,12 +2,13 @@ import { createLogic } from 'redux-logic';
 import { push } from 'react-router-redux';
 import localForage from 'localforage';
 import { purgeStoredState } from 'redux-persist';
-import { startSubmit, stopSubmit, reset } from 'redux-form';
-import difference from 'lodash/difference';
+import { difference } from 'lodash';
+import * as reduxFormActions from 'redux-form';
 
 // TODO: inject some of these in store.js as logic dependencies instead?
 import * as api from 'shared/api';
 import { setToken, clearToken } from 'utils/auth';
+
 
 import {
   serializeUserResponse,
@@ -23,6 +24,8 @@ import { selectLevelsSubmitting } from 'containers/VocabLevelsPage/selectors';
 // TODO: find/replace sel.selectorZ and import { selectorX, selectorY }
 import * as sel from './selectors';
 import app from './actions';
+
+const { startSubmit, stopSubmit, reset } = reduxFormActions;
 
 export const userRegisterLogic = createLogic({
   type: app.user.register.request,

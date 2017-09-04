@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
-import merge from 'lodash/merge';
+import { merge } from 'lodash';
 
 import quiz from './actions';
 

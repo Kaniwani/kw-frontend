@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, withHandlers, pure } from 'recompose';
-import noop from 'lodash/noop';
+import { noop } from 'lodash';
 
 import actions from 'containers/App/actions';
 import {
@@ -79,7 +79,7 @@ const mapStateToProps = (state, { id }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   lockLevel: (payload) => {
-    window.confirm('This will reset your KW SRS for this level. Are you sure you want to continue?') ? dispatch(actions.level.lock.request(payload)) : noop();
+    window.confirm('This will reset your KW SRS for this level. Are you sure you want to continue?') ? dispatch(actions.level.lock.request(payload)) : noop(); // eslint-disable-line no-unused-expressions
   },
   unlockLevel: (payload) => dispatch(actions.level.unlock.request(payload)),
 });

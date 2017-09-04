@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import titleCase from 'voca/title_case';
+import { titleCase } from 'voca';
 import { onlyUpdateForKeys } from 'recompose';
 
 import { SRS_RANKS } from 'shared/constants';

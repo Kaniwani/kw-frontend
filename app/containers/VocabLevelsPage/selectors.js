@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import isFinite from 'lodash/isFinite';
+import { isFinite } from 'lodash';
 import { selectUserLevel, isNotNumberedLevel } from 'containers/App/selectors';
 
 const isWithinUserWKLevel = (id, userLevel) => isFinite(+id) && +id <= userLevel;

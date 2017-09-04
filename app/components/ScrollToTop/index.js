@@ -1,5 +1,5 @@
 import React from 'react';
-import debounce from 'lodash/debounce';
+import { debounce } from 'lodash';
 
 import smoothScrollY from 'utils/smoothScrollY';
 import ScrollTopButton from './ScrollTopButton';

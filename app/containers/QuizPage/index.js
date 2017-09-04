@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { HotKeys } from 'react-hotkeys';
-import titleCase from 'voca/title_case';
+import { titleCase } from 'voca';
 import { compose } from 'recompose';
 
 import app from 'containers/App/actions';

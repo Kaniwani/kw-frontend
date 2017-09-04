@@ -1,5 +1,5 @@
 import { readings } from 'shared/testTables';
-import flatMap from 'lodash/flatMap';
+import { flatMap } from 'lodash';
 import condenseReadings from 'utils/condenseReadings';
 
 import splitSentenceByMatch from '../splitSentenceByMatch';

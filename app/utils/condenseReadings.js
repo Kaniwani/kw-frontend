@@ -1,4 +1,4 @@
-import groupBy from 'lodash/groupBy';
+import { groupBy } from 'lodash';
 
 /**
  * Combines kana for a given character into a single entry

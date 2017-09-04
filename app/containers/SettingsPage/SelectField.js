@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cuid from 'cuid';
-import titleCase from 'voca/title_case';
+import { titleCase } from 'voca';
 
 import { Block, Label, Note } from './styles';
 

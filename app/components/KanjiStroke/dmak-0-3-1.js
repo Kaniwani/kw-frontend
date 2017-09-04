@@ -1,5 +1,5 @@
 import Raphael from 'raphael';
-import merge from 'lodash/merge';
+import { merge } from 'lodash';
 
 //  Draw Me A Kanji - v0.3.1
 //  A funny drawer for your Japanese writings

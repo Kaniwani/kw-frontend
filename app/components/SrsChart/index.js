@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, branch, renderNothing } from 'recompose';
-import isEmpty from 'lodash/isEmpty';
+import { isEmpty } from 'lodash';
 
 import { SRS_COLORS } from 'shared/styles/colors';
 import { selectSrsCounts } from 'containers/App/selectors';

@@ -1,6 +1,4 @@
-import isKanji from 'wanakana/isKanji';
-import isJapanese from 'wanakana/isJapanese';
-import isKana from 'wanakana/isKana';
+import { isKanji, isJapanese, isKana } from 'wanakana';
 
 export const onlyKanjiKana = (value = '') =>
   isJapanese(value) ? undefined : 'Must be a mix of kanji and okurigana';

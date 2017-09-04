@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { compose, branch, renderNothing } from 'recompose';
-import isKana from 'wanakana/isKana';
+import { isKana } from 'wanakana';
 
 import { selectInfoActivePanel, selectAnswerValue } from 'containers/QuizPage/selectors';
 import AddSynonym from 'components/AddSynonym';

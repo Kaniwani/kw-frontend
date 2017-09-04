@@ -1,4 +1,4 @@
-import endsWith from 'voca/ends_with';
+import { endsWith } from 'voca';
 
 /**
  * Converts a trailing 'n' to 'ん'

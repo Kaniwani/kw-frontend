@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm, Field, SubmissionError } from 'redux-form';
 import { compose } from 'recompose';
-import toKana from 'wanakana/toKana';
+import { toKana } from 'wanakana';
 import { onlyKanjiOrKana, onlyKana } from 'shared/validations';
 
 import app from 'containers/App/actions';

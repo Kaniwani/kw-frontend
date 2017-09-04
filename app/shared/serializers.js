@@ -1,8 +1,6 @@
 /* eslint-disable camelcase */
 import { SRS_RANKS } from 'shared/constants';
-import isString from 'lodash/isString';
-import castArray from 'lodash/castArray';
-import uniq from 'lodash/uniq';
+import { isString, castArray, uniq } from 'lodash';
 import condenseReadings from 'utils/condenseReadings';
 import dateOrFalse from 'utils/dateOrFalse';
 

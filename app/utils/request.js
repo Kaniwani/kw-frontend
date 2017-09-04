@@ -1,6 +1,6 @@
 import 'whatwg-fetch';
 import { getToken } from 'utils/auth';
-import isEmpty from 'lodash/isEmpty';
+import { isEmpty } from 'lodash';
 
 const createRequestType = (method) => (url, body = {}, headers = {}) => request(url, { body, headers, method });
 export const get = createRequestType('GET');

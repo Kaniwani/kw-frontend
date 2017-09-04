@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import noop from 'lodash/noop';
-import titleCase from 'voca/title_case';
+import { noop } from 'lodash';
+import { titleCase } from 'voca';
 
 import { selectRemainingCount, selectVacationDate } from 'containers/App/selectors';
 import app from 'containers/App/actions';

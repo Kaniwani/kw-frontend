@@ -19,7 +19,7 @@ module.exports = require('./webpack.base.babel')({
   plugins: [
     // create a dedicated vendor bundle
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
+      name: 'main',
       children: true,
       minChunks: 2,
       async: true,

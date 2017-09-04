@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import isNumber from 'lodash/isNumber';
+import { isNumber } from 'lodash';
 
 import { Heading, Text, Count } from './styles';
 

@@ -1,9 +1,6 @@
 import { createLogic } from 'redux-logic';
 import { isJapanese, isKana } from 'wanakana';
-import isEmpty from 'lodash/isEmpty';
-import flatMap from 'lodash/flatMap';
-import sample from 'lodash/sample';
-import difference from 'lodash/difference';
+import { isEmpty, flatMap, sample, difference } from 'lodash';
 
 import { recordReview } from 'shared/api';
 import { SRS_RANGES } from 'shared/constants';

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // import { branch, renderComponent } from 'recompose';
-import isEmpty from 'lodash/isEmpty';
+import { isEmpty } from 'lodash';
 import invariant from 'invariant';
 
 import { Anchor, ExternalAnchor, RouterLink } from './styles';

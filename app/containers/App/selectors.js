@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
-import isFinite from 'lodash/isFinite';
-import titleCase from 'voca/title_case';
+import { isFinite } from 'lodash';
+import { titleCase } from 'voca';
 
 import groupByRank from 'utils/groupByRank';
 import dateOrFalse from 'utils/dateOrFalse';

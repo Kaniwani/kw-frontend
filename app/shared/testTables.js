@@ -1,4 +1,4 @@
-import random from 'lodash/random';
+import { random } from 'lodash';
 
 /**
  * These all assume that the data has been serialized to preferred format in the front end already!
