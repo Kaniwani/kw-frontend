@@ -29,7 +29,7 @@ function NavLink({
   handleLogout,
 }) {
   return (
-    <Li isOffCanvas={isOffCanvas} disabled={disabled} title={disabled && 'On Vacation!'}>
+    <Li isOffCanvas={isOffCanvas} disabled={disabled} title={disabled ? 'On Vacation!' : ''}>
       {text === 'logout' ? (
         <LinkButton onClick={handleLogout}>
           <Text>
