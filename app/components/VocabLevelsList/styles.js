@@ -7,8 +7,8 @@ import { greyLight } from 'shared/styles/colors';
 
 export const Ul = styled.ul`
   ${resetList}
-  ${gutter({ prop: 'margin', type: 'outer', position: 'vertical' })}
-  ${gutter({ prop: 'margin', type: 'inner', position: 'horizontal' })}
+  ${gutter({ prop: 'margin', position: 'vertical', type: 'outer' })}
+  ${gutter({ prop: 'margin', position: 'horizontal', mod: 3 })}
   display: flex;
   flex-flow: row wrap;
   border: 1px solid ${rgba(greyLight, 0.5)};
