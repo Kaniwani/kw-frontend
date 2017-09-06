@@ -146,7 +146,9 @@ const enhance = compose(
       }
 
       if (resetSelected) {
-        dispatch(app.user.resetPassword.request({ email }));
+        // FIXME: this works, but we don't have a follow-up in place yet
+        // dispatch(app.user.resetPassword.request({ email }));
+        window.alert('Temporarily disabled - please contact us to reset your password.');
       }
     },
   }),
