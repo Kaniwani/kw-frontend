@@ -36,8 +36,8 @@ export const transparent = 'rgba(0, 0, 0, 0)';
 // ensure that we can still set currentColor
 export const currentColor = 'currentColor';
 
-export const link = blueLight;
-export const linkHover = blueDark;
+export const link = blue;
+export const linkHover = blueLight;
 
 export const SRS_COLORS = {
   UNTRAINED: pinkLight,

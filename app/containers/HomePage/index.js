@@ -16,11 +16,12 @@ import Announcements from 'components/Announcements';
 import PageWrapper from 'base/PageWrapper';
 import ReviewStatus from 'components/ReviewStatus';
 import Debug from 'utils/Debug';
+import ApiKeyCheck from './ApiKeyCheck';
 import LastWkSync from './LastWkSync';
 
 export class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
-    profile: PropTypes.object,
+    profile: PropTypes.object.isRequired,
     isLoading: PropTypes.bool.isRequired,
     loadUser: PropTypes.func.isRequired,
     forceSrs: PropTypes.func.isRequired,
@@ -42,6 +43,7 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
           <meta name="description" content="Kaniwani Dashboard Page" />
         </Helmet>
         <Container>
+          <ApiKeyCheck valid={profile.isApiValid} />
           <ReviewStatus />
           <LastWkSync />
         </Container>
