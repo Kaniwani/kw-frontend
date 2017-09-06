@@ -27,7 +27,7 @@ function AboutPage() {
           </Element>
         </Container>
 
-        <Container flex flexRow flexWrap>
+        <Container flexRow flexWrap>
           <Element flex="1 0 320px">
             <H2>Moving Forward</H2>
             <P constrain>KaniWani starts off at your current WK level, so you don’t have to go through all the previous levels unless you want to. Complete lessons to introduce words into your regular review schedule.</P>
@@ -58,8 +58,8 @@ function AboutPage() {
           </Element>
         </Container>
 
-        <Container flex flexColumn flexCenter>
-          <Element flex flexRow flexCenter>
+        <Container flexColumn flexCenter>
+          <Element flexRow flexCenter>
             <P constrain textAlign="center">
               <em>Contributions gratefully accepted for ongoing development, webhosting, and <span lang="ja">日本酒</span>.</em>
             </P>
@@ -72,12 +72,12 @@ function AboutPage() {
                 name="encrypted"
                 value="-----BEGIN PKCS7-----MIIHLwYJKoZIhvcNAQcEoIIHIDCCBxwCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYAjC1eZQaGmWRtltMlBsnUpM9EGKTqYMqBIjMF4KELpQPI+uXpSJ4aU4zXM+N1YgyXUOD76vdLnQeNcB/qxzo5fgcwm0bFDWTVEh6rQDJDF3P/XmDFkmLKQYane0g/Q3NisIUBejSjHFwAtopkYExHM9pLWBUaI2cCTN28JfKyRBjELMAkGBSsOAwIaBQAwgawGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQIOUlYaYQLFs2AgYikFUt3W34e0PjEezuVTObwtoXz+EBCrsPlYd735Bj2nPNGpx2q4qkKhRIpeWC85rJVWutpySUXEGLqKOj6fo3nR3uARX/Hqc49eiA1Yev49O+dDERAxgw451dFER39hv3Em+PuyYUSqevLlcKulRzjPT7N959FPq7i01QDmScj0m05JLJUTHfgoIIDhzCCA4MwggLsoAMCAQICAQAwDQYJKoZIhvcNAQEFBQAwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tMB4XDTA0MDIxMzEwMTMxNVoXDTM1MDIxMzEwMTMxNVowgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDBR07d/ETMS1ycjtkpkvjXZe9k+6CieLuLsPumsJ7QC1odNz3sJiCbs2wC0nLE0uLGaEtXynIgRqIddYCHx88pb5HTXv4SZeuv0Rqq4+axW9PLAAATU8w04qqjaSXgbGLP3NmohqM6bV9kZZwZLR/klDaQGo1u9uDb9lr4Yn+rBQIDAQABo4HuMIHrMB0GA1UdDgQWBBSWn3y7xm8XvVk/UtcKG+wQ1mSUazCBuwYDVR0jBIGzMIGwgBSWn3y7xm8XvVk/UtcKG+wQ1mSUa6GBlKSBkTCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb22CAQAwDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQUFAAOBgQCBXzpWmoBa5e9fo6ujionW1hUhPkOBakTr3YCDjbYfvJEiv/2P+IobhOGJr85+XHhN0v4gUkEDI8r2/rNk1m0GA8HKddvTjyGw/XqXa+LSTlDYkqI8OwR8GEYj4efEtcRpRYBxV8KxAW93YDWzFGvruKnnLbDAF6VR5w/cCMn5hzGCAZowggGWAgEBMIGUMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbQIBADAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTYwMjA4MjAyNTM1WjAjBgkqhkiG9w0BCQQxFgQUD6bc9NoP3NotvwDEQSjqFitkXGwwDQYJKoZIhvcNAQEBBQAEgYCpvXhxpQn6MBq/dird9lFYvWleBBcBJuecAKYr9gMiB7JHmhMwb5T/9MgyFMH5eUttcdmLx9AXA51uLMIrN2ovvRiSMhTMprScE0xR9okzlu5BnKofOuhTlmR7DijTgThk8JyWQOYn/BPmOdkbN8gukBJGaDcKid1qM269ZfYz5Q==-----END PKCS7-----"
               />
-              <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" />
-              <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+              <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" name="submit" alt="PayPal - The safer, easier way to pay online!" />
+              <img alt="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" />
             </form>
           </Element>
         </Container>
-        <Container flex flexColumn flexCenter>
+        <Container flexColumn flexCenter>
           <Element>
             <H3>Powered by</H3>
           </Element>
