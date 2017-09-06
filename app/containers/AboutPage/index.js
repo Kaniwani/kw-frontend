@@ -30,7 +30,7 @@ function AboutPage() {
         <Container flexRow flexWrap>
           <Element flex="1 0 320px">
             <H2>Moving Forward</H2>
-            <P constrain>KaniWani starts off at your current WK level, so you don’t have to go through all the previous levels unless you want to. Complete lessons to introduce words into your regular review schedule.</P>
+            <P constrain>KaniWani starts off at your current WaniKani level, so you don’t have to go through all the previous levels unless you want to. Complete lessons to introduce words into your regular review schedule.</P>
           </Element>
           <Element flex="1 0 320px">
             <H2>Unlocking the Past</H2>
@@ -54,7 +54,7 @@ function AboutPage() {
           </Element>
           <Element flex="1 0 320px">
             <H2>Vocab Synergy</H2>
-            <P constrain>Words in WaniKani that have the same <strong>identical</strong> base meaning but different readings get combined. For example, when you see the word “Arrow” you can answer either “や” or “やじるし”. If the meanings are slightly different but you consider your answer valid - you can add it as a KW answer synonym during reviews or on the item’s vocabulary page.</P>
+            <P constrain>Words in WaniKani that have the same <strong>identical</strong> base meaning but different readings get combined. For example, when you see the word “Arrow” you can answer either “や” or “やじるし”. If the meanings are slightly different but you consider your answer valid - you can add it as a KaniWani answer synonym during reviews or on the item’s vocabulary page.</P>
           </Element>
         </Container>
 
