@@ -19,6 +19,7 @@ export const selectProfile = (state) => state.profile;
 export const selectName = createSelector(selectProfile, (profile) => profile.name);
 export const selectEmail = createSelector(selectProfile, (profile) => profile.email);
 export const selectSrsCounts = createSelector(selectProfile, (profile) => profile.srsCounts);
+export const selectUpcomingReviews = createSelector(selectProfile, (profile) => profile.upcomingReviews);
 export const selectNextReviewDate = createSelector(selectProfile, (profile) => dateOrFalse(profile.nextReviewDate));
 export const selectVacationDate = createSelector(selectProfile, (profile) => dateOrFalse(profile.vacationDate));
 export const selectLastWkSyncDate = createSelector(selectProfile, (profile) => dateOrFalse(profile.lastWkSyncDate));

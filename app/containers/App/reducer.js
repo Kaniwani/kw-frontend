@@ -13,6 +13,7 @@ export const initialState = {
     nextHourReviews: 0,
     nextDayReviews: 0,
     srsCounts: {},
+    upcomingReviews: [],
   },
   // TODO: get Tadgh to update settings with new options + their defaults!
   // NOTE: update serialize/deserializer with anything missing

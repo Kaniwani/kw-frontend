@@ -3,6 +3,9 @@ import { SRS_RANKS } from 'shared/constants';
 import { isString, castArray, uniq } from 'lodash';
 import condenseReadings from 'utils/condenseReadings';
 import dateOrFalse from 'utils/dateOrFalse';
+import format from 'date-fns/format';
+import addHours from 'date-fns/add_hours';
+
 
 // TODO: extract utils to nested ./file with tests
 
@@ -26,6 +29,14 @@ const toUniqueStringsArray = (data) => {
 const createHashMap = (data) => data.reduce((hash, item) => (hash[item.id] = item, hash), {});
 const formatSrsCounts = (obj) =>
   Object.entries(obj).reduce((hash, [key, val]) => (hash[key.toUpperCase()] = +val, hash), {});
+const genName = (index) => `${format(addHours(new Date(), index + 1), 'ha')}`;
+
+const serializeUpcomingReviews = (data = []) => data.reduce((list, count, index) =>
+  list.concat({
+    name: genName(index),
+    value: count,
+  }), []);
+
 /* eslint-enable */
 
 export const serializeUserResponse = serializeUser;
@@ -102,6 +113,7 @@ function serializeProfile({
   last_wanikani_sync_date: lastWkSyncDate,
   srs_counts: srsCounts,
   vacation_date: vacationDate,
+  upcoming_reviews: upcomingReviews,
 } = {}) {
   return {
     id,
@@ -120,6 +132,7 @@ function serializeProfile({
     vacationDate: dateOrFalse(vacationDate),
     lastWkSyncDate: dateOrFalse(lastWkSyncDate),
     srsCounts: formatSrsCounts(srsCounts),
+    upcomingReviews: serializeUpcomingReviews(upcomingReviews),
   };
 }
 

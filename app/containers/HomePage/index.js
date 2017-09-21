@@ -10,7 +10,7 @@ import Container from 'base/Container';
 import Element from 'base/Element';
 import H2 from 'base/H2';
 import SrsChart from 'components/SrsChart';
-import TotalUpcomingReviewsChart from 'components/TotalUpcomingReviewsChart';
+import UpcomingReviewsChart from 'components/UpcomingReviewsChart';
 import Announcements from 'components/Announcements';
 
 import PageWrapper from 'base/PageWrapper';
@@ -51,7 +51,7 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
           <Element flexRow flexCenter>
             <H2>Coming Up</H2>
           </Element>
-          <TotalUpcomingReviewsChart />
+          <UpcomingReviewsChart />
         </Container>
         <Container>
           <Element flexRow flexCenter>
