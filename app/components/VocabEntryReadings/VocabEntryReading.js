@@ -6,6 +6,7 @@ import ReadingLinks from 'components/ReadingLinks';
 import Reading from 'components/Reading';
 import KanjiStroke from 'components/KanjiStroke';
 import TagsList from 'components/TagsList';
+// import PitchDiagram from 'components/PitchDiagram';
 
 import { Li, ReadingContent, StrokeContent } from './styles';
 
@@ -16,6 +17,7 @@ VocabEntryReading.propTypes = {
   sentenceJa: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
+
 
 function VocabEntryReading({
   character,
@@ -29,6 +31,8 @@ function VocabEntryReading({
       <ReadingContent>
         <Reading character={character} kana={kana} />
         <TagsList tags={tags} />
+        {/* <PitchDiagram reading={kana[0]} pitchNum={pitch} /> */}
+
         <SentencePair
           sentenceEn={sentenceEn}
           sentenceJa={sentenceJa}
