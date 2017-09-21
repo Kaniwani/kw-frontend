@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as COLORS from 'shared/styles/colors';
+import { transparent } from 'shared/styles/colors';
 
 export const SVGWrapper = styled.span`
   ${({ inline }) => inline ? `
@@ -13,8 +13,8 @@ export const SVGWrapper = styled.span`
   width: ${({ size }) => size}; /*CSS instead of html width attr to support non-pixel units*/
   height: ${({ size }) => size}; /*Prevents scaling issue in IE*/
   background-repeat: no-repeat;
-  background-color: ${COLORS.transparent};
-  color: ${({ color }) => COLORS[color]};
+  background-color: ${transparent};
+  color: ${({ color }) => color};
 `;
 
 export const SVG = styled.svg`

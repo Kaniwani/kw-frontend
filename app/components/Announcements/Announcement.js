@@ -4,6 +4,7 @@ import { compose, withStateHandlers } from 'recompose';
 import { Collapse } from 'react-collapse';
 import format from 'date-fns/format';
 
+import { greyLight } from 'shared/styles/colors';
 import { DATE_FORMAT } from 'shared/constants';
 
 import Icon from 'components/Icon';
@@ -27,7 +28,7 @@ function Announcement({ toggleOpen, isOpened, title, body, pubDate }) {
             <TitleText>{title}</TitleText>
             <Time dateTime={format(pubDate, 'YYYY-MM-DD')}>{format(pubDate, DATE_FORMAT)} </Time>
           </Title>
-          <Icon name={isOpened ? 'ARROW_UP' : 'ARROW_DOWN'} size="2rem" color="greyLight" />
+          <Icon name={isOpened ? 'ARROW_UP' : 'ARROW_DOWN'} size="2rem" color={greyLight} />
         </Toggle>
       </Header>
       <Collapse isOpened={isOpened}>
