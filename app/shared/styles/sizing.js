@@ -6,8 +6,8 @@ export const mod2 = 1.333; // perfect fourth (desktop)
 
 export const gutters = {
   mobile: {
-    outer: (1 * mod1) / 2,
-    inner: (0.5 * mod1) / 2,
+    outer: (0.7 * mod1) / 2,
+    inner: (0.4 * mod1) / 2,
   },
   desktop: {
     outer: (1 * mod2) / 2,
