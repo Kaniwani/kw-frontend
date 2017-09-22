@@ -50,19 +50,15 @@ export const Wrapper = styled.li`
     &:hover {
       color: ${white};
       background-color: ${rgba(purpleLight, 0.7)};
-      & ${Button},
-      & ${ItemCount} {
-        color: ${white};
-      }
     }
   ` : css`
       color: ${greyLight};
   `}
 
-  ${({ isActionable, isLocked }) => isActionable && css`
+  ${({ isActionable, isLocked }) => isActionable && isLocked && css`
     &:hover {
       & ${Button} {
-        ${isLocked && `color: ${rgba(purpleLight, 0.7)};`}
+        color: ${rgba(purpleLight, 0.7)};
         animation: ${wobble} 1s linear infinite;
         &:hover {
           animation: none;

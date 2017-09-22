@@ -23,6 +23,10 @@ class SiteHeader extends React.Component {
     locationPath: PropTypes.string,
   };
 
+  static defaultProps = {
+    locationPath: '',
+  }
+
   state = {
     offCanvasMenuActive: false,
     additionalRoutes: [
@@ -47,7 +51,7 @@ class SiteHeader extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.locationPath !== prevProps.locationPath) {
-      setTimeout(this.hideOffCanvasMenu, 300);
+      this.hideOffCanvasMenu();
     }
   }
 

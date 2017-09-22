@@ -3,7 +3,7 @@ import { transparentize, darken } from 'polished';
 
 import * as COLORS from 'shared/styles/colors';
 import { gutter } from 'shared/styles/layout';
-import { alpha } from 'shared/styles/typography';
+import { beta } from 'shared/styles/typography';
 
 export const Wrapper = styled.div`
   ${gutter()};
@@ -13,13 +13,13 @@ export const Wrapper = styled.div`
 export const Background = styled.div`
   display: flex;
   position: relative;
-  padding: 1rem;
+  padding: .8rem;
   flex: 1 1 auto;
   background-color: ${({ bgColor }) => transparentize(0.75, COLORS[bgColor])};
 `;
 
 export const Text = styled.h1`
-  ${alpha}
+  ${beta}
   margin: 0;
   line-height: 1;
   align-self: center;

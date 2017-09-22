@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { compose, pure } from 'recompose';
+
 import app from 'containers/App/actions';
 
 import NavLink from 'components/NavLink';
@@ -55,4 +57,9 @@ const mapDispatchToProps = ({
   logoutUser: app.user.logout,
 });
 
-export default connect(null, mapDispatchToProps)(SiteFooter);
+const enhance = compose(
+  connect(null, mapDispatchToProps),
+  pure,
+);
+
+export default enhance(SiteFooter);

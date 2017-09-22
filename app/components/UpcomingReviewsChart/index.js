@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { format, addHours, addDays } from 'date-fns';
 import { isEqual } from 'lodash';
-import { compose, shouldUpdate } from 'recompose';
+import { compose, branch, renderNothing, shouldUpdate } from 'recompose';
 import { ResponsiveContainer, BarChart, Brush, ReferenceLine, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 
 import { selectUpcomingReviews } from 'containers/App/selectors';
@@ -87,7 +87,10 @@ const mapStateToProps = createStructuredSelector({
 
 const enhance = compose(
   connect(mapStateToProps),
+  // FIXME: re-enable when we have server data
+  //  branch(({ upcomingReviews }) => !upcomingReviews.length, renderNothing),
   shouldUpdate((props, nextProps) => !isEqual(props.upcomingReviews, nextProps.upcomingReviews)),
 );
+
 
 export default enhance(UpcomingReviewsChart);

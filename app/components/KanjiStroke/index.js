@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { isKanji } from 'wanakana';
-import { merge } from 'lodash';
+import { isEqual, merge } from 'lodash';
 
 import { selectVocabularySettings } from 'containers/App/selectors';
 
@@ -46,6 +46,10 @@ class KanjiStroke extends React.PureComponent {
         { element: this.drawRef, drew: (finished) => finished && this.setState({ playing: false }) },
       )
     );
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !isEqual(this.state, nextState) || !isEqual(this.props, nextProps);
   }
 
   play = () => {

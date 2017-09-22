@@ -9,11 +9,7 @@ import app from 'containers/App/actions';
 import LogoLink from 'components/LogoLink';
 import SessionLink from './SessionLink';
 
-import {
-  Header,
-  Wrapper,
-  Title,
-} from './styles';
+import { Header, Wrapper, Title } from './styles';
 
 QuizSummaryHeader.propTypes = {
   category: PropTypes.string.isRequired,
