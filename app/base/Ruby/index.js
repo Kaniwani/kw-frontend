@@ -1,25 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import uuid from 'uuid';
 import { pure } from 'recompose';
 
+import { combineFuri } from './utils';
 
-/**
- * Renders a Ruby tag with furigana or a span if no furigana
- */
+import {
+  Wrapper,
+  Block,
+  Furi,
+  Chars,
+} from './styles';
 
 Ruby.propTypes = {
-  furi: PropTypes.string,
-  children: PropTypes.node.isRequired,
+  character: PropTypes.string.isRequired,
+  reading: PropTypes.string.isRequired,
+  furi: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
 };
 
 Ruby.defaultProps = {
   furi: '',
 };
 
-function Ruby({ furi, children }) {
-  return furi ?
-    <ruby lang="ja"><rb>{children}</rb><rt>{furi}</rt></ruby> :
-    <span lang="ja">{children}</span>;
+function Ruby({ character, reading, furi }) {
+  // TODO: use as selector/fn for mapStateToProps (or recompose mapProps)
+  const pairs = combineFuri(character, reading, furi);
+  return (
+    <Wrapper>
+      {pairs.map(([kana, chars]) => (
+        <Block key={uuid()} lang="ja">
+          <Furi>{kana}</Furi>
+          <Chars>{chars}</Chars>
+        </Block>
+      ))}
+    </Wrapper>
+  );
 }
 
 export default pure(Ruby);
