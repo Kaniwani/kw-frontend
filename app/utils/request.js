@@ -46,8 +46,9 @@ function goFetch(url, options) {
         headers,
       };
 
-      if (res.status !== 204) {
+      if (res.status !== 204 || res.status !== 205) {
         if (res.status === 403) {
+          console.warn('403 in request response');
           console.log(res);
           console.log(res.json());
         }
