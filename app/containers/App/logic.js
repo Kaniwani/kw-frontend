@@ -1,5 +1,5 @@
 import { createLogic } from 'redux-logic';
-import { push } from 'react-router-redux';
+import { push, LOCATION_CHANGE } from 'react-router-redux';
 import localForage from 'localforage';
 import { purgeStoredState } from 'redux-persist';
 import { uniq, difference } from 'lodash';
@@ -158,7 +158,6 @@ export const forceWkSrsLogic = createLogic({
   type: app.user.wksrs.request,
   process(_, dispatch, done) {
     return api.syncWk().then(({ body }) => {
-      console.log('forcewkresponse', body);
       // dispatch(app.user.load.success({ profile: { reviewsCount: body.review_count } }));
       done();
     });
@@ -289,23 +288,33 @@ export const reviewSearchLogic = createLogic({
   },
 
   process({ getState, action: { payload } }, dispatch, done) {
-    dispatch(startSubmit('searchBar'));
+    const form = 'searchBar';
+    dispatch(startSubmit(form));
+    // TODO: blur form on submit...
     return api.getVocabulary(payload)
       .then(({ body }) => {
         const persistedReviews = sel.selectReviewEntities(getState());
         const allIds = uniq(serializeVocabularySearch(body));
         const haveIds = allIds.reduce((list, id) => persistedReviews[id] ? list.concat(id) : list, []);
         const missingIds = difference(allIds, haveIds);
-        console.log(allIds, haveIds, missingIds);
         dispatch(app.review.search.success({ ids: haveIds, loading: true, finished: false }));
         Promise.all(missingIds.map((id) => api.getReviewEntry({ id }).then(((res) => res.body))))
           .then((missingReviews) => {
-            dispatch(stopSubmit('searchBar'));
+            dispatch(stopSubmit(form));
+            dispatch(reset(form));
             dispatch(app.reviews.update({ reviews: serializeReviewEntries(missingReviews) }));
             dispatch(app.review.search.success({ ids: allIds, loading: false, finished: true }));
             done();
           });
       });
+  },
+});
+
+export const reviewSearchClearLogic = createLogic({
+  type: LOCATION_CHANGE,
+  process(_, dispatch, done) {
+    dispatch(app.review.clearSearch());
+    done();
   },
 });
 
@@ -456,6 +465,7 @@ export default [
   levelUnlockLogic,
   reviewLoadLogic,
   reviewSearchLogic,
+  reviewSearchClearLogic,
   addSynonymLogic,
   removeSynonymLogic,
   reviewLockLogic,

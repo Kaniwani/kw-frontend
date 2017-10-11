@@ -357,7 +357,7 @@ DmakLoader.prototype.load = function (text, callback) {
         }
       },
       error(msg) {
-        console.log('Error', msg);
+        console.log('Error fetching kanji svg data', msg);
       },
     };
 

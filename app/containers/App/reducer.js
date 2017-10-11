@@ -52,6 +52,7 @@ export const initialState = {
 const searchReducer = handleActions({
   [app.review.search.request]: () => initialState.searchResults,
   [app.review.search.success]: (state, { payload }) => payload.ids,
+  [app.review.clearSearch]: () => [],
 }, initialState.searchResults);
 
 const announcementsReducer = handleActions({

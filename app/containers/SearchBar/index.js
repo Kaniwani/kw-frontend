@@ -4,6 +4,7 @@ import { reduxForm, Field } from 'redux-form';
 
 import { isRomaji, isJapanese } from 'wanakana';
 import app from 'containers/App/actions';
+import { whiteLight, blueLight } from 'shared/styles/colors';
 
 import InputField from './InputField';
 import { Form, SubmitButton } from './styles';
@@ -17,14 +18,24 @@ SearchBar.propTypes = {
 function SearchBar({ submitting, handleSubmit }) {
   return (
     <Form onSubmit={handleSubmit}>
-      <Field name="searchInput" label="Search vocabulary" component={InputField} lang="ja" placeholder="意味, かな, 漢字" />
+      <Field
+        lang="ja"
+        name="searchInput"
+        label="Search vocabulary"
+        component={InputField}
+        autoCapitalize="none"
+        autoCorrect="none"
+        autoComplete="off"
+        spellCheck="false"
+        placeholder="意味, かな, 漢字"
+      />
       <SubmitButton
         type="submit"
         size={`${COMPONENT_HEIGHT_EM / 2}em`}
         name={submitting ? 'SYNC' : 'SEARCH'}
         title={submitting ? 'Searching...' : 'Search vocabulary'}
-        color="whiteLight"
-        bgColor="blueLight"
+        color={whiteLight}
+        bgColor={blueLight}
         isSubmitting={submitting}
       />
     </Form>

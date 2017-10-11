@@ -88,6 +88,7 @@ export const { app } = createActions({
     },
     REVIEW: {
       SEARCH: ASYNC,
+      CLEAR_SEARCH: SYNC,
       LOAD: ASYNC,
       LOCK: ASYNC,
       UNLOCK: ASYNC,

@@ -21,8 +21,6 @@ VocabSearchResults.propTypes = {
   isSearchFinished: PropTypes.bool.isRequired,
 };
 
-// FIXME: Add a way to clear results? Use local state so it clears on unmount/location change?
-
 function VocabSearchResults({ cardsExpanded, searchResults, isSearching, isSearchFinished }) {
   const hasResults = searchResults.length > 0;
   const noResults = !hasResults;

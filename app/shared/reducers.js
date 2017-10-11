@@ -33,6 +33,12 @@ export default handleActions({
       finished: { $set: payload.finished },
     },
   }),
+  [app.review.clearSearch]: (state) => update(state, {
+    search: {
+      loading: { $set: false },
+      finished: { $set: false },
+    },
+  }),
   [app.reviews.queue.load.request]: (state) => update(state, { reviews: { loading: { $set: true } } }),
   [app.lessons.queue.load.request]: (state) => update(state, { lessons: { loading: { $set: true } } }),
   [combineActions(
