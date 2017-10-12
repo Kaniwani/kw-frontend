@@ -31,12 +31,14 @@ PitchDiagram.defaultProps = {
   },
 };
 
-
 const MoraLabel = (mora, { x, y, stroke, index }) => {
   const label = mora[index];
   return <text x={x} y={y} dy={-8} fill={stroke} fontSize={12} textAnchor="middle">{label}</text>;
 };
 
+
+// NOTE: pitches for WK words ending in suru might be funky since they were established with suru stripped
+// should check them - especially nakadaka/odaka ones
 function PitchDiagram({ reading, pitchNum, showLabels, colors, ...rest }) {
   const mora = getMorae(reading);
   const moraCount = getMoraCount(mora);

@@ -45,6 +45,8 @@ export function getPitchPatternName(moraCount = 0, pitchNum = -1, locale = 'EN')
   return names[locale] || 'unknown';
 }
 
+// initial low -> rest high, particle high
+// [0, 1, 1, 1, 1, 1]
 export function makeHeiban(moraCount = 0) {
   if (moraCount < 1) return [];
   return [
@@ -54,6 +56,8 @@ export function makeHeiban(moraCount = 0) {
   ];
 }
 
+// initial high -> rest low, particle low
+// [1, 0, 0, 0, 0, 0]
 export function makeAtamadaka(moraCount = 0) {
   if (moraCount < 1) return [];
   return [
@@ -63,6 +67,8 @@ export function makeAtamadaka(moraCount = 0) {
   ];
 }
 
+// initial low, rest high, particle low
+// [0, 1, 1, 1, 1, 0]
 export function makeOdaka(moraCount = 0) {
   if (moraCount < 2) return [];
   return [
@@ -72,6 +78,11 @@ export function makeOdaka(moraCount = 0) {
   ];
 }
 
+// initial low, one or more high, rest (at least 1) low, particle low
+// final mora before particle *must* be low
+// [0, 1, 0, 0, 0, 0]
+// [0, 1, 1, 0, 0, 0]
+// [0, 1, 1, 1, 0, 0]
 export function makeNakadaka(moraCount = 0, pitchNum = 0) {
   if ((moraCount < 3 || pitchNum < 2 || pitchNum >= moraCount)) return [];
   return [
