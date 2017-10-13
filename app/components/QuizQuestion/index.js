@@ -11,7 +11,7 @@ import {
   makeSelectReviewStreak,
 } from 'containers/App/selectors';
 
-import { selectAnswerDisabled, selectAnswerIgnored } from 'containers/QuizPage/selectors';
+import { selectAnswerDisabled, selectAnswerIgnored } from 'pages/QuizPage/selectors';
 
 import LoadingCrabigator from 'components/LoadingCrabigator';
 import TagsList from 'components/TagsList';

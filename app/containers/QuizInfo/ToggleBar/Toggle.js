@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { selectInfoDisabled } from 'containers/QuizPage/selectors';
+import { selectInfoDisabled } from 'pages/QuizPage/selectors';
 import { createStructuredSelector } from 'reselect';
 
 import { ToggleButton } from './styles';

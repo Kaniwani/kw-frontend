@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, branch, renderNothing } from 'recompose';
 
-import { selectInfoActivePanel } from 'containers/QuizPage/selectors';
+import { selectInfoActivePanel } from 'pages/QuizPage/selectors';
 import VocabEntryNotes from 'components/VocabEntryNotes';
 
 import { PanelWrapper } from '../styles';

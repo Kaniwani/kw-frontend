@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, branch, renderNothing } from 'recompose';
 import { createStructuredSelector } from 'reselect';
-import { selectInfoActivePanel, selectInfoDetailLevel } from 'containers/QuizPage/selectors';
+import { selectInfoActivePanel, selectInfoDetailLevel } from 'pages/QuizPage/selectors';
 
 import QuizInfoReadings from 'components/QuizInfoReadings';
 import QuizInfoSynonyms from 'components/QuizInfoSynonyms';

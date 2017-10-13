@@ -14,7 +14,7 @@ import {
 import {
   makeSelectLevelActionable,
   makeSelectLevelSubmitting,
-} from 'containers/VocabLevelsPage/selectors';
+} from 'pages/VocabLevelsPage/selectors';
 
 import { Wrapper, LevelLink, Title, ItemCount, LockedLabel, Button } from './styles';
 

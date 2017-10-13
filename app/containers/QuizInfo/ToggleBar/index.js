@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import quiz from 'containers/QuizPage/actions';
-import { selectInfoActivePanel, selectInfoDetailLevel } from 'containers/QuizPage/selectors';
+import quiz from 'pages/QuizPage/actions';
+import { selectInfoActivePanel, selectInfoDetailLevel } from 'pages/QuizPage/selectors';
 import { Wrapper } from './styles';
 import Toggle from './Toggle';
 

@@ -6,7 +6,7 @@ import { toKana } from 'wanakana';
 import { onlyKanjiOrKana, onlyKana } from 'shared/validations';
 
 import app from 'containers/App/actions';
-import quiz from 'containers/QuizPage/actions';
+import quiz from 'pages/QuizPage/actions';
 
 import AddSynonymField from './AddSynonymField';
 import { Form, SubmitButton } from './styles';

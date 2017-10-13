@@ -6,8 +6,8 @@ import { SRS_RANKS } from 'shared/constants';
 import { toKana } from 'wanakana';
 
 import { selectCurrentStreakName } from 'containers/App/selectors';
-import { selectQuizAnswer } from 'containers/QuizPage/selectors';
-import quiz from 'containers/QuizPage/actions';
+import { selectQuizAnswer } from 'pages/QuizPage/selectors';
+import quiz from 'pages/QuizPage/actions';
 
 import {
   Form,

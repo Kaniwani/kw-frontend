@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 // import { cycleDetailLevel } from './utils';
 import { selectCurrentId } from 'containers/App/selectors';
-import { selectInfoDisabled, selectInfoActivePanel } from 'containers/QuizPage/selectors';
+import { selectInfoDisabled, selectInfoActivePanel } from 'pages/QuizPage/selectors';
 
 import ToggleBar from './ToggleBar';
 import InfoPanel from './InfoPanel';

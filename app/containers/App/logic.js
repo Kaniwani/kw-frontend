@@ -22,7 +22,7 @@ import {
   serializeVocabularySearch,
 } from 'shared/serializers';
 
-import { selectLevelsSubmitting } from 'containers/VocabLevelsPage/selectors';
+import { selectLevelsSubmitting } from 'pages/VocabLevelsPage/selectors';
 // TODO: find/replace sel.selectorZ and import { selectorX, selectorY }
 import * as sel from './selectors';
 import app from './actions';

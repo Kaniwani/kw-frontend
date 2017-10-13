@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { compose, branch, renderNothing } from 'recompose';
 import { isKana } from 'wanakana';
 
-import { selectInfoActivePanel, selectAnswerValue } from 'containers/QuizPage/selectors';
+import { selectInfoActivePanel, selectAnswerValue } from 'pages/QuizPage/selectors';
 import AddSynonym from 'components/AddSynonym';
 
 import { PanelWrapper } from 'containers/QuizInfo/styles';

@@ -8,9 +8,9 @@ import { titleCase } from 'voca';
 import { compose } from 'recompose';
 
 import app from 'containers/App/actions';
-import quiz from 'containers/QuizPage/actions';
+import quiz from 'pages/QuizPage/actions';
 import { selectUi, selectCategoryFromMatch, selectCurrent } from 'containers/App/selectors';
-import { selectAnswerDisabled } from 'containers/QuizPage/selectors';
+import { selectAnswerDisabled } from 'pages/QuizPage/selectors';
 
 import backgroundImage from 'shared/assets/img/reviews.svg';
 import QuizInfo from 'containers/QuizInfo';
