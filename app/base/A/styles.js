@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { link, linkHover } from 'shared/styles/colors';
 import { fastEaseQuad } from 'shared/styles/animation';
@@ -32,7 +32,7 @@ export const ExternalAnchor = styled.a.attrs({
   cursor: pointer;
 `;
 
-export const RouterLink = styled(({ plainLink, colorHover, bgColor, bgColorHover, ...rest }) => <Link {...rest} />)`
+export const RouterLink = styled(({ plainLink, colorHover, bgColor, bgColorHover, ...rest }) => <NavLink {...rest} />)`
   ${({ plainLink }) => plainLink ? plainStyles : linkStyles}
   cursor: pointer;
 `;

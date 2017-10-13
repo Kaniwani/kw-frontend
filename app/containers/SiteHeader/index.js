@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { debounce, isEqual } from 'lodash';
 import { breakpoints } from 'shared/styles/media';
 
@@ -112,4 +111,4 @@ const mapDispatchToProps = ({
   logoutUser: app.user.logout,
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SiteHeader));
+export default connect(mapStateToProps, mapDispatchToProps)(SiteHeader);
