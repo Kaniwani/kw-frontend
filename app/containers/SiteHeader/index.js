@@ -56,6 +56,7 @@ class SiteHeader extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
+    this.hideOffCanvasMenu();
   }
 
   handleResize = debounce(() => {

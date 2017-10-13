@@ -1,12 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { compose, lifecycle } from 'recompose';
-import { createStructuredSelector } from 'reselect';
 import { reduxForm, Field } from 'redux-form';
-import { Redirect } from 'react-router-dom';
 
-import { hasToken } from 'utils/auth';
 import app from 'containers/App/actions';
 
 import {
@@ -15,14 +11,6 @@ import {
   minLengthValid,
   confirmPasswordValid,
 } from 'shared/validations';
-
-import {
-  selectActivePanel,
-  selectLoginSelected,
-  selectResetSelected,
-  selectRegisterSelected,
-  selectMainInputText,
-} from './selectors';
 
 import Input from './Input';
 
@@ -38,23 +26,21 @@ FormView.propTypes = {
   registerSelected: PropTypes.bool.isRequired,
   resetSelected: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  mainInputText: PropTypes.string.isRequired,
   submitting: PropTypes.bool.isRequired,
   error: PropTypes.array,
 };
 
 function FormView({
-  handleSubmit,
   loginSelected,
   registerSelected,
   resetSelected,
-  mainInputText,
-  error,
+  handleSubmit,
   submitting,
+  error,
 }) {
-  if (hasToken()) {
-    return <Redirect to="/" />;
-  }
+  const mainInputText = (loginSelected && 'Username or Email') ||
+    (registerSelected && 'Username') ||
+    'Email';
 
   return (
     <Form onSubmit={handleSubmit} autoComplete="on">
@@ -121,16 +107,7 @@ function FormView({
   );
 }
 
-const mapStateToProps = createStructuredSelector({
-  activePanel: selectActivePanel,
-  loginSelected: selectLoginSelected,
-  resetSelected: selectResetSelected,
-  registerSelected: selectRegisterSelected,
-  mainInputText: selectMainInputText,
-});
-
 const enhance = compose(
-  connect(mapStateToProps),
   reduxForm({
     form: 'multiLogin',
     onSubmit: (values, dispatch, props) => {
@@ -146,7 +123,7 @@ const enhance = compose(
       }
 
       if (resetSelected) {
-        // FIXME: this works, but we don't have a follow-up in place yet
+        // FIXME: this step works, but we don't have a confirmation in place yet
         // dispatch(app.user.resetPassword.request({ email }));
         window.alert('Temporarily disabled - please contact us to reset your password.');
       }
@@ -161,6 +138,5 @@ const enhance = compose(
     },
   })
 );
-
 
 export default enhance(FormView);

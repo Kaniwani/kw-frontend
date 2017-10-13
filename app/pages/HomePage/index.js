@@ -17,7 +17,7 @@ import PageWrapper from 'base/PageWrapper';
 import ReviewStatus from 'components/ReviewStatus';
 import Debug from 'utils/Debug';
 import ApiKeyCheck from './ApiKeyCheck';
-import LastWkSync from './LastWkSync';
+// import LastWkSync from './LastWkSync';
 
 export class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
@@ -45,7 +45,7 @@ export class HomePage extends React.Component { // eslint-disable-line react/pre
         <Container>
           <ApiKeyCheck valid={profile.isApiValid} />
           <ReviewStatus />
-          <LastWkSync />
+          {/* <LastWkSync /> */}
         </Container>
         <Container>
           <Element flexRow flexCenter>

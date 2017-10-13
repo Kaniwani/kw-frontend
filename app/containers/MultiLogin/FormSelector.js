@@ -1,34 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import cuid from 'cuid';
-import { compose, withHandlers, mapProps } from 'recompose';
-import { createStructuredSelector } from 'reselect';
-
+import { compose, pure, withHandlers, mapProps } from 'recompose';
 import { KEYCODES } from 'shared/constants';
-import { PANELS } from './constants';
-import multiLogin from './actions';
-import { selectActivePanel, selectRegisterSelected, selectResetSelected } from './selectors';
 
-import {
-  SelectWrapper,
-  SelectList,
-  SelectListItem,
-  SelectedPointer,
-} from './styles';
-
-FormSelector.propTypes = {
-  activePanel: PropTypes.oneOf(PANELS).isRequired,
-  setActivePanel: PropTypes.func.isRequired,
-  registerSelected: PropTypes.bool.isRequired,
-  resetSelected: PropTypes.bool.isRequired,
-};
+import { SelectWrapper, SelectList, SelectListItem, SelectedPointer } from './styles';
 
 const EnhancedSelectListItem = compose(
   withHandlers({
-    setActivePanel: ({ setActivePanel, panel }) => () => {
-      setActivePanel(panel);
-    },
+    setActivePanel: ({ setActivePanel, panel }) => () => { setActivePanel(panel); },
     handlePanelKeydown: ({ setActivePanel, panel }) => ({ keyCode }) => {
       if (keyCode === KEYCODES.SPACE || keyCode === KEYCODES.ENTER) {
         setActivePanel(panel);
@@ -42,19 +22,26 @@ const EnhancedSelectListItem = compose(
   })),
 )(SelectListItem);
 
-function FormSelector({ activePanel, setActivePanel, registerSelected, resetSelected }) {
+FormSelector.propTypes = {
+  activePanel: PropTypes.string.isRequired,
+  setActivePanel: PropTypes.func.isRequired,
+  registerSelected: PropTypes.bool.isRequired,
+  resetSelected: PropTypes.bool.isRequired,
+};
+
+function FormSelector({ panels, activePanel, setActivePanel, registerSelected, resetSelected }) {
   return (
     <SelectWrapper>
       <SelectList plainList>
-        {PANELS.map((PANEL) => (
+        {panels.map((panel) => (
           <EnhancedSelectListItem
             key={cuid()}
-            panel={PANEL}
-            isActive={activePanel === PANEL}
+            panel={panel}
+            isActive={activePanel === panel}
             setActivePanel={setActivePanel}
-            tabIndex={activePanel === PANEL ? -1 : 0}
+            tabIndex={activePanel === panel ? -1 : 0}
           >
-            {PANEL}
+            {panel}
           </EnhancedSelectListItem>
         ))}
       </SelectList>
@@ -63,14 +50,5 @@ function FormSelector({ activePanel, setActivePanel, registerSelected, resetSele
   );
 }
 
-const mapStateToProps = createStructuredSelector({
-  activePanel: selectActivePanel,
-  registerSelected: selectRegisterSelected,
-  resetSelected: selectResetSelected,
-});
-
-const mapDispatchToProps = ({
-  setActivePanel: multiLogin.setActivePanel,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(FormSelector);
+// export default pure(FormSelector);
+export default FormSelector;
