@@ -64,7 +64,11 @@ export class VocabLevelPage extends React.Component {
             withVocabListToggle
           />
           <Container>
-            <VocabList prevLoaded={prevLoaded} ids={reviewIds} isExpanded={this.state.cardsExpanded} />
+            <VocabList
+              prevLoaded={prevLoaded}
+              ids={reviewIds}
+              isExpanded={this.state.cardsExpanded}
+            />
             {!isLoading && reviewIds.length < 1 && (
               <H3>All entries hidden. Check your WaniKani filtering in <A to="/settings">Settings</A></H3>
             )}

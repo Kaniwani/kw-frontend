@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
+import { compose, pure } from 'recompose';
 
 import { makeSelectReviewReadings, makeSelectVocabChipToolTipMarkup } from 'components/App/selectors';
 import * as COLORS from 'shared/styles/colors';
@@ -19,14 +20,13 @@ VocabChip.defaultProps = {
   color: 'purple',
 };
 
-function VocabChip({ id, character, color, toolTipId, toolTipMarkup, ...props }) {
+function VocabChip({ id, character, color, toolTipId, toolTipMarkup }) {
   return (
     <ListItem
       bgColor={color}
       data-for={toolTipId}
       data-tip={toolTipMarkup}
       data-place="bottom"
-      {...props}
     >
       <Link plainLink to={`/vocabulary/entry/${id}`}>
         <Text lang="ja" shadowColor={color}>{ character }</Text>
@@ -40,4 +40,7 @@ const mapStateToProps = (state, props) => ({
   toolTipMarkup: makeSelectVocabChipToolTipMarkup(props.id)(state),
 });
 
-export default connect(mapStateToProps)(VocabChip);
+export default compose(
+  connect(mapStateToProps),
+  pure,
+)(VocabChip);

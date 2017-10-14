@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { compose, shouldUpdate } from 'recompose';
 
 import {
   makeSelectReviewMeanings,
@@ -23,9 +24,9 @@ VocabCard.defaultProps = {
   readings: [],
 };
 
-function VocabCard({ color, id, meanings, readings, ...props }) {
+function VocabCard({ color, id, meanings, readings }) {
   return (
-    <Li bgColor={color} {...props}>
+    <Li bgColor={color}>
       <Link plainLink to={`/vocabulary/entry/${id}`}>
         <Dl color={color}>
           <div className="reading">
@@ -47,4 +48,7 @@ const mapStateToProps = (state, props) => ({
   readings: makeSelectReviewReadings(props.id)(state),
 });
 
-export default connect(mapStateToProps)(VocabCard);
+export default compose(
+  connect(mapStateToProps),
+  shouldUpdate((props, nextProps) => props.id !== nextProps.id)
+)(VocabCard);

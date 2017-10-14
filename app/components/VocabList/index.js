@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TransitionMotion, spring } from 'react-motion';
 import ReactTooltip from 'react-tooltip';
-
+import cuid from 'cuid';
 import { isEqual } from 'lodash';
 import * as COLORS from 'shared/styles/colors';
 
@@ -27,40 +26,6 @@ class VocabList extends React.PureComponent {
     return !isEqual(this.props, nextProps);
   }
 
-  // componentDidUpdate(prevProps) {
-  //   console.log('vocabChip, componentDidUpdate', { props: this.props, prevProps });
-  //   const switchedToCompact = (!this.props.isExpanded) && prevProps.isExpanded;
-  //   if (switchedToCompact) {
-  //     ReactTooltip.rebuild();
-  //   }
-  // }
-
-  getDefaultStyles = () => this.props.ids.map((id) => ({
-    data: { id },
-    key: `${id}`,
-    style: { opacity: 0 },
-  }))
-
-  getStyles = () => this.props.ids.map((id) => ({
-    data: { id },
-    key: `${id}`,
-    style: {
-      opacity: spring(1),
-    },
-  }))
-
-  willEnter() {
-    return {
-      opacity: 0,
-    };
-  }
-
-  willLeave() {
-    return {
-      opacity: spring(0),
-    };
-  }
-
   render() {
     const { prevLoaded, ids, color, isExpanded } = this.props;
 
@@ -73,33 +38,23 @@ class VocabList extends React.PureComponent {
         {!isExpanded && (
           <ReactTooltip id="vocabChipTip" className="vocab-tip" html />
         )}
-        <TransitionMotion
-          defaultStyles={this.getDefaultStyles()}
-          styles={this.getStyles()}
-          willLeave={this.willLeave}
-          willEnter={this.willEnter}
-        >
-          {(styles) => (
-            <Ul isExpanded={isExpanded}>
-              {styles.map(({ key, style, data: { id } }) => isExpanded ? (
-                <VocabCard
-                  id={id}
-                  key={key}
-                  color={color}
-                  style={style}
-                />
-              ) : (
-                <VocabChip
-                  id={id}
-                  key={key}
-                  color={color}
-                  toolTipId="vocabChipTip"
-                  style={style}
-                />
-              ))}
-            </Ul>
-          )}
-        </TransitionMotion>
+
+        <Ul isExpanded={isExpanded}>
+          {ids.map((id) => isExpanded ? (
+            <VocabCard
+              id={id}
+              key={cuid()}
+              color={color}
+            />
+          ) : (
+            <VocabChip
+              id={id}
+              key={cuid()}
+              color={color}
+              toolTipId="vocabChipTip"
+            />
+          ))}
+        </Ul>
       </div>
     );
   }
