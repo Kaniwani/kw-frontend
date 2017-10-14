@@ -6,5 +6,5 @@ export const Wrapper = styled.div`
   display: flex;
   flex-flow: column nowrap;
   align-items: inherit;
-  max-width: 30rem;
+  max-width: 42rem;
 `;

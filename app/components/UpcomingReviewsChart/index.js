@@ -50,7 +50,6 @@ function UpcomingReviewsChart({ upcomingReviews }) {
           barCategoryGap={2}
           maxBarSize={40}
           margin={{ top: 5, right: 35, left: 20 }}
-          isAnimationActive
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
@@ -72,8 +71,8 @@ function UpcomingReviewsChart({ upcomingReviews }) {
             axisLine={false}
             tick={<DayTick />}
           />
-          <Bar xAxisId="day" dataKey="none" fill="#8884d8" label={<BarLabel />} />
-          <Bar xAxisId="hour" dataKey="value" fill="#8884d8" label={<BarLabel />} />
+          <Bar isAnimationActive xAxisId="day" dataKey="none" fill="#8884d8" label={<BarLabel />} />
+          <Bar isAnimationActive xAxisId="hour" dataKey="value" fill="#8884d8" label={<BarLabel />} />
           <Brush dataKey="hour" height={30} stroke="#8884d8" />
         </BarChart>
       </ResponsiveContainer>

@@ -2,7 +2,8 @@ import styled, { css } from 'styled-components';
 import { rgba } from 'polished';
 
 // FIXME: apply these nested styles in their newly extracted QuizInfo components
-import { Ul as ReadingsUl, Li, ReadingContent, StrokeLoader } from 'components/QuizInfoReadings/styles';
+import { Ul as ReadingsUl, Li, ReadingContent } from 'components/QuizInfoReadings/styles';
+import { Wrapper as StrokeLoader } from 'components/KanjiStrokeLoader/styles';
 import { Wrapper as SynonymsWrapper, Ul as Synonyms } from 'components/QuizInfoSynonyms/styles';
 import { Wrapper as Reading } from 'components/Reading/styles';
 import { Wrapper as SentenceWrapper } from 'components/SentencePair/styles';

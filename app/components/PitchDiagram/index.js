@@ -53,11 +53,11 @@ function PitchDiagram({ reading, pitchNum, showLabels, colors, ...rest }) {
         width={(moraCount + 1) * 22}
         height={50}
         data={data}
-        isAnimationActive={false}
         margin={{ top: 20, right: 10, bottom: 10, left: 10 }}
         {...rest}
       >
         <Line
+          isAnimationActive={false}
           dataKey="pitchHeight"
           label={(props) => showLabels ? MoraLabel(mora, props) : null}
           stroke={color}

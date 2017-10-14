@@ -4,5 +4,5 @@ import { gutter } from 'shared/styles/layout';
 
 export const Text = styled.div`
   ${gutter()}
-  font-size: .9em;
+  font-size: .95em;
 `;

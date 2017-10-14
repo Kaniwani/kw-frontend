@@ -1,18 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStateHandlers } from 'recompose';
 
 import SentencePair from 'components/SentencePair';
 import ReadingLinks from 'components/ReadingLinks';
 import Reading from 'components/Reading';
-import IconButton from 'components/IconButton';
-import KanjiStroke from 'components/KanjiStroke';
+import KanjiStrokeLoader from 'components/KanjiStrokeLoader';
 import TagsList from 'components/TagsList';
+import PitchDiagram from 'components/PitchDiagram';
 
-import { Li, ReadingContent, StrokeLoader, StrokeLoaderText } from './styles';
-
-// avoids xhr if not called
-const renderKanjiStroke = (character) => <KanjiStroke settings={{ autoplay: true }} character={character} />;
+import { Li, ReadingContent } from './styles';
 
 QuizInfoReading.propTypes = {
   character: PropTypes.string.isRequired,
@@ -21,8 +17,6 @@ QuizInfoReading.propTypes = {
   sentenceJa: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,
   detailLevel: PropTypes.number.isRequired,
-  showKanjiSvg: PropTypes.bool.isRequired,
-  toggleKanjiSvg: PropTypes.func.isRequired,
 };
 
 function QuizInfoReading({
@@ -32,8 +26,6 @@ function QuizInfoReading({
   sentenceJa,
   tags,
   detailLevel,
-  toggleKanjiSvg,
-  showKanjiSvg,
 }) {
   return (
     <Li>
@@ -49,30 +41,12 @@ function QuizInfoReading({
           />
         )}
       </ReadingContent>
+
+      {detailLevel > 1 && <PitchDiagram reading={kana[0]} pitchNum={3} />}
+      {detailLevel > 1 && <KanjiStrokeLoader character={character} />}
       {detailLevel > 1 && <ReadingLinks character={character} />}
-      {detailLevel > 1 && (
-        <StrokeLoader>
-          {!showKanjiSvg && (
-            <IconButton
-              plainButton
-              name="BRUSH"
-              title="View stroke diagram"
-              size="1.8em"
-              onClick={toggleKanjiSvg}
-            >
-              <StrokeLoaderText>Strokes</StrokeLoaderText>
-            </IconButton>
-          )}
-          {showKanjiSvg && renderKanjiStroke(character)}
-        </StrokeLoader>
-      )}
     </Li>
   );
 }
 
-const enhance = withStateHandlers(
-  () => ({ showKanjiSvg: false }),
-  { toggleKanjiSvg: () => () => ({ showKanjiSvg: true }) },
-);
-
-export default enhance(QuizInfoReading);
+export default QuizInfoReading;

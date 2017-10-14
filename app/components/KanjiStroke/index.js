@@ -20,7 +20,9 @@ class KanjiStroke extends React.PureComponent {
   }
 
   static defaultProps = {
-    settings: {},
+    settings: {
+      autoplay: true,
+    },
   }
 
   state = {
