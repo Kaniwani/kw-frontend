@@ -34,7 +34,6 @@ export const Bar = styled.div`
   left: 0;
   height: 100%;
   background-color: ${({ bgColor }) => COLORS[bgColor]};
-  transition: width .8s ease-in-out;
   width: ${({ percent }) => percent}%;
   z-index: 1;
 `;

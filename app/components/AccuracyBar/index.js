@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Motion, spring } from 'react-motion';
 
 import * as COLORS from 'shared/styles/colors';
 
@@ -22,7 +23,9 @@ function AccuracyBar({ percent, color }) {
     <Wrapper>
       <Background bgColor={color}>
         <Text percent={percent} textShadowColor={color}>{percent}% Accuracy</Text>
-        <Bar percent={percent} bgColor={color} />
+        <Motion defaultStyle={{ percentX: 0 }} style={{ percentX: spring(percent) }}>
+          {({ percentX }) => <Bar percent={percentX} bgColor={color} />}
+        </Motion>
       </Background>
     </Wrapper>
   );
