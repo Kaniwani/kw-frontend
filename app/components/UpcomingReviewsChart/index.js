@@ -26,7 +26,7 @@ function UpcomingReviewsChart({ upcomingReviews }) {
 
   // TODO: add day/hour info etc in serializer instead once we have data from backend
   let extraDays = 0;
-  const getFutureDayName = (daysAhead = 0) => format(addDays(Date.now(), daysAhead), 'ddd');
+  const getFutureDayName = (daysAhead = 0) => format(addDays(Date.now(), daysAhead), 'dddd');
   const tempData = Array.from({ length: 24 }, () => genCount());
   const dataset = upcomingReviews.length ? upcomingReviews : tempData.map((count, index) => {
     const hour = genHour(count, index);
@@ -52,15 +52,7 @@ function UpcomingReviewsChart({ upcomingReviews }) {
           margin={{ top: 5, right: 35, left: 20 }}
           isAnimationActive
         >
-          <XAxis
-            xAxisId="day"
-            dataKey="day"
-            orientation="top"
-            minTickGap={0}
-            tickLine={false}
-            axisLine={false}
-            tick={<DayTick />}
-          />
+          <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             xAxisId="hour"
             dataKey="hour"
@@ -70,8 +62,16 @@ function UpcomingReviewsChart({ upcomingReviews }) {
             tick={<HourTick />}
           />
           <YAxis width={25} />
-          <ReferenceLine y={0} stroke="#000" />
-          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis
+            xAxisId="day"
+            dataKey="day"
+            orientation="top"
+            minTickGap={0}
+            interval={0}
+            tickLine={false}
+            axisLine={false}
+            tick={<DayTick />}
+          />
           <Bar xAxisId="day" dataKey="none" fill="#8884d8" label={<BarLabel />} />
           <Bar xAxisId="hour" dataKey="value" fill="#8884d8" label={<BarLabel />} />
           <Brush dataKey="hour" height={30} stroke="#8884d8" />
