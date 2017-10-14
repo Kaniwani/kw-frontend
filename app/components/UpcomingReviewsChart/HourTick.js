@@ -5,7 +5,15 @@ import { greyDark } from 'shared/styles/colors';
 
 const HourTick = ({ x, y, payload }) => (
   <g transform={`translate(${x},${y})`}>
-    <text x={0} y={0} dx={5} dy={15} textAnchor="end" fill={greyDark} fontSize=".85rem" transform="rotate(-35)">{payload.value}</text>
+    <text
+      x={0}
+      y={0}
+      dy={18}
+      textAnchor="middle"
+      fill={greyDark}
+    >
+      {payload.value}
+    </text>
   </g>
 );
 

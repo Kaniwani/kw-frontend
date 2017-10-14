@@ -37,9 +37,8 @@ function UpcomingReviewsChart({ upcomingReviews }) {
       value: count,
     };
   });
-
   return (
-    <Element flexRow flexCenter>
+    <Element flexRow flexCenter style={{ fontSize: '.75rem' }}>
       <ResponsiveContainer
         width="100%"
         minWidth={320}
@@ -50,31 +49,32 @@ function UpcomingReviewsChart({ upcomingReviews }) {
           data={dataset}
           barCategoryGap={2}
           maxBarSize={40}
-          margin={{ top: 5, right: 20 }}
+          margin={{ top: 5, right: 35, left: 20 }}
           isAnimationActive
         >
           <XAxis
             xAxisId="day"
             dataKey="day"
             orientation="top"
-            tick={<DayTick />}
             minTickGap={0}
             tickLine={false}
             axisLine={false}
+            tick={<DayTick />}
           />
           <XAxis
             xAxisId="hour"
             dataKey="hour"
-            orientation="bottom"
             height={45}
+            orientation="bottom"
+            minTickGap={0}
             tick={<HourTick />}
           />
-          <YAxis fontSize=".75rem" width={25} />
+          <YAxis width={25} />
           <ReferenceLine y={0} stroke="#000" />
-          <Brush dataKey="hour" height={30} stroke="#8884d8" />
           <CartesianGrid strokeDasharray="3 3" />
           <Bar xAxisId="day" dataKey="none" fill="#8884d8" label={<BarLabel />} />
           <Bar xAxisId="hour" dataKey="value" fill="#8884d8" label={<BarLabel />} />
+          <Brush dataKey="hour" height={30} stroke="#8884d8" />
         </BarChart>
       </ResponsiveContainer>
     </Element>
