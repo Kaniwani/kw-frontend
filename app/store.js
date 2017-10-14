@@ -12,7 +12,7 @@ import createActionBuffer from 'redux-action-buffer';
 import localForage from 'localforage';
 
 // import { request } from 'utils/request';
-import globalLogic from 'containers/App/logic';
+import globalLogic from 'components/App/logic';
 import createReducer from './reducers';
 
 export default function configureStore(initialState = {}, history) {

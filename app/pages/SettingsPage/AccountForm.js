@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { compose, branch, renderNothing } from 'recompose';
 
-import app from 'containers/App/actions';
-import { selectProfile } from 'containers/App/selectors';
+import app from 'components/App/actions';
+import { selectProfile } from 'components/App/selectors';
 import { doValuesMatch, numberValid } from 'shared/validations';
 
 import H2 from 'base/H2';

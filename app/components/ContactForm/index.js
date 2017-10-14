@@ -5,9 +5,9 @@ import { reduxForm, Field } from 'redux-form';
 import { compose, branch, renderNothing } from 'recompose';
 
 import { requiredValid, emailValid } from 'shared/validations';
-import { selectName, selectEmail } from 'containers/App/selectors';
+import { selectName, selectEmail } from 'components/App/selectors';
 
-import app from 'containers/App/actions';
+import app from 'components/App/actions';
 import Button from 'base/Button';
 
 import InputField from './InputField';

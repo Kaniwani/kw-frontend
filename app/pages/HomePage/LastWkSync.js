@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { compose, pure, branch, renderNothing } from 'recompose';
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 
-import { selectLastWkSyncDate } from 'containers/App/selectors';
+import { selectLastWkSyncDate } from 'components/App/selectors';
 import Element from 'base/Element';
 import H4 from 'base/H4';
 

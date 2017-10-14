@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { compose, withHandlers, pure } from 'recompose';
 import { noop } from 'lodash';
 
-import actions from 'containers/App/actions';
+import actions from 'components/App/actions';
 import {
   makeSelectLevelTitle,
   makeSelectLevelLocked,
   makeSelectLevelVocabCount,
-} from 'containers/App/selectors';
+} from 'components/App/selectors';
 
 import {
   makeSelectLevelActionable,

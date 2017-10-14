@@ -7,7 +7,7 @@ import { isKana } from 'wanakana';
 import { selectInfoActivePanel, selectAnswerValue } from 'pages/QuizPage/selectors';
 import AddSynonym from 'components/AddSynonym';
 
-import { PanelWrapper } from 'containers/QuizInfo/styles';
+import { PanelWrapper } from 'components/QuizInfo/styles';
 
 AddSynonymPanel.propTypes = {
   id: PropTypes.number.isRequired,

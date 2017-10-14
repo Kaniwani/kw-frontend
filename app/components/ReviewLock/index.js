@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, withHandlers, branch, renderNothing } from 'recompose';
 
-import actions from 'containers/App/actions';
-import { makeSelectReviewHidden } from 'containers/App/selectors';
+import actions from 'components/App/actions';
+import { makeSelectReviewHidden } from 'components/App/selectors';
 
 import LockButton from 'components/LockButton';
 

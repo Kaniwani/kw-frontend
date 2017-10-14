@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { compose, branch, renderNothing, pure } from 'recompose';
 import ReactInterval from 'react-interval';
 
-import { selectSessionCount, selectVacationDate, selectNextReviewDate } from 'containers/App/selectors';
+import { selectSessionCount, selectVacationDate, selectNextReviewDate } from 'components/App/selectors';
 import getReviewStatusText from 'utils/getReviewStatusText';
 import H3 from 'base/H3';
 import Element from 'base/Element';

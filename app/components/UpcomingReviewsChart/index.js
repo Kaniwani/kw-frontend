@@ -7,7 +7,7 @@ import { isEqual } from 'lodash';
 import { compose, branch, renderNothing, shouldUpdate } from 'recompose';
 import { ResponsiveContainer, BarChart, Brush, ReferenceLine, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 
-import { selectUpcomingReviews } from 'containers/App/selectors';
+import { selectUpcomingReviews } from 'components/App/selectors';
 
 import Element from 'base/Element';
 import HourTick from './HourTick';

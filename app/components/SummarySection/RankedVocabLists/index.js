@@ -5,7 +5,7 @@ import cuid from 'cuid';
 import { flatten } from 'lodash';
 import { compose, branch, renderComponent } from 'recompose';
 
-import { makeSelectReviewsGroupedByRank } from 'containers/App/selectors';
+import { makeSelectReviewsGroupedByRank } from 'components/App/selectors';
 import Placeholder from '../Placeholder';
 
 import RankedVocabList from '../RankedVocabList';

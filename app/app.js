@@ -7,7 +7,7 @@ import createHistory from 'history/createBrowserHistory';
 import 'sanitize.css/sanitize.css';
 
 // Import root app
-import App from 'containers/App';
+import App from 'components/App';
 
 // Import default LoadingComponent provider and LoadingIndicator that will be used as a loading component
 import DefaultLoadingComponentProvider from 'routing/DefaultLoadingComponentProvider';

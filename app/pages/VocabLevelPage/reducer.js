@@ -2,7 +2,7 @@ import { handleActions, combineActions } from 'redux-actions';
 import update from 'immutability-helper';
 import { difference } from 'lodash';
 
-import app from 'containers/App/actions';
+import app from 'components/App/actions';
 
 const initialState = {
   loading: [],

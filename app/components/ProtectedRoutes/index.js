@@ -5,7 +5,7 @@ import { withRouter, Switch, Route } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
 import ScrollToTop from 'components/ScrollToTop';
-import SiteHeader from 'containers/SiteHeader/Loadable';
+import SiteHeader from 'components/SiteHeader/Loadable';
 import SiteFooter from 'components/SiteFooter/Loadable';
 import HomePage from 'pages/HomePage/Loadable';
 import VocabLevelsPage from 'pages/VocabLevelsPage/Loadable';
@@ -18,7 +18,7 @@ import ContactPage from 'pages/ContactPage/Loadable';
 import SettingsPage from 'pages/SettingsPage/Loadable';
 import NotFoundPage from 'pages/NotFoundPage/Loadable';
 
-import { app } from 'containers/App/actions';
+import { app } from 'components/App/actions';
 import styled from 'styled-components';
 const Page = styled.div`
   display: flex;

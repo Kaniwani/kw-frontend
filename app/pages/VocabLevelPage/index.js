@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
-import actions from 'containers/App/actions';
+import actions from 'components/App/actions';
 import {
   selectIdFromMatch,
   makeSelectLevelReviews,
   makeSelectLevelPrevLoaded,
-} from 'containers/App/selectors';
+} from 'components/App/selectors';
 
 import PageWrapper from 'base/PageWrapper';
 import Container from 'base/Container';

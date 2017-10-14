@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { compose } from 'recompose';
 import cuid from 'cuid';
 
 import { createStructuredSelector } from 'reselect';
 
-import app from 'containers/App/actions';
-import { selectAnnouncements } from 'containers/App/selectors';
+import app from 'components/App/actions';
+import { selectAnnouncements } from 'components/App/selectors';
 
 import Announcement from './Announcement';
 
-class Announcements extends React.Component { // eslint-disable-line react/prefer-stateless-function
+class Announcements extends React.PureComponent {
   static propTypes = {
     items: PropTypes.array.isRequired,
     getAnnouncements: PropTypes.func.isRequired,
@@ -38,8 +37,4 @@ const mapDispatchToProps = ({
   getAnnouncements: app.announcements.load.request,
 });
 
-const enhance = compose(
-  connect(mapStateToProps, mapDispatchToProps),
-);
-
-export default enhance(Announcements);
+export default connect(mapStateToProps, mapDispatchToProps)(Announcements);

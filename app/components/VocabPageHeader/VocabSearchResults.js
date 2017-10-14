@@ -7,7 +7,7 @@ import pluralize from 'utils/pluralize';
 import {
   selectUi,
   selectSearchIds,
-} from 'containers/App/selectors';
+} from 'components/App/selectors';
 
 import Container from 'base/Container';
 import H2 from 'base/H2';

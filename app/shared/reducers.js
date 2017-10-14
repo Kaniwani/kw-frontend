@@ -1,8 +1,12 @@
 import { handleActions, combineActions } from 'redux-actions';
 import update from 'immutability-helper';
 
-import app from 'containers/App/actions';
+import app from 'components/App/actions';
 
+
+// this is a ui reducer
+// FIXME: move to components/App/reducer
+// or move components/App/reducer actions etc to here?
 const initialState = {
   user: {
     loading: false,

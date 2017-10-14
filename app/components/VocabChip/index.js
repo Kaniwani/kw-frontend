@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
-import { makeSelectReviewReadings, makeSelectVocabChipToolTipMarkup } from 'containers/App/selectors';
+import { makeSelectReviewReadings, makeSelectVocabChipToolTipMarkup } from 'components/App/selectors';
 import * as COLORS from 'shared/styles/colors';
 import { ListItem, Link, Text } from './styles';
 

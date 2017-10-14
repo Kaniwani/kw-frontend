@@ -13,7 +13,7 @@ import {
   createAlcUrl,
 } from 'shared/api';
 
-import { selectVocabularySettings } from 'containers/App/selectors';
+import { selectVocabularySettings } from 'components/App/selectors';
 import { Ul, VocabLink } from './styles';
 
 ReadingLinks.propTypes = {

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import {
   makeSelectReviewMeanings,
   makeSelectReviewReadings,
-} from 'containers/App/selectors';
+} from 'components/App/selectors';
 
 import * as COLORS from 'shared/styles/colors';
 import { Li, Link, Dl } from './styles';

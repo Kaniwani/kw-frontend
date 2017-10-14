@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose, branch, renderComponent, shouldUpdate } from 'recompose';
 import { isEqual } from 'lodash';
 
-import { selectLevelIds } from 'containers/App/selectors';
+import { selectLevelIds } from 'components/App/selectors';
 import LoadingCrabigator from 'components/LoadingCrabigator';
 import VocabLevel from 'components/VocabLevel';
 import { Ul } from './styles';

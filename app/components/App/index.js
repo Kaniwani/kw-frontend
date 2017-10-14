@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
 import WelcomePage from 'pages/WelcomePage/Loadable';
-import ProtectedRoutes from 'containers/ProtectedRoutes/Loadable';
+import ProtectedRoutes from 'components/ProtectedRoutes/Loadable';
 
 import { hasToken } from 'utils/auth';
 

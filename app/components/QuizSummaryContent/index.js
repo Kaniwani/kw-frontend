@@ -20,7 +20,7 @@ import {
   selectSummaryCriticalIds,
   selectSummaryPercentCorrect,
   selectLastActivityDate,
-} from 'containers/App/selectors';
+} from 'components/App/selectors';
 
 import { Heading } from './styles';
 

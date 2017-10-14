@@ -10,7 +10,7 @@ import decrement from 'utils/decrement';
 import determineCriticality from 'utils/determineCriticality';
 import stripTilde from 'utils/stripTilde';
 
-import app from 'containers/App/actions';
+import app from 'components/App/actions';
 import {
   selectPreviouslyIncorrect,
   selectQuizSettings,
@@ -20,7 +20,7 @@ import {
   selectCurrentId,
   selectSessionCorrectIds,
   selectReviewEntities,
-} from 'containers/App/selectors';
+} from 'components/App/selectors';
 
 import quiz from './actions';
 import { selectQuizAnswer } from './selectors';

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cuid from 'cuid';
-import { compose, pure, withHandlers, mapProps } from 'recompose';
+import { compose, withHandlers, mapProps } from 'recompose';
 import { KEYCODES } from 'shared/constants';
 
 import { SelectWrapper, SelectList, SelectListItem, SelectedPointer } from './styles';
@@ -23,6 +23,7 @@ const EnhancedSelectListItem = compose(
 )(SelectListItem);
 
 FormSelector.propTypes = {
+  panels: PropTypes.arrayOf(PropTypes.string).isRequired,
   activePanel: PropTypes.string.isRequired,
   setActivePanel: PropTypes.func.isRequired,
   registerSelected: PropTypes.bool.isRequired,
@@ -50,5 +51,4 @@ function FormSelector({ panels, activePanel, setActivePanel, registerSelected, r
   );
 }
 
-// export default pure(FormSelector);
 export default FormSelector;

@@ -8,7 +8,7 @@ import { titleCase } from 'voca';
 import QuizSummaryHeader from 'components/QuizSummaryHeader';
 import QuizSummaryContent from 'components/QuizSummaryContent';
 
-import { selectCategoryFromMatch } from 'containers/App/selectors';
+import { selectCategoryFromMatch } from 'components/App/selectors';
 
 QuizSummaryPage.propTypes = {
   category: PropTypes.string.isRequired,
