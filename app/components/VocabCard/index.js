@@ -23,9 +23,9 @@ VocabCard.defaultProps = {
   readings: [],
 };
 
-function VocabCard({ color, id, meanings, readings }) {
+function VocabCard({ color, id, meanings, readings, ...props }) {
   return (
-    <Li bgColor={color}>
+    <Li bgColor={color} {...props}>
       <Link plainLink to={`/vocabulary/entry/${id}`}>
         <Dl color={color}>
           <div className="reading">

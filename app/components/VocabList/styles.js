@@ -1,11 +1,22 @@
-import styled, { injectGlobal } from 'styled-components';
+import styled, { css, injectGlobal } from 'styled-components';
 
 import { gutter } from 'shared/styles/layout';
-import { epsilon } from 'shared/styles/typography';
-
-import { white, grey } from 'shared/styles/colors';
 import { borderRadius } from 'shared/styles/sizing';
+import { white, grey } from 'shared/styles/colors';
+import { epsilon } from 'shared/styles/typography';
 import { resetList } from 'shared/styles/utils';
+
+export const Ul = styled.ul`
+  ${resetList}
+  ${gutter()}
+  ${({ isExpanded }) => isExpanded && css`
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: stretch;
+    align-content: center;
+  `}
+`;
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
@@ -38,9 +49,4 @@ injectGlobal`
       margin-right: .2em;
     }
   }
-`;
-
-export const Ul = styled.ul`
-  ${resetList}
-  ${gutter()}
 `;

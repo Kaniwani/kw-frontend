@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
+import { pure } from 'recompose';
 
 import * as COLORS from 'shared/styles/colors';
 
@@ -16,8 +17,6 @@ AccuracyBar.defaultProps = {
   color: 'purple',
 };
 
-/* TODO: animate width, currently no animation */
-
 function AccuracyBar({ percent, color }) {
   return (
     <Wrapper>
@@ -31,4 +30,4 @@ function AccuracyBar({ percent, color }) {
   );
 }
 
-export default AccuracyBar;
+export default pure(AccuracyBar);

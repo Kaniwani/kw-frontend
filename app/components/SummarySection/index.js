@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { pure } from 'recompose';
 
 import RankedVocabLists from './RankedVocabLists';
 import { Section, Title } from './styles';
@@ -43,4 +42,4 @@ function SummarySection({ summaryType, ids, cardsExpanded }) {
   );
 }
 
-export default pure(SummarySection);
+export default SummarySection;

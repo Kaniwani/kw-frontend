@@ -19,13 +19,14 @@ VocabChip.defaultProps = {
   color: 'purple',
 };
 
-function VocabChip({ id, toolTipId, toolTipMarkup, character, color }) {
+function VocabChip({ id, character, color, toolTipId, toolTipMarkup, ...props }) {
   return (
     <ListItem
       bgColor={color}
       data-for={toolTipId}
       data-tip={toolTipMarkup}
       data-place="bottom"
+      {...props}
     >
       <Link plainLink to={`/vocabulary/entry/${id}`}>
         <Text lang="ja" shadowColor={color}>{ character }</Text>

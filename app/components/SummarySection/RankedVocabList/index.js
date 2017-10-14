@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { titleCase } from 'voca';
-import { branch, renderNothing } from 'recompose';
+import { compose, branch, renderNothing } from 'recompose';
 
 import { SRS_RANKS } from 'shared/constants';
 import VocabList from 'components/VocabList';
@@ -24,6 +24,6 @@ function RankedVocabList({ rank, ids, color, cardsExpanded }) {
   );
 }
 
-const enhance = branch(({ ids }) => !ids.length, renderNothing);
-
-export default enhance(RankedVocabList);
+export default compose(
+  branch(({ ids }) => !ids.length, renderNothing),
+)(RankedVocabList);

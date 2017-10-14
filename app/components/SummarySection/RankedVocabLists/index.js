@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import cuid from 'cuid';
-import { flatten } from 'lodash';
-import { compose, branch, renderComponent } from 'recompose';
+import { isEqual, flatten } from 'lodash';
+import { compose, shouldUpdate, branch, renderComponent } from 'recompose';
 
 import { makeSelectReviewsGroupedByRank } from 'components/App/selectors';
 import Placeholder from '../Placeholder';
@@ -43,6 +43,9 @@ const enhance = compose(
     ({ rankedEntries }) => flatten(Object.values(rankedEntries)).length < 1,
     renderComponent(Placeholder),
   ),
+  shouldUpdate((props, nextProps) =>
+    props.cardsExpanded !== nextProps.cardsExpanded ||
+    !isEqual(props.ids, nextProps.ids))
 );
 
 export default enhance(RankedVocabLists);

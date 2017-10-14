@@ -27,7 +27,7 @@ function VocabSearchResults({ cardsExpanded, searchResults, isSearching, isSearc
   return (isSearching || isSearchFinished) && (
     <Container>
       {isSearching && (
-        <H2>{hasResults ? 'Chasing down wayward turtles...' : 'Searching...'}</H2>
+        <H2>{'Searching...'}</H2>
       )}
       {hasResults && (
         <H3>{searchResults.length} Search {pluralize('result', searchResults.length)}{isSearching ? ' so far...' : ''}</H3>
