@@ -33,7 +33,5 @@ export const Bar = styled.div`
   top: 0;
   left: 0;
   height: 100%;
-  background-color: ${({ bgColor }) => COLORS[bgColor]};
-  width: ${({ percent }) => percent}%;
   z-index: 1;
 `;

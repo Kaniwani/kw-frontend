@@ -23,7 +23,9 @@ function AccuracyBar({ percent, color }) {
       <Background bgColor={color}>
         <Text percent={percent} textShadowColor={color}>{percent}% Accuracy</Text>
         <Motion defaultStyle={{ percentX: 0 }} style={{ percentX: spring(percent) }}>
-          {({ percentX }) => <Bar percent={percentX} bgColor={color} />}
+          {({ percentX }) => (
+            <Bar style={{ backgroundColor: COLORS[color], width: `${percentX}%` }} />
+          )}
         </Motion>
       </Background>
     </Wrapper>
