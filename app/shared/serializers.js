@@ -1,29 +1,12 @@
 /* eslint-disable camelcase */
 import { SRS_RANKS } from 'shared/constants';
-import { isString, castArray, uniq } from 'lodash';
 import condenseReadings from 'utils/condenseReadings';
 import dateOrFalse from 'utils/dateOrFalse';
 import format from 'date-fns/format';
 import addHours from 'date-fns/add_hours';
 
-
-// TODO: extract utils to nested ./file with tests
-
-// Add 'Common'|'Uncommon' and JLPT rank to tags list
-const combineTags = ({ tags, jlpt, common }) => {
-  const newTags = [common ? 'Common' : 'Uncommon', ...tags];
-  return jlpt != null ? [jlpt, ...newTags] : newTags;
-};
-
-const toUniqueStringsArray = (data) => {
-  let asArray = data;
-  if (isString(data) && data.includes(', ')) {
-    asArray = data.split(', ');
-  } else {
-    asArray = castArray(data);
-  }
-  return uniq(asArray);
-};
+import combinePartsOfSpeech from 'utils/combinePartsOfSpeech';
+import toUniqueStringsArray from 'utils/toUniqueStringsArray';
 
 /* eslint-disable no-return-assign, no-sequences, no-param-reassign */
 const createHashMap = (data) => data.reduce((hash, item) => (hash[item.id] = item, hash), {});
@@ -220,7 +203,7 @@ function serializeReading(reading) {
     isCommon: !!reading.common,
     character: reading.character,
     kana: toUniqueStringsArray(reading.kana),
-    tags: combineTags(reading),
+    tags: combinePartsOfSpeech(reading),
     sentenceEn: reading.sentence_en || '',
     sentenceJa: reading.sentence_ja || '',
   };
