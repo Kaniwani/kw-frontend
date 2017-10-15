@@ -11,6 +11,8 @@ const toUniqueStringsArray = (data = []) => {
     return uniq(data.split(', '));
   } else if (Array.isArray(data)) {
     return uniq(data);
+  } else if (isString(data) && data.length) {
+    return [data];
   }
   return [];
 };

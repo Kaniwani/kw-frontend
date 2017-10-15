@@ -9,6 +9,10 @@ describe('toUniqueStringsArray', () => {
     expect(toUniqueStringsArray([])).toEqual([]);
   });
 
+  it('handles a single string', () => {
+    expect(toUniqueStringsArray('red')).toEqual(['red']);
+  });
+
   it('handles comma separated string', () => {
     expect(toUniqueStringsArray('red, blue, red, green, blue')).toEqual(['red', 'blue', 'green']);
   });
