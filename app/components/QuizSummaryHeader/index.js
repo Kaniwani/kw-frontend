@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { noop } from 'lodash';
 import { titleCase } from 'voca';
 
-import { selectRemainingCount, selectVacationDate } from 'components/App/selectors';
-import app from 'components/App/actions';
+import { selectRemainingCount, selectVacationDate } from 'shared/selectors';
+import app from 'shared/actions';
 import LogoLink from 'components/LogoLink';
 import SessionLink from './SessionLink';
 

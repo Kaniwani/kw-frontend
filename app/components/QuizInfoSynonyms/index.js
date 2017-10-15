@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import cuid from 'cuid';
 import { compose, branch, renderNothing } from 'recompose';
 
-import { makeSelectReviewSynonyms } from 'components/App/selectors';
+import { makeSelectReviewSynonyms } from 'shared/selectors';
 
 import Reading from 'components/Reading';
 import RemoveButton from './RemoveButton';

@@ -6,9 +6,8 @@
 import { combineReducers } from 'redux';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
-import globalReducers from 'components/App/reducer';
+import globalReducers from 'shared/reducers';
 
-import uiReducer from 'shared/reducers';
 import { reducer as formReducer } from 'redux-form';
 // import notificationsReducer from 'components/Notifications/reducer';
 
@@ -37,7 +36,6 @@ export default function createReducer(asyncReducers) {
     ...globalReducers,
     route: routeReducer,
     form: formReducer,
-    ui: uiReducer,
     // notifications: notificationsReducer,
     ...asyncReducers,
   });

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { compose, branch, renderNothing } from 'recompose';
 import format from 'date-fns/format';
 
-import { makeSelectReview } from 'components/App/selectors';
+import { makeSelectReview } from 'shared/selectors';
 import { DATE_FORMAT } from 'shared/constants';
 import getDateInWords from 'utils/getDateInWords';
 import calculatePercentage from 'utils/calculatePercentage';

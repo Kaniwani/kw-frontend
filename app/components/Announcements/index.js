@@ -5,8 +5,8 @@ import cuid from 'cuid';
 
 import { createStructuredSelector } from 'reselect';
 
-import app from 'components/App/actions';
-import { selectAnnouncements } from 'components/App/selectors';
+import app from 'shared/actions';
+import { selectAnnouncements } from 'shared/selectors';
 
 import Announcement from './Announcement';
 

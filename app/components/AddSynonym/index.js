@@ -5,7 +5,7 @@ import { compose } from 'recompose';
 import { toKana } from 'wanakana';
 import { onlyKanjiOrKana, onlyKana } from 'shared/validations';
 
-import app from 'components/App/actions';
+import app from 'shared/actions';
 import quiz from 'pages/QuizPage/actions';
 
 import AddSynonymField from './AddSynonymField';

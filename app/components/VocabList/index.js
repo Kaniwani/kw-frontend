@@ -5,7 +5,6 @@ import cuid from 'cuid';
 import { isEqual } from 'lodash';
 import * as COLORS from 'shared/styles/colors';
 
-import LoadingCrabigator from 'components/LoadingCrabigator';
 import VocabCard from 'components/VocabCard';
 import VocabChip from 'components/VocabChip';
 import { Ul } from './styles';
@@ -14,7 +13,6 @@ class VocabList extends React.PureComponent {
   static propTypes = {
     ids: PropTypes.array.isRequired,
     color: PropTypes.oneOf(Object.keys(COLORS)),
-    prevLoaded: PropTypes.bool.isRequired,
     isExpanded: PropTypes.bool.isRequired,
   }
 
@@ -27,11 +25,7 @@ class VocabList extends React.PureComponent {
   }
 
   render() {
-    const { prevLoaded, ids, color, isExpanded } = this.props;
-
-    if (!prevLoaded && (ids && !ids.length)) {
-      return <LoadingCrabigator />;
-    }
+    const { ids, color, isExpanded } = this.props;
 
     return (
       <div>

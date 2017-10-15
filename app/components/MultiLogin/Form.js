@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { compose, lifecycle } from 'recompose';
 import { reduxForm, Field } from 'redux-form';
 
-import app from 'components/App/actions';
+import app from 'shared/actions';
 
 import {
   requiredValid,

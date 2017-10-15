@@ -7,7 +7,7 @@ import PageWrapper from 'base/PageWrapper';
 import VocabPageHeader from 'components/VocabPageHeader';
 import VocabLevelsList from 'components/VocabLevelsList';
 
-import actions from 'components/App/actions';
+import actions from 'shared/actions';
 
 export class VocabLevelsPage extends React.Component {
   static propTypes = {

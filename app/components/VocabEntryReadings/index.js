@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import cuid from 'cuid';
 import { compose, branch, renderNothing } from 'recompose';
 
-import { makeSelectReviewReadings } from 'components/App/selectors';
+import { makeSelectReviewReadings } from 'shared/selectors';
 
 import VocabEntryReading from './VocabEntryReading';
 

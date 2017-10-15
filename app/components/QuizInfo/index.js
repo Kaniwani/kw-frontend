@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // import { cycleDetailLevel } from './utils';
-import { selectCurrentId } from 'components/App/selectors';
+import { selectCurrentId } from 'shared/selectors';
 import { selectInfoDisabled, selectInfoActivePanel } from 'pages/QuizPage/selectors';
 
 import ToggleBar from './ToggleBar';

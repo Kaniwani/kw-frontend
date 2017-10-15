@@ -7,7 +7,7 @@ import pluralize from 'utils/pluralize';
 import {
   selectUi,
   selectSearchIds,
-} from 'components/App/selectors';
+} from 'shared/selectors';
 
 import Container from 'base/Container';
 import H2 from 'base/H2';
@@ -35,7 +35,7 @@ function VocabSearchResults({ cardsExpanded, searchResults, isSearching, isSearc
       {isSearchFinished && noResults && (
         <H3>No Search Results</H3>
       )}
-      <VocabList prevLoaded ids={searchResults} color="blue" isExpanded={cardsExpanded} />
+      <VocabList ids={searchResults} color="blue" isExpanded={cardsExpanded} />
     </Container>
   );
 }

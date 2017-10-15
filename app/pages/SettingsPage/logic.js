@@ -2,8 +2,8 @@ import { createLogic } from 'redux-logic';
 
 import { deserializeSettings } from 'shared/serializers';
 import * as api from 'shared/api';
-import app from 'components/App/actions';
-import { selectProfile, selectSettings } from 'components/App/selectors';
+import app from 'shared/actions';
+import { selectProfile, selectSettings } from 'shared/selectors';
 
 export const saveSettingsLogic = createLogic({
   type: app.settings.save.request,

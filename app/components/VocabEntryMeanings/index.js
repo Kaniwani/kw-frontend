@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { makeSelectReviewMeanings } from 'components/App/selectors';
+import { makeSelectReviewMeanings } from 'shared/selectors';
 
 import { Wrapper, Primary, Secondary } from './styles';
 

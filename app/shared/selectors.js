@@ -53,20 +53,26 @@ export const selectSessionCount = createDeepEqualSelector(
 );
 
 export const selectUserLevel = createDeepEqualSelector(selectProfile, (state) => state && state.currentLevel);
+export const selectUnlockedLevels = createDeepEqualSelector(selectProfile, (state) => state && state.unlockedLevels);
 
 export const isNotNumberedLevel = (id) => !isFinite(+id);
 export const makeSelectLevelTitle = (id) => createDeepEqualSelector(() =>
   isNotNumberedLevel(id) ? titleCase(id) : id,
 );
 
+export const selectLevelsLoading = createDeepEqualSelector(
+  selectUi,
+  ({ levels }) => levels.loading || []
+);
+
+export const makeSelectLevelLoading = (id) => createDeepEqualSelector(
+  selectLevelsLoading,
+  (loading) => loading.includes(id)
+);
+
 export const makeSelectLevelVocabCount = (id) => createDeepEqualSelector(
   makeSelectLevel(id),
   (level) => level && level.count
-);
-
-export const makeSelectLevelPrevLoaded = (id) => createDeepEqualSelector(
-  makeSelectLevel(id),
-  (level) => level && level.prevLoaded,
 );
 
 export const makeSelectLevelLocked = (id) => createDeepEqualSelector(

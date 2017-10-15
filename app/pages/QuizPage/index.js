@@ -7,9 +7,9 @@ import { HotKeys } from 'react-hotkeys';
 import { titleCase } from 'voca';
 import { compose } from 'recompose';
 
-import app from 'components/App/actions';
+import app from 'shared/actions';
 import quiz from 'pages/QuizPage/actions';
-import { selectUi, selectCategoryFromMatch, selectCurrent } from 'components/App/selectors';
+import { selectUi, selectCategoryFromMatch, selectCurrent } from 'shared/selectors';
 import { selectAnswerDisabled } from 'pages/QuizPage/selectors';
 
 import backgroundImage from 'shared/assets/img/reviews.svg';

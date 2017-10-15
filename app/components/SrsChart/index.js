@@ -7,7 +7,7 @@ import { isEmpty, isEqual } from 'lodash';
 import titleCase from 'voca/title_case';
 import { PieChart, Pie } from 'recharts';
 import { SRS_COLORS } from 'shared/styles/colors';
-import { selectSrsCounts } from 'components/App/selectors';
+import { selectSrsCounts } from 'shared/selectors';
 
 import Element from 'base/Element';
 import SrsLegend from './SrsLegend';

@@ -5,7 +5,7 @@ import { createSelector } from 'reselect';
 import { isKanji } from 'wanakana';
 import { isEqual, merge } from 'lodash';
 
-import { selectVocabularySettings } from 'components/App/selectors';
+import { selectVocabularySettings } from 'shared/selectors';
 
 import { greyLight, blackLight, purpleLight, purpleDark } from 'shared/styles/colors';
 import { rgba } from 'polished';

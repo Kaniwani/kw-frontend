@@ -11,7 +11,7 @@ import {
   selectPercentCorrect,
   selectCorrectCount,
   selectRemainingCount,
-} from 'components/App/selectors';
+} from 'shared/selectors';
 
 import { Wrapper, SummaryLink, StatsWrapper, Stat, Label } from './styles';
 import ProgressBar from './ProgressBar';

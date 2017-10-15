@@ -18,7 +18,7 @@ import ContactPage from 'pages/ContactPage/Loadable';
 import SettingsPage from 'pages/SettingsPage/Loadable';
 import NotFoundPage from 'pages/NotFoundPage/Loadable';
 
-import { app } from 'components/App/actions';
+import { app } from 'shared/actions';
 import styled from 'styled-components';
 const Page = styled.div`
   display: flex;

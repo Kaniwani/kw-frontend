@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { compose, pure } from 'recompose';
 
-import { makeSelectReviewReadings, makeSelectVocabChipToolTipMarkup } from 'components/App/selectors';
+import { makeSelectReviewReadings, makeSelectVocabChipToolTipMarkup } from 'shared/selectors';
 import * as COLORS from 'shared/styles/colors';
 import { ListItem, Link, Text } from './styles';
 

@@ -5,7 +5,7 @@ import cuid from 'cuid';
 import { isEqual, flatten } from 'lodash';
 import { compose, shouldUpdate, branch, renderComponent } from 'recompose';
 
-import { makeSelectReviewsGroupedByRank } from 'components/App/selectors';
+import { makeSelectReviewsGroupedByRank } from 'shared/selectors';
 import Placeholder from '../Placeholder';
 
 import RankedVocabList from '../RankedVocabList';

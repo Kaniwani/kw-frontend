@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
-import app from 'components/App/actions';
-import { selectUi, selectProfile } from 'components/App/selectors';
+import app from 'shared/actions';
+import { selectUi, selectProfile } from 'shared/selectors';
 
 import Container from 'base/Container';
 import Element from 'base/Element';

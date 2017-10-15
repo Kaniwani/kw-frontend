@@ -9,7 +9,7 @@ import {
   makeSelectQuizMeanings,
   makeSelectReviewReadings,
   makeSelectReviewStreak,
-} from 'components/App/selectors';
+} from 'shared/selectors';
 
 import { selectAnswerDisabled, selectAnswerIgnored } from 'pages/QuizPage/selectors';
 

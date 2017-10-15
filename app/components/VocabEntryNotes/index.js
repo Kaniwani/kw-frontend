@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { formValues, reduxForm } from 'redux-form';
 import { compose, branch, renderNothing } from 'recompose';
 
-import app from 'components/App/actions';
-import { makeSelectReviewNotes } from 'components/App/selectors';
+import app from 'shared/actions';
+import { makeSelectReviewNotes } from 'shared/selectors';
 import { MAX_NOTES_LENGTH } from 'shared/constants';
 import Button from 'base/Button';
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 
 import { isRomaji, isJapanese } from 'wanakana';
-import app from 'components/App/actions';
+import app from 'shared/actions';
 import { whiteLight, blueLight } from 'shared/styles/colors';
 
 import InputField from './InputField';

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import cuid from 'cuid';
 import { compose } from 'recompose';
 
-import { makeSelectReviewSynonyms } from 'components/App/selectors';
+import { makeSelectReviewSynonyms } from 'shared/selectors';
 
 import Element from 'base/Element';
 import AddSynonym from 'components/AddSynonym';

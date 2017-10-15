@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
-import { selectIdFromMatch } from 'components/App/selectors';
-import actions from 'components/App/actions';
+import { selectIdFromMatch } from 'shared/selectors';
+import actions from 'shared/actions';
 import PageWrapper from 'base/PageWrapper';
 
 import VocabEntryMeanings from 'components/VocabEntryMeanings';

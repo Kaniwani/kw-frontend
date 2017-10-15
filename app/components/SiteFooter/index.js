@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { compose, pure } from 'recompose';
 
-import app from 'components/App/actions';
+import app from 'shared/actions';
 
 import NavLink from 'components/NavLink';
 import Container from 'base/Container';

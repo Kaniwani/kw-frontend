@@ -6,7 +6,7 @@ import { compose, shouldUpdate } from 'recompose';
 import {
   makeSelectReviewMeanings,
   makeSelectReviewReadings,
-} from 'components/App/selectors';
+} from 'shared/selectors';
 
 import * as COLORS from 'shared/styles/colors';
 import { Li, Link, Dl } from './styles';

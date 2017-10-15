@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { compose, branch, renderNothing } from 'recompose';
 import { reduxForm, Field } from 'redux-form';
 
-import app from 'components/App/actions';
-import { selectSettings } from 'components/App/selectors';
+import app from 'shared/actions';
+import { selectSettings } from 'shared/selectors';
 
 import { WK_SRS_RANKS } from 'shared/constants';
 

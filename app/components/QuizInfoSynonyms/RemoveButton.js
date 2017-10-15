@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import actions from 'components/App/actions';
+import actions from 'shared/actions';
 import { RemoveButton as Button } from './styles';
 
 RemoveButton.propTypes = {

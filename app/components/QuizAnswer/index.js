@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { SRS_RANKS } from 'shared/constants';
 import { toKana } from 'wanakana';
 
-import { selectCurrentStreakName } from 'components/App/selectors';
+import { selectCurrentStreakName } from 'shared/selectors';
 import { selectQuizAnswer } from 'pages/QuizPage/selectors';
 import quiz from 'pages/QuizPage/actions';
 

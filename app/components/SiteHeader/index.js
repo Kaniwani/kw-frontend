@@ -5,8 +5,8 @@ import { debounce, isEqual } from 'lodash';
 import { breakpoints } from 'shared/styles/media';
 
 import LogoLink from 'components/LogoLink';
-import { selectSessionCount, selectLocationPath, selectVacationDate } from 'components/App/selectors';
-import app from 'components/App/actions';
+import { selectSessionCount, selectLocationPath, selectVacationDate } from 'shared/selectors';
+import app from 'shared/actions';
 
 import OnCanvasMenu from './OnCanvasMenu';
 import OffCanvasToggle from './OffCanvasToggle';
