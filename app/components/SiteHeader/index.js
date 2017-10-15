@@ -42,7 +42,6 @@ class SiteHeader extends React.Component {
     window.addEventListener('resize', this.handleResize);
   }
 
-  // FIXME: navlinks don't have active state? probably need a ConnectedSwitch
   shouldComponentUpdate(nextProps, nextState) {
     const unchanged = isEqual(this.props, nextProps) && isEqual(this.state, nextState);
     return !unchanged;

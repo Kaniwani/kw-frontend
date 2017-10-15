@@ -143,6 +143,4 @@ const enhance = compose(
   }),
 );
 
-
-// TODO: on
 export default enhance(SettingsForm);

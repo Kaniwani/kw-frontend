@@ -23,7 +23,7 @@ import {
 } from 'shared/serializers';
 
 import { selectLevelsSubmitting } from 'pages/VocabLevelsPage/selectors';
-// TODO: find/replace sel.selectorZ and import { selectorX, selectorY }
+
 import * as sel from './selectors';
 import app from './actions';
 
@@ -253,8 +253,6 @@ export const levelUnlockLogic = createLogic({
   type: app.level.unlock.request,
   warnTimeout: 10000,
   validate({ getState, action }, allow, reject) {
-    // TODO: could set up a queue instead.
-    // https://github.com/jeffbski/redux-logic/tree/master/examples/notification
     const alreadySubmitting = selectLevelsSubmitting(getState()).length >= 1;
     if (alreadySubmitting) {
       alert('Please unlock levels one at a time. Turtles get tired too.');
@@ -290,7 +288,6 @@ export const reviewSearchLogic = createLogic({
   process({ getState, action: { payload } }, dispatch, done) {
     const form = 'searchBar';
     dispatch(startSubmit(form));
-    // TODO: blur form on submit...
     return api.getVocabulary(payload)
       .then(({ body }) => {
         const persistedReviews = sel.selectReviewEntities(getState());
