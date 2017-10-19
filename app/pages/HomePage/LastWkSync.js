@@ -1,10 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { compose, pure, branch, renderNothing } from 'recompose';
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 
-import { selectLastWkSyncDate } from 'shared/selectors';
 import Element from 'base/Element';
 import H4 from 'base/H4';
 
@@ -22,10 +20,7 @@ function LastWkSync({ lastWkSyncDate }) {
   );
 }
 
-const enhance = compose(
-  connect((state) => ({ lastWkSyncDate: selectLastWkSyncDate(state) })),
+export default compose(
   branch(({ lastWkSyncDate }) => lastWkSyncDate === undefined, renderNothing),
   pure,
-);
-
-export default enhance(LastWkSync);
+)(LastWkSync);

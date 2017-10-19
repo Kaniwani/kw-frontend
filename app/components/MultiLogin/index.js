@@ -20,13 +20,13 @@ class MultiLogin extends React.PureComponent {
     this.setState({ activePanel });
   }
 
-  isPanelSelected = (panel) => this.state.activePanel === panel
+  isActivePanel = (panel) => this.state.activePanel === panel
 
   render() {
     const selections = {
-      registerSelected: this.isPanelSelected('Register'),
-      loginSelected: this.isPanelSelected('Login'),
-      resetSelected: this.isPanelSelected('Reset'),
+      registerSelected: this.isActivePanel('Register'),
+      loginSelected: this.isActivePanel('Login'),
+      resetSelected: this.isActivePanel('Reset'),
     };
 
     return hasToken() ? (

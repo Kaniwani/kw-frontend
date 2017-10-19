@@ -34,7 +34,8 @@ function VocabEntryReading({
         character={character}
         kana={kana}
       />
-      <PitchDiagram reading={kana[0]} pitchNum={3} />
+      {/* FIXME: hard-coded pitch */}
+      <PitchDiagram reading={kana[0]} pitchNum={0} />
       <KanjiStrokeLoader character={character} />
       <ReadingLinks character={character} />
     </Li>

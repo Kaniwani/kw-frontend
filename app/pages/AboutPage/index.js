@@ -77,6 +77,7 @@ function AboutPage() {
             </form>
           </Element>
         </Container>
+
         <Container flexColumn flexCenter>
           <Element>
             <H3>Powered by</H3>

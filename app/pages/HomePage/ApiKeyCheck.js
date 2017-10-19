@@ -19,7 +19,9 @@ ApiKeyCheck.defaulProps = {
 };
 
 function ApiKeyCheck({ valid }) {
-  return valid === false && <Text>Api Key Invalid! Navigate to <A to="/settings">settings</A> to check and update!</Text>;
+  return valid === false && (
+    <Text>Api Key Invalid! Navigate to <A to="/settings">settings</A> to check and update!</Text>
+  );
 }
 
 export default ApiKeyCheck;

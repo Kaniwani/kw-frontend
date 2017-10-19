@@ -1,10 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { compose, branch, renderNothing, pure } from 'recompose';
+import { compose, branch, onlyUpdateForKeys, renderNothing } from 'recompose';
 import ReactInterval from 'react-interval';
 
-import { selectSessionCount, selectVacationDate, selectNextReviewDate } from 'shared/selectors';
 import getReviewStatusText from 'utils/getReviewStatusText';
 import H3 from 'base/H3';
 import Element from 'base/Element';
@@ -28,16 +26,7 @@ function ReviewStatus({ reviewsCount, vacationDate, nextReviewDate }) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  reviewsCount: selectSessionCount(state, { category: 'reviews' }),
-  vacationDate: selectVacationDate(state),
-  nextReviewDate: selectNextReviewDate(state),
-});
-
-const enhance = compose(
-  connect(mapStateToProps),
+export default compose(
   branch(({ nextReviewDate }) => nextReviewDate === undefined, renderNothing),
-  pure,
-);
-
-export default enhance(ReviewStatus);
+  onlyUpdateForKeys(['reviewsCount', 'vacationDate', 'nextReviewDate']),
+)(ReviewStatus);

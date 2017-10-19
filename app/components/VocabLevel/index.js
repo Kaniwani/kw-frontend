@@ -18,18 +18,6 @@ import {
 
 import { Wrapper, LevelLink, Title, ItemCount, LockedLabel, Button } from './styles';
 
-
-const enhance = compose(
-  withHandlers({
-    handleLockClick: ({ id, isActionable, isLocked, lockLevel, unlockLevel }) => () => {
-      if (isActionable && !isLocked) return lockLevel({ id });
-      if (isActionable && isLocked) return unlockLevel({ id });
-      return noop;
-    },
-  }),
-  pure,
-);
-
 VocabLevel.propTypes = {
   id: PropTypes.oneOfType([
     PropTypes.number,
@@ -84,4 +72,14 @@ const mapDispatchToProps = (dispatch) => ({
   unlockLevel: (payload) => dispatch(actions.level.unlock.request(payload)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(enhance(VocabLevel));
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withHandlers({
+    handleLockClick: ({ id, isActionable, isLocked, lockLevel, unlockLevel }) => () => {
+      if (isActionable && !isLocked) return lockLevel({ id });
+      if (isActionable && isLocked) return unlockLevel({ id });
+      return noop;
+    },
+  }),
+  pure,
+)(VocabLevel);

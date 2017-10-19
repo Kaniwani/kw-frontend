@@ -1,19 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 
 import { selectIdFromMatch } from 'shared/selectors';
 import actions from 'shared/actions';
-import PageWrapper from 'base/PageWrapper';
 
-import VocabEntryMeanings from 'components/VocabEntryMeanings';
-import VocabEntryReadings from 'components/VocabEntryReadings';
-import VocabEntrySynonyms from 'components/VocabEntrySynonyms';
-import VocabEntryNotes from 'components/VocabEntryNotes';
-import VocabEntryDetails from './VocabEntryDetails';
-
-import { Row, Column } from './styles';
+import View from './View';
 
 export class VocabEntryPage extends React.Component {
   static propTypes = {
@@ -26,28 +18,7 @@ export class VocabEntryPage extends React.Component {
   }
 
   render() {
-    const { id } = this.props;
-    return (
-      <div>
-        <Helmet>
-          <title>Vocabulary: Entry</title>
-          <meta name="description" content="Kaniwani Vocabulary: Entry" />
-        </Helmet>
-        <PageWrapper>
-          <Row>
-            <Column>
-              <VocabEntryMeanings id={id} />
-              <VocabEntryReadings id={id} />
-              <VocabEntrySynonyms id={id} />
-              <VocabEntryNotes id={id} />
-            </Column>
-            <Column>
-              <VocabEntryDetails id={id} />
-            </Column>
-          </Row>
-        </PageWrapper>
-      </div>
-    );
+    return <View {...this.props} />;
   }
 }
 

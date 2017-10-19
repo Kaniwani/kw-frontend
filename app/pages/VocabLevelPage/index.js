@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
-import { isEqual } from 'lodash';
 
 import actions from 'shared/actions';
 import {
@@ -12,24 +10,18 @@ import {
   makeSelectLevelLoading,
 } from 'shared/selectors';
 
-import PageWrapper from 'base/PageWrapper';
-import Container from 'base/Container';
-import H3 from 'base/H3';
-import A from 'base/A';
-import VocabPageHeader from 'components/VocabPageHeader';
-import VocabList from 'components/VocabList';
-import LoadingCrabigator from 'components/LoadingCrabigator';
+import View from './View';
 
-export class VocabLevelPage extends React.Component {
+export class VocabLevelPage extends React.PureComponent {
   static propTypes = {
     loadLevelReviews: PropTypes.func.isRequired,
-    isLocked: PropTypes.bool.isRequired,
-    isLoading: PropTypes.bool.isRequired,
-    reviewIds: PropTypes.array,
-    id: PropTypes.PropTypes.oneOfType([
+    levelId: PropTypes.PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.string,
     ]).isRequired,
+    reviewIds: PropTypes.array,
+    isLocked: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired,
   }
 
   static defaultProps = {
@@ -41,12 +33,8 @@ export class VocabLevelPage extends React.Component {
   }
 
   componentWillMount() {
-    const { loadLevelReviews, id } = this.props;
-    loadLevelReviews({ id });
-  }
-
-  shouldComponentUpdate(nextProps) {
-    return !isEqual(this.props, nextProps);
+    const { loadLevelReviews, levelId } = this.props;
+    loadLevelReviews({ id: levelId });
   }
 
   toggleCardsExpanded = () => {
@@ -54,50 +42,16 @@ export class VocabLevelPage extends React.Component {
   };
 
   render() {
-    const { reviewIds, id, isLocked, isLoading } = this.props;
-    const PAGE_TITLE = `Vocabulary: Level ${id}`;
-    return (
-      <div>
-        <Helmet>
-          <title>{PAGE_TITLE}</title>
-          <meta name="description" content={`Kaniwani ${PAGE_TITLE}`} />
-        </Helmet>
-        <PageWrapper>
-          <VocabPageHeader
-            pageTitle={PAGE_TITLE}
-            cardsExpanded={this.state.cardsExpanded}
-            toggleCardsExpanded={this.toggleCardsExpanded}
-            withVocabListToggle
-          />
-          <Container>
-            {isLocked && !isLoading && (
-              <H3>Level is locked! Unlock it in <A to="/vocabulary">Vocabulary Levels</A></H3>
-            )}
-            {!isLocked && (
-              <VocabList
-                ids={reviewIds}
-                isExpanded={this.state.cardsExpanded}
-              />
-            )}
-            {!isLocked && isLoading && (
-              <LoadingCrabigator />
-            )}
-            {!isLocked && !isLoading && reviewIds.length < 1 && (
-              <H3>All entries hidden. Check your WaniKani SRS filtering in <A to="/settings">Settings</A></H3>
-            )}
-          </Container>
-        </PageWrapper>
-      </div>
-    );
+    return <View {...this.props} {...this.state} toggleCardsExpanded={this.toggleCardsExpanded} />;
   }
 }
 
 const mapStateToProps = (state, props) => {
   const id = selectIdFromMatch(props);
   return {
-    id,
-    isLocked: makeSelectLevelLocked(id)(state),
+    levelId: id,
     reviewIds: makeSelectLevelReviews(id)(state),
+    isLocked: makeSelectLevelLocked(id)(state),
     isLoading: makeSelectLevelLoading(id)(state),
   };
 };

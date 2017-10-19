@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { compose, branch, renderNothing, shouldUpdate } from 'recompose';
-import { isEmpty, isEqual } from 'lodash';
+import { compose, branch, renderNothing } from 'recompose';
+import { isEmpty } from 'lodash';
 import titleCase from 'voca/title_case';
 import { PieChart, Pie } from 'recharts';
 import { SRS_COLORS } from 'shared/styles/colors';
-import { selectSrsCounts } from 'shared/selectors';
+import shouldUpdateDeepEqual from 'utils/shouldUpdateDeepEqual';
 
 import Element from 'base/Element';
 import SrsLegend from './SrsLegend';
@@ -15,7 +13,7 @@ import renderActiveShape from './renderActiveShape';
 
 class SrsChart extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
-    srsCounts: PropTypes.shape({
+    data: PropTypes.shape({
       UNTRAINED: PropTypes.number,
       APPRENTICE: PropTypes.number,
       GURU: PropTypes.number,
@@ -30,13 +28,11 @@ class SrsChart extends React.Component { // eslint-disable-line react/prefer-sta
   }
 
   onPieEnter = (data, index) => {
-    this.setState({
-      activeIndex: index,
-    });
+    this.setState({ activeIndex: index });
   }
 
   render() {
-    const dataset = Object.entries(this.props.srsCounts)
+    const dataset = Object.entries(this.props.data)
       .map(([name, value], index) => ({
         name: titleCase(name),
         value,
@@ -64,14 +60,7 @@ class SrsChart extends React.Component { // eslint-disable-line react/prefer-sta
   }
 }
 
-const mapStateToProps = createStructuredSelector({
-  srsCounts: selectSrsCounts,
-});
-
-const enhance = compose(
-  connect(mapStateToProps),
-  branch(({ srsCounts }) => isEmpty(srsCounts), renderNothing),
-  shouldUpdate((props, nextProps) => !isEqual(props.srsCounts, nextProps.srsCounts)),
-);
-
-export default enhance(SrsChart);
+export default compose(
+  branch(({ data }) => isEmpty(data), renderNothing),
+  shouldUpdateDeepEqual(['data']),
+)(SrsChart);

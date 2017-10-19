@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { HotKeys } from 'react-hotkeys';
 import { titleCase } from 'voca';
-import { compose } from 'recompose';
 
 import app from 'shared/actions';
 import quiz from 'pages/QuizPage/actions';
@@ -61,8 +60,8 @@ class QuizPage extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.resetSession();
-    this.props.loadUser();
+    this.props.resetSession(); // quiz summary
+    this.props.loadUser(); // load updated reviewcount
   }
 
   guardHandler = (event, handler) => (
@@ -151,8 +150,4 @@ const mapDispatchToProps = (dispatch, props) => ({
   setNewCurrent: () => dispatch(app[selectCategoryFromMatch(props)].current.set()),
 });
 
-const enhance = compose(
-  connect(mapStateToProps, mapDispatchToProps),
-);
-
-export default enhance(QuizPage);
+export default connect(mapStateToProps, mapDispatchToProps)(QuizPage);
