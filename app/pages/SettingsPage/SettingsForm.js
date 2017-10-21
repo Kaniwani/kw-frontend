@@ -23,7 +23,7 @@ import { Form, Section, SubSection, Controls } from './styles';
 const milliToSec = (value = 0) => +value * 1000;
 const secToMilli = (value = 0) => +value / 1000;
 
-// NOTE: these only work for the integers 1-10, my math-fu is not strong
+// NOTE: these only work for integers 1-10, my math-fu is not strong
 const toKanjiStrokeStep = (value) => ((10 - +value) + 1) / 100; // 1 => 0.1, 10 => 0.01
 const fromKanjiStrokeStep = (value) => Math.round(10 - ((+value * 100) - 1)); // 0.1 => 1, 0.01 => 10
 

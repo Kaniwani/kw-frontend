@@ -13,6 +13,9 @@ function SettingsPage() {
         <meta name="description" content="Kaniwani Settings Page" />
       </Helmet>
       <PageWrapper>
+        {/* FIXME: make completely separate forms (quiz, vocab, account etc) */}
+        {/* FIXME: use flat state from profile settings, and only pass down relevant props */}
+        {/* FIXME: so we can simply camelcase/snakecase in serializers */}
         <Container>
           <SettingsForm />
         </Container>
