@@ -543,6 +543,13 @@ babel-jest@^21.0.0:
     babel-plugin-istanbul "^4.0.0"
     babel-preset-jest "^21.0.0"
 
+babel-jest@^21.2.0:
+  version "21.2.0"
+  resolved "https://registry.yarnpkg.com/babel-jest/-/babel-jest-21.2.0.tgz#2ce059519a9374a2c46f2455b6fbef5ad75d863e"
+  dependencies:
+    babel-plugin-istanbul "^4.0.0"
+    babel-preset-jest "^21.2.0"
+
 babel-loader@7.1.2:
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-7.1.2.tgz#f6cbe122710f1aa2af4d881c6d5b54358ca24126"
@@ -582,6 +589,10 @@ babel-plugin-istanbul@^4.0.0:
 babel-plugin-jest-hoist@^21.0.0:
   version "21.0.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-jest-hoist/-/babel-plugin-jest-hoist-21.0.0.tgz#aa2dbab7b0d58fa635640efd53aab730be7b3273"
+
+babel-plugin-jest-hoist@^21.2.0:
+  version "21.2.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-jest-hoist/-/babel-plugin-jest-hoist-21.2.0.tgz#2cef637259bd4b628a6cace039de5fcd14dbb006"
 
 babel-plugin-react-transform@2.0.2:
   version "2.0.2"
@@ -637,7 +648,7 @@ babel-plugin-syntax-jsx@^6.3.13, babel-plugin-syntax-jsx@^6.8.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-jsx/-/babel-plugin-syntax-jsx-6.18.0.tgz#0af32a9a6e13ca7a3fd5069e62d7b0f58d0d8946"
 
-babel-plugin-syntax-object-rest-spread@^6.8.0:
+babel-plugin-syntax-object-rest-spread@^6.13.0, babel-plugin-syntax-object-rest-spread@^6.8.0:
   version "6.13.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-object-rest-spread/-/babel-plugin-syntax-object-rest-spread-6.13.0.tgz#fd6536f2bce13836ffa3a5458c4903a597bb3bf5"
 
@@ -1019,6 +1030,13 @@ babel-preset-jest@^21.0.0:
   resolved "https://registry.yarnpkg.com/babel-preset-jest/-/babel-preset-jest-21.0.0.tgz#13a8d82e999aa49f8b2dc14d0023d362f2e4ba23"
   dependencies:
     babel-plugin-jest-hoist "^21.0.0"
+
+babel-preset-jest@^21.2.0:
+  version "21.2.0"
+  resolved "https://registry.yarnpkg.com/babel-preset-jest/-/babel-preset-jest-21.2.0.tgz#ff9d2bce08abd98e8a36d9a8a5189b9173b85638"
+  dependencies:
+    babel-plugin-jest-hoist "^21.2.0"
+    babel-plugin-syntax-object-rest-spread "^6.13.0"
 
 babel-preset-react@6.24.1:
   version "6.24.1"
@@ -3985,6 +4003,10 @@ hoist-non-react-statics@^1.0.0, hoist-non-react-statics@^1.2.0:
 hoist-non-react-statics@^2.2.1, hoist-non-react-statics@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.3.0.tgz#ede16318c2ff1f9fe3a025396ba06fd4c44608bb"
+
+hoist-non-react-statics@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.3.1.tgz#343db84c6018c650778898240135a1420ee22ce0"
 
 home-or-tmp@^2.0.0:
   version "2.0.0"
@@ -7426,13 +7448,14 @@ redux-actions@2.2.1:
     lodash-es "^4.17.4"
     reduce-reducers "^0.1.0"
 
-redux-form@7.0.3:
-  version "7.0.3"
-  resolved "https://registry.yarnpkg.com/redux-form/-/redux-form-7.0.3.tgz#80157d01df7de6c8eb2297ad1fbbb092bafa34f5"
+redux-form@7.1.1:
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/redux-form/-/redux-form-7.1.1.tgz#4d9ab1d9c03beb3a8b5f8e5d0f398cff4209081f"
   dependencies:
+    babel-jest "^21.2.0"
     deep-equal "^1.0.1"
     es6-error "^4.0.0"
-    hoist-non-react-statics "^2.2.1"
+    hoist-non-react-statics "^2.3.1"
     invariant "^2.2.2"
     is-promise "^2.1.0"
     lodash "^4.17.3"
