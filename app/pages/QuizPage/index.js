@@ -8,7 +8,11 @@ import { titleCase } from 'voca';
 
 import app from 'shared/actions';
 import quiz from 'pages/QuizPage/actions';
-import { selectUi, selectCategoryFromMatch, selectCurrent } from 'shared/selectors';
+import {
+  selectUi,
+  selectCategoryFromMatch,
+  selectCurrent,
+} from 'shared/selectors';
 import { selectAnswerDisabled } from 'pages/QuizPage/selectors';
 
 import backgroundImage from 'shared/assets/img/reviews.svg';
@@ -27,14 +31,20 @@ const keyMap = {
   showSynonym: 's',
 };
 
-const isInputField = (event) => ['INPUT', 'TEXTAREA'].includes(event.target.nodeName);
-const isFormButton = (event) => ['submit', 'reset'].includes(event.target.type);
-const isQuizToggle = (event) => event.target.matches('.quizToggle');
-const isLink = (event) => event.target.href != null;
+const shouldIgnore = ({ target }) =>
+  Object.keys(target.dataset).includes('ignoreHotkeys');
+
+const isInputField = ({ target }) =>
+  ['INPUT', 'TEXTAREA'].includes(target.nodeName);
+
+const isFormButton = ({ target }) => ['submit', 'reset'].includes(target.type);
+
+const isLink = ({ target }) => target.href != null;
 
 class QuizPage extends React.Component {
   static propTypes = {
     isLoading: PropTypes.bool.isRequired,
+    loadUser: PropTypes.func.isRequired,
     current: PropTypes.object.isRequired,
     resetSession: PropTypes.func.isRequired,
     redirectToSummary: PropTypes.func.isRequired,
@@ -53,9 +63,16 @@ class QuizPage extends React.Component {
     }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
+    // no reviews in queue
     if (!this.props.current.id) {
       this.props.redirectToSummary();
+    }
+    // refocus since disabling answer blurs and user can't access hotkeys
+    console.log('cdu', document.activeElement);
+    if (!prevProps.answerDisabled && this.props.answerDisabled) {
+      this.wrapperRef.focus();
+      console.log(document.activeElement);
     }
   }
 
@@ -64,55 +81,74 @@ class QuizPage extends React.Component {
     this.props.loadUser(); // load updated reviewcount
   }
 
-  guardHandler = (event, handler) => (
-    isInputField(event) || !this.props.answerDisabled ?
-      () => event :
-      handler(event)
-  );
+  guardHandler = (event, handler) =>
+    !this.props.answerDisabled || // ignore everything while user still answering
+    shouldIgnore(event) ||
+    isInputField(event) ||
+    isFormButton(event) ||
+    isLink(event)
+      ? () => event
+      : handler(event);
 
-  cycleInfoDetail = (event) => this.guardHandler(event,
-    () => isQuizToggle(event) ? event : this.props.cycleInfoDetail() && false
-  )
-  showNotes = (event) => this.guardHandler(event,
-    () => this.props.updateInfo({ activePanel: 'NOTES' }) && false
-  )
-  showInfo = (event) => this.guardHandler(event,
-    () => this.props.updateInfo({ activePanel: 'INFO' }) && false
-  )
-  showSynonym = (event) => this.guardHandler(event,
-    () => this.props.updateInfo({ activePanel: 'SYNONYM' }) && false
-  )
-  ignoreAnswer = (event) => this.guardHandler(event,
-    () => this.props.ignoreAnswer({ category: this.props.category }) && false
-  )
-  recordAnswer = (event) => this.guardHandler(event,
-    () => isFormButton(event) || isLink(event) ?
-      event :
-      this.props.recordAnswer({ category: this.props.category }) && false
-  )
+  cycleInfoDetail = (event) =>
+    this.guardHandler(event, () => this.props.cycleInfoDetail() && false);
+
+  showNotes = (event) =>
+    this.guardHandler(
+      event,
+      () => this.props.updateInfo({ activePanel: 'NOTES' }) && false,
+    );
+
+  showInfo = (event) =>
+    this.guardHandler(
+      event,
+      () => this.props.updateInfo({ activePanel: 'INFO' }) && false,
+    );
+
+  showSynonym = (event) =>
+    this.guardHandler(
+      event,
+      () => this.props.updateInfo({ activePanel: 'SYNONYM' }) && false,
+    );
+
+  ignoreAnswer = (event) =>
+    this.guardHandler(
+      event,
+      () => this.props.ignoreAnswer({ category: this.props.category }) && false,
+    );
+
+  recordAnswer = (event) =>
+    this.guardHandler(
+      event,
+      () => this.props.recordAnswer({ category: this.props.category }) && false,
+    );
 
   render() {
     const { category } = this.props;
-
     const title = `${titleCase(category)} Session`;
-
-    const handlers = {
-      cycleInfoDetail: this.cycleInfoDetail,
-      showNotes: this.showNotes,
-      showInfo: this.showInfo,
-      showSynonym: this.showSynonym,
-      ignoreAnswer: this.ignoreAnswer,
-      recordAnswer: this.recordAnswer,
-    };
-
     return (
       <div>
         <Helmet>
           <title>{title}</title>
           <meta name="description" content={`Kaniwani ${title}`} />
         </Helmet>
-        <HotKeys keyMap={keyMap} handlers={handlers}>
-          <Wrapper>
+        <HotKeys
+          keyMap={keyMap}
+          handlers={{
+            cycleInfoDetail: this.cycleInfoDetail,
+            showNotes: this.showNotes,
+            showInfo: this.showInfo,
+            showSynonym: this.showSynonym,
+            ignoreAnswer: this.ignoreAnswer,
+            recordAnswer: this.recordAnswer,
+          }}
+        >
+          <Wrapper
+            tabIndex={-1}
+            innerRef={(node) => {
+              this.wrapperRef = node;
+            }}
+          >
             <Upper>
               <QuizHeader category={category} />
               <QuizQuestion category={category} />
@@ -147,7 +183,8 @@ const mapDispatchToProps = (dispatch, props) => ({
   ignoreAnswer: (payload) => dispatch(quiz.answer.ignore(payload)),
   updateInfo: (payload) => dispatch(quiz.info.update(payload)),
   cycleInfoDetail: (payload) => dispatch(quiz.info.cycledetail(payload)),
-  setNewCurrent: () => dispatch(app[selectCategoryFromMatch(props)].current.set()),
+  setNewCurrent: () =>
+    dispatch(app[selectCategoryFromMatch(props)].current.set()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuizPage);

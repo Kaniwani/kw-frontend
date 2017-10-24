@@ -9,7 +9,9 @@ import { greyLight } from 'shared/styles/colors';
 import { Wrapper, Text } from './styles';
 
 // avoids xhr if not called
-const renderKanjiStroke = (character = '') => <KanjiStroke character={character} />;
+const renderKanjiStroke = (character = '') => (
+  <KanjiStroke character={character} />
+);
 
 StrokeLoader.propTypes = {
   character: PropTypes.string.isRequired,
@@ -30,6 +32,7 @@ function StrokeLoader({ character, toggleKanjiSvg, showKanjiSvg }) {
           bgColor={greyLight}
           colorHover={greyLight}
           onClick={toggleKanjiSvg}
+          data-ignore-hotkeys
         >
           <Text lang="ja">筆順</Text>
         </IconButton>
@@ -39,9 +42,8 @@ function StrokeLoader({ character, toggleKanjiSvg, showKanjiSvg }) {
 }
 
 export default compose(
-  withStateHandlers(
-    () => ({ showKanjiSvg: false }),
-    { toggleKanjiSvg: () => () => ({ showKanjiSvg: true }) },
-  ),
+  withStateHandlers(() => ({ showKanjiSvg: false }), {
+    toggleKanjiSvg: () => () => ({ showKanjiSvg: true }),
+  }),
   pure,
 )(StrokeLoader);

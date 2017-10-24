@@ -13,15 +13,17 @@ Toggle.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-function Toggle({ isActive, isDisabled, handleClick, children, ...props }) {
+function Toggle({
+  isActive, isDisabled, handleClick, children, ...props
+}) {
   return (
     <ToggleButton
       type="button"
-      className="quizToggle"
       tabIndex="0"
       onClick={handleClick}
       isActive={isActive}
       disabled={isDisabled} // html attr -> css:pseudo
+      data-ignore-hotkeys
       {...props}
     >
       {children}

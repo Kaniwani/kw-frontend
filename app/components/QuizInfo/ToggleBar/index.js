@@ -4,29 +4,24 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import quiz from 'pages/QuizPage/actions';
-import { selectInfoActivePanel, selectInfoDetailLevel } from 'pages/QuizPage/selectors';
+import {
+  selectInfoActivePanel,
+  selectInfoDetailLevel,
+} from 'pages/QuizPage/selectors';
 import { Wrapper } from './styles';
 import Toggle from './Toggle';
-
 
 class ToggleBar extends React.Component {
   static propTypes = {
     activePanel: PropTypes.string,
     updateInfo: PropTypes.func.isRequired,
     cycleInfoDetail: PropTypes.func.isRequired,
-    isDisabled: PropTypes.bool.isRequired,
     detailLevel: PropTypes.number.isRequired,
   };
 
   static defaultProps = {
     activePanel: 'INFO',
   };
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.isDisabled && !this.props.isDisabled) {
-      this.infoRef.focus();
-    }
-  }
 
   onNotesClick = () => this.props.updateInfo({ activePanel: 'NOTES' });
   onInfoClick = () => {
@@ -42,21 +37,33 @@ class ToggleBar extends React.Component {
     if (level === 0) return 'LOW';
     if (level === 1) return 'MID';
     return 'HIGH';
-  }
+  };
 
   render() {
     const { activePanel, detailLevel } = this.props;
     return (
       <Wrapper>
-        <Toggle isActive={activePanel === 'NOTES'} handleClick={this.onNotesClick}>Notes</Toggle>
         <Toggle
-          innerRef={(node) => { this.infoRef = node; }}
+          isActive={activePanel === 'NOTES'}
+          handleClick={this.onNotesClick}
+        >
+          Notes
+        </Toggle>
+        <Toggle
+          innerRef={(node) => {
+            this.infoRef = node;
+          }}
           isActive={activePanel === 'INFO'}
           handleClick={this.onInfoClick}
         >
           {`Info: ${this.detailLevelName(detailLevel)}`}
         </Toggle>
-        <Toggle isActive={activePanel === 'SYNONYM'} handleClick={this.onSynonymClick}>Add Synonym</Toggle>
+        <Toggle
+          isActive={activePanel === 'SYNONYM'}
+          handleClick={this.onSynonymClick}
+        >
+          Add Synonym
+        </Toggle>
       </Wrapper>
     );
   }

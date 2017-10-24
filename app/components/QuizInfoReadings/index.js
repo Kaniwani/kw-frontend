@@ -23,9 +23,9 @@ QuizInfoReadings.defaultProps = {
 function QuizInfoReadings({ readings, ...props }) {
   return (
     <Ul>
-      {readings.map((reading, index) =>
+      {readings.map((reading, index) => (
         <QuizInfoReading key={cuid()} index={index} {...reading} {...props} />
-      )}
+      ))}
     </Ul>
   );
 }

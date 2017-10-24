@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 
 // import { cycleDetailLevel } from './utils';
 import { selectCurrentId } from 'shared/selectors';
-import { selectInfoDisabled, selectInfoActivePanel } from 'pages/QuizPage/selectors';
+import {
+  selectInfoDisabled,
+  selectInfoActivePanel,
+} from 'pages/QuizPage/selectors';
 
 import ToggleBar from './ToggleBar';
 import InfoPanel from './InfoPanel';
@@ -14,23 +17,22 @@ import AddSynonymPanel from './AddSynonymPanel';
 import { Wrapper, PanelsWrapper } from './styles';
 
 QuizInfo.propTypes = {
-  id: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.number,
-  ]).isRequired,
+  id: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
   category: PropTypes.string.isRequired,
   isDisabled: PropTypes.bool.isRequired,
   activePanel: PropTypes.string.isRequired,
 };
 
-function QuizInfo({ id, category, isDisabled, activePanel }) {
+function QuizInfo({
+  id, category, isDisabled, activePanel,
+}) {
   return (
     <Wrapper>
       <ToggleBar isDisabled={isDisabled} />
       {Number.isFinite(id) && (
         <PanelsWrapper isMinimized={!activePanel}>
           <NotesPanel id={id} />
-          <InfoPanel id={id} />
+          <InfoPanel id={id} category={category} />
           <AddSynonymPanel id={id} category={category} />
         </PanelsWrapper>
       )}

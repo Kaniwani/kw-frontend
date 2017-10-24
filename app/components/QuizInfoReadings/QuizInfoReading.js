@@ -43,7 +43,9 @@ function QuizInfoReading({
       </ReadingContent>
 
       {detailLevel > 1 && <PitchDiagram reading={kana[0]} pitchNum={3} />}
-      {detailLevel > 1 && <KanjiStrokeLoader character={character} />}
+      {detailLevel > 1 && (
+        <KanjiStrokeLoader character={character} data-ignore-hotkeys />
+      )}
       {detailLevel > 1 && <ReadingLinks character={character} />}
     </Li>
   );
