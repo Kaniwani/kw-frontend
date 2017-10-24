@@ -2,7 +2,8 @@ import 'whatwg-fetch';
 import { getToken } from 'utils/auth';
 import { isEmpty } from 'lodash';
 
-const createRequestType = (method) => (url, body = {}, headers = {}) => request(url, { body, headers, method });
+const createRequestType = (method) => (url, body = {}, headers = {}) =>
+  request(url, { body, headers, method });
 export const get = createRequestType('GET');
 export const post = createRequestType('POST');
 export const put = createRequestType('PUT');
@@ -26,7 +27,11 @@ function request(url = '', { method, headers, body } = {}) {
   if (token) {
     combinedHeaders.Authorization = `JWT ${token}`;
   }
-  const config = { method, headers: combinedHeaders, body: JSON.stringify(body) };
+  const config = {
+    method,
+    headers: combinedHeaders,
+    body: JSON.stringify(body),
+  };
   // no body allowed for these
   if (['GET', 'DELETE'].includes(method)) {
     delete config.body;
@@ -39,19 +44,23 @@ function goFetch(url, options) {
   return fetch(url, options)
     .then((res) => {
       const headers = {};
-      res.headers.forEach((value, name) => { headers[name] = value; });
+      res.headers.forEach((value, name) => {
+        headers[name] = value;
+      });
 
       const response = {
         status: res.status,
         headers,
       };
 
-      if (res.status !== 204 || res.status !== 205) {
+      if (res.status !== 204 && res.status !== 205) {
+        /* eslint-disable no-console */
         if (res.status === 403) {
           console.warn('403 in request response');
           console.log(res);
           console.log(res.json());
         }
+        /* eslint-enable */
         return res.json().then((body) => ({ ...response, body }));
       }
 
@@ -77,9 +86,7 @@ function goFetch(url, options) {
  */
 function formatUrl(url, method, body) {
   const needsConversion = ['GET', 'DELETE'].includes(method) && !isEmpty(body);
-  return needsConversion ?
-    `${url}/?${formatQueryString(body)}` :
-    `${url}/`;
+  return needsConversion ? `${url}/?${formatQueryString(body)}` : `${url}/`;
 }
 
 /**
@@ -90,7 +97,7 @@ function formatUrl(url, method, body) {
 function formatQueryString(params) {
   const esc = encodeURIComponent;
   return Object.keys(params)
-    .map((key) => params[key] ? `${esc(key)}=${esc(params[key])}` : null)
+    .map((key) => (params[key] ? `${esc(key)}=${esc(params[key])}` : null))
     .filter((key) => key !== null)
     .join('&');
 }
