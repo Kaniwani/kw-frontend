@@ -30,7 +30,7 @@ export const LegendListItem = styled.li`
 `;
 
 export const LegendName = styled.div`
-  margin-left: .3rem;
+  margin-left: .4rem;
 `;
 
 export const LegendValue = styled.div`
