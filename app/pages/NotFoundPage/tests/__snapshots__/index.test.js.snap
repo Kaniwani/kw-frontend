@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NotFoundPage /> should render the 404 page 1`] = `
+<styled.div>
+  <PageWrapper
+    fullWidth={false}
+    fullWidthBg={false}
+  >
+    <Container
+      alignContent=""
+      alignItems=""
+      alignSelf=""
+      flex=""
+      flexCenter={false}
+      flexColumn={false}
+      flexDisplay=""
+      flexRow={false}
+      flexWrap={false}
+      justifyContent=""
+      marginTop=""
+      textAlign=""
+      withPadding={true}
+    >
+      <styled.h1>
+        <span
+          lang="ja"
+        >
+          おろ〜
+        </span>
+         How did you get here?
+      </styled.h1>
+      <styled.h2>
+        Double-check the url is correct, and if you’re certain we mussed up then go ahead and send us a 
+        <A
+          external={false}
+          href={false}
+          to="/contact"
+        >
+          contact message
+        </A>
+        .
+      </styled.h2>
+      <styled.h2>
+        <small>
+          And remember, always be excellent to each other.
+        </small>
+      </styled.h2>
+    </Container>
+  </PageWrapper>
+  <styled.div
+    imgSrc="IMAGE_MOCK"
+  />
+</styled.div>
+`;

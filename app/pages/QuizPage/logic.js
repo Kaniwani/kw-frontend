@@ -32,16 +32,18 @@ const isInputValid = (input = '') => !isEmpty(input) && isJapanese(input);
 const cleanseInput = (input = '') => fixTerminalN(input.trim());
 
 function flattenAnswers({ synonyms, vocabulary: { readings } }) {
-  return flatMap([...readings, ...synonyms], ({ character, kana }) => [
-    character,
-    ...kana,
-  ]).map((text) => ({ originalText: text, cleanAnswer: stripTilde(text) }));
+  const toAnswersList = ({ character, kana }) => [character, ...kana];
+  const getText = (text) => ({
+    originalAnswer: text,
+    cleanAnswer: stripTilde(text),
+  });
+  return flatMap([...readings, ...synonyms], toAnswersList).map(getText);
 }
 
 function findMatch(input = '', review) {
   const cleanInput = stripTilde(input);
   const match = flattenAnswers(review).find(({ cleanAnswer }) => cleanAnswer === cleanInput);
-  return match ? match.originalText : '';
+  return match ? match.originalAnswer : '';
 }
 
 export const setCurrentLogic = createLogic({

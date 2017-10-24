@@ -28,7 +28,7 @@ Now you're ready to rumble!
 ## Development
 - Quickly scaffold new components/containers via `npm run generate`
 - Test all the things via `npm run test:watch`
-- Auto-lint staged files and use standardized commit messages via `npm run commit`
+- Auto-lint and format staged files using standardized commit messages via `npm run cz`
 
 The following Chrome extensions will allow you to explore the app structure while developing
 - [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd)
