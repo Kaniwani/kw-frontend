@@ -113,7 +113,7 @@ export const ToggleSwitch = styled.input`
     animation: ${switchOn} 0.3s ${timingFunctions('easeOutQuint')};
     border-radius: 50px;
     background-color: ${whiteLight};
-    box-shadow: 0 2px 5px ${rgba(grey, 0.5)};
+    box-shadow: 0 1px 4px ${rgba(grey, 0.3)};
     z-index: 2;
   }
 
