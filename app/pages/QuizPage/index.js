@@ -47,6 +47,8 @@ class QuizPage extends React.Component {
     loadUser: PropTypes.func.isRequired,
     current: PropTypes.object.isRequired,
     resetSession: PropTypes.func.isRequired,
+    resetAnswer: PropTypes.func.isRequired,
+    resetInfo: PropTypes.func.isRequired,
     redirectToSummary: PropTypes.func.isRequired,
     setNewCurrent: PropTypes.func.isRequired,
     category: PropTypes.string.isRequired,
@@ -68,16 +70,16 @@ class QuizPage extends React.Component {
     if (!this.props.current.id) {
       this.props.redirectToSummary();
     }
-    // refocus since disabling answer blurs and user can't access hotkeys
-    console.log('cdu', document.activeElement);
+    // refocus after disabling answer (which blurs on disable and user can't access hotkeys)
     if (!prevProps.answerDisabled && this.props.answerDisabled) {
       this.wrapperRef.focus();
-      console.log(document.activeElement);
     }
   }
 
   componentWillUnmount() {
     this.props.resetSession(); // quiz summary
+    this.props.resetAnswer();
+    this.props.resetInfo();
     this.props.loadUser(); // load updated reviewcount
   }
 
@@ -178,6 +180,8 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch, props) => ({
   loadUser: () => dispatch(app.user.load.request()),
   resetSession: () => dispatch(app.resetSession()),
+  resetAnswer: () => dispatch(quiz.answer.reset()),
+  resetInfo: () => dispatch(quiz.info.reset()),
   redirectToSummary: () => dispatch(push(`/${selectCategoryFromMatch(props)}`)),
   recordAnswer: (payload) => dispatch(quiz.answer.submit(payload)),
   ignoreAnswer: (payload) => dispatch(quiz.answer.ignore(payload)),
