@@ -31,14 +31,16 @@ Button.defaultProps = {
   plainButton: false,
   href: '',
   to: '',
-  onClick: false,
+  onClick: () => {},
   color: whiteLight,
   colorHover: blueDark,
   bgColor: blue,
   bgColorHover: whiteLight,
 };
 
-function Button({ plainButton, children, type, href, to, onClick, disabled, ...props }) {
+function Button({
+  plainButton, children, type, href, to, onClick, disabled, ...props
+}) {
   const renderLink = () => (
     <Anchor
       plainLink

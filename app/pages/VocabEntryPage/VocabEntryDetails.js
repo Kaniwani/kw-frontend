@@ -32,9 +32,9 @@ VocabEntryDetails.propTypes = {
     isHidden: PropTypes.bool.isRequired,
     isReviewReady: PropTypes.bool.isRequired,
     isCritical: PropTypes.bool.isRequired,
-    nextReviewDate: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.oneOf([false])]).isRequired,
-    lastReviewDate: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.oneOf([false])]).isRequired,
-    unlockDate: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.oneOf([false])]).isRequired,
+    nextReviewDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date), PropTypes.oneOf([false])]).isRequired,
+    lastReviewDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date), PropTypes.oneOf([false])]).isRequired,
+    unlockDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date), PropTypes.oneOf([false])]).isRequired,
   }).isRequired,
 };
 
@@ -52,6 +52,7 @@ function VocabEntryDetails({ review }) {
     lastReviewDate,
     unlockDate,
   } = review;
+
   return (
     <ColumnContainer>
       <LockContainer>

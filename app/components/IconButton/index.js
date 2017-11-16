@@ -14,7 +14,7 @@ IconButton.propTypes = {
   ]),
   type: PropTypes.oneOf(['submit', 'reset', 'button']),
   disabled: PropTypes.bool,
-  handleClick: PropTypes.func,
+  onClick: PropTypes.func,
   inline: PropTypes.bool,
   children: PropTypes.node,
   plainButton: PropTypes.bool,
@@ -28,10 +28,12 @@ IconButton.defaultProps = {
   disabled: false,
   inline: false,
   children: null,
-  handleClick: (event) => event, /* passthrough, for submit buttons in forms with onSubmit */
+  onClick: (event) => event, /* passthrough, for submit buttons in forms with onSubmit */
 };
 
-function IconButton({ name, title, color, size, inline, children, ...props }) {
+function IconButton({
+  name, title, color, size, inline, children, ...props
+}) {
   return (
     <Button
       aria-label={title}

@@ -9,7 +9,7 @@ import VocabCard from 'components/VocabCard';
 import VocabChip from 'components/VocabChip';
 import { Ul } from './styles';
 
-class VocabList extends React.PureComponent {
+class VocabList extends React.Component {
   static propTypes = {
     ids: PropTypes.array.isRequired,
     color: PropTypes.oneOf(Object.keys(COLORS)),
