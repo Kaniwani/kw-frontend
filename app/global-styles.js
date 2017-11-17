@@ -1,5 +1,5 @@
 import { injectGlobal } from 'styled-components';
-import { greyDark, blackLight, blueLight } from 'shared/styles/colors';
+import { greyDark, blackLight } from 'shared/styles/colors';
 
 import {
   ffBody,
@@ -58,7 +58,9 @@ injectGlobal`
   /* inputs already have fancy focus states */
   .user-is-tabbing :not(input):focus {
     opacity: 1;
-    outline: ${blueLight} auto .2rem;
+    transition: outline 0s;
+    outline: .15rem solid;
+    outline-offset: .15rem;
   }
 
   h1, h2, h3, h4, h5, h6 {
