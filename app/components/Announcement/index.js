@@ -19,14 +19,18 @@ Announcement.propTypes = {
   toggleOpen: PropTypes.func.isRequired,
 };
 
-function Announcement({ toggleOpen, isOpened, title, body, pubDate }) {
+function Announcement({
+  toggleOpen, isOpened, title, body, pubDate,
+}) {
   return (
     <Article>
       <Header>
         <Toggle plainButton onClick={toggleOpen}>
           <Title>
             <TitleText>{title}</TitleText>
-            <Time dateTime={format(pubDate, 'YYYY-MM-DD')}>{format(pubDate, DATE_FORMAT)} </Time>
+            <Time dateTime={format(pubDate, 'YYYY-MM-DD')}>
+              {format(pubDate, DATE_FORMAT)}{' '}
+            </Time>
           </Title>
           <Icon
             name={isOpened ? 'ARROW_UP' : 'ARROW_DOWN'}
@@ -36,7 +40,7 @@ function Announcement({ toggleOpen, isOpened, title, body, pubDate }) {
         </Toggle>
       </Header>
       <Collapse isOpened={isOpened}>
-        {body}
+        <div dangerouslySetInnerHTML={{ __html: body }} />
       </Collapse>
     </Article>
   );
@@ -45,7 +49,7 @@ function Announcement({ toggleOpen, isOpened, title, body, pubDate }) {
 export default compose(
   withStateHandlers(
     { isOpened: false },
-    { toggleOpen: ({ isOpened }) => () => ({ isOpened: !isOpened }) },
+    { toggleOpen: ({ isOpened }) => () => ({ isOpened: !isOpened }) }
   ),
-  pure,
+  pure
 )(Announcement);
