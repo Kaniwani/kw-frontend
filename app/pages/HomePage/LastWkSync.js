@@ -7,7 +7,7 @@ import Element from 'base/Element';
 import H4 from 'base/H4';
 
 LastWkSync.propTypes = {
-  lastWkSyncDate: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.oneOf([false])]).isRequired,
+  lastWkSyncDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date), PropTypes.oneOf([false])]).isRequired,
 };
 
 function LastWkSync({ lastWkSyncDate }) {
