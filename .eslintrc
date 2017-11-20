@@ -26,6 +26,7 @@
       2,
       "always",
     ],
+    "camelcase": 1,
     "comma-dangle": [
       2,
       "always-multiline"
