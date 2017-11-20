@@ -9,8 +9,7 @@ import { white, greyLight, blueLight, purpleLight } from 'shared/styles/colors';
 import { fastEaseQuad, wobble, spin } from 'shared/styles/animation';
 
 export const LevelLink = styled(A)`
-  ${gutter({ type: 'outer' })}
-  display: flex;
+  ${gutter({ type: 'outer' })} display: flex;
   flex-flow: row wrap;
   flex: 999 1 auto;
   align-items: center;
@@ -18,7 +17,7 @@ export const LevelLink = styled(A)`
 
 export const Title = H2.extend`
   color: inherit;
-  margin-right: .6em;
+  margin-right: 0.6em;
   transition: color ${fastEaseQuad};
 `;
 
@@ -32,53 +31,62 @@ export const LockedLabel = ItemCount.extend`
 `;
 
 export const Button = styled(LockButton)`
-  ${gutter({ type: 'outer' })}
-  flex: 0 0 auto;
+  ${gutter({ type: 'outer' })} flex: 0 0 auto;
 `;
 
 export const Wrapper = styled.li`
   display: flex;
   background-color: ${white};
   transition: background-color ${fastEaseQuad};
-  ${({ isActionable, isLocked }) => (isLocked || !isActionable) && css`
-    & ${LevelLink} {
-      pointer-events: none;
-    }
-  `}
-
-  ${({ isActionable, isLocked }) => isActionable && !isLocked ? css`
-    &:hover {
-      color: ${white};
-      background-color: ${rgba(purpleLight, 0.7)};
-    }
-  ` : css`
-      color: ${greyLight};
-  `}
-
-  ${({ isActionable, isLocked }) => isActionable && isLocked && css`
-    &:hover {
-      & ${Button} {
-        color: ${rgba(purpleLight, 0.7)};
-        animation: ${wobble} 1s linear infinite;
-        &:hover {
-          animation: none;
-        }
+  ${({ isActionable, isLocked }) =>
+    (isLocked || !isActionable) &&
+    css`
+      & ${LevelLink} {
+        pointer-events: none;
       }
-    }
-  `}
+    `} ${({ isActionable, isLocked }) =>
+  isActionable && !isLocked
+    ? css`
+            &:hover {
+              color: ${white};
+              background-color: ${rgba(purpleLight, 0.7)};
+            }
+          `
+    : css`
+            color: ${greyLight};
+          `} ${({ isActionable, isLocked }) =>
+  isActionable &&
+      isLocked &&
+      css`
+        &:hover {
+          & ${Button} {
+            color: ${rgba(purpleLight, 0.7)};
+            animation: ${wobble} 1s linear infinite;
+            &:hover {
+              animation: none;
+            }
+          }
+        }
+      `} ${({ isActionable, isLocked }) =>
+  isLocked &&
+      !isActionable &&
+      css`
+        & ${Button} {
+          cursor: not-allowed;
+        }
+      `} ${({ isSubmitting }) =>
+  isSubmitting &&
+      css`
+        cursor: wait;
 
-  ${({ isSubmitting }) => isSubmitting && css`
-    cursor: wait;
+        & ${LevelLink}, & ${Button} {
+          cursor: inherit;
+        }
 
-    & ${LevelLink},
-    & ${Button} {
-      cursor: inherit;
-    }
-
-    & ${Button} {
-      opacity: 1;
-      color: ${blueLight} !important;
-      animation: ${spin} 1.5s linear infinite !important;
-    }
-  `}
+        & ${Button} {
+          opacity: 1;
+          color: ${blueLight} !important;
+          animation: ${spin} 1.5s linear infinite !important;
+        }
+      `};
 `;
