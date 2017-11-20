@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 
-import { isRomaji, isJapanese } from 'wanakana';
+import { isEmpty } from 'lodash';
+import { isMixed, isRomaji, isJapanese } from 'wanakana';
 import app from 'shared/actions';
 import { whiteLight, blueLight } from 'shared/styles/colors';
 
@@ -45,6 +46,11 @@ function SearchBar({ submitting, handleSubmit }) {
 export default reduxForm({
   form: 'searchBar',
   onSubmit: ({ searchInput }, dispatch) => {
+    if (isMixed(searchInput) || isEmpty(searchInput)) {
+      // TODO: notify? shake? color searchbar?
+      console.warn('Invalid search input');
+      return false;
+    }
     const payload = {
       meaningContains: isRomaji(searchInput) ? searchInput : '',
       readingContains: isJapanese(searchInput) ? searchInput : '',
