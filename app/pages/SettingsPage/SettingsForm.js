@@ -91,9 +91,9 @@ function SettingsForm({ handleSubmit }) {
           parse={(value) => !!value}
         />
         <Field
-          name="useAlcPro"
-          label="Use ALC Pro link in reading links: "
-          note={<span>This requires an account at <A href="https://eowf.alc.co.jp" external>eowf.alc.co.jp</A></span>}
+          name="useEijiroPro"
+          label="Use Eijiro Pro in reading links: "
+          note={<span>This requires a (free) account at <A href="https://eowf.alc.co.jp" external>eowf.alc.co.jp</A></span>}
           component={ToggleField}
           parse={(value) => !!value}
         />

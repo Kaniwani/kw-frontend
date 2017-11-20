@@ -1,28 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
 import { compose, pure } from 'recompose';
 
 import app from 'shared/actions';
 
 import NavLink from 'components/NavLink';
-import Container from 'base/Container';
 import Element from 'base/Element';
-import BackgroundImg from 'components/BackgroundImg';
 import crabigatorOutline from 'shared/assets/img/crabigator-outline.svg';
-import { Footer } from './styles';
-
-const CrabigatorStencil = BackgroundImg.extend`
-  z-index: 1;
-  opacity: .5;
-  max-height: 95%;
-`;
-
-const Links = styled(Container)`
-  z-index: 2;
-  margin-right: 50px;
-`;
+import { Footer, CrabigatorStencil, Links } from './styles';
 
 SiteFooter.propTypes = {
   logoutUser: PropTypes.func.isRequired,

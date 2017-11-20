@@ -146,7 +146,7 @@ function serializeSettings({
   auto_expand_answer_on_success: autoExpandCorrect = true,
   auto_expand_answer_on_failure: autoExpandIncorrect = true,
   minimum_wk_srs_level_to_review: minimumSrsToReview = SRS_RANKS.ONE,
-  use_alc_pro_link: useAlcPro = false,
+  eijiro_pro_link: useEijiroPro = false,
   kanji_svg_step_speed = 0.01,
   kanji_svg_show_strokes = false,
   kanji_svg_show_grid = true,
@@ -164,7 +164,7 @@ function serializeSettings({
     },
     vocabulary: {
       followMe,
-      useAlcPro,
+      useEijiroPro,
       kanjiStroke: {
         step: kanji_svg_step_speed,
         stroke: { order: { visible: kanji_svg_show_strokes } },
@@ -187,9 +187,8 @@ export function deserializeSettings({
   },
   vocabulary: {
     followMe: follow_me,
-    useAlcPro: use_alc_pro_link,
+    useEijiroPro: eijiro_pro_link,
     kanjiStroke: {
-      autoplay: kanji_svg_autoplay,
       step: kanji_svg_step_speed,
       stroke: { order: { visible: kanji_svg_show_strokes } },
       grid: { show: kanji_svg_show_grid },
@@ -204,8 +203,7 @@ export function deserializeSettings({
     auto_expand_answer_on_failure,
     auto_advance_on_success,
     auto_advance_speed,
-    use_alc_pro_link,
-    kanji_svg_autoplay,
+    eijiro_pro_link,
     kanji_svg_step_speed,
     kanji_svg_show_strokes,
     kanji_svg_show_grid,
@@ -219,7 +217,10 @@ function serializeReading(reading) {
     isCommon: !!reading.common,
     character: reading.character,
     kana: toUniqueStringsArray(reading.kana),
-    tags: combinePartsOfSpeech(reading),
+    furi: reading.furigana || '',
+    pitch: reading.pitch != null ? reading.pitch.split(',').map(Number) : [],
+    // TODO: normalize parts of speech? then selector converts to full text
+    tags: reading.parts_of_speech,
     sentenceEn: reading.sentence_en || '',
     sentenceJa: reading.sentence_ja || '',
   };

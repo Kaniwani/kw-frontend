@@ -31,7 +31,9 @@ PitchDiagram.defaultProps = {
   },
 };
 
-const MoraLabel = (mora, { x, y, stroke, index }) => {
+const MoraLabel = (mora, {
+  x, y, stroke, index,
+}) => {
   const label = mora[index];
   return <text x={x} y={y} dy={-8} fill={stroke} fontSize={12} textAnchor="middle">{label}</text>;
 };
@@ -39,7 +41,9 @@ const MoraLabel = (mora, { x, y, stroke, index }) => {
 
 // NOTE: pitches for WK words ending in suru might be funky since they were established with suru stripped
 // should check them - especially nakadaka/odaka ones
-function PitchDiagram({ reading, pitchNum, showLabels, colors, ...rest }) {
+function PitchDiagram({
+  reading, pitchNum, showLabels, colors, ...rest
+}) {
   const mora = getMorae(reading);
   const moraCount = getMoraCount(mora);
   const pattern = makePitchPattern(moraCount, pitchNum);
@@ -53,7 +57,9 @@ function PitchDiagram({ reading, pitchNum, showLabels, colors, ...rest }) {
         width={(moraCount + 1) * 22}
         height={50}
         data={data}
-        margin={{ top: 20, right: 10, bottom: 10, left: 10 }}
+        margin={{
+          top: 20, right: 10, bottom: 10, left: 10,
+        }}
         {...rest}
       >
         <Line
@@ -65,6 +71,7 @@ function PitchDiagram({ reading, pitchNum, showLabels, colors, ...rest }) {
           dot={(dot) => <Dot {...dot} fill={dot.payload.name === 'particle' ? '#fff' : color} />}
         />
       </LineChart>
+      <p style={{ fontFamily: 'monospace' }}>{patternName}[{pitchNum}]</p>
     </Container>
   );
 }

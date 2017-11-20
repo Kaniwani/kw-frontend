@@ -1,18 +1,16 @@
 import styled from 'styled-components';
-import { transparentize } from 'polished';
 
 import H1 from 'base/H1';
 
-import { white, whiteDark } from 'shared/styles/colors';
+import { white, whiteLight } from 'shared/styles/colors';
 import { bottomLight } from 'shared/styles/shadows';
 import { gutter, centerByPadding } from 'shared/styles/layout';
 
 export const Header = styled.header`
   ${centerByPadding}
   position: relative;
-  background-color: ${white};
+  background: linear-gradient(to bottom, ${white}, ${whiteLight});
   box-shadow: ${bottomLight};
-  border-bottom: 1px solid ${transparentize(0.5, whiteDark)};
 `;
 
 export const Wrapper = styled.nav`

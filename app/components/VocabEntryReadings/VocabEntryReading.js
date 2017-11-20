@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cuid from 'cuid';
 
 import SentencePair from 'components/SentencePair';
 import ReadingLinks from 'components/ReadingLinks';
@@ -12,6 +13,8 @@ import { Li } from './styles';
 VocabEntryReading.propTypes = {
   character: PropTypes.string.isRequired,
   kana: PropTypes.arrayOf(PropTypes.string).isRequired,
+  furi: PropTypes.string.isRequired,
+  pitch: PropTypes.arrayOf(PropTypes.number).isRequired,
   sentenceEn: PropTypes.string.isRequired,
   sentenceJa: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -20,6 +23,8 @@ VocabEntryReading.propTypes = {
 function VocabEntryReading({
   character,
   kana,
+  furi,
+  pitch,
   sentenceEn,
   sentenceJa,
   tags,
@@ -34,8 +39,7 @@ function VocabEntryReading({
         character={character}
         kana={kana}
       />
-      {/* FIXME: hard-coded pitch */}
-      <PitchDiagram reading={kana[0]} pitchNum={0} />
+      {pitch.map((num) => <PitchDiagram key={cuid()} reading={kana[0]} pitchNum={num} />)}
       <KanjiStrokeLoader character={character} />
       <ReadingLinks character={character} />
     </Li>

@@ -20,8 +20,7 @@ const confirmPasswordUrl = (confirmToken) => urljoin(resetPasswordUrl, confirmTo
 //-----------------------------------------------------------------------------
 const userUrl = urljoin(KW_API_BASE, 'user'); // GET all users (if admin, else 'me')
 const userProfileUrl = urljoin(userUrl, 'me'); // GET user profile
-const userSrsUrl = urljoin(userUrl, 'srs'); // POST to get review count
-const userSyncUrl = urljoin(userUrl, 'sync'); // POST to sync with WK
+// const userSrsUrl = urljoin(userUrl, 'srs'); // POST to get review count
 const userResetUrl = urljoin(userUrl, 'reset'); // POST to reset KW SRS progress
 const userSettingsUrl = (id) => urljoin(KW_API_BASE, 'profile', id); // PUT to partial update
 
@@ -75,7 +74,7 @@ export const createGooUrl = (keyword) => `http://dictionary.goo.ne.jp/srch/all/$
 export const createWeblioUrl = (keyword) => `http://ejje.weblio.jp/content/${encodeURIComponent(keyword)}`;
 export const createForvoUrl = (keyword) => `http://forvo.com/search/${encodeURIComponent(keyword)}/`;
 export const createWkVocabUrl = (keyword) => `https://wanikani.com/vocabulary/${encodeURIComponent(keyword)}`;
-export const createAlcUrl = (keyword, useAlcPro) => `http://${useAlcPro ? 'eowpf' : 'eow'}.alc.co.jp/search?q=${encodeURIComponent(keyword)}`;
+export const createEijiroUrl = (keyword, useEijiroPro) => `http://${useEijiroPro ? 'eowpf' : 'eow'}.alc.co.jp/search?q=${encodeURIComponent(keyword)}`;
 
 //-----------------------------------------------------------------------------
 //  AUTHORIZATION

@@ -4,10 +4,7 @@ import { connect } from 'react-redux';
 
 import pluralize from 'utils/pluralize';
 
-import {
-  selectUi,
-  selectSearchIds,
-} from 'shared/selectors';
+import { selectUi, selectSearchIds } from 'shared/selectors';
 
 import Container from 'base/Container';
 import H2 from 'base/H2';
@@ -21,22 +18,35 @@ VocabSearchResults.propTypes = {
   isSearchFinished: PropTypes.bool.isRequired,
 };
 
-function VocabSearchResults({ cardsExpanded, searchResults, isSearching, isSearchFinished }) {
+function VocabSearchResults({
+  cardsExpanded,
+  searchResults,
+  isSearching,
+  isSearchFinished,
+}) {
   const hasResults = searchResults.length > 0;
   const noResults = !hasResults;
-  return (isSearching || isSearchFinished) && (
-    <Container>
-      {isSearching && (
-        <H2>{'Searching...'}</H2>
-      )}
-      {hasResults && (
-        <H3>{searchResults.length} Search {pluralize('result', searchResults.length)}{isSearching ? ' so far...' : ''}</H3>
-      )}
-      {isSearchFinished && noResults && (
-        <H3>No Search Results</H3>
-      )}
-      <VocabList ids={searchResults} color="blue" isExpanded={cardsExpanded} />
-    </Container>
+  return (
+    (isSearching || isSearchFinished) && (
+      <Container>
+        {isSearching && <H2>Searching...</H2>}
+        {hasResults && (
+          <H3>
+            {searchResults.length}
+            {' Search'}
+            {pluralize(' result', searchResults.length)}
+            {' found'}
+            {isSearching ? ' so far...' : '.'}
+          </H3>
+        )}
+        {isSearchFinished && noResults && <H3>No Search Results</H3>}
+        <VocabList
+          ids={searchResults}
+          color="blue"
+          isExpanded={cardsExpanded}
+        />
+      </Container>
+    )
   );
 }
 

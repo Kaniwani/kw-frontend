@@ -10,7 +10,7 @@ import {
   createWeblioUrl,
   createForvoUrl,
   createWkVocabUrl,
-  createAlcUrl,
+  createEijiroUrl,
 } from 'shared/api';
 
 import { selectVocabularySettings } from 'shared/selectors';
@@ -18,14 +18,14 @@ import { Ul, VocabLink } from './styles';
 
 ReadingLinks.propTypes = {
   character: PropTypes.string.isRequired,
-  useAlcPro: PropTypes.bool.isRequired,
+  useEijiroPro: PropTypes.bool.isRequired,
 };
 
-function ReadingLinks({ character, useAlcPro }) {
+function ReadingLinks({ character, useEijiroPro }) {
   const links = [
     { name: 'WK', href: createWkVocabUrl(character) },
     { name: 'Jisho', href: createJishoUrl(character) },
-    { name: 'Alc', href: createAlcUrl(character, useAlcPro) },
+    { name: 'Eijiro', href: createEijiroUrl(character, useEijiroPro) },
     { name: 'Goo', href: createGooUrl(character) },
     { name: 'Weblio', href: createWeblioUrl(character) },
     { name: 'Forvo', href: createForvoUrl(character) },
@@ -43,7 +43,7 @@ function ReadingLinks({ character, useAlcPro }) {
 }
 
 const mapStateToProps = (state) => ({
-  useAlcPro: createSelector(selectVocabularySettings, ({ useAlcPro }) => useAlcPro)(state),
+  useEijiroPro: createSelector(selectVocabularySettings, ({ useEijiroPro }) => useEijiroPro)(state),
 });
 
 export default connect(mapStateToProps)(ReadingLinks);
