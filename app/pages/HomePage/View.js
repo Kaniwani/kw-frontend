@@ -47,7 +47,7 @@ function View({ profile, announcements }) {
       </Container>
       <Container>
         <Element flexRow flexCenter>
-          <H2>News</H2>
+          <H2>News & Updates</H2>
         </Element>
         <List items={announcements} RenderItem={Announcement} />
       </Container>

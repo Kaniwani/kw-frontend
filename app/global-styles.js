@@ -77,6 +77,7 @@ injectGlobal`
 
   p {
     line-height: 1.3;
+    margin: 0;
     + p {
       margin-top: .4em;
     }

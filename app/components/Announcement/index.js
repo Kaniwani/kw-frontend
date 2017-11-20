@@ -39,7 +39,10 @@ function Announcement({
           />
         </Toggle>
       </Header>
-      <Collapse isOpened={isOpened}>
+      <Collapse
+        isOpened={isOpened}
+        springConfig={{ stiffness: 205, damping: 22 }}
+      >
         <div dangerouslySetInnerHTML={{ __html: body }} />
       </Collapse>
     </Article>

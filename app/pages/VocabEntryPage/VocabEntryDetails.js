@@ -6,6 +6,7 @@ import format from 'date-fns/format';
 
 import { makeSelectReview } from 'shared/selectors';
 import { DATE_FORMAT } from 'shared/constants';
+import getSrsRankName from 'utils/getSrsRankName';
 import getDateInWords from 'utils/getDateInWords';
 import calculatePercentage from 'utils/calculatePercentage';
 
@@ -16,9 +17,15 @@ import Status from './Status';
 import { ColumnContainer, LockContainer } from './styles';
 
 function getReviewStatusText(isHidden, isReviewReady, nextReviewDate) {
-  if (isHidden) { return 'Hidden'; }
-  if (isReviewReady) { return 'Now'; }
-  if (nextReviewDate) { return getDateInWords(nextReviewDate); }
+  if (isHidden) {
+    return 'Hidden';
+  }
+  if (isReviewReady) {
+    return 'Now';
+  }
+  if (nextReviewDate) {
+    return getDateInWords(nextReviewDate);
+  }
   return 'N/A';
 }
 
@@ -32,9 +39,21 @@ VocabEntryDetails.propTypes = {
     isHidden: PropTypes.bool.isRequired,
     isReviewReady: PropTypes.bool.isRequired,
     isCritical: PropTypes.bool.isRequired,
-    nextReviewDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date), PropTypes.oneOf([false])]).isRequired,
-    lastReviewDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date), PropTypes.oneOf([false])]).isRequired,
-    unlockDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date), PropTypes.oneOf([false])]).isRequired,
+    nextReviewDate: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date),
+      PropTypes.oneOf([false]),
+    ]).isRequired,
+    lastReviewDate: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date),
+      PropTypes.oneOf([false]),
+    ]).isRequired,
+    unlockDate: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date),
+      PropTypes.oneOf([false]),
+    ]).isRequired,
   }).isRequired,
 };
 
@@ -52,6 +71,7 @@ function VocabEntryDetails({ review }) {
     lastReviewDate,
     unlockDate,
   } = review;
+  const kwBurned = getSrsRankName(streak) === 'BURNED';
 
   return (
     <ColumnContainer>
@@ -63,11 +83,26 @@ function VocabEntryDetails({ review }) {
         <StreakStatus category="WK" streak={wkStreak} />
       </div>
       <Status text="Unlocked" status={format(unlockDate, DATE_FORMAT)} />
-      <Status text="Last reviewed" status={getDateInWords(lastReviewDate)} />
-      <Status text="Next review" status={getReviewStatusText(isHidden, isReviewReady, nextReviewDate)} />
+      <Status
+        text={kwBurned ? 'Burned' : 'Last reviewed'}
+        status={
+          kwBurned
+            ? format(unlockDate, DATE_FORMAT)
+            : getDateInWords(lastReviewDate)
+        }
+      />
+      <Status
+        text="Next review"
+        status={getReviewStatusText(isHidden, isReviewReady, nextReviewDate)}
+      />
       <Status text="Correct" status={correct} />
       <Status text="Incorrect" status={incorrect} />
-      <Status text="Accuracy" status={`${calculatePercentage(correct, correct + incorrect)}%` || 'N/A'} />
+      <Status
+        text="Accuracy"
+        status={
+          `${calculatePercentage(correct, correct + incorrect)}%` || 'N/A'
+        }
+      />
       <Status text="Critical" status={isCritical ? 'Yes' : 'Nope!'} />
     </ColumnContainer>
   );
@@ -79,7 +114,10 @@ const mapStateToProps = (state, { id }) => ({
 
 const enhance = compose(
   connect(mapStateToProps),
-  branch(({ review }) => review == null || (review && review.wkStreak == null), renderNothing),
+  branch(
+    ({ review }) => review == null || (review && review.wkStreak == null),
+    renderNothing
+  )
 );
 
 export default enhance(VocabEntryDetails);
