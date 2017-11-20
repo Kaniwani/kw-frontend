@@ -17,10 +17,11 @@ const HourTick = ({ x, y, payload }) => (
   </g>
 );
 
+/* eslint-disable react/require-default-props */
 HourTick.propTypes = {
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired,
-  payload: PropTypes.object.isRequired,
+  x: PropTypes.number,
+  y: PropTypes.number,
+  payload: PropTypes.object,
 };
 
 export default HourTick;
