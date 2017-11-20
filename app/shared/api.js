@@ -83,8 +83,12 @@ export const createAlcUrl = (keyword, useAlcPro) => `http://${useAlcPro ? 'eowpf
 export const getUserAuth = ({ id, username, email } = {}) => get(userCredentialsUrl, { id, username, email });
 export const loginUser = ({ username, password } = {}) => post(userLoginUrl, { username, password });
 export const updateUserAuth = ({ id, username, email } = {}) => patch(userCredentialsUrl, { id, username, email });
-export const registerUser = ({ email = '', username = '', password = '', apiKey = '' } = {}) =>
-  post(registerUrl, { email, username, password, api_key: apiKey });
+export const registerUser = ({
+  email = '', username = '', password = '', apiKey = '',
+} = {}) =>
+  post(registerUrl, {
+    email, username, password, api_key: apiKey,
+  });
 
 export const activateUser = ({ uid } = {}) => post(activateUrl, { uid });
 export const changeUsername = ({ username } = {}) => post(usernameUrl, { username });
@@ -99,9 +103,6 @@ export const getUsers = () => get(userUrl);
 export const getUserProfile = () => get(userProfileUrl);
 export const saveSettings = ({ id, settings }) => patch(userSettingsUrl(id), { id, ...settings });
 export const resetProgress = ({ level }) => post(userResetUrl, { level });
-export const syncKw = () => post(userSrsUrl);
-// true to force ALL users to sync with WK
-export const syncWk = ({ fullSync = false } = {}) => post(userSyncUrl, { full_sync: fullSync });
 
 //-----------------------------------------------------------------------------
 //  REVIEWS

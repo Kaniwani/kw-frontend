@@ -1,5 +1,5 @@
-const DEV_DOMAIN = 'http://localhost:8000';
-const PROD_DOMAIN = 'https://kaniwani.com';
+const DEV_DOMAIN = 'https://staging.kaniwani.com';
+const PROD_DOMAIN = 'https://staging.kaniwani.com';
 const BASE_URL = process.env.NODE_ENV !== 'production' ? DEV_DOMAIN : PROD_DOMAIN;
 
 export const KW_API_BASE = `${BASE_URL}/api/v1`;

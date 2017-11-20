@@ -129,7 +129,9 @@ export const loadQueuesIfNeededLogic = createLogic({
   latest: true,
   process({ getState }, dispatch, done) {
     const state = getState();
-    const { reviewCount, lessonCount, reviewQueue, lessonQueue } = ({
+    const {
+      reviewCount, lessonCount, reviewQueue, lessonQueue,
+    } = ({
       reviewCount: sel.selectSessionCount(state, { category: 'reviews' }),
       lessonCount: sel.selectSessionCount(state, { category: 'lessons' }),
       reviewQueue: sel.selectQueue(state, { category: 'reviews' }),
@@ -141,26 +143,6 @@ export const loadQueuesIfNeededLogic = createLogic({
     if (needReviewsQueue) { dispatch(app.reviews.queue.load.request()); }
     if (needLessonsQueue) { dispatch(app.lessons.queue.load.request()); }
     done();
-  },
-});
-
-export const forceSrsLogic = createLogic({
-  type: app.user.srs.request,
-  process(_, dispatch, done) {
-    return api.syncKw().then(({ body }) => {
-      dispatch(app.user.load.success({ profile: { reviewsCount: body.review_count } }));
-      done();
-    });
-  },
-});
-
-export const forceWkSrsLogic = createLogic({
-  type: app.user.wksrs.request,
-  process(_, dispatch, done) {
-    return api.syncWk().then(({ body }) => {
-      // dispatch(app.user.load.success({ profile: { reviewsCount: body.review_count } }));
-      done();
-    });
   },
 });
 
@@ -451,8 +433,6 @@ export default [
   userResetPasswordLogic,
   userLogoutLogic,
   userLoadLogic,
-  forceSrsLogic,
-  forceWkSrsLogic,
   announcementsLoadLogic,
   reviewsQueueLoadLogic,
   lessonsQueueLoadLogic,

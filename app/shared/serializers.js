@@ -4,22 +4,37 @@ import condenseReadings from 'utils/condenseReadings';
 import dateOrFalse from 'utils/dateOrFalse';
 import format from 'date-fns/format';
 import addHours from 'date-fns/add_hours';
+import addDays from 'date-fns/add_days';
 
 import combinePartsOfSpeech from 'utils/combinePartsOfSpeech';
 import toUniqueStringsArray from 'utils/toUniqueStringsArray';
 
 /* eslint-disable no-return-assign, no-sequences, no-param-reassign */
-const createHashMap = (data) => data.reduce((hash, item) => (hash[item.id] = item, hash), {});
+const createHashMap = (data) =>
+  data.reduce((hash, item) => ((hash[item.id] = item), hash), {});
 const formatSrsCounts = (obj) =>
-  Object.entries(obj).reduce((hash, [key, val]) => (hash[key.toUpperCase()] = +val, hash), {});
-const genName = (index) => `${format(addHours(new Date(), index + 1), 'ha')}`;
+  Object.entries(obj).reduce(
+    (hash, [key, val]) => ((hash[key.toUpperCase()] = +val), hash),
+    {}
+  );
 
-const serializeUpcomingReviews = (data = []) => data.reduce((list, count, index) =>
-  list.concat({
-    name: genName(index),
-    value: count,
-  }), []);
+const serializeUpcomingReviews = (data = []) => {
+  let extraDays = 0;
+  const getFutureDayName = (daysAhead = 0) =>
+    format(addDays(Date.now(), daysAhead), 'dddd');
+  const genDay = (hour) =>
+    hour === '12am' ? getFutureDayName((extraDays += 1)) : '';
+  const genHour = (index) => `${format(addHours(new Date(), index + 1), 'ha')}`;
 
+  return data.reduce((list, value, index) => {
+    const hour = genHour(index);
+    return list.concat({
+      day: genDay(hour),
+      hour,
+      value,
+    });
+  }, []);
+};
 /* eslint-enable */
 
 export const serializeUserResponse = serializeUser;
@@ -42,7 +57,10 @@ export const serializeQueueResponse = ({ results }) => {
 };
 
 export const serializeVocabularySearch = ({ results }) =>
-  results.reduce((list, { review }) => review ? list.concat(review) : list, []);
+  results.reduce(
+    (list, { review }) => (review ? list.concat(review) : list),
+    []
+  );
 
 export const serializeLevelResponse = ({ id, results }) => {
   const reviews = serializeReviewEntries(results);
@@ -73,10 +91,7 @@ function serializeStubbedReviewEntries(data = []) {
   return createHashMap(data.map(serializeStubbedReviewEntry));
 }
 
-function serializeUser({
-  email,
-  profile,
-}) {
+function serializeUser({ email, profile }) {
   return {
     profile: serializeProfile({ email, ...profile }),
     settings: serializeSettings(profile),
@@ -89,9 +104,9 @@ function serializeProfile({
   email,
   api_key: apiKey,
   api_valid,
-  join_date: joinDate,
+  join_date,
   level,
-  unlocked_levels: unlockedLevels,
+  unlocked_levels,
   reviews_count: reviewsCount,
   lessons_count: lessonsCount,
   reviews_within_hour_count: nextHourReviews,
@@ -108,9 +123,9 @@ function serializeProfile({
     email,
     apiKey,
     isApiValid: !!api_valid,
-    joinDate: dateOrFalse(joinDate),
+    joinDate: dateOrFalse(join_date),
     currentLevel: +level,
-    unlockedLevels: unlockedLevels.map(Number),
+    unlockedLevels: unlocked_levels.map(Number),
     reviewsCount: +reviewsCount,
     lessonsCount: +lessonsCount,
     nextHourReviews: +nextHourReviews,
@@ -210,11 +225,7 @@ function serializeReading(reading) {
   };
 }
 
-function serializeVocabularyEntry({
-  id,
-  meaning,
-  readings,
-} = {}) {
+function serializeVocabularyEntry({ id, meaning, readings } = {}) {
   return {
     id: +id,
     meanings: serializeMeaning(meaning),
@@ -222,7 +233,9 @@ function serializeVocabularyEntry({
   };
 }
 
-function serializeSynonym({ id, review, character, kana }) {
+function serializeSynonym({
+  id, review, character, kana,
+}) {
   return {
     id,
     reviewId: review,
@@ -236,13 +249,7 @@ function serializeSynonyms(synonyms = []) {
 }
 
 function serializeStubbedReviewEntry({
-  id,
-  correct,
-  incorrect,
-  streak,
-  notes,
-  vocabulary,
-  answer_synonyms,
+  id, correct, incorrect, streak, notes, vocabulary, answer_synonyms,
 } = {}) {
   return {
     id: +id,
@@ -277,11 +284,7 @@ function serializeReviewEntry({
   };
 }
 
-function serializeLevel({
-  level,
-  vocabulary_count: count,
-  unlocked,
-}) {
+function serializeLevel({ level, vocabulary_count: count, unlocked }) {
   return {
     id: +level,
     count: +count,
