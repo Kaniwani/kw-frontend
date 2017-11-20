@@ -13,7 +13,7 @@ import { rgba } from 'polished';
 import { Wrapper, Canvas, Controls, ControlButton } from './styles';
 import dmak from './dmak-0-3-1';
 
-class KanjiStroke extends React.PureComponent {
+class KanjiStroke extends React.Component {
   static propTypes = {
     character: PropTypes.string.isRequired,
     settings: PropTypes.object,
