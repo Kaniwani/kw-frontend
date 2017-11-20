@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { compose, shouldUpdate } from 'recompose';
 import cuid from 'cuid';
 
+import Ruby from 'base/Ruby';
+
 import {
   makeSelectReviewMeanings,
   makeSelectReviewReadings,
@@ -33,9 +35,8 @@ function VocabCard({
       <Link plainLink to={`/vocabulary/entry/${id}`}>
         <Dl color={color}>
           <div className="reading">
-            {readings.map(({ kana, character }) => ([
-              <dt key={cuid()} className="kana" lang="ja" >{kana.join(', ')}</dt>,
-              <dt key={cuid()} className="character" lang="ja" >{character}</dt>,
+            {readings.map(({ character, kana, furi }) => ([
+              <Ruby key={cuid()} character={character} reading={kana[0]} furi={furi} />,
               <div key={cuid()} className="separator" />,
             ]))}
           </div>

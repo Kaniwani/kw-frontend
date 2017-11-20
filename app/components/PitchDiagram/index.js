@@ -71,7 +71,6 @@ function PitchDiagram({
           dot={(dot) => <Dot {...dot} fill={dot.payload.name === 'particle' ? '#fff' : color} />}
         />
       </LineChart>
-      <p style={{ fontFamily: 'monospace' }}>{patternName}[{pitchNum}]</p>
     </Container>
   );
 }

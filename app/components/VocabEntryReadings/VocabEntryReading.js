@@ -5,6 +5,7 @@ import cuid from 'cuid';
 import SentencePair from 'components/SentencePair';
 import ReadingLinks from 'components/ReadingLinks';
 import Reading from 'components/Reading';
+import Ruby from 'base/Ruby';
 import KanjiStrokeLoader from 'components/KanjiStrokeLoader';
 import TagsList from 'components/TagsList';
 import PitchDiagram from 'components/PitchDiagram';
@@ -31,7 +32,7 @@ function VocabEntryReading({
 }) {
   return (
     <Li>
-      <Reading character={character} kana={kana} />
+      <Ruby character={character} reading={kana[0]} furi={furi} />
       <TagsList tags={tags} />
       <SentencePair
         sentenceEn={sentenceEn}

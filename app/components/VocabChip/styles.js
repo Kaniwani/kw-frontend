@@ -4,7 +4,7 @@ import { darken } from 'polished';
 import A from 'base/A';
 
 import * as COLORS from 'shared/styles/colors';
-import { beta } from 'shared/styles/typography';
+import { fluidType } from 'shared/styles/utils';
 import { borderRadius } from 'shared/styles/sizing';
 
 export const ListItem = styled.li`
@@ -29,7 +29,7 @@ export const Link = styled(A)`
 `;
 
 export const Text = styled.span`
-  ${beta}
+  ${fluidType(26, 40, 300, 2000)};
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

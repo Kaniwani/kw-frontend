@@ -20,7 +20,7 @@ export const Character = P.extend`
 export const Kana = P.extend`
   ${delta}
   align-self: center;
-  opacity: 0.8;
+  opacity: 0.7;
   line-height: 1;
   padding-bottom: 0 !important;
 `;

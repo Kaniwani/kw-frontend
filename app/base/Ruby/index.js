@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import uuid from 'uuid';
 import { pure } from 'recompose';
 
+import Container from 'base/Container';
 import { combineFuri } from './utils';
 
 import {
-  Wrapper,
   Block,
   Furi,
   Chars,
@@ -26,14 +26,14 @@ function Ruby({ character, reading, furi }) {
   // TODO: use as selector/fn for mapStateToProps (or recompose mapProps)
   const pairs = combineFuri(character, reading, furi);
   return (
-    <Wrapper>
+    <Container flexRow>
       {pairs.map(([kana, chars]) => (
         <Block key={uuid()} lang="ja">
           <Furi>{kana}</Furi>
           <Chars>{chars}</Chars>
         </Block>
       ))}
-    </Wrapper>
+    </Container>
   );
 }
 

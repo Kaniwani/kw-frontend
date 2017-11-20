@@ -1,12 +1,5 @@
 import styled from 'styled-components';
 
-import { greyDark } from 'shared/styles/colors';
-
-export const Wrapper = styled.div`
-  display: flex;
-  margin: 1rem;
-`;
-
 export const Block = styled.div`
   display: flex;
   line-height: 1;
@@ -16,12 +9,12 @@ export const Block = styled.div`
 `;
 
 export const Furi = styled.div`
-  font-size: .925em;
+  font-size: .95em;
   letter-spacing: -0.025em;
   padding-bottom: .2em;
-  color: ${greyDark};
+  opacity: 0.9;
 `;
 
 export const Chars = styled.div`
-  font-size: 2.25em;
+  font-size: 2.3em;
 `;
