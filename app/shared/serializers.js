@@ -6,7 +6,6 @@ import format from 'date-fns/format';
 import addHours from 'date-fns/add_hours';
 import addDays from 'date-fns/add_days';
 
-import combinePartsOfSpeech from 'utils/combinePartsOfSpeech';
 import toUniqueStringsArray from 'utils/toUniqueStringsArray';
 
 /* eslint-disable no-return-assign, no-sequences, no-param-reassign */
