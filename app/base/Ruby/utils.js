@@ -1,29 +1,34 @@
 import { isEmpty } from 'lodash';
-import stripOkurigana from 'wanakana/stripOkurigana';
+import { stripOkurigana, isKanji } from 'wanakana';
 
 /**
  * Combines furigana with characters into an array of string pairs.
- * Accepts either a furiString from jmdict_furigana or a pre-parsed array of furi locations
  * @param  {String} character vocab kanji word
  * @param  {String} reading vocab kana reading
- * @param  {String|Array} furi furigana placement info
+ * @param  {String} furi furigana placement info
  * @return {Array} furigana/character pairs
  * @example
  * combineFuri('お世辞', 'おせじ', '1:せ;2:じ')
  * // => [['', 'お'], ['せ', '世'], ['じ', '辞']]
- * combineFuri('お世辞', 'おせじ', [[[1, 2], 'せ'], [[2, 3], 'じ']])
- * // => [['', 'お'], ['せ', '世'], ['じ', '辞']]
- * combineFuri('大人しい', 'おとなしい', null) // fallback via basicFuri()
+ * combineFuri('大人しい', 'おとなしい') // fallback via basicFuri()
  * // => [['おとな', '大人'], ['', 'しい']]
- * combineFuri('使い方', 'つかいかた', null) // fallback via basicFuri()
+ * combineFuri('使い方', 'つかいかた') // fallback via basicFuri()
  * // => [['つかいかた', '使い方']]
+ *
+ * // special reading fallback when chars are only kanji and furi is set to only 0:
+ * combineFuri('胡座', 'あぐら', '0:あぐら')
+ * // => [['あぐら', '胡座']]
+ * // otherwise it displays weirdly with different furi/char font sizes
+ * // or centered text when provided as [['あぐら', '胡'], ['', '座']]
  */
 export function combineFuri(character = '', reading = '', furi = '') {
-  if (!isEmpty(furi)) {
-    const furiLocs = Array.isArray(furi) ? furi : parseFuriString(furi);
-    return generatePairs(character, furiLocs);
+  const furiLocs = parseFuriString(furi);
+  const isSpecialReading =
+    furiLocs.length === 1 && character.split('').every(isKanji);
+  if (isEmpty(furi) || isSpecialReading) {
+    return basicFuri(character, reading);
   }
-  return basicFuri(character, reading);
+  return generatePairs(character, furiLocs);
 }
 
 /**
@@ -33,7 +38,8 @@ export function combineFuri(character = '', reading = '', furi = '') {
  * @return {Array} [['おとな', '大人'], ['', 'しい']]
  */
 export function basicFuri(character = '', reading = '') {
-  const mainLength = (stripOkurigana(character).length - character.length) || reading.length;
+  const mainLength =
+    stripOkurigana(character).length - character.length || reading.length;
   const mainReading = [reading.slice(0, mainLength), stripOkurigana(character)];
   const okurigana = character.slice(mainLength);
   return okurigana ? [mainReading, ['', okurigana]] : [mainReading];
@@ -46,15 +52,14 @@ export function basicFuri(character = '', reading = '') {
  */
 export function parseFuriString(locations = '') {
   if (!locations) return [];
-  return locations.split(';')
-    .map((entry) => {
-      const [indexes, content] = entry.split(':');
-      const [start, end] = indexes.split('-').map(Number);
-      return [
-        [start, end ? end + 1 : start + 1], // end index either doesn't exist, or is the *start* index of the final char
-        content,
-      ];
-    });
+  return locations.split(';').map((entry) => {
+    const [indexes, content] = entry.split(':');
+    const [start, end] = indexes.split('-').map(Number);
+    return [
+      [start, end ? end + 1 : start + 1], // end index either doesn't exist, or is the *start* index of the final char
+      content,
+    ];
+  });
 }
 
 /**
