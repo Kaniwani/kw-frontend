@@ -2,16 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cuid from 'cuid';
 
-import { PARTS_OF_SPEECH } from 'shared/constants';
+import parseTags from 'utils/parseTags';
+
 import { Ul, Li, Span } from './styles';
 
 const selectTagColors = (text) => {
-  const isCommon = /^common/i.test(text);
-  const isNoun = /^n$/i.test(text);
-  const isAdverb = /^adv/i.test(text);
-  const isVerb = /^v/i.test(text);
-  const isAdj = /^adj/i.test(text);
+  const isCommon = /common/i.test(text);
+  const isNoun = /noun/i.test(text);
+  const isAdverb = /adverb/i.test(text);
+  const isVerb = /\bverb/i.test(text);
+  const isAdj = /\badj/i.test(text);
 
+  // TODO: all pale background colors, black text?
   const colors = {
     default: { textColor: 'whiteLight', bgColor: 'grey' },
     common: { textColor: 'whiteLight', bgColor: 'blue' },
@@ -38,7 +40,7 @@ const selectTagColors = (text) => {
 };
 
 TagsList.propTypes = {
-  tags: PropTypes.arrayOf(PropTypes.oneOf(PARTS_OF_SPEECH)),
+  tags: PropTypes.arrayOf(PropTypes.string),
   isHidden: PropTypes.bool,
 };
 
@@ -48,9 +50,10 @@ TagsList.defaultProps = {
 };
 
 function TagsList({ tags, isHidden, ...props }) {
+  const longformTags = parseTags(tags);
   return (
     <Ul isHidden={isHidden} {...props}>
-      {tags.map((text) => (
+      {longformTags.map((text) => (
         <Li key={cuid()} {...selectTagColors(text)}>
           <Span>{text}</Span>
         </Li>
