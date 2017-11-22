@@ -15,22 +15,21 @@ import View from './View';
 export class VocabLevelPage extends React.PureComponent {
   static propTypes = {
     loadLevelReviews: PropTypes.func.isRequired,
-    levelId: PropTypes.PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-    ]).isRequired,
+    levelId: PropTypes.PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+      .isRequired,
     reviewIds: PropTypes.array,
-    isLocked: PropTypes.bool.isRequired,
+    isLocked: PropTypes.bool,
     isLoading: PropTypes.bool.isRequired,
-  }
+  };
 
   static defaultProps = {
     reviewIds: [],
-  }
+    isLocked: null,
+  };
 
   state = {
     cardsExpanded: true,
-  }
+  };
 
   componentWillMount() {
     const { loadLevelReviews, levelId } = this.props;
@@ -42,7 +41,15 @@ export class VocabLevelPage extends React.PureComponent {
   };
 
   render() {
-    return <View {...this.props} {...this.state} toggleCardsExpanded={this.toggleCardsExpanded} />;
+    return (
+      this.props.isLocked != null && (
+        <View
+          {...this.props}
+          {...this.state}
+          toggleCardsExpanded={this.toggleCardsExpanded}
+        />
+      )
+    );
   }
 }
 
