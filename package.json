@@ -97,6 +97,8 @@
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ],
+    "setupTestFrameworkScriptFile": "<rootDir>/internals/testing/test-bundler.js",
+    "setupFiles": ["<rootDir>/internals/testing/enzyme-setup.js"],
     "testRegex": "tests/.*\\.test\\.js$"
   },
   "dependencies": {
@@ -162,6 +164,7 @@
     "css-loader": "0.28.7",
     "cz-conventional-changelog": "2.1.0",
     "enzyme": "3.2.0",
+    "enzyme-adapter-react-16": "1.1.0",
     "enzyme-to-json": "3.2.2",
     "eslint": "4.11.0",
     "eslint-config-airbnb": "16.1.0",
@@ -196,7 +199,6 @@
     "react-cosmos-redux-proxy": "3.0.0-beta.3",
     "react-cosmos-router-proxy": "3.0.0-beta.3",
     "react-cosmos-webpack": "3.0.0-beta.3",
-    "react-test-renderer": "16.1.1",
     "redux-freeze": "0.1.5",
     "redux-logic-test": "1.0.5",
     "rimraf": "2.6.2",

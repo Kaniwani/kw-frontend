@@ -2,22 +2,22 @@ import parseTags from '../parseTags';
 
 describe('parseTags()', () => {
   it('sane default', () => {
-    expect(parseTags()).toBe([]);
+    expect(parseTags()).toEqual([]);
   });
 
   it('single tag', () => {
-    expect(parseTags(['n'])).toBe('Noun');
+    expect(parseTags(['n'])).toEqual(['Noun']);
   });
 
   it('multi tags', () => {
-    expect(parseTags(['n', 'adj', 'vs'])).toBe(
+    expect(parseTags(['n', 'adj', 'vs'])).toEqual([
       'Noun',
       'Adjective',
-      'Suru Verb'
-    );
+      'Suru Verb',
+    ]);
   });
 
   it('skips invalid tags', () => {
-    expect(parseTags(['n', 'derp', 'vs'])).toBe('Noun', 'Suru Verb');
+    expect(parseTags(['n', 'derp', 'vs'])).toEqual(['Noun', 'Suru Verb']);
   });
 });

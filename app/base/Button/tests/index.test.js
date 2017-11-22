@@ -6,19 +6,17 @@ import Button from '../index';
 
 const href = 'http://google.com';
 const to = '/';
-const children = (<h1>Test</h1>);
-const mountComponent = (props) => mount(
-  <MemoryRouter>
-    <Button {...props}>
-      {children}
-    </Button>
-  </MemoryRouter>
-);
-const shallowComponent = (props) => shallow(
-  <Button {...props}>
-    {children}
-  </Button>
-);
+const children = <h1>Test</h1>;
+const mountComponent = (props) => {
+  const wrapped = (
+    <MemoryRouter>
+      <Button {...props}>{children}</Button>
+    </MemoryRouter>
+  );
+  mount(wrapped);
+};
+const shallowComponent = (props) =>
+  shallow(<Button {...props}>{children}</Button>);
 
 describe('<Button />', () => {
   it('should match baseline snapshot as A button', () => {
