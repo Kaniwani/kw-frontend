@@ -98,7 +98,9 @@
       "enzyme-to-json/serializer"
     ],
     "setupTestFrameworkScriptFile": "<rootDir>/internals/testing/test-bundler.js",
-    "setupFiles": ["<rootDir>/internals/testing/enzyme-setup.js"],
+    "setupFiles": [
+      "<rootDir>/internals/testing/enzyme-setup.js"
+    ],
     "testRegex": "tests/.*\\.test\\.js$"
   },
   "dependencies": {

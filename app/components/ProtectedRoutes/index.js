@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter, Switch, Route } from 'react-router-dom';
+import { withRouter, Switch, Route, Redirect } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
 import ScrollToTop from 'components/ScrollToTop';
@@ -37,17 +37,20 @@ const Page = styled.div`
 export class ProtectedRoutes extends React.Component {
   static propTypes = {
     loadUser: PropTypes.func.isRequired,
-  }
+    location: PropTypes.object.isRequired,
+  };
 
   componentDidMount() {
-    this.props.loadUser();
+    // dashboard refreshes user every mount anyway, so skip if we're at root path
+    if (this.props.location.pathname !== '/') {
+      this.props.loadUser();
+    }
   }
 
   render() {
     return (
       <Page>
         <ReactTooltip id="globalTooltip" />
-        {/* Notifications */}
         <ScrollToTop />
         <Switch>
           <Route path="/:path(lessons|reviews)" /* don't render SiteHeader */ />
@@ -75,9 +78,12 @@ export class ProtectedRoutes extends React.Component {
         </main>
         <Switch>
           <Route path="/:path(lessons|reviews)" /* don't render SiteFooter */ />
-          <Route path="/:path(vocabulary|settings|about|contact)" component={SiteFooter} />
+          <Route path="/:path(settings|about|contact)" component={SiteFooter} />
+          <Route exact path="/vocabulary/levels" component={SiteFooter} />
+          <Route exact path="/vocabulary/levels/:id" component={SiteFooter} />
+          <Route exact path="/vocabulary/entry/:id" component={SiteFooter} />
           <Route exact path="/" component={SiteFooter} />
-          <Route path="" /* don't render SiteFooter for 404s */ />
+          <Route path="" /* don't render SiteFooter for 404 */ />
         </Switch>
       </Page>
     );
