@@ -8,6 +8,7 @@ import 'sanitize.css/sanitize.css';
 
 // Import root app
 import App from 'components/App';
+import ErrorBoundary from 'components/ErrorBoundary';
 
 // Import default LoadingComponent provider and LoadingIndicator that will be used as a loading component
 import DefaultLoadingComponentProvider from 'routing/DefaultLoadingComponentProvider';
@@ -34,7 +35,9 @@ ReactDOM.render(
   <Provider store={store}>
     <DefaultLoadingComponentProvider component={null}>
       <ConnectedRouter history={history}>
-        <App />
+        <ErrorBoundary>
+          <App />
+        </ErrorBoundary>
       </ConnectedRouter>
     </DefaultLoadingComponentProvider>
   </Provider>,

@@ -41,8 +41,7 @@ class App extends React.Component {
           <Route exact path="/welcome" component={WelcomePage} />
           <Route
             path=""
-            render={() =>
-              loggedIn ? <ProtectedRoutes /> : <Redirect to="/welcome" />}
+            render={() => (loggedIn ? <ProtectedRoutes /> : <Redirect to="/welcome" />)}
           />
         </Switch>
       </Wrapper>
