@@ -40,9 +40,11 @@ function VocabEntryReading({
         kana={kana}
       />
       <div style={{ display: 'flex' }}>
-        {pitch.map((num) => (
-          <PitchDiagram key={cuid()} reading={kana[0]} pitchNum={num} />
-        ))}
+        {pitch.length < 1 ? (
+          <PitchDiagram reading={kana[0]} />
+        ) : (
+          pitch.map((num) => <PitchDiagram key={cuid()} reading={kana[0]} pitchNum={num} />)
+        )}
       </div>
       <KanjiStrokeLoader character={character} />
       <ReadingLinks character={character} />

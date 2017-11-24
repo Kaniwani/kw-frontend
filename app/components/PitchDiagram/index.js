@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { LineChart, Line, Dot } from 'recharts';
+import titleCase from 'voca/title_case';
 
 import Container from 'base/Container';
 import { getMorae, getMoraCount, getPitchPatternName, makePitchPattern } from './utils';
@@ -31,44 +32,84 @@ PitchDiagram.defaultProps = {
   },
 };
 
+const placeholder = '（ツ）';
+// prettier-ignore
+const placeholderMora = ['', '', '', placeholder, '', '', ''];
+
+// prettier-ignore
+const placeholderData = [
+  { name: '', pitchHeight: 1 },
+  { name: '', pitchHeight: 1 },
+  { name: '', pitchHeight: 0 },
+  { name: '', pitchHeight: 0 },
+  { name: '', pitchHeight: 0 },
+  { name: '', pitchHeight: 1 },
+  { name: '', pitchHeight: 1 },
+];
+
 const MoraLabel = (mora, {
   x, y, stroke, index,
 }) => {
   const label = mora[index];
-  return <text x={x} y={y} dy={-8} fill={stroke} fontSize={12} textAnchor="middle">{label}</text>;
+  const isPlaceholder = label === placeholder;
+  return (
+    <text
+      x={x}
+      y={y}
+      dy={isPlaceholder ? -11 : -8}
+      fill={isPlaceholder ? '#bababa' : stroke}
+      fontSize={isPlaceholder ? 20 : 12}
+      textAnchor="middle"
+    >
+      {label}
+    </text>
+  );
 };
 
-
-// NOTE: pitches for WK words ending in suru might be funky since they were established with suru stripped
-// should check them - especially nakadaka/odaka ones
 function PitchDiagram({
   reading, pitchNum, showLabels, colors, ...rest
 }) {
-  const mora = getMorae(reading);
-  const moraCount = getMoraCount(mora);
-  const pattern = makePitchPattern(moraCount, pitchNum);
+  let mora = placeholderMora;
+  let data = placeholderData;
+  let moraCount = 5;
+
+  if (pitchNum !== -1) {
+    mora = getMorae(reading);
+    moraCount = getMoraCount(mora);
+    const pattern = makePitchPattern(moraCount, pitchNum);
+    data = pattern.map((pitch, i) => ({
+      name: i === pattern.length - 1 ? 'particle' : `${mora[i]}`,
+      pitchHeight: pitch,
+    }));
+  }
+
   const patternName = getPitchPatternName(moraCount, pitchNum);
+  const patternNameJa = getPitchPatternName(moraCount, pitchNum, 'JA');
   const color = colors[patternName];
-  const data = pattern.map((pitch, i) => ({ name: (i === pattern.length - 1) ? 'particle' : `${mora[i]}`, pitchHeight: pitch }));
 
   return (
-    <Container>
+    <Container title={`${titleCase(patternNameJa)} [${pitchNum}]`}>
       <LineChart
         width={(moraCount + 1) * 22}
-        height={50}
+        height={pitchNum < 0 ? 55 : 50}
         data={data}
         margin={{
-          top: 20, right: 10, bottom: 10, left: 10,
+          top: 20,
+          right: 10,
+          bottom: 10,
+          left: 10,
         }}
         {...rest}
       >
         <Line
           isAnimationActive={false}
           dataKey="pitchHeight"
-          label={(props) => showLabels ? MoraLabel(mora, props) : null}
+          label={(props) => (showLabels ? MoraLabel(mora, props) : null)}
           stroke={color}
           strokeWidth={2}
-          dot={(dot) => <Dot {...dot} fill={dot.payload.name === 'particle' ? '#fff' : color} />}
+          dot={(dot) => (
+            <Dot {...dot} fill={dot.payload.name === 'particle' ? '#fff' : color} />
+          )}
         />
       </LineChart>
     </Container>
