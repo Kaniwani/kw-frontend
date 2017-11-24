@@ -58,11 +58,13 @@ function QuizSummaryContent({
             ids={correctIds}
             cardsExpanded={cardsExpanded}
           />
-          <SummarySection
-            summaryType="CRITICAL"
-            ids={criticalIds}
-            cardsExpanded={cardsExpanded}
-          />
+          {criticalIds.length > 0 && (
+            <SummarySection
+              summaryType="CRITICAL"
+              ids={criticalIds}
+              cardsExpanded={cardsExpanded}
+            />
+          )}
           {lastActivityDate && (
             <Container>
               <H4>
