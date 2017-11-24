@@ -17,6 +17,7 @@ class ToggleBar extends React.Component {
     updateInfo: PropTypes.func.isRequired,
     cycleInfoDetail: PropTypes.func.isRequired,
     detailLevel: PropTypes.number.isRequired,
+    isDisabled: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -33,14 +34,18 @@ class ToggleBar extends React.Component {
   };
   onSynonymClick = () => this.props.updateInfo({ activePanel: 'SYNONYM' });
 
-  detailLevelName = (level) => {
-    if (level === 0) return 'LOW';
-    if (level === 1) return 'MID';
-    return 'HIGH';
+  infoPanelText = (level, isDisabled, isActive) => {
+    const text = 'Info';
+    if (isActive && !isDisabled) {
+      if (level === 0) return `${text}: LOW`;
+      if (level === 1) return `${text}: MID`;
+      return `${text}: HIGH`;
+    }
+    return text;
   };
 
   render() {
-    const { activePanel, detailLevel } = this.props;
+    const { activePanel, detailLevel, isDisabled } = this.props;
     return (
       <Wrapper>
         <Toggle
@@ -56,7 +61,7 @@ class ToggleBar extends React.Component {
           isActive={activePanel === 'INFO'}
           handleClick={this.onInfoClick}
         >
-          {`Info: ${this.detailLevelName(detailLevel)}`}
+          {this.infoPanelText(detailLevel, isDisabled, activePanel === 'INFO')}
         </Toggle>
         <Toggle
           isActive={activePanel === 'SYNONYM'}
