@@ -16,12 +16,12 @@ View.propTypes = {
 };
 
 function View({ id }) {
-  return (<div>
-    <Helmet>
-      <title>Vocabulary: Entry</title>
-      <meta name="description" content="Kaniwani Vocabulary: Entry" />
-    </Helmet>
+  return (
     <PageWrapper>
+      <Helmet>
+        <title>Vocabulary: Entry</title>
+        <meta name="description" content="Kaniwani Vocabulary: Entry" />
+      </Helmet>
       <Row>
         <Column>
           <VocabEntryMeanings id={id} />
@@ -34,7 +34,7 @@ function View({ id }) {
         </Column>
       </Row>
     </PageWrapper>
-  </div>);
+  );
 }
 
 export default View;

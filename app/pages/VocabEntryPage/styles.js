@@ -4,12 +4,12 @@ import { gutter } from 'shared/styles/layout';
 import { media } from 'shared/styles/media';
 
 export const Row = styled.div`
-  display: flex;
+  ${gutter({ position: 'horizontal' })} display: flex;
   flex-flow: row wrap;
-  & > div:first-of-type{
+  & > div:first-of-type {
     flex: 10 1 800px;
   }
-  & > div:last-of-type{
+  & > div:last-of-type {
     flex: 1 2 320px;
   }
 `;
@@ -26,14 +26,13 @@ export const Column = styled.div`
     align-items: flex-start;
     align-content: center;
     text-align: left;
-  `}
+  `};
 `;
 
 export const ColumnContainer = Column.extend`
-  ${gutter()}
+  ${gutter()};
 `;
 
 export const LockContainer = Column.extend`
-  ${gutter()}
-  ${gutter({ prop: 'margin', position: 'vertical', mod: 3 })}
+  ${gutter()} ${gutter({ prop: 'margin', position: 'vertical', mod: 3 })};
 `;
