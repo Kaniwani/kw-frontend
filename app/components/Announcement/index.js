@@ -23,29 +23,28 @@ function Announcement({
   toggleOpen, isOpened, title, body, pubDate,
 }) {
   return (
-    <Article>
-      <Header>
-        <Toggle plainButton onClick={toggleOpen}>
-          <Title>
-            <TitleText>{title}</TitleText>
-            <Time dateTime={format(pubDate, 'YYYY-MM-DD')}>
-              {format(pubDate, DATE_FORMAT)}{' '}
-            </Time>
-          </Title>
-          <Icon
-            name={isOpened ? 'ARROW_UP' : 'ARROW_DOWN'}
-            size="2rem"
-            color={greyLight}
-          />
-        </Toggle>
-      </Header>
-      <Collapse
-        isOpened={isOpened}
-        springConfig={{ stiffness: 205, damping: 22 }}
-      >
-        <div dangerouslySetInnerHTML={{ __html: body }} />
-      </Collapse>
-    </Article>
+    <li>
+      <Article>
+        <Header>
+          <Toggle plainButton onClick={toggleOpen}>
+            <Title>
+              <TitleText>{title}</TitleText>
+              <Time dateTime={format(pubDate, 'YYYY-MM-DD')}>
+                {format(pubDate, DATE_FORMAT)}{' '}
+              </Time>
+            </Title>
+            <Icon
+              name={isOpened ? 'ARROW_UP' : 'ARROW_DOWN'}
+              size="2rem"
+              color={greyLight}
+            />
+          </Toggle>
+        </Header>
+        <Collapse isOpened={isOpened} springConfig={{ stiffness: 205, damping: 22 }}>
+          <div dangerouslySetInnerHTML={{ __html: body }} />
+        </Collapse>
+      </Article>
+    </li>
   );
 }
 
