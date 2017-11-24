@@ -15,7 +15,7 @@ import {
   selectPreviouslyIncorrect,
   selectQuizSettings,
   selectQueue,
-  selectRemainingCount,
+  selectQueueNeeded,
   selectCurrent,
   selectCurrentId,
   selectSessionCorrectIds,
@@ -69,6 +69,8 @@ export const setCurrentLogic = createLogic({
       });
       allow({ ...action, payload: current });
     }
+    // FIXME: think we need to (create a new action) and dispatch [category]current.clear()
+    // that clears current in shared/reducers (not sure whether it needs to clear queue as well?)
     if (!newId) {
       console.log('No new id... End of queue?');
       allow({ ...action, payload: { id: undefined } });
@@ -146,18 +148,8 @@ export const submitAnswerLogic = createLogic({
 export const checkAnswerLogic = createLogic({
   type: quiz.answer.check,
   latest: true,
-  process(
-    {
-      getState,
-      action: {
-        payload: {
-          category, current, answerValue, previouslyIncorrect,
-        },
-      },
-    },
-    dispatch,
-    done
-  ) {
+  process({ getState, action }, dispatch, done) {
+    const { answerValue, current, previouslyIncorrect } = action.payload;
     const {
       autoAdvance,
       autoExpandCorrect,
@@ -182,7 +174,7 @@ export const checkAnswerLogic = createLogic({
         value: matchedAnswer,
         isCorrect: true,
       }));
-      dispatch(quiz.answer.correct({ current, category }));
+      dispatch(quiz.answer.correct(action.payload));
       dispatch(quiz.info.update({ isDisabled: false, detailLevel: 1 }));
 
       if (autoExpandCorrect && autoAdvance.speed > 0) {
@@ -197,7 +189,7 @@ export const checkAnswerLogic = createLogic({
         dispatch(quiz.info.update({ activePanel: 'INFO' }));
       }
       if (previouslyIncorrect) {
-        dispatch(quiz.answer.incorrect({ category, current }));
+        dispatch(quiz.answer.incorrect(action.payload));
       }
     }
 
@@ -208,16 +200,24 @@ export const checkAnswerLogic = createLogic({
 export const incorrectAnswerLogic = createLogic({
   type: quiz.answer.incorrect,
   latest: true,
+  validate({ action }, allow, reject) {
+    if (action.payload.category === 'lessons') {
+      console.log('no go');
+      // no reason to downrank lessons
+      reject();
+    }
+    allow(action);
+  },
   process(
     { action: { payload: { category, current, previouslyIncorrect } } },
     dispatch,
     done
   ) {
     const incorrect = increment(current.incorrect);
-    let streak;
-    // only decrement if first time incorrect in session
+    let { streak } = current;
+
     if (!previouslyIncorrect) {
-      streak = [...SRS_RANGES.THREE, ...SRS_RANGES.FOUR].includes(streak)
+      streak = [...SRS_RANGES.THREE, ...SRS_RANGES.FOUR].includes(current.streak)
         ? decrement(current.streak - 1) // double decrement if close to burned
         : Math.max(decrement(current.streak), 1); // disallow dropping to "lesson" status
     }
@@ -237,19 +237,16 @@ export const incorrectAnswerLogic = createLogic({
 export const correctAnswerLogic = createLogic({
   type: quiz.answer.correct,
   latest: true,
-  process(
-    { getState, action: { payload: { current, category } } },
-    dispatch,
-    done
-  ) {
+  process({ getState, action }, dispatch, done) {
+    const { current, category, previouslyIncorrect } = action.payload;
     const { autoAdvance } = selectQuizSettings(getState());
 
     if (autoAdvance.active) {
       dispatch(quiz.advance({ category, autoAdvance }));
     }
 
-    const correct = increment(current.correct);
-    const streak = increment(current.streak);
+    const correct = !previouslyIncorrect ? increment(current.correct) : current.correct;
+    const streak = !previouslyIncorrect ? increment(current.streak) : current.streak;
     const updatedReview = {
       ...current,
       correct,
@@ -277,43 +274,35 @@ export const ignoreAnswerLogic = createLogic({
       reject();
     }
   },
-  process({ action: { payload: { category } } }, dispatch, done) {
+  process({ action }, dispatch, done) {
+    const { category } = action.payload;
     dispatch(quiz.answer.update({ isIgnored: true }));
     dispatch(quiz.info.reset());
-    // allow animation to occur
     setTimeout(() => {
       dispatch(app[category].current.return());
       dispatch(quiz.answer.reset());
       done();
-    }, 700);
+    }, category === 'reviews' ? 700 : 200); // allow time for "[ignored]" animation to occur
   },
 });
 
 export const recordAnswerLogic = createLogic({
   type: quiz.answer.record.request,
-  process(
-    {
-      action: {
-        payload: {
-          category, current, isCorrect, previouslyIncorrect,
-        },
-      },
-    },
-    dispatch,
-    done
-  ) {
-    const { id } = current;
+  process({ action }, dispatch, done) {
+    const {
+      category, current, isCorrect, previouslyIncorrect,
+    } = action.payload;
     clearTimeout(autoAdvanceTimeout);
-    dispatch(app.review.update(current));
+
     // prevent appearance in both correct and incorrect
     if (!previouslyIncorrect) {
-      dispatch(app[category][isCorrect ? 'correct' : 'incorrect'].add(id));
+      dispatch(app[category][isCorrect ? 'correct' : 'incorrect'].add(current.id));
     }
     dispatch(app[category].current.set());
     dispatch(quiz.answer.reset());
     dispatch(quiz.info.reset());
 
-    recordReview({ id, isCorrect, previouslyIncorrect })
+    recordReview({ id: current.id, isCorrect, previouslyIncorrect })
       .then(() => {
         dispatch(quiz.answer.record.success({ isCorrect, category }));
         done();
@@ -325,28 +314,14 @@ export const recordAnswerLogic = createLogic({
   },
 });
 
-export const loadMoreQueueLogic = createLogic({
+export const loadQueueLogic = createLogic({
   type: quiz.answer.record.success,
-  process(
-    { getState, action: { payload: { isCorrect, category } } },
-    dispatch,
-    done
-  ) {
-    if (isCorrect) {
-      const state = getState();
-      const queue = selectQueue(state, { category });
-      const remainingCount = selectRemainingCount(state, { category });
-      const moreQueueNeeded =
-        queue.length < 10 && remainingCount > queue.length + 1;
-      console.dir({
-        queueLength: queue.length,
-        remainingCount,
-        moreQueueNeeded,
-      });
-      if (moreQueueNeeded) {
-        dispatch(app[category].queue.load.request());
-        done();
-      }
+  process({ getState, action }, dispatch, done) {
+    const { category, isCorrect } = action.payload;
+    const isQueueNeeded = selectQueueNeeded(getState(), { category });
+    if (isCorrect && isQueueNeeded) {
+      dispatch(app[category].queue.load.request());
+      done();
     }
     done();
   },
@@ -372,5 +347,5 @@ export default [
   correctAnswerLogic,
   recordAnswerLogic,
   autoAdvanceLogic,
-  loadMoreQueueLogic,
+  loadQueueLogic,
 ];

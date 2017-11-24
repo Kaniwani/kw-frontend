@@ -148,16 +148,16 @@ const settingsReducer = handleActions({
 
 const reviewQueueReducer = handleActions({
   [actions.clearGlobalState]: () => initialState.queue.reviews,
-  [actions.reviews.queue.clear]: () => [],
   [actions.reviews.queue.load.success]: (state, { payload }) => union(state, payload.ids),
+  [actions.reviews.queue.clear]: () => initialState.queue.reviews,
   [actions.reviews.current.set]: (state, { payload }) => difference(state, [payload.id]),
   [actions.reviews.current.return]: (state, { payload: { currentId } }) => union(state, [currentId]),
 }, initialState.queue.reviews);
 
 const lessonQueueReducer = handleActions({
   [actions.clearGlobalState]: () => initialState.queue.lessons,
-  [actions.lessons.queue.clear]: () => [],
   [actions.lessons.queue.load.success]: (state, { payload }) => union(state, payload.ids),
+  [actions.lessons.queue.clear]: () => initialState.queue.lessons,
   [actions.lessons.current.set]: (state, { payload }) => difference(state, [payload.id]),
   [actions.lessons.current.return]: (state, { payload: { currentId } }) => union(state, [currentId]),
 }, initialState.queue.lessons);
@@ -257,8 +257,8 @@ const entitiesReducer = handleActions({
     reviews: { [payload.reviewId]: { synonyms: { $push: [payload] } } },
   }),
   [actions.review.synonym.remove.success]: (state, { payload }) => update(state, {
-    reviews: { [payload.reviewId]: {
-      synonyms: { $actionsly: (synonyms) => synonyms.filter((synonym) => synonym.id !== payload.id) } },
+    reviews: {
+      [payload.reviewId]: { synonyms: { $actionsly: (synonyms) => synonyms.filter((synonym) => synonym.id !== payload.id) } },
     },
   }),
   [combineActions(

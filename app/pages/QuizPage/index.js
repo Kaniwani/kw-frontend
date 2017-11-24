@@ -12,6 +12,7 @@ import {
   selectUi,
   selectCategoryFromMatch,
   selectCurrent,
+  selectQueueNeeded,
 } from 'shared/selectors';
 import { selectAnswerDisabled } from 'pages/QuizPage/selectors';
 
@@ -45,6 +46,8 @@ class QuizPage extends React.Component {
   static propTypes = {
     isLoading: PropTypes.bool.isRequired,
     loadUser: PropTypes.func.isRequired,
+    loadQueue: PropTypes.func.isRequired,
+    isQueueNeeded: PropTypes.bool.isRequired,
     current: PropTypes.object.isRequired,
     resetSession: PropTypes.func.isRequired,
     resetAnswer: PropTypes.func.isRequired,
@@ -60,8 +63,13 @@ class QuizPage extends React.Component {
   };
 
   componentDidMount() {
-    if (!this.props.isLoading && !this.props.current.id) {
-      this.props.setNewCurrent();
+    if (!this.props.isLoading) {
+      if (!this.props.current.id) {
+        this.props.setNewCurrent();
+      }
+      if (this.props.isQueueNeeded) {
+        this.props.loadQueue();
+      }
     }
   }
 
@@ -172,6 +180,7 @@ const mapStateToProps = (state, props) => {
   return {
     category,
     isLoading: selectUi(state)[category].loading,
+    isQueueNeeded: selectQueueNeeded(state, { category }),
     current: selectCurrent(state),
     answerDisabled: selectAnswerDisabled(state),
   };
@@ -179,6 +188,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => ({
   loadUser: () => dispatch(app.user.load.request()),
+  loadQueue: () => dispatch(app[props.category].queue.load.request()),
   resetSession: () => dispatch(app.resetSession()),
   resetAnswer: () => dispatch(quiz.answer.reset()),
   resetInfo: () => dispatch(quiz.info.reset()),
