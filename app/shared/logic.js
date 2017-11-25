@@ -41,12 +41,15 @@ export const userRegisterLogic = createLogic({
         done();
       })
       .catch(({ body }) => {
-        dispatch(stopSubmit(form, {
-          ...body,
-          apiKey: body.api_key,
-          _error: body.non_field_errors,
-        }));
-        dispatch(app.user.register.failure(body));
+        if (body) {
+          dispatch(stopSubmit(form, {
+            ...body,
+            apiKey: body.api_key,
+            _error: body.non_field_errors,
+          }));
+          dispatch(app.user.register.failure(body));
+        }
+        console.warn(`Register failure. Response body was: ${JSON.stringify(body)}`);
         done();
       });
   },
@@ -65,8 +68,11 @@ export const userLoginLogic = createLogic({
         done();
       })
       .catch(({ body }) => {
-        dispatch(app.user.login.failure(body));
-        dispatch(stopSubmit(form, { ...body, _error: body.non_field_errors }));
+        if (body) {
+          dispatch(app.user.login.failure(body));
+          dispatch(stopSubmit(form, { ...body, _error: body.non_field_errors }));
+        }
+        console.warn(`Login failure. Response body was: ${JSON.stringify(body)}`);
         done();
       });
   },
@@ -95,8 +101,11 @@ export const userResetPasswordLogic = createLogic({
         done();
       })
       .catch(({ body }) => {
-        dispatch(stopSubmit(form, { ...body, _error: body.non_field_errors }));
-        dispatch(app.user.resetPassword.failure(body));
+        if (body) {
+          dispatch(stopSubmit(form, { ...body, _error: body.non_field_errors }));
+          dispatch(app.user.resetPassword.failure(body));
+        }
+        console.warn(`API failure. Response body was: ${JSON.stringify(body)}`);
         done();
       });
   },
