@@ -34,8 +34,6 @@ export const initialState = {
     srsCounts: {},
     upcomingReviews: [],
   },
-  // TODO: get Tadgh to update settings with new options + their defaults!
-  // NOTE: update serialize/deserializer with anything missing
   settings: {
     quiz: {},
     vocabulary: {},
