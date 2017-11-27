@@ -186,19 +186,21 @@ const mapStateToProps = (state, props) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, props) => ({
-  loadUser: () => dispatch(app.user.load.request()),
-  loadQueue: () => dispatch(app[props.category].queue.load.request()),
-  resetSession: () => dispatch(app.resetSession()),
-  resetAnswer: () => dispatch(quiz.answer.reset()),
-  resetInfo: () => dispatch(quiz.info.reset()),
-  redirectToSummary: () => dispatch(push(`/${selectCategoryFromMatch(props)}`)),
-  recordAnswer: (payload) => dispatch(quiz.answer.submit(payload)),
-  ignoreAnswer: (payload) => dispatch(quiz.answer.ignore(payload)),
-  updateInfo: (payload) => dispatch(quiz.info.update(payload)),
-  cycleInfoDetail: (payload) => dispatch(quiz.info.cycledetail(payload)),
-  setNewCurrent: () =>
-    dispatch(app[selectCategoryFromMatch(props)].current.set()),
-});
+const mapDispatchToProps = (dispatch, props) => {
+  const category = selectCategoryFromMatch(props);
+  return {
+    loadUser: () => dispatch(app.user.load.request()),
+    loadQueue: () => dispatch(app[category].queue.load.request()),
+    resetSession: () => dispatch(app.resetSession()),
+    resetAnswer: () => dispatch(quiz.answer.reset()),
+    resetInfo: () => dispatch(quiz.info.reset()),
+    redirectToSummary: () => dispatch(push(`/${category}`)),
+    recordAnswer: (payload) => dispatch(quiz.answer.submit(payload)),
+    ignoreAnswer: (payload) => dispatch(quiz.answer.ignore(payload)),
+    updateInfo: (payload) => dispatch(quiz.info.update(payload)),
+    cycleInfoDetail: (payload) => dispatch(quiz.info.cycledetail(payload)),
+    setNewCurrent: () => dispatch(app[category].current.set()),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuizPage);
