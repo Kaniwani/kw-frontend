@@ -5,12 +5,13 @@ Array [
   Object {
     "character": "近々",
     "common": true,
-    "id": 582,
+    "furigana": "0:きんきん",
+    "id": 583,
     "jlpt": "JLPT N2",
     "kana": Array [
-      "ちかぢか",
       "きんきん",
       "ちかじか",
+      "ちかぢか",
     ],
     "level": 7,
     "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
@@ -29,12 +30,13 @@ Array [
   Object {
     "character": "近々",
     "common": true,
-    "id": 582,
+    "furigana": "0:きんきん",
+    "id": 583,
     "jlpt": "JLPT N2",
     "kana": Array [
-      "ちかぢか",
       "きんきん",
       "ちかじか",
+      "ちかぢか",
     ],
     "level": 7,
     "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
@@ -86,12 +88,36 @@ Array [
   Object {
     "character": "近々",
     "common": true,
-    "id": 582,
+    "furigana": "0:きんきん",
+    "id": 583,
     "jlpt": "JLPT N2",
     "kana": Array [
-      "ちかぢか",
       "きんきん",
       "ちかじか",
+      "ちかぢか",
+    ],
+    "level": 7,
+    "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
+    "sentenceJa": "彼らがデートをしているのを見かけて近々結婚するのってきいたんだ",
+    "tags": Array [
+      "Noun",
+    ],
+  },
+]
+`;
+
+exports[`condenseReadings() should re-order primary reading to start 1`] = `
+Array [
+  Object {
+    "character": "近々",
+    "common": true,
+    "furigana": "0:きんきん",
+    "id": 583,
+    "jlpt": "JLPT N2",
+    "kana": Array [
+      "きんきん",
+      "ちかじか",
+      "ちかぢか",
     ],
     "level": 7,
     "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",

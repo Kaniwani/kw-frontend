@@ -41,6 +41,6 @@ export default compose(
     vacationDate: dateOrFalse(vacationDate),
     ...rest,
   })),
-  branch(({ nextReviewDate }) => !nextReviewDate, renderNothing),
+  branch(({ nextReviewDate }) => nextReviewDate === undefined, renderNothing),
   shouldUpdate(shouldUpdateDeepEqual)
 )(ReviewStatus);

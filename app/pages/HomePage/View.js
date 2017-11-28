@@ -51,7 +51,7 @@ function View({ profile, announcements }) {
         </Element>
         <List items={announcements} RenderItem={Announcement} />
       </Container>
-      <Debug value={profile} />
+      <Debug value={profile} omitKeys={['upcomingReviews', 'srsCounts']} />
     </PageWrapper>
   );
 }

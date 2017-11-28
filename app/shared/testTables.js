@@ -327,9 +327,7 @@ export const vocabs = [
         character: '近々',
         kana: ['ちかぢか'],
         level: 7,
-        tags: [
-          'Adverbial Noun',
-        ],
+        tags: ['Adverbial Noun'],
         sentenceEn: 'When I saw them on a date, I asked them, “Do I hear wedding bells?”',
         sentenceJa: '彼らがデートをしているのを見かけて近々結婚するのってきいたんだ',
         jlpt: 'JLPT N2',
@@ -340,9 +338,7 @@ export const vocabs = [
         character: '近々',
         kana: ['きんきん'],
         level: 7,
-        tags: [
-          'Adverbial Noun',
-        ],
+        tags: ['Adverbial Noun'],
         sentenceEn: 'When I saw them on a date, I asked them, “Do I hear wedding bells?”',
         sentenceJa: '彼らがデートをしているのを見かけて近々結婚するのってきいたんだ',
         jlpt: 'JLPT N2',
@@ -353,9 +349,7 @@ export const vocabs = [
         character: '近々',
         kana: ['ちかじか'],
         level: 7,
-        tags: [
-          'Adverbial Noun',
-        ],
+        tags: ['Adverbial Noun'],
         sentenceEn: 'When I saw them on a date, I asked them, “Do I hear wedding bells?”',
         sentenceJa: '彼らがデートをしているのを見かけて近々結婚するのってきいたんだ',
         jlpt: 'JLPT N2',
@@ -366,9 +360,7 @@ export const vocabs = [
         character: '軈て',
         kana: ['やがて'],
         level: 61,
-        tags: [
-          'Adverb',
-        ],
+        tags: ['Adverb'],
         sentenceEn: 'By and by he forgot that affair',
         sentenceJa: 'やがて彼はその事件のことを忘れた',
         jlpt: 'JLPT N2',
@@ -381,9 +373,7 @@ export const vocabs = [
         character: '間もなく',
         kana: ['まもなく'],
         level: 22,
-        tags: [
-          'Adverb',
-        ],
+        tags: ['Adverb'],
         sentenceEn: 'Coming up, Jiyuugaoka Station.',
         sentenceJa: '間もなく、自由が丘駅',
         jlpt: 'JLPT N2',
@@ -409,9 +399,7 @@ export const vocabs = [
         character: '少女',
         kana: ['しょうじょ'],
         level: 3,
-        tags: [
-          'Noun',
-        ],
+        tags: ['Noun'],
         sentenceEn: "I am touched by the girl's acute sensitivity.",
         sentenceJa: '少女の鋭い感性に触れている',
         jlpt: 'JLPT N3',
@@ -422,9 +410,7 @@ export const vocabs = [
         character: '少女',
         kana: ['おとめ'],
         level: 3,
-        tags: [
-          'Noun',
-        ],
+        tags: ['Noun'],
         sentenceEn: "I am touched by the girl's acute sensitivity.",
         sentenceJa: '少女の鋭い感性に触れている',
         jlpt: 'JLPT N3',
@@ -451,9 +437,7 @@ export const vocabs = [
         character: '少年',
         kana: ['しょうねん'],
         level: 4,
-        tags: [
-          'Noun',
-        ],
+        tags: ['Noun'],
         sentenceEn: 'The shy boy murmured his name.',
         sentenceJa: 'その内気な少年はぼそぼそと自分の名前をつぶやいた全ての少年少女はを知っています',
         jlpt: 'JLPT N3',
@@ -473,17 +457,22 @@ export const vocabs = [
       incorrect: random(10),
       streak: random(11),
     },
-    meanings: ['whole life', 'entire life', 'a lifetime', 'all through life', 'one existence', 'a generation', 'an age'],
+    meanings: [
+      'whole life',
+      'entire life',
+      'a lifetime',
+      'all through life',
+      'one existence',
+      'a generation',
+      'an age',
+    ],
     readings: [
       {
         id: 449,
         character: '一生',
         kana: ['いっしょう'],
         level: 5,
-        tags: [
-          'Noun',
-          'No adjective',
-        ],
+        tags: ['Noun', 'No adjective'],
         sentenceEn: 'She worked hard.',
         sentenceJa: '彼女は一生懸命働いた',
         jlpt: 'JLPT N3',
@@ -510,10 +499,7 @@ export const vocabs = [
         character: '正直',
         kana: ['しょうじき'],
         level: 6,
-        tags: [
-          'Noun',
-          'Na adjective',
-        ],
+        tags: ['Noun', 'Na adjective'],
         sentenceEn: 'Him, honest? What a joke!',
         sentenceJa: '正直が聞いて呆れるよ',
         jlpt: 'JLPT N3',
@@ -524,7 +510,6 @@ export const vocabs = [
   },
 ];
 
-
 export const readings = {
   single: [
     {
@@ -532,9 +517,7 @@ export const readings = {
       character: '売り上げ',
       kana: ['うりあげ'],
       level: 5,
-      tags: [
-        'Noun',
-      ],
+      tags: ['Noun'],
       sentenceEn: 'Sales are down this month.',
       sentenceJa: '今月は売上が落ちた',
       jlpt: 'JLPT N2',
@@ -547,9 +530,7 @@ export const readings = {
       character: '近々',
       kana: ['ちかぢか'],
       level: 7,
-      tags: [
-        'Noun',
-      ],
+      tags: ['Noun'],
       sentenceEn: 'When I saw them on a date, I asked them, “Do I hear wedding bells?”',
       sentenceJa: '彼らがデートをしているのを見かけて近々結婚するのってきいたんだ',
       jlpt: 'JLPT N2',
@@ -560,9 +541,8 @@ export const readings = {
       character: '近々',
       kana: ['きんきん'],
       level: 7,
-      tags: [
-        'Noun',
-      ],
+      tags: ['Noun'],
+      furigana: '0:きんきん',
       sentenceEn: 'When I saw them on a date, I asked them, “Do I hear wedding bells?”',
       sentenceJa: '彼らがデートをしているのを見かけて近々結婚するのってきいたんだ',
       jlpt: 'JLPT N2',
@@ -573,9 +553,7 @@ export const readings = {
       character: '近々',
       kana: ['ちかじか'],
       level: 7,
-      tags: [
-        'Noun',
-      ],
+      tags: ['Noun'],
       sentenceEn: 'When I saw them on a date, I asked them, “Do I hear wedding bells?”',
       sentenceJa: '彼らがデートをしているのを見かけて近々結婚するのってきいたんだ',
       jlpt: 'JLPT N2',
@@ -588,9 +566,7 @@ export const readings = {
       character: '各〜',
       kana: ['かく'],
       level: 22,
-      tags: [
-        'Prefix',
-      ],
+      tags: ['Prefix'],
       sentenceEn: 'First, choose a representative for each team.',
       sentenceJa: 'まず始めに、各チームの代表者を決めて下さい',
       jlpt: null,
@@ -603,9 +579,7 @@ export const readings = {
       character: '〜漬け',
       kana: ['づけ'],
       level: 59,
-      tags: [
-        'Suffix',
-      ],
+      tags: ['Suffix'],
       sentenceEn: 'These are lightly pickled cucumbers.',
       sentenceJa: '胡瓜の浅漬けならありますよ',
       jlpt: null,
@@ -616,9 +590,7 @@ export const readings = {
       character: '〜才',
       kana: ['さい'],
       level: 2,
-      tags: [
-        'Suffix',
-      ],
+      tags: ['Suffix'],
       sentenceEn: 'I am five years old.',
       sentenceJa: 'わたしは５才です',
       jlpt: null,
@@ -631,9 +603,7 @@ export const readings = {
       character: 'ハート形',
       kana: ['ハートがた'],
       level: 9,
-      tags: [
-        'Noun',
-      ],
+      tags: ['Noun'],
       sentenceEn: 'When flamingos kiss, their heads and necks form a heart shape.',
       sentenceJa: 'フラミンゴがキスをする時、二羽の頭と首がハート形を描く',
       jlpt: null,
@@ -644,9 +614,7 @@ export const readings = {
       character: 'フランス人',
       kana: ['ふらんすじん'],
       level: 1,
-      tags: [
-        'Noun',
-      ],
+      tags: ['Noun'],
       sentenceEn: 'He is French.',
       sentenceJa: '彼はフランス人です',
       jlpt: null,
@@ -657,10 +625,9 @@ export const readings = {
       character: '迷惑メール',
       kana: ['めいわくメール'],
       level: 29,
-      tags: [
-        'Noun',
-      ],
-      sentenceEn: 'He sent about 2.2 billion spam emails over a period of around one and a half years.',
+      tags: ['Noun'],
+      sentenceEn:
+        'He sent about 2.2 billion spam emails over a period of around one and a half years.',
       sentenceJa: '約１年半で約億通の迷惑メールを送りました',
       jlpt: null,
       common: false,
@@ -670,9 +637,7 @@ export const readings = {
       character: '烏龍茶',
       kana: ['ウーロンちゃ'],
       level: 57,
-      tags: [
-        'Noun',
-      ],
+      tags: ['Noun'],
       sentenceEn: 'Oolong tea without ice, please.',
       sentenceJa: '烏龍茶を氷抜きでください',
       jlpt: null,
@@ -683,9 +648,7 @@ export const readings = {
       character: '缶ビール',
       kana: ['かんビール'],
       level: 44,
-      tags: [
-        'Noun',
-      ],
+      tags: ['Noun'],
       sentenceEn: 'Oh, this canned beer is way too good for me.',
       sentenceJa: 'ああ、この缶ビールはマジでうますぎる',
       jlpt: null,
@@ -699,12 +662,10 @@ export const readings = {
       jlpt: 'JLPT N4',
       character: 'そろそろ',
       kana: ['そろそろ'],
-      tags: [
-        'Adverb',
-        "Adverb taking the 'to' particle",
-      ],
+      tags: ['Adverb', "Adverb taking the 'to' particle"],
       sentenceJa: '「あの、かりんさん...、そろそろお開きにしませんか？」「駄目、勝ち逃げ禁止！今度こそボクが勝つの！」',
-      sentenceEn: "“Er, Karin ..., shouldn't we call it a night soon?” “No! No quitting while ahead! Next time I'll win for sure!”",
+      sentenceEn:
+        "“Er, Karin ..., shouldn't we call it a night soon?” “No! No quitting while ahead! Next time I'll win for sure!”",
     },
     {
       id: 9001,
@@ -712,9 +673,7 @@ export const readings = {
       jlpt: null,
       character: 'マンコ',
       kana: ['マンコ'],
-      tags: [
-        'Noun',
-      ],
+      tags: ['Noun'],
       sentenceJa: 'マンコいいな〜',
       sentenceEn: 'What a great pussy.',
     },
@@ -726,11 +685,10 @@ export const readings = {
       jlpt: 'JLPT N4',
       character: '付く',
       kana: ['つく'],
-      tags: [
-        'Transitive Verb',
-      ],
+      tags: ['Transitive Verb'],
       sentenceJa: 'この「オンボード」というのは平たく言えば「グラフィックカードがついていない」ものだ',
-      sentenceEn: 'Frankly speaking, this “on board” means “doesn’t have a graphics card”.',
+      sentenceEn:
+        'Frankly speaking, this “on board” means “doesn’t have a graphics card”.',
     },
   ],
 };

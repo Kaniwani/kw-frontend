@@ -38,4 +38,8 @@ describe('condenseReadings()', () => {
   it('should work with only kana', () => {
     expect(condenseReadings(readings.onlyKana)).toMatchSnapshot();
   });
+
+  it('should re-order primary reading to start', () => {
+    expect(condenseReadings(readings.sameCharacters)).toMatchSnapshot();
+  });
 });
