@@ -12,9 +12,7 @@ import Announcement from 'components/Announcement';
 
 import PageWrapper from 'base/PageWrapper';
 import ReviewStatus from 'components/ReviewStatus';
-import Debug from 'utils/Debug';
 import ApiKeyCheck from './ApiKeyCheck';
-import LastWkSync from './LastWkSync';
 
 View.propTypes = {
   profile: PropTypes.object.isRequired,
@@ -31,7 +29,6 @@ function View({ profile, announcements }) {
       <Container>
         <ApiKeyCheck valid={profile.isApiValid} />
         <ReviewStatus {...profile} />
-        <LastWkSync lastWkSyncDate={profile.lastWkSyncDate} />
       </Container>
       <Container>
         <Element flexRow flexCenter>
@@ -51,7 +48,6 @@ function View({ profile, announcements }) {
         </Element>
         <List items={announcements} RenderItem={Announcement} />
       </Container>
-      <Debug value={profile} omitKeys={['upcomingReviews', 'srsCounts']} />
     </PageWrapper>
   );
 }

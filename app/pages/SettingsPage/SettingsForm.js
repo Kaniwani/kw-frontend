@@ -24,8 +24,8 @@ const milliToSec = (value = 0) => +value * 1000;
 const secToMilli = (value = 0) => +value / 1000;
 
 // NOTE: these only work for integers 1-10, my math-fu is not strong
-const toKanjiStrokeStep = (value) => ((10 - +value) + 1) / 100; // 1 => 0.1, 10 => 0.01
-const fromKanjiStrokeStep = (value) => Math.round(10 - ((+value * 100) - 1)); // 0.1 => 1, 0.01 => 10
+const toKanjiStrokeStep = (value) => (10 - Number(value) + 1) / 100; // 1 => 0.1, 10 => 0.01
+const fromKanjiStrokeStep = (value) => Math.round(10 - (Number(value) * 100 - 1)); // 0.1 => 1, 0.01 => 10
 
 SettingsForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
@@ -44,19 +44,19 @@ function SettingsForm({ handleSubmit }) {
         />
         <Field
           name="onVacation"
-          label="Vacation mode: "
+          label="Vacation mode"
           component={ToggleField}
           parse={(value) => !!value}
         />
         <Field
           name="autoExpandCorrect"
-          label="Auto expand quiz info when correct: "
+          label="Auto expand quiz info when correct"
           component={ToggleField}
           parse={(value) => !!value}
         />
         <Field
           name="autoExpandIncorrect"
-          label="Auto expand quiz info when incorrect: "
+          label="Auto expand quiz info when incorrect"
           component={ToggleField}
           parse={(value) => !!value}
         />
@@ -64,13 +64,13 @@ function SettingsForm({ handleSubmit }) {
           <H4>Auto Advance</H4>
           <Field
             name="active"
-            label="Auto advance quiz when correct: "
+            label="Auto advance quiz when correct"
             component={ToggleField}
             parse={(value) => !!value}
           />
           <Field
             name="speed"
-            label="Auto advance speed: "
+            label="Auto advance speed"
             component={RangeField}
             normalize={milliToSec}
             format={secToMilli}
@@ -86,14 +86,21 @@ function SettingsForm({ handleSubmit }) {
         <H2>Vocabulary</H2>
         <Field
           name="followMe"
-          label="Unlock new levels as you unlock them on WaniKani: "
+          label="Unlocks new levels as you unlock them on WaniKani"
           component={ToggleField}
           parse={(value) => !!value}
         />
         <Field
           name="useEijiroPro"
-          label="Use Eijiro Pro in reading links: "
-          note={<span>This requires a (free) account at <A href="https://eowf.alc.co.jp" external>eowf.alc.co.jp</A></span>}
+          label="Use Eijiro Pro in reading links"
+          note={
+            <span>
+              This requires a (free) account at{' '}
+              <A href="https://eowf.alc.co.jp" external>
+                eowf.alc.co.jp
+              </A>
+            </span>
+          }
           component={ToggleField}
           parse={(value) => !!value}
         />
@@ -101,19 +108,19 @@ function SettingsForm({ handleSubmit }) {
           <H4>Kanji Stroke Diagrams</H4>
           <Field
             name="stroke.order.visible"
-            label="Show stroke order numbers: "
+            label="Show stroke order numbers"
             component={ToggleField}
             parse={(value) => !!value}
           />
           <Field
-            label="Show grid lines: "
+            label="Show grid lines"
             name="grid.show"
             component={ToggleField}
             parse={(value) => !!value}
           />
           <Field
             name="step"
-            label="Animation speed: "
+            label="Animation speed"
             component={RangeField}
             normalize={toKanjiStrokeStep}
             format={fromKanjiStrokeStep}
@@ -131,16 +138,15 @@ function SettingsForm({ handleSubmit }) {
 }
 
 const enhance = compose(
-  connect(
-    (state) => ({ initialValues: selectSettings(state) }),
-    ({ saveSettings: app.settings.save.request }),
-  ),
+  connect((state) => ({ initialValues: selectSettings(state) }), {
+    saveSettings: app.settings.save.request,
+  }),
   branch(({ initialValues }) => Object.keys(initialValues).length < 1, renderNothing),
   reduxForm({
     form: 'settings',
     enableReinitialize: true,
     onSubmit: (values, dispatch, { saveSettings }) => saveSettings(values),
-  }),
+  })
 );
 
 export default enhance(SettingsForm);

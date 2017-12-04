@@ -4,6 +4,7 @@ import { compose, pure, branch, renderNothing } from 'recompose';
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 
 import Element from 'base/Element';
+import Button from 'base/Button';
 import H5 from 'base/H5';
 
 LastWkSync.propTypes = {
@@ -16,15 +17,18 @@ LastWkSync.propTypes = {
 
 function LastWkSync({ lastWkSyncDate }) {
   return (
-    <Element flexRow flexCenter>
-      <H5 style={{ color: 'grey' }}>
-        Last Sync with WaniKani:{' '}
+    <Element>
+      <H5>
+        {'Last sync with WaniKani: '}
         {distanceInWordsToNow(lastWkSyncDate, {
           includeSeconds: true,
           suffix: true,
-        })}{' '}
-        ago
+        })}
+        {' ago'}
       </H5>
+      <Element>
+        <Button disabled>Sync Now</Button>
+      </Element>
     </Element>
   );
 }
