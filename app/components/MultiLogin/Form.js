@@ -14,12 +14,7 @@ import {
 
 import Input from './Input';
 
-import {
-  Form,
-  SubmitButton,
-  ApiLink,
-  ValidationMessage,
-} from './styles';
+import { Form, SubmitButton, ApiLink, ValidationMessage } from './styles';
 
 FormView.propTypes = {
   loginSelected: PropTypes.bool.isRequired,
@@ -30,6 +25,10 @@ FormView.propTypes = {
   error: PropTypes.array,
 };
 
+FormView.defaultProps = {
+  error: [],
+};
+
 function FormView({
   loginSelected,
   registerSelected,
@@ -38,9 +37,8 @@ function FormView({
   submitting,
   error,
 }) {
-  const mainInputText = (loginSelected && 'Username or Email') ||
-    (registerSelected && 'Username') ||
-    'Email';
+  const mainInputText =
+    (loginSelected && 'Username or Email') || (registerSelected && 'Username') || 'Email';
 
   return (
     <Form onSubmit={handleSubmit} autoComplete="on">
@@ -75,8 +73,10 @@ function FormView({
         component={Input}
         type="password"
         placeholder="Confirm Password"
-        validate={registerSelected ? [requiredValid, minLengthValid, confirmPasswordValid] : []}
-        isHidden={(loginSelected || resetSelected)}
+        validate={
+          registerSelected ? [requiredValid, minLengthValid, confirmPasswordValid] : []
+        }
+        isHidden={loginSelected || resetSelected}
       />
       <Field
         label="Enter WaniKani API key"
@@ -96,12 +96,12 @@ function FormView({
           external
         />
       </Field>
-      {error && <ValidationMessage>{error}</ValidationMessage>}
+      {error.length > 0 && <ValidationMessage>{error}</ValidationMessage>}
       <SubmitButton type="submit">
-        {(submitting && 'Submitting') ||
-        (registerSelected && 'Create Account') ||
-        (loginSelected && '行こう') ||
-        (resetSelected && 'Reset Password')}
+        {(submitting && 'Submitting...') ||
+          (registerSelected && 'Create Account') ||
+          (loginSelected && '行こう') ||
+          (resetSelected && 'Reset Password')}
       </SubmitButton>
     </Form>
   );
@@ -111,11 +111,18 @@ const enhance = compose(
   reduxForm({
     form: 'multiLogin',
     onSubmit: (values, dispatch, props) => {
-      const { username, email, password, apiKey } = values;
+      const {
+        username, email, password, apiKey,
+      } = values;
       const { loginSelected, registerSelected, resetSelected } = props;
 
       if (registerSelected) {
-        dispatch(app.user.register.request({ username, email, password, apiKey }));
+        dispatch(app.user.register.request({
+          username,
+          email,
+          password,
+          apiKey,
+        }));
       }
 
       if (loginSelected) {

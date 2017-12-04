@@ -33,18 +33,13 @@ function VocabSearchResults({
         {hasResults && (
           <H3>
             {searchResults.length}
-            {' Search'}
-            {pluralize(' result', searchResults.length)}
+            {pluralize(' word', searchResults.length)}
             {' found'}
-            {isSearching ? ' so far...' : '.'}
+            {isSearching ? ' so far...' : ''}
           </H3>
         )}
         {isSearchFinished && noResults && <H3>No Search Results</H3>}
-        <VocabList
-          ids={searchResults}
-          color="blue"
-          isExpanded={cardsExpanded}
-        />
+        <VocabList ids={searchResults} color="blue" isExpanded={cardsExpanded} />
       </Container>
     )
   );
