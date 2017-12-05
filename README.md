@@ -21,7 +21,7 @@
 ##### _Note: Currently requires a working [KW Backend](https://github.com/Kaniwani/kw-backend) set up_
 
 ## Quick start
-1. Clone this repo using `git clone https://github.com/Kaniwani/kw-frontend.git --depth=0`
+1. Clone this repo using `git clone https://github.com/Kaniwani/kw-frontend.git`
 2. Run `yarn` to install dependencies ([get yarn here](https://yarnpkg.com/en/docs/install)).
 3. Run `npm start` to load up the development server and watch for changes.
 
@@ -41,7 +41,7 @@ The following Chrome extensions will allow you to explore the app structure whil
 - Join us on [Slack](https://rauchg-slackin-iurjmkotad.now.sh)
 
 ## Thanks
-Browser Testing generously provided by
+Browser Testing generously provided by  
 <a title="browserstack" href="https://www.browserstack.com/" target="_blank" rel="external noopener noreferrer">
 <img alt="browser stack logo" src="https://raw.githubusercontent.com/Kaniwani/kw-frontend/master/app/shared/assets/img/browserstack.png"/>
 </a>
