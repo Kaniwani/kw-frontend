@@ -9,7 +9,7 @@ exports[`<ScrollTopButton /> should adopt isVisible and isScrolling props 1`] = 
 >
   <Icon
     color="white"
-    display="inline-block"
+    inline={true}
     name="ARROW_UP"
     size="2.5rem"
   />
@@ -25,7 +25,7 @@ exports[`<ScrollTopButton /> should match the baseline snapshot 1`] = `
 >
   <Icon
     color="white"
-    display="inline-block"
+    inline={true}
     name="ARROW_UP"
     size="2.5rem"
   />

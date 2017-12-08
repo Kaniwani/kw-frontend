@@ -43,7 +43,8 @@ describe('asyncInjectors', () => {
 
   describe('getAsyncInjectors', () => {
     beforeAll(() => {
-      store = configureStore({}, memoryHistory);
+      // NOTE: configureStore returns { persistor, store } while using redux-persist
+      store = configureStore({}, memoryHistory).store; // eslint-disable-line
     });
 
     it('given a store, should return all async injectors', () => {
@@ -76,7 +77,8 @@ describe('asyncInjectors', () => {
 
   describe('helpers', () => {
     beforeAll(() => {
-      store = configureStore({}, memoryHistory);
+      // NOTE: configureStore returns { persistor, store } while using redux-persist
+      store = configureStore({}, memoryHistory).store; // eslint-disable-line
     });
 
     describe('injectAsyncReducer', () => {

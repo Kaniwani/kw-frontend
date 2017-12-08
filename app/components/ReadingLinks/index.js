@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
 import cuid from 'cuid';
 
 import {
@@ -13,7 +11,6 @@ import {
   createEijiroUrl,
 } from 'shared/api';
 
-import { selectVocabularySettings } from 'shared/selectors';
 import { Ul, VocabLink } from './styles';
 
 ReadingLinks.propTypes = {
@@ -42,8 +39,4 @@ function ReadingLinks({ character, useEijiroPro }) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  useEijiroPro: createSelector(selectVocabularySettings, ({ useEijiroPro }) => useEijiroPro)(state),
-});
-
-export default connect(mapStateToProps)(ReadingLinks);
+export default ReadingLinks;

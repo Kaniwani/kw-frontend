@@ -130,12 +130,10 @@ const announcementsReducer = handleActions({
 }, initialState.announcements);
 
 const profileReducer = handleActions({
-  [actions.clearGlobalState]: () => initialState.profile,
   [actions.user.load.success]: (state, { payload }) => payload.profile,
 }, initialState.profile);
 
 const settingsReducer = handleActions({
-  [actions.clearGlobalState]: () => initialState.settings,
   [actions.user.load.success]: (state, { payload }) => update(state, {
     $set: merge({}, state, payload.settings),
   }),
@@ -145,7 +143,6 @@ const settingsReducer = handleActions({
 }, initialState.settings);
 
 const reviewQueueReducer = handleActions({
-  [actions.clearGlobalState]: () => initialState.queue.reviews,
   [actions.reviews.queue.load.success]: (state, { payload }) => union(state, payload.ids),
   [actions.reviews.queue.clear]: () => initialState.queue.reviews,
   [actions.reviews.current.set]: (state, { payload }) => difference(state, [payload.id]),
@@ -153,7 +150,6 @@ const reviewQueueReducer = handleActions({
 }, initialState.queue.reviews);
 
 const lessonQueueReducer = handleActions({
-  [actions.clearGlobalState]: () => initialState.queue.lessons,
   [actions.lessons.queue.load.success]: (state, { payload }) => union(state, payload.ids),
   [actions.lessons.queue.clear]: () => initialState.queue.lessons,
   [actions.lessons.current.set]: (state, { payload }) => difference(state, [payload.id]),
@@ -161,10 +157,7 @@ const lessonQueueReducer = handleActions({
 }, initialState.queue.lessons);
 
 const sessionReducer = handleActions({
-  [combineActions(
-    actions.clearGlobalState,
-    actions.resetSession,
-  )]: () => initialState.session,
+  [actions.resetSession]: () => initialState.session,
   [combineActions(
     actions.lessons.current.set,
     actions.reviews.current.set,
@@ -198,7 +191,6 @@ const sessionReducer = handleActions({
 }, initialState.session);
 
 const reviewSummaryReducer = handleActions({
-  [actions.clearGlobalState]: () => initialState.summary.reviews,
   [actions.reviews.correct.add]: (state, { payload }) => update(state, {
     correct: { $set: union(state.correct, [payload]) },
     lastActivityDate: { $set: new Date() },
@@ -214,7 +206,6 @@ const reviewSummaryReducer = handleActions({
 }, initialState.summary.reviews);
 
 const lessonSummaryReducer = handleActions({
-  [actions.clearGlobalState]: () => initialState.summary.lessons,
   [actions.lessons.correct.add]: (state, { payload }) => update(state, {
     correct: { $set: union(state.correct, [payload]) },
     lastActivityDate: { $set: new Date() },
@@ -230,7 +221,6 @@ const lessonSummaryReducer = handleActions({
 }, initialState.summary.lessons);
 
 const entitiesReducer = handleActions({
-  [actions.clearGlobalState]: () => initialState.entities,
   [combineActions(
     actions.reviews.update,
     actions.reviews.queue.load.success,

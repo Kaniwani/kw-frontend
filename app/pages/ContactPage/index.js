@@ -9,7 +9,7 @@ import H3 from 'base/H3';
 import P from 'base/P';
 import A from 'base/A';
 import Strike from 'base/Strike';
-import ContactForm from 'components/ContactForm';
+import ContactForm from 'containers/ContactForm';
 
 function ContactPage() {
   return (

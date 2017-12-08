@@ -4,8 +4,10 @@ exports[`<LockButton /> should adopt props 1`] = `
 <IconButton
   color="purple"
   disabled={false}
-  handleClick={[Function]}
+  inline={false}
   name="LOCK_OPEN"
+  onClick={[Function]}
+  plainButton={true}
   size="4rem"
   title="Lock level"
   type="button"
@@ -14,10 +16,12 @@ exports[`<LockButton /> should adopt props 1`] = `
 
 exports[`<LockButton /> should match baseline snapshot 1`] = `
 <IconButton
-  color="grey"
+  color="currentColor"
   disabled={true}
-  handleClick={[Function]}
+  inline={false}
   name="LOCK_SOLID"
+  onClick={[Function]}
+  plainButton={true}
   size="1.5em"
   title="Unlock level"
   type="button"

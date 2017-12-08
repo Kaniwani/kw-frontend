@@ -7,7 +7,7 @@ it('should match baseline snapshot', () => {
   const renderedComponent = shallow(
     <P>Text</P>
   );
-  expect(renderedComponent).toMatchStyledComponentsSnapshot();
+  expect(renderedComponent).toMatchSnapshot();
 });
 
 it('should adopt a textAlign prop', () => {
@@ -15,7 +15,7 @@ it('should adopt a textAlign prop', () => {
   const renderedComponent = shallow(
     <P textAlign={textAlign}>Centered text</P>
   );
-  expect(renderedComponent).toMatchStyledComponentsSnapshot();
+  expect(renderedComponent).toMatchSnapshot();
 });
 
 it('should adopt an align prop', () => {
@@ -23,5 +23,5 @@ it('should adopt an align prop', () => {
   const renderedComponent = shallow(
     <P align={align}>Centered element</P>
   );
-  expect(renderedComponent).toMatchStyledComponentsSnapshot();
+  expect(renderedComponent).toMatchSnapshot();
 });

@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`<Reading /> should match baseline snapshot 1`] = `
-<styled.div>
-  <styled.p />
-  <styled.p />
-</styled.div>
-`;

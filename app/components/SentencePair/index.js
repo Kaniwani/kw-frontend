@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import MarkedSentence from 'components/MarkedSentence';
-import RevealSentence from 'components/RevealSentence';
+import MarkedSentence from './MarkedSentence';
+import RevealSentence from './RevealSentence';
 import { Wrapper } from './styles';
 
 SentencePair.propTypes = {
@@ -12,7 +12,9 @@ SentencePair.propTypes = {
   kana: PropTypes.array.isRequired,
 };
 
-function SentencePair({ sentenceEn, sentenceJa, character, kana }) {
+function SentencePair({
+  sentenceEn, sentenceJa, character, kana,
+}) {
   return (
     <Wrapper>
       <MarkedSentence sentence={sentenceJa} character={character} kana={kana} />

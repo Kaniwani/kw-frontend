@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import PageWrapper from 'base/PageWrapper';
 import VocabPageHeader from 'components/VocabPageHeader';
-import VocabLevelsList from 'components/VocabLevelsList';
+import VocabLevelsList from './VocabLevelsList';
 
 View.propTypes = {
   levelIds: PropTypes.array.isRequired,

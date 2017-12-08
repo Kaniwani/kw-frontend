@@ -1,7 +1,9 @@
+export const VERSION = '2.0.0';
+export const IS_DEV_ENV = process.env.NODE_ENV !== 'production';
+export const IS_PROD_ENV = process.env.NODE_ENV === 'production';
 const DEV_DOMAIN = 'https://staging.kaniwani.com';
-const PROD_DOMAIN = 'https://staging.kaniwani.com';
-const BASE_URL =
-  process.env.NODE_ENV !== 'production' ? DEV_DOMAIN : PROD_DOMAIN;
+const PROD_DOMAIN = 'https://staging.kaniwani.com'; // FIXME: what's the final api server?
+const BASE_URL = IS_DEV_ENV ? DEV_DOMAIN : PROD_DOMAIN;
 
 export const KW_API_BASE = `${BASE_URL}/api/v1`;
 

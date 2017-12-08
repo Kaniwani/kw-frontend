@@ -1,3 +1,4 @@
+import 'jest-styled-components';
 import React from 'react';
 import { shallow } from 'enzyme';
 import Divider from '../index';

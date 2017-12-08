@@ -1,6 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Wrapper /> should match baseline snapshot 1`] = `
+.c0 {
+  width: 100%;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 4vh;
+}
+
 <PageWrapper
   fullWidth={false}
   fullWidthBg={false}
@@ -10,7 +18,7 @@ exports[`<Wrapper /> should match baseline snapshot 1`] = `
     fullWidthBg={false}
   >
     <div
-      className="sc-bdVaJa bNkGtT"
+      className="c0"
     >
       text
     </div>

@@ -1,3 +1,4 @@
+import 'jest-styled-components';
 import React from 'react';
 import { render } from 'enzyme';
 
@@ -6,8 +7,7 @@ import SentencePair from '../index';
 
 describe('<SentencePair />', () => {
   it('should match baseline snapshot', () => {
-    const renderedComponent = render(
-      <SentencePair entry={readings.single[0]} />);
+    const renderedComponent = render(<SentencePair {...readings.single[0]} />);
     expect(renderedComponent).toMatchSnapshot();
   });
 });

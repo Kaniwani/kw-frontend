@@ -4,16 +4,12 @@ import PropTypes from 'prop-types';
 import IconButton from 'components/IconButton';
 
 LockButton.propTypes = {
-  id: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]).isRequired,
   size: PropTypes.string,
   isActionable: PropTypes.bool,
   isSubmitting: PropTypes.bool,
   isLocked: PropTypes.bool,
-  onClick: PropTypes.func.isRequired,
   children: PropTypes.any,
+  onClick: PropTypes.func.isRequired,
 };
 
 LockButton.defaultProps = {
@@ -24,7 +20,9 @@ LockButton.defaultProps = {
   children: false,
 };
 
-function LockButton({ isSubmitting, isActionable, isLocked, onClick, children, ...props }) {
+function LockButton({
+  isSubmitting, isActionable, isLocked, children, ...props
+}) {
   let title = 'Not allowed';
   let icon = 'LOCK_SOLID';
   if (isSubmitting) {
@@ -40,7 +38,6 @@ function LockButton({ isSubmitting, isActionable, isLocked, onClick, children, .
       name={icon}
       title={title}
       disabled={!isActionable}
-      onClick={onClick}
       {...props}
     >
       {children}

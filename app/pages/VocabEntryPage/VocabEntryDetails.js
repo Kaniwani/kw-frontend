@@ -10,7 +10,7 @@ import getSrsRankName from 'utils/getSrsRankName';
 import getDateInWords from 'utils/getDateInWords';
 import calculatePercentage from 'utils/calculatePercentage';
 
-import ReviewLock from 'components/ReviewLock';
+import ReviewLock from 'containers/ReviewLock';
 import StreakStatus from './StreakStatus';
 import Status from './Status';
 

@@ -2,7 +2,7 @@
 
 exports[`getReviewStatusText() no reviews unlocked 1`] = `"Next Review: No reviews unlocked"`;
 
-exports[`getReviewStatusText() on vacation 1`] = `"On Vacation since Aug 26th 2017"`;
+exports[`getReviewStatusText() on vacation 1`] = `"On Vacation since Dec 26th 2017"`;
 
 exports[`getReviewStatusText() review date is future 1`] = `"Next Review: about 2 hours"`;
 

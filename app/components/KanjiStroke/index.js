@@ -1,11 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
 import { isKanji } from 'wanakana';
 import { isEqual, merge } from 'lodash';
-
-import { selectVocabularySettings } from 'shared/selectors';
 
 import { greyLight, blackLight, purpleLight, purpleDark } from 'shared/styles/colors';
 import { rgba } from 'polished';
@@ -94,8 +90,4 @@ class KanjiStroke extends React.Component {
   }
 }
 
-const mapStateToProps = (state, props) => ({
-  settings: createSelector(selectVocabularySettings, (settings) => Object.assign({}, settings.kanjiStroke, props.settings))(state),
-});
-
-export default connect(mapStateToProps)(KanjiStroke);
+export default KanjiStroke;

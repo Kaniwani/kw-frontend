@@ -1,5 +1,7 @@
 // TODO: consider using Chromatism to create a more unified color scheme
 // https://github.com/toish/chromatism
+// or go ahead with simple shades palette
+// https://www.reshader.com/
 
 import { mix } from 'polished';
 
@@ -29,11 +31,11 @@ export const yellow = '#f5d800';
 export const tan = '#e2b46a';
 export const golden = '#f7f7c9';
 
-// safer than transparent keyword since browser implementations are different
+// safer than 'transparent' css value since browser implementations are different
 export const transparent = 'rgba(0, 0, 0, 0)';
 
-// since we often reference Object.keys(COLORS) or COLORS[color]
-// ensure that we can still set currentColor
+// we often reference Object.keys(COLORS) or COLORS[color]
+// ensure that we can still set currentColor easily instead of setting 'undefined'
 export const currentColor = 'currentColor';
 
 export const link = blue;

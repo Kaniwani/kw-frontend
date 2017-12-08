@@ -1,3 +1,4 @@
+import 'jest-styled-components';
 import { shallow } from 'enzyme';
 import React from 'react';
 
@@ -5,9 +6,7 @@ import Img from '../index';
 
 const src = 'test.png';
 const alt = 'test';
-const renderComponent = (props = {}) => shallow(
-  <Img src={src} alt={alt} {...props} />,
-);
+const renderComponent = (props = {}) => shallow(<Img src={src} alt={alt} {...props} />);
 
 describe('<Img />', () => {
   it('should match snapshot', () => {

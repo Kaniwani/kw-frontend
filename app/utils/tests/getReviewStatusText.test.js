@@ -6,11 +6,15 @@ describe('getReviewStatusText()', () => {
   it('should have sane default', () => {
     expect(getReviewStatusText({})).toMatchSnapshot();
   });
+  it('on vacation', () => {
+    expect(getReviewStatusText({
+      vacationDate: new Date(2017, 11, 26), // Dec 26 2017
+      reviewsCount: 40,
+      nextReviewDate: false,
+    })).toMatchSnapshot();
+  });
   it('no reviews unlocked', () => {
     expect(getReviewStatusText({ reviewsCount: 0, nextReviewDate: false })).toMatchSnapshot();
-  });
-  it('on vacation', () => {
-    expect(getReviewStatusText({ vacationDate: new Date(2017, 9, 26), reviewsCount: 40, nextReviewDate: false })).toMatchSnapshot();
   });
   it('review date is past', () => {
     expect(getReviewStatusText({ reviewsCount: 0, nextReviewDate: subHours(new Date(), 2) })).toMatchSnapshot();

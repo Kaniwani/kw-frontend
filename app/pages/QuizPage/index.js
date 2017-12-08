@@ -17,10 +17,10 @@ import {
 import { selectAnswerDisabled } from 'pages/QuizPage/selectors';
 
 import backgroundImage from 'shared/assets/img/reviews.svg';
-import QuizInfo from 'components/QuizInfo';
-import QuizAnswer from 'components/QuizAnswer';
-import QuizHeader from 'components/QuizHeader';
-import QuizQuestion from 'components/QuizQuestion';
+import QuizInfo from 'containers/QuizInfo';
+import QuizAnswer from 'containers/QuizAnswer';
+import QuizHeader from 'containers/QuizHeader';
+import QuizQuestion from 'containers/QuizQuestion';
 import { Wrapper, Upper, Lower, Background } from './styles';
 
 const keyMap = {

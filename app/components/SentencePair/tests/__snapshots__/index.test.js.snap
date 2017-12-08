@@ -1,15 +1,253 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<SentencePair /> should match baseline snapshot 1`] = `
+.c2 {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.c4 {
+  color: inherit;
+  background-color: rgba(48,192,249,0.8);
+  padding: 1px 2px 2px;
+  border-radius: 2px;
+}
+
+.c1 {
+  padding: 0.225rem;
+  font-size: 15.3px;
+  padding: 0.225rem;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 1.3;
+  margin-left: 0;
+  margin-right: 0;
+  line-height: 1;
+  color: #616161;
+  font-size: 17.7px;
+  -webkit-letter-spacing: -0.02em;
+  -moz-letter-spacing: -0.02em;
+  -ms-letter-spacing: -0.02em;
+  letter-spacing: -0.02em;
+}
+
+.c1:not(:only-child) {
+  margin-bottom: 0.225rem;
+}
+
+.c3 {
+  background-color: rgba(0,0,0,0);
+  color: rgba(133,35,231,0.8);
+}
+
+.c10 {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  width: 1.5em;
+  height: 1.5em;
+  background-repeat: no-repeat;
+  background-color: rgba(0,0,0,0);
+  color: currentColor;
+}
+
+.c11 {
+  display: block;
+  pointer-events: none;
+  -webkit-transform-origin: 50% 50% 0px;
+  -ms-transform-origin: 50% 50% 0px;
+  transform-origin: 50% 50% 0px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  fill: currentColor;
+}
+
+.c7 {
+  padding: 0.225rem;
+  font-size: 15.3px;
+  padding: 0.225rem;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 1.3;
+  margin-left: 0;
+  margin-right: 0;
+  font-size: 1.1em;
+  font-style: italic;
+  line-height: 1.2;
+  color: #616161;
+  -webkit-transition: all 250ms cubic-bezier(0.455,0.030,0.515,0.955);
+  transition: all 250ms cubic-bezier(0.455,0.030,0.515,0.955);
+  border-radius: .2em;
+  background-color: rgba(97,97,97,0.95);
+}
+
+.c9 {
+  position: absolute;
+  margin-top: 0.1125rem;
+  left: 50%;
+  top: 0;
+  opacity: 1;
+  -webkit-transition: opacity 250ms cubic-bezier(0.455,0.030,0.515,0.955);
+  transition: opacity 250ms cubic-bezier(0.455,0.030,0.515,0.955);
+  -webkit-transform: translate(-50%,0);
+  -ms-transform: translate(-50%,0);
+  transform: translate(-50%,0);
+  z-index: 1;
+  color: #fafafa;
+}
+
+.c5 {
+  position: relative;
+}
+
+.c5:hover .c6,
+.c5:active .c6,
+.c5:focus .c6 {
+  -webkit-transition: all 375ms cubic-bezier(0.455,0.030,0.515,0.955);
+  transition: all 375ms cubic-bezier(0.455,0.030,0.515,0.955);
+  outline: none;
+  color: #616161;
+  background-color: transparent;
+}
+
+.c5:hover .c8,
+.c5:active .c8,
+.c5:focus .c8 {
+  -webkit-transition: opacity 375ms cubic-bezier(0.455,0.030,0.515,0.955);
+  transition: opacity 375ms cubic-bezier(0.455,0.030,0.515,0.955);
+  opacity: 0;
+}
+
+.c0 {
+  padding: 0.225rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: column nowrap;
+  -ms-flex-flow: column nowrap;
+  flex-flow: column nowrap;
+  -webkit-align-items: inherit;
+  -webkit-box-align: inherit;
+  -ms-flex-align: inherit;
+  align-items: inherit;
+  max-width: 42rem;
+}
+
+@media (min-width:600px) {
+  .c1 {
+    padding: 0.33325rem;
+  }
+}
+
+@media (min-width:600px) and (max-width:1800px) {
+  .c1 {
+    font-size: calc(15.3px + (17.4 - 15.3) * ( (100vw - 600px) / ( 1800 - 600) ));
+  }
+}
+
+@media (min-width:1800px) {
+  .c1 {
+    font-size: 17.4px;
+  }
+}
+
+@media (min-width:600px) {
+  .c1 {
+    padding: 0.33325rem;
+  }
+}
+
+@media (min-width:600px) and (max-width:1800px) {
+  .c1 {
+    font-size: calc(17.7px + (24.9 - 17.7) * ( (100vw - 600px) / ( 1800 - 600) ));
+  }
+}
+
+@media (min-width:1800px) {
+  .c1 {
+    font-size: 24.9px;
+  }
+}
+
+@media (min-width:600px) {
+  .c1:not(:only-child) {
+    margin-bottom: 0.33325rem;
+  }
+}
+
+@media (min-width:600px) {
+  .c7 {
+    padding: 0.33325rem;
+  }
+}
+
+@media (min-width:600px) and (max-width:1800px) {
+  .c7 {
+    font-size: calc(15.3px + (17.4 - 15.3) * ( (100vw - 600px) / ( 1800 - 600) ));
+  }
+}
+
+@media (min-width:1800px) {
+  .c7 {
+    font-size: 17.4px;
+  }
+}
+
+@media (min-width:600px) {
+  .c7 {
+    padding: 0.33325rem;
+  }
+}
+
+@supports (-webkit-filter:blur() ) or (filter:blur() ) {
+  .c7 {
+    background-color: rgba(0,0,0,0);
+    -webkit-filter: blur(5px);
+    filter: blur(5px);
+  }
+}
+
+@media (min-width:600px) {
+  .c9 {
+    margin-top: 0.166625rem;
+  }
+}
+
+@supports (-webkit-filter:blur() ) or (filter:blur() ) {
+  .c9 {
+    color: #616161;
+  }
+}
+
+@supports (-webkit-filter:blur() ) or (filter:blur() ) {
+  .c5:hover .c6,
+  .c5:active .c6,
+  .c5:focus .c6 {
+    -webkit-filter: blur(0px);
+    filter: blur(0px);
+  }
+}
+
+@media (min-width:600px) {
+  .c0 {
+    padding: 0.33325rem;
+  }
+}
+
 <div
-  class="sc-EHOje ebYxOW"
+  class="c0"
 >
   <p
-    class="sc-bZQynM bTjbra sc-bxivhb bnhDjc"
+    class="c1"
     lang="ja"
   >
     <a
-      class="sc-bwzfXH dcrzcy"
+      class="c2"
       href="http://jisho.org/search/今月は売上が落ちた"
       rel="external noopener noreferrer"
       target="_blank"
@@ -19,7 +257,7 @@ exports[`<SentencePair /> should match baseline snapshot 1`] = `
         今月は
       </span>
       <mark
-        class="sc-gzVnrw cEcPpo sc-ifAKCX ewknst"
+        class="c3 c4"
         color="inherit"
       >
         売上
@@ -29,10 +267,32 @@ exports[`<SentencePair /> should match baseline snapshot 1`] = `
       </span>
     </a>
   </p>
-  <p
-    class="sc-bZQynM bTjbra sc-bxivhb bnhDjc"
+  <div
+    class="c5"
+    tabindex="0"
   >
-    Sales are down this month.
-  </p>
+    <p
+      class="c6 c7"
+    >
+      Sales are down this month.
+    </p>
+    <span
+      class="c8 c9 c10"
+      color="currentColor"
+    >
+      <svg
+        class="c11"
+        height="100%"
+        preserveAspectRatio="xMidYMid meet"
+        title="EYE"
+        viewBox="0 0 24 24"
+        width="100%"
+      >
+        <path
+          d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
+        />
+      </svg>
+    </span>
+  </div>
 </div>
 `;

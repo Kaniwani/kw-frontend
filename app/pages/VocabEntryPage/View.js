@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 
 import PageWrapper from 'base/PageWrapper';
-import VocabEntryMeanings from 'components/VocabEntryMeanings';
-import VocabEntryReadings from 'components/VocabEntryReadings';
-import VocabEntrySynonyms from 'components/VocabEntrySynonyms';
-import VocabEntryNotes from 'components/VocabEntryNotes';
+import VocabEntryMeanings from 'containers/VocabEntryMeanings';
+import VocabEntryReadings from 'containers/VocabEntryReadings';
+import VocabEntrySynonyms from 'containers/VocabEntrySynonyms';
+import VocabEntryNotes from 'containers/VocabEntryNotes';
 import VocabEntryDetails from './VocabEntryDetails';
 
 import { Row, Column } from './styles';

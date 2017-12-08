@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet';
 
 import { titleCase } from 'voca';
 
-import QuizSummaryHeader from 'components/QuizSummaryHeader';
+import QuizSummaryHeader from 'containers/QuizSummaryHeader';
 import QuizSummaryContent from 'components/QuizSummaryContent';
 
 import app from 'shared/actions';

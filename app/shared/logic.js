@@ -1,6 +1,5 @@
 import { createLogic } from 'redux-logic';
 import { push, LOCATION_CHANGE } from 'react-router-redux';
-import localForage from 'localforage';
 import { purgeStoredState } from 'redux-persist';
 import { uniq, difference } from 'lodash';
 import * as reduxFormActions from 'redux-form';
@@ -113,16 +112,16 @@ export const userResetPasswordLogic = createLogic({
 /* eslint-disable no-console */
 export const userLogoutLogic = createLogic({
   type: app.user.logout,
-  process(_, dispatch, done) {
+  process({ persistConfig }, dispatch, done) {
     clearToken();
-    purgeStoredState({ storage: localForage })
+    purgeStoredState(persistConfig)
       .then(() => {
         console.info('persisted KW state purged');
       })
       .catch((err) => {
         console.warn('persisted KW state failed to purge: ', err);
       });
-    dispatch(app.clearGlobalState());
+    dispatch({ type: 'RESET' }); // redux-reset in app/store.js
     dispatch(push('/welcome'));
     done();
   },
@@ -327,6 +326,12 @@ export const reviewSearchLogic = createLogic({
 
 export const reviewSearchClearLogic = createLogic({
   type: LOCATION_CHANGE,
+  validate({ action, getState }, allow, reject) {
+    if (getState().searchResults.length) {
+      allow(action);
+    }
+    reject();
+  },
   process(_, dispatch, done) {
     dispatch(app.review.clearSearch());
     done();

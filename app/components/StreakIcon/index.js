@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { titleCase } from 'voca';
-import { onlyUpdateForKeys } from 'recompose';
+import shouldUpdateDeepEqual from 'utils/shouldUpdateDeepEqual';
 
 import { SRS_RANKS } from 'shared/constants';
 import { SRS_COLORS } from 'shared/styles/colors';
@@ -18,8 +18,6 @@ StreakIcon.defaultProps = {
   colored: false,
 };
 
-const enhance = onlyUpdateForKeys(['streakName']);
-
 function StreakIcon({ streakName, colored, ...props }) {
   const color = colored ? SRS_COLORS[streakName] : 'currentColor';
   return (
@@ -27,4 +25,4 @@ function StreakIcon({ streakName, colored, ...props }) {
   );
 }
 
-export default enhance(StreakIcon);
+export default shouldUpdateDeepEqual()(StreakIcon);

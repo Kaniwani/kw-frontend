@@ -1,3 +1,4 @@
+import 'jest-styled-components';
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
@@ -13,7 +14,7 @@ const mountComponent = (props) => {
       <Button {...props}>{children}</Button>
     </MemoryRouter>
   );
-  mount(wrapped);
+  return mount(wrapped);
 };
 const shallowComponent = (props) =>
   shallow(<Button {...props}>{children}</Button>);
@@ -45,13 +46,6 @@ describe('<Button />', () => {
 
   it('should have children', () => {
     expect(mountComponent({ href }).contains(children)).toBe(true);
-  });
-
-  it('should handle click events', () => {
-    const onClickSpy = jest.fn();
-    const mountedComponent = mountComponent({ onClick: onClickSpy });
-    mountedComponent.simulate('click');
-    expect(onClickSpy).toHaveBeenCalled();
   });
 
   it('should not adopt a type attribute when rendering an <a> tag', () => {

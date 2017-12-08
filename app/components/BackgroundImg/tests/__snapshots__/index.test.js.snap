@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<BackgroundImg /> should adopt a bgPosition prop = bottom right 1`] = `
-.jGAEGp {
+.c0 {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -21,12 +21,12 @@ exports[`<BackgroundImg /> should adopt a bgPosition prop = bottom right 1`] = `
 }
 
 <div
-  className="sc-bdVaJa jGAEGp"
+  className="c0"
 />
 `;
 
 exports[`<BackgroundImg /> should adopt a bgSize prop = contain 1`] = `
-.gzIgWh {
+.c0 {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -46,12 +46,12 @@ exports[`<BackgroundImg /> should adopt a bgSize prop = contain 1`] = `
 }
 
 <div
-  className="sc-bdVaJa gzIgWh"
+  className="c0"
 />
 `;
 
 exports[`<BackgroundImg /> should render with an imgSrc prop 1`] = `
-.foKLhh {
+.c0 {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -71,6 +71,6 @@ exports[`<BackgroundImg /> should render with an imgSrc prop 1`] = `
 }
 
 <div
-  className="sc-bdVaJa foKLhh"
+  className="c0"
 />
 `;

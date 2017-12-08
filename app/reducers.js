@@ -9,7 +9,6 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import globalReducers from 'shared/reducers';
 
 import { reducer as formReducer } from 'redux-form';
-// import notificationsReducer from 'components/Notifications/reducer';
 
 // Initial routing state
 const routeInitialState = {
@@ -36,7 +35,6 @@ export default function createReducer(asyncReducers) {
     ...globalReducers,
     route: routeReducer,
     form: formReducer,
-    // notifications: notificationsReducer,
     ...asyncReducers,
   });
 }

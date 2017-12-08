@@ -5,10 +5,10 @@ import Mark from '../index';
 
 describe('<Mark />', () => {
   it('should match baseline snapshot with defaultProps', () => {
-    expect(mount(<Mark>Mark me!</Mark>)).toMatchStyledComponentsSnapshot();
+    expect(mount(<Mark>Mark me!</Mark>)).toMatchSnapshot();
   });
 
   it('should adopt color and bgColor props', () => {
-    expect(mount(<Mark color="tomato" bgColor="purple">Mark me!</Mark>)).toMatchStyledComponentsSnapshot();
+    expect(mount(<Mark color="tomato" bgColor="purple">Mark me!</Mark>)).toMatchSnapshot();
   });
 });

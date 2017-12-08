@@ -8,9 +8,9 @@ describe('<Ul />', () => {
     expect(shallow(<Ul><li>One</li><li>Two</li></Ul>)).toMatchSnapshot();
   });
   it('should match styling snapshot', () => {
-    expect(shallow(<Ul />)).toMatchStyledComponentsSnapshot();
+    expect(shallow(<Ul />)).toMatchSnapshot();
   });
   it('should adopt a plainList prop to reset list styles', () => {
-    expect(shallow(<Ul plainList />)).toMatchStyledComponentsSnapshot();
+    expect(shallow(<Ul plainList />)).toMatchSnapshot();
   });
 });

@@ -5,8 +5,9 @@ import cuid from 'cuid';
 import { isEqual } from 'lodash';
 import * as COLORS from 'shared/styles/colors';
 
-import VocabCard from 'components/VocabCard';
-import VocabChip from 'components/VocabChip';
+// FIXME: really? can we lift connect state and make these dumb components
+import VocabCard from 'containers/VocabCard';
+import VocabChip from 'containers/VocabChip';
 import { Ul } from './styles';
 
 class VocabList extends React.Component {

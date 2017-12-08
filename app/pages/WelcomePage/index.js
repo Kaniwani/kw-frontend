@@ -1,14 +1,18 @@
 import React from 'react';
 
 import loginBackground from 'shared/assets/img/login.svg';
-import MultiLogin from 'components/MultiLogin/Loadable';
+import MultiLogin from 'containers/MultiLogin/Loadable';
 import { Wrapper, Title, WelcomeBackgroundImg } from './styles';
 
 function WelcomePage() {
   return (
     <Wrapper fullWidth>
-      <Title>KaniWani</Title>
-      <MultiLogin />
+      <header>
+        <Title>KaniWani</Title>
+      </header>
+      <main>
+        <MultiLogin />
+      </main>
       <WelcomeBackgroundImg imgSrc={loginBackground} />
     </Wrapper>
   );
