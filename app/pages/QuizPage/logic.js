@@ -202,7 +202,6 @@ export const incorrectAnswerLogic = createLogic({
   latest: true,
   validate({ action }, allow, reject) {
     if (action.payload.category === 'lessons') {
-      console.log('no go');
       // no reason to downrank lessons
       reject();
     }
