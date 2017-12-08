@@ -8,6 +8,8 @@ import Ruby from 'base/Ruby';
 import KanjiStrokeLoader from 'components/KanjiStrokeLoader';
 import TagsList from 'components/TagsList';
 import PitchDiagram from 'components/PitchDiagram';
+import Element from 'base/Element';
+import { Kana } from 'components/Reading/styles';
 import { Li } from './styles';
 
 VocabEntryReading.propTypes = {
@@ -32,6 +34,11 @@ function VocabEntryReading({
   return (
     <Li>
       <Ruby character={character} reading={kana[0]} furi={furi} />
+      {kana.length > 1 && (
+        <Element>
+          <Kana>{kana.slice(1).join('・')}</Kana>
+        </Element>
+      )}
       <TagsList tags={tags} />
       <SentencePair
         sentenceEn={sentenceEn}

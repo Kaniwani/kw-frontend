@@ -9,10 +9,10 @@ export const Block = styled.div`
 `;
 
 export const Furi = styled.div`
-  font-size: .95em;
+  font-size: 0.95em;
   letter-spacing: -0.025em;
-  padding-bottom: .2em;
-  opacity: 0.9;
+  padding-bottom: 0.1em;
+  opacity: ${({ isVisible }) => (isVisible ? 0.8 : 0)};
 `;
 
 export const Chars = styled.div`

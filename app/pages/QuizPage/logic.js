@@ -50,8 +50,7 @@ export const setCurrentLogic = createLogic({
   type: [app.reviews.current.set, app.lessons.current.set],
   validate({ getState, action }, allow, reject) {
     const state = getState();
-    const category =
-      action.type === `${app.reviews.current.set}` ? 'reviews' : 'lessons';
+    const category = action.type === `${app.reviews.current.set}` ? 'reviews' : 'lessons';
     const current = selectCurrent(state);
     const queue = selectQueue(state, { category });
     const correct = selectSessionCorrectIds(state);
@@ -62,7 +61,7 @@ export const setCurrentLogic = createLogic({
     }
     if (!newId && current.id && !correct.includes(current.id)) {
       console.log('Current was the only remaining item:');
-      console.dir({
+      console.log({
         queue,
         current,
         newId,
@@ -150,11 +149,7 @@ export const checkAnswerLogic = createLogic({
   latest: true,
   process({ getState, action }, dispatch, done) {
     const { answerValue, current, previouslyIncorrect } = action.payload;
-    const {
-      autoAdvance,
-      autoExpandCorrect,
-      autoExpandIncorrect,
-    } = selectQuizSettings(getState());
+    const { autoAdvance, autoExpandCorrect, autoExpandIncorrect } = selectQuizSettings(getState());
     const matchedAnswer = findMatch(answerValue, current);
     const type = isKana(answerValue) ? 'kana' : 'kanji';
     const updatedAnswer = {

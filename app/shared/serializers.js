@@ -21,8 +21,7 @@ const serializeUpcomingReviews = (data = []) => {
   let extraDays = 0;
   const getFutureDayName = (daysAhead = 0) =>
     format(addDays(Date.now(), daysAhead), 'dddd');
-  const genDay = (hour) =>
-    hour === '12am' ? getFutureDayName((extraDays += 1)) : '';
+  const genDay = (hour) => (hour === '12am' ? getFutureDayName((extraDays += 1)) : '');
   const genHour = (index) => `${format(addHours(new Date(), index + 1), 'ha')}`;
 
   return data.reduce((list, value, index) => {
@@ -56,10 +55,7 @@ export const serializeQueueResponse = ({ results }) => {
 };
 
 export const serializeVocabularySearch = ({ results }) =>
-  results.reduce(
-    (list, { review }) => (review ? list.concat(review) : list),
-    []
-  );
+  results.reduce((list, { review }) => (review ? list.concat(review) : list), []);
 
 export const serializeLevelResponse = ({ id, results }) => {
   const reviews = serializeReviewEntries(results);
@@ -179,10 +175,7 @@ export function deserializeSettings({
     minimumSrsToReview: minimum_wk_srs_level_to_review,
     autoExpandCorrect: auto_expand_answer_on_success,
     autoExpandIncorrect: auto_expand_answer_on_failure,
-    autoAdvance: {
-      active: auto_advance_on_success,
-      speed: auto_advance_speed,
-    },
+    autoAdvance: { active: auto_advance_on_success, speed: auto_advance_speed },
   },
   vocabulary: {
     followMe: follow_me,
@@ -217,8 +210,8 @@ function serializeReading(reading) {
     character: reading.character,
     kana: toUniqueStringsArray(reading.kana),
     furi: reading.furigana || '',
-    pitch: reading.pitch != null ? reading.pitch.split(',').map(Number) : [],
-    // TODO: normalize parts of speech? then selector converts to full text
+    pitch: reading.pitch != null ? reading.pitch.split(',').map(Number) : [-1],
+    // TODO: normalize parts of speech to entities? then selector converts to full text
     tags: reading.parts_of_speech,
     sentenceEn: reading.sentence_en || '',
     sentenceJa: reading.sentence_ja || '',

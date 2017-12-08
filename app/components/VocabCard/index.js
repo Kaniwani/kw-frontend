@@ -4,12 +4,9 @@ import { connect } from 'react-redux';
 import { compose, shouldUpdate } from 'recompose';
 import cuid from 'cuid';
 
-import Ruby from 'base/Ruby';
+import { Character } from 'components/Reading/styles';
 
-import {
-  makeSelectReviewMeanings,
-  makeSelectReviewReadings,
-} from 'shared/selectors';
+import { makeSelectReviewMeanings, makeSelectReviewReadings } from 'shared/selectors';
 
 import * as COLORS from 'shared/styles/colors';
 import { Li, Link, Dl } from './styles';
@@ -35,12 +32,12 @@ function VocabCard({
       <Link plainLink to={`/vocabulary/entry/${id}`}>
         <Dl color={color}>
           <div className="reading">
-            {readings.map(({ character, kana, furi }) => ([
-              <Ruby key={cuid()} character={character} reading={kana[0]} furi={furi} />,
+            {readings.map(({ character }) => [
+              <Character>{character}</Character>,
               <div key={cuid()} className="separator" />,
-            ]))}
+            ])}
           </div>
-          <dd className="meaning">{meanings.join(', ')}</dd>
+          <dd className="meaning">{meanings[0]}</dd>
         </Dl>
       </Link>
     </Li>

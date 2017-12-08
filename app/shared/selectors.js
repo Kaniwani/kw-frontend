@@ -238,7 +238,7 @@ export const selectQueueNeeded = createDeepEqualSelector(
   [selectQueue, selectRemainingCount],
   (queue, remaining) => {
     const isQueueNeeded = queue.length < 10 && remaining > queue.length + 1;
-    console.dir({
+    console.log({
       queueLength: queue.length,
       queueLengthPlusOne: queue.length + 1,
       remaining,
