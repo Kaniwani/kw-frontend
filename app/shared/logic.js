@@ -1,12 +1,12 @@
-import { createLogic } from 'redux-logic';
-import { push, LOCATION_CHANGE } from 'react-router-redux';
-import { purgeStoredState } from 'redux-persist';
-import { uniq, difference } from 'lodash';
-import * as reduxFormActions from 'redux-form';
+import { createLogic } from "redux-logic";
+import { push, LOCATION_CHANGE } from "react-router-redux";
+import { purgeStoredState } from "redux-persist";
+import { uniq, difference } from "lodash";
+import * as reduxFormActions from "redux-form";
 
 // TODO: inject some of these in store.js as logic dependencies instead?
-import * as api from 'shared/api';
-import { setToken, clearToken } from 'utils/auth';
+import * as api from "shared/api";
+import { setToken, clearToken } from "utils/auth";
 
 import {
   serializeUserResponse,
@@ -18,19 +18,19 @@ import {
   serializeAnnouncementsResponse,
   serializeAddSynonymResponse,
   serializeVocabularySearch,
-} from 'shared/serializers';
+} from "shared/serializers";
 
-import { selectLevelsSubmitting } from 'pages/VocabLevelsPage/selectors';
+import { selectLevelsSubmitting } from "pages/VocabLevelsPage/selectors";
 
-import * as sel from './selectors';
-import app from './actions';
+import * as sel from "./selectors";
+import app from "./actions";
 
 const { startSubmit, stopSubmit, reset } = reduxFormActions;
 
 export const userRegisterLogic = createLogic({
   type: app.user.register.request,
   process({ action: { payload } }, dispatch, done) {
-    const form = 'multiLogin';
+    const form = "multiLogin";
     dispatch(startSubmit(form));
     api
       .registerUser(payload)
@@ -41,11 +41,13 @@ export const userRegisterLogic = createLogic({
       })
       .catch(({ body }) => {
         if (body) {
-          dispatch(stopSubmit(form, {
-            ...body,
-            apiKey: body.api_key,
-            _error: body.non_field_errors,
-          }));
+          dispatch(
+            stopSubmit(form, {
+              ...body,
+              apiKey: body.api_key,
+              _error: body.non_field_errors,
+            })
+          );
           dispatch(app.user.register.failure(body));
         }
         console.warn(`Register failure. Response body was: ${JSON.stringify(body)}`);
@@ -57,7 +59,7 @@ export const userRegisterLogic = createLogic({
 export const userLoginLogic = createLogic({
   type: app.user.login.request,
   process({ action: { payload } }, dispatch, done) {
-    const form = 'multiLogin';
+    const form = "multiLogin";
     dispatch(startSubmit(form));
     api
       .loginUser(payload)
@@ -81,7 +83,7 @@ export const loginRedirectLogic = createLogic({
   type: app.user.login.success,
   process({ action }, dispatch, done) {
     setToken(action.payload);
-    dispatch(push('/'));
+    dispatch(push("/"));
     done();
   },
 });
@@ -89,7 +91,7 @@ export const loginRedirectLogic = createLogic({
 export const userResetPasswordLogic = createLogic({
   type: app.user.resetPassword.request,
   process({ action: { payload } }, dispatch, done) {
-    const form = 'multiLogin';
+    const form = "multiLogin";
     dispatch(startSubmit(form));
     api
       .resetPassword(payload)
@@ -116,13 +118,13 @@ export const userLogoutLogic = createLogic({
     clearToken();
     purgeStoredState(persistConfig)
       .then(() => {
-        console.info('persisted KW state purged');
+        console.info("persisted KW state purged");
       })
       .catch((err) => {
-        console.warn('persisted KW state failed to purge: ', err);
+        console.warn("persisted KW state failed to purge: ", err);
       });
-    dispatch({ type: 'RESET' }); // redux-reset in app/store.js
-    dispatch(push('/welcome'));
+    dispatch({ type: "RESET" }); // redux-reset in app/store.js
+    dispatch(push("/welcome"));
     done();
   },
 });
@@ -150,10 +152,10 @@ export const loadQueuesIfNeededLogic = createLogic({
     const {
       reviewCount, lessonCount, reviewQueue, lessonQueue,
     } = {
-      reviewCount: sel.selectSessionCount(state, { category: 'reviews' }),
-      lessonCount: sel.selectSessionCount(state, { category: 'lessons' }),
-      reviewQueue: sel.selectQueue(state, { category: 'reviews' }),
-      lessonQueue: sel.selectQueue(state, { category: 'lessons' }),
+      reviewCount: sel.selectSessionCount(state, { category: "reviews" }),
+      lessonCount: sel.selectSessionCount(state, { category: "lessons" }),
+      reviewQueue: sel.selectQueue(state, { category: "reviews" }),
+      lessonQueue: sel.selectQueue(state, { category: "lessons" }),
     };
 
     const needReviewsQueue = reviewCount > 0 && reviewQueue.length <= 0;
@@ -261,8 +263,8 @@ export const levelUnlockLogic = createLogic({
   validate({ getState, action }, allow, reject) {
     const alreadySubmitting = selectLevelsSubmitting(getState()).length >= 1;
     if (alreadySubmitting) {
-      alert('Please unlock levels one at a time. Turtles get tired too.');
-      reject(/* TODO: app.notifications.alert */);
+      alert("Please unlock levels one at a time. Turtles get tired too.");
+      reject();
     } else {
       allow(action);
     }
@@ -291,7 +293,7 @@ export const reviewSearchLogic = createLogic({
   },
 
   process({ getState, action: { payload } }, dispatch, done) {
-    const form = 'searchBar';
+    const form = "searchBar";
     dispatch(startSubmit(form));
     return api.getVocabulary(payload).then(({ body }) => {
       const persistedReviews = sel.selectReviewEntities(getState());
@@ -302,22 +304,30 @@ export const reviewSearchLogic = createLogic({
       );
       const missingIds = difference(allIds, haveIds);
       // FIXME: filter out unviewable reviews, waiting on backend issue #344
-      dispatch(app.review.search.success({
-        ids: haveIds,
-        loading: true,
-        finished: false,
-      }));
-      Promise.all(missingIds.map((id) => api.getReviewEntry({ id }).then((res) => res.body))).then((missingReviews) => {
+      dispatch(
+        app.review.search.success({
+          ids: haveIds,
+          loading: true,
+          finished: false,
+        })
+      );
+      Promise.all(
+        missingIds.map((id) => api.getReviewEntry({ id }).then((res) => res.body))
+      ).then((missingReviews) => {
         dispatch(stopSubmit(form));
         dispatch(reset(form));
-        dispatch(app.reviews.update({
-          reviews: serializeReviewEntries(missingReviews),
-        }));
-        dispatch(app.review.search.success({
-          ids: allIds,
-          loading: false,
-          finished: true,
-        }));
+        dispatch(
+          app.reviews.update({
+            reviews: serializeReviewEntries(missingReviews),
+          })
+        );
+        dispatch(
+          app.review.search.success({
+            ids: allIds,
+            loading: false,
+            finished: true,
+          })
+        );
         done();
       });
     });
@@ -348,9 +358,7 @@ export const reviewLoadLogic = createLogic({
   },
 
   process({ action: { payload: { id } } }) {
-    return api
-      .getReviewEntry({ id })
-      .then(({ body }) => serializeReviewResponse(body));
+    return api.getReviewEntry({ id }).then(({ body }) => serializeReviewResponse(body));
   },
 });
 
@@ -408,7 +416,7 @@ export const addSynonymLogic = createLogic({
 
   process({ action: { payload: { reviewId, character, kana } } }) {
     return api
-      .addSynonym({ reviewId, character, kana })
+      .addReadingSynonym({ reviewId, character, kana })
       .then(({ body }) => serializeAddSynonymResponse(body));
   },
 });
@@ -423,7 +431,7 @@ export const removeSynonymLogic = createLogic({
   },
 
   process({ action: { payload: { id, reviewId } } }) {
-    return api.removeSynonym({ id }).then(() => ({ id, reviewId }));
+    return api.removeReadingSynonym({ id }).then(() => ({ id, reviewId }));
   },
 });
 
@@ -448,7 +456,7 @@ export const contactLogic = createLogic({
   warnTimeout: 10000,
 
   process({ action: { payload } }, dispatch, done) {
-    const form = 'contact';
+    const form = "contact";
     dispatch(startSubmit(form));
     api
       .sendContactMessage(payload)

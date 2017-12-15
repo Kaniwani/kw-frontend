@@ -1,25 +1,28 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { isKanji } from 'wanakana';
-import { isEqual, merge } from 'lodash';
+import React from "react";
+import PropTypes from "prop-types";
+import { isKanji } from "wanakana";
+import { isEqual, merge } from "lodash";
 
-import { greyLight, blackLight, purpleLight, purpleDark } from 'shared/styles/colors';
-import { rgba } from 'polished';
+import { greyLight, blackLight, purpleLight, purpleDark } from "shared/styles/colors";
+import { rgba } from "polished";
 
-import { Wrapper, Canvas, Controls, ControlButton } from './styles';
-import dmak from './dmak-0-3-1';
+import { Wrapper, Canvas, Controls, ControlButton } from "./styles";
+import dmak from "./dmak-0-3-1";
 
 class KanjiStroke extends React.Component {
   static propTypes = {
     character: PropTypes.string.isRequired,
     settings: PropTypes.object,
-  }
+  };
 
   static defaultProps = {
     settings: {
       autoplay: true,
+      step: 0.01,
+      stroke: { order: { visible: false } },
+      grid: { show: true },
     },
-  }
+  };
 
   state = {
     dmak: {},
@@ -31,18 +34,19 @@ class KanjiStroke extends React.Component {
       },
       grid: { attr: { stroke: greyLight } },
     },
-  }
+  };
 
   componentDidMount() {
-    const onlyKanjiChars = this.props.character.split('').filter(isKanji).join('');
+    const onlyKanjiChars = this.props.character
+      .split("")
+      .filter(isKanji)
+      .join("");
     this.instantiateSvg(
       onlyKanjiChars,
-      merge(
-        {},
-        this.state.config,
-        this.props.settings,
-        { element: this.drawRef, drew: (finished) => finished && this.setState({ playing: false }) },
-      )
+      merge({}, this.state.config, this.props.settings, {
+        element: this.drawRef,
+        drew: (finished) => finished && this.setState({ playing: false }),
+      })
     );
   }
 
@@ -53,19 +57,19 @@ class KanjiStroke extends React.Component {
   play = () => {
     this.state.dmak.render();
     this.setState({ playing: true });
-  }
+  };
   pause = () => {
     this.state.dmak.pause();
     this.setState({ playing: false });
-  }
+  };
   erase = () => {
     if (this.state.playing) {
       this.pause();
     }
     this.state.dmak.erase();
-  }
-  stepBack = () => this.state.dmak.eraseLastStrokes(1)
-  stepForward = () => this.state.dmak.renderNextStrokes(1)
+  };
+  stepBack = () => this.state.dmak.eraseLastStrokes(1);
+  stepForward = () => this.state.dmak.renderNextStrokes(1);
 
   instantiateSvg(char, config) {
     const dmakInstance = dmak(char, config);
@@ -75,15 +79,33 @@ class KanjiStroke extends React.Component {
   render() {
     return (
       <Wrapper>
-        <Canvas innerRef={(node) => { this.drawRef = node; }}></Canvas>
+        <Canvas
+          innerRef={(node) => {
+            this.drawRef = node;
+          }}
+        />
         <Controls>
-          <ControlButton name="RESTART" size="1.3em" title="Erase drawing" onClick={this.erase} />
-          <ControlButton name="SKIP_PREV" title="Step backwards" onClick={this.stepBack} />
-          { this.state.playing ?
-            <ControlButton name="PAUSE" title="Pause drawing" onClick={this.pause} /> :
+          <ControlButton
+            name="RESTART"
+            size="1.3em"
+            title="Erase drawing"
+            onClick={this.erase}
+          />
+          <ControlButton
+            name="SKIP_PREV"
+            title="Step backwards"
+            onClick={this.stepBack}
+          />
+          {this.state.playing ? (
+            <ControlButton name="PAUSE" title="Pause drawing" onClick={this.pause} />
+          ) : (
             <ControlButton name="PLAY" title="Play drawing" onClick={this.play} />
-          }
-          <ControlButton name="SKIP_NEXT" title="Step forwards" onClick={this.stepForward} />
+          )}
+          <ControlButton
+            name="SKIP_NEXT"
+            title="Step forwards"
+            onClick={this.stepForward}
+          />
         </Controls>
       </Wrapper>
     );

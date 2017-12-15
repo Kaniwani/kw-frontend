@@ -1,98 +1,118 @@
-import urljoin from 'url-join';
-import { get, put, post, patch, del } from 'utils/request';
-import { KW_API_BASE } from 'shared/constants';
+import urljoin from "url-join";
+import { get, put, post, patch, del } from "utils/request";
+import { KW_API_BASE } from "shared/constants";
 
 //-----------------------------------------------------------------------------
 //  AUTHORIZATION
 //-----------------------------------------------------------------------------
-const authUrl = urljoin(KW_API_BASE, 'auth');
-const userLoginUrl = urljoin(authUrl, 'login');
-const userCredentialsUrl = urljoin(authUrl, 'me'); // GET / PATCH
-const registerUrl = urljoin(authUrl, 'register'); // POST
-const activateUrl = urljoin(authUrl, 'activate'); // POST
-const usernameUrl = urljoin(authUrl, 'username'); // POST
-const passwordUrl = urljoin(authUrl, 'password'); // POST
-const resetPasswordUrl = urljoin(passwordUrl, 'reset'); // POST
+const authUrl = urljoin(KW_API_BASE, "auth");
+const userLoginUrl = urljoin(authUrl, "login");
+const userCredentialsUrl = urljoin(authUrl, "me"); // GET / PATCH
+const registerUrl = urljoin(authUrl, "register"); // POST
+const activateUrl = urljoin(authUrl, "activate"); // POST
+const usernameUrl = urljoin(authUrl, "username"); // POST
+const passwordUrl = urljoin(authUrl, "password"); // POST
+const resetPasswordUrl = urljoin(passwordUrl, "reset"); // POST
 const confirmPasswordUrl = (confirmToken) => urljoin(resetPasswordUrl, confirmToken); // POST
 
 //-----------------------------------------------------------------------------
 //  USER
 //-----------------------------------------------------------------------------
-const userUrl = urljoin(KW_API_BASE, 'user'); // GET all users (if admin, else 'me')
-const userProfileUrl = urljoin(userUrl, 'me'); // GET user profile
+const userUrl = urljoin(KW_API_BASE, "user"); // GET all users (if admin, else 'me')
+const userProfileUrl = urljoin(userUrl, "me"); // GET user profile
 // const userSrsUrl = urljoin(userUrl, 'srs'); // POST to get review count
-const userResetUrl = urljoin(userUrl, 'reset'); // POST to reset KW SRS progress
-const userSettingsUrl = (id) => urljoin(KW_API_BASE, 'profile', id); // PUT to partial update
+const userResetUrl = urljoin(userUrl, "reset"); // POST to reset KW SRS progress
+const userSettingsUrl = (id) => urljoin(KW_API_BASE, "profile", id); // PUT to partial update
 
 //-----------------------------------------------------------------------------
 //  REVIEWS
 //-----------------------------------------------------------------------------
-const reviewsUrl = urljoin(KW_API_BASE, 'review'); // GET all ready reviews
-const criticalReviewsUrl = urljoin(reviewsUrl, 'critical'); // GET critical
-const currentReviewsUrl = urljoin(reviewsUrl, 'current'); // GET current review queue
-const currentLessonsUrl = urljoin(reviewsUrl, 'lesson'); // GET current lesson queue
+const reviewsUrl = urljoin(KW_API_BASE, "review"); // GET all ready reviews
+const criticalReviewsUrl = urljoin(reviewsUrl, "critical"); // GET critical
+const currentReviewsUrl = urljoin(reviewsUrl, "current"); // GET current review queue
+const currentLessonsUrl = urljoin(reviewsUrl, "lesson"); // GET current lesson queue
 const reviewEntryUrl = (id) => urljoin(reviewsUrl, id); // GET single
-const reviewCorrectUrl = (id) => urljoin(reviewEntryUrl(id), 'correct'); // POST correct answer
-const reviewIncorrectUrl = (id) => urljoin(reviewEntryUrl(id), 'incorrect'); // POST incorrect answer
-const lockReviewUrl = (id) => urljoin(reviewEntryUrl(id), 'hide'); // POST
-const unlockReviewUrl = (id) => urljoin(reviewEntryUrl(id), 'unhide'); // POST
+const reviewCorrectUrl = (id) => urljoin(reviewEntryUrl(id), "correct"); // POST correct answer
+const reviewIncorrectUrl = (id) => urljoin(reviewEntryUrl(id), "incorrect"); // POST incorrect answer
+const lockReviewUrl = (id) => urljoin(reviewEntryUrl(id), "hide"); // POST
+const unlockReviewUrl = (id) => urljoin(reviewEntryUrl(id), "unhide"); // POST
 
 //-----------------------------------------------------------------------------
 //  SYNONYMS
 //-----------------------------------------------------------------------------
-const synonymUrl = urljoin(KW_API_BASE, 'synonym'); // POST add, GET get all
-const synonymEntryUrl = (id) => urljoin(synonymUrl, id); // DELETE remove, GET one
+const synonymUrl = urljoin(KW_API_BASE, "synonym");
+const readingSynonymUrl = urljoin(synonymUrl, "reading"); // POST add, GET get all
+const readingSynonymEntryUrl = (id) => urljoin(synonymUrl, id); // DELETE remove, GET one
+const meaningSynonymUrl = urljoin(synonymUrl, "meaning"); // POST add, GET get all
+const meaningSynonymEntryUrl = (id) => urljoin(synonymUrl, id); // DELETE remove, GET one
 
 //-----------------------------------------------------------------------------
 //  VOCABULARY
 //-----------------------------------------------------------------------------
-const vocabularyUrl = urljoin(KW_API_BASE, 'vocabulary'); // GET everything!
+const vocabularyUrl = urljoin(KW_API_BASE, "vocabulary"); // GET everything!
 const vocabularyEntryUrl = (id) => urljoin(vocabularyUrl, id); // GET one
-const readingUrl = urljoin(KW_API_BASE, 'reading'); // GET all
+const readingUrl = urljoin(KW_API_BASE, "reading"); // GET all
 const readingEntryUrl = (id) => urljoin(readingUrl, id); // GET one
-const levelsUrl = urljoin(KW_API_BASE, 'level'); // GET all
+const levelsUrl = urljoin(KW_API_BASE, "level"); // GET all
 const levelEntryUrl = (id) => urljoin(levelsUrl, id); // GET one
-const lockLevelUrl = (id) => urljoin(levelEntryUrl(id), 'lock'); // POST lock
-const unlockLevelUrl = (id) => urljoin(levelEntryUrl(id), 'unlock'); // POST unlock
+const lockLevelUrl = (id) => urljoin(levelEntryUrl(id), "lock"); // POST lock
+const unlockLevelUrl = (id) => urljoin(levelEntryUrl(id), "unlock"); // POST unlock
 
 //-----------------------------------------------------------------------------
 //  GENERAL
 //-----------------------------------------------------------------------------
-const faqUrl = urljoin(KW_API_BASE, 'faq'); // GET all, POST create
+const faqUrl = urljoin(KW_API_BASE, "faq"); // GET all, POST create
 const faqEntryUrl = (id) => urljoin(faqUrl, id); // GET, PUT update, PATCH partial update, DELETE
-const announcementUrl = urljoin(KW_API_BASE, 'announcement'); // GET all, POST create
+const announcementUrl = urljoin(KW_API_BASE, "announcement"); // GET all, POST create
 const announcementEntryUrl = (id) => urljoin(announcementUrl, id); // GET one, PUT update, PATCH  partial update, DELETE
-const contactUrl = urljoin(KW_API_BASE, 'contact');
+const contactUrl = urljoin(KW_API_BASE, "contact");
 
 //-----------------------------------------------------------------------------
 //  EXTERNAL
 //-----------------------------------------------------------------------------
-export const createWkApiUrl = (slug) => urljoin('https://www.wanikani.com/api/', slug); // V1
-export const createJishoApiUrl = (keyword) => `//jisho.org/api/v1/search/words?keyword=${keyword}`;
+export const createWkApiUrl = (slug) => urljoin("https://www.wanikani.com/api/", slug); // V1
+export const createJishoApiUrl = (keyword) =>
+  `//jisho.org/api/v1/search/words?keyword=${keyword}`;
 export const createJishoUrl = (keyword) => `//jisho.org/search/${keyword}`;
-export const createGooUrl = (keyword) => `http://dictionary.goo.ne.jp/srch/all/${encodeURIComponent(keyword)}/m0u/`;
-export const createWeblioUrl = (keyword) => `http://ejje.weblio.jp/content/${encodeURIComponent(keyword)}`;
-export const createForvoUrl = (keyword) => `http://forvo.com/search/${encodeURIComponent(keyword)}/`;
-export const createWkVocabUrl = (keyword) => `https://wanikani.com/vocabulary/${encodeURIComponent(keyword)}`;
-export const createEijiroUrl = (keyword, useEijiroPro) => `http://${useEijiroPro ? 'eowpf' : 'eow'}.alc.co.jp/search?q=${encodeURIComponent(keyword)}`;
+export const createGooUrl = (keyword) =>
+  `http://dictionary.goo.ne.jp/srch/all/${encodeURIComponent(keyword)}/m0u/`;
+export const createWeblioUrl = (keyword) =>
+  `http://ejje.weblio.jp/content/${encodeURIComponent(keyword)}`;
+export const createForvoUrl = (keyword) =>
+  `http://forvo.com/search/${encodeURIComponent(keyword)}/`;
+export const createWkVocabUrl = (keyword) =>
+  `https://wanikani.com/vocabulary/${encodeURIComponent(keyword)}`;
+export const createEijiroUrl = (keyword, useEijiroPro) =>
+  `http://${useEijiroPro ? "eowpf" : "eow"}.alc.co.jp/search?q=${encodeURIComponent(
+    keyword
+  )}`;
 
 //-----------------------------------------------------------------------------
 //  AUTHORIZATION
 //-----------------------------------------------------------------------------
-export const getUserAuth = ({ id, username, email } = {}) => get(userCredentialsUrl, { id, username, email });
-export const loginUser = ({ username, password } = {}) => post(userLoginUrl, { username, password });
-export const updateUserAuth = ({ id, username, email } = {}) => patch(userCredentialsUrl, { id, username, email });
+export const getUserAuth = ({ id, username, email } = {}) =>
+  get(userCredentialsUrl, { id, username, email });
+export const loginUser = ({ username, password } = {}) =>
+  post(userLoginUrl, { username, password });
+export const updateUserAuth = ({ id, username, email } = {}) =>
+  patch(userCredentialsUrl, { id, username, email });
 export const registerUser = ({
-  email = '', username = '', password = '', apiKey = '',
+  email = "",
+  username = "",
+  password = "",
+  apiKey = "",
 } = {}) =>
   post(registerUrl, {
-    email, username, password, api_key: apiKey,
+    email,
+    username,
+    password,
+    api_key: apiKey,
   });
 
 export const activateUser = ({ uid } = {}) => post(activateUrl, { uid });
 export const changeUsername = ({ username } = {}) => post(usernameUrl, { username });
 export const changePassword = ({ password } = {}) => post(passwordUrl, { password });
-export const resetPassword = ({ email = '' } = {}) => post(resetPasswordUrl, { email }); // send password reset email.
+export const resetPassword = ({ email = "" } = {}) => post(resetPasswordUrl, { email }); // send password reset email.
 export const confirmPassword = () => post(confirmPasswordUrl); // finish reset password process
 
 //-----------------------------------------------------------------------------
@@ -100,7 +120,8 @@ export const confirmPassword = () => post(confirmPasswordUrl); // finish reset p
 //-----------------------------------------------------------------------------
 export const getUsers = () => get(userUrl);
 export const getUserProfile = () => get(userProfileUrl);
-export const saveSettings = ({ id, settings }) => patch(userSettingsUrl(id), { id, ...settings });
+export const saveSettings = ({ id, settings }) =>
+  patch(userSettingsUrl(id), { id, ...settings });
 export const resetProgress = ({ level }) => post(userResetUrl, { level });
 
 //-----------------------------------------------------------------------------
@@ -114,9 +135,8 @@ export const getReviews = ({
   srsLevel,
   srsLevelLt,
   srsLevelGt,
-} = {}) => get(
-  reviewsUrl,
-  {
+} = {}) =>
+  get(reviewsUrl, {
     level: id,
     offset,
     limit,
@@ -124,12 +144,14 @@ export const getReviews = ({
     srs_level: srsLevel,
     srs_level_lt: srsLevelLt,
     srs_level_gt: srsLevelGt,
-  }
-);
+  });
 
-export const getCriticalReviews = ({ offset, limit } = {}) => get(criticalReviewsUrl, { offset, limit });
-export const getCurrentReviews = ({ offset, limit } = {}) => get(currentReviewsUrl, { offset, limit });
-export const getCurrentLessons = ({ offset, limit } = {}) => get(currentLessonsUrl, { offset, limit });
+export const getCriticalReviews = ({ offset, limit } = {}) =>
+  get(criticalReviewsUrl, { offset, limit });
+export const getCurrentReviews = ({ offset, limit } = {}) =>
+  get(currentReviewsUrl, { offset, limit });
+export const getCurrentLessons = ({ offset, limit } = {}) =>
+  get(currentLessonsUrl, { offset, limit });
 
 export const getReviewEntry = ({ id }) => get(reviewEntryUrl(id));
 export const recordReview = ({ id, isCorrect, previouslyIncorrect }) => {
@@ -138,7 +160,9 @@ export const recordReview = ({ id, isCorrect, previouslyIncorrect }) => {
     user_correct: isCorrect,
     wrong_before: previouslyIncorrect,
   };
-  return isCorrect ? post(reviewCorrectUrl(id), body) : post(reviewIncorrectUrl(id), body);
+  return isCorrect
+    ? post(reviewCorrectUrl(id), body)
+    : post(reviewIncorrectUrl(id), body);
 };
 
 export const lockReview = ({ id }) => post(lockReviewUrl(id));
@@ -148,11 +172,12 @@ export const saveReviewNotes = ({ id, notes }) => patch(reviewEntryUrl(id), { no
 //-----------------------------------------------------------------------------
 //  SYNONYMS
 //-----------------------------------------------------------------------------
-export const addSynonym = ({ reviewId, character, kana } = {}) => post(
-  synonymUrl,
-  { review: reviewId, character, kana },
-);
-export const removeSynonym = ({ id }) => del(synonymEntryUrl(id));
+export const addReadingSynonym = ({ reviewId, character, kana } = {}) =>
+  post(readingSynonymUrl, { review: reviewId, character, kana });
+export const addMeaningSynonym = ({ reviewId, character, kana } = {}) =>
+  post(meaningSynonymUrl, { review: reviewId, character, kana });
+export const removeReadingSynonym = ({ id }) => del(readingSynonymEntryUrl(id));
+export const removeMeaningSynonym = ({ id }) => del(meaningSynonymEntryUrl(id));
 
 //-----------------------------------------------------------------------------
 //  VOCABULARY
@@ -163,16 +188,14 @@ export const getVocabulary = ({
   limit,
   meaningContains,
   readingContains,
-} = {}) => get(
-  vocabularyUrl,
-  {
+} = {}) =>
+  get(vocabularyUrl, {
     level,
     offset,
     limit,
     meaning_contains: meaningContains,
     reading_contains: readingContains,
-  }
-);
+  });
 
 export const getLevels = () => get(levelsUrl);
 
@@ -194,7 +217,10 @@ export const updateFaq = ({ question, answer } = {}) => put(faqUrl, { question, 
 
 export const getAnnouncements = () => get(announcementUrl);
 export const getAnnouncement = ({ id }) => get(announcementEntryUrl(id));
-export const addAnnouncement = ({ title, body } = {}) => post(announcementUrl, { title, body });
-export const updateAnnouncement = ({ title, body } = {}) => put(announcementUrl, { title, body });
+export const addAnnouncement = ({ title, body } = {}) =>
+  post(announcementUrl, { title, body });
+export const updateAnnouncement = ({ title, body } = {}) =>
+  put(announcementUrl, { title, body });
 
-export const sendContactMessage = ({ name, email, body } = {}) => post(contactUrl, { name, email, body });
+export const sendContactMessage = ({ name, email, body } = {}) =>
+  post(contactUrl, { name, email, body });

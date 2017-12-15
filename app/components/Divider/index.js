@@ -1,18 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import * as COLORS from 'shared/styles/colors';
-import { StyledDivider } from './styles';
+import React from "react";
+import PropTypes from "prop-types";
+import { StyledDivider } from "./styles";
 
 Divider.propTypes = {
   fade: PropTypes.bool,
   fullWidth: PropTypes.bool,
-  color: PropTypes.oneOf(Object.keys(COLORS)),
+  color: PropTypes.string,
 };
 
 Divider.defaultProps = {
   fade: false,
   fullWidth: false,
-  color: 'grey',
+  color: "grey",
 };
 
 function Divider(props) {

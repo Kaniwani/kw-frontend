@@ -1,11 +1,13 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { resetButton } from 'shared/styles/utils';
-import { shadowBox } from 'shared/styles/shadows';
-import { blueLight, pink } from 'shared/styles/colors';
-import { fastEaseQuad } from 'shared/styles/animation';
+import { resetButton } from "shared/styles/utils";
+import { shadowBox } from "shared/styles/shadows";
+import { blueLight, pink } from "shared/styles/colors";
+import { fastEaseQuad } from "shared/styles/animation";
 
-const visibleMixin = ({ isVisible }) => isVisible && `
+const visibleMixin = ({ isVisible }) =>
+  isVisible &&
+  `
   transition: all ${fastEaseQuad};
   transform: scale(1);
 
@@ -14,21 +16,21 @@ const visibleMixin = ({ isVisible }) => isVisible && `
   }
 `;
 
-const scrollingMixin = ({ isScrolling }) => isScrolling && `
+const scrollingMixin = ({ isScrolling }) =>
+  isScrolling &&
+  `
   opacity: 1;
   background-color: ${pink};
 `;
 
 export const StyledButton = styled.button`
-  ${resetButton}
-  ${shadowBox}
-  position: fixed;
-  cursor: pointer;
-  bottom: .75rem;
-  right: .75rem;
+  ${resetButton} ${shadowBox} position: fixed;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  bottom: 0.75rem;
+  right: 0.75rem;
   border-radius: 100%;
   background-color: ${blueLight};
-  opacity: .8;
+  opacity: 0.8;
   transform: scale(0);
   transition: all ${fastEaseQuad};
   z-index: 10;
@@ -36,6 +38,5 @@ export const StyledButton = styled.button`
     opacity: 1;
     background-color: ${pink};
   }
-  ${visibleMixin}
-  ${scrollingMixin}
+  ${visibleMixin} ${scrollingMixin};
 `;

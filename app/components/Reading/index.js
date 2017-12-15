@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import { Wrapper, Character, Kana } from './styles';
+import { Wrapper, Character, Kana } from "./styles";
 
 Reading.propTypes = {
   character: PropTypes.string,
@@ -10,15 +10,16 @@ Reading.propTypes = {
 };
 
 Reading.defaultProps = {
-  character: '',
+  character: "",
   kana: [],
   detailLevel: 2,
 };
 
+// FIXME: showKana bool instead of detailLevel
 function Reading({ character, kana, detailLevel }) {
   return (
     <Wrapper>
-      {detailLevel >= 1 && <Kana>{kana.join('・')}</Kana>}
+      {detailLevel >= 1 && <Kana>{kana.join("・")}</Kana>}
       <Character>{character}</Character>
     </Wrapper>
   );

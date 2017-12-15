@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import { Li, Link, LinkButton, Text, Count } from './styles';
+import { Li, Link, LinkButton, Text, Count } from "./styles";
 
 NavLink.propTypes = {
   text: PropTypes.string.isRequired,
@@ -15,7 +15,7 @@ NavLink.propTypes = {
 NavLink.defaultProps = {
   count: 0,
   isOffCanvas: false,
-  handleLogout: () => {},
+  handleLogout: null,
   disabled: false,
 };
 
@@ -26,9 +26,9 @@ function NavLink({
     <Li
       isOffCanvas={isOffCanvas}
       disabled={disabled}
-      title={disabled ? 'On Vacation!' : ''}
+      title={disabled ? "On Vacation!" : ""}
     >
-      {text === 'logout' ? (
+      {text === "logout" ? (
         <LinkButton onClick={handleLogout}>
           <Text>{text}</Text>
         </LinkButton>

@@ -1,11 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Motion, spring } from 'react-motion';
-import { pure } from 'recompose';
+import React from "react";
+import PropTypes from "prop-types";
+import { Motion, spring } from "react-motion";
 
-import * as COLORS from 'shared/styles/colors';
+import * as COLORS from "shared/styles/colors";
 
-import { Wrapper, Background, Text, Bar } from './styles';
+import { Wrapper, Background, Text, Bar } from "./styles";
 
 AccuracyBar.propTypes = {
   percent: PropTypes.number,
@@ -14,17 +13,21 @@ AccuracyBar.propTypes = {
 
 AccuracyBar.defaultProps = {
   percent: 0,
-  color: 'purple',
+  color: "purple",
 };
 
 function AccuracyBar({ percent, color }) {
   return (
     <Wrapper>
       <Background bgColor={color}>
-        <Text percent={percent} textShadowColor={color}>{percent}% Accuracy</Text>
+        <Text percent={percent} textShadowColor={color}>
+          {percent}% Accuracy
+        </Text>
         <Motion defaultStyle={{ percentX: 0 }} style={{ percentX: spring(percent) }}>
           {({ percentX }) => (
-            <Bar style={{ backgroundColor: COLORS[color], width: `${percentX}%` }} />
+            <Bar
+              style={{ backgroundColor: COLORS[color] || color, width: `${percentX}%` }}
+            />
           )}
         </Motion>
       </Background>
@@ -32,4 +35,4 @@ function AccuracyBar({ percent, color }) {
   );
 }
 
-export default pure(AccuracyBar);
+export default AccuracyBar;

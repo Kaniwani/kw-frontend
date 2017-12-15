@@ -1,12 +1,12 @@
 /* eslint-disable camelcase */
-import { SRS_RANKS } from 'shared/constants';
-import condenseReadings from 'utils/condenseReadings';
-import dateOrFalse from 'utils/dateOrFalse';
-import format from 'date-fns/format';
-import addHours from 'date-fns/add_hours';
-import addDays from 'date-fns/add_days';
+import { SRS_RANKS } from "shared/constants";
+import condenseReadings from "utils/condenseReadings";
+import dateOrFalse from "utils/dateOrFalse";
+import format from "date-fns/format";
+import addHours from "date-fns/add_hours";
+import addDays from "date-fns/add_days";
 
-import toUniqueStringsArray from 'utils/toUniqueStringsArray';
+import toUniqueStringsArray from "utils/toUniqueStringsArray";
 
 /* eslint-disable no-return-assign, no-sequences, no-param-reassign */
 const createHashMap = (data) =>
@@ -20,9 +20,9 @@ const formatSrsCounts = (obj) =>
 const serializeUpcomingReviews = (data = []) => {
   let extraDays = 0;
   const getFutureDayName = (daysAhead = 0) =>
-    format(addDays(Date.now(), daysAhead), 'dddd');
-  const genDay = (hour) => (hour === '12am' ? getFutureDayName((extraDays += 1)) : '');
-  const genHour = (index) => `${format(addHours(new Date(), index + 1), 'ha')}`;
+    format(addDays(Date.now(), daysAhead), "dddd");
+  const genDay = (hour) => (hour === "12am" ? getFutureDayName((extraDays += 1)) : "");
+  const genHour = (index) => `${format(addHours(new Date(), index + 1), "ha")}`;
 
   return data.reduce((list, value, index) => {
     const hour = genHour(index);
@@ -209,12 +209,12 @@ function serializeReading(reading) {
     isCommon: !!reading.common,
     character: reading.character,
     kana: toUniqueStringsArray(reading.kana),
-    furi: reading.furigana || '',
-    pitch: reading.pitch != null ? reading.pitch.split(',').map(Number) : [-1],
+    furi: reading.furigana || "",
+    pitch: reading.pitch != null ? reading.pitch.split(",").map(Number) : [-1],
     // TODO: normalize parts of speech to entities? then selector converts to full text
     tags: reading.parts_of_speech,
-    sentenceEn: reading.sentence_en || '',
-    sentenceJa: reading.sentence_ja || '',
+    sentenceEn: reading.sentence_en || "",
+    sentenceJa: reading.sentence_ja || "",
   };
 }
 
@@ -226,6 +226,7 @@ function serializeVocabularyEntry({ id, meaning, readings } = {}) {
   };
 }
 
+// FIXME: there are now reading and meaning synonyms
 function serializeSynonym({
   id, review, character, kana,
 }) {
@@ -237,19 +238,27 @@ function serializeSynonym({
   };
 }
 
+// FIXME: there are now reading and meaning synonyms
 function serializeSynonyms(synonyms = []) {
   return synonyms.map(serializeSynonym);
 }
 
 function serializeStubbedReviewEntry({
-  id, correct, incorrect, streak, notes, vocabulary, answer_synonyms,
+  id,
+  correct,
+  incorrect,
+  streak,
+  notes,
+  vocabulary,
+  answer_synonyms,
 } = {}) {
   return {
     id: +id,
     correct: +correct,
     incorrect: +incorrect,
     streak: +streak,
-    notes: notes == null ? '' : notes,
+    notes: notes == null ? "" : notes,
+    // FIXME: there are now reading and meaning synonyms
     synonyms: serializeSynonyms(answer_synonyms),
     vocabulary: serializeVocabularyEntry(vocabulary),
   };

@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { compose, branch, renderNothing, shouldUpdate, mapProps } from 'recompose';
-import ReactInterval from 'react-interval';
+import React from "react";
+import PropTypes from "prop-types";
+import { compose, branch, renderNothing, shouldUpdate, mapProps } from "recompose";
+import ReactInterval from "react-interval";
 
-import shouldUpdateDeepEqual from 'utils/shouldUpdateDeepEqual';
-import dateOrFalse from 'utils/dateOrFalse';
-import getReviewStatusText from 'utils/getReviewStatusText';
-import H3 from 'base/H3';
-import Element from 'base/Element';
+import shouldUpdateDeepEqual from "utils/shouldUpdateDeepEqual";
+import dateOrFalse from "utils/dateOrFalse";
+import getReviewStatusText from "utils/getReviewStatusText";
+import H3 from "base/H3";
+import Element from "base/Element";
 
 ReviewStatus.propTypes = {
   reviewsCount: PropTypes.number.isRequired,
@@ -25,11 +25,14 @@ function ReviewStatus({ reviewsCount, vacationDate, nextReviewDate }) {
   return (
     <Element flexRow flexCenter>
       <H3>{getReviewStatusText({ reviewsCount, vacationDate, nextReviewDate })}</H3>
+      {/* FIXME: uhhh... this will always be the same if there has been no server call for updated dates.... */}
+      {/* TODO: Interval should be in parent container and pass changed props TO this component... */}
       <ReactInterval
         enabled
         timeout={5000}
         callback={() =>
-          getReviewStatusText({ reviewsCount, vacationDate, nextReviewDate })}
+          getReviewStatusText({ reviewsCount, vacationDate, nextReviewDate })
+        }
       />
     </Element>
   );

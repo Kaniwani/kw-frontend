@@ -1,23 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { pure } from 'recompose';
+import React from "react";
+import PropTypes from "prop-types";
 
-import { ToggleButton } from './styles';
+import { ToggleButton } from "./styles";
 
 ToggleVocabListButton.propTypes = {
   cardsExpanded: PropTypes.bool.isRequired,
-  toggleCardsExpanded: PropTypes.func.isRequired,
+  onToggle: PropTypes.func.isRequired,
 };
 
-function ToggleVocabListButton({ cardsExpanded, toggleCardsExpanded }) {
-  return (
-    <ToggleButton
-      name={cardsExpanded ? 'CONTRACT_ALL' : 'EXPAND_ALL'}
-      title={cardsExpanded ? 'Shrink card size' : 'Enlarge card size'}
-      size="2em"
-      onClick={toggleCardsExpanded}
-    />
-  );
+// FIXME: use state if no onToggle, set isControlled?
+
+function ToggleVocabListButton({ cardsExpanded, onToggle }) {
+  const name = cardsExpanded ? "CONTRACT_ALL" : "EXPAND_ALL";
+  const title = `${cardsExpanded ? "Shrink" : "Enlarge"} card size`;
+  return <ToggleButton name={name} title={title} size="2em" onClick={onToggle} />;
 }
 
-export default pure(ToggleVocabListButton);
+export default ToggleVocabListButton;

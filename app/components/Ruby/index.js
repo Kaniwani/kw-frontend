@@ -1,22 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import uuid from 'uuid';
-import { pure } from 'recompose';
+import React from "react";
+import PropTypes from "prop-types";
+import uuid from "uuid";
 
-import Container from 'base/Container';
-import { combineFuri } from './utils';
+import Container from "base/Container";
+import { combineFuri } from "./utils";
 
-import { Block, Furi, Chars } from './styles';
+import { Block, Furi, Chars } from "./styles";
 
 Ruby.propTypes = {
   character: PropTypes.string.isRequired,
-  reading: PropTypes.string.isRequired,
+  reading: PropTypes.string,
   furi: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
   showFuri: PropTypes.bool,
 };
 
 Ruby.defaultProps = {
-  furi: '',
+  reading: "",
+  furi: "",
   showFuri: true,
 };
 
@@ -37,4 +37,4 @@ function Ruby({
   );
 }
 
-export default pure(Ruby);
+export default Ruby;

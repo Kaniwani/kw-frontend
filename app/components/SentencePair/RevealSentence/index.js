@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import { Wrapper, Sentence, RevealIcon } from './styles';
+import { Sentence, RevealIcon } from "./styles";
 
 RevealSentence.propTypes = {
   sentence: PropTypes.string.isRequired,
@@ -9,10 +9,12 @@ RevealSentence.propTypes = {
 
 function RevealSentence({ sentence }) {
   return (
-    <Wrapper tabIndex="0">
-      <Sentence>{sentence}</Sentence>
-      <RevealIcon name="EYE" />
-    </Wrapper>
+    <div>
+      <Sentence tabIndex="0">
+        {sentence}
+        <RevealIcon name="EYE" />
+      </Sentence>
+    </div>
   );
 }
 

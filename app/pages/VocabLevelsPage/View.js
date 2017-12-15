@@ -1,17 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import { Helmet } from 'react-helmet';
-import PageWrapper from 'base/PageWrapper';
-import VocabPageHeader from 'components/VocabPageHeader';
-import VocabLevelsList from './VocabLevelsList';
+import { Helmet } from "react-helmet";
+import PageWrapper from "base/PageWrapper";
+import VocabPageHeader from "containers/VocabPageHeader";
+import VocabLevelsList from "./VocabLevelsList";
 
 View.propTypes = {
   levelIds: PropTypes.array.isRequired,
 };
 
 function View({ levelIds }) {
-  const PAGE_TITLE = 'Vocabulary: Levels';
+  const PAGE_TITLE = "Vocabulary: Levels";
   return (
     <div>
       <Helmet>

@@ -1,14 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { Helmet } from "react-helmet";
 
-import { titleCase } from 'voca';
+import { titleCase } from "voca";
 
-import QuizSummaryHeader from 'containers/QuizSummaryHeader';
-import QuizSummaryContent from 'components/QuizSummaryContent';
+import QuizSummaryHeader from "containers/QuizSummaryHeader";
+import QuizSummaryContent from "containers/QuizSummaryContent";
 
-import app from 'shared/actions';
+import app from "shared/actions";
 
 import {
   selectCategoryFromMatch,
@@ -19,7 +19,7 @@ import {
   selectSummaryCriticalIds,
   selectSummaryPercentCorrect,
   selectLastActivityDate,
-} from 'shared/selectors';
+} from "shared/selectors";
 
 QuizSummaryPage.propTypes = {
   category: PropTypes.string.isRequired,
@@ -30,7 +30,10 @@ QuizSummaryPage.propTypes = {
   incorrectIds: PropTypes.array.isRequired,
   criticalIds: PropTypes.array.isRequired,
   percentCorrect: PropTypes.number.isRequired,
-  lastActivityDate: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.oneOf([false])]).isRequired,
+  lastActivityDate: PropTypes.oneOfType([
+    PropTypes.instanceOf(Date),
+    PropTypes.oneOf([false]),
+  ]).isRequired,
 };
 
 function QuizSummaryPage({ category, ...props }) {

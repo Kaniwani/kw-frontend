@@ -1,15 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
-import { withRouter } from 'react-router-dom';
-import styled from 'styled-components';
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { Helmet } from "react-helmet";
+import { withRouter } from "react-router-dom";
+import styled from "styled-components";
 
-import { app } from 'shared/actions';
-import { hasToken } from 'utils/auth';
-import ReactTooltip from 'react-tooltip';
-import ScrollToTop from 'components/ScrollToTop';
-import Routing from 'containers/Routing';
+import { app } from "shared/actions";
+import { hasToken } from "utils/auth";
+import ReactTooltip from "react-tooltip";
+import ErrorBoundary from "components/ErrorBoundary";
+import ScrollToTop from "components/ScrollToTop";
+import Routing from "containers/Routing";
 
 const Page = styled.div`
   display: flex;
@@ -33,7 +34,7 @@ class App extends React.Component {
 
   componentDidMount() {
     // dashboard refreshes user every mount anyway, so skip if we're at root path
-    if (hasToken() && this.props.location.pathname !== '/') {
+    if (hasToken() && this.props.location.pathname !== "/") {
       this.props.loadUser();
     }
   }
@@ -54,9 +55,11 @@ class App extends React.Component {
             content="KaniWani - An English to Japanese SRS Quiz App"
           />
         </Helmet>
-        <Routing loggedIn={hasToken()} />
-        <ReactTooltip id="globalTooltip" />
-        <ScrollToTop />
+        <ErrorBoundary>
+          <Routing loggedIn={hasToken()} />
+          <ReactTooltip id="globalTooltip" />
+          <ScrollToTop />
+        </ErrorBoundary>
       </Page>
     );
   }

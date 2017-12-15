@@ -22,11 +22,11 @@
     "build:clean": "rimraf ./build",
     "build:dll": "node ./internals/scripts/dependencies.js",
     "build": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js --color -p --progress --hide-modules",
-    "cosmos": "cross-env NODE_ENV=development cosmos",
+    "cosmos": "cosmos",
     "coverage:view": "opn coverage/lcov-report/index.html",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "cz": "git-cz",
-    "format": "prettier-eslint --write",
+    "format": "prettier-eslint --write --ignore '**/styles.js'",
     "generate": "plop --plopfile internals/generators/index.js",
     "lint": "eslint --ignore-path .gitignore --ignore-pattern internals/scripts --ignore-pattern .storybook",
     "postinstall": "npm run build:dll",
@@ -71,7 +71,7 @@
     "collectCoverageFrom": [
       "app/**/*.{js}",
       "!app/**/*.test.{js}",
-      "!app/**/*.stories.{js}",
+      "!app/**/__fixtures__/",
       "!app/**/styles.js",
       "!app/shared/styles/**.js",
       "!app/app.js",
@@ -97,11 +97,10 @@
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ],
-    "setupTestFrameworkScriptFile": "<rootDir>/internals/testing/test-bundler.js",
     "setupFiles": [
-      "<rootDir>/internals/testing/enzyme-setup.js"
+      "<rootDir>/internals/testing/setupTests.js"
     ],
-    "testRegex": "tests/.*\\.test\\.js$"
+    "testRegex": "__tests__/.*\\.test\\.js$"
   },
   "dependencies": {
     "add-asset-html-webpack-plugin": "2.1.2",
@@ -199,9 +198,13 @@
     "plop": "1.9.0",
     "prettier-eslint-cli": "4.4.2",
     "prop-types": "15.6.0",
+    "raf": "3.4.0",
+    "react-cosmos": "3.1.0",
+    "react-cosmos-fetch-proxy": "3.1.0",
+    "react-cosmos-localstorage-proxy": "3.1.0",
     "react-cosmos-redux-proxy": "3.1.0",
     "react-cosmos-router-proxy": "3.1.0",
-    "react-cosmos-webpack": "3.0.0-beta.3",
+    "react-cosmos-wrapper-proxy": "1.1.1",
     "redux-freeze": "0.1.5",
     "redux-logic-test": "1.0.5",
     "rimraf": "2.6.2",

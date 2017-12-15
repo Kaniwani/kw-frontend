@@ -1,13 +1,11 @@
-import styled from 'styled-components';
-import { transparentize } from 'polished';
+import styled from "styled-components";
+import { transparentize } from "polished";
 
-import { white, grey } from 'shared/styles/colors';
-import { delta } from 'shared/styles/typography';
-import { gutter } from 'shared/styles/layout';
+import { white, grey } from "shared/styles/colors";
+import { delta } from "shared/styles/typography";
 
 export const Heading = styled.h3`
-  ${delta}
-  margin: 0 0 1.25em;
+  ${delta} margin: 0 0 1.25em;
   color: ${transparentize(0.1, grey)};
   font-weight: 400;
   line-height: 1.15;
@@ -17,16 +15,16 @@ export const Heading = styled.h3`
 export const Text = styled.span`
   display: inline-block;
   position: relative;
-  top: .5em;
-  margin-left: .5em;
-  padding: 0 .25em;
-  background-color: white;
+  top: 0.5em;
+  margin-left: 0.5em;
+  padding: 0 0.25em;
+  background-color: ${({ bgColor }) => bgColor};
 `;
 
 export const Count = styled.strong`
   font-size: 0.9em;
-  margin-right: .3em;
-  padding: .1em .4em .15em;
+  margin-right: 0.3em;
+  padding: 0.1em 0.4em 0.15em;
   color: ${white};
   background-color: ${transparentize(0.1, grey)};
   border-radius: 2px;
