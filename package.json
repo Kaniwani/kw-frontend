@@ -215,7 +215,8 @@
     "warning": "3.0.0",
     "webpack": "3.10.0",
     "webpack-dev-middleware": "1.12.2",
-    "webpack-hot-middleware": "2.21.0"
+    "webpack-hot-middleware": "2.21.0",
+    "why-did-you-update": "0.1.0"
   },
   "config": {
     "commitizen": {

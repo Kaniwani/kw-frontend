@@ -6,7 +6,7 @@ import { ConnectedRouter } from "react-router-redux";
 import createHistory from "history/createBrowserHistory";
 import "sanitize.css/sanitize.css";
 
-import { IS_PROD_ENV } from "shared/constants";
+import { IS_DEV_ENV, IS_PROD_ENV } from "shared/constants";
 import { PersistGate } from "redux-persist/lib/integration/react";
 import App from "containers/App";
 
@@ -64,4 +64,30 @@ render();
 // we do not want it installed
 if (IS_PROD_ENV) {
   require("offline-plugin/runtime").install(); // eslint-disable-line global-require
+}
+
+// From the console:
+// To enable temporarily: Why()
+// To enable until disabled (even after refresh): Why(true)
+// To disable: Why(false)
+
+if (IS_DEV_ENV) {
+  window.Why = Why;
+  if (window.localStorage.getItem("why-did-you-update")) Why();
+}
+
+/* eslint-disable */
+function Why(enabled) {
+  if (enabled) {
+    console.debug("why-did-you-update always");
+    window.localStorage.setItem("why-did-you-update", true);
+  } else if (enabled === false) {
+    console.debug("why-did-you-update never");
+    window.localStorage.removeItem("why-did-you-update");
+    React.__WHY_DID_YOU_UPDATE_RESTORE_FN__ && React.__WHY_DID_YOU_UPDATE_RESTORE_FN__();
+    return;
+  }
+  console.debug("why-did-you-update enabled");
+  const { whyDidYouUpdate } = require("why-did-you-update"); // eslint-disable-line global-require
+  whyDidYouUpdate(React);
 }
