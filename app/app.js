@@ -1,4 +1,4 @@
-// Import all the third party stuff
+/* eslint-disable global-require */
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
@@ -7,7 +7,7 @@ import createHistory from "history/createBrowserHistory";
 import "sanitize.css/sanitize.css";
 
 import { IS_DEV_ENV, IS_PROD_ENV } from "shared/constants";
-import { PersistGate } from "redux-persist/lib/integration/react";
+// import { PersistGate } from "redux-persist/lib/integration/react";
 import App from "containers/App";
 
 // Import default LoadingComponent provider and LoadingIndicator that will be used as a loading component
@@ -29,19 +29,19 @@ import configureStore from "./store";
 // Create redux store with history
 const initialState = {};
 const history = createHistory();
-const { persistor, store } = configureStore(initialState, history);
+const { /* persistor, */ store } = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById("app");
 
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <DefaultLoadingComponentProvider component={null}>
-          <ConnectedRouter history={history}>
-            <App />
-          </ConnectedRouter>
-        </DefaultLoadingComponentProvider>
-      </PersistGate>
+      {/* <PersistGate persistor={persistor}> */}
+      <DefaultLoadingComponentProvider component={null}>
+        <ConnectedRouter history={history}>
+          <App />
+        </ConnectedRouter>
+      </DefaultLoadingComponentProvider>
+      {/* </PersistGate> */}
     </Provider>,
     MOUNT_NODE
   );
@@ -63,15 +63,14 @@ render();
 // it's not most important operation and if main code fails,
 // we do not want it installed
 if (IS_PROD_ENV) {
-  require("offline-plugin/runtime").install(); // eslint-disable-line global-require
+  require("offline-plugin/runtime").install();
 }
 
-// From the console:
-// To enable temporarily: Why()
-// To enable until disabled (even after refresh): Why(true)
-// To disable: Why(false)
-
 if (IS_DEV_ENV) {
+  // From the console:
+  // To enable temporarily: Why()
+  // To enable until disabled (even after refresh): Why(true)
+  // To disable: Why(false)
   window.Why = Why;
   if (window.localStorage.getItem("why-did-you-update")) Why();
 }
@@ -88,6 +87,6 @@ function Why(enabled) {
     return;
   }
   console.debug("why-did-you-update enabled");
-  const { whyDidYouUpdate } = require("why-did-you-update"); // eslint-disable-line global-require
+  const { whyDidYouUpdate } = require("why-did-you-update");
   whyDidYouUpdate(React);
 }

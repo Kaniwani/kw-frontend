@@ -2,8 +2,9 @@ import { createLogic } from "redux-logic";
 import { push, LOCATION_CHANGE } from "react-router-redux";
 import { uniq, difference } from "lodash";
 import * as reduxFormActions from "redux-form";
+// import { purgeStoredState } from "redux-persist";
 
-// TODO: inject some of these in store.js as logic dependencies instead?
+// TODO: can inject some of these in store.js as logic dependencies instead to be accessed in any logic file
 import * as api from "shared/api";
 import { setToken, clearToken } from "utils/auth";
 

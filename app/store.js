@@ -54,7 +54,7 @@ export default function configureStore(initialState = {}, history) {
     composeEnhancers(...enhancers)
   );
 
-  const persistor = persistStore(store);
+  //  const persistor = persistStore(store);
 
   // NOTE: quick way to clear local storage when testing
   // if (IS_DEV_ENV) {
@@ -75,5 +75,5 @@ export default function configureStore(initialState = {}, history) {
     });
   }
 
-  return { persistor, store };
+  return { /* persistor , */ store };
 }
