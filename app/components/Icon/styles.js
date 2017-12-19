@@ -1,11 +1,12 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { transparent } from 'shared/styles/colors';
+import { spin } from 'shared/styles/animation';
 
 export const SVGWrapper = styled.span`
-  ${({ inline }) => inline ? `
+  ${({ inline }) => inline ? css`
     display: inline-block;
     vertical-align: middle;
-  ` : `
+  ` : css`
     display: block;
     align-self: center;
   `}
@@ -15,6 +16,8 @@ export const SVGWrapper = styled.span`
   background-repeat: no-repeat;
   background-color: ${transparent};
   color: ${({ color }) => color};
+  flex-shrink: 0;
+  ${({ isRotating }) => isRotating && `animation: ${spin} 1.5s linear infinite;`}
 `;
 
 export const SVG = styled.svg`

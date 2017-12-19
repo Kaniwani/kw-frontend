@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { gutter } from 'shared/styles/layout';
 import { white } from 'shared/styles/colors';
-import BackgroundImg from 'components/BackgroundImg';
+import BackgroundImg from 'base/BackgroundImg';
 // match review background image svg color
 export const backgroundImageColor = '#e5e5e5';
 

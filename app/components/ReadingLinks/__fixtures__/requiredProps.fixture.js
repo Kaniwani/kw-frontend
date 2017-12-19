@@ -3,7 +3,7 @@ import ReadingLinks from "components/ReadingLinks";
 export default {
   component: ReadingLinks,
   props: {
-    character: "カボチャ",
+    word: "カボチャ",
     useEijiroPro: false,
   },
 };

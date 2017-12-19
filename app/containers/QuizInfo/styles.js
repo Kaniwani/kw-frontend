@@ -3,7 +3,7 @@ import { rgba } from 'polished';
 
 // FIXME: apply these nested styles in their newly extracted QuizInfo components
 import { Ul as ReadingsUl, Li, ReadingContent } from 'containers/QuizInfoReadings/styles';
-import { Wrapper as StrokeLoader } from 'containers/KanjiStrokeLoader/styles';
+import { Wrapper as StrokeLoader } from 'components/StrokeLoader/styles';
 import {
   Wrapper as SynonymsWrapper,
   Ul as Synonyms,

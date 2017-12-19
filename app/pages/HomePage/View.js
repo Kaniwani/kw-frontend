@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import cuid from 'cuid';
 
 import Container from 'base/Container';
 import Element from 'base/Element';
 import H2 from 'base/H2';
-import Ul from 'base/Ul';
 import SrsChart from 'components/SrsChart';
 import UpcomingReviewsChart from 'components/UpcomingReviewsChart';
-import Announcement from 'containers/Announcement';
+import AnnouncementList from 'components/AnnouncementList';
 
 import PageWrapper from 'base/PageWrapper';
 import ReviewStatus from 'components/ReviewStatus';
@@ -47,9 +45,7 @@ function View({ profile, announcements }) {
         <Element flexRow flexCenter>
           <H2>News & Updates</H2>
         </Element>
-        <Ul plainList>
-          {announcements.map((item) => <Announcement key={cuid()} {...item} />)}
-        </Ul>
+        <AnnouncementList items={announcements} />
       </Container>
     </PageWrapper>
   );

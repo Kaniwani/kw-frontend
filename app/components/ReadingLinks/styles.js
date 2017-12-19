@@ -15,6 +15,5 @@ export const VocabLink = styled(A)`
   ${gutter()}
   display: block;
   font-size: 0.9em;
-  margin: 0 .2em;
   text-decoration: underline;
 `;

@@ -5,12 +5,13 @@ import IconButton from 'components/IconButton';
 import { gutter } from 'shared/styles/layout';
 
 export const Wrapper = styled.div`
-  display: flex;
+  display: inline-flex;
   flex-flow: column nowrap;
   align-items: center;
 `;
 
 export const Canvas = styled.div`
+  ${gutter()}
   min-height: 200px;
   display: flex;
   flex-flow: row wrap;
@@ -19,7 +20,7 @@ export const Canvas = styled.div`
 `;
 
 export const Controls = styled.div`
-  ${gutter()}
+  ${gutter({ position: 'bottom' })}
   display: flex;
   justify-content: center;
 `;

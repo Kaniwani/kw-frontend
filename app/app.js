@@ -9,6 +9,7 @@ import "sanitize.css/sanitize.css";
 import { IS_DEV_ENV, IS_PROD_ENV } from "shared/constants";
 // import { PersistGate } from "redux-persist/lib/integration/react";
 import App from "containers/App";
+import Spinner from "base/Spinner";
 
 // Import default LoadingComponent provider and LoadingIndicator that will be used as a loading component
 import DefaultLoadingComponentProvider from "routing/DefaultLoadingComponentProvider";
@@ -36,7 +37,7 @@ const render = () => {
   ReactDOM.render(
     <Provider store={store}>
       {/* <PersistGate persistor={persistor}> */}
-      <DefaultLoadingComponentProvider component={null}>
+      <DefaultLoadingComponentProvider component={Spinner}>
         <ConnectedRouter history={history}>
           <App />
         </ConnectedRouter>

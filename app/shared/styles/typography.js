@@ -3,8 +3,7 @@ import { mod1, mod2 } from 'shared/styles/sizing';
 import { gutter } from 'shared/styles/layout';
 import { fluidType } from 'shared/styles/utils';
 
-/* 300, 400, 700 weights available */
-export const ffBody = '"Liberation Sans", "Helvetica Neue", Helvetica, Arial, sans-serif';
+export const ffBody = '"Nunito Sans", "Liberation Sans", "Helvetica Neue", Helvetica, Arial, sans-serif';
 export const ffHeading = '"Ubuntu", Helvetica, Arial, sans-serif';
 export const ffJapanese = '"Hiragino Kaku Gothic Pro", "Takao Pゴシック", "Meiryo", "Yu Gothic", "ヒラギノ角ゴ Pro W3", "メイリオ", "Osaka", "MS PGothic", "ＭＳ Ｐゴシック", sans-serif';
 
@@ -45,7 +44,6 @@ export const giga = fluidType(23, 52, 400, 2000);
 export const mega = fluidType(21, 46, 300, 2000);
 export const kilo = fluidType(20, 44, 300, 2000);
 
-// Headings
 // h1
 export const alpha = css`
   ${generateFontSize(3.8)}
@@ -61,10 +59,12 @@ export const gamma = css`
   ${generateFontSize(2)}
   letter-spacing: -0.02em;
 `;
-
-export const delta = generateFontSize(1.10); // h4
-export const epsilon = generateFontSize(0.75); // h5 & body
-export const zeta = generateFontSize(0.6); // h6
-// Smaller
-export const milli = 'font-size: .85em;'; // <small>
+// h4
+export const delta = generateFontSize(1.10);
+// h5 & body
+export const epsilon = generateFontSize(0.75);
+// h6
+export const zeta = generateFontSize(0.6);
+// <small>
+export const milli = 'font-size: .85em;';
 export const micro = 'font-size: .7em;';

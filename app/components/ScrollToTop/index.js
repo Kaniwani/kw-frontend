@@ -44,7 +44,6 @@ class ScrollToTop extends React.Component {
       <ScrollTopButton
         onClick={this.scrollUp}
         isVisible={isVisible}
-        disabled={!isVisible}
         isScrolling={isScrolling}
       />
     );

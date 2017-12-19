@@ -14,6 +14,7 @@ export const TIME_FORMAT = "hh:mma";
 export const DATE_TIME_FORMAT = `${DATE_FORMAT}[,] ${TIME_FORMAT}`;
 
 export const MAX_NOTES_LENGTH = 500;
+export const MAX_CONTACT_LENGTH = 1000;
 
 export const WK_SRS_RANKS = {
   ONE: "APPRENTICE",

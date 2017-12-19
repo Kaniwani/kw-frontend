@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { LineChart, Line, Dot } from "recharts";
 
-import Container from "base/Container";
 import { getMorae, getMoraCount, getPitchPatternName, makePitchPattern } from "./utils";
+import { Wrapper } from "./styles";
 
 PitchDiagram.propTypes = {
   reading: PropTypes.string,
@@ -48,25 +48,6 @@ const placeholderData = [
   { name: '', pitchHeight: 1 },
 ];
 
-const MoraLabel = (mora, {
-  x, y, stroke, index,
-}) => {
-  const label = mora[index];
-  const isPlaceholder = label === placeholder;
-  return (
-    <text
-      x={x}
-      y={y}
-      dy={isPlaceholder ? -11 : -8}
-      fill={isPlaceholder ? "#bababa" : stroke}
-      fontSize={isPlaceholder ? 20 : 12}
-      textAnchor="middle"
-    >
-      {label}
-    </text>
-  );
-};
-
 function PitchDiagram({
   reading, pitchNum, showMora, showLabel, colors, ...rest
 }) {
@@ -89,7 +70,7 @@ function PitchDiagram({
   const color = colors[patternName];
 
   return (
-    <Container title={`${patternNameJa} [${pitchNum}]`}>
+    <Wrapper title={`${patternNameJa} [${pitchNum}]`}>
       <LineChart
         width={(moraCount + 1) * 22}
         height={pitchNum < 0 ? 55 : 50}
@@ -105,7 +86,7 @@ function PitchDiagram({
         <Line
           isAnimationActive={false}
           dataKey="pitchHeight"
-          label={(props) => (showMora ? MoraLabel(mora, props) : null)}
+          label={(props) => (showMora ? getMoraLabel(mora, props) : null)}
           stroke={color}
           strokeWidth={2}
           dot={(dot) => (
@@ -113,12 +94,31 @@ function PitchDiagram({
           )}
         />
       </LineChart>
-      {showLabel && (
-        <div>
-          <span lang="ja">{patternNameJa}</span> ({patternName}) [{pitchNum}]
+      {true && (
+        <div lang="ja">
+          {patternNameJa} [{pitchNum}]
         </div>
       )}
-    </Container>
+    </Wrapper>
+  );
+}
+
+function getMoraLabel(mora, {
+  x, y, stroke, index,
+}) {
+  const label = mora[index];
+  const isPlaceholder = label === placeholder;
+  return (
+    <text
+      x={x}
+      y={y}
+      dy={isPlaceholder ? -11 : -8}
+      fill={isPlaceholder ? "#bababa" : stroke}
+      fontSize={isPlaceholder ? 20 : 12}
+      textAnchor="middle"
+    >
+      {label}
+    </text>
   );
 }
 

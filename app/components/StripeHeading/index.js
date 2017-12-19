@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { isNumber } from "lodash";
-
-import { white } from "shared/styles/colors";
+import { chromeDefaultBg } from "shared/styles/colors";
 import { Heading, Text, Count } from "./styles";
 
 StripeHeading.propTypes = {
@@ -13,10 +12,13 @@ StripeHeading.propTypes = {
 
 StripeHeading.defaultProps = {
   count: false,
-  bgColor: white, // should match parent/body background color otherwise strike line appears behind text
+  // must match parent background color otherwise strike line appears behind text
+  bgColor: chromeDefaultBg,
 };
 
-function StripeHeading({ text, count, bgColor }) {
+function StripeHeading({
+  text, count, bgColor,
+}) {
   return (
     <Heading>
       <Text bgColor={bgColor}>

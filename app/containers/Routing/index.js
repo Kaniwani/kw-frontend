@@ -16,6 +16,10 @@ import ContactPage from 'pages/ContactPage/Loadable';
 import SettingsPage from 'pages/SettingsPage/Loadable';
 import NotFoundPage from 'pages/NotFoundPage/Loadable';
 
+// used for isolated testing of components in development with HMR
+import { IS_DEV_ENV } from 'shared/constants';
+import DevPage from 'pages/DevPage/Loadable';
+
 Routing.propTypes = {
   loggedIn: PropTypes.bool,
 };
@@ -27,6 +31,7 @@ Routing.defaultProps = {
 function Routing({ loggedIn }) {
   return (
     <Switch>
+      {IS_DEV_ENV && <Route exact path="/dev" component={DevPage} />}
       <Route exact path="/welcome" component={WelcomePage} />
       <Route path="" render={() => !loggedIn ? <Redirect to="/welcome" /> : renderProtectedRoutes()} />
     </Switch>

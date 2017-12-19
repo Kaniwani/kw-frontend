@@ -2,13 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import uuid from "uuid";
 
-import Container from "base/Container";
 import { combineFuri } from "./utils";
 
-import { Block, Furi, Chars } from "./styles";
+import { Wrapper, Block, Furi, Chars } from "./styles";
 
 Ruby.propTypes = {
-  character: PropTypes.string.isRequired,
+  word: PropTypes.string.isRequired,
   reading: PropTypes.string,
   furi: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
   showFuri: PropTypes.bool,
@@ -21,19 +20,18 @@ Ruby.defaultProps = {
 };
 
 function Ruby({
-  character, reading, furi, showFuri,
+  word, reading, furi, showFuri,
 }) {
-  const pairs = combineFuri(character, reading, furi);
+  const pairs = combineFuri(word, reading, furi);
   return (
-    <Container flexRow>
-      {/* TODO: fragment in map, replace Container with Block */}
+    <Wrapper>
       {pairs.map(([kana, chars]) => (
         <Block key={uuid()} lang="ja">
-          <Furi isVisible={showFuri}>{kana}</Furi>
+          {showFuri && <Furi>{kana}</Furi>}
           <Chars>{chars}</Chars>
         </Block>
       ))}
-    </Container>
+    </Wrapper>
   );
 }
 

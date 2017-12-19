@@ -14,13 +14,15 @@ import {
   selectCurrent,
   selectQueueNeeded,
 } from 'shared/selectors';
+
+// we can store answer state in this container or pass this state back up instead
 import { selectAnswerDisabled } from 'pages/QuizPage/selectors';
 
 import backgroundImage from 'shared/assets/img/reviews.svg';
 import QuizInfo from 'containers/QuizInfo';
-import QuizAnswer from 'containers/QuizAnswer';
-import QuizHeader from 'containers/QuizHeader';
-import QuizQuestion from 'containers/QuizQuestion';
+import QuizAnswer from 'containers/QuizAnswerContainer';
+import QuizHeader from 'containers/QuizHeaderContainer';
+import QuizQuestion from 'containers/QuizQuestionContainer';
 import { Wrapper, Upper, Lower, Background } from './styles';
 
 const keyMap = {

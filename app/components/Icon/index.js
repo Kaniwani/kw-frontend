@@ -9,23 +9,20 @@ Icon.propTypes = {
   inline: PropTypes.bool,
   color: PropTypes.string,
   size: PropTypes.string,
+  isRotating: PropTypes.bool,
 };
 
 Icon.defaultProps = {
   inline: true,
   color: 'currentColor',
   size: '1.5em',
+  isRotating: false,
 };
 
-function Icon({ name, inline, color, size, ...props }) {
+function Icon({ name, ...props }) {
   const NAME = ICONS[name] || {};
   return (
-    <SVGWrapper
-      inline={inline}
-      color={color}
-      size={size}
-      {...props}
-    >
+    <SVGWrapper {...props}>
       <SVG
         title={name}
         width="100%"

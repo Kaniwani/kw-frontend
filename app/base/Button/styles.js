@@ -10,9 +10,12 @@ import { gutter } from 'shared/styles/layout';
 import A from 'base/A';
 
 const buttonStyle = css`
-  ${gutter()}
+  ${gutter({ prop: 'margin' })}
+  ${gutter({ prop: 'padding', position: 'vertical' })}
+  ${gutter({ prop: 'padding', position: 'horizontal', mod: 3 })}
   ${epsilon}
   display: inline-flex;
+  text-align: center;
   justify-content: center;
   align-content: center;
   align-items: center;

@@ -6,7 +6,17 @@ import { Helmet } from "react-helmet";
 import { titleCase } from "voca";
 
 import QuizSummaryHeader from "containers/QuizSummaryHeader";
-import QuizSummaryContent from "containers/QuizSummaryContent";
+import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
+
+import Container from "base/Container";
+import Toggle from "components/Toggle";
+import H1 from "base/H1";
+import H2 from "base/H2";
+import H4 from "base/H4";
+import PageWrapper from "base/PageWrapper";
+import PercentageBar from "components/PercentageBar";
+import SummarySection from "containers/SummarySection";
+import VocabListToggleButton from "components/VocabListToggleButton";
 
 import app from "shared/actions";
 
@@ -36,16 +46,80 @@ QuizSummaryPage.propTypes = {
   ]).isRequired,
 };
 
-function QuizSummaryPage({ category, ...props }) {
+const LastActivity = ({ date }) => date && (
+  <Container>
+    <H4>
+      Last session activity:{" "}
+      {distanceInWordsToNow(date, { includeSeconds: true })}{" "}
+      ago
+    </H4>
+  </Container>
+);
+
+function QuizSummaryPage({
+  category,
+  incorrectIds,
+  correctIds,
+  criticalIds,
+  remainingCount,
+  onVacation,
+  resetSummary,
+  percentCorrect,
+  lastActivityDate,
+}) {
   const categoryTitle = titleCase(category);
+  const recentHistory = incorrectIds.length && correctIds.length;
+
   return (
     <div>
       <Helmet>
         <title>{`${categoryTitle} Summary`}</title>
         <meta name="description" content={`Kaniwani ${categoryTitle} Summary`} />
       </Helmet>
-      <QuizSummaryHeader category={category} {...props} />
-      <QuizSummaryContent {...props} />
+      <QuizSummaryHeader
+        category={category}
+        remainingCount={remainingCount}
+        onVacation={onVacation}
+        resetSummary={resetSummary}
+      />
+      <Toggle
+        render={({ on, toggle }) => (
+          <PageWrapper>
+            <H1>
+              <PercentageBar count={percentCorrect} />
+              <VocabListToggleButton
+                cardsExpanded={on}
+                onToggle={toggle}
+              />
+            </H1>
+            {recentHistory && (
+              <div>
+                <SummarySection
+                  summaryType="INCORRECT"
+                  ids={incorrectIds}
+                  cardsExpanded={on}
+                />
+                <SummarySection
+                  summaryType="CORRECT"
+                  ids={correctIds}
+                  cardsExpanded={on}
+                />
+                <SummarySection
+                  summaryType="CRITICAL"
+                  ids={criticalIds}
+                  cardsExpanded={on}
+                />
+                <LastActivity date={lastActivityDate} />
+              </div>
+            )}
+            {!recentHistory && (
+              <Container>
+                <H2>No recent history.</H2>
+              </Container>
+            )}
+          </PageWrapper>
+        )}
+      />
     </div>
   );
 }

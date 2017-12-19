@@ -79,19 +79,19 @@ module.exports = {
       actions.push(
         {
           type: "add",
-          category: "components",
           path:
             "../../app/components/{{properCase name}}/__fixtures__/allProps.fixture.js",
           templateFile: "./fixture/allProps.js.hbs",
           abortOnFail: true,
+          data: { category: "components" },
         },
         {
           type: "add",
-          category: "components",
           path:
             "../../app/components/{{properCase name}}/__fixtures__/requiredProps.fixture.js",
           templateFile: "./fixture/requiredProps.js.hbs",
           abortOnFail: true,
+          data: { category: "components" },
         }
       );
     }

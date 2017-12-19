@@ -9,7 +9,7 @@ exports[`<VocabPageHeader /> should match baseline snapshot 1`] = `
   </styled.div>
   <styled.div>
     <SearchBar />
-    <ToggleVocabListButton
+    <VocabListToggleButton
       handleClick={[Function]}
       isExpanded={false}
     />

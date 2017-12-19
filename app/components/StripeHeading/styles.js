@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { transparentize } from "polished";
 
+import VocabListToggleButton from "components/VocabListToggleButton";
+
 import { white, grey } from "shared/styles/colors";
 import { delta } from "shared/styles/typography";
 

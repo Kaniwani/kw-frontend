@@ -5,7 +5,7 @@ import { red } from 'shared/styles/colors';
 import { godzilla } from 'shared/styles/typography';
 
 import H1 from 'base/H1';
-import BackgroundImg from 'components/BackgroundImg';
+import BackgroundImg from 'base/BackgroundImg';
 import PageWrapper from 'base/PageWrapper';
 
 export const Wrapper = styled(PageWrapper)`

@@ -5,7 +5,7 @@ import cuid from 'cuid';
 import SentencePair from 'components/SentencePair';
 import ReadingLinks from 'components/ReadingLinks';
 import Ruby from 'components/Ruby';
-import KanjiStrokeLoader from 'containers/KanjiStrokeLoader';
+import StrokeLoader from 'components/StrokeLoader';
 import TagsList from 'components/TagsList';
 import PitchDiagram from 'components/PitchDiagram';
 import Element from 'base/Element';
@@ -55,7 +55,7 @@ function VocabEntryReading({
           pitch.map((num) => <PitchDiagram key={cuid()} reading={kana[0]} pitchNum={num} />)
         )}
       </div>
-      <KanjiStrokeLoader character={character} />
+      <StrokeLoader character={character} />
       <ReadingLinks character={character} useEijiroPro={useEijiroPro} />
     </Li>
   );

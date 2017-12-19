@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { pure } from "recompose";
 
 import SearchBar from "containers/SearchBar";
-import ToggleVocabListButton from "components/ToggleVocabListButton";
+import VocabListToggleButton from "components/VocabListToggleButton";
 import VocabSearchResults from "./VocabSearchResults";
 
 import { Wrapper, Heading, Title, Controls } from "./styles";
@@ -35,7 +35,7 @@ function VocabPageHeader({
         <Controls>
           <SearchBar />
           {withVocabListToggle && (
-            <ToggleVocabListButton
+            <VocabListToggleButton
               cardsExpanded={cardsExpanded}
               onToggle={toggleCardsExpanded}
             />

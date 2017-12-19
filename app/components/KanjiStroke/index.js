@@ -11,7 +11,7 @@ import dmak from "./dmak-0-3-1";
 
 class KanjiStroke extends React.Component {
   static propTypes = {
-    character: PropTypes.string.isRequired,
+    word: PropTypes.string.isRequired,
     settings: PropTypes.object,
   };
 
@@ -37,7 +37,7 @@ class KanjiStroke extends React.Component {
   };
 
   componentDidMount() {
-    const onlyKanjiChars = this.props.character
+    const onlyKanjiChars = this.props.word
       .split("")
       .filter(isKanji)
       .join("");

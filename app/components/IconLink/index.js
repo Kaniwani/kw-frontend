@@ -4,8 +4,6 @@ import PropTypes from "prop-types";
 import Icon from "components/Icon";
 import { Link } from "./styles";
 
-// FIXME: why not use <A plainLink><Icon /></A> instead..?
-
 // color and size have defaults in <Icon /> already
 /* eslint-disable react/require-default-props */
 IconLink.propTypes = {

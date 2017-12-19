@@ -9,7 +9,7 @@ import { selectUi, selectSearchIds } from "shared/selectors";
 import Container from "base/Container";
 import H2 from "base/H2";
 import H3 from "base/H3";
-import VocabList from "containers/VocabList";
+import VocabList from "components/VocabList";
 
 VocabSearchResults.propTypes = {
   cardsExpanded: PropTypes.bool.isRequired,

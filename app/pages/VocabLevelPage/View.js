@@ -9,7 +9,7 @@ import Container from "base/Container";
 import H3 from "base/H3";
 import A from "base/A";
 import VocabPageHeader from "containers/VocabPageHeader";
-import VocabList from "containers/VocabList";
+import VocabList from "components/VocabList";
 import LoadingCrabigator from "components/LoadingCrabigator";
 
 View.propTypes = {

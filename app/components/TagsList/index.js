@@ -3,26 +3,26 @@ import PropTypes from "prop-types";
 import cuid from "cuid";
 
 import parseTags from "utils/parseTags";
-import selectTagColors from "./utils/selectTagColors";
+import getTagColors from "./utils/getTagColors";
 
 import { Ul, Li, Span } from "./styles";
 
 TagsList.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.string),
-  isHidden: PropTypes.bool,
+  isVisible: PropTypes.bool,
 };
 
 TagsList.defaultProps = {
   tags: [],
-  isHidden: false,
+  isVisible: true,
 };
 
-function TagsList({ tags, isHidden, ...props }) {
+function TagsList({ tags, isVisible, ...props }) {
   const longformTags = parseTags(tags);
   return (
-    <Ul isHidden={isHidden} {...props}>
+    <Ul isHidden={!isVisible} {...props}>
       {longformTags.map((text) => (
-        <Li key={cuid()} {...selectTagColors(text)}>
+        <Li key={cuid()} {...getTagColors(text)}>
           <Span>{text}</Span>
         </Li>
       ))}

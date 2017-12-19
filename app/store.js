@@ -68,10 +68,9 @@ export default function configureStore(initialState = {}, history) {
   // FIXME: replaceReducer args? or just remove the damned asyncReducers anyway
   /* istanbul ignore next */
   if (module.hot) {
-    module.hot.accept("./reducers", () => {
-      console.log("---store.asyncReducers---");
-      console.log(store.asyncReducers);
-      store.replaceReducer(store.asyncReducers);
+    module.hot.accept('./reducers', () => {
+      console.log('hmr ./reducers');
+      store.replaceReducer(createReducer(store.asyncReducers));
     });
   }
 

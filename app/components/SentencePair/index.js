@@ -1,25 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import MarkedSentence from "./MarkedSentence";
-import RevealSentence from "./RevealSentence";
+import MarkedSentence from "components/MarkedSentence";
+import RevealSentence from "components/RevealSentence";
 import { Wrapper } from "./styles";
 
 SentencePair.propTypes = {
+  word: PropTypes.string.isRequired,
+  primaryReading: PropTypes.string.isRequired,
   sentenceEn: PropTypes.string.isRequired,
   sentenceJa: PropTypes.string.isRequired,
-  character: PropTypes.string.isRequired,
-  kana: PropTypes.array.isRequired,
 };
 
-// TODO: placeholder explaining no sentence data - better than blowing up
-
 function SentencePair({
-  sentenceEn, sentenceJa, character, kana,
+  word, primaryReading, sentenceEn, sentenceJa,
 }) {
   return (
     <Wrapper>
-      <MarkedSentence sentence={sentenceJa} character={character} kana={kana} />
+      <MarkedSentence sentence={sentenceJa} word={word} reading={primaryReading} />
       <RevealSentence sentence={sentenceEn} />
     </Wrapper>
   );

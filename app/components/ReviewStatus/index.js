@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { compose, branch, renderNothing, shouldUpdate, mapProps } from "recompose";
 import ReactInterval from "react-interval";
+import isFuture from 'date-fns/is_future';
 
 import shouldUpdateDeepEqual from "utils/shouldUpdateDeepEqual";
 import dateOrFalse from "utils/dateOrFalse";
@@ -25,10 +26,9 @@ function ReviewStatus({ reviewsCount, vacationDate, nextReviewDate }) {
   return (
     <Element flexRow flexCenter>
       <H3>{getReviewStatusText({ reviewsCount, vacationDate, nextReviewDate })}</H3>
-      {/* FIXME: uhhh... this will always be the same if there has been no server call for updated dates.... */}
-      {/* TODO: Interval should be in parent container and pass changed props TO this component... */}
+      {/* update "review in x time" text periodically */}
       <ReactInterval
-        enabled
+        enabled={isFuture(nextReviewDate)} /* NOTE: this was true, change is untested */
         timeout={5000}
         callback={() =>
           getReviewStatusText({ reviewsCount, vacationDate, nextReviewDate })

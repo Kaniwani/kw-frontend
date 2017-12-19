@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import H1 from 'base/H1';
 import H2 from 'base/H2';
-import BGImg from 'components/BackgroundImg';
+import BGImg from 'base/BackgroundImg';
 
 import { pink, greyDark } from 'shared/styles/colors';
 import { kilo, godzilla } from 'shared/styles/typography';

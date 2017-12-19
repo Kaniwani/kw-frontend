@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { resetList, fluidType, ghost } from 'shared/styles/utils';
 import { gutter } from 'shared/styles/layout';
 import { borderRadius } from 'shared/styles/sizing';
-import * as COLORS from 'shared/styles/colors';
 
 export const Ul = styled.ul`
   ${resetList}
@@ -23,8 +22,8 @@ export const Li = styled.li`
   text-decoration: none;
   vertical-align: middle;
   align-items: center;
-  color: ${({ textColor }) => COLORS[textColor]};
-  background-color: ${({ bgColor }) => COLORS[bgColor]};
+  color: ${({ textColor }) => textColor};
+  background-color: ${({ bgColor }) => bgColor};
   border-radius: ${borderRadius};
 `;
 

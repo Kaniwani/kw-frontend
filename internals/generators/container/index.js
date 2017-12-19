@@ -94,19 +94,19 @@ module.exports = {
       actions.push(
         {
           type: "add",
-          category: "containers",
           path:
             "../../app/containers/{{properCase name}}/__fixtures__/allProps.fixture.js",
           templateFile: "./fixture/allProps.js.hbs",
           abortOnFail: true,
+          data: { category: "containers" },
         },
         {
           type: "add",
-          category: "containers",
           path:
             "../../app/containers/{{properCase name}}/__fixtures__/requiredProps.fixture.js",
           templateFile: "./fixture/requiredProps.js.hbs",
           abortOnFail: true,
+          data: { category: "containers" },
         }
       );
     }

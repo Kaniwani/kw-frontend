@@ -56,18 +56,18 @@ module.exports = {
       actions.push(
         {
           type: "add",
-          category: "base",
           path: "../../app/base/{{properCase name}}/__fixtures__/allProps.fixture.js",
           templateFile: "./fixture/allProps.js.hbs",
           abortOnFail: true,
+          data: { category: "base" },
         },
         {
           type: "add",
-          category: "base",
           path:
             "../../app/base/{{properCase name}}/__fixtures__/requiredProps.fixture.js",
           templateFile: "./fixture/requiredProps.js.hbs",
           abortOnFail: true,
+          data: { category: "base" },
         }
       );
     }

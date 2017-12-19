@@ -4,23 +4,23 @@ import PropTypes from "prop-types";
 import { Wrapper, Character, Kana } from "./styles";
 
 Reading.propTypes = {
-  character: PropTypes.string,
+  word: PropTypes.string,
   kana: PropTypes.arrayOf(PropTypes.string),
   detailLevel: PropTypes.number,
 };
 
 Reading.defaultProps = {
-  character: "",
+  word: "",
   kana: [],
   detailLevel: 2,
 };
 
 // FIXME: showKana bool instead of detailLevel
-function Reading({ character, kana, detailLevel }) {
+function Reading({ word, kana, detailLevel }) {
   return (
     <Wrapper>
       {detailLevel >= 1 && <Kana>{kana.join("・")}</Kana>}
-      <Character>{character}</Character>
+      <Character>{word}</Character>
     </Wrapper>
   );
 }

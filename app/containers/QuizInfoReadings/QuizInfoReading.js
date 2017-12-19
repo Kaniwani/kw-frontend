@@ -6,7 +6,7 @@ import Element from 'base/Element';
 import Ruby from 'components/Ruby';
 import SentencePair from 'components/SentencePair';
 import ReadingLinks from 'components/ReadingLinks';
-import KanjiStrokeLoader from 'containers/KanjiStrokeLoader';
+import StrokeLoader from 'components/StrokeLoader';
 import TagsList from 'components/TagsList';
 import PitchDiagram from 'components/PitchDiagram';
 import { Kana } from 'components/Reading/styles';
@@ -63,7 +63,7 @@ function QuizInfoReading({
       </ReadingContent>
       {detailLevel > 1 &&
         pitch.map((num) => <PitchDiagram key={cuid()} reading={kana[0]} pitchNum={num} />)}
-      {detailLevel > 1 && <KanjiStrokeLoader character={character} data-ignore-hotkeys />}
+      {detailLevel > 1 && <StrokeLoader character={character} data-ignore-hotkeys />}
       {detailLevel > 1 && <ReadingLinks character={character} useEijiroPro={useEijiroPro} />}
     </Li>
   );

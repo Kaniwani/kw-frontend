@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { SRS_RANKS } from "shared/constants";
 import condenseReadings from "utils/condenseReadings";
 import dateOrFalse from "utils/dateOrFalse";
@@ -9,8 +8,10 @@ import addDays from "date-fns/add_days";
 import toUniqueStringsArray from "utils/toUniqueStringsArray";
 
 /* eslint-disable no-return-assign, no-sequences, no-param-reassign */
-const createHashMap = (data) =>
-  data.reduce((hash, item) => ((hash[item.id] = item), hash), {});
+const createMapBy = (key) => (data) =>
+  data.reduce((hash, item) => ((hash[item[key]] = item), hash), {});
+const createMapById = createMapBy('id');
+
 const formatSrsCounts = (obj) =>
   Object.entries(obj).reduce(
     (hash, [key, val]) => ((hash[key.toUpperCase()] = +val), hash),
@@ -35,12 +36,13 @@ const serializeUpcomingReviews = (data = []) => {
 };
 /* eslint-enable */
 
+/* eslint-disable camelcase */
 export const serializeUserResponse = serializeUser;
 export const serializeLevelsResponse = serializeLevels;
 export const serializeReviewResponse = serializeReviewEntry;
 export const serializeAddSynonymResponse = serializeSynonym;
 export const serializeAnnouncementsResponse = ({ results }) =>
-  results.slice(0, 10).map(({ pub_date, title, body }) => ({
+  results.map(({ pub_date, title, body }) => ({
     title,
     body,
     pubDate: dateOrFalse(pub_date),
@@ -67,7 +69,7 @@ export const serializeLevelResponse = ({ id, results }) => {
 };
 
 function serializeLevels(levels = []) {
-  return createHashMap(levels.map(serializeLevel));
+  return createMapById(levels.map(serializeLevel));
 }
 
 function serializeMeaning(data) {
@@ -79,11 +81,11 @@ function serializeReadings(data = []) {
 }
 
 export function serializeReviewEntries(data = []) {
-  return createHashMap(data.map(serializeReviewEntry));
+  return createMapById(data.map(serializeReviewEntry));
 }
 
 function serializeStubbedReviewEntries(data = []) {
-  return createHashMap(data.map(serializeStubbedReviewEntry));
+  return createMapById(data.map(serializeStubbedReviewEntry));
 }
 
 function serializeUser({ email, profile }) {

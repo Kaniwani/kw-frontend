@@ -1,10 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 
-import Icon from "components/Icon";
+import { gutter } from "shared/styles/layout";
+
+import Aux from "base/Aux";
 import Button from "base/Button";
+import Icon from "components/Icon";
 
-// FIXME: just use <Button plainButton><Icon /></Button> instead..... geez
+// prettier-ignore
+export const Text = styled.span`
+  ${gutter({ position: 'left' })}
+  ${gutter({ position: 'right', mod: 2 })}
+`;
 
 IconButton.propTypes = {
   name: PropTypes.string.isRequired,
@@ -15,8 +23,10 @@ IconButton.propTypes = {
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
   inline: PropTypes.bool,
-  children: PropTypes.node,
   plainButton: PropTypes.bool,
+  text: PropTypes.any,
+  isSubmitting: PropTypes.bool,
+  render: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
 };
 
 IconButton.defaultProps = {
@@ -26,17 +36,45 @@ IconButton.defaultProps = {
   size: "1.5em",
   disabled: false,
   inline: false,
-  children: null,
+  text: "",
+  isSubmitting: false,
+  render: false,
   onClick: (event) => event /* passthrough, for submit buttons in forms with onSubmit */,
 };
 
 function IconButton({
-  name, title, color, size, inline, children, ...props
+  name,
+  text,
+  title,
+  color,
+  size,
+  inline,
+  render,
+  isSubmitting,
+  ...props
 }) {
+  const RenderedText =
+    (isSubmitting && <Text>Syncing...</Text>) || (text ? <Text>{text}</Text> : null);
+  const RenderedIcon = (
+    <Icon
+      isRotating={isSubmitting}
+      name={isSubmitting ? "SYNC" : name}
+      inline={inline}
+      size={size}
+      color={color}
+    />
+  );
+
   return (
     <Button aria-label={title} {...props}>
-      {children}
-      <Icon name={name} inline={inline} size={size} color={color} />
+      {render ? (
+        render({ Text: RenderedText, Icon: RenderedIcon })
+      ) : (
+        <Aux>
+          {RenderedText}
+          {RenderedIcon}
+        </Aux>
+      )}
     </Button>
   );
 }

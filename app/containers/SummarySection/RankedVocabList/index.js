@@ -4,7 +4,7 @@ import { titleCase } from "voca";
 import { compose, branch, renderNothing } from "recompose";
 
 import { SRS_RANKS } from "shared/constants";
-import VocabList from "containers/VocabList";
+import VocabList from "components/VocabList";
 import StripeHeading from "components/StripeHeading";
 import { Wrapper } from "./styles";
 

@@ -26,5 +26,6 @@ export const Wrapper = styled.div`
       default:
         return centerByMargin;
     }
-  }} padding-bottom: 4vh;
+  }}
+  padding-bottom: 4vh;
 `;

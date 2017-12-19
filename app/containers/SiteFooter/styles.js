@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Container from 'base/Container';
-import BackgroundImg from 'components/BackgroundImg';
+import BackgroundImg from 'base/BackgroundImg';
 
 import { gutter, centerByPadding } from 'shared/styles/layout';
 import { black, blackDark, whiteDark } from 'shared/styles/colors';

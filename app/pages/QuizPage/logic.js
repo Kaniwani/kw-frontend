@@ -106,6 +106,7 @@ export const submitAnswerLogic = createLogic({
   latest: true,
   process({ getState, action: { payload: { category } } }, dispatch, done) {
     const state = getState();
+    // FIXME: pass in payload instead, these can be quiz state
     const {
       value, isDisabled, isCorrect, isIncorrect,
     } = selectQuizAnswer(state);
@@ -256,6 +257,7 @@ export const correctAnswerLogic = createLogic({
 export const ignoreAnswerLogic = createLogic({
   type: quiz.answer.ignore,
   validate({ getState, action }, allow, reject) {
+    // FIXME: pass in payload instead, these can be quiz state
     const {
       isMarked, isDisabled, isCorrect, isIncorrect,
     } = selectQuizAnswer(getState());

@@ -3,8 +3,9 @@
 // or go ahead with simple shades palette
 // https://www.reshader.com/
 
-import { mix } from 'polished';
+import { mix, rgb } from 'polished';
 
+export const chromeDefaultBg = rgb(250, 250, 250);
 export const whiteLight = '#fafafa';
 export const white = '#f0f0f0';
 export const whiteDark = '#d9d9d9';

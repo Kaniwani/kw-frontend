@@ -14,18 +14,22 @@ import {
 import { Ul, VocabLink } from './styles';
 
 ReadingLinks.propTypes = {
-  character: PropTypes.string.isRequired,
-  useEijiroPro: PropTypes.bool.isRequired,
+  word: PropTypes.string.isRequired,
+  useEijiroPro: PropTypes.bool,
 };
 
-function ReadingLinks({ character, useEijiroPro }) {
+ReadingLinks.defaultProps = {
+  useEijiroPro: false,
+};
+
+function ReadingLinks({ word, useEijiroPro }) {
   const links = [
-    { name: 'WK', href: createWkVocabUrl(character) },
-    { name: 'Jisho', href: createJishoUrl(character) },
-    { name: 'Eijiro', href: createEijiroUrl(character, useEijiroPro) },
-    { name: 'Goo', href: createGooUrl(character) },
-    { name: 'Weblio', href: createWeblioUrl(character) },
-    { name: 'Forvo', href: createForvoUrl(character) },
+    { name: 'WK', href: createWkVocabUrl(word) },
+    { name: 'Jisho', href: createJishoUrl(word) },
+    { name: 'Eijiro', href: createEijiroUrl(word, useEijiroPro) },
+    { name: 'Goo', href: createGooUrl(word) },
+    { name: 'Weblio', href: createWeblioUrl(word) },
+    { name: 'Forvo', href: createForvoUrl(word) },
   ];
 
   return (

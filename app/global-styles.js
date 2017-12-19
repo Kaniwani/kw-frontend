@@ -1,5 +1,5 @@
 import { injectGlobal } from 'styled-components';
-import { greyDark, blackLight } from 'shared/styles/colors';
+import { blackLight, whiteLight } from 'shared/styles/colors';
 
 import {
   ffBody,
@@ -31,6 +31,7 @@ injectGlobal`
     padding: 0;
     font-family: ${ffBody};
     color: ${blackLight};
+    background-color: ${whiteLight};
     line-height: 1;
     display: flex;
     flex-direction: column;
@@ -66,7 +67,6 @@ injectGlobal`
   h1, h2, h3, h4, h5, h6 {
     font-family: ${ffHeading};
     margin: 0;
-    color: ${greyDark};
     line-height: 1.2;
   }
 
