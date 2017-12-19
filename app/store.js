@@ -6,17 +6,17 @@ import { createStore, applyMiddleware, compose } from "redux";
 import { routerMiddleware } from "react-router-redux";
 import { createLogicMiddleware } from "redux-logic";
 import { persistStore } from "redux-persist";
-import reduxReset from "redux-reset";
+import resetMiddleware from "shared/resetMiddleware";
 
 // import { request } from 'utils/request';
 import { IS_DEV_ENV } from "shared/constants";
 import globalLogic from "shared/logic";
-import createReducer, { persistConfig } from "./reducers";
+import createReducer from "./reducers";
 
 export default function configureStore(initialState = {}, history) {
   // inject helpers, we could make an "import request from 'utils/request'" available to all logic
-  const injectedLogicDeps = { persistConfig };
-  const logicMiddleware = createLogicMiddleware(globalLogic, injectedLogicDeps);
+  // const injectedLogicDeps = { request };
+  const logicMiddleware = createLogicMiddleware(globalLogic /* , injectedLogicDeps */);
 
   // Create the store with two middlewares
   // 1. createActionBuffer: collects any early logic actions and only fires them *after* state has rehydrated
@@ -37,7 +37,7 @@ export default function configureStore(initialState = {}, history) {
 
   const enhancers = [
     applyMiddleware(...middlewares),
-    reduxReset(), // registers dispatch({ type: 'RESET' }) to clear state
+    resetMiddleware(), // registers dispatch({ type: 'RESET' }) to clear state
   ];
 
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose

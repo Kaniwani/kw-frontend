@@ -1,6 +1,5 @@
 import { createLogic } from "redux-logic";
 import { push, LOCATION_CHANGE } from "react-router-redux";
-import { purgeStoredState } from "redux-persist";
 import { uniq, difference } from "lodash";
 import * as reduxFormActions from "redux-form";
 
@@ -114,15 +113,8 @@ export const userResetPasswordLogic = createLogic({
 /* eslint-disable no-console */
 export const userLogoutLogic = createLogic({
   type: app.user.logout,
-  process({ persistConfig }, dispatch, done) {
+  process(_, dispatch, done) {
     clearToken();
-    purgeStoredState(persistConfig)
-      .then(() => {
-        console.info("persisted KW state purged");
-      })
-      .catch((err) => {
-        console.warn("persisted KW state failed to purge: ", err);
-      });
     dispatch({ type: "RESET" }); // redux-reset in app/store.js
     dispatch(push("/welcome"));
     done();
