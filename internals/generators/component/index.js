@@ -82,7 +82,7 @@ module.exports = {
           category: "components",
           path:
             "../../app/components/{{properCase name}}/__fixtures__/allProps.fixture.js",
-          templateFile: "../fixture/allProps.js.hbs",
+          templateFile: "./fixture/allProps.js.hbs",
           abortOnFail: true,
         },
         {
@@ -90,7 +90,7 @@ module.exports = {
           category: "components",
           path:
             "../../app/components/{{properCase name}}/__fixtures__/requiredProps.fixture.js",
-          templateFile: "../fixture/requiredProps.js.hbs",
+          templateFile: "./fixture/requiredProps.js.hbs",
           abortOnFail: true,
         }
       );
