@@ -4,16 +4,15 @@ import { connect } from "react-redux";
 import { Helmet } from "react-helmet";
 
 import { titleCase } from "voca";
+import { distanceInWordsToNow } from "date-fns";
 
 import QuizSummaryHeader from "containers/QuizSummaryHeader";
-import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
 
+import PageWrapper from "base/PageWrapper";
 import Container from "base/Container";
-import Toggle from "components/Toggle";
-import H1 from "base/H1";
 import H2 from "base/H2";
 import H4 from "base/H4";
-import PageWrapper from "base/PageWrapper";
+import Toggle from "components/Toggle";
 import PercentageBar from "components/PercentageBar";
 import SummarySection from "containers/SummarySection";
 import VocabListToggleButton from "components/VocabListToggleButton";
@@ -46,16 +45,6 @@ QuizSummaryPage.propTypes = {
   ]).isRequired,
 };
 
-const LastActivity = ({ date }) => date && (
-  <Container>
-    <H4>
-      Last session activity:{" "}
-      {distanceInWordsToNow(date, { includeSeconds: true })}{" "}
-      ago
-    </H4>
-  </Container>
-);
-
 function QuizSummaryPage({
   category,
   incorrectIds,
@@ -68,7 +57,7 @@ function QuizSummaryPage({
   lastActivityDate,
 }) {
   const categoryTitle = titleCase(category);
-  const recentHistory = incorrectIds.length && correctIds.length;
+  const recentHistory = !!incorrectIds.length && !!correctIds.length;
 
   return (
     <div>
@@ -85,13 +74,10 @@ function QuizSummaryPage({
       <Toggle
         render={({ on, toggle }) => (
           <PageWrapper>
-            <H1>
+            <Container flexRow>
               <PercentageBar count={percentCorrect} />
-              <VocabListToggleButton
-                cardsExpanded={on}
-                onToggle={toggle}
-              />
-            </H1>
+              <VocabListToggleButton cardsExpanded={on} onToggle={toggle} />
+            </Container>
             {recentHistory && (
               <div>
                 <SummarySection
@@ -109,7 +95,15 @@ function QuizSummaryPage({
                   ids={criticalIds}
                   cardsExpanded={on}
                 />
-                <LastActivity date={lastActivityDate} />
+                {lastActivityDate && (
+                  <Container>
+                    <H4>
+                      {`Last session activity: ${distanceInWordsToNow(lastActivityDate, {
+                        includeSeconds: true,
+                      })} ago`}
+                    </H4>
+                  </Container>
+                )}
               </div>
             )}
             {!recentHistory && (

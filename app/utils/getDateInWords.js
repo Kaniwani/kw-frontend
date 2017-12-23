@@ -1,4 +1,4 @@
-import format from 'date-fns/format';
+import { format } from 'date-fns';
 import { DATE_TIME_FORMAT } from 'shared/constants';
 
 /**

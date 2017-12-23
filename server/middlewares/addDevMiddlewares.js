@@ -7,9 +7,14 @@ const errorOverlayMiddleware = require('react-error-overlay/middleware'); // esl
 function createWebpackMiddleware(compiler, publicPath) {
   return webpackDevMiddleware(compiler, {
     publicPath,
+<<<<<<< HEAD
     silent: true,
     stats: "errors-only",
     logLevel: "warn",
+=======
+    stats: 'errors-only',
+    logLevel: 'info',
+>>>>>>> 462c070... --wip-- refactoring [skip ci]
   });
 }
 

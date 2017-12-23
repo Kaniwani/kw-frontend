@@ -1,7 +1,9 @@
+/* eslint-disable import/first */
 import { createLogic } from "redux-logic";
 import { push, LOCATION_CHANGE } from "react-router-redux";
 import { uniq, difference } from "lodash";
-import * as reduxFormActions from "redux-form";
+import { actions } from "redux-form";
+const { startSubmit, stopSubmit, reset } = actions;
 // import { purgeStoredState } from "redux-persist";
 
 // TODO: can inject some of these in store.js as logic dependencies instead to be accessed in any logic file
@@ -24,8 +26,6 @@ import { selectLevelsSubmitting } from "pages/VocabLevelsPage/selectors";
 
 import * as sel from "./selectors";
 import app from "./actions";
-
-const { startSubmit, stopSubmit, reset } = reduxFormActions;
 
 export const userRegisterLogic = createLogic({
   type: app.user.register.request,

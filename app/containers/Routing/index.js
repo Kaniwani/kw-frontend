@@ -1,9 +1,10 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import SiteHeader from 'containers/SiteHeader/Loadable';
-import SiteFooter from 'containers/SiteFooter/Loadable';
+import Aux from 'base/Aux';
+import SiteHeader from 'containers/SiteHeader';
+import SiteFooter from 'containers/SiteFooter';
 import WelcomePage from 'pages/WelcomePage/Loadable';
 import HomePage from 'pages/HomePage/Loadable';
 import VocabLevelsPage from 'pages/VocabLevelsPage/Loadable';
@@ -40,7 +41,7 @@ function Routing({ loggedIn }) {
 
 function renderProtectedRoutes() {
   return (
-    <Fragment>
+    <Aux>
       <header>
         <Switch>
           <Route path="/:path(lessons|reviews)" /* don't render */ />
@@ -78,7 +79,7 @@ function renderProtectedRoutes() {
           <Route path="" /* don't render for 404 */ />
         </Switch>
       </footer>
-    </Fragment>
+    </Aux>
   );
 }
 

@@ -1,12 +1,7 @@
-import QuizHeader from 'components/QuizHeader';
+import QuizHeader from "components/QuizHeader";
 
 export default {
-  withCosmosWrapper: {
-    style: {
-      backgroundColor: 'rebeccaPurple',
-    },
-  },
-  url: '/',
+  url: "/",
   component: QuizHeader,
   props: {
     summaryRoute: "/lessons",

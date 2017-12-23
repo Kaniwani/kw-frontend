@@ -16,7 +16,7 @@ function VocabListToggleButton({ cardsExpanded, onToggle, ...props }) {
   const name = cardsExpanded ? "CONTRACT_ALL" : "EXPAND_ALL";
   const title = `${cardsExpanded ? "Shrink" : "Enlarge"} card size`;
   return (
-    <ToggleButton name={name} title={title} size="2em" onClick={onToggle} {...props} />
+    <ToggleButton plainButton name={name} title={title} size="2em" onClick={onToggle} {...props} />
   );
 }
 

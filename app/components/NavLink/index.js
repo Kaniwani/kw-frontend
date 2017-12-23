@@ -33,7 +33,7 @@ function NavLink({
           <Text>{text}</Text>
         </LinkButton>
       ) : (
-        <Link plainLink disabled={disabled} to={route}>
+        <Link plainLink disabled={disabled} to={route} tabIndex={disabled ? -1 : 0}>
           <Text>
             {text}
             {count > 0 && <Count disabled={count < 1}>{count}</Count>}

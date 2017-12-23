@@ -8,7 +8,8 @@ export const PrimaryMeaning = H3.extend`
 `;
 
 export const SecondaryMeanings = P.extend`
+  ${gutter({ position: 'horizontal' })}
+  padding-top: 0 !important;
   margin: 0;
-  padding: 0 !important;
   font-style: italic;
 `;

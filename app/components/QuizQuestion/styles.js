@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { darken } from 'polished';
 
-import { white, purpleDark } from 'shared/styles/colors';
+import { white } from 'shared/styles/colors';
 import { gutter, centerByMargin } from 'shared/styles/layout';
 import { giga, gamma } from 'shared/styles/typography';
 import { borderRadius } from 'shared/styles/sizing';
@@ -9,16 +9,6 @@ import { srsRankUp, srsRankDown } from 'shared/styles/animation';
 import { outerLight } from 'shared/styles/shadows';
 
 import H4 from 'base/H4';
-
-export const Wrapper = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  text-align: center;
-  flex: 1 1 100%;
-`;
 
 export const MeaningsWrapper = styled.div`
   flex: 999 0 auto;
@@ -32,7 +22,6 @@ export const Meanings = styled.h1`
   color: ${white};
   text-transform: capitalize;
   letter-spacing: -0.03em;
-  text-shadow: .1em .2em .4em ${purpleDark};
   padding: 5vw .5rem;
 `;
 
@@ -45,6 +34,21 @@ export const Secondary = styled.div`
   ${gamma}
   line-height: 1.3;
   font-weight: 300;
+`;
+
+export const Wrapper = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  text-align: center;
+  flex: 1 1 100%;
+  background-color: ${({ bgColor }) => bgColor};
+
+  & ${Meanings} {
+    text-shadow: .1em .2em .4em ${({ bgColor }) => darken(0.1, bgColor)};
+  }
 `;
 
 export const FlyoverWrapper = styled.div`
@@ -71,13 +75,11 @@ export const FlyoverContent = H4.extend`
   opacity: 0;
   text-transform: capitalize;
 
-  ${({ hasChanged, animateUp, color }) => {
-    return hasChanged && `
+  ${({ hasChanged, animateUp, color }) => hasChanged && css`
       border: 1px solid ${darken(0.1, color)};
       background-color: ${color};
       animation: ${animateUp ? srsRankUp : srsRankDown} 0.7s ease 0s 1 normal both running;
-    `;
-  }}
+    `}
 
   & > span {
     ${gutter({ prop: 'margin', position: 'horizontal', mod: 0.5 })}

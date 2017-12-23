@@ -1,9 +1,7 @@
 import { SRS_RANKS } from "shared/constants";
 import condenseReadings from "utils/condenseReadings";
 import dateOrFalse from "utils/dateOrFalse";
-import format from "date-fns/format";
-import addHours from "date-fns/add_hours";
-import addDays from "date-fns/add_days";
+import { format, addHours, addDays } from "date-fns";
 
 import toUniqueStringsArray from "utils/toUniqueStringsArray";
 

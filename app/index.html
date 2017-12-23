@@ -10,7 +10,7 @@
     <meta name="theme-color" content="#8523e7">
     <title>Kaniwani</title>
     <style>
-      /* inline stylesheet to display loading indicator while uncached js bundle loads */
+      /* display loading indicator while uncached js bundle loads */
       .loading-wrapper {
         position: relative;
         top: 2rem;
@@ -82,12 +82,11 @@
     </div>
     <!-- A lot of magic happens in this file. HtmlWebpackPlugin automatically includes all assets (e.g. bundle.js, main.css) with the correct HTML tags, which is why they are missing in this HTML file. Don't add any assets here! (Check out webpackconfig.js if you want to know more) -->
     <script>
+      /*
+      Adds a css class to body to enable highlight ring for focusable elements.
+      This allows us to forego unnecessary focus states on taps/clicks by default.
+      */
       const IS_TABBING = 'user-is-tabbing';
-      /**
-       * Adds a css class to body element to enable highlight ring for focusable elements
-       * @param  {Object} event event
-       * @returns {none} adds class on `tab` keydown
-       */
       function addTabbingState({ keyCode }) {
         const TAB = 9;
         if (keyCode === TAB) {

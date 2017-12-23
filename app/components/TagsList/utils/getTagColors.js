@@ -1,4 +1,4 @@
-import * as COLORS from 'shared/styles/colors';
+import * as COLORS from "shared/styles/colors";
 
 function getTagColors(text) {
   const isCommon = /common/i.test(text);
@@ -11,7 +11,7 @@ function getTagColors(text) {
   const palette = {
     default: { textColor: COLORS.whiteLight, bgColor: COLORS.grey },
     common: { textColor: COLORS.whiteLight, bgColor: COLORS.blue },
-    noun: { textColor: COLORS.whiteLight, bgColor: COLORS.purpleLight },
+    noun: { textColor: COLORS.whiteLight, bgColor: COLORS.purpleDark },
     adverb: { textColor: COLORS.whiteLight, bgColor: COLORS.pink },
     verb: { textColor: COLORS.blackLight, bgColor: COLORS.teal },
     adj: { textColor: COLORS.blackLight, bgColor: COLORS.yellow },

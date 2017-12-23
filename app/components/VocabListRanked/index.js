@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { titleCase } from "voca";
 import cuid from "cuid";
@@ -14,13 +14,9 @@ const Wrapper = styled.div`
   ${gutter({ type: "inner" })}
 `;
 
-VocabListRanked.propTypes = {
-  items: PropTypes.array,
-  color: PropTypes.string,
-  cardsExpanded: PropTypes.bool,
-};
-
-const VocabListRanked = ({ items, color, cardsExpanded }) =>
+const VocabListRanked = ({
+  items, sectionType, color, cardsExpanded,
+}) =>
   Object.entries(items).map(([rank, words]) => (
     <Wrapper key={cuid()}>
       <StripeHeading text={titleCase(rank)} count={words.length} />
@@ -28,8 +24,16 @@ const VocabListRanked = ({ items, color, cardsExpanded }) =>
         itemType={cardsExpanded ? VOCABLIST_TYPES.CARD : VOCABLIST_TYPES.CHIP}
         items={words}
         color={color}
+        tooltipSuffix={`${sectionType}-${rank}`}
       />
     </Wrapper>
   ));
+
+VocabListRanked.propTypes = {
+  items: PropTypes.array,
+  sectionType: PropTypes.string,
+  color: PropTypes.string,
+  cardsExpanded: PropTypes.bool,
+};
 
 export default VocabListRanked;

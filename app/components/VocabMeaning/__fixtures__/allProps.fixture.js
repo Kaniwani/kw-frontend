@@ -1,12 +1,10 @@
-import VocabMeaning from 'components/VocabMeaning';
+import VocabMeaning from "components/VocabMeaning";
 
-/* TODO: This file was generated... Delete this comment when file is checked and complete! */
 export default {
-  withCosmosWrapper: true,
   component: VocabMeaning,
   props: {
-    ...VocabMeaning.defaultProps
+    ...VocabMeaning.defaultProps,
+    primaryMeaning: "no good",
+    secondaryMeanings: ["no, no good for me", "another meaning", "yet another meaning"],
   },
-  children: {},
-  state: {},
 };

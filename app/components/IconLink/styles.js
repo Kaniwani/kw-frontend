@@ -8,7 +8,6 @@ export const Link = styled(A)`
   transition: all ${fastEaseQuad}, transform 100ms linear;
   cursor: pointer;
   opacity: .7;
-  transform: scale(1);
   ${({ visuallyHidden }) => visuallyHidden && ghost}
 
   &:focus,
@@ -19,6 +18,12 @@ export const Link = styled(A)`
 
   &:active {
     opacity: 1;
-    transform: scale(.9);
+  }
+
+  & > * {
+    transform: scale(1);
+    &:active {
+      transform: scale(.9);
+    }
   }
 `;

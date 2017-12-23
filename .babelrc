@@ -12,44 +12,51 @@
     "react",
     "stage-0"
   ],
+  "plugins": [
+    [
+      "transform-imports", {
+        "voca": {
+          "transform": "voca/${member}",
+          "preventFullImport": true,
+          "snakeCase": true
+        },
+        "date-fns": {
+          "transform": "date-fns/${member}",
+          "preventFullImport": true,
+          "snakeCase": true
+        },
+        "recompose": {
+          "transform": "recompose/${member}",
+          "preventFullImport": true
+        },
+        "wanakana": {
+          "transform": "wanakana/${member}",
+          "preventFullImport": true
+        },
+        "lodash": {
+          "transform": "lodash/${member}",
+          "preventFullImport": true
+        },
+        "redux-form": {
+          "transform": "redux-form/es/${member}",
+          "preventFullImport": true
+        }
+      }
+    ]
+  ],
   "env": {
+    "development": {
+      "plugins": [
+        "babel-plugin-styled-components"
+      ]
+    },
     "production": {
       "only": ["app"],
       "plugins": [
+        "babel-plugin-styled-components",
         [
           "transform-react-remove-prop-types", {
             "removeImport": true
-          }
-        ],
-        [
-          "transform-imports", {
-            "voca": {
-              "transform": "voca/${member}",
-              "preventFullImport": true,
-              "snakeCase": true
-            },
-            "date-fns": {
-              "transform": "date-fns/${member}",
-              "preventFullImport": true,
-              "snakeCase": true
-            },
-            "recompose": {
-              "transform": "recompose/${member}",
-              "preventFullImport": true
-            },
-            "wanakana": {
-              "transform": "wanakana/${member}",
-              "preventFullImport": true
-            },
-            "lodash": {
-              "transform": "lodash/${member}",
-              "preventFullImport": true
-            },
-            "redux-form": {
-              "transform": "redux-form/es/${member}",
-              "//": "In 'app/logic.js' we have to import full actions file due to redux-form file structure",
-              "preventFullImport": false
-            }
           }
         ],
         "transform-react-constant-elements",

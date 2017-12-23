@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { UnmountClosed as Collapse } from "react-collapse";
-import format from "date-fns/format";
+import { format } from "date-fns";
 
 import { greyLight } from "shared/styles/colors";
 import { DATE_FORMAT } from "shared/constants";

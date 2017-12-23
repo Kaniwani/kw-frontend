@@ -26,6 +26,7 @@ IconButton.propTypes = {
   plainButton: PropTypes.bool,
   text: PropTypes.any,
   isSubmitting: PropTypes.bool,
+  submittingText: PropTypes.string,
   render: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
 };
 
@@ -38,6 +39,7 @@ IconButton.defaultProps = {
   inline: false,
   text: "",
   isSubmitting: false,
+  submittingText: 'Syncing...',
   render: false,
   onClick: (event) => event /* passthrough, for submit buttons in forms with onSubmit */,
 };
@@ -51,10 +53,11 @@ function IconButton({
   inline,
   render,
   isSubmitting,
+  submittingText,
   ...props
 }) {
   const RenderedText =
-    (isSubmitting && <Text>Syncing...</Text>) || (text ? <Text>{text}</Text> : null);
+    (isSubmitting && submittingText && <Text>{submittingText}</Text>) || (text ? <Text>{text}</Text> : null);
   const RenderedIcon = (
     <Icon
       isRotating={isSubmitting}

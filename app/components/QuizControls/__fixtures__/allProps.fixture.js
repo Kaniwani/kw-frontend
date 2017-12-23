@@ -1,12 +1,20 @@
-import React from 'react';
-import QuizControls, { ControlButton } from 'components/QuizControls';
+import React from "react";
+import QuizControls, { ControlButton } from "components/QuizControls";
+
+QuizControls.displayName = "QuizControls"; // otherwise 'styled.div' cosmos
 
 export default {
   component: QuizControls,
   props: {},
   children: [
-    <ControlButton onClick={() => window.alert('Clicked Button 1')}>Button 1</ControlButton>,
-    <ControlButton onClick={() => window.alert('Clicked Button 2')}>Button 2</ControlButton>,
-    <ControlButton onClick={() => window.alert('Clicked Disabled Button')}>Disabled Button</ControlButton>,
+    <ControlButton onClick={() => window.alert("Clicked Button 1")}>
+      Button 1
+    </ControlButton>,
+    <ControlButton onClick={() => window.alert("Clicked Button 2")}>
+      Button 2
+    </ControlButton>,
+    <ControlButton disabled onClick={() => window.alert("Clicked Disabled Button")}>
+      Disabled Button
+    </ControlButton>,
   ],
 };

@@ -5,6 +5,5 @@ export default {
   props: {
     text: "All Stripey",
     count: 22,
-    bgColor: '#fff',
   },
 };

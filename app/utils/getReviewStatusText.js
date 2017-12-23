@@ -1,7 +1,4 @@
-import isPast from 'date-fns/is_past';
-import isFuture from 'date-fns/is_future';
-import format from 'date-fns/format';
-import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
+import { format, isPast, isFuture, distanceInWordsToNow } from 'date-fns';
 
 import { DATE_FORMAT } from 'shared/constants';
 

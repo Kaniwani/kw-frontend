@@ -17,7 +17,7 @@ export const SVGWrapper = styled.span`
   background-color: ${transparent};
   color: ${({ color }) => color};
   flex-shrink: 0;
-  ${({ isRotating }) => isRotating && `animation: ${spin} 1.5s linear infinite;`}
+  ${({ isRotating }) => isRotating && `animation: ${spin} 1.25s linear infinite;`}
 `;
 
 export const SVG = styled.svg`

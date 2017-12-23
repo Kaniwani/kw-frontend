@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { compose, branch, renderNothing, shouldUpdate, mapProps } from "recompose";
 import ReactInterval from "react-interval";
-import isFuture from 'date-fns/is_future';
+import { isFuture } from 'date-fns';
 
 import shouldUpdateDeepEqual from "utils/shouldUpdateDeepEqual";
 import dateOrFalse from "utils/dateOrFalse";

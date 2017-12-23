@@ -9,8 +9,6 @@ class DevPage extends React.Component {
   // updateState = () =>
   //   this.setState((prevState) => ({ }));
 
-  // TODO: vocablist/vocablistranked tooltip id generation
-
   render() {
     return (
       <div>

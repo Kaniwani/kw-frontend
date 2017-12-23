@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { resetList, fluidType } from 'shared/styles/utils';
 import { gutter } from 'shared/styles/layout';
-import { white, whiteLight, blackLight, purple } from 'shared/styles/colors';
+import { white, whiteLight, blackLight } from 'shared/styles/colors';
 
 const barHeight = 6;
 
@@ -17,6 +17,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
+  background-color: ${({ bgColor }) => bgColor};
 `;
 
 export const Bar = styled.div`

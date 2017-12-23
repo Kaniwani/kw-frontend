@@ -1,5 +1,4 @@
-import addHours from "date-fns/add_hours";
-import subHours from "date-fns/sub_hours";
+import { addHours, subHours } from "date-fns";
 import getReviewStatusText from "../getReviewStatusText";
 
 describe("getReviewStatusText()", () => {

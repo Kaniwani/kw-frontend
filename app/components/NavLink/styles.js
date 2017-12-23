@@ -61,7 +61,7 @@ const linkStyle = css`
     }
   }
 
-  ${({ disabled }) => disabled && `
+  ${({ disabled }) => disabled && css`
     color: grey;
     pointer-events: none;
   `}
@@ -76,6 +76,7 @@ export const LinkButton = styled.button`
   ${linkStyle}
 `;
 
+// FIXME: instead of "isOffCanvas" just extend this style in OffCanvasMenu component styles
 export const Li = styled.li`
   ${epsilon}
   display: inline-flex;
@@ -102,7 +103,7 @@ export const Li = styled.li`
     }
   `};
 
-  ${({ disabled }) => disabled && `
+  ${({ disabled }) => disabled && css`
     cursor: not-allowed;
   `}
 `;

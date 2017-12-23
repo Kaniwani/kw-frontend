@@ -1,15 +1,17 @@
 import styled from 'styled-components';
 
 import { gutter } from 'shared/styles/layout';
-import { epsilon } from 'shared/styles/typography';
 import { whiteDark } from 'shared/styles/colors';
 
-import H3 from 'base/H3';
+import H4 from 'base/H4';
 
 export const Article = styled.article`
   & .ReactCollapse--content {
     ${gutter()}
     max-width: 45em;
+    & > div {
+      ${gutter()}
+    }
   }
 `;
 
@@ -24,13 +26,13 @@ export const Title = styled.div`
   align-items: flex-end;
 `;
 
-export const TitleText = H3.extend`
+export const TitleText = H4.extend`
   ${''/* already has a gutter */}
+  font-weight: 400;
   color: inherit;
-  line-height: 1;
 `;
 
 export const Time = styled.time`
   ${gutter()}
-  ${epsilon}
+  font-size: 0.9em;
 `;

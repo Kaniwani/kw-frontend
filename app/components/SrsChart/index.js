@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, branch, renderNothing } from 'recompose';
 import { isEmpty } from 'lodash';
-import titleCase from 'voca/title_case';
+import { titleCase } from 'voca';
 import { PieChart, Pie } from 'recharts';
 import { SRS_COLORS } from 'shared/styles/colors';
 import shouldUpdateDeepEqual from 'utils/shouldUpdateDeepEqual';

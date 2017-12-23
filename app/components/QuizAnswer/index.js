@@ -42,6 +42,8 @@ export class QuizAnswer extends React.PureComponent {
     isIncorrect: false,
   };
 
+  // FIXME: try controllable version https://github.com/NoamELB/make-controllable
+
   componentDidUpdate() {
     if (this.props.isFocused) {
       this.inputFieldRef.focus();

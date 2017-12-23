@@ -2,8 +2,11 @@ import VocabDetail from 'components/VocabDetail';
 
 export default {
   component: VocabDetail,
+  reduxState: {},
   props: {
     ...VocabDetail.defaultProps,
+    id: 23123144,
+    notes: 'A note previously saved to server',
     synonyms: [
       {
         id: 21341,

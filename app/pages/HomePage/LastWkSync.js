@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, pure, branch, renderNothing } from 'recompose';
-import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
+import { distanceInWordsToNow } from 'date-fns';
 
 import Element from 'base/Element';
 import Button from 'base/Button';

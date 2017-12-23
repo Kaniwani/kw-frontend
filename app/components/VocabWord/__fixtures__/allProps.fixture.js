@@ -1,12 +1,12 @@
-import VocabWord from 'components/VocabWord';
+import VocabWord from "components/VocabWord";
 
-/* TODO: This file was generated... Delete this comment when file is checked and complete! */
 export default {
-  withCosmosWrapper: true,
   component: VocabWord,
   props: {
-    ...VocabWord.defaultProps
+    ...VocabWord.defaultProps,
+    word: "無駄",
+    furi: "0:む;1:だ",
+    primaryReading: "むだ",
+    secondaryReadings: ["ちかじか", "ちかごろ", "ちかぢか"],
   },
-  children: {},
-  state: {},
 };

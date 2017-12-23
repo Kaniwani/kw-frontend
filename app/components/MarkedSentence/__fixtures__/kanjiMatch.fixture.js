@@ -1,9 +1,9 @@
-import MarkedSentence from 'components/MarkedSentence';
+import MarkedSentence from "components/MarkedSentence";
 
 export default {
   component: MarkedSentence,
   props: {
     sentence: "めったに来ないんじゃないか",
-    word: "来る",
+    word: "来",
   },
 };

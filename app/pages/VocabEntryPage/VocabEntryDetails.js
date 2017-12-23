@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, branch, renderNothing } from 'recompose';
-import format from 'date-fns/format';
+import { format } from 'date-fns';
 
 import { makeSelectReview } from 'shared/selectors';
 import { DATE_FORMAT } from 'shared/constants';

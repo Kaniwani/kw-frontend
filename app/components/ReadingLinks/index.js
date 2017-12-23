@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import cuid from 'cuid';
+import React from "react";
+import PropTypes from "prop-types";
+import cuid from "cuid";
 
 import {
   createJishoUrl,
@@ -9,9 +9,9 @@ import {
   createForvoUrl,
   createWkVocabUrl,
   createEijiroUrl,
-} from 'shared/api';
+} from "shared/api";
 
-import { Ul, VocabLink } from './styles';
+import { Ul, VocabLink } from "./styles";
 
 ReadingLinks.propTypes = {
   word: PropTypes.string.isRequired,
@@ -24,19 +24,24 @@ ReadingLinks.defaultProps = {
 
 function ReadingLinks({ word, useEijiroPro }) {
   const links = [
-    { name: 'WK', href: createWkVocabUrl(word) },
-    { name: 'Jisho', href: createJishoUrl(word) },
-    { name: 'Eijiro', href: createEijiroUrl(word, useEijiroPro) },
-    { name: 'Goo', href: createGooUrl(word) },
-    { name: 'Weblio', href: createWeblioUrl(word) },
-    { name: 'Forvo', href: createForvoUrl(word) },
+    { name: "WK", href: createWkVocabUrl(word) },
+    { name: "Jisho", href: createJishoUrl(word) },
+    {
+      name: `Eijiro${useEijiroPro ? " Pro" : ""}`,
+      href: createEijiroUrl(word, useEijiroPro),
+    },
+    { name: "Goo", href: createGooUrl(word) },
+    { name: "Weblio", href: createWeblioUrl(word) },
+    { name: "Forvo", href: createForvoUrl(word) },
   ];
 
   return (
     <Ul>
       {links.map(({ name, href }) => (
         <li key={cuid()}>
-          <VocabLink href={href} title={`View on ${name}`} external>{name}</VocabLink>
+          <VocabLink href={href} title={`View on ${name}`} external>
+            {name}
+          </VocabLink>
         </li>
       ))}
     </Ul>

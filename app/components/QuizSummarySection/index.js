@@ -26,8 +26,8 @@ const COLORS = {
 };
 
 QuizSummarySection.propTypes = {
-  sectionType: PropTypes.oneOf(Object.values(SECTION_TYPES)),
   items: PropTypes.object.isRequired,
+  sectionType: PropTypes.oneOf(Object.values(SECTION_TYPES)),
   color: PropTypes.string,
   cardsExpanded: PropTypes.bool,
 };
@@ -55,6 +55,7 @@ function QuizSummarySection({
       ) : (
         <VocabListRanked
           items={items}
+          sectionType={sectionType}
           color={sectionColor}
           cardsExpanded={cardsExpanded}
         />

@@ -9,7 +9,7 @@ import SentencePair from "components/SentencePair";
 import StrokeLoader from "components/StrokeLoader";
 import ReadingLinks from "components/ReadingLinks";
 import PitchDiagramList from "components/PitchDiagramList";
-import Notes from "components/Notes";
+import NotesForm from "components/NotesForm";
 import VocabLockButton from "components/VocabLockButton";
 
 // FIXME: infopanel needs to implement scroll to top when open
@@ -19,7 +19,9 @@ import VocabLockButton from "components/VocabLockButton";
 // TODO: spacing between words, synonym title?
 
 VocabDetail.propTypes = {
+  id: PropTypes.number.isRequired,
   words: PropTypes.array.isRequired,
+  notes: PropTypes.string,
   synonyms: PropTypes.array,
   isLocked: PropTypes.bool,
   centered: PropTypes.bool,
@@ -33,6 +35,7 @@ VocabDetail.propTypes = {
 };
 
 VocabDetail.defaultProps = {
+  notes: '',
   synonyms: [],
   centered: false,
   isLocked: false,
@@ -46,6 +49,8 @@ VocabDetail.defaultProps = {
 };
 
 function VocabDetail({
+  id,
+  notes,
   words,
   synonyms,
   centered,
@@ -78,14 +83,15 @@ function VocabDetail({
           {showSentence && <SentencePair {...word} />}
           {showPitch && <PitchDiagramList {...word} />}
           {showStroke && <StrokeLoader {...word} />}
-          {showNotes && (
-            <Notes
-              initialValue={word.notes}
-              onSubmit={(value) => console.log("Notes submit value was: ", value)}
-            />
-          )}
         </div>
       ))}
+      {showNotes && (
+        <NotesForm
+          form={`${id}-notes`}
+          initialValues={{ notes }}
+          onSubmit={(value) => console.log("Notes submit value was: ", value)}
+        />
+      )}
       {synonyms.map((word) => (
         <div style={style} key={cuid()}>
           <VocabWord {...word} />

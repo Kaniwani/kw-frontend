@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import { purple } from "shared/styles/colors";
 import Icon from "components/Icon";
 import IconLink from "components/IconLink";
 import ProgressBar from "./ProgressBar";
@@ -12,6 +13,7 @@ QuizHeader.propTypes = {
   percentCorrect: PropTypes.number,
   correctCount: PropTypes.number,
   remainingCount: PropTypes.number,
+  bgColor: PropTypes.string,
 };
 
 QuizHeader.defaultProps = {
@@ -19,6 +21,7 @@ QuizHeader.defaultProps = {
   percentCorrect: 0,
   correctCount: 0,
   remainingCount: 0,
+  bgColor: purple,
 };
 
 function QuizHeader({
@@ -27,9 +30,10 @@ function QuizHeader({
   percentCorrect,
   correctCount,
   remainingCount,
+  bgColor,
 }) {
   return (
-    <Wrapper>
+    <Wrapper bgColor={bgColor}>
       <ProgressBar value={percentComplete} />
       <IconLink
         plainLink

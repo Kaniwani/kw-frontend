@@ -4,7 +4,7 @@ export default {
   component: NavLink,
   url: "/",
   props: {
-    text: "Infinity",
+    text: "infinity",
     route: "/infinity",
     ...NavLink.defaultProps,
   },

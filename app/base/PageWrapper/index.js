@@ -6,10 +6,6 @@ import { Wrapper } from './styles';
 PageWrapper.propTypes = {
   fullWidth: PropTypes.bool,
   fullWidthBg: PropTypes.bool,
-  children: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.node,
-  ]).isRequired,
 };
 
 PageWrapper.defaultProps = {
@@ -17,11 +13,9 @@ PageWrapper.defaultProps = {
   fullWidthBg: false,
 };
 
-function PageWrapper({ fullWidth, fullWidthBg, children, ...props }) {
+function PageWrapper({ fullWidth, fullWidthBg, ...props }) {
   return (
-    <Wrapper fullWidth={fullWidth} fullWidthBg={fullWidthBg} {...props}>
-      {children}
-    </Wrapper>
+    <Wrapper fullWidth={fullWidth} fullWidthBg={fullWidthBg} {...props} />
   );
 }
 

@@ -41,7 +41,7 @@ function View({ profile, announcements }) {
         </Element>
         <SrsChart data={profile.srsCounts} />
       </Container>
-      <Container>
+      <Container flexColumn flexCenter textAlign="center">
         <Element flexRow flexCenter>
           <H2>News & Updates</H2>
         </Element>

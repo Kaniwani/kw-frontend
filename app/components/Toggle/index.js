@@ -3,13 +3,17 @@ import PropTypes from "prop-types";
 
 const compose = (...fns) => (...args) => fns.forEach((fn) => fn && fn(...args));
 
+// FIXME: try different controllable implementation https://github.com/NoamELB/make-controllable
+// would remove defaultOn
+// need to really ensure there are no edge-cases
+
 class Toggle extends React.Component {
   static propTypes = {
     on: PropTypes.bool, // eslint-disable-line react/require-default-props
     defaultOn: PropTypes.bool,
     onToggle: PropTypes.func,
     render: PropTypes.func.isRequired,
-  }
+  };
 
   static defaultProps = {
     defaultOn: false,
@@ -18,7 +22,7 @@ class Toggle extends React.Component {
 
   state = {
     on: this.props.defaultOn,
-  }
+  };
 
   getTogglerProps = ({ onClick, ...props } = {}) => ({
     onClick: compose(onClick, this.toggle),
