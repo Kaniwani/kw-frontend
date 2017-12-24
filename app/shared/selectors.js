@@ -1,12 +1,12 @@
-import { createSelectorCreator, defaultMemoize } from 'reselect';
-import { isFinite, isEqual } from 'lodash';
-import { titleCase } from 'voca';
+import { createSelectorCreator, defaultMemoize } from "reselect";
+import { isFinite, isEqual } from "lodash";
+import { titleCase } from "voca";
 
-import groupByRank from 'utils/groupByRank';
-import dateOrFalse from 'utils/dateOrFalse';
-import calculatePercentage from 'utils/calculatePercentage';
-import getSrsRankName from 'utils/getSrsRankName';
-import filterRomajiReadings from 'utils/filterRomajiReadings';
+import groupByRank from "utils/groupByRank";
+import dateOrFalse from "utils/dateOrFalse";
+import calculatePercentage from "utils/calculatePercentage";
+import getSrsRankName from "utils/getSrsRankName";
+import filterRomajiReadings from "utils/filterRomajiReadings";
 
 // create a "selector creator" that uses lodash.isEqual instead of ===
 const createDeepEqualSelector = createSelectorCreator(defaultMemoize, isEqual);
@@ -36,11 +36,14 @@ export const selectUpcomingReviews = createDeepEqualSelector(
   (profile) => profile.upcomingReviews
 );
 export const selectNextReviewDate = createDeepEqualSelector(selectProfile, (profile) =>
-  dateOrFalse(profile.nextReviewDate));
+  dateOrFalse(profile.nextReviewDate)
+);
 export const selectVacationDate = createDeepEqualSelector(selectProfile, (profile) =>
-  dateOrFalse(profile.vacationDate));
+  dateOrFalse(profile.vacationDate)
+);
 export const selectLastWkSyncDate = createDeepEqualSelector(selectProfile, (profile) =>
-  dateOrFalse(profile.lastWkSyncDate));
+  dateOrFalse(profile.lastWkSyncDate)
+);
 
 export const selectSettings = (state) => state.settings;
 export const selectQuizSettings = createDeepEqualSelector(
@@ -64,7 +67,8 @@ export const selectLevelEntities = createDeepEqualSelector(
   (entities) => entities.levels
 );
 export const selectLevelIds = createDeepEqualSelector(selectLevelEntities, (levels) =>
-  Object.keys(levels));
+  Object.keys(levels)
+);
 export const makeSelectLevel = (id) =>
   createDeepEqualSelector(selectLevelEntities, (levels) => levels && levels[id]);
 export const makeSelectLevelReviews = (id) =>
@@ -120,7 +124,12 @@ export const makeSelectReviewIncorrect = (id) =>
 export const makeSelectReviewMeanings = (id) =>
   createDeepEqualSelector(
     makeSelectReview(id),
-    (review) => (review ? review.vocabulary.meanings : [])
+    (review) =>
+      review
+        ? review.vocabulary.meanings.concat(
+          (review.meaningSynonyms || []).map(({ text }) => text)
+        )
+        : []
   );
 
 export const makeSelectQuizMeanings = (id) =>
@@ -141,7 +150,7 @@ export const makeSelectReviewReadings = (id) =>
 export const makeSelectReviewSynonyms = (id) =>
   createDeepEqualSelector(
     makeSelectReview(id),
-    (review) => (review ? review.synonyms : [])
+    (review) => (review ? review.readingSynonyms : [])
   );
 
 export const makeSelectReviewNotes = (id) =>
@@ -166,9 +175,11 @@ const generateToolTip = (correct, incorrect, meanings, readings) => {
   const correctnessText = () => {
     const total = correct + incorrect;
     const previouslyAnswered = total > 0;
-    return `${previouslyAnswered
-      ? `${calculatePercentage(correct, total)}%`
-      : '<small>N/A</small>'}`;
+    return `${
+      previouslyAnswered
+        ? `${calculatePercentage(correct, total)}%`
+        : "<small>N/A</small>"
+    }`;
   };
   return `
   <ul>
@@ -204,7 +215,8 @@ export const selectQueue = (state, { category }) => state.queue[category];
 export const selectSummary = (state, { category }) => state.summary[category];
 
 export const selectLastActivityDate = createDeepEqualSelector(selectSummary, (session) =>
-  dateOrFalse(session.lastActivityDate));
+  dateOrFalse(session.lastActivityDate)
+);
 
 export const selectCurrent = createDeepEqualSelector(
   selectSession,
@@ -217,7 +229,8 @@ export const selectCurrentId = createDeepEqualSelector(
 );
 
 export const selectCurrentStreakName = createDeepEqualSelector(selectCurrent, (current) =>
-  getSrsRankName(current.streak));
+  getSrsRankName(current.streak)
+);
 
 export const selectCorrectCount = createDeepEqualSelector(
   selectSession,

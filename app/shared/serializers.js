@@ -250,7 +250,8 @@ function serializeStubbedReviewEntry({
   streak,
   notes,
   vocabulary,
-  answer_synonyms,
+  meaning_synonyms: meaningSynonyms,
+  reading_synonyms: readingSynonyms,
 } = {}) {
   return {
     id: +id,
@@ -259,7 +260,8 @@ function serializeStubbedReviewEntry({
     streak: +streak,
     notes: notes == null ? "" : notes,
     // FIXME: there are now reading and meaning synonyms
-    synonyms: serializeSynonyms(answer_synonyms),
+    readingSynonyms: serializeSynonyms(readingSynonyms),
+    meaningSynonyms,
     vocabulary: serializeVocabularyEntry(vocabulary),
   };
 }
