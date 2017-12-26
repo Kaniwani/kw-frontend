@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 
 import Aux from 'base/Aux';
 import SiteHeader from 'containers/SiteHeader';
@@ -29,12 +29,12 @@ Routing.defaultProps = {
   loggedIn: false,
 };
 
-function Routing({ loggedIn }) {
+function Routing(props) {
   return (
     <Switch>
       {IS_DEV_ENV && <Route exact path="/dev" component={DevPage} />}
       <Route exact path="/welcome" component={WelcomePage} />
-      <Route path="" render={() => !loggedIn ? <Redirect to="/welcome" /> : renderProtectedRoutes()} />
+      <Route path="" render={() => !props.loggedIn ? <Redirect to="/welcome" /> : renderProtectedRoutes()} />
     </Switch>
   );
 }
@@ -83,4 +83,4 @@ function renderProtectedRoutes() {
   );
 }
 
-export default Routing;
+export default withRouter(Routing);

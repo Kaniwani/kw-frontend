@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { withRouter } from 'react-router-dom';
 import { HotKeys } from 'react-hotkeys';
 import { titleCase } from 'voca';
 
@@ -196,7 +196,7 @@ const mapDispatchToProps = (dispatch, props) => {
     resetSession: () => dispatch(app.resetSession()),
     resetAnswer: () => dispatch(quiz.answer.reset()),
     resetInfo: () => dispatch(quiz.info.reset()),
-    redirectToSummary: () => dispatch(push(`/${category}`)),
+    redirectToSummary: () => props.history.push(`/${category}`),
     recordAnswer: (payload) => dispatch(quiz.answer.submit(payload)),
     ignoreAnswer: (payload) => dispatch(quiz.answer.ignore(payload)),
     updateInfo: (payload) => dispatch(quiz.info.update(payload)),
@@ -205,4 +205,4 @@ const mapDispatchToProps = (dispatch, props) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(QuizPage);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(QuizPage));

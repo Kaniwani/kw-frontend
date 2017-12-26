@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { withRouter } from 'react-router';
 import { Helmet } from "react-helmet";
-import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 
 import { app } from "shared/actions";
@@ -34,14 +34,14 @@ class App extends React.Component {
 
   componentDidMount() {
     // dashboard refreshes user every mount anyway, so skip if we're at root path
-    if (hasToken() && this.props.location.pathname !== "/") {
+    if (hasToken() && this.props.location.path !== "/") {
       this.props.loadUser();
     }
   }
 
   // ensure route change scrolls to top of page
   componentDidUpdate(prevProps) {
-    if (this.props.location.pathname !== prevProps.location.pathname) {
+    if (this.props.location.path !== prevProps.location.path) {
       window.scrollTo(0, 0);
     }
   }
@@ -64,6 +64,7 @@ class App extends React.Component {
     );
   }
 }
+
 const mapDispatchToProps = (dispatch) => ({
   loadUser: () => dispatch(app.user.load.request()),
 });

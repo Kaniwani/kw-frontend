@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { debounce, isEqual } from 'lodash';
 import { breakpoints } from 'shared/styles/media';
 
 import LogoLink from 'components/LogoLink';
-import { selectSessionCount, selectLocationPath, selectVacationDate } from 'shared/selectors';
+import { selectSessionCount, selectVacationDate } from 'shared/selectors';
 import app from 'shared/actions';
 
 import OnCanvasMenu from './OnCanvasMenu';
@@ -19,12 +20,8 @@ class SiteHeader extends React.Component {
     reviewsCount: PropTypes.number.isRequired,
     logoutUser: PropTypes.func.isRequired,
     onVacation: PropTypes.bool.isRequired,
-    locationPath: PropTypes.string,
+    location: PropTypes.object.isRequired,
   };
-
-  static defaultProps = {
-    locationPath: '',
-  }
 
   state = {
     offCanvasMenuActive: false,
@@ -48,7 +45,7 @@ class SiteHeader extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.locationPath !== prevProps.locationPath) {
+    if (this.props.location.path !== prevProps.location.path) {
       this.hideOffCanvasMenu();
     }
   }
@@ -103,7 +100,6 @@ class SiteHeader extends React.Component {
 const mapStateToProps = (state) => ({
   reviewsCount: selectSessionCount(state, { category: 'reviews' }),
   lessonsCount: selectSessionCount(state, { category: 'lessons' }),
-  locationPath: selectLocationPath(state),
   onVacation: !!selectVacationDate(state),
 });
 
@@ -111,4 +107,4 @@ const mapDispatchToProps = ({
   logoutUser: app.user.logout,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SiteHeader);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SiteHeader));

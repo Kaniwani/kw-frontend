@@ -2,7 +2,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { ConnectedRouter } from "react-router-redux";
+import { Router } from "react-router-dom";
 import createHistory from "history/createBrowserHistory";
 import "sanitize.css/sanitize.css";
 
@@ -35,15 +35,15 @@ const MOUNT_NODE = document.getElementById("app");
 
 const render = () => {
   ReactDOM.render(
-    <Provider store={store}>
-      {/* <PersistGate persistor={persistor}> */}
-      <DefaultLoadingComponentProvider component={Spinner}>
-        <ConnectedRouter history={history}>
+    <DefaultLoadingComponentProvider component={Spinner}>
+      <Provider store={store}>
+        {/* <PersistGate persistor={persistor}> */}
+        <Router history={history}>
           <App />
-        </ConnectedRouter>
-      </DefaultLoadingComponentProvider>
-      {/* </PersistGate> */}
-    </Provider>,
+        </Router>
+        {/* </PersistGate> */}
+      </Provider>
+    </DefaultLoadingComponentProvider>,
     MOUNT_NODE
   );
 };

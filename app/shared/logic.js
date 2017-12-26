@@ -1,6 +1,5 @@
 /* eslint-disable import/first */
 import { createLogic } from "redux-logic";
-import { push, LOCATION_CHANGE } from "react-router-redux";
 import { uniq, difference } from "lodash";
 import { actions } from "redux-form";
 const { startSubmit, stopSubmit, reset } = actions;
@@ -81,9 +80,10 @@ export const userLoginLogic = createLogic({
 
 export const loginRedirectLogic = createLogic({
   type: app.user.login.success,
-  process({ action }, dispatch, done) {
+  process({ action, history }, dispatch, done) {
     setToken(action.payload);
-    dispatch(push("/"));
+    console.log(history)
+    history.push("/");
     done();
   },
 });
@@ -114,10 +114,10 @@ export const userResetPasswordLogic = createLogic({
 /* eslint-disable no-console */
 export const userLogoutLogic = createLogic({
   type: app.user.logout,
-  process(_, dispatch, done) {
+  process({ history }, dispatch, done) {
     clearToken();
     dispatch({ type: "RESET" }); // redux-reset in app/store.js
-    dispatch(push("/welcome"));
+    history.push("/welcome");
     done();
   },
 });
@@ -327,20 +327,6 @@ export const reviewSearchLogic = createLogic({
   },
 });
 
-export const reviewSearchClearLogic = createLogic({
-  type: LOCATION_CHANGE,
-  validate({ action, getState }, allow, reject) {
-    if (getState().searchResults.length) {
-      allow(action);
-    }
-    reject();
-  },
-  process(_, dispatch, done) {
-    dispatch(app.review.clearSearch());
-    done();
-  },
-});
-
 export const reviewLoadLogic = createLogic({
   type: app.review.load.request,
   warnTimeout: 10000,
@@ -486,7 +472,6 @@ export default [
   levelUnlockLogic,
   reviewLoadLogic,
   reviewSearchLogic,
-  reviewSearchClearLogic,
   addSynonymLogic,
   removeSynonymLogic,
   reviewLockLogic,

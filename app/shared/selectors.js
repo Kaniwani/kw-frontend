@@ -11,11 +11,6 @@ import filterRomajiReadings from "utils/filterRomajiReadings";
 // create a "selector creator" that uses lodash.isEqual instead of ===
 const createDeepEqualSelector = createSelectorCreator(defaultMemoize, isEqual);
 
-export const selectLocation = (state) => state.route.location;
-export const selectLocationPath = createDeepEqualSelector(
-  selectLocation,
-  (location) => location && location.pathname
-);
 export const selectEntities = (state) => state.entities;
 export const selectUi = (state) => state.ui;
 export const selectIdFromMatch = (props) => +props.match.params.id;
