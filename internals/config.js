@@ -1,4 +1,4 @@
-const resolve = require('path').resolve;
+const { resolve } = require('path');
 const pullAll = require('lodash/pullAll');
 const uniq = require('lodash/uniq');
 
@@ -31,7 +31,7 @@ const ReactBoilerplate = {
       ],
 
       /**
-       * Specify any additional dependencies here. We include core-js and lodash
+       * Specify any additional dependencies here. We include core-js
        * since a lot of our dependencies depend on them and they get picked up by webpack.
        */
       include: ['core-js', 'eventsource-polyfill'],

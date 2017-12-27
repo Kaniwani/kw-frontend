@@ -6,7 +6,7 @@
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Kaniwani/kw-frontend/master/app/shared/assets/img/logo.png" alt="kaniwani logo" width="100px" /><h1><strong>KaniWani Frontend</strong></h1>
+  <img src="https://raw.githubusercontent.com/Kaniwani/kw-frontend/master/app/common/assets/img/logo.png" alt="kaniwani logo" width="100px" /><h1><strong>KaniWani Frontend</strong></h1>
   <h2>Client UI</h2>
 </div>
 
@@ -43,7 +43,7 @@ The following Chrome extensions will allow you to explore the app structure whil
 ## Thanks
 Browser Testing generously provided by  
 <a title="browserstack" href="https://www.browserstack.com/" target="_blank" rel="external noopener noreferrer">
-<img alt="browser stack logo" src="https://raw.githubusercontent.com/Kaniwani/kw-frontend/master/app/shared/assets/img/browserstack.png"/>
+<img alt="browser stack logo" src="https://raw.githubusercontent.com/Kaniwani/kw-frontend/master/app/common/assets/img/browserstack.png"/>
 </a>
 
 ## License

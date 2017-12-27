@@ -1,13 +1,5 @@
-import Loadable from 'routing/Loadable';
+import Loadable from 'common/routing/Loadable';
 
 export default Loadable({
-  loader: ({ injectReducer }) =>
-    Promise.all([
-      import('./reducer'),
-      import('./index'),
-    ])
-      .then(([reducer, component]) => {
-        injectReducer('vocabLevels', reducer.default);
-        return component;
-      }),
+  loader: () => import('./index'),
 });

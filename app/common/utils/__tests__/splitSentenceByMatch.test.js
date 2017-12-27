@@ -1,0 +1,14 @@
+import { readings } from 'common/data/fixtures/reviews';
+import splitSentenceByMatch from '../splitSentenceByMatch';
+
+describe('splitSentenceByMatch()', () => {
+  it('should have a safe default', () => {
+    expect(splitSentenceByMatch()).toEqual({ head: '', match: '', tail: '' });
+  });
+
+  it('should match mockData', () => {
+    readings.forEach(({ sentenceJa, character, kana }) => {
+      expect(splitSentenceByMatch(sentenceJa, character, kana)).toMatchSnapshot();
+    });
+  });
+});

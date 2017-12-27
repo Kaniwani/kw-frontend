@@ -7,7 +7,7 @@ const webpack = require('webpack');
 
 module.exports = (options) => ({
   entry: options.entry,
-  output: Object.assign({ // Compile into js/build.js
+  output: Object.assign({
     path: path.resolve(process.cwd(), 'build'),
     publicPath: '/',
   }, options.output), // Merge with env dependent settings
@@ -83,11 +83,6 @@ module.exports = (options) => ({
     ],
   },
   plugins: options.plugins.concat([
-    new webpack.ProvidePlugin({
-      // make fetch available
-      fetch: 'exports-loader?self.fetch!whatwg-fetch',
-    }),
-
     // Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
     // inside your code for any environment checks; UglifyJS will automatically
     // drop any unreachable code.
@@ -113,9 +108,5 @@ module.exports = (options) => ({
   },
   devtool: options.devtool,
   target: 'web', // Make web variables accessible to webpack, e.g. window
-  // prevent "can't resolve fs" errors when building dll
-  node: {
-    fs: 'empty',
-  },
   performance: options.performance || {},
 });

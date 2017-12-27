@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`combineAnswers combines synonyms 1`] = `
+Array [
+  "天国",
+  "てんごく",
+  "丸い",
+  "まるい",
+]
+`;
+
+exports[`combineAnswers combines vocab & synonyms 1`] = `
+Array [
+  "ビー玉",
+  "びーだま",
+  "ビーだま",
+  "四",
+  "よん",
+  "日本",
+  "にほん",
+  "にっぽん",
+  "天国",
+  "てんごく",
+  "丸い",
+  "まるい",
+]
+`;
+
+exports[`combineAnswers combines vocab 1`] = `
+Array [
+  "ビー玉",
+  "びーだま",
+  "ビーだま",
+  "四",
+  "よん",
+  "日本",
+  "にほん",
+  "にっぽん",
+]
+`;

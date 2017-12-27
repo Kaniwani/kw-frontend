@@ -1,0 +1,141 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`groupByRank() should group ids under named srs ranks 1`] = `
+Object {
+  "APPRENTICE": Array [
+    Object {
+      "id": 2,
+      "streak": 1,
+    },
+    Object {
+      "id": 3,
+      "streak": 1,
+    },
+    Object {
+      "id": 4,
+      "streak": 2,
+    },
+    Object {
+      "id": 5,
+      "streak": 2,
+    },
+    Object {
+      "id": 6,
+      "streak": 3,
+    },
+    Object {
+      "id": 7,
+      "streak": 3,
+    },
+    Object {
+      "id": 8,
+      "streak": 4,
+    },
+    Object {
+      "id": 9,
+      "streak": 4,
+    },
+  ],
+  "BURNED": Array [
+    Object {
+      "id": 18,
+      "streak": 9,
+    },
+    Object {
+      "id": 19,
+      "streak": 9,
+    },
+    Object {
+      "id": 20,
+      "streak": 10,
+    },
+    Object {
+      "id": 21,
+      "streak": 10,
+    },
+    Object {
+      "id": 22,
+      "streak": 11,
+    },
+    Object {
+      "id": 23,
+      "streak": 11,
+    },
+    Object {
+      "id": 24,
+      "streak": 12,
+    },
+  ],
+  "ENLIGHTENED": Array [
+    Object {
+      "id": 16,
+      "streak": 8,
+    },
+    Object {
+      "id": 17,
+      "streak": 8,
+    },
+  ],
+  "GURU": Array [
+    Object {
+      "id": 10,
+      "streak": 5,
+    },
+    Object {
+      "id": 11,
+      "streak": 5,
+    },
+    Object {
+      "id": 12,
+      "streak": 6,
+    },
+    Object {
+      "id": 13,
+      "streak": 6,
+    },
+  ],
+  "MASTER": Array [
+    Object {
+      "id": 14,
+      "streak": 7,
+    },
+    Object {
+      "id": 15,
+      "streak": 7,
+    },
+  ],
+  "UNTRAINED": Array [
+    Object {
+      "id": 0,
+      "streak": 0,
+    },
+    Object {
+      "id": 1,
+      "streak": 0,
+    },
+  ],
+}
+`;
+
+exports[`groupByRank() should group ids under named srs ranks 2`] = `2`;
+
+exports[`groupByRank() should group ids under named srs ranks 3`] = `8`;
+
+exports[`groupByRank() should group ids under named srs ranks 4`] = `4`;
+
+exports[`groupByRank() should group ids under named srs ranks 5`] = `2`;
+
+exports[`groupByRank() should group ids under named srs ranks 6`] = `2`;
+
+exports[`groupByRank() should group ids under named srs ranks 7`] = `7`;
+
+exports[`groupByRank() should have a safe default 1`] = `
+Object {
+  "APPRENTICE": Array [],
+  "BURNED": Array [],
+  "ENLIGHTENED": Array [],
+  "GURU": Array [],
+  "MASTER": Array [],
+  "UNTRAINED": Array [],
+}
+`;

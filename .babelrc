@@ -2,7 +2,7 @@
   "presets": [
     [
       "env", {
-        "loose": true,
+        "loose": false,
         "modules": false,
         "targets": {
           "browsers": ["last 4 versions", "> 1%"]
@@ -59,11 +59,11 @@
             "removeImport": true
           }
         ],
-        "transform-react-constant-elements",
-        "transform-react-inline-elements"
+        "transform-react-inline-elements",
+        "transform-react-constant-elements"
       ]
     },
-    "commonjs": {
+    "test": {
       "plugins": ["transform-es2015-modules-commonjs", "dynamic-import-node"]
     }
   }

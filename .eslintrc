@@ -1,19 +1,12 @@
 {
   "parser": "babel-eslint",
-  "extends": [
-    "airbnb",
-    "plugin:jsx-a11y/recommended"
-  ],
+  "extends": ["airbnb", "plugin:jsx-a11y/recommended"],
   "env": {
     "browser": true,
     "jest": true,
     "es6": true
   },
-  "plugins": [
-    "import",
-    "react",
-    "jsx-a11y"
-  ],
+  "plugins": ["import", "react", "jsx-a11y"],
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
@@ -24,16 +17,11 @@
   "rules": {
     "function-paren-newline": 0,
     "quotes": 0,
-    "arrow-parens": [
-      2,
-      "always",
-    ],
+    "arrow-parens": [2, "always"],
     "camelcase": 1,
-    "comma-dangle": [
-      2,
-      "always-multiline"
-    ],
-    "import/imports-first": 0,
+    "comma-dangle": [2, "always-multiline"],
+    "global-require": 0,
+    "import/first": 0,
     "import/newline-after-import": 0,
     "import/no-dynamic-require": 0,
     "import/no-extraneous-dependencies": 0,
@@ -43,7 +31,8 @@
     "import/prefer-default-export": 0,
     "indent": [
       2,
-      2, {
+      2,
+      {
         "SwitchCase": 1
       }
     ],
@@ -56,10 +45,13 @@
     "jsx-a11y/aria-role": 1,
     "jsx-a11y/aria-unsupported-elements": 1,
     "jsx-a11y/heading-has-content": 1,
-    "jsx-a11y/anchor-is-valid": [ "error", {
-      "components": [ "Link" ],
-      "specialLink": [ "to" ]
-    }],
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "components": ["Link"],
+        "specialLink": ["to"]
+      }
+    ],
     "jsx-a11y/iframe-has-title": 1,
     "jsx-a11y/img-redundant-alt": 1,
     "jsx-a11y/no-access-key": 1,
@@ -72,23 +64,22 @@
     "newline-per-chained-call": 0,
     "no-confusing-arrow": 0,
     "no-console": 1,
+    "no-debugger": 1,
     "no-use-before-define": 0,
-    "prefer-template": 2,
+    "object-curly-newline": 0,
+    "prefer-template": 1,
     "class-methods-use-this": 0,
     "react/forbid-prop-types": 0,
     "react/prop-types": 1,
     "react/no-did-mount-set-state": 1,
-    "react/jsx-first-prop-new-line": [
-      2,
-      "multiline"
-    ],
+    "react/jsx-first-prop-new-line": [2, "multiline"],
     "react/jsx-filename-extension": 0,
     "react/jsx-no-target-blank": 0,
     "react/require-extension": 0,
     "react/require-default-props": 1,
     "react/self-closing-comp": 0,
     "require-yield": 0,
-    "valid-jsdoc": 1,
+    "valid-jsdoc": 1
   },
   "settings": {
     "import/resolver": {

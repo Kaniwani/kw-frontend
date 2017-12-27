@@ -1,8 +1,12 @@
-import React from "react";
-// import ReactInterval from "react-interval";
+/*
+  This page is just for isolated testing of components within the app using Hot Module Replacement.
+  Content is not important, welcome to clear it anytime.
+*/
 
-// import Container from 'base/Container';
-import QuizSummaryHeader from "components/QuizSummaryHeader";
+import React from "react";
+import HomePage from 'pages/HomePage/Loadable';
+
+// import ReactInterval from "react-interval";
 
 class DevPage extends React.Component {
   state = {};
@@ -12,13 +16,7 @@ class DevPage extends React.Component {
   render() {
     return (
       <div>
-        <QuizSummaryHeader
-          heading="Lessons Summary"
-          linkText="Begin Session"
-          count={2222}
-          sessionRoute="/lessons/session"
-          onResetSummary={() => window.alert('reset')}
-        />
+        <HomePage />
       </div>
     );
   }

@@ -1,33 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
-import { selectIdFromMatch } from 'shared/selectors';
-import actions from 'shared/actions';
+import { getProp } from 'common/selectors';
 
-import View from './View';
+import PageWrapper from 'common/components/PageWrapper';
+import Container from 'common/components/Container';
+import VocabEntry from 'features/vocab/Entry';
 
-export class VocabEntryPage extends React.Component {
-  static propTypes = {
-    loadReview: PropTypes.func.isRequired,
-    id: PropTypes.number.isRequired,
-  }
+VocabEntryPage.propTypes = {
+  id: PropTypes.number.isRequired,
+};
 
-  componentDidMount() {
-    this.props.loadReview(this.props.id);
-  }
-
-  render() {
-    return <View {...this.props} />;
-  }
+export function VocabEntryPage({ id }) {
+  const pageTitle = `Vocabulary: Entry ${id}`;
+  return (
+    <div>
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={`Kaniwani ${pageTitle}`} />
+      </Helmet>
+      <PageWrapper>
+        <Container>
+          <VocabEntry id={id} />
+        </Container>
+      </PageWrapper>
+    </div>
+  );
 }
 
-const mapStateToProps = (state, props) => ({
-  id: selectIdFromMatch(props),
+const mapStateToProps = (_, props) => ({
+  id: getProp('match.params.id')(_, props),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  loadReview: (id) => dispatch(actions.review.load.request({ id })),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(VocabEntryPage);
+export default connect(mapStateToProps)(VocabEntryPage);

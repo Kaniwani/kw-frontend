@@ -3,8 +3,8 @@ module.exports = {
   proxiesPath: "../cosmos.proxies.js",
   rootPath: "./app/",
   webpackConfigPath: "../internals/webpack/webpack.dev.babel.js",
-  globalImports: ["global-styles.js"],
+  globalImports: ["common/styles/global.js"],
   // hot: false,
   // publicPath: 'build',
-  ignore: [/internals/, /server/, /__tests__/],
+  exclude: [/internals/, /server/, /__tests__/, /__old_fixtures__/],
 };

@@ -1,15 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import PageWrapper from 'base/PageWrapper';
-import Container from 'base/Container';
+import PageWrapper from 'common/components/PageWrapper';
+import Container from 'common/components/Container';
 
-import { selectLastWkSyncDate } from 'shared/selectors';
-import LastWkSync from 'pages/HomePage/LastWkSync';
-import SettingsForm from './SettingsForm';
-import AccountForm from './AccountForm';
+import LastWkSync from 'features/settings/LastWkSync';
+import SettingsForm from 'features/settings/SettingsForm';
+import AccountForm from 'features/settings/AccountForm';
 
-function SettingsPage({ lastWkSyncDate }) {
+export function SettingsPage() {
   return (
     <div>
       <Helmet>
@@ -19,7 +17,7 @@ function SettingsPage({ lastWkSyncDate }) {
       <PageWrapper>
         {/* FIXME: make completely separate forms (quiz, vocab, account etc) */}
         {/* FIXME: use flat state from profile settings, and only pass down relevant props */}
-        {/* FIXME: so we can simply camelcase/snakecase in serializers */}
+        {/* FIXME: so we can simply camelcase/snakecase entire user state in api posts */}
         <Container>
           <SettingsForm />
         </Container>
@@ -27,15 +25,11 @@ function SettingsPage({ lastWkSyncDate }) {
           <AccountForm />
         </Container>
         <Container>
-          <LastWkSync lastWkSyncDate={lastWkSyncDate} />
+          <LastWkSync />
         </Container>
       </PageWrapper>
     </div>
   );
 }
 
-const mapStateToProps = (state) => ({
-  lastWkSyncDate: selectLastWkSyncDate(state),
-});
-
-export default connect(mapStateToProps)(SettingsPage);
+export default SettingsPage;

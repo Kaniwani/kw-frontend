@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Button /> should match baseline snapshot as A button 1`] = `
+<Styled(A)
+  bgColor="#4c81d6"
+  bgColorHover="#fafafa"
+  color="#fafafa"
+  colorHover="#2e50dc"
+  href="http://google.com"
+  plainLink={true}
+  to=""
+>
+  <h1
+    key=".0"
+  >
+    Test
+  </h1>
+</Styled(A)>
+`;
+
+exports[`<Button /> should match baseline snapshot as Button button 1`] = `
+<styled.button
+  bgColor="#4c81d6"
+  bgColorHover="#fafafa"
+  color="#fafafa"
+  colorHover="#2e50dc"
+  onClick={[MockFunction]}
+  plainButton={false}
+  type="button"
+>
+  <h1
+    key=".0"
+  >
+    Test
+  </h1>
+</styled.button>
+`;
+
+exports[`<Button /> should match baseline snapshot as Link button 1`] = `
+<Styled(A)
+  bgColor="#4c81d6"
+  bgColorHover="#fafafa"
+  color="#fafafa"
+  colorHover="#2e50dc"
+  href=""
+  plainLink={true}
+  to="/"
+>
+  <h1
+    key=".0"
+  >
+    Test
+  </h1>
+</Styled(A)>
+`;

@@ -1,33 +1,30 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React from "react";
+import { Helmet } from "react-helmet";
 
-import actions from 'shared/actions';
-import { selectLevelIds } from 'shared/selectors';
+import PageWrapper from "common/components/PageWrapper";
+import Container from "common/components/Container";
+import Element from "common/components/Element";
+import H1 from "common/components/H1";
+import Levels from 'features/vocab/Levels/Loadable';
 
-import View from './View';
-
-export class VocabLevelsPage extends React.Component {
-  static propTypes = {
-    loadLevels: PropTypes.func.isRequired,
-    levelIds: PropTypes.array.isRequired,
-  }
-
-  componentDidMount() {
-    this.props.loadLevels();
-  }
-
-  render() {
-    return <View {...this.props} />;
-  }
+function VocabLevelsPage() {
+  const pageTitle = "Vocabulary: Levels";
+  return (
+    <div>
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={`Kaniwani ${pageTitle}`} />
+      </Helmet>
+      <PageWrapper>
+        <Container>
+          <Element>
+            <H1>Vocabulary Levels</H1>
+          </Element>
+        </Container>
+        <Levels />
+      </PageWrapper>
+    </div>
+  );
 }
 
-const mapStateToProps = (state) => ({
-  levelIds: selectLevelIds(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  loadLevels: () => dispatch(actions.levels.load.request()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(VocabLevelsPage);
+export default VocabLevelsPage;
