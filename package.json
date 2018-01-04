@@ -205,6 +205,7 @@
     "react-cosmos-redux-proxy": "3.1.1",
     "react-cosmos-router-proxy": "3.1.1",
     "react-cosmos-wrapper-proxy": "1.1.1",
+    "react-error-overlay": "^1.0.5",
     "redux-freeze": "0.1.5",
     "redux-logic-test": "1.0.5",
     "rimraf": "2.6.2",

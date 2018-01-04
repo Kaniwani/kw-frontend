@@ -2,6 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 const webpackDevMiddleware = require("webpack-dev-middleware");
 const webpackHotMiddleware = require("webpack-hot-middleware");
+const errorOverlayMiddleware = require('react-error-overlay/middleware'); // eslint-disable-line no-console
 
 function createWebpackMiddleware(compiler, publicPath) {
   return webpackDevMiddleware(compiler, {
@@ -18,6 +19,7 @@ module.exports = function addDevMiddlewares(app, webpackConfig) {
 
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
+  app.use(errorOverlayMiddleware());
 
   // Since webpackDevMiddleware uses memory-fs internally to store build
   // artifacts, we use it instead
