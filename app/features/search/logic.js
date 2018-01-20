@@ -1,11 +1,11 @@
-import { createLogic } from "redux-logic";
-import { snakeCaseKeys } from "common/utils/caseKeys";
+import { createLogic } from 'redux-logic';
+import { snakeCaseKeys } from 'common/utils/caseKeys';
 
-import { selectReviews } from "features/reviews/selectors";
-import search from "./actions";
-import review from "features/reviews/actions";
-import vocab from "features/vocab/actions";
-import synonym from "features/synonyms/actions";
+import { selectReviews } from 'features/reviews/selectors';
+import search from './actions';
+import review from 'features/reviews/actions';
+import vocab from 'features/vocab/actions';
+import synonym from 'features/synonyms/actions';
 
 export const searchLogic = createLogic({
   type: search.query.request,
@@ -25,7 +25,12 @@ export const searchLogic = createLogic({
         res,
         selectReviews(getState())
       );
-      // FIXME: filter out unviewable reviews, waiting on backend issue #344
+      /*
+       * FIXME: we currently filter out unreviewable vocab though potentially
+       * we could store it and create a new VocabList component that has no review links
+       * and accepts just a list of vocabIds (currently it recieves review ids...)
+       * -> rename current VocabList to ReviewList really...
+       */
       dispatch(
         search.query.success({
           ids: persistedIds,
@@ -34,24 +39,22 @@ export const searchLogic = createLogic({
         })
       );
 
-      Promise.all(missingIds.map((id) => api.review.fetch({ id }))).then(
-        (missingReviews) => {
-          const updates = serializeReviews(missingReviews);
-          dispatch(review.batchUpdate(updates));
-          dispatch(vocab.batchUpdate(updates));
-          dispatch(synonym.batchUpdate(updates));
-          dispatch(
-            search.query.success({
-              ids: [...persistedIds, ...missingIds],
-              isSearching: false,
-              isSearchComplete: true,
-            })
-          );
-          stopSubmit();
-          reset();
-          done();
-        }
-      );
+      Promise.all(missingIds.map((id) => api.review.fetch({ id }))).then((missingReviews) => {
+        const updates = serializeReviews(missingReviews);
+        dispatch(review.batchUpdate(updates));
+        dispatch(vocab.batchUpdate(updates));
+        dispatch(synonym.batchUpdate(updates));
+        dispatch(
+          search.query.success({
+            ids: [...persistedIds, ...missingIds],
+            isSearching: false,
+            isSearchComplete: true,
+          })
+        );
+        stopSubmit();
+        reset();
+        done();
+      });
     });
   },
 });

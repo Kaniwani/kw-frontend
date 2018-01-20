@@ -5,7 +5,7 @@ import VocabSynonym from 'common/components/VocabSynonym/VocabSynonym';
 import Element from 'common/components/Element';
 
 VocabSynonymList.propTypes = {
-  ids: PropTypes.arrayOf(PropTypes.string).isRequired,
+  ids: PropTypes.arrayOf(PropTypes.number).isRequired,
   reviewId: PropTypes.number.isRequired,
 };
 

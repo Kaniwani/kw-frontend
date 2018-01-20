@@ -36,6 +36,19 @@ GET {{host}}/review/2696518/
 {{auth}}
 {{contentType}}
 
+### search reviews
+# srs_level	
+# srs_level_gt	
+# srs_level_lt	
+# part_of_speech	
+# wanikani_burned	
+# level	
+# meaning_contains
+GET {{host}}/review/
+  ?level=20
+{{auth}}
+{{contentType}}
+
 ### fetch levels
 GET {{host}}/level/
 {{auth}}
@@ -51,12 +64,12 @@ POST {{host}}/level/2/unlock/
 {{auth}}
 {{contentType}}
 
-### fetch lessons queue
+### fetch lessons queue (stubbed entries!)
 GET {{host}}/review/lesson/?limit=100
 {{auth}}
 {{contentType}}
 
-### fetch review queue
+### fetch review queue (stubbed entries!)
 GET {{host}}/review/current/?limit=100
 {{auth}}
 {{contentType}}

@@ -1,21 +1,21 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { purple } from "common/styles/colors";
+import { purple } from 'common/styles/colors';
 
 import {
   selectCategory,
   selectPercentComplete,
   selectPercentCorrect,
   selectCorrectCount,
-  selectRemainingCount,
+  selectSessionRemainingCount,
 } from 'features/quiz/QuizSession/selectors';
 
-import Icon from "common/components/Icon";
-import IconLink from "common/components/IconLink";
-import ProgressBar from "./ProgressBar";
-import { Wrapper, StatsWrapper, Stat, Label } from "./styles";
+import Icon from 'common/components/Icon';
+import IconLink from 'common/components/IconLink';
+import ProgressBar from './ProgressBar';
+import { Wrapper, StatsWrapper, Stat, Label } from './styles';
 
 QuizHeader.propTypes = {
   summaryRoute: PropTypes.string.isRequired, // /lessons, /reviews
@@ -77,7 +77,7 @@ const mapStateToProps = (state, props) => ({
   percentComplete: selectPercentComplete(state, props),
   percentCorrect: selectPercentCorrect(state, props),
   correctCount: selectCorrectCount(state, props),
-  remainingCount: selectRemainingCount(state, props),
+  remainingCount: selectSessionRemainingCount(state, props),
 });
 
 export default connect(mapStateToProps)(QuizHeader);

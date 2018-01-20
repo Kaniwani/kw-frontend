@@ -82,15 +82,19 @@ function Dmak(text, config) {
     if (timeouts.play.length || pointer <= 0) {
       return;
     }
-
+    const pointerStart = pointer;
     do {
       pointer -= 1;
       eraseStroke(strokes[pointer], timeouts.erasing, options);
-
-      // Execute custom callback "erased" here
-      options.erased(pointer);
     } while (pointer > end);
 
+    // for some reason DMAK erased callback fires immediately
+    // so we'll delay it by the duration of the longest stroke being erased
+    const delay = strokes
+      .slice(0, pointerStart)
+      .reduce((slowest, { duration }) => (duration > slowest ? duration : slowest), 0);
+
+    setTimeout(() => options.erased(), delay);
   };
 
   // All the magic happens here.
@@ -175,7 +179,7 @@ function Dmak(text, config) {
     render,
     eraseLastStrokes,
     renderNextStrokes,
-  }
+  };
 }
 
 // HELPERS
@@ -212,7 +216,6 @@ function preprocessStrokes(data, options) {
   return strokes;
 }
 
-
 // Init Raphael paper objects
 function giveBirthToRaphael(nbChar, options) {
   const papers = [];
@@ -227,15 +230,17 @@ function giveBirthToRaphael(nbChar, options) {
   return papers.reverse();
 }
 
-
 // Draw the background grid
 function showGrid(papers, options) {
   for (let i = 0; i < papers.length; i += 1) {
-    papers[i].path(`M${options.viewBox.w / 2},0 L${options.viewBox.w / 2},${options.viewBox.h}`).attr(options.grid.attr);
-    papers[i].path(`M0,${options.viewBox.h / 2} L${options.viewBox.w},${options.viewBox.h / 2}`).attr(options.grid.attr);
+    papers[i]
+      .path(`M${options.viewBox.w / 2},0 L${options.viewBox.w / 2},${options.viewBox.h}`)
+      .attr(options.grid.attr);
+    papers[i]
+      .path(`M0,${options.viewBox.h / 2} L${options.viewBox.w},${options.viewBox.h / 2}`)
+      .attr(options.grid.attr);
   }
 }
-
 
 // Remove a single stroke ; deletion can be animated if set as so.
 function eraseStroke(stroke, timeouts, options) {
@@ -266,7 +271,6 @@ function eraseStroke(stroke, timeouts, options) {
   }
 }
 
-
 // Draw a single stroke ; drawing can be animated if set as so.
 function drawStroke(paper, stroke, timeouts, options) {
   function cb() {
@@ -282,7 +286,8 @@ function drawStroke(paper, stroke, timeouts, options) {
 
     // Revert back to the default color.
     stroke.object.path.node.style.stroke = color;
-    stroke.object.path.node.style.transition = stroke.object.path.node.style.WebkitTransition = 'stroke 400ms ease';
+    stroke.object.path.node.style.transition = stroke.object.path.node.style.WebkitTransition =
+      'stroke 400ms ease';
 
     timeouts.shift();
   }
@@ -301,32 +306,33 @@ function drawStroke(paper, stroke, timeouts, options) {
   }
 }
 
-
 // Draw a single next to
 function showStrokeOrder(paper, stroke, options) {
   stroke.object.text = paper.text(stroke.text.x, stroke.text.y, stroke.text.value);
   stroke.object.text.attr(options.stroke.order.attr);
 }
 
-
 // Animate stroke drawing.
 // Based on the great article wrote by Jake Archibald
 // http://jakearchibald.com/2013/animated-line-drawing-svg/
 function animateStroke(stroke, direction, options, callback) {
   stroke.object.path.attr({ stroke: options.stroke.attr.active });
-  stroke.object.path.node.style.transition = stroke.object.path.node.style.WebkitTransition = 'none';
+  stroke.object.path.node.style.transition = stroke.object.path.node.style.WebkitTransition =
+    'none';
 
   // Set up the starting positions
   stroke.object.path.node.style.strokeDasharray = `${stroke.length} ${stroke.length}`;
-  stroke.object.path.node.style.strokeDashoffset = (direction > 0) ? stroke.length : 0;
+  stroke.object.path.node.style.strokeDashoffset = direction > 0 ? stroke.length : 0;
 
   // Trigger a layout so styles are calculated & the browser
   // picks up the starting position before animating
   stroke.object.path.node.getBoundingClientRect();
-  stroke.object.path.node.style.transition = stroke.object.path.node.style.WebkitTransition = `stroke-dashoffset ${stroke.duration}ms ease`;
+  stroke.object.path.node.style.transition = stroke.object.path.node.style.WebkitTransition = `stroke-dashoffset ${
+    stroke.duration
+  }ms ease`;
 
   // Go!
-  stroke.object.path.node.style.strokeDashoffset = (direction > 0) ? '0' : stroke.length;
+  stroke.object.path.node.style.strokeDashoffset = direction > 0 ? '0' : stroke.length;
 
   // Execute the callback once the animation is done
   // and return the timeout id.
@@ -334,16 +340,15 @@ function animateStroke(stroke, direction, options, callback) {
 }
 
 // Create a safe reference to the DrawMeAKanji object for use below.
-const DmakLoader = function (uri) {
+const DmakLoader = function(uri) {
   this.uri = uri;
 };
-
 
 // Gather SVG data information for a given set of characters.
 // By default this action is done while instanciating the Word
 // object, but it can be skipped, see above
 
-DmakLoader.prototype.load = function (text, callback) {
+DmakLoader.prototype.load = function(text, callback) {
   let paths = [],
     nbChar = text.length,
     done = 0,
@@ -366,14 +371,13 @@ DmakLoader.prototype.load = function (text, callback) {
   }
 };
 
-
 // Try to load a SVG file matching the given char code.
 // @thanks to the incredible work made by KanjiVG
 // @see: http://kanjivg.tagaini.net
 
 function loadSvg(uri, index, charCode, callbacks) {
   const xhr = new XMLHttpRequest();
-  const code = (`00000${charCode}`).slice(-5);
+  const code = `00000${charCode}`.slice(-5);
 
   // Skip space character
   if (code === '00020' || code === '03000') {
@@ -396,7 +400,6 @@ function loadSvg(uri, index, charCode, callbacks) {
   };
   xhr.send();
 }
-
 
 // Simple parser to extract paths and texts data.
 function parseResponse(response, code) {
@@ -431,7 +434,10 @@ function parseResponse(response, code) {
     data[i].text = {
       value: texts[i].textContent,
       x: texts[i].getAttribute('transform').split(' ')[4],
-      y: texts[i].getAttribute('transform').split(' ')[5].replace(')', ''),
+      y: texts[i]
+        .getAttribute('transform')
+        .split(' ')[5]
+        .replace(')', ''),
     };
   }
 

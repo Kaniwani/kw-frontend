@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { SRS_RANKS } from 'common/constants';
 
 import quiz from 'features/quiz/actions';
-import selectQuizAnswer from 'features/quiz/QuizSession/QuizAnswer/selectors';
+import selectAnswer from 'features/quiz/QuizSession/QuizAnswer/selectors';
 import { selectCurrentStreakName } from 'features/quiz/QuizSession/selectors';
 import { DebouncedInput } from './DebouncedInput';
 import {
@@ -47,6 +47,10 @@ export class QuizAnswer extends React.Component {
   componentDidUpdate() {
     if (this.props.isFocused) {
       this.inputFieldRef.focus();
+    } else {
+      // Input is blurred when disabled,
+      // so we need to focus on something for hotkeys in QuizSession
+      this.formRef.focus();
     }
   }
 
@@ -83,11 +87,15 @@ export class QuizAnswer extends React.Component {
     } = this.props;
     return (
       <Form
+        innerRef={(node) => {
+          this.formRef = node;
+        }}
         onSubmit={this.onSubmit}
         marked={isMarked}
         valid={isValid}
         correct={isCorrect}
         incorrect={isIncorrect}
+        tabIndex={0}
       >
         <AnswerWrapper>
           <Streak streakName={streakName} size="1.15em" />
@@ -126,7 +134,7 @@ export class QuizAnswer extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  ...selectQuizAnswer(state, props),
+  ...selectAnswer(state, props),
   streakName: selectCurrentStreakName(state, props),
 });
 

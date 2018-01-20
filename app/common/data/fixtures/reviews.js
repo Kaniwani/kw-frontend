@@ -1,63 +1,203 @@
-import { random, sample, sampleSize, range, uniq, flatMapDeep, flatMap } from "lodash";
-import { parse } from "date-fns";
-import faker from "faker/locale/en";
-import reviewResponse from "common/data/api/reviews";
-import { halfChance } from "./utils";
-
-const { results: reviews } = reviewResponse;
-
-export const meanings = flatMap(reviews, (x) => x.vocabulary.meaning.split(", "));
-export const readings = flatMap(reviews, (x) => x.vocabulary.readings.map((r) => r.kana));
-
-export const wordSets = flatMap(reviews, () =>
-  readings.map(({
-    character, kana, furigana, pitch,
-  }) => ({
-    word: character,
-    primaryReading: kana,
-    secondaryReadings: sampleSize(readings, random(2)),
-    furi: furigana != null ? furigana : "",
-    pitch: pitch != null ? pitch.split(",").map(Number) : [],
-  }))
-);
-
-export const words = flatMap(reviews, (x) => x.vocabulary.readings.map((r) => r.character));
-export const tags = uniq(
-  flatMapDeep(reviews, (x) => x.vocabulary.readings.map((r) => r.parts_of_speech))
-);
-export const sentences = flatMap(reviews, (x) =>
-  x.vocabulary.readings.map((r) => ({
-    sentenceEn: r.sentence_en,
-    sentenceJa: r.sentence_ja,
-  }))
-);
-export const synonyms = sampleSize(wordSets, random(2)).map(
-  ({ word, primaryReading }) => ({ id: random(300), word, primaryReading })
-);
-
-export const stats = flatMap(reviews, ({ vocabulary, ...review }) => ({
-  synonyms,
-  correct: random(6),
-  incorrect: random(6),
-  streak: random(9),
-  lastStudied: halfChance(false, faker.date.past()),
-  needsReview: halfChance(true, false),
-  unlockDate: parse(review.unlock_date),
-  nextReviewDate: parse(review.next_review_date),
-  burned: halfChance(true, false),
-  critical: halfChance(true, false),
-  hidden: halfChance(true, false),
-  wanikaniStreak: random(9),
-  wanikaniBurned: halfChance(true, false),
-}));
-
-export default range(60).map(() => ({
-  ...sample(stats),
-  id: random(1, 1000),
-  level: random(1, 60),
-  tags: sampleSize(tags, random(1, 4)),
-  primaryMeaning: sample(meanings),
-  secondaryMeanings: sampleSize(meanings, random(4)),
-  ...sample(wordSets),
-  ...sample(sentences),
-}));
+import { random } from 'lodash';
+export default [
+  {
+    id: 553,
+    history: {
+      correct: random(10),
+      incorrect: random(10),
+    },
+    session: {
+      correct: random(10),
+      incorrect: random(10),
+      streak: random(11),
+    },
+    meanings: ['before long', 'soon'],
+    readings: [
+      {
+        id: 582,
+        character: '近々',
+        kana: ['ちかぢか'],
+        level: 7,
+        tags: ['Adverbial Noun'],
+        sentenceEn: 'When I saw them on a date, I asked them, “Do I hear wedding bells?”',
+        sentenceJa: '彼らがデートをしているのを見かけて近々結婚するのってきいたんだ',
+        jlpt: 'JLPT N2',
+        common: true,
+      },
+      {
+        id: 583,
+        character: '近々',
+        kana: ['きんきん'],
+        level: 7,
+        tags: ['Adverbial Noun'],
+        sentenceEn: 'When I saw them on a date, I asked them, “Do I hear wedding bells?”',
+        sentenceJa: '彼らがデートをしているのを見かけて近々結婚するのってきいたんだ',
+        jlpt: 'JLPT N2',
+        common: true,
+      },
+      {
+        id: 584,
+        character: '近々',
+        kana: ['ちかじか'],
+        level: 7,
+        tags: ['Adverbial Noun'],
+        sentenceEn: 'When I saw them on a date, I asked them, “Do I hear wedding bells?”',
+        sentenceJa: '彼らがデートをしているのを見かけて近々結婚するのってきいたんだ',
+        jlpt: 'JLPT N2',
+        common: true,
+      },
+      {
+        id: 783,
+        character: '軈て',
+        kana: ['やがて'],
+        level: 61,
+        tags: ['Adverb'],
+        sentenceEn: 'By and by he forgot that affair',
+        sentenceJa: 'やがて彼はその事件のことを忘れた',
+        jlpt: 'JLPT N2',
+        common: true,
+      },
+    ],
+    synonyms: [
+      {
+        id: 5582,
+        character: '間もなく',
+        kana: ['まもなく'],
+        level: 22,
+        tags: ['Adverb'],
+        sentenceEn: 'Coming up, Jiyuugaoka Station.',
+        sentenceJa: '間もなく、自由が丘駅',
+        jlpt: 'JLPT N2',
+        common: true,
+      },
+    ],
+  },
+  {
+    id: 176,
+    history: {
+      correct: random(10),
+      incorrect: random(10),
+    },
+    session: {
+      correct: random(10),
+      incorrect: random(10),
+      streak: random(11),
+    },
+    meanings: ['young lady', 'little girl', 'maiden', 'daughter', 'girl'],
+    readings: [
+      {
+        id: 188,
+        word: '少女',
+        primaryReading: ['しょうじょ'],
+        level: 3,
+        tags: ['Noun'],
+        sentenceEn: "I am touched by the girl's acute sensitivity.",
+        sentenceJa: '少女の鋭い感性に触れている',
+        jlpt: 'JLPT N3',
+        common: true,
+      },
+      {
+        id: 189,
+        character: '少女',
+        kana: ['おとめ'],
+        level: 3,
+        tags: ['Noun'],
+        sentenceEn: "I am touched by the girl's acute sensitivity.",
+        sentenceJa: '少女の鋭い感性に触れている',
+        jlpt: 'JLPT N3',
+        common: true,
+      },
+    ],
+    synonyms: [],
+  },
+  {
+    id: 280,
+    history: {
+      correct: random(10),
+      incorrect: random(10),
+    },
+    session: {
+      correct: random(10),
+      incorrect: random(10),
+      streak: random(11),
+    },
+    meanings: ['young boy', 'juvenile', 'youth', 'boy'],
+    readings: [
+      {
+        id: 298,
+        character: '少年',
+        kana: ['しょうねん'],
+        level: 4,
+        tags: ['Noun'],
+        sentenceEn: 'The shy boy murmured his name.',
+        sentenceJa:
+          'その内気な少年はぼそぼそと自分の名前をつぶやいた全ての少年少女はを知っています',
+        jlpt: 'JLPT N3',
+        common: true,
+      },
+    ],
+    synonyms: [],
+  },
+  {
+    id: 424,
+    history: {
+      correct: random(10),
+      incorrect: random(10),
+    },
+    session: {
+      correct: random(10),
+      incorrect: random(10),
+      streak: random(11),
+    },
+    meanings: [
+      'whole life',
+      'entire life',
+      'a lifetime',
+      'all through life',
+      'one existence',
+      'a generation',
+      'an age',
+    ],
+    readings: [
+      {
+        id: 449,
+        character: '一生',
+        kana: ['いっしょう'],
+        level: 5,
+        tags: ['Noun', 'No adjective'],
+        sentenceEn: 'She worked hard.',
+        sentenceJa: '彼女は一生懸命働いた',
+        jlpt: 'JLPT N3',
+        common: true,
+      },
+    ],
+    synonyms: [],
+  },
+  {
+    id: 502,
+    history: {
+      correct: random(10),
+      incorrect: random(10),
+    },
+    session: {
+      correct: random(10),
+      incorrect: random(10),
+      streak: random(11),
+    },
+    meanings: ['honest'],
+    readings: [
+      {
+        id: 529,
+        character: '正直',
+        kana: ['しょうじき'],
+        level: 6,
+        tags: ['Noun', 'Na adjective'],
+        sentenceEn: 'Him, honest? What a joke!',
+        sentenceJa: '正直が聞いて呆れるよ',
+        jlpt: 'JLPT N3',
+        common: true,
+      },
+    ],
+    synonyms: [],
+  },
+];

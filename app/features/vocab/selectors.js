@@ -1,36 +1,33 @@
-import { createSelector } from "reselect";
+import { createSelector } from 'reselect';
+import { VERB_TYPES } from 'common/utils/conjugate';
 import {
   getState,
   makeSelectEntityDomain,
   makeSelectItemIds,
   makeSelectItemById,
-} from "common/selectors";
+} from 'common/selectors';
 
-export const ENTITY_DOMAIN = "vocab";
+export const ENTITY_DOMAIN = 'vocab';
 export const selectVocabDomain = makeSelectEntityDomain(ENTITY_DOMAIN);
 export const selectVocabIds = makeSelectItemIds(selectVocabDomain);
 export const selectVocab = selectVocabDomain;
 export const selectVocabById = makeSelectItemById(selectVocab);
 
-export const selectTags = createSelector(selectVocabById, getState("tags", []));
-export const selectPitch = createSelector(selectVocabById, getState("pitch", [-1]));
-export const selectWord = createSelector(selectVocabById, getState("word", ""));
-export const selectFuri = createSelector(selectVocabById, getState("furi", ""));
-export const selectSentenceEn = createSelector(
-  selectVocabById,
-  getState("sentenceEn", "")
+export const selectTags = createSelector(selectVocabById, getState('tags', []));
+export const selectVerbType = createSelector(
+  selectTags,
+  tags.find((tag) => VERB_TYPES.includes(tag))
 );
-export const selectSentenceJa = createSelector(
-  selectVocabById,
-  getState("sentenceJa", "")
-);
-export const selectPrimaryReading = createSelector(
-  selectVocabById,
-  getState("primaryReading", "")
-);
+
+export const selectPitch = createSelector(selectVocabById, getState('pitch', [-1]));
+export const selectWord = createSelector(selectVocabById, getState('word', ''));
+export const selectFuri = createSelector(selectVocabById, getState('furi', ''));
+export const selectSentenceEn = createSelector(selectVocabById, getState('sentenceEn', ''));
+export const selectSentenceJa = createSelector(selectVocabById, getState('sentenceJa', ''));
+export const selectPrimaryReading = createSelector(selectVocabById, getState('primaryReading', ''));
 export const selectSecondaryReadings = createSelector(
   selectVocabById,
-  getState("secondaryReadings", [])
+  getState('secondaryReadings', [])
 );
 
 export default selectVocabDomain;

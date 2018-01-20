@@ -1,9 +1,10 @@
 import { createSelector } from 'reselect';
 
-import { getState } from 'common/selectors';
+import { getState, getVal } from 'common/selectors';
 import { selectReviews } from 'features/reviews/selectors';
-import { calculateCorrectPercentage } from 'features/quiz/QuizSession/selectors';
+import calculatePercentage from 'common/utils/calculatePercentage';
 import groupByRank from 'common/utils/groupByRank';
+import dateOrFalse from 'common/utils/dateOrFalse';
 
 const groupIdsByRank = (entities, ids) => {
   const entityExists = (id) => entities[id] != null;
@@ -54,12 +55,16 @@ export const selectSummaryIncorrectCount = createSelector(
 
 export const selectSummaryPercentCorrect = createSelector(
   [selectSummaryCorrectCount, selectSummaryIncorrectCount],
-  calculateCorrectPercentage
+  (correct, incorrect) => {
+    const total = correct + incorrect;
+    const pristine = total < 1;
+    return pristine ? 100 : calculatePercentage(correct, total);
+  }
 );
 
 export const selectLastActivityDate = createSelector(
   selectQuizSummary,
-  getState('lastActivityDate', false)
+  getVal('lastActivityDate', dateOrFalse)
 );
 
 export default selectQuizSummary;

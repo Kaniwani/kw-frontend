@@ -6,18 +6,20 @@ import quiz from 'features/quiz/actions';
 
 const initialState = {
   isDisabled: true,
-  activePanel: '',
+  isOpen: false,
   detailLevel: 0,
 };
 
 const updateInfo = (state, { payload }) => merge({}, state, payload);
+const showInfo = (state) => ({ ...state, isOpen: true });
 const cycleDetail = (state) =>
   merge({}, state, { detailLevel: getRotatedLevel(state.detailLevel) });
 
 export const quizInfoReducer = handleActions(
   {
-    [quiz.info.cycledetail]: cycleDetail,
     [quiz.info.update]: updateInfo,
+    [quiz.info.show]: showInfo,
+    [quiz.info.cycleDetail]: cycleDetail,
     [combineActions(quiz.info.reset, LOCATION_CHANGE)]: () => initialState,
   },
   initialState

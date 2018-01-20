@@ -1,10 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import cuid from "cuid";
+import cuid from 'cuid';
 
 import { selectUseEijiroPro } from 'features/user/selectors';
 import { selectWord } from 'features/vocab/selectors';
+
+import Ul from 'common/components/Ul';
+import { Li, VocabLink } from './styles';
 
 import {
   createWkVocabUrl,
@@ -13,9 +16,7 @@ import {
   createGooUrl,
   createWeblioUrl,
   createForvoUrl,
-} from "common/api";
-
-import { Ul, VocabLink } from "./styles";
+} from 'common/api';
 
 ReadingLinks.propTypes = {
   word: PropTypes.string.isRequired,
@@ -24,25 +25,25 @@ ReadingLinks.propTypes = {
 
 export function ReadingLinks({ word, useEijiroPro }) {
   const links = [
-    { name: "WK", href: createWkVocabUrl(word) },
-    { name: "Jisho", href: createJishoUrl(word) },
+    { name: 'WK', href: createWkVocabUrl(word) },
+    { name: 'Jisho', href: createJishoUrl(word) },
     {
-      name: `Eijiro${useEijiroPro ? " Pro" : ""}`,
+      name: `Eijiro${useEijiroPro ? ' Pro' : ''}`,
       href: createEijiroUrl(word, useEijiroPro),
     },
-    { name: "Goo", href: createGooUrl(word) },
-    { name: "Weblio", href: createWeblioUrl(word) },
-    { name: "Forvo", href: createForvoUrl(word) },
+    { name: 'Goo', href: createGooUrl(word) },
+    { name: 'Weblio', href: createWeblioUrl(word) },
+    { name: 'Forvo', href: createForvoUrl(word) },
   ];
 
   return (
-    <Ul>
+    <Ul plainList>
       {links.map(({ name, href }) => (
-        <li key={cuid()}>
+        <Li key={cuid()}>
           <VocabLink href={href} title={`View on ${name}`} external>
             {name}
           </VocabLink>
-        </li>
+        </Li>
       ))}
     </Ul>
   );

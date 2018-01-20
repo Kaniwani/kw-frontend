@@ -3,116 +3,41 @@
 exports[`groupByRank() should group ids under named srs ranks 1`] = `
 Object {
   "APPRENTICE": Array [
-    Object {
-      "id": 2,
-      "streak": 1,
-    },
-    Object {
-      "id": 3,
-      "streak": 1,
-    },
-    Object {
-      "id": 4,
-      "streak": 2,
-    },
-    Object {
-      "id": 5,
-      "streak": 2,
-    },
-    Object {
-      "id": 6,
-      "streak": 3,
-    },
-    Object {
-      "id": 7,
-      "streak": 3,
-    },
-    Object {
-      "id": 8,
-      "streak": 4,
-    },
-    Object {
-      "id": 9,
-      "streak": 4,
-    },
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
   ],
   "BURNED": Array [
-    Object {
-      "id": 18,
-      "streak": 9,
-    },
-    Object {
-      "id": 19,
-      "streak": 9,
-    },
-    Object {
-      "id": 20,
-      "streak": 10,
-    },
-    Object {
-      "id": 21,
-      "streak": 10,
-    },
-    Object {
-      "id": 22,
-      "streak": 11,
-    },
-    Object {
-      "id": 23,
-      "streak": 11,
-    },
-    Object {
-      "id": 24,
-      "streak": 12,
-    },
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
   ],
   "ENLIGHTENED": Array [
-    Object {
-      "id": 16,
-      "streak": 8,
-    },
-    Object {
-      "id": 17,
-      "streak": 8,
-    },
+    16,
+    17,
   ],
   "GURU": Array [
-    Object {
-      "id": 10,
-      "streak": 5,
-    },
-    Object {
-      "id": 11,
-      "streak": 5,
-    },
-    Object {
-      "id": 12,
-      "streak": 6,
-    },
-    Object {
-      "id": 13,
-      "streak": 6,
-    },
+    10,
+    11,
+    12,
+    13,
   ],
   "MASTER": Array [
-    Object {
-      "id": 14,
-      "streak": 7,
-    },
-    Object {
-      "id": 15,
-      "streak": 7,
-    },
+    14,
+    15,
   ],
   "UNTRAINED": Array [
-    Object {
-      "id": 0,
-      "streak": 0,
-    },
-    Object {
-      "id": 1,
-      "streak": 0,
-    },
+    0,
+    1,
   ],
 }
 `;

@@ -33,7 +33,9 @@ VocabDetail.propTypes = {
   id: PropTypes.number.isRequired,
   vocabIds: PropTypes.array.isRequired,
   synonymIds: PropTypes.array.isRequired,
-  hidden: PropTypes.bool,
+  isReviewLocked: PropTypes.bool,
+  showFuri: PropTypes.bool,
+  showSecondaryReadings: PropTypes.bool,
   showTags: PropTypes.bool,
   showLinks: PropTypes.bool,
   showSentence: PropTypes.bool,
@@ -47,7 +49,9 @@ VocabDetail.propTypes = {
 };
 
 VocabDetail.defaultProps = {
-  hidden: false,
+  isReviewLocked: false,
+  showFuri: true,
+  showSecondaryReadings: true,
   showTags: true,
   showLinks: true,
   showSentence: true,
@@ -62,7 +66,9 @@ export function VocabDetail({
   id,
   vocabIds,
   synonymIds,
-  hidden,
+  isReviewLocked,
+  showFuri,
+  showSecondaryReadings,
   showTags,
   showLinks,
   showSentence,
@@ -78,7 +84,7 @@ export function VocabDetail({
     <Aux>
       {vocabIds.map((vocabId) => (
         <div key={cuid()}>
-          {<VocabWord id={vocabId} />}
+          {<VocabWord id={vocabId} showFuri={showFuri} showSecondary={showSecondaryReadings} />}
           {showTags && <TagsList id={vocabId} />}
           {showLinks && <ReadingLinks id={vocabId} />}
           {showPitch && <PitchDiagramList id={vocabId} />}
@@ -90,7 +96,10 @@ export function VocabDetail({
       {showAddSynoynm && <AddSynonym id={id} />}
       <VocabSynonymList ids={synonymIds} reviewId={id} />
       {showLock && (
-        <VocabLockButton isLocked={hidden} onClick={hidden ? unlockReview : lockReview} />
+        <VocabLockButton
+          isLocked={isReviewLocked}
+          onClick={isReviewLocked ? unlockReview : lockReview}
+        />
       )}
     </Aux>
   );
@@ -99,7 +108,7 @@ export function VocabDetail({
 const mapStateToProps = (state, props) => ({
   vocabIds: selectReviewVocabIds(state, props),
   synonymIds: selectReviewSynonymIds(state, props),
-  hidden: selectIsHidden(state, props),
+  isReviewLocked: selectIsHidden(state, props),
 });
 
 const mapDispatchToProps = (dispatch, props) => ({

@@ -1,13 +1,15 @@
 import { createLogic } from 'redux-logic';
 import { sample, difference } from 'lodash';
 
+import { INITIAL_QUEUE_LIMIT, SUBSEQUENT_QUEUE_LIMIT } from './constants';
+
 import quiz from 'features/quiz/actions';
 import { selectReviewById } from 'features/reviews/selectors';
 import {
-  selectCategory,
   selectQueue,
   selectQueueCount,
-  selectCurrent,
+  selectCategory,
+  selectQueueNeeded,
   selectCorrectIds,
   selectCurrentId,
 } from './selectors';
@@ -16,28 +18,27 @@ export const queueLoadLogic = createLogic({
   type: quiz.session.queue.load.request,
   warnTimeout: 10000,
   latest: true,
-
   validate({ getState, action }, allow, reject) {
-    const hasEnoughQueue = selectQueueCount(getState()) > 5;
-    if (hasEnoughQueue) {
+    if (selectQueueNeeded(getState())) {
+      allow(action);
+    } else {
       reject();
     }
-    allow(action);
   },
-
   process({ api, serializers, getState, action }, dispatch, done) {
     const { serializeQueueResponse } = serializers;
-    const category = action.payload;
+    const category = action.payload || selectCategory(getState());
     const currentId = selectCurrentId(getState());
-    const queue = selectQueue(getState());
+    const queueCount = selectQueueCount(getState());
 
     api.queue.fetch[category]({
-      limit: 10,
+      // NOTE: smaller subsequent loads allow incorrect items to be recycled into questions more often
+      limit: !queueCount ? INITIAL_QUEUE_LIMIT : SUBSEQUENT_QUEUE_LIMIT,
     })
       .then((res) => {
         dispatch(quiz.session.queue.load.success(serializeQueueResponse(res)));
         if (!currentId) {
-          dispatch(quiz.session.current.set());
+          dispatch(quiz.session.current.replace());
         }
         done();
       })
@@ -48,62 +49,49 @@ export const queueLoadLogic = createLogic({
   },
 });
 
-// prettier-ignore
-export const setCurrentLogic = createLogic({
-  type: quiz.session.current.set,
+export const replaceCurrentLogic = createLogic({
+  type: quiz.session.current.replace,
   validate({ getState, action }, allow, reject) {
     const currentId = selectCurrentId(getState());
     const queue = selectQueue(getState());
     const correct = selectCorrectIds(getState());
     const newId = sample(difference(queue, [currentId]));
-    console.log('current.set logic:');
+    console.log('current.replace logic:');
     console.log({ currentId, queue, correct, newId });
     if (newId || queue.length) {
+      console.log('first thingy');
       const newCurrent = selectReviewById(getState(), { id: newId });
       allow({ ...action, payload: newCurrent });
-    }
-    if (!newId && currentId && !correct.includes(currentId)) {
-      console.log('Rejecting setCurrent: current was the only remaining item:');
+    } else if (!newId && currentId && !correct.includes(currentId)) {
+      console.log('Rejecting replaceCurrent: current was the only remaining item:');
       console.log({
         queue,
         currentId,
         newId,
       });
-    }
-    // FIXME: think we need to (create a new action) and dispatch [category]current.clear()
-    // that clears current in common/reducers (not sure whether it needs to clear queue as well?)
-    if (!newId) {
+      reject();
+    } else if (!newId) {
       console.log('No new id... End of queue?');
-      allow({ ...action, payload: { id: undefined } });
-    }
-    reject();
-  },
-});
-
-// prettier-ignore
-export const returnCurrentLogic = createLogic({
-  type: [quiz.session.current.return],
-  validate({ getState, action }, allow, reject) {
-    const currentId = selectCurrentId(getState());
-    const queue = selectQueue(getState());
-    const newId = sample(difference(queue, [currentId]));
-    console.log('current.return logic:');
-    console.log({ currentId, queue, newId });
-
-    if (newId) {
-      const newCurrent = selectReviewById(getState(), { id: newId });
-      console.log({ newCurrent });
-      allow({ ...action, payload: { newCurrent, currentId } });
-    } else {
-      console.log('Rejected returning current - no other queue items', {
-        queue,
-        currentId,
-        newId,
-      });
-      // FIXME: should this ONLY be in else condition for newId check? or at end of function?
+      console.log({ newId, queue });
       reject();
     }
   },
 });
 
-export default [queueLoadLogic, setCurrentLogic, returnCurrentLogic];
+export const returnCurrentLogic = createLogic({
+  type: [quiz.session.current.rotate],
+  validate({ getState, action }, allow, reject) {
+    const queue = selectQueue(getState());
+    const currentId = selectCurrentId(getState());
+    const newId = sample(difference(queue, [currentId]));
+
+    if (newId) {
+      const newCurrent = selectReviewById(getState(), { id: newId });
+      allow({ ...action, payload: { newCurrent, currentId } });
+    } else {
+      reject();
+    }
+  },
+});
+
+export default [queueLoadLogic, replaceCurrentLogic, returnCurrentLogic];

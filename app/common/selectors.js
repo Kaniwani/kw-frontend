@@ -36,7 +36,7 @@ export const makeSelectDomainError = (uiDomain) =>
   createSelector(makeSelectDomain(uiDomain), getState('error', false));
 
 export const makeSelectItemIds = (domainSelector) =>
-  createSelector(domainSelector, (domain) => Object.keys(domain));
+  createSelector(domainSelector, (domain) => Object.keys(domain).map(Number));
 
 export const makeSelectItemById = (itemsSelector) =>
   createSelector([itemsSelector, getProp('id')], (items, id) => items[`${id}`] || {});

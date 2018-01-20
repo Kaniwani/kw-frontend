@@ -8,9 +8,11 @@ import quiz from 'features/quiz/actions';
 export const initialQuizSessionState = {
   category: '',
   current: {},
+  remaining: null,
   queue: [],
   correct: [],
   incorrect: [],
+  complete: [],
 };
 
 const setCategory = (state, { payload }) =>
@@ -18,10 +20,10 @@ const setCategory = (state, { payload }) =>
     category: { $set: payload },
   });
 
-const setCurrent = (state, { payload }) =>
+const replaceCurrent = (state, { payload }) =>
   update(state, {
     current: { $set: payload },
-    queue: { $set: difference(state.queue, [payload.id]) },
+    queue: { $set: difference(state.queue, [state.current.id]) },
   });
 
 const mergeCurrent = (state, { payload }) =>
@@ -29,8 +31,7 @@ const mergeCurrent = (state, { payload }) =>
     current: { $set: merge({}, state.current, payload) },
   });
 
-// FIXME: untested => should return id to queue, set new current as current,
-const returnCurrent = (state, { payload }) =>
+const rotateCurrent = (state, { payload }) =>
   update(state, {
     current: { $set: payload.newCurrent },
     queue: { $set: union(state.queue, [payload.currentId]) },
@@ -46,8 +47,14 @@ const addIdToIncorrect = (state, { payload }) =>
     incorrect: { $set: union(state.incorrect, [payload]) },
   });
 
+const addIdToComplete = (state, { payload }) =>
+  update(state, {
+    complete: { $set: union(state.complete, [payload]) },
+  });
+
 const mergeQueue = (state, { payload }) =>
   update(state, {
+    remaining: { $set: payload.remaining },
     queue: {
       $set: union(state.queue, difference(payload.reviewIds, state.current.id)),
     },
@@ -65,11 +72,12 @@ export const quizSessionReducer = handleActions(
     [quiz.session.setCategory]: setCategory,
     [quiz.session.queue.load.success]: mergeQueue,
     [quiz.session.queue.clear]: clearQueue,
-    [quiz.session.current.set]: setCurrent,
+    [quiz.session.current.replace]: replaceCurrent,
     [quiz.session.current.update]: mergeCurrent,
-    [quiz.session.current.return]: returnCurrent,
-    [quiz.session.correct.add]: addIdToCorrect,
-    [quiz.session.incorrect.add]: addIdToIncorrect,
+    [quiz.session.current.rotate]: rotateCurrent,
+    [quiz.session.addCorrect]: addIdToCorrect,
+    [quiz.session.addIncorrect]: addIdToIncorrect,
+    [quiz.session.addComplete]: addIdToComplete,
     [LOCATION_CHANGE]: () => initialQuizSessionState,
   },
   initialQuizSessionState

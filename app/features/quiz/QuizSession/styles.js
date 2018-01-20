@@ -9,7 +9,7 @@ export const backgroundImageColor = '#e5e5e5';
 export const Upper = styled.section`
   display: flex;
   flex-direction: column;
-  min-height: 30vmin;
+  min-height: 30vh;
   color: ${white};
   ${({ bgColor }) => css`
     background-color: ${bgColor || purple};
@@ -22,15 +22,21 @@ export const Lower = styled.section`
   position: relative;
   display: flex;
   flex-direction: column;
-  flex: 1 0 100%;
+  flex: 1 1 100%;
+  min-height: 100%;
   background-color: ${backgroundImageColor};
 `;
 
 export const Background = BackgroundImg.extend`
+  position: absolute;
   left: 50%;
   transform: translateX(-50%);
   width: 100vw;
+  height: 100%;
+  max-width: 100%;
+  min-height: auto;
   max-height: 25vmax;
+  margin-top: auto;
   opacity: .9;
   z-index: 0;
   background-position: bottom right;

@@ -1,81 +1,103 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import { purple } from "common/styles/colors";
+import { purple } from 'common/styles/colors';
 
-import { selectCurrentId } from "features/quiz/QuizSession/selectors";
+import { selectCurrent, selectIsLessonQuiz } from 'features/quiz/QuizSession/selectors';
+import {
+  selectAnswerDisabled,
+  selectAnswerIgnored,
+} from 'features/quiz/QuizSession/QuizAnswer/selectors';
 import {
   selectPrimaryMeaning,
   selectSecondaryMeanings,
   selectPrimaryVocabId,
-} from "features/reviews/selectors";
-import { selectTags } from "features/vocab/selectors";
+} from 'features/reviews/selectors';
+import { selectTags } from 'features/vocab/selectors';
 
-import Question from "./Question";
-import { TagsList } from "common/components/TagsList";
-import Flyover, { IGNORED } from "./Flyover";
+import Question from './Question';
+import { TagsList } from 'common/components/TagsList';
+import Flyover from './Flyover';
 
-import { Wrapper } from "./styles";
+import { Wrapper } from './styles';
 
-QuizQuestion.propTypes = {
-  primaryMeaning: PropTypes.string,
-  secondaryMeanings: PropTypes.array,
-  tags: PropTypes.array,
-  isFlyoverActive: PropTypes.bool, // answerDisabled && category !== 'lessons'
-  streakChange: PropTypes.shape({
-    from: PropTypes.number, // 0-8
-    to: PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, IGNORED]),
-  }),
-  bgColor: PropTypes.string,
-};
+export class QuizQuestion extends React.Component {
+  static propTypes = {
+    primaryMeaning: PropTypes.string,
+    secondaryMeanings: PropTypes.array,
+    tags: PropTypes.array,
+    isFlyoverActive: PropTypes.bool,
+    isAnswerIgnored: PropTypes.bool,
+    isAnswerDisabled: PropTypes.bool,
+    streak: PropTypes.number,
+    bgColor: PropTypes.string,
+  };
 
-QuizQuestion.defaultProps = {
-  primaryMeaning: "",
-  secondaryMeanings: [],
-  tags: [],
-  isFlyoverActive: false,
-  streakChange: {
-    from: 0,
-    to: 0,
-  },
-  bgColor: purple,
-};
+  static defaultProps = {
+    primaryMeaning: '',
+    secondaryMeanings: [],
+    tags: [],
+    streak: null,
+    isFlyoverActive: false,
+    isAnswerIgnored: false,
+    isAnswerDisabled: false,
+    bgColor: purple,
+  };
 
-export function QuizQuestion({
-  primaryMeaning,
-  secondaryMeanings,
-  tags,
-  isFlyoverActive,
-  streakChange,
-  bgColor,
-}) {
-  return (
-    <Wrapper bgColor={bgColor}>
-      <Question primaryMeaning={primaryMeaning} secondaryMeanings={secondaryMeanings} />
-      <TagsList tags={tags} isVisible={!isFlyoverActive} />
-      {isFlyoverActive && <Flyover {...streakChange} />}
-    </Wrapper>
-  );
+  state = {
+    initialStreak: this.props.streak,
+  };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isAnswerDisabled === false) {
+      this.setState({ initialStreak: nextProps.streak });
+    }
+  }
+
+  render() {
+    const {
+      primaryMeaning,
+      secondaryMeanings,
+      tags,
+      isFlyoverActive,
+      isAnswerIgnored,
+      bgColor,
+    } = this.props;
+    return (
+      <Wrapper bgColor={bgColor}>
+        <Question primaryMeaning={primaryMeaning} secondaryMeanings={secondaryMeanings} />
+        <TagsList tags={tags} isVisible={!isFlyoverActive} />
+        {isFlyoverActive && (
+          <Flyover
+            isIgnored={isAnswerIgnored}
+            from={this.state.initialStreak}
+            to={this.props.streak}
+          />
+        )}
+      </Wrapper>
+    );
+  }
 }
 
 const mapStateToProps = (state, props) => {
-  const reviewId = selectCurrentId(state, props);
-  const primaryMeaning = selectPrimaryMeaning(state, { id: reviewId });
-  const secondaryMeanings = selectSecondaryMeanings(state, { id: reviewId });
+  const { id: reviewId, streak } = selectCurrent(state, props);
   const primaryVocabId = selectPrimaryVocabId(state, { id: reviewId });
   const tags = selectTags(state, { id: primaryVocabId });
+  const primaryMeaning = selectPrimaryMeaning(state, { id: reviewId });
+  const secondaryMeanings = selectSecondaryMeanings(state, { id: reviewId });
+  const isAnswerDisabled = selectAnswerDisabled(state, props);
+  const isAnswerIgnored = selectAnswerIgnored(state, props);
+  const isLessonQuiz = selectIsLessonQuiz(state, props);
 
   return {
     primaryMeaning,
     secondaryMeanings,
     tags,
-    isFlyoverActive: false, // answerDisabled && category !== 'lessons,
-    // have to store state somewhere I guess? if streak changes && answerMarked then update this?
-    streakChange: {
-      from: 0, // 0-8
-      to: "IGNORED", // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, IGNORED]
-    },
+    isFlyoverActive: isAnswerDisabled && !isLessonQuiz,
+    streak,
+    isAnswerDisabled,
+    isAnswerIgnored,
   };
 };
 

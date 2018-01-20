@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import { purpleLight } from 'common/styles/colors';
-import { Wrapper, Circles, Circle1, Circle2 } from "./styles";
+import { Wrapper, Circles, Circle1, Circle2 } from './styles';
 
 const Spinner = (props) => (
   <Wrapper>
@@ -21,7 +21,7 @@ Spinner.propTypes = {
 };
 
 Spinner.defaultProps = {
-  size: "40px", // or em, rem, percent
+  size: '2.5rem', // or em, rem, percent
   duration: 1000, // ms
   color1: purpleLight,
   color2: purpleLight,

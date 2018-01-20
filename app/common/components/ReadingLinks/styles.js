@@ -2,13 +2,13 @@ import styled from 'styled-components';
 
 import A from 'common/components/A';
 
-import { resetList } from 'common/styles/utils';
 import { gutter } from 'common/styles/layout';
 
-export const Ul = styled.ul`
-  ${resetList}
-  ${gutter()}
-  display: flex;
+export const Li = styled.li`
+  display: inline-flex;
+  max-width: 100%;
+  vertical-align: middle;
+  align-items: center;
 `;
 
 export const VocabLink = styled(A)`

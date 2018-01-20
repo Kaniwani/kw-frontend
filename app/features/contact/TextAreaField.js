@@ -1,12 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { TextArea } from "old/features/TextAreaAutoSize/styles";
-import { Block, Label, Note, ValidationMessage } from './styles';
+import { Block, Label, Note, TextArea, ValidationMessage } from './styles';
 
-const InputField = ({
-  input, meta, label, rows, note,
-}) => (
+const InputField = ({ input, meta, label, rows, note }) => (
   <Block>
     <Label htmlFor={input.name}>
       <span>{label || input.name}</span>
@@ -18,13 +15,15 @@ const InputField = ({
 );
 
 InputField.propTypes = {
+  input: PropTypes.object.isRequired,
+  meta: PropTypes.object.isRequired,
   label: PropTypes.string.isRequired,
   rows: PropTypes.number.isRequired,
   note: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 };
 
 InputField.defaultProps = {
-  note: "",
+  note: '',
 };
 
 export default InputField;

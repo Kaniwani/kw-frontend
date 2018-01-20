@@ -1,11 +1,11 @@
-import * as fakeRaf from "fake-raf"; // mocked requestAnimationFrame
-import smoothScrollY from "../smoothScrollY";
+import * as fakeRaf from 'fake-raf'; // mocked requestAnimationFrame
+import smoothScrollY from '../smoothScrollY';
 
-describe("smoothScrollY()", () => {
+describe('smoothScrollY()', () => {
   let spy;
 
   beforeEach(() => {
-    spy = jest.spyOn(window, "scrollTo");
+    spy = jest.spyOn(window, 'scrollTo').mockImplementation(() => {});
     fakeRaf.use();
   });
 
@@ -14,7 +14,7 @@ describe("smoothScrollY()", () => {
     fakeRaf.restore();
   });
 
-  it("should call window.scrollTo()", () => {
+  it('should call window.scrollTo()', () => {
     smoothScrollY();
     expect(spy).toHaveBeenCalled();
     fakeRaf.step();
@@ -23,7 +23,7 @@ describe("smoothScrollY()", () => {
     expect(spy).toHaveBeenCalledTimes(3);
   });
 
-  it("should end when timing is diminished", () => {
+  it('should end when timing is diminished', () => {
     smoothScrollY(0, 10);
     expect(spy).toHaveBeenCalled();
     fakeRaf.step();

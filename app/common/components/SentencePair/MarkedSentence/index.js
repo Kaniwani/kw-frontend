@@ -9,15 +9,17 @@ MarkedSentence.propTypes = {
   sentence: PropTypes.string.isRequired,
   word: PropTypes.string,
   reading: PropTypes.string,
+  verbType: PropTypes.string,
 };
 
 MarkedSentence.defaultProps = {
   word: '',
-  reading: [],
+  reading: '',
+  verbType: '',
 };
 
-function MarkedSentence({ sentence, word, reading }) {
-  const { head, match, tail } = splitSentenceByMatch(sentence, word, reading);
+function MarkedSentence({ sentence, word, reading, verbType }) {
+  const { head, match, tail } = splitSentenceByMatch({ sentence, word, reading, verbType });
 
   return (
     <Sentence lang="ja">

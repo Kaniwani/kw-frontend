@@ -1,16 +1,18 @@
-import { handleActions, combineActions } from "redux-actions";
-import { merge } from "lodash";
-import { LOCATION_CHANGE } from "react-router-redux";
+import { handleActions, combineActions } from 'redux-actions';
+import { merge } from 'lodash';
+import { LOCATION_CHANGE } from 'react-router-redux';
 
-import search from "./actions";
+import search from './actions';
 
 export const initialSearchState = {
   ids: [],
+  unreviewableIds: [],
   isSearching: false,
   isSearchComplete: false,
 };
 
-const log = (state, action) => (console.warn("search failutre", state, action), state);
+// FIXME: proper failure handling
+const log = (state, action) => (console.warn('search failure', state, action), state);
 
 const startSearch = () => ({ ...initialSearchState, isSearching: true });
 const mergePayload = (state, { payload }) => merge({}, state, payload);

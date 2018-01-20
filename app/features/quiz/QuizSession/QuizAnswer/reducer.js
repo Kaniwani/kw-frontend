@@ -13,10 +13,12 @@ const initialState = {
   isCorrect: false,
   isIncorrect: false,
   isDisabled: false,
+  isIgnored: false,
 };
 
 export const quizAnswerReducer = handleActions(
   {
+    [quiz.answer.ignore]: (state) => ({ ...state, isIgnored: true }),
     [quiz.answer.update]: (state, { payload }) => merge({}, state, payload),
     [combineActions(quiz.answer.reset, LOCATION_CHANGE)]: () => initialState,
   },

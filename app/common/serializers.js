@@ -1,24 +1,31 @@
 /* eslint-disable camelcase */
-import { sortBy } from 'lodash';
+// import { sortBy } from 'lodash';
 import condenseReadings from 'common/utils/condenseReadings';
 import { camelCaseKeys, snakeCaseKeys } from 'common/utils/caseKeys';
 import toUniqueStringsArray from 'common/utils/toUniqueStringsArray';
 import createDict from 'common/utils/createDict';
+
+// TODO: potentially use `yup` for casting/validating types.
+// simpler code to view using schema.cast() instead of stuff like announcements.map(({ id, ...rest }) => ({ id: +id, ...rest })));
 
 export const serializeLoginResponse = ({ token }) => token;
 export const serializeUserResponse = (res = {}) => serializeUser(res);
 export const serializeReviewResponse = serializeReview;
 export const serializeLevelsResponse = (res = {}) => createDict(res.map(serializeLevel), 'id');
 
-export const serializeQueueResponse = ({ results }) => serializeReviews(results, true);
+export const serializeQueueResponse = ({ count, results }) => ({
+  remaining: count,
+  ...serializeReviews(results, true),
+});
+
 export const serializeLevelResponse = ({ results }) => serializeReviews(results);
 
 export const serializeVocabSearchResponse = ({ results }, persistedReviews) => {
   const persistedIds = [];
   const missingIds = [];
 
-  results.forEach(({ review }) => {
-    if (review) {
+  results.forEach(({ review, is_reviewable: isReviewable }) => {
+    if (review && isReviewable) {
       (persistedReviews[review] ? persistedIds : missingIds).push(review);
     }
   });

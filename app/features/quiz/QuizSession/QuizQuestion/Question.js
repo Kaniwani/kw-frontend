@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import Aux from "common/components/Aux";
-import Spinner from "common/components/Spinner";
-import { white, whiteLight } from "common/styles/colors";
-import { MeaningsWrapper, Meanings, Primary, Secondary } from "./styles";
+import Aux from 'common/components/Aux';
+import Spinner from 'common/components/Spinner';
+import { white, whiteLight } from 'common/styles/colors';
+import { MeaningsWrapper, Meanings, Primary, Secondary } from './styles';
 
 Question.propTypes = {
   primaryMeaning: PropTypes.string.isRequired,
@@ -15,7 +15,7 @@ Question.defaultProps = {
   secondaryMeanings: [],
 };
 
-function Question({ primaryMeaning, secondaryMeanings }) {
+export function Question({ primaryMeaning, secondaryMeanings }) {
   return (
     <MeaningsWrapper>
       <Meanings>
@@ -25,9 +25,7 @@ function Question({ primaryMeaning, secondaryMeanings }) {
           <Aux>
             <Primary>{primaryMeaning}</Primary>
             {/* Enforce a min-height even if no terms by using japanese space as placeholder */}
-            <Secondary>
-              {secondaryMeanings.length ? secondaryMeanings.join(", ") : "　"}
-            </Secondary>
+            <Secondary>{secondaryMeanings.length ? secondaryMeanings.join(', ') : '　'}</Secondary>
           </Aux>
         )}
       </Meanings>

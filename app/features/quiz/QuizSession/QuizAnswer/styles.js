@@ -50,7 +50,7 @@ export const Input = styled.input`
   outline: none;
   border: 0;
   line-height: 1.75;
-  min-height: 2.2em;
+  min-height: 1.9em;
   text-align: center;
   color: currentColor;
   box-shadow: ${innerMedium};

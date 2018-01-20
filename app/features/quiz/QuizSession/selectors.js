@@ -3,8 +3,9 @@ import { createSelector } from 'reselect';
 import calculatePercentage from 'common/utils/calculatePercentage';
 import getSrsRankName from 'common/utils/getSrsRankName';
 
-import { getVal, getState } from 'common/selectors';
+import { MINIMUM_QUEUE_COUNT } from './constants';
 
+import { getVal, getState } from 'common/selectors';
 import { selectUserProfile } from 'features/user/selectors';
 
 export const UI_DOMAIN = 'quizSession';
@@ -22,8 +23,13 @@ export const selectQueue = getState([UI_DOMAIN, 'queue'], []);
 export const selectCurrent = getState([UI_DOMAIN, 'current'], {});
 export const selectCorrectIds = getState([UI_DOMAIN, 'correct'], []);
 export const selectIncorrectIds = getState([UI_DOMAIN, 'incorrect'], []);
+export const selectCompleteIds = getState([UI_DOMAIN, 'complete'], []);
+export const selectRemainingCount = getState([UI_DOMAIN, 'remaining'], null);
+export const selectQueueCount = createSelector(selectQueue, getState('length', 0));
+export const selectCorrectCount = createSelector(selectCorrectIds, getState('length', 0));
+export const selectIncorrectCount = createSelector(selectIncorrectIds, getState('length', 0));
+export const selectCompleteCount = createSelector(selectCompleteIds, getState('length', 0));
 
-export const selectQueueCount = createSelector(selectQueue, (queue) => queue.length);
 export const selectCurrentId = createSelector(selectCurrent, getState('id'));
 export const selectCurrentStreakName = createSelector(
   selectCurrent,
@@ -35,37 +41,50 @@ export const selectSessionCount = createSelector(
   (profile, category) => getState(`${category}Count`, 0)(profile)
 );
 
-export const selectPreviouslyIncorrect = createSelector(
+export const selectSessionRemainingCount = createSelector(
+  [selectSessionCount, selectRemainingCount, selectCompleteCount],
+  (sessionCount, remainingCount, completeCount) =>
+    // we may not have loaded a queue yet, so start with sessionCount
+    remainingCount == null ? sessionCount : remainingCount - completeCount
+);
+
+export const selectSessionFinished = createSelector(
+  [selectRemainingCount],
+  (remaining) => remaining === 0
+);
+
+export const selectCurrentPreviouslyIncorrect = createSelector(
   [selectCurrentId, selectIncorrectIds],
   (currentId, incorrectIds) => incorrectIds.includes(currentId)
 );
 
-export const selectCorrectCount = createSelector(selectDomain, ({ correct }) => correct.length);
-
-export const selectIncorrectCount = createSelector(
-  selectDomain,
-  ({ incorrect }) => incorrect.length
-);
-
 export const selectPercentComplete = createSelector(
-  [selectCorrectCount, selectSessionCount],
-  (correct, total) => calculatePercentage(correct, total)
+  [selectCompleteCount, selectSessionRemainingCount],
+  (complete, remaining) => calculatePercentage(complete, complete + remaining)
 );
 
-export const calculateCorrectPercentage = (correct, incorrect) => {
-  const complete = correct + incorrect;
-  const pristine = complete < 1;
-  return pristine ? 100 : calculatePercentage(correct, complete);
-};
-
+// FIXME: same as summary selector = extract transform function somewhere common
 export const selectPercentCorrect = createSelector(
   [selectCorrectCount, selectIncorrectCount],
-  calculateCorrectPercentage
+  (correct, incorrect) => {
+    const total = correct + incorrect;
+    const pristine = total < 1;
+    return pristine ? 100 : calculatePercentage(correct, total);
+  }
 );
 
-export const selectRemainingCount = createSelector(
-  [selectCorrectCount, selectSessionCount],
-  (correct, total) => Math.max(total - correct, 0)
+export const selectQueueNeeded = createSelector(
+  [selectQueueCount, selectSessionRemainingCount],
+  (queueCount, remaining) => {
+    const isQueueNeeded = queueCount < MINIMUM_QUEUE_COUNT && queueCount < remaining;
+    console.log({
+      queueCount,
+      MINIMUM_QUEUE_COUNT,
+      remaining,
+      isQueueNeeded,
+    });
+    return isQueueNeeded;
+  }
 );
 
 export default selectDomain;

@@ -1,17 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
-import ReactTooltip from "react-tooltip";
-import cuid from "cuid";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import ReactTooltip from 'react-tooltip';
+import cuid from 'cuid';
 
-import Aux from "common/components/Aux";
-import Ul from "common/components/Ul";
-import VocabCard from "./VocabCard";
-import VocabChip from "./VocabChip";
-import { purple } from "common/styles/colors";
-import { gutter } from "common/styles/layout";
-import { media } from "common/styles/media";
-import "./styles"; // NOTE: global styles for tooltip injected
+import Aux from 'common/components/Aux';
+import Ul from 'common/components/Ul';
+import VocabCard from './VocabCard';
+import VocabChip from './VocabChip';
+import { purple } from 'common/styles/colors';
+import { gutter } from 'common/styles/layout';
+import { media } from 'common/styles/media';
+import './styles'; // NOTE: global styles for tooltip injected
 
 // prettier-ignore
 const List = styled(Ul)`
@@ -31,14 +31,14 @@ const List = styled(Ul)`
 `;
 
 export const ITEM_TYPES = {
-  CARD: "CARD",
-  CHIP: "CHIP",
+  CARD: 'CARD',
+  CHIP: 'CHIP',
 };
 
 // FIXME: stateless?
 export class VocabList extends React.Component {
   static propTypes = {
-    ids: PropTypes.arrayOf(PropTypes.string).isRequired,
+    ids: PropTypes.arrayOf(PropTypes.number).isRequired,
     itemType: PropTypes.oneOf(Object.values(ITEM_TYPES)),
     withSrsColors: PropTypes.bool,
     showSecondary: PropTypes.bool,
@@ -56,9 +56,7 @@ export class VocabList extends React.Component {
     tooltipSuffix: cuid(),
   };
 
-  renderTooltipManager = (tooltipId) => (
-    <ReactTooltip id={tooltipId} className="vocab-tip" html />
-  );
+  renderTooltipManager = (tooltipId) => <ReactTooltip id={tooltipId} className="vocab-tip" html />;
 
   renderCards = (ids) =>
     ids.map((id) => (

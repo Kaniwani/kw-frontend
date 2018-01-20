@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { titleCase } from 'voca';
 
 import { selectOnVacation } from 'features/user/selectors';
-import { selectRemainingCount } from 'features/quiz/QuizSession/selectors';
+import { selectSessionRemainingCount } from 'features/quiz/QuizSession/selectors';
 import quiz from 'features/quiz/actions';
 import LogoLink from 'common/components/LogoLink';
 import SessionLink from './SessionLink';
@@ -12,12 +12,12 @@ import SessionLink from './SessionLink';
 import { Header, Wrapper, Heading } from './styles';
 
 QuizSummaryHeader.propTypes = {
-  heading: PropTypes.string, // {titleCase(category)} Summary
-  linkText: PropTypes.string, // (onVacation && 'On Vacation!') || (isDisabled ? `No ${titleCase(category)}` : 'Begin Session')
-  count: PropTypes.number, // remainingCount
-  sessionRoute: PropTypes.string, // `/${category}/session`
-  isDisabled: PropTypes.bool, // onVacation || remainingCount < 1;
-  onResetSummary: PropTypes.func, // reset recent history
+  heading: PropTypes.string,
+  linkText: PropTypes.string,
+  count: PropTypes.number,
+  sessionRoute: PropTypes.string,
+  isDisabled: PropTypes.bool,
+  onResetSummary: PropTypes.func,
 };
 
 QuizSummaryHeader.defaultProps = {
@@ -56,7 +56,7 @@ export function QuizSummaryHeader({
 
 const mapStateToProps = (state, { category }) => {
   const isOnVacation = selectOnVacation(state);
-  const remainingCount = selectRemainingCount(state, { category });
+  const remainingCount = selectSessionRemainingCount(state, { category });
   const categoryTitle = titleCase(category);
   const isHeaderLinkDisabled = isOnVacation || remainingCount < 1;
   const headerLinkText =

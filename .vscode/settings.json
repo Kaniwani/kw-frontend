@@ -1,8 +1,3 @@
 {
-  "path-intellisense.mappings": {
-    "common": "${workspaceRoot}/app/common",
-    "features": "${workspaceRoot}/app/features",
-    "pages": "${workspaceRoot}/app/pages"
-  },
-  "eslint.enable": true
+  "eslint.enable": false
 }

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 /**
  * Requires a parent with position: relative, and a valid height or min-height
@@ -24,8 +24,8 @@ const BackgroundImg = styled.div`
 `;
 
 BackgroundImg.defaultProps = {
-  bgPosition: "center center",
-  bgSize: "cover",
+  bgPosition: 'center center',
+  bgSize: 'cover',
 };
 
 export default BackgroundImg;

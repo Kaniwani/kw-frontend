@@ -1,37 +1,31 @@
-import { createActions } from "redux-actions";
-import { SYNC, ASYNC } from "common/actions";
+import { createActions } from 'redux-actions';
+import { SYNC, ASYNC } from 'common/actions';
 
+// FIXME: these are nice to see all together, but everything related to them is nested
+// should probably break it apart into separate actions files
+// at least into export const { quizSession } & export const { quizSummary } (instead of { quiz })
 export const { quiz } = createActions({
   QUIZ: {
+    SHOW_SYNONYM_MODAL: SYNC,
+    START_WRAP_UP: SYNC,
     SUMMARY: {
       RESET: SYNC,
-      CORRECT: {
-        ADD: SYNC,
-        REMOVE: SYNC,
-      },
-      INCORRECT: {
-        ADD: SYNC,
-        REMOVE: SYNC,
-      },
+      ADD_CORRECT: SYNC,
+      ADD_INCORRECT: SYNC,
     },
     SESSION: {
       SET_CATEGORY: SYNC,
+      ADD_CORRECT: SYNC,
+      ADD_INCORRECT: SYNC,
+      ADD_COMPLETE: SYNC,
       QUEUE: {
         LOAD: ASYNC,
         CLEAR: SYNC,
       },
       CURRENT: {
-        SET: SYNC,
+        REPLACE: SYNC,
+        ROTATE: SYNC,
         UPDATE: SYNC,
-        RETURN: SYNC,
-      },
-      CORRECT: {
-        ADD: SYNC,
-        REMOVE: SYNC,
-      },
-      INCORRECT: {
-        ADD: SYNC,
-        REMOVE: SYNC,
       },
     },
     QUESTION: {
@@ -48,8 +42,9 @@ export const { quiz } = createActions({
       RESET: SYNC,
     },
     INFO: {
+      SHOW: SYNC,
       UPDATE: SYNC,
-      CYCLEDETAIL: SYNC,
+      CYCLE_DETAIL: SYNC,
       RESET: SYNC,
     },
   },

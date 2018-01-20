@@ -27,4 +27,5 @@ export const Controls = styled.div`
 
 export const ControlButton = styled(IconButton)`
   ${gutter({ position: 'horizontal', mod: 3 })}
+  ${({ disabled }) => disabled && 'opacity: .5;'}
 `;

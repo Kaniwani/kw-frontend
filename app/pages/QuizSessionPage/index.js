@@ -1,16 +1,18 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from "react-helmet";
-import { titleCase } from "voca";
-import { get } from "lodash";
-import styled from "styled-components";
+import { Helmet } from 'react-helmet';
+import { Redirect } from 'react-router-dom';
+import { titleCase } from 'voca';
+import { get } from 'lodash';
+import styled from 'styled-components';
 
-import quiz from "features/quiz/actions";
+import quiz from 'features/quiz/actions';
+import { selectSessionFinished } from 'features/quiz/QuizSession/selectors';
 
-import QuizSession from "features/quiz/QuizSession";
+import QuizSession from 'features/quiz/QuizSession';
 // match review background image svg color
-import { backgroundImageColor } from "features/quiz/QuizSession/styles";
+import { backgroundImageColor } from 'features/quiz/QuizSession/styles';
 
 export const Wrapper = styled.div`
   position: relative;
@@ -23,12 +25,12 @@ export const Wrapper = styled.div`
   padding-right: calc(50% - 2000px);
 `;
 
-
 export class QuizSessionPage extends React.Component {
   static propTypes = {
     category: PropTypes.string.isRequired,
     setSessionCategory: PropTypes.func.isRequired,
     loadQueue: PropTypes.func.isRequired,
+    isSessionFinished: PropTypes.bool.isRequired,
   };
 
   componentDidMount() {
@@ -37,6 +39,11 @@ export class QuizSessionPage extends React.Component {
   }
 
   render() {
+    console.log(this.props.isSessionFinished);
+    if (this.props.isSessionFinished) {
+      return <Redirect to={`/${this.props.category}`} />;
+    }
+
     const pageTitle = `${titleCase(this.props.category)} Session`;
 
     return (
@@ -51,9 +58,13 @@ export class QuizSessionPage extends React.Component {
   }
 }
 
-const mapStateToProps = (state, props) => ({
-  category: get(props, "match.params.category"),
-});
+const mapStateToProps = (state, props) => {
+  const category = get(props, 'match.params.category');
+  return {
+    category,
+    isSessionFinished: selectSessionFinished(state, { category }),
+  };
+};
 
 const mapDispatchToProps = {
   setSessionCategory: quiz.session.setCategory,

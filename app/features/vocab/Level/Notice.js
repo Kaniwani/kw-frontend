@@ -1,12 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import Element from "common/components/Element";
-import H3 from "common/components/H3";
-import A from "common/components/A";
+import Element from 'common/components/Element';
+import H3 from 'common/components/H3';
+import A from 'common/components/A';
 
 Notice.propTypes = {
-  ids: PropTypes.arrayOf(PropTypes.string),
+  ids: PropTypes.arrayOf(PropTypes.number),
   isLocked: PropTypes.bool,
 };
 
@@ -24,8 +24,7 @@ function Notice({ ids, isLocked }) {
     notice = (
       <Element>
         <H3>
-          All entries hidden. Check your WaniKani SRS filtering in{" "}
-          <A to="/settings">Settings</A>
+          All entries hidden. Check your WaniKani SRS filtering in <A to="/settings">Settings</A>
         </H3>
       </Element>
     );

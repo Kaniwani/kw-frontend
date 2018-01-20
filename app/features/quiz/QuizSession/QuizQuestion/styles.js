@@ -24,7 +24,7 @@ export const Meanings = styled.h1`
   color: ${white};
   text-transform: capitalize;
   letter-spacing: -0.03em;
-  padding: 5vw .5rem;
+  padding: 4vmax .5rem;
 `;
 
 export const Primary = styled.div`

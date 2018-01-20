@@ -1,34 +1,33 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
-import { format, isPast, isFuture, distanceInWordsToNow } from "date-fns";
-import ReactInterval from "react-interval";
-import { DATE_FORMAT } from "common/constants";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { format, isPast, isFuture, distanceInWordsToNow } from 'date-fns';
+import ReactInterval from 'react-interval';
+import { DATE_FORMAT } from 'common/constants';
 
 import {
   selectReviewsCount,
   selectOnVacation,
   selectVacationDate,
   selectNextReviewDate,
-} from "features/user/selectors";
+} from 'features/user/selectors';
 
-import H3 from "common/components/H3";
-import Element from "common/components/Element";
+import user from 'features/user/actions';
+
+import H3 from 'common/components/H3';
+import Element from 'common/components/Element';
 
 /* eslint-disable react/no-unused-prop-types */
 export class ReviewStatus extends React.Component {
   static propTypes = {
     isOnVacation: PropTypes.bool.isRequired,
     reviewsCount: PropTypes.number.isRequired,
-    vacationDate: PropTypes.oneOfType([
-      PropTypes.instanceOf(Date),
-      PropTypes.oneOf([false]),
-    ]).isRequired,
-    nextReviewDate: PropTypes.oneOfType([
-      PropTypes.instanceOf(Date),
-      PropTypes.oneOf([false]),
-    ]).isRequired,
+    vacationDate: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.oneOf([false])])
+      .isRequired,
+    nextReviewDate: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.oneOf([false])])
+      .isRequired,
+    loadUser: PropTypes.func.isRequired,
   };
 
   state = {
@@ -57,15 +56,16 @@ export function getReviewStatusText({
   reviewsCount,
   vacationDate,
   nextReviewDate,
+  loadUser,
 } = {}) {
   if (isOnVacation) {
     return `On Vacation since ${format(vacationDate, DATE_FORMAT)}`;
   }
   if (reviewsCount > 0) {
-    return "Next Review: Now!";
+    return 'Next Review: Now!';
   }
   if (reviewsCount < 1 && nextReviewDate === false) {
-    return "Next Review: No reviews unlocked";
+    return 'Next Review: No reviews unlocked';
   }
   if (nextReviewDate && isFuture(nextReviewDate)) {
     return `Next Review: ${distanceInWordsToNow(nextReviewDate, {
@@ -73,7 +73,10 @@ export function getReviewStatusText({
       suffix: true,
     })}`;
   }
-  return "Next Review: Unknown";
+  if (nextReviewDate && isPast(nextReviewDate)) {
+    loadUser();
+  }
+  return 'Next Review: Unknown';
 }
 
 const mapStateToProps = createStructuredSelector({
@@ -83,4 +86,8 @@ const mapStateToProps = createStructuredSelector({
   nextReviewDate: selectNextReviewDate,
 });
 
-export default connect(mapStateToProps)(ReviewStatus);
+const mapDispatchToProps = {
+  loadUser: user.load.request,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewStatus);

@@ -1,58 +1,73 @@
 import { toKatakana, stripOkurigana, tokenize } from 'wanakana';
-
 import stripTilde from './stripTilde';
+import { inflect } from './conjugate';
 
-// [x, y] => 'x|y'
-const joinPipe = (arr) => arr.join('|');
+/**
+ * @typedef {Object} splitSentenceByMatchReturn
+ * @property {string} head - pre-match sentence text
+ * @property {string} match - matched string
+ * @property {string} tail - post-match sentence text
+ */
+
+/**
+ * @typedef {Object} splitSentenceByMatchParams
+ * @property {String} splitSentenceByMatchParams.sentence - sentence
+ * @property {String} splitSentenceByMatchParams.word - vocab word
+ * @property {String} splitSentenceByMatchParams.reading - primary vocab word reading
+ * @property {String} splitSentenceByMatchParams.verbType - verb type tag IE: 'v1', 'v5', 'v5u'
+ */
 
 /**
  * Splits sentence into head, match, & tail.
- * Attempts to match characters, hiragana, katakana; or smart partial matches without okurigana.
- * @param  {String} [sentence=''] - sentence to attempt match
- * @param  {String} [word=''] - japanese word to attempt to match
- * @param  {String} [reading=''] - japanese kana to attempt to match
- * @return {Object} head, match, and tail
+ * Attempts to match word, hiragana, katakana; or smart partial matches without okurigana.
+ * @param {Object} splitSentenceByMatchParams - vocab object
+ * @returns {splitSentenceByMatchReturn} - sentence split with match
  * @example
- * splitSentenceByMatch('彼女は私を避けている', '避ける', 'さける');
+ * splitSentenceByMatch({ sentence: '彼女は私を避けている', word: '避ける', reading: 'さける'});
  * // { head: '彼女は私を', match: '避', tail: 'けている' }
  */
-export default function splitSentenceByMatch(sentence = '', word = '', reading = '') {
-  const stripKana = (k) => k.replace(tokenize(cleanChars).pop(), '') || k;
-  const hasChars = !!word.length;
-  const hasKana = !!reading.length;
-  let cleanChars;
-  let strippedChars;
-  let onlyChars;
-  let cleanKana;
-  let cleanKata;
-  let strippedKana;
+export default function splitSentenceByMatch({
+  sentence = '',
+  word = '',
+  reading = '',
+  verbType = '',
+} = {}) {
+  const stripKana = (kana, cleanWord) => kana.replace(tokenize(cleanWord).pop(), '');
+  const makeRegex = (toMatch) => new RegExp(`(.*)(${toMatch})(.*)`);
+  const hasWord = !!word.length;
+  const hasReading = !!reading.length;
+  const cleanWord = stripTilde(word);
+  const cleanKana = stripTilde(reading);
+  const wordInflections = verbType ? inflect(word, verbType).map(({ form }) => form) : [];
+  const hiraganaInflections = verbType ? inflect(reading, verbType).map(({ form }) => form) : [];
+  const wordMatchers = [];
+  const readingMatchers = [];
+  let matched = null;
 
-  if (hasChars) {
-    cleanChars = stripTilde(word); // '〜漬け' => '漬け'
-    strippedChars = stripOkurigana(cleanChars); // '飛び込む' => '飛び込'
-    onlyChars = stripOkurigana(cleanChars, { all: true }); // '売り上げ' => '売上'
+  if (hasWord) {
+    wordMatchers.push(cleanWord); // '〜漬け' => '漬け'
+    wordMatchers.push(stripOkurigana(cleanWord)); // '飛び込む' => '飛び込'
+    wordMatchers.push(stripOkurigana(cleanWord, { all: true })); // '売り上げ' => '売上'
   }
 
-  const charRegex = hasChars ? joinPipe([cleanChars, strippedChars, onlyChars]) : '';
+  if (hasReading) {
+    readingMatchers.push(cleanKana); // '〜つけ' => 'つけ'
+    readingMatchers.push(toKatakana(cleanKana)); // '〜つけ' => 'ツケ'
+    readingMatchers.push(stripKana(cleanKana, cleanWord)); // '〜つけ' => 'つ'
+  }
+  const matchers = [
+    ...new Set([...wordInflections, ...wordMatchers, ...hiraganaInflections, ...readingMatchers]),
+  ];
 
-  if (hasKana) {
-    cleanKana = stripTilde(reading); // '〜つけ' => 'つけ'
-    cleanKata = toKatakana(cleanKana); // '〜つけ' => 'ツケ'
-    strippedKana = stripKana(cleanKana); // '〜つけ' => 'つ'
+  // order = 売り上げ -> 売り上 -> 売上 -> うりあげ -> ウリアゲ -> うりあ
+  while (matched === null && !!matchers.length) {
+    const matcher = matchers.shift();
+    matched = sentence.match(makeRegex(matcher));
   }
 
-  const kanaRegex = hasKana ? `${joinPipe([cleanKana, cleanKata, strippedKana])}` : '';
-
-  // '売り上げ' => /(.*?)(売り上げ|売り上|売上|うりあげ|ウリアゲ|うりあ)(.*)/
-  const regex = new RegExp(`(.*?)(${charRegex}${hasChars && hasKana ? '|' : ''}${kanaRegex})(.*)`);
-
-  const failSafe = ['', sentence, '', ''];
-
-  const [, head, match, tail] = sentence.match(regex) || failSafe;
-
-  return {
-    head,
-    match,
-    tail,
-  };
+  if (matched !== null) {
+    const [, head, match, tail] = matched;
+    return { head, match, tail };
+  }
+  return { head: sentence, match: '', tail: '' };
 }
