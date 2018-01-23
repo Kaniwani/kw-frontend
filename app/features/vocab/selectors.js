@@ -14,6 +14,9 @@ export const selectVocab = selectVocabDomain;
 export const selectVocabById = makeSelectItemById(selectVocab);
 
 export const selectTags = createSelector(selectVocabById, getState('tags', []));
+// FIXME: current import verb types only has 'v5' not 'v5s', 'v5m' etc
+// which is needed for proper markedSentence matching
+// need to redo import data using tags from jmdict searches :(
 export const selectVerbType = createSelector(selectTags, (tags) =>
   tags.find((tag) => VERB_TYPES.includes(tag))
 );
