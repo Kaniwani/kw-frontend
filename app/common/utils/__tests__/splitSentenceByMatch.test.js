@@ -110,11 +110,25 @@ describe('splitSentenceByMatch()', () => {
           word: '作る',
           reading: 'つくる',
           sentence: 'データ化して壁紙も作ってある',
-          verbType: 'v5',
+          verbType: 'v5r',
         })
       ).toEqual({
         head: 'データ化して壁紙も',
         match: '作ってある',
+        tail: '',
+      });
+    });
+    it('attempts various conjugations with verbType', () => {
+      expect(
+        splitSentenceByMatch({
+          word: '払い戻す',
+          reading: 'はらいもどす',
+          sentence: '払い戻してください',
+          verbType: 'v5s',
+        })
+      ).toEqual({
+        head: '',
+        match: '払い戻してください',
         tail: '',
       });
     });
@@ -151,7 +165,7 @@ describe('splitSentenceByMatch()', () => {
           sentence: '彼の話は一言も聞きのがさなかった',
           word: '逃す',
           reading: 'のがす',
-          verbType: 'v5',
+          verbType: 'v5s',
         })
       ).toEqual({
         head: '彼の話は一言も聞き',
