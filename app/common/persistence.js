@@ -1,6 +1,6 @@
-import { VERSION, IS_DEV_ENV } from "common/constants";
-import { persistReducer as persist } from "redux-persist";
-import localForage from "localforage";
+import { VERSION, IS_DEV_ENV } from 'common/constants';
+import { persistReducer as persist } from 'redux-persist';
+import localForage from 'localforage';
 
 const baseConfig = {
   debug: IS_DEV_ENV,
@@ -11,7 +11,7 @@ const baseConfig = {
 };
 
 export const persistReducer = (
-  { key = "kaniwani", blacklist = [], whitelist = [] } = {},
+  { key = 'kaniwani', blacklist = [], whitelist = [] } = {},
   reducer
 ) => {
   const config = {
@@ -25,7 +25,7 @@ export const persistReducer = (
   return persist(config, reducer);
 };
 
-export const persistUiReducer = (key = "kaniwani", reducer) =>
-  persistReducer({ key, whitelist: ["lastLoad"] }, reducer);
+export const persistUiReducer = (key = 'kaniwani', reducer) =>
+  persistReducer({ key, whitelist: ['lastLoad'] }, reducer);
 
 export default persistReducer;

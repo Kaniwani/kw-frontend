@@ -8,10 +8,8 @@ import getSrsRankName from 'common/utils/getSrsRankName';
 import getDateInWords from 'common/utils/getDateInWords';
 import calculatePercentage from 'common/utils/calculatePercentage';
 
-import { review } from 'features/reviews/actions';
 import { selectReviewById } from 'features/reviews/selectors';
 
-import VocabLockButton from 'common/components/VocabLockButton';
 import StreakStatus from './StreakStatus';
 import Status from './Status';
 
@@ -51,8 +49,6 @@ VocabStats.propTypes = {
     PropTypes.instanceOf(Date),
     PropTypes.oneOf([false]),
   ]).isRequired,
-  onLock: PropTypes.func.isRequired,
-  onUnlock: PropTypes.func.isRequired,
 };
 
 export function VocabStats({
@@ -66,37 +62,32 @@ export function VocabStats({
   nextReviewDate,
   lastStudied,
   unlockDate,
-  onLock,
-  onUnlock,
 }) {
   const kaniwaniBurned = getSrsRankName(streak) === 'BURNED';
   // TODO: get Tadgh to investigate why these are the same minute,
   // but different seconds when it seems lastStudied should be null
   const fishyLastStudiedDate = isSameMinute(lastStudied, unlockDate);
-  let lastStudiedStatus = fishyLastStudiedDate ? "N/A" : getDateInWords(lastStudied);
+  let lastStudiedStatus = fishyLastStudiedDate ? 'N/A' : getDateInWords(lastStudied);
   lastStudiedStatus = kaniwaniBurned ? format(lastStudied, DATE_FORMAT) : lastStudiedStatus;
   return (
     <div>
       <StreakStatus category="KW" streak={streak} />
       <StreakStatus category="WK" streak={wanikaniStreak} />
       <Status text="Unlocked" status={format(unlockDate, DATE_FORMAT)} />
-      <Status
-        text={kaniwaniBurned ? 'Burned' : 'Last reviewed'}
-        status={lastStudiedStatus}
-      />
-      <Status
-        text="Next review"
-        status={getReviewStatusText(hidden, needsReview, nextReviewDate)}
-      />
+      <Status text={kaniwaniBurned ? 'Burned' : 'Last reviewed'} status={lastStudiedStatus} />
+      {nextReviewDate != null && (
+        <Status
+          text="Next review"
+          status={getReviewStatusText(hidden, needsReview, nextReviewDate)}
+        />
+      )}
       <Status text="Correct" status={correct} />
       <Status text="Incorrect" status={incorrect} />
       <Status
         text="Accuracy"
-        status={
-          `${calculatePercentage(correct, correct + incorrect)}%` || 'N/A'
-        }
+        status={`${calculatePercentage(correct, correct + incorrect)}%` || 'N/A'}
       />
-      <Status text="Critical" status={critical ? 'Yes' : 'Nope!'} />
+      {!kaniwaniBurned && <Status text="Critical" status={critical ? 'Yes' : 'Nope!'} />}
     </div>
   );
 }
@@ -106,9 +97,4 @@ const mapStateToProps = (state, props) => ({
   ...selectReviewById(state, props),
 });
 
-const mapDispatchToProps = (dispatch, props) => ({
-  onLock: () => dispatch(review.lock.request(props)),
-  onUnlock: () => dispatch(review.unlock.request(props)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(VocabStats);
+export default connect(mapStateToProps)(VocabStats);

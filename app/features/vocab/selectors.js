@@ -14,8 +14,7 @@ export const selectVocab = selectVocabDomain;
 export const selectVocabById = makeSelectItemById(selectVocab);
 
 export const selectTags = createSelector(selectVocabById, getState('tags', []));
-export const selectVerbType = createSelector(
-  selectTags,
+export const selectVerbType = createSelector(selectTags, (tags) =>
   tags.find((tag) => VERB_TYPES.includes(tag))
 );
 

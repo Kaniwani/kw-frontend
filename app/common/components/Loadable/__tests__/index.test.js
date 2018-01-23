@@ -1,12 +1,12 @@
-import React from "react";
-import warning from "warning";
-import { shallow } from "enzyme";
+import React from 'react';
+import warning from 'warning';
+import { shallow } from 'enzyme';
 
-import DefaultLoadingComponentProvider from "../index";
+import DefaultLoadingComponentProvider from '../DefaultLoadingComponentProvider';
 
-jest.mock("warning", () => jest.fn());
+jest.mock('warning', () => jest.fn());
 
-describe("DefaultLoadingComponentProvider", () => {
+describe('DefaultLoadingComponentProvider', () => {
   let Child;
   let loadingComponent;
   beforeEach(() => {
@@ -15,7 +15,7 @@ describe("DefaultLoadingComponentProvider", () => {
     warning.mockClear();
   });
 
-  it("should return a child component", () => {
+  it('should return a child component', () => {
     const renderedComponent = shallow(
       <DefaultLoadingComponentProvider component={loadingComponent}>
         <Child />
@@ -25,7 +25,7 @@ describe("DefaultLoadingComponentProvider", () => {
     expect(renderedComponent.contains(<Child />)).toBe(true);
   });
 
-  it("should assign `this.props.component` to `context.defaultLoadingComponent`", () => {
+  it('should assign `this.props.component` to `context.defaultLoadingComponent`', () => {
     const renderedComponent = shallow(
       <DefaultLoadingComponentProvider component={loadingComponent}>
         <Child />
@@ -37,7 +37,7 @@ describe("DefaultLoadingComponentProvider", () => {
     );
   });
 
-  it("should warn against using dynamic <LoadingComponent>", () => {
+  it('should warn against using dynamic <LoadingComponent>', () => {
     const loadingComponent2 = () => null;
 
     const renderedComponent = shallow(
@@ -50,7 +50,7 @@ describe("DefaultLoadingComponentProvider", () => {
 
     expect(warning).toHaveBeenCalledWith(
       false,
-      "<DefaultLoadingComponentProvider> does not support dynamic <LoadingComponent>"
+      '<DefaultLoadingComponentProvider> does not support dynamic <LoadingComponent>'
     );
   });
 });

@@ -23,7 +23,10 @@ const Loadable = ({ loader, loading: CustomLoadingComponent, ...rest }) =>
       delay: 3000,
       ...rest,
       loader,
-      loading: CustomLoadingComponent || this.context.defaultLoadingComponent || this.emptyLoadingComponent,
+      loading:
+        CustomLoadingComponent ||
+        this.context.defaultLoadingComponent ||
+        this.emptyLoadingComponent,
     });
 
     render() {

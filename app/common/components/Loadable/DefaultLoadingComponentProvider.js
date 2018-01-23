@@ -25,7 +25,9 @@ class DefaultLoadingComponentProvider extends React.Component {
 }
 
 if (process.env.NODE_ENV !== 'production') {
-  DefaultLoadingComponentProvider.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+  DefaultLoadingComponentProvider.prototype.componentWillReceiveProps = function componentWillReceiveProps(
+    nextProps
+  ) {
     warning(
       this.defaultLoadingComponent === nextProps.component,
       '<DefaultLoadingComponentProvider> does not support dynamic <LoadingComponent>'

@@ -19,7 +19,6 @@ export const logoutLogic = createLogic({
   type: user.logout,
   process({ history }, dispatch, done) {
     clearToken();
-    // FIXME: persistence not cleared zzz
     history.push('/welcome');
     done();
   },
