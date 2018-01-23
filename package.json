@@ -127,7 +127,7 @@
     "react-router-redux": "5.0.0-alpha.9",
     "react-tooltip": "3.4.0",
     "rebass": "1.0.4",
-    "recharts": "1.0.0-beta.7",
+    "recharts": "1.0.0-beta.9",
     "recompose": "0.26.0",
     "redux": "3.7.2",
     "redux-action-types-creator": "1.2.0",
