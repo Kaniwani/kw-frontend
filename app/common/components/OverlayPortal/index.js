@@ -60,6 +60,7 @@ class OverlayPortal extends React.Component {
     this.overlayContainer.setAttribute('id', 'overlayPortalContainer');
     document.body.appendChild(this.overlayContainer);
   }
+
   componentWillReceiveProps(nextProps) {
     if (!this.state.overlayActive && nextProps.isOpen) {
       this.setState({ overlayActive: true });

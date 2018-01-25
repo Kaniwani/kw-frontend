@@ -281,11 +281,7 @@ export const reviews = {
       .json(),
 };
 
-<<<<<<< f6b606f5b813d9490c3b61679987fec3ad5f149a
 export const report = {
-=======
-export const vocabReport = {
->>>>>>> feat: add bug report icon + api, prettier formatting
   // { reason, vocabulary }
   send: (params) =>
     api
