@@ -9,4 +9,4 @@ stats.json
 npm-debug.log
 .idea
 .chrome
-.vs-code
+.vscode
