@@ -68,14 +68,16 @@ export function basicFuri(word = '', reading = '') {
  * @return {Array} [ [[1, 2], 'せ'], [[2, 3], 'じ'] ]
  */
 export function parseFuriString(locations = '') {
-  if (!locations) return [];
+  if (!locations) {
+    return [];
+  }
   return locations.split(';').map((entry) => {
     const [indexes, content] = entry.split(':');
     const [start, end] = indexes.split('-').map(Number);
-    return [
-      [start, end ? end + 1 : start + 1], // end index either doesn't exist, or is the *start* index of the final char
-      content,
-    ];
+    // NOTE: with the data we are using the end index is either missing
+    // or it is listed as the *start* index of the final char ¯\_(ツ)_/¯
+    // so we need to bump it either way to encompass that char
+    return [[start, end ? end + 1 : start + 1], content];
   });
 }
 

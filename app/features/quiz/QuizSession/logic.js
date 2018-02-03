@@ -59,7 +59,8 @@ export const replaceCurrentLogic = createLogic({
     console.log('current.replace logic:');
     console.log({ currentId, queue, correct, newId });
     if (newId || queue.length) {
-      console.log('first thingy');
+      console.log('Allowing replaceCurrent with newId:');
+      console.log({ newId, queue });
       const newCurrent = selectReviewById(getState(), { id: newId });
       allow({ ...action, payload: newCurrent });
     } else if (!newId && currentId && !correct.includes(currentId)) {
@@ -71,7 +72,7 @@ export const replaceCurrentLogic = createLogic({
       });
       reject();
     } else if (!newId) {
-      console.log('No new id... End of queue?');
+      console.log('Rejecting replaceCurrent: No new id... End of queue?');
       console.log({ newId, queue });
       reject();
     }

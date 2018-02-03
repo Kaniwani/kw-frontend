@@ -1,6 +1,6 @@
-import { createLogic } from "redux-logic";
+import { createLogic } from 'redux-logic';
 
-import synonym from "./actions";
+import synonym from './actions';
 
 export const addSynonymLogic = createLogic({
   type: synonym.add.request,
@@ -8,7 +8,7 @@ export const addSynonymLogic = createLogic({
   process({ api, serializers, action }, dispatch, done) {
     // change to server naming format
     const { reviewId: review, word: character, reading: kana } = action.payload;
-    const form = action.meta;
+    const { form } = action.meta;
     form.startSubmit();
     api.synonym
       .create({ review, character, kana })

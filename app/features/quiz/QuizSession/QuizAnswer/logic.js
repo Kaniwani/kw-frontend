@@ -2,6 +2,7 @@ import { createLogic } from 'redux-logic';
 import { isKana } from 'wanakana';
 
 import { SRS_RANGES } from 'common/constants';
+import { ANSWER_TYPES } from 'common/components/AddSynonym/AddSynonymForm';
 
 import determineCriticality from 'common/utils/determineCriticality';
 import {
@@ -16,7 +17,6 @@ import {
 import { selectQuizSettings } from 'features/user/selectors';
 import { selectVocabById } from 'features/vocab/selectors';
 import { selectSynonymById } from 'features/synonyms/selectors';
-
 import {
   selectCategory,
   selectIsReviewQuiz,
@@ -24,10 +24,11 @@ import {
   selectCurrent,
   selectCurrentPreviouslyIncorrect,
 } from 'features/quiz/QuizSession/selectors';
+import { selectAnswer, selectAnswerIgnored } from './selectors';
 
 import quiz from 'features/quiz/actions';
 import review from 'features/reviews/actions';
-import { selectAnswer, selectAnswerIgnored } from './selectors';
+import synonym from 'features/synonyms/actions';
 
 // we set this in quiz.advance and hold onto for clearing in quiz.answer.record
 let autoAdvance = {};
@@ -42,18 +43,16 @@ const stopAutoAdvance = () => {
 
 export const submitAnswerLogic = createLogic({
   type: quiz.answer.submit,
-  // answer input is debounced by 200, ensure answer state has been updated first
-  debounce: 220,
   latest: true,
-  process({ getState }, dispatch, done) {
-    const { value, isDisabled } = selectAnswer(getState());
-    const answerValue = cleanseInput(value);
+  process({ getState, action }, dispatch, done) {
+    const { isDisabled } = selectAnswer(getState());
+    const answerValue = cleanseInput(action.payload);
     const isValid = isInputValid(answerValue);
 
     dispatch(
       quiz.answer.update({
         value: answerValue,
-        type: isKana(answerValue) ? 'kana' : 'kanji',
+        type: isKana(answerValue) ? ANSWER_TYPES.READING : ANSWER_TYPES.WORD,
       })
     );
 
@@ -61,13 +60,26 @@ export const submitAnswerLogic = createLogic({
       dispatch(quiz.answer.update({ isMarked: true, isValid: false }));
     }
 
-    // NOTE: don't use isMarked instead, it's primarily used for styling
     if (isValid && !isDisabled) {
       dispatch(quiz.answer.check());
     }
-    // NOTE: don't use isMarked instead, it's primarily used for styling
     if (isValid && isDisabled) {
+      dispatch(quiz.answer.confirm());
+    }
+    done();
+  },
+});
+
+export const confirmAnswerLogic = createLogic({
+  type: quiz.answer.confirm,
+  latest: true,
+  process({ getState }, dispatch, done) {
+    const { value, isValid, isDisabled } = selectAnswer(getState());
+    if (value && isValid && isDisabled) {
       dispatch(quiz.answer.record.request());
+    } else {
+      // eslint-disable-next-line no-console
+      console.warn('Tried to confirm answer, but answer state was invalid');
     }
     done();
   },
@@ -269,7 +281,7 @@ export const autoAdvanceLogic = createLogic({
       }, msDelay);
     } else {
       const timeoutId = setTimeout(() => {
-        dispatch(quiz.answer.submit());
+        dispatch(quiz.answer.confirm());
         done();
       }, autoAdvanceOnSuccessDelayMilliseconds);
 
@@ -281,12 +293,23 @@ export const autoAdvanceLogic = createLogic({
   },
 });
 
+export const synonymAddLogic = createLogic({
+  type: synonym.add.success,
+  process(_, dispatch, done) {
+    dispatch(quiz.session.setSynonymModal(false));
+    dispatch(quiz.answer.ignore());
+    done();
+  },
+});
+
 export default [
   submitAnswerLogic,
-  ignoreAnswerLogic,
+  confirmAnswerLogic,
   checkAnswerLogic,
+  ignoreAnswerLogic,
   incorrectAnswerLogic,
   correctAnswerLogic,
   recordAnswerLogic,
   autoAdvanceLogic,
+  synonymAddLogic,
 ];

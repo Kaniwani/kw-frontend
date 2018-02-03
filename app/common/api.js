@@ -281,6 +281,23 @@ export const reviews = {
       .json(),
 };
 
+export const report = {
+  // { reason, vocabulary }
+  send: (params) =>
+    api
+      .auth(`JWT ${getToken()}`)
+      .url('report/')
+      .json(params)
+      .post(),
+  fetchAll: () => {
+    api
+      .auth(`JWT ${getToken()}`)
+      .url('report/')
+      .get()
+      .json();
+  },
+};
+
 //-----------------------------------------------------------------------------
 //  EXTERNAL ROUTES
 //-----------------------------------------------------------------------------
@@ -294,5 +311,5 @@ export const createForvoUrl = (keyword) =>
   `http://forvo.com/search/${encodeURIComponent(keyword)}/`;
 export const createWkVocabUrl = (keyword) =>
   `https://wanikani.com/vocabulary/${encodeURIComponent(keyword)}`;
-export const createEijiroUrl = (keyword, useEijiroPro) =>
-  `http://${useEijiroPro ? 'eowpf' : 'eow'}.alc.co.jp/search?q=${encodeURIComponent(keyword)}`;
+export const createEijiroUrl = (keyword, useEijiroProLink) =>
+  `http://${useEijiroProLink ? 'eowpf' : 'eow'}.alc.co.jp/search?q=${encodeURIComponent(keyword)}`;

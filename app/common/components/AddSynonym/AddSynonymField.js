@@ -1,16 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { titleCase } from "voca";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { titleCase } from 'voca';
 
-import Element from "common/components/Element";
-import JishoSearchLink from "./JishoSearchLink";
+import Element from 'common/components/Element';
+import JishoSearchLink from './JishoSearchLink';
 import JapaneseInput from './JapaneseInput';
 
 import { LabelText, ValidationMessage } from './styles';
 
 const PLACEHOLDERS = {
-  WORD: "漢字",
-  READING: "かな",
+  WORD: '漢字',
+  READING: 'かな',
 };
 
 AddSynonymField.propTypes = {
@@ -49,12 +49,12 @@ function AddSynonymField({
           label={labelText}
           input={input}
           placeholder={japanesePlaceholder}
-          autoFocus={answerType !== "" && !isSameAsAnswerType}
+          autoFocus={answerType !== '' && !isSameAsAnswerType}
           {...props}
         />
         <JishoSearchLink
           keyword={userAnswer}
-          visuallyHidden={isSameAsAnswerType || answerType === ""}
+          visuallyHidden={isSameAsAnswerType || answerType === ''}
         />
       </Element>
       {touched &&

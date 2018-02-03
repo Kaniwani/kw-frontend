@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
 import { toKana } from 'wanakana';
 import { reduxForm, Field, SubmissionError, propTypes as formPropTypes } from 'redux-form';
 
@@ -38,6 +36,7 @@ export function AddSynonymForm({ handleSubmit, submitting, answerValue, answerTy
         type="text"
         component={AddSynonymField}
         label={ANSWER_TYPES.WORD}
+        // FIXME: use a react-wanakana input component instead
         normalize={(value) => toKana(value, { IMEMode: true })}
         userAnswer={answerValue}
         answerType={answerType}
@@ -47,6 +46,7 @@ export function AddSynonymForm({ handleSubmit, submitting, answerValue, answerTy
         type="text"
         component={AddSynonymField}
         label={ANSWER_TYPES.READING}
+        // FIXME: use a react-wanakana input component instead
         normalize={(value) => toKana(value, { IMEMode: true })}
         userAnswer={answerValue}
         answerType={answerType}
@@ -65,31 +65,16 @@ export function AddSynonymForm({ handleSubmit, submitting, answerValue, answerTy
   );
 }
 
-const mapStateToProps = (state, props) => ({
-  // FIXME: only passed from quiz version
-  // answerType: ANSWER_TYPES.WORD,
-  // answerValue: "大人しい",
-  // initialValues: {
-  //   word: "",
-  //   reading: "",
-  // },
-});
-
-const enhance = compose(
-  connect(mapStateToProps),
-  reduxForm({
-    form: 'addSynonym',
-    onSubmit: ({ word, reading }, dispatch, { id, ...props }) => {
-      const errors = {
-        word: onlyKanjiOrKana(word),
-        reading: onlyKana(reading),
-      };
-      if (Object.values(errors).some(Boolean)) {
-        throw new SubmissionError(errors);
-      }
-      dispatch(synonyms.add.request({ reviewId: id, word, reading }, props));
-    },
-  })
-);
-
-export default enhance(AddSynonymForm);
+export default reduxForm({
+  form: 'addSynonym',
+  onSubmit: ({ word, reading }, dispatch, { id, ...form }) => {
+    const errors = {
+      word: onlyKanjiOrKana(word),
+      reading: onlyKana(reading),
+    };
+    if (Object.values(errors).some(Boolean)) {
+      throw new SubmissionError(errors);
+    }
+    dispatch(synonyms.add.request({ reviewId: id, word, reading }, { form }));
+  },
+})(AddSynonymForm);

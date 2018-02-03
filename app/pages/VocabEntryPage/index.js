@@ -31,7 +31,7 @@ export function VocabEntryPage({ id }) {
 }
 
 const mapStateToProps = (_, props) => ({
-  id: getProp('match.params.id')(_, props),
+  id: +getProp('match.params.id')(_, props),
 });
 
 export default connect(mapStateToProps)(VocabEntryPage);

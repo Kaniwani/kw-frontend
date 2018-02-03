@@ -1,21 +1,21 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { compose, lifecycle } from "recompose";
-import { reduxForm, Field } from "redux-form";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { compose, lifecycle } from 'recompose';
+import { reduxForm, Field } from 'redux-form';
 
-import user from "features/user/actions";
-import Spinner from "common/components/Spinner";
+import user from 'features/user/actions';
+import Spinner from 'common/components/Spinner';
 
 import {
   requiredValid,
   emailValid,
   minLengthValid,
   confirmPasswordValid,
-} from "common/validations";
+} from 'common/validations';
 
-import Input from "./Input";
+import Input from './Input';
 
-import { Form, SubmitButton, ApiLink, ValidationMessage } from "./styles";
+import { Form, SubmitButton, ApiLink, ValidationMessage } from './styles';
 
 FormView.propTypes = {
   loginSelected: PropTypes.bool.isRequired,
@@ -39,13 +39,13 @@ function FormView({
   error,
 }) {
   const mainInputText =
-    (loginSelected && "Username or Email") || (registerSelected && "Username") || "Email";
+    (loginSelected && 'Username or Email') || (registerSelected && 'Username') || 'Email';
 
   return (
     <Form onSubmit={handleSubmit} autoComplete="on">
       <Field
-        label={`Enter ${!resetSelected ? "username" : "email"}`}
-        name={!resetSelected ? "username" : "email"}
+        label={`Enter ${!resetSelected ? 'username' : 'email'}`}
+        name={!resetSelected ? 'username' : 'email'}
         component={Input}
         placeholder={mainInputText}
         validate={!resetSelected ? [requiredValid] : [requiredValid, emailValid]}
@@ -74,9 +74,7 @@ function FormView({
         component={Input}
         type="password"
         placeholder="Confirm Password"
-        validate={
-          registerSelected ? [requiredValid, minLengthValid, confirmPasswordValid] : []
-        }
+        validate={registerSelected ? [requiredValid, minLengthValid, confirmPasswordValid] : []}
         isHidden={loginSelected || resetSelected}
       />
       <Field
@@ -102,23 +100,23 @@ function FormView({
         type="submit"
         lang="ja"
         title={
-          (submitting && "Submitting...") ||
-          (registerSelected && "Register") ||
+          (submitting && 'Submitting...') ||
+          (registerSelected && 'Register') ||
           (loginSelected && "Let's Go!") ||
-          (resetSelected && "Submit")
+          (resetSelected && 'Submit')
         }
       >
-        {(submitting && "送信している...") ||
-          (registerSelected && "登録する") ||
-          (loginSelected && "行こう") ||
-          (resetSelected && "送信する")}
+        {(submitting && '送信している...') ||
+          (registerSelected && '登録する') ||
+          (loginSelected && '行こう') ||
+          (resetSelected && '送信する')}
       </SubmitButton>
       {registerSelected && submitting && <Spinner />}
     </Form>
   );
 }
 
-export const FORM_NAME = "multiLogin";
+export const FORM_NAME = 'multiLogin';
 const enhance = compose(
   reduxForm({
     form: FORM_NAME,
@@ -144,7 +142,9 @@ const enhance = compose(
       if (resetSelected) {
         // FIXME: this step works, but we don't have a confirmation in place yet
         // dispatch(user.resetPassword.request({ email }));
-        window.alert("Temporarily disabled - please contact us to reset your password.");
+        window.alert(
+          'Temporarily disabled - please let us know on Slack to reset your password.\n\nhttps://rauchg-slackin-iurjmkotad.now.sh'
+        );
       }
     },
   }),

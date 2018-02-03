@@ -23,12 +23,6 @@ import AddSynonym from 'common/components/AddSynonym';
 import VocabLockButton from 'common/components/VocabLockButton';
 import Notes from 'features/reviews/Notes';
 
-// FIXME: infopanel needs to implement scroll to top when open
-// import { withContentRect } from 'react-measure';
-// import smoothScrollY from 'common/utils/smoothScrollY';
-
-// TODO: spacing between vocab, synonym title?
-
 VocabDetail.propTypes = {
   id: PropTypes.number.isRequired,
   vocabIds: PropTypes.array.isRequired,
@@ -85,9 +79,9 @@ export function VocabDetail({
       {vocabIds.map((vocabId) => (
         <div key={cuid()}>
           {<VocabWord id={vocabId} showFuri={showFuri} showSecondary={showSecondaryReadings} />}
+          {showPitch && <PitchDiagramList id={vocabId} />}
           {showTags && <TagsList id={vocabId} />}
           {showLinks && <ReadingLinks id={vocabId} />}
-          {showPitch && <PitchDiagramList id={vocabId} />}
           {showSentence && <SentencePair id={vocabId} />}
           {showStroke && <StrokeLoader id={vocabId} />}
         </div>

@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import cuid from 'cuid';
 
-import { selectUseEijiroPro } from 'features/user/selectors';
+import { selectUseEijiroProLink } from 'features/user/selectors';
 import { selectWord } from 'features/vocab/selectors';
 
 import Ul from 'common/components/Ul';
+import VocabReport from 'features/vocab/Report';
 import { Li, VocabLink } from './styles';
 
 import {
@@ -20,16 +21,17 @@ import {
 
 ReadingLinks.propTypes = {
   word: PropTypes.string.isRequired,
-  useEijiroPro: PropTypes.bool.isRequired,
+  useEijiroProLink: PropTypes.bool.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
-export function ReadingLinks({ word, useEijiroPro }) {
+export function ReadingLinks({ id, word, useEijiroProLink }) {
   const links = [
     { name: 'WK', href: createWkVocabUrl(word) },
     { name: 'Jisho', href: createJishoUrl(word) },
     {
-      name: `Eijiro${useEijiroPro ? ' Pro' : ''}`,
-      href: createEijiroUrl(word, useEijiroPro),
+      name: `Eijiro${useEijiroProLink ? ' Pro' : ''}`,
+      href: createEijiroUrl(word, useEijiroProLink),
     },
     { name: 'Goo', href: createGooUrl(word) },
     { name: 'Weblio', href: createWeblioUrl(word) },
@@ -45,13 +47,16 @@ export function ReadingLinks({ word, useEijiroPro }) {
           </VocabLink>
         </Li>
       ))}
+      <Li>
+        <VocabReport id={id} />
+      </Li>
     </Ul>
   );
 }
 
 const mapStateToProps = (state, props) => ({
   word: selectWord(state, props),
-  useEijiroPro: selectUseEijiroPro(state, props),
+  useEijiroProLink: selectUseEijiroProLink(state, props),
 });
 
 export default connect(mapStateToProps)(ReadingLinks);

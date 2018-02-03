@@ -1,5 +1,13 @@
-import { createLogic } from "redux-logic";
+import { createLogic } from 'redux-logic';
 
-import vocab from "./actions";
+import vocab from './actions';
 
-export default [];
+const reportVocabLogic = createLogic({
+  type: vocab.report.request,
+  process: ({ api, action }, dispatch, done) => {
+    dispatch(api.report.send(action.payload));
+    done();
+  },
+});
+
+export default [reportVocabLogic];

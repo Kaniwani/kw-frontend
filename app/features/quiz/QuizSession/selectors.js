@@ -7,6 +7,8 @@ import { MINIMUM_QUEUE_COUNT } from './constants';
 
 import { getVal, getState } from 'common/selectors';
 import { selectUserProfile } from 'features/user/selectors';
+import { selectPrimaryVocabId } from 'features/reviews/selectors';
+import { selectVocabById } from 'features/vocab/selectors';
 
 export const UI_DOMAIN = 'quizSession';
 export const selectDomain = getState(UI_DOMAIN);
@@ -29,11 +31,16 @@ export const selectQueueCount = createSelector(selectQueue, getState('length', 0
 export const selectCorrectCount = createSelector(selectCorrectIds, getState('length', 0));
 export const selectIncorrectCount = createSelector(selectIncorrectIds, getState('length', 0));
 export const selectCompleteCount = createSelector(selectCompleteIds, getState('length', 0));
-
+export const selectSynonymModalOpen = createSelector(selectDomain, getState('synonymModalOpen'));
 export const selectCurrentId = createSelector(selectCurrent, getState('id'));
 export const selectCurrentStreakName = createSelector(
   selectCurrent,
   getVal('streak', getSrsRankName)
+);
+
+export const selectPrimaryVocabFromCurrent = createSelector(
+  [selectCurrentId, (state) => state],
+  (id, state) => selectVocabById(state, { id: selectPrimaryVocabId(state, { id }) })
 );
 
 export const selectSessionCount = createSelector(

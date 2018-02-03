@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { propTypes as formPropTypes } from "redux-form";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { propTypes as formPropTypes } from 'redux-form';
 
-import TextAreaControls from "common/components/TextAreaControls";
-import { Block, Label, TextArea } from "./styles";
+import TextAreaControls from 'common/components/TextAreaControls';
+import { Block, Label, TextArea } from './styles';
 
 TextAreaAutoSize.propTypes = {
   ...formPropTypes.fieldPropTypes,
@@ -13,23 +13,23 @@ TextAreaAutoSize.propTypes = {
   minLength: PropTypes.number,
   maxLength: PropTypes.number,
   showLabel: PropTypes.bool,
-  showControls: PropTypes.bool,
+  showControls: PropTypes.oneOf([true, false, 'always']),
   onReset: PropTypes.func,
   onSubmit: PropTypes.func,
   submitButtonText: PropTypes.string,
 };
 
 TextAreaAutoSize.defaultProps = {
-  label: "",
+  label: '',
   rows: 10,
-  placeholder: "文章",
+  placeholder: '文章',
   minLength: 10,
   maxLength: 1000,
   showLabel: false,
   showControls: true,
   onReset: () => {},
   onSubmit: () => {},
-  submitButtonText: "Submit",
+  submitButtonText: 'Submit',
 };
 
 function TextAreaAutoSize({
@@ -59,16 +59,15 @@ function TextAreaAutoSize({
         maxLength={maxLength}
         {...input}
       />
-      {showControls &&
-        meta.dirty && (
-          <TextAreaControls
-            maxLength={maxLength}
-            textLength={input.value.length}
-            onReset={onReset}
-            onSubmit={onSubmit}
-            submitButtonText={submitButtonText}
-          />
-        )}
+      {showControls === 'always' || (showControls && meta.dirty) ? (
+        <TextAreaControls
+          maxLength={maxLength}
+          textLength={input.value.length}
+          onReset={onReset}
+          onSubmit={onSubmit}
+          submitButtonText={submitButtonText}
+        />
+      ) : null}
     </Block>
   );
 }

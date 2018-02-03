@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Input } from './styles';
 
 JapaneseInput.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   input: PropTypes.object.isRequired,

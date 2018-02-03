@@ -1,18 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bind, unbind } from 'wanakana';
 
 import { SRS_RANKS } from 'common/constants';
 
 import quiz from 'features/quiz/actions';
 import selectAnswer from 'features/quiz/QuizSession/QuizAnswer/selectors';
 import { selectCurrentStreakName } from 'features/quiz/QuizSession/selectors';
-import { DebouncedInput } from './DebouncedInput';
 import {
   Form,
   AnswerWrapper,
   Label,
   Streak,
+  Input,
   ActionButtons,
   IgnoreButton,
   SubmitButton,
@@ -22,7 +23,6 @@ export class QuizAnswer extends React.Component {
   static propTypes = {
     onIgnore: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
-    onUpdate: PropTypes.func.isRequired,
     streakName: PropTypes.string,
     value: PropTypes.string,
     isFocused: PropTypes.bool,
@@ -34,7 +34,6 @@ export class QuizAnswer extends React.Component {
   };
 
   static defaultProps = {
-    value: '',
     streakName: SRS_RANKS.ZERO,
     isFocused: true,
     isMarked: false,
@@ -44,7 +43,15 @@ export class QuizAnswer extends React.Component {
     isIncorrect: false,
   };
 
+  componentDidMount() {
+    bind(this.inputFieldRef);
+  }
+
   componentDidUpdate() {
+    // Answer reset, terminal N fixed etc.
+    if (this.inputFieldRef.value !== this.props.value) {
+      this.inputFieldRef.value = this.props.value;
+    }
     if (this.props.isFocused) {
       this.inputFieldRef.focus();
     } else {
@@ -54,9 +61,9 @@ export class QuizAnswer extends React.Component {
     }
   }
 
-  onChange = (value) => {
-    this.props.onUpdate({ value });
-  };
+  componentWillUnmount() {
+    unbind(this.inputFieldRef);
+  }
 
   onIgnore = (event) => {
     event.preventDefault();
@@ -67,16 +74,11 @@ export class QuizAnswer extends React.Component {
   onSubmit = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    this.props.onSubmit();
-  };
-
-  setInputFieldRef = (node) => {
-    this.inputFieldRef = node;
+    this.props.onSubmit(this.inputFieldRef.value);
   };
 
   render() {
     const {
-      value,
       isFocused,
       isDisabled,
       isCorrect,
@@ -100,14 +102,23 @@ export class QuizAnswer extends React.Component {
         <AnswerWrapper>
           <Streak streakName={streakName} size="1.15em" />
           <Label htmlFor="answer">Vocabulary reading</Label>
-          <DebouncedInput
-            setInputFieldRef={this.setInputFieldRef}
-            value={value}
-            onChange={this.onChange}
-            isFocused={isFocused}
-            isDisabled={isDisabled}
-            isMarked={isMarked}
-            isValid={isValid}
+          <Input
+            innerRef={(node) => {
+              this.inputFieldRef = node;
+            }}
+            id="answer"
+            lang="ja"
+            type="text"
+            placeholder="答え"
+            focus={isFocused}
+            disabled={isDisabled}
+            marked={isMarked}
+            valid={isValid}
+            autoFocus={isFocused}
+            autoCapitalize="none"
+            autoCorrect="off"
+            autoComplete="off"
+            spellCheck="false"
           />
           <ActionButtons>
             {isDisabled && (

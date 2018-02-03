@@ -3,9 +3,9 @@ import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
-import { whiteLight } from 'shared/styles/colors';
+import { whiteLight } from 'common/styles/colors';
 
-import IconButton from 'components/IconButton';
+import IconButton from 'common/components/IconButton';
 
 // NOTE: this is more of a reference as to how ReactDOM.createPortal() works
 // probably worth pulling in a react modal lib that uses it (and has keybindings for esc key to close etc, etc)
@@ -44,16 +44,27 @@ const CloseButton = styled(IconButton)`
 class OverlayPortal extends React.Component {
   static propTypes = {
     children: PropTypes.any.isRequired,
+    isOpen: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    isOpen: false,
   };
 
   state = {
-    overlayActive: true,
+    overlayActive: this.props.isOpen,
   };
 
   componentWillMount() {
     this.overlayContainer = document.createElement('div');
     this.overlayContainer.setAttribute('id', 'overlayPortalContainer');
     document.body.appendChild(this.overlayContainer);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!this.state.overlayActive && nextProps.isOpen) {
+      this.setState({ overlayActive: true });
+    }
   }
 
   componentWillUnmount() {

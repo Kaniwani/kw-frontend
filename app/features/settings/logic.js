@@ -8,17 +8,25 @@ import { deserializeUserProfile } from 'common/serializers';
 
 export const saveSettingsLogic = createLogic({
   type: settings.save.request,
-  processOptions: {
-    failType: settings.save.failure,
-  },
-  process({ getState, api, action: { payload } }, dispatch, done) {
+  process({ getState, api, action }, dispatch, done) {
     const { id } = selectUserProfile(getState());
-    const updatedProfile = deserializeUserProfile(payload);
+    const updatedProfile = deserializeUserProfile(action.payload);
+    const { form } = action.meta;
 
-    api.user.update({ id, ...updatedProfile }).then((response) => {
-      dispatch(user.load.success({ profile: response } ));
-      done();
-    });
+    form.startSubmit();
+    api.user
+      .update({ id, ...updatedProfile })
+      .then((response) => {
+        dispatch(user.load.success({ profile: response }));
+        dispatch(settings.save.success());
+        form.setSubmitSucceeded();
+        done();
+      })
+      .catch((err) => {
+        dispatch(settings.save.failure(err));
+        form.setSubmitFailed();
+        done();
+      });
   },
 });
 

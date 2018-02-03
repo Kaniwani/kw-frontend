@@ -65,16 +65,19 @@ describe('basicFuri()', () => {
 });
 
 describe('parseFuriString()', () => {
-  it('has a sane default', () => {
+  it('sane default', () => {
     expect(parseFuriString()).toEqual([]);
   });
   it('works', () => {
     expect(parseFuriString('1:せ;2:じ')).toEqual([[[1, 2], 'せ'], [[2, 3], 'じ']]);
   });
+  it('should properly cover the final kanji', () => {
+    expect(parseFuriString('0-1:おとな')).toEqual([[[0, 2], 'おとな']]);
+  });
 });
 
 describe('generatePairs()', () => {
-  it('has a sane default', () => {
+  it('sane default', () => {
     expect(generatePairs()).toEqual([]);
   });
   it('works', () => {
@@ -82,6 +85,14 @@ describe('generatePairs()', () => {
       ['', 'お'],
       ['せ', '世'],
       ['じ', '辞'],
+    ]);
+  });
+  it('handles words with separated kanji and trailing okurigana', () => {
+    expect(generatePairs('貫き通す', [[[0, 1], 'つらぬ'], [[2, 3], 'とお']])).toEqual([
+      ['つらぬ', '貫'],
+      ['', 'き'],
+      ['とお', '通'],
+      ['', 'す'],
     ]);
   });
 });

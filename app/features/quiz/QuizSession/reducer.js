@@ -7,6 +7,8 @@ import quiz from 'features/quiz/actions';
 
 export const initialQuizSessionState = {
   category: '',
+  wrapUp: false,
+  synonymModalOpen: false,
   current: {},
   remaining: null,
   queue: [],
@@ -18,6 +20,17 @@ export const initialQuizSessionState = {
 const setCategory = (state, { payload }) =>
   update(state, {
     category: { $set: payload },
+  });
+
+// TODO: move to synonyms or info?
+const setSynonymModalOpen = (state, { payload }) =>
+  update(state, {
+    synonymModalOpen: { $set: payload },
+  });
+
+const setWrapUp = (state, { payload }) =>
+  update(state, {
+    wrapUp: { $set: payload },
   });
 
 const replaceCurrent = (state, { payload }) =>
@@ -70,6 +83,9 @@ const clearQueue = (state) =>
 export const quizSessionReducer = handleActions(
   {
     [quiz.session.setCategory]: setCategory,
+    // TODO: move to synonyms or info?
+    [quiz.session.setSynonymModal]: setSynonymModalOpen,
+    [quiz.session.setWrapUp]: setWrapUp,
     [quiz.session.queue.load.success]: mergeQueue,
     [quiz.session.queue.clear]: clearQueue,
     [quiz.session.current.replace]: replaceCurrent,

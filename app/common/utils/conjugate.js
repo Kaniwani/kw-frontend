@@ -1,11 +1,9 @@
-// NOTE: adapted from elsewhere, haven't really cleaned up the code (style) yet
+const PLAIN_FORM = {
+  name: 'plain affirmative',
+  forms: ['う', 'く', 'ぐ', 'す', 'つ', 'む', 'ぶ', 'ぬ', 'る', 'る'],
+};
 
-const conjugationForms = [
-  {
-    name: 'plain affirmative',
-    forms: ['う', 'く', 'ぐ', 'す', 'つ', 'む', 'ぶ', 'ぬ', 'る', 'る'],
-  },
-
+const CONJUGATIONS = [
   // present tense: 0-5
   {
     name: 'polite affirmative',
@@ -526,7 +524,6 @@ const conjugationForms = [
       'なさい',
     ],
   },
-  { name: 'advisory', forms: ['', '', '', '', '', '', '', '', '', 'よ'] },
   {
     name: 'negative request',
     forms: [
@@ -595,9 +592,11 @@ const conjugationForms = [
   },
 ];
 
-conjugationForms.sort((a, b) => b.forms[0].length - a.forms[0].length);
+const sortByFormSuffixLength = (list) => list.sort((a, b) => b.forms[0].length - a.forms[0].length);
+const inflectConjugations = sortByFormSuffixLength([PLAIN_FORM, ...CONJUGATIONS]);
+const deinflectConjugations = sortByFormSuffixLength(CONJUGATIONS);
 
-export const VERB_TYPES = ['v5u', 'v5k', 'v5g', 'v5s', 'v5t', 'v5m', 'v5b', 'v5n', 'v5r', 'v1'];
+const VERB_TYPES = ['v5u', 'v5k', 'v5g', 'v5s', 'v5t', 'v5m', 'v5b', 'v5n', 'v5r', 'v1'];
 const VERB_ENDINGS = ['う', 'く', 'ぐ', 'す', 'つ', 'む', 'ぶ', 'ぬ', 'る', 'る'];
 
 // mutates aggregated
@@ -605,6 +604,7 @@ function process(word, seen, aggregated, entry, i, suffix, j) {
   if (!suffix.trim()) return;
   const re = new RegExp(`${suffix}$`);
   let newword;
+
   if (word.match(re)) {
     newword = word.replace(re, VERB_ENDINGS[j]);
     // special check for する
@@ -630,7 +630,8 @@ function process(word, seen, aggregated, entry, i, suffix, j) {
 
 function destep(word, seen = []) {
   const aggregated = [];
-  conjugationForms.forEach((entry, i) => {
+
+  deinflectConjugations.forEach((entry, i) => {
     entry.forms.forEach((suffix, j) => {
       // mutates aggregated
       process(word, seen, aggregated, entry, i, suffix, j);
@@ -644,25 +645,20 @@ export const deinflect = (word) => destep(word);
 export function inflect(verb = '', type = 'v5') {
   let index = [];
   let verbstem = [];
-  const ret = [];
-  if (type.toLowerCase().indexOf('v1') > -1) {
+
+  if (/v1/i.test(type)) {
     index = VERB_TYPES.indexOf('v1');
-    verbstem = verb.substring(0, verb.length - 1);
+    verbstem = verb.slice(0, verb.length - 1);
   } else {
-    const lastchar = verb.substring(verb.length - 1, verb.length);
+    const lastchar = verb.slice(verb.length - 1, verb.length);
     index = VERB_ENDINGS.indexOf(lastchar);
-    verbstem = verb.substring(0, verb.length - 1);
+    verbstem = verb.slice(0, verb.length - 1);
   }
-  let form;
-  let specific;
-  for (let i = 0; i < conjugationForms.length; i++) {
-    form = conjugationForms[i];
-    specific = form.forms[index];
-    if (specific !== false) {
-      ret.push({ name: form.name, form: verbstem + specific });
-    }
-  }
-  return ret;
+
+  return inflectConjugations.reduce((acc, { name, forms }) => {
+    const specific = forms[index];
+    return specific !== false ? acc.concat({ name, form: verbstem + specific }) : acc;
+  }, []);
 }
 
 export default inflect;

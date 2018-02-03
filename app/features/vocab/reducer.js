@@ -1,9 +1,9 @@
-import { handleActions, combineActions } from "redux-actions";
+import { handleActions, combineActions } from 'redux-actions';
 // import update from "immutability-helper";
-import { merge } from "lodash";
-import vocab from "./actions";
-import quiz from "features/quiz/actions";
-import review from "features/reviews/actions";
+import { merge } from 'lodash';
+import vocab from './actions';
+import quiz from 'features/quiz/actions';
+import review from 'features/reviews/actions';
 
 export const initialVocabEntitiesState = {};
 

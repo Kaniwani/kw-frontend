@@ -1,9 +1,9 @@
-import React from "react";
-import { Helmet } from "react-helmet";
+import React from 'react';
+import { Helmet } from 'react-helmet';
 
-import Aux from "common/components/Aux";
-import PageWrapper from "common/components/PageWrapper";
-import Dashboard from "features/dashboard";
+import Aux from 'common/components/Aux';
+import PageWrapper from 'common/components/PageWrapper';
+import Dashboard from 'features/dashboard';
 
 export function HomePage() {
   return (

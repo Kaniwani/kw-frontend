@@ -7,10 +7,13 @@ const webpack = require('webpack');
 
 module.exports = (options) => ({
   entry: options.entry,
-  output: Object.assign({
-    path: path.resolve(process.cwd(), 'build'),
-    publicPath: '/',
-  }, options.output), // Merge with env dependent settings
+  output: Object.assign(
+    {
+      path: path.resolve(process.cwd(), 'build'),
+      publicPath: '/',
+    },
+    options.output
+  ), // Merge with env dependent settings
   module: {
     rules: [
       {
@@ -95,16 +98,8 @@ module.exports = (options) => ({
   ]),
   resolve: {
     modules: ['app', 'node_modules'],
-    extensions: [
-      '.js',
-      '.jsx',
-      '.react.js',
-    ],
-    mainFields: [
-      'browser',
-      'module',
-      'main',
-    ],
+    extensions: ['.js', '.jsx', '.react.js'],
+    mainFields: ['browser', 'main', 'module'],
   },
   devtool: options.devtool,
   target: 'web', // Make web variables accessible to webpack, e.g. window

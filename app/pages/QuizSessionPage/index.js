@@ -39,7 +39,7 @@ export class QuizSessionPage extends React.Component {
   }
 
   render() {
-    console.log(this.props.isSessionFinished);
+    console.log('render + isSessionFinished: ', this.props.isSessionFinished);
     if (this.props.isSessionFinished) {
       return <Redirect to={`/${this.props.category}`} />;
     }

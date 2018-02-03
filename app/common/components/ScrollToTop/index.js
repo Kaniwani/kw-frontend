@@ -1,17 +1,17 @@
-import React from "react";
-import { debounce } from "lodash";
+import React from 'react';
+import { debounce } from 'lodash';
 
-import smoothScrollY from "common/utils/smoothScrollY";
-import ScrollTopButton from "./ScrollTopButton";
+import smoothScrollY from 'common/utils/smoothScrollY';
+import ScrollTopButton from './ScrollTopButton';
 
-class ScrollToTop extends React.Component {
+class ScrollToTop extends React.PureComponent {
   state = {
     isVisible: false,
     isScrolling: false,
   };
 
   componentDidMount() {
-    window.addEventListener("scroll", this.onScroll);
+    window.addEventListener('scroll', this.onScroll);
   }
 
   componentWillUpdate(prevProps, prevState) {
@@ -21,7 +21,7 @@ class ScrollToTop extends React.Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener("scroll", this.onScroll);
+    window.removeEventListener('scroll', this.onScroll);
   }
 
   onScroll = debounce(() => {
@@ -41,11 +41,7 @@ class ScrollToTop extends React.Component {
   render() {
     const { isVisible, isScrolling } = this.state;
     return (
-      <ScrollTopButton
-        onClick={this.scrollUp}
-        isVisible={isVisible}
-        isScrolling={isScrolling}
-      />
+      <ScrollTopButton onClick={this.scrollUp} isVisible={isVisible} isScrolling={isScrolling} />
     );
   }
 }

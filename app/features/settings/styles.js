@@ -1,5 +1,4 @@
 import styled, { keyframes } from 'styled-components';
-import { FormSection } from 'redux-form';
 import { rgba, timingFunctions } from 'polished';
 
 import { gutter } from 'common/styles/layout';

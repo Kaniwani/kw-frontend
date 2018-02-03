@@ -1,35 +1,33 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { compose, branch, renderNothing } from "recompose";
-import { reduxForm, Field } from "redux-form";
+import React from 'react';
+import { connect } from 'react-redux';
+import { compose, branch, renderNothing } from 'recompose';
+import { reduxForm, Field, propTypes as formPropTypes } from 'redux-form';
 
-import { selectUserSettings } from "features/user/selectors";
+import { selectUserSettings } from 'features/user/selectors';
 import { orange, blue } from 'common/styles/colors';
-import settings from "./actions";
+import settings from './actions';
 
-import { WK_SRS_RANKS } from "common/constants";
+import { WK_SRS_RANKS } from 'common/constants';
 
-import H2 from "common/components/H2";
-import H4 from "common/components/H4";
-import A from "common/components/A";
-import Button from "common/components/Button";
+import H2 from 'common/components/H2';
+import H4 from 'common/components/H4';
+import A from 'common/components/A';
+import Button from 'common/components/Button';
 
-import SelectField from "./SelectField";
-import ToggleField from "./ToggleField";
-import RangeField from "./RangeField";
+import SelectField from './SelectField';
+import ToggleField from './ToggleField';
+import RangeField from './RangeField';
 
-import { Form, Section, SubSection, Controls } from "./styles";
+import { Form, Section, SubSection, Controls } from './styles';
 
 const milliToSec = (value = 0) => +value * 1000;
 const secToMilli = (value = 0) => +value / 1000;
 
 SettingsForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  anyTouched: PropTypes.bool.isRequired,
+  ...formPropTypes,
 };
 
-export function SettingsForm({ handleSubmit, anyTouched }) {
+export function SettingsForm({ handleSubmit, submitting, submitSucceeded, dirty }) {
   return (
     <Form onSubmit={handleSubmit}>
       <Section>
@@ -93,7 +91,7 @@ export function SettingsForm({ handleSubmit, anyTouched }) {
           label="Use Eijiro Pro in reading links"
           note={
             <span>
-              This requires a (free) account at{" "}
+              This requires a (free) account at{' '}
               <A href="https://eowf.alc.co.jp" external>
                 eowf.alc.co.jp
               </A>
@@ -127,7 +125,9 @@ export function SettingsForm({ handleSubmit, anyTouched }) {
         </SubSection>
       </Section>
       <Controls>
-        <Button bgColor={anyTouched ? orange : blue} type="submit">Save</Button>
+        <Button bgColor={dirty ? orange : blue} type="submit">
+          {submitting ? 'Saving' : submitSucceeded && !dirty ? 'Saved' : 'Save'}
+        </Button>
       </Controls>
     </Form>
   );
@@ -137,9 +137,9 @@ const enhance = compose(
   connect((state) => ({ initialValues: selectUserSettings(state) })),
   branch(({ initialValues }) => Object.keys(initialValues).length < 1, renderNothing),
   reduxForm({
-    form: "settings",
+    form: 'settings',
     enableReinitialize: true,
-    onSubmit: (values, dispatch) => dispatch(settings.save.request(values)),
+    onSubmit: (values, dispatch, props) => dispatch(settings.save.request(values, { form: props })),
   })
 );
 

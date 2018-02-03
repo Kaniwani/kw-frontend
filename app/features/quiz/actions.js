@@ -6,8 +6,6 @@ import { SYNC, ASYNC } from 'common/actions';
 // at least into export const { quizSession } & export const { quizSummary } (instead of { quiz })
 export const { quiz } = createActions({
   QUIZ: {
-    SHOW_SYNONYM_MODAL: SYNC,
-    START_WRAP_UP: SYNC,
     SUMMARY: {
       RESET: SYNC,
       ADD_CORRECT: SYNC,
@@ -15,6 +13,8 @@ export const { quiz } = createActions({
     },
     SESSION: {
       SET_CATEGORY: SYNC,
+      SET_SYNONYM_MODAL: SYNC,
+      SET_WRAP_UP: SYNC,
       ADD_CORRECT: SYNC,
       ADD_INCORRECT: SYNC,
       ADD_COMPLETE: SYNC,
@@ -38,6 +38,7 @@ export const { quiz } = createActions({
       INCORRECT: SYNC,
       IGNORE: SYNC,
       SUBMIT: SYNC,
+      CONFIRM: SYNC,
       RECORD: ASYNC,
       RESET: SYNC,
     },

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { HotKeys } from 'react-hotkeys';
+import { pure } from 'recompose';
 
 import quiz from 'features/quiz/actions';
 import { selectInfoOpen } from 'features/quiz/QuizSession/QuizInfo/selectors';
@@ -13,8 +14,11 @@ import QuizQuestion from './QuizQuestion';
 import QuizControls from './QuizControls';
 import QuizInfo from './QuizInfo';
 
+import AddSynonymModal from 'features/quiz/QuizSession/QuizInfo/AddSynonymModal';
+
 import backgroundImage from 'common/assets/img/reviews.svg';
 import { Upper, Lower, Background } from './styles';
+const QuizBackground = pure(Background);
 
 const shouldIgnore = ({ target }) => Object.keys(target.dataset).includes('ignoreHotkeys');
 const isInputField = ({ target }) => ['INPUT', 'TEXTAREA'].includes(target.nodeName);
@@ -28,9 +32,9 @@ export class QuizSession extends React.Component {
     startWrapUp: PropTypes.func.isRequired,
     showInfo: PropTypes.func.isRequired,
     cycleInfoDetail: PropTypes.func.isRequired,
-    showSynonymModal: PropTypes.func.isRequired,
+    setSynonymModal: PropTypes.func.isRequired,
     ignoreAnswer: PropTypes.func.isRequired,
-    submitAnswer: PropTypes.func.isRequired,
+    confirmAnswer: PropTypes.func.isRequired,
   };
 
   guardHotKeyHandler = (handler) => (event) => {
@@ -49,8 +53,8 @@ export class QuizSession extends React.Component {
   };
 
   handleOnInfo = (event) => {
-    event.preventDeault();
-    event.stopPropagtion();
+    event.preventDefault();
+    event.stopPropagation();
     return this.props.isInfoOpen ? this.props.cycleInfoDetail() : this.props.showInfo();
   };
 
@@ -59,9 +63,9 @@ export class QuizSession extends React.Component {
       startWrapUp,
       showInfo,
       cycleInfoDetail,
-      showSynonymModal,
+      setSynonymModal,
       ignoreAnswer,
-      submitAnswer,
+      confirmAnswer,
     } = this.props;
 
     return (
@@ -77,15 +81,15 @@ export class QuizSession extends React.Component {
           showSynonymModal: 's',
           cycleInfoDetail: 'space',
           ignoreAnswer: ['i', '/', 'backspace'],
-          submitAnswer: 'enter',
+          confirmAnswer: 'enter',
         }}
         handlers={{
           wrapUp: this.guardHotKeyHandler(startWrapUp),
           showInfo: this.guardHotKeyHandler(showInfo),
           cycleInfoDetail: this.guardHotKeyHandler(cycleInfoDetail),
-          showSynonymModal: this.guardHotKeyHandler(showSynonymModal),
+          showSynonymModal: this.guardHotKeyHandler(() => setSynonymModal(true)),
           ignoreAnswer: this.guardHotKeyHandler(ignoreAnswer),
-          submitAnswer: this.guardHotKeyHandler(submitAnswer),
+          confirmAnswer: this.guardHotKeyHandler(confirmAnswer),
         }}
       >
         <Upper>
@@ -97,10 +101,11 @@ export class QuizSession extends React.Component {
           <QuizControls
             onWrapUp={startWrapUp}
             onInfo={this.handleOnInfo}
-            onAddSynonym={showSynonymModal}
+            onAddSynonym={() => setSynonymModal(true)}
           />
           <QuizInfo />
-          <Background imgSrc={backgroundImage} />
+          <AddSynonymModal />
+          <QuizBackground imgSrc={backgroundImage} />
         </Lower>
       </HotKeys>
     );
@@ -112,13 +117,14 @@ const mapStateToProps = (state, props) => ({
   isAnswerDisabled: selectAnswerDisabled(state, props),
 });
 
+// TODO: move synonymModal to info reducer
 const mapDispatchToProps = {
-  startWrapUp: quiz.startWrapUp,
+  startWrapUp: () => quiz.session.setWrapUp(true),
   showInfo: quiz.info.show,
-  showSynonymModal: quiz.showSynonymModal,
+  setSynonymModal: (payload) => quiz.session.setSynonymModal(payload),
   cycleInfoDetail: quiz.info.cycleDetail,
   ignoreAnswer: quiz.answer.ignore,
-  submitAnswer: quiz.answer.submit,
+  confirmAnswer: quiz.answer.confirm,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuizSession);

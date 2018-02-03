@@ -94,9 +94,9 @@ export const selectUpcomingReviews = createSelector(
   getVal('upcomingReviews', formatUpcomingReviews)
 );
 
-export const selectUseEijiroPro = createSelector(
+export const selectUseEijiroProLink = createSelector(
   selectUserProfile,
-  getVal('useEijiroPro', Boolean)
+  getVal('useEijiroProLink', Boolean)
 );
 
 // NOTE: these only work for integers 1-10, my math-fu is not strong
