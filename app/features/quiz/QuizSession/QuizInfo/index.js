@@ -28,11 +28,7 @@ class QuizInfo extends React.Component {
     }
   }
 
-<<<<<<< 2676324703b59b8349ee19ec41ad1d9462f08828
   scrollIntoView = () => smoothScrollY(this.props.contentRect.bounds.top - 20, 500);
-=======
-  scrollIntoView = () => smoothScrollY(this.props.contentRect.bounds.top);
->>>>>>> fix: less aggressive scroll top in quiz info
 
   render() {
     const { id, detailLevel, isOpen, isDisabled, measureRef } = this.props;
