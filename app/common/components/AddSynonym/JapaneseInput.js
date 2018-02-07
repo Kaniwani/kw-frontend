@@ -16,7 +16,7 @@ function JapaneseInput({ label, input, ...rest }) {
       lang="ja"
       placeholder={label}
       autoCapitalize="none"
-      autoCorrect="none"
+      autoCorrect="off"
       autoComplete="off"
       spellCheck="false"
       {...input}

@@ -47,7 +47,7 @@ export function SearchBar({
         label={labelText}
         component={InputField}
         autoCapitalize="none"
-        autoCorrect="none"
+        autoCorrect="off"
         autoComplete="off"
         spellCheck="false"
         placeholder={placeholderText}

@@ -1,14 +1,14 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { reduxForm, Field } from "redux-form";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { reduxForm, Field } from 'redux-form';
 
-import { isEmpty } from "lodash";
-import { isMixed, isRomaji, isJapanese } from "wanakana";
-import app from "common/actions";
-import { whiteLight, blueLight } from "common/styles/colors";
+import { isEmpty } from 'lodash';
+import { isMixed, isRomaji, isJapanese } from 'wanakana';
+import app from 'common/actions';
+import { whiteLight, blueLight } from 'common/styles/colors';
 
-import InputField from "./InputField";
-import { Form, SubmitButton } from "./styles";
+import InputField from './InputField';
+import { Form, SubmitButton } from './styles';
 const COMPONENT_HEIGHT_EM = 2.25;
 
 SearchBar.propTypes = {
@@ -25,7 +25,7 @@ function SearchBar({ submitting, handleSubmit }) {
         label="Search vocabulary"
         component={InputField}
         autoCapitalize="none"
-        autoCorrect="none"
+        autoCorrect="off"
         autoComplete="off"
         spellCheck="false"
         placeholder="意味, かな, 漢字"
@@ -33,8 +33,8 @@ function SearchBar({ submitting, handleSubmit }) {
       <SubmitButton
         type="submit"
         size={`${COMPONENT_HEIGHT_EM / 2}em`}
-        name={submitting ? "SYNC" : "SEARCH"}
-        title={submitting ? "Searching..." : "Search vocabulary"}
+        name={submitting ? 'SYNC' : 'SEARCH'}
+        title={submitting ? 'Searching...' : 'Search vocabulary'}
         color={whiteLight}
         bgColor={blueLight}
         isSubmitting={submitting}
@@ -44,16 +44,16 @@ function SearchBar({ submitting, handleSubmit }) {
 }
 
 export default reduxForm({
-  form: "searchBar",
+  form: 'searchBar',
   onSubmit: ({ searchInput }, dispatch) => {
     if (isMixed(searchInput) || isEmpty(searchInput)) {
       // TODO: notify? shake? color searchbar?
-      console.warn("Invalid search input");
+      console.warn('Invalid search input');
       return false;
     }
     const payload = {
-      meaningContains: isRomaji(searchInput) ? searchInput : "",
-      readingContains: isJapanese(searchInput) ? searchInput : "",
+      meaningContains: isRomaji(searchInput) ? searchInput : '',
+      readingContains: isJapanese(searchInput) ? searchInput : '',
     };
     return dispatch(app.review.search.request(payload));
   },

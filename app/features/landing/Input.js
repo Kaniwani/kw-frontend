@@ -26,7 +26,7 @@ function Input({ label, input, meta, placeholder, isHidden, children, ...props }
         isHidden={isHidden}
         disabled={meta.submitting || isHidden}
         autoCapitalize="none"
-        autoCorrect="none"
+        autoCorrect="off"
         spellCheck="false"
         {...input}
         {...props}
