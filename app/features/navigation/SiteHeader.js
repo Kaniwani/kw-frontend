@@ -1,39 +1,39 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
-import { debounce, isEqual } from "lodash";
-import cuid from "cuid";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { debounce, isEqual } from 'lodash';
+import cuid from 'cuid';
 
-import { breakpoints } from "common/styles/media";
-import { selectLocationPath } from "common/selectors";
+import { breakpoints } from 'common/styles/media';
+import { selectLocationPath } from 'common/selectors';
 
-import Element from "common/components/Element";
-import LogoLink from "common/components/LogoLink";
-import Hamburger from "./Hamburger";
-import OffCanvasMenu from "./OffCanvasMenu";
+import Element from 'common/components/Element';
+import LogoLink from 'common/components/LogoLink';
+import Hamburger from './Hamburger';
+import OffCanvasMenu from './OffCanvasMenu';
 
-import { Header, Nav, NavLinks } from "./styles";
-import NavLink from "./NavLink";
+import { Header, Nav, NavLinks } from './styles';
+import NavLink from './NavLink';
 
 const PRIMARY_LINKS = [
   {
-    name: "lessons",
-    route: "/lessons",
+    name: 'lessons',
+    route: '/lessons',
     hasCount: true,
   },
   {
-    name: "reviews",
-    route: "/reviews",
+    name: 'reviews',
+    route: '/reviews',
     hasCount: true,
   },
 ];
 const SECONDARY_LINKS = [
-  { name: "vocabulary", route: "/vocabulary/levels" },
-  { name: "settings", route: "/settings" },
-  { name: "about", route: "/about" },
-  { name: "contact", route: "/contact" },
-  { name: "logout", route: "/logout" },
+  { name: 'vocabulary', route: '/vocabulary/levels' },
+  { name: 'settings', route: '/settings' },
+  { name: 'about', route: '/about' },
+  { name: 'contact', route: '/contact' },
+  { name: 'logout', route: '/logout' },
 ];
 
 export class SiteHeader extends React.Component {
@@ -47,7 +47,7 @@ export class SiteHeader extends React.Component {
 
   componentDidMount() {
     this.handleResize();
-    window.addEventListener("resize", this.handleResize);
+    window.addEventListener('resize', this.handleResize);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -62,7 +62,7 @@ export class SiteHeader extends React.Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.handleResize);
+    window.removeEventListener('resize', this.handleResize);
     this.hideOffCanvasMenu();
   }
 
@@ -75,12 +75,12 @@ export class SiteHeader extends React.Component {
 
   hideOffCanvasMenu = () => {
     this.setState({ offCanvasMenuActive: false });
-    document.body.classList.remove("offCanvasMenu--isOpen");
+    document.body.classList.remove('offCanvasMenu--isOpen');
   };
 
   showOffCanvasMenu = () => {
     this.setState({ offCanvasMenuActive: true });
-    document.body.classList.add("offCanvasMenu--isOpen");
+    document.body.classList.add('offCanvasMenu--isOpen');
   };
 
   renderMenu = (links) => (
@@ -91,7 +91,7 @@ export class SiteHeader extends React.Component {
 
   render() {
     const { isWideViewport, offCanvasMenuActive } = this.state;
-    const logoSize = isWideViewport ? "4.25rem" : "3.25rem";
+    const logoSize = isWideViewport ? '4.25rem' : '3.25rem';
 
     return isWideViewport === undefined ? null : (
       <Header

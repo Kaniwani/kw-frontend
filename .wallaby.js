@@ -10,7 +10,7 @@ module.exports = (wallaby) => {
       '!app/**/*.test.js',
       '!app/**/*.fixture.js',
     ],
-    tests: ['app/**/*.test.js'],
+    tests: ['app/common/__tests__/serializers.test.js'],
 
     env: {
       type: 'node',

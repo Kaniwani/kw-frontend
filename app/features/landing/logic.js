@@ -1,11 +1,11 @@
-import { createLogic } from "redux-logic";
-import { actions as formActions } from "redux-form";
-import { user } from "features/user/actions";
-import { setToken } from "common/utils/auth";
-import { camelCaseKeys } from "common/utils/caseKeys";
+import { createLogic } from 'redux-logic';
+import { actions as formActions } from 'redux-form';
+import { user } from 'features/user/actions';
+import { setToken } from 'common/utils/auth';
+import { camelCaseKeys } from 'common/utils/caseKeys';
 
 const { startSubmit, stopSubmit } = formActions;
-import { FORM_NAME } from "./Form";
+import { FORM_NAME } from './Form';
 
 export const registerLogic = createLogic({
   type: user.register.request,
@@ -43,13 +43,12 @@ export const loginLogic = createLogic({
       .then(({ token }) => {
         setToken(token);
         dispatch(user.login.success());
-        history.push("/");
+        dispatch(user.load.request());
+        history.push('/');
         done();
       })
       .catch((error) => {
-        dispatch(
-          stopSubmit(FORM_NAME, { ...error.json, _error: error.json.non_field_errors })
-        );
+        dispatch(stopSubmit(FORM_NAME, { ...error.json, _error: error.json.non_field_errors }));
         dispatch(user.login.failure(error.json));
         console.warn(`Login failure. Response was: ${JSON.stringify(error)}`);
         done();

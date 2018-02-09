@@ -14,11 +14,11 @@ import Ul from 'common/components/Ul';
 import Button from 'common/components/Button';
 import Announcement from './Announcement';
 
-Announcements.propTypes = {
+AnnouncementList.propTypes = {
   ids: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
-export function Announcements({ ids }) {
+export function AnnouncementList({ ids }) {
   const recent = ids.slice(0, 5);
   const old = ids.slice(recent.length);
   const hasOld = !!old.length;
@@ -42,15 +42,17 @@ const mapStateToProps = createStructuredSelector({
   ids: selectAnnouncementIds,
 });
 
-function AnnouncementsContainer(props) {
+function AnnouncementListContainer(props) {
   return (
     <Loader
       uiDomain={UI_DOMAIN}
       selectShouldLoad={selectAnnouncementsShouldLoad}
       load={announcements.load.request}
-      render={({ isLoading, Spinner }) => (isLoading ? <Spinner /> : <Announcements {...props} />)}
+      render={({ isLoading, Spinner }) =>
+        isLoading ? <Spinner /> : <AnnouncementList {...props} />
+      }
     />
   );
 }
 
-export default connect(mapStateToProps)(AnnouncementsContainer);
+export default connect(mapStateToProps)(AnnouncementListContainer);

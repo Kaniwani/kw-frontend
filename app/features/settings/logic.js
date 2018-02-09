@@ -9,11 +9,11 @@ import { deserializeUserProfile } from 'common/serializers';
 export const saveSettingsLogic = createLogic({
   type: settings.save.request,
   process({ getState, api, action }, dispatch, done) {
+    const { form } = action.meta;
     const { id } = selectUserProfile(getState());
     const updatedProfile = deserializeUserProfile(action.payload);
-    const { form } = action.meta;
-
     form.startSubmit();
+
     api.user
       .update({ id, ...updatedProfile })
       .then((response) => {

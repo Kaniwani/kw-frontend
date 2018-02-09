@@ -21,6 +21,7 @@ export default {
         },
       ],
       review: 1933187,
+      is_reviewable: true,
     },
     {
       id: 17,
@@ -40,6 +41,7 @@ export default {
         },
       ],
       review: 1933193,
+      is_reviewable: true,
     },
     {
       id: 80,
@@ -58,7 +60,8 @@ export default {
           parts_of_speech: ['num'],
         },
       ],
-      review: 2097216,
+      review: 9215810,
+      is_reviewable: true,
     },
     {
       id: 163,
@@ -78,6 +81,7 @@ export default {
         },
       ],
       review: 2251520,
+      is_reviewable: true,
     },
     {
       id: 229,
@@ -97,6 +101,7 @@ export default {
         },
       ],
       review: 2381844,
+      is_reviewable: true,
     },
     {
       id: 565,
@@ -116,6 +121,7 @@ export default {
         },
       ],
       review: 2562078,
+      is_reviewable: true,
     },
     {
       id: 617,
@@ -135,6 +141,7 @@ export default {
         },
       ],
       review: 2562151,
+      is_reviewable: true,
     },
     {
       id: 1019,
@@ -154,6 +161,7 @@ export default {
         },
       ],
       review: 2697013,
+      is_reviewable: true,
     },
     {
       id: 1027,
@@ -175,6 +183,7 @@ export default {
         },
       ],
       review: 2697039,
+      is_reviewable: true,
     },
     {
       id: 1054,
@@ -195,6 +204,7 @@ export default {
         },
       ],
       review: 2697121,
+      is_reviewable: true,
     },
     {
       id: 1064,
@@ -214,6 +224,7 @@ export default {
         },
       ],
       review: 2697152,
+      is_reviewable: true,
     },
     {
       id: 2397,
@@ -233,6 +244,7 @@ export default {
         },
       ],
       review: 3140712,
+      is_reviewable: true,
     },
     {
       id: 2763,
@@ -252,6 +264,7 @@ export default {
         },
       ],
       review: 3506139,
+      is_reviewable: true,
     },
     {
       id: 2944,
@@ -271,6 +284,7 @@ export default {
         },
       ],
       review: 3952864,
+      is_reviewable: true,
     },
     {
       id: 3846,
@@ -290,6 +304,7 @@ export default {
         },
       ],
       review: 4566540,
+      is_reviewable: true,
     },
     {
       id: 4096,
@@ -310,6 +325,7 @@ export default {
         },
       ],
       review: 6563658,
+      is_reviewable: true,
     },
     {
       id: 4129,
@@ -329,6 +345,7 @@ export default {
         },
       ],
       review: 6563688,
+      is_reviewable: true,
     },
     {
       id: 4130,
@@ -349,6 +366,7 @@ export default {
         },
       ],
       review: 6563610,
+      is_reviewable: true,
     },
     {
       id: 4869,
@@ -368,6 +386,7 @@ export default {
         },
       ],
       review: 6328915,
+      is_reviewable: true,
     },
     {
       id: 4930,
@@ -386,7 +405,8 @@ export default {
           parts_of_speech: ['n'],
         },
       ],
-      review: 2097244,
+      review: 9215839,
+      is_reviewable: true,
     },
     {
       id: 5611,
@@ -406,6 +426,7 @@ export default {
         },
       ],
       review: 6866531,
+      is_reviewable: false,
     },
     {
       id: 6376,
@@ -425,6 +446,7 @@ export default {
         },
       ],
       review: 8133549,
+      is_reviewable: true,
     },
   ],
 };

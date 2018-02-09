@@ -21,6 +21,13 @@ export const user = {
       .url('user/me/')
       .get()
       .json(),
+
+  fetchProfile: (id) =>
+    api
+      .auth(`JWT ${getToken()}`)
+      .url('profile/' + id)
+      .get()
+      .json(),
   // { email, username, password, api_key }
   register: (data) =>
     api

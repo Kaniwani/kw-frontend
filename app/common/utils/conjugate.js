@@ -596,8 +596,8 @@ const sortByFormSuffixLength = (list) => list.sort((a, b) => b.forms[0].length -
 const inflectConjugations = sortByFormSuffixLength([PLAIN_FORM, ...CONJUGATIONS]);
 const deinflectConjugations = sortByFormSuffixLength(CONJUGATIONS);
 
-const VERB_TYPES = ['v5u', 'v5k', 'v5g', 'v5s', 'v5t', 'v5m', 'v5b', 'v5n', 'v5r', 'v1'];
-const VERB_ENDINGS = ['う', 'く', 'ぐ', 'す', 'つ', 'む', 'ぶ', 'ぬ', 'る', 'る'];
+export const VERB_TYPES = ['v5u', 'v5k', 'v5g', 'v5s', 'v5t', 'v5m', 'v5b', 'v5n', 'v5r', 'v1'];
+export const VERB_ENDINGS = ['う', 'く', 'ぐ', 'す', 'つ', 'む', 'ぶ', 'ぬ', 'る', 'る'];
 
 // mutates aggregated
 function process(word, seen, aggregated, entry, i, suffix, j) {
@@ -628,20 +628,6 @@ function process(word, seen, aggregated, entry, i, suffix, j) {
   }
 }
 
-function destep(word, seen = []) {
-  const aggregated = [];
-
-  deinflectConjugations.forEach((entry, i) => {
-    entry.forms.forEach((suffix, j) => {
-      // mutates aggregated
-      process(word, seen, aggregated, entry, i, suffix, j);
-    });
-  });
-  return !aggregated.length ? seen.slice() : aggregated;
-}
-
-export const deinflect = (word) => destep(word);
-
 export function inflect(verb = '', type = 'v5') {
   let index = [];
   let verbstem = [];
@@ -660,5 +646,19 @@ export function inflect(verb = '', type = 'v5') {
     return specific !== false ? acc.concat({ name, form: verbstem + specific }) : acc;
   }, []);
 }
+
+function destep(word, seen = []) {
+  const aggregated = [];
+
+  deinflectConjugations.forEach((entry, i) => {
+    entry.forms.forEach((suffix, j) => {
+      // mutates aggregated
+      process(word, seen, aggregated, entry, i, suffix, j);
+    });
+  });
+  return !aggregated.length ? seen.slice() : aggregated;
+}
+
+export const deinflect = (word) => destep(word);
 
 export default inflect;

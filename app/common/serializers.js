@@ -1,12 +1,9 @@
 /* eslint-disable camelcase */
-// import { sortBy } from 'lodash';
+import { uniq } from 'lodash';
 import condenseReadings from 'common/utils/condenseReadings';
 import { camelCaseKeys, snakeCaseKeys } from 'common/utils/caseKeys';
 import toUniqueStringsArray from 'common/utils/toUniqueStringsArray';
 import createDict from 'common/utils/createDict';
-
-// TODO: potentially use `yup` for casting/validating types.
-// simpler code to view using schema.cast() instead of stuff like announcements.map(({ id, ...rest }) => ({ id: +id, ...rest })));
 
 export const serializeLoginResponse = ({ token }) => token;
 export const serializeUserResponse = (res = {}) => serializeUser(res);
@@ -20,7 +17,7 @@ export const serializeQueueResponse = ({ count, results }) => ({
 
 export const serializeLevelResponse = ({ results }) => serializeReviews(results);
 
-export const serializeVocabSearchResponse = ({ results }, persistedReviews) => {
+export const serializeVocabSearchResponse = ({ results }, persistedReviews = {}) => {
   const persistedIds = [];
   const missingIds = [];
 
@@ -72,7 +69,7 @@ export function serializeLevel({ level, unlocked, vocabulary_count } = {}) {
 
 export function serializeMeanings(meaning, meaningSynonyms) {
   const meaningStrings = meaning.split(', ');
-  const synonymStrings = meaningSynonyms.map(({ text }) => text);
+  const synonymStrings = uniq(meaningSynonyms.map(({ text }) => text.replace(/"/g, '')));
 
   const [primaryMeaning, ...secondaryMeanings] = toUniqueStringsArray(
     meaningStrings.concat(synonymStrings)
@@ -199,18 +196,3 @@ export function serializeReview({
     ...serializeStubbedReview(rest),
   };
 }
-
-/* eslint-disable */
-// import levels from "common/data/api/levels";
-// import review from "common/data/api/review";
-// import reviews from "common/data/api/reviews";
-// import stubbedReviews from "common/data/api/stubbedReviews";
-// import user from "common/data/api/user";
-// import vocabulary from "common/data/api/vocabulary";
-//
-// console.log(serializeLevelsResponse(levels));
-// console.log(serializeReviewResponse(review));
-// console.log(serializeLevelResponse(reviews));
-// console.log(serializeQueueResponse(stubbedReviews));
-// console.log(serializeUserResponse(user));
-// console.log(serializeVocabSearchResponse(vocabulary));
