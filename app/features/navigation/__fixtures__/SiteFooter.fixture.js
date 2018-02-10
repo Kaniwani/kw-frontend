@@ -1,10 +1,11 @@
-import { SiteFooter } from "features/navigation/SiteFooter";
+import { SiteFooter } from 'features/navigation/SiteFooter';
 
 export default {
   component: SiteFooter,
   withCosmosXRay: false,
-  url: "/",
+  url: '/',
+  reduxState: {},
   props: {
-    onLogout: () => window.alert("logout!"),
+    onLogout: () => window.alert('logout!'),
   },
 };

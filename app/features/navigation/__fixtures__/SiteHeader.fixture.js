@@ -1,31 +1,32 @@
-import { SiteHeader } from "features/navigation/SiteHeader";
+import { SiteHeader } from 'features/navigation/SiteHeader';
 
 const primaryLinks = [
   {
-    text: "lessons",
-    route: "/lessons",
+    text: 'lessons',
+    route: '/lessons',
     count: 24,
     disabled: false,
   },
   {
-    text: "reviews",
-    route: "/reviews",
+    text: 'reviews',
+    route: '/reviews',
     count: 456,
     disabled: false,
   },
 ];
 const secondaryLinks = [
-  { text: "vocabulary", route: "/vocabulary/levels" },
-  { text: "settings", route: "/settings" },
-  { text: "about", route: "/about" },
-  { text: "contact", route: "/contact" },
-  { text: "logout", route: "/logout" },
+  { text: 'vocabulary', route: '/vocabulary/levels' },
+  { text: 'settings', route: '/settings' },
+  { text: 'about', route: '/about' },
+  { text: 'contact', route: '/contact' },
+  { text: 'logout', route: '/logout' },
 ];
 
 export default {
   component: SiteHeader,
   withCosmosXRay: false,
   url: '/',
+  reduxState: {},
   props: {
     ...SiteHeader.defaultProps,
     primaryLinks,

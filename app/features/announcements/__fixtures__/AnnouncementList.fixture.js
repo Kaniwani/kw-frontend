@@ -8,7 +8,9 @@ export default {
   withCosmosXRay: false,
   component: AnnouncementList,
   reduxState: {
-    announcements: items,
+    entities: {
+      announcements: items,
+    },
   },
   props: {
     ids,

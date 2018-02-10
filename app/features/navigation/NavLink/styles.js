@@ -4,7 +4,7 @@ import A from 'common/components/A';
 
 import { rubberBand } from 'common/styles/animation';
 import { resetButton } from 'common/styles/utils';
-import { grey, pink, blueLight, purple } from 'common/styles/colors';
+import { blackLight, grey, pink, blueLight, purple } from 'common/styles/colors';
 import { epsilon, giga } from 'common/styles/typography';
 import { gutter } from 'common/styles/layout';
 
@@ -72,8 +72,8 @@ const linkStyle = css`
     }
   }
 
-  ${({ disabled }) => disabled && css`
-    color: grey;
+  ${({ disabled, isOffCanvas }) => disabled && css`
+    color: ${isOffCanvas ? blackLight : grey };
     pointer-events: none;
   `}
 `;

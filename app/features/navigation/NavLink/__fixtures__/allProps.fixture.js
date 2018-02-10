@@ -1,12 +1,12 @@
-import { NavLink } from "features/navigation/NavLink";
+import { NavLink } from 'features/navigation/NavLink/NavLink';
 
 export default {
   component: NavLink,
   withCosmosXRay: false,
-  url: "/",
+  url: '/',
   props: {
-    name: "infinity",
-    route: "/infinity",
+    name: 'infinity',
+    route: '/infinity',
     ...NavLink.defaultProps,
   },
 };

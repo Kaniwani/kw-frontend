@@ -1,18 +1,17 @@
-import { AddSynonym, ANSWER_TYPES } from "common/components/AddSynonym";
-AddSynonym.displayName = "reduxForm(AddSynonym)";
+import AddSynonymForm, { ANSWER_TYPES } from 'common/components/AddSynonym/AddSynonymForm';
 
 export default {
-  component: AddSynonym,
+  component: AddSynonymForm,
   withCosmosXRay: false,
   reduxState: {},
   props: {
-    form: "addSynonym",
+    form: 'addSynonym',
     answerType: ANSWER_TYPES.WORD,
-    answerValue: "大人しい",
+    answerValue: '大人しい',
     initialValues: {
-      word: "大人しい",
-      reading: "",
+      word: '大人しい',
+      reading: '',
     },
-    onSubmit: () => window.alert("Submit!"),
+    onSubmit: () => window.alert('Submit!'),
   },
 };

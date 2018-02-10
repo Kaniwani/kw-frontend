@@ -1,6 +1,9 @@
-import OverlayPortal from "components/OverlayPortal";
+import OverlayPortal from 'common/components/OverlayPortal';
 
 export default {
   component: OverlayPortal,
-  children: ["Hello Overlay"],
+  props: {
+    isOpen: true,
+  },
+  children: ['Hello Overlay'],
 };

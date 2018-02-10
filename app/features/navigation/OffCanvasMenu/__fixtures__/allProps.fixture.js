@@ -1,4 +1,4 @@
-import OffCanvasMenu from "features/navigation/OffCanvasMenu";
+import OffCanvasMenu from 'features/navigation/OffCanvasMenu';
 
 export default {
   withCosmosWrapper: {
@@ -12,9 +12,10 @@ export default {
   url: '/',
   props: {
     links: [
-      { text: 'onward!', route: '/onward' },
-      { text: 'to somewhere!', route: '/somewhere' },
-      { text: 'to somewhere else!', route: '/somewhere/else' },
+      { name: 'onward!', route: '/onward', isOffCanvas: true },
+      { name: 'to somewhere!', route: '/somewhere', isOffCanvas: true },
+      { name: 'disabled', route: '/somewhere', isOffCanvas: true, disabled: true },
+      { name: 'to somewhere else!', route: '/somewhere/else', isOffCanvas: true },
     ],
     isVisible: true,
     onLogout: () => window.alert('logout!'),

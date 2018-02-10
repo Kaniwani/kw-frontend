@@ -9,5 +9,7 @@ export default {
     reviewsCount: 0,
     vacationDate: addMinutes(new Date(), 30),
     nextReviewDate: false,
+    isOnVacation: true,
+    loadUser: () => window.alert('loading user details now ready'),
   },
 };

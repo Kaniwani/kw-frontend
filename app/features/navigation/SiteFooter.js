@@ -1,16 +1,15 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import Element from "common/components/Element";
-import NavLink from "./NavLink/NavLink";
-import CountLink from "./NavLink/CountLink";
-import LogoutLink from "./NavLink/LogoutLink";
+import Element from 'common/components/Element';
+import NavLink from './NavLink/NavLink';
+import LogoutLink from './NavLink/LogoutLink';
 
-import { user } from "features/user/actions";
+import { user } from 'features/user/actions';
 
-import crabigatorOutline from "common/assets/img/crabigator-outline.svg";
-import { Footer, CrabigatorStencil, FooterLinks, FooterLinkGroup } from "./styles";
+import crabigatorOutline from 'common/assets/img/crabigator-outline.svg';
+import { Footer, CrabigatorStencil, FooterLinks, FooterLinkGroup } from './styles';
 
 SiteFooter.propTypes = {
   onLogout: PropTypes.func.isRequired,
@@ -19,7 +18,7 @@ SiteFooter.propTypes = {
 export function SiteFooter({ onLogout }) {
   return (
     <Footer>
-      <Element style={{ position: "relative" }} flexRow justifyContent="flex-end">
+      <Element style={{ position: 'relative' }} flexRow justifyContent="flex-end">
         <FooterLinks flexRow flexWrap flexCenter>
           <FooterLinkGroup plainList>
             <NavLink route="/lessons" name="lessons" />
@@ -35,11 +34,7 @@ export function SiteFooter({ onLogout }) {
             <NavLink route="/contact" name="contact" />
           </FooterLinkGroup>
         </FooterLinks>
-        <CrabigatorStencil
-          imgSrc={crabigatorOutline}
-          bgPosition="bottom left"
-          bgSize="contain"
-        />
+        <CrabigatorStencil imgSrc={crabigatorOutline} bgPosition="bottom left" bgSize="contain" />
       </Element>
     </Footer>
   );
