@@ -15,6 +15,7 @@ import { backgroundImageColor } from 'features/quiz/QuizSession/styles';
 /* eslint-disable indent */
 export const AnswerWrapper = styled.div`
   position: relative;
+  display: flex;
   color: currentColor;
   background-color: ${whiteLight};
   ${shadowBox}
@@ -91,44 +92,40 @@ export const Input = styled.input`
   }
 `;
 
-export const Streak = styled(StreakIcon)`
-  display: block;
-  position: absolute;
-  transform: translateY(-50%);
-  top: 50%;
-  left: .35em;
-  transition: all ${fastEaseQuad};
-  z-index: 2;
-`;
-
-export const ActionButtons = styled.div`
-  display: flex;
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 100%;
-  ${kilo}
-`;
-
 const ActionButton = styled(IconButton)`
-  height: 100%;
-  align-self: center;
+  ${kilo}
+  position: absolute;
+  display: block;
   color: currentColor;
   background-color: ${transparent};
   transition: all ${fastEaseQuad};
-  padding: 0 !important;
+  align-self: center;
   z-index: 2;
-  ${kilo}
-
+  opacity: .9;
   &:hover {
     opacity: 1;
   }
 `;
 
-export const SubmitButton = ActionButton;
-export const IgnoreButton = ActionButton.extend`
-  opacity: .5;
+export const SubmitButton = ActionButton.extend`
+  right: .1em;
 `;
+
+export const IgnoreButton = ActionButton.extend`
+  left: .1em;
+`;
+
+export const Streak = styled(StreakIcon)`
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: .35em;
+  opacity: .8;
+  transform: translateY(-50%);
+  transition: all ${fastEaseQuad};
+  z-index: 2;
+`;
+
 
 function bgColorMixin({
   marked,

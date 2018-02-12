@@ -105,7 +105,7 @@ export const rubberBand = keyframes`
 export const srsRankUp = keyframes`
   0% {
     opacity: 0;
-    transform: translateY(3.75rem);
+    transform: translateY(3.5rem);
   }
 
   30% {
@@ -114,9 +114,9 @@ export const srsRankUp = keyframes`
 
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(-.25rem);
   }
-}`;
+`;
 
 export const srsRankDown = keyframes`
   0% {
@@ -132,4 +132,4 @@ export const srsRankDown = keyframes`
     opacity: 1;
     transform: translateY(0);
   }
-}`;
+`;

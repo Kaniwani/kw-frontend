@@ -73,22 +73,21 @@ export const FlyoverWrapper = styled.div`
 `;
 
 export const FlyoverContent = H4.extend`
-  ${gutter({ position: 'horizontal', mod: 3 })}
+  ${gutter({ position: 'left', mod: 2 })}
+  ${gutter({ position: 'right', mod: 3 })}
   box-shadow: ${outerLight};
   display: flex;
-  min-width: 6em;
   text-align: center;
   justify-content: flex-start;
   align-content: center;
   align-items: flex-end;
-  color: ${white};
   border-radius: ${borderRadius};
   opacity: 0;
   text-transform: capitalize;
 
-  ${({ hasChanged, animateUp, color }) => hasChanged && css`
-      border: 1px solid ${darken(0.1, color)};
-      background-color: ${color};
+  ${({ hasChanged, animateUp, backgroundColor, color }) => hasChanged && css`
+      color: ${color};
+      background-color: ${backgroundColor};
       animation: ${animateUp ? srsRankUp : srsRankDown} 0.7s ease 0s 1 normal both running;
     `}
 

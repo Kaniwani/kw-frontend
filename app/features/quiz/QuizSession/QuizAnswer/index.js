@@ -8,23 +8,14 @@ import { SRS_RANKS } from 'common/constants';
 import quiz from 'features/quiz/actions';
 import selectAnswer from 'features/quiz/QuizSession/QuizAnswer/selectors';
 import { selectCurrentStreakName } from 'features/quiz/QuizSession/selectors';
-import {
-  Form,
-  AnswerWrapper,
-  Label,
-  Streak,
-  Input,
-  ActionButtons,
-  IgnoreButton,
-  SubmitButton,
-} from './styles';
+import { Form, AnswerWrapper, Label, Streak, Input, IgnoreButton, SubmitButton } from './styles';
 
 export class QuizAnswer extends React.Component {
   static propTypes = {
     onIgnore: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
+    value: PropTypes.string, // eslint-disable-line react/require-default-props
     streakName: PropTypes.string,
-    value: PropTypes.string,
     isFocused: PropTypes.bool,
     isMarked: PropTypes.bool,
     isValid: PropTypes.bool,
@@ -100,7 +91,17 @@ export class QuizAnswer extends React.Component {
         tabIndex={0}
       >
         <AnswerWrapper>
-          <Streak streakName={streakName} size="1.15em" />
+          {isDisabled ? (
+            <IgnoreButton
+              name="CLOSE"
+              type="button"
+              title="Ignore answer"
+              size="1.4em"
+              onClick={this.onIgnore}
+            />
+          ) : (
+            <Streak streakName={streakName} size="1.15em" />
+          )}
           <Label htmlFor="answer">Vocabulary reading</Label>
           <Input
             innerRef={(node) => {
@@ -120,24 +121,13 @@ export class QuizAnswer extends React.Component {
             autoComplete="off"
             spellCheck="false"
           />
-          <ActionButtons>
-            {isDisabled && (
-              <IgnoreButton
-                name="CLOSE"
-                type="button"
-                title="Ignore answer"
-                size="1.4em"
-                onClick={this.onIgnore}
-              />
-            )}
-            <SubmitButton
-              name="ARROW_RIGHT"
-              type="submit"
-              title="Submit answer"
-              size="1.75em"
-              onClick={this.onSubmit}
-            />
-          </ActionButtons>
+          <SubmitButton
+            name="ARROW_RIGHT"
+            type="submit"
+            title="Submit answer"
+            size="1.75em"
+            onClick={this.onSubmit}
+          />
         </AnswerWrapper>
       </Form>
     );
@@ -150,7 +140,6 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = {
-  onUpdate: quiz.answer.update,
   onSubmit: quiz.answer.submit,
   onIgnore: quiz.answer.ignore,
 };
