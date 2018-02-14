@@ -5,6 +5,7 @@ import synonymBody from 'common/data/api/addSynonym';
 import lessonsQueueBody from 'common/data/api/lessonsQueue';
 import reviewsQueueBody from 'common/data/api/reviewsQueue';
 import reviewBody from 'common/data/api/review';
+import { sameRomajiReadings } from 'common/data/fixtures/review';
 import reviewsBody from 'common/data/api/reviews';
 import vocabBody from 'common/data/api/vocab';
 import vocabSearchMeaningBody from 'common/data/api/vocabSearchMeaning';
@@ -44,6 +45,7 @@ describe('serializers', () => {
   });
   it('review', () => {
     expect(serializeReviewResponse(reviewBody)).toMatchSnapshot();
+    expect(serializeReviewResponse(sameRomajiReadings)).toMatchSnapshot();
   });
   it('vocab', () => {
     expect(serializeVocab(vocabBody)).toMatchSnapshot();

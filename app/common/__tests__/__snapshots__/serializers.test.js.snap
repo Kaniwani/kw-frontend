@@ -2103,10 +2103,8 @@ Object {
       "needsReview": false,
       "nextReviewDate": null,
       "notes": "",
-      "primaryMeaning": "shiatsu",
-      "secondaryMeanings": Array [
-        "finger pressure",
-      ],
+      "primaryMeaning": "finger pressure",
+      "secondaryMeanings": Array [],
       "streak": 9,
       "synonyms": Array [],
       "unlockDate": "2016-02-24T08:50:59.382509Z",
@@ -2317,9 +2315,7 @@ Object {
       "nextReviewDate": null,
       "notes": "",
       "primaryMeaning": "conger eel",
-      "secondaryMeanings": Array [
-        "anago",
-      ],
+      "secondaryMeanings": Array [],
       "streak": 9,
       "synonyms": Array [],
       "unlockDate": "2016-02-24T08:50:59.599121Z",
@@ -2388,7 +2384,6 @@ Object {
       "primaryMeaning": "on'yomi and kun'yomi",
       "secondaryMeanings": Array [
         "chinese and japanese readings",
-        "onkun",
       ],
       "streak": 9,
       "synonyms": Array [],
@@ -2456,9 +2451,7 @@ Object {
       "nextReviewDate": null,
       "notes": "",
       "primaryMeaning": "tail",
-      "secondaryMeanings": Array [
-        "(of kite comet dog etc) tail end",
-      ],
+      "secondaryMeanings": Array [],
       "streak": 9,
       "synonyms": Array [],
       "unlockDate": "2016-02-24T08:50:59.834387Z",
@@ -5705,9 +5698,7 @@ Object {
       "incorrect": 0,
       "notes": "",
       "primaryMeaning": "sword",
-      "secondaryMeanings": Array [
-        "katana",
-      ],
+      "secondaryMeanings": Array [],
       "streak": 0,
       "synonyms": Array [],
       "vocab": Array [
@@ -11663,59 +11654,46 @@ Object {
 
 exports[`serializers review 2`] = `
 Object {
-  "correct": 8,
+  "correct": 0,
   "critical": false,
   "hidden": false,
-  "id": 2696518,
+  "id": 9216166,
   "incorrect": 0,
-  "lastStudied": "2018-01-19T06:45:00.230528Z",
-  "needsReview": false,
-  "nextReviewDate": "2018-05-19T06:45:00.230555Z",
+  "lastStudied": null,
+  "needsReview": true,
+  "nextReviewDate": "2018-01-19T22:58:39.772282Z",
   "notes": "",
-  "primaryMeaning": "advance notice",
+  "primaryMeaning": "northeast",
   "secondaryMeanings": Array [
-    "forward notice",
-    "prior notice",
-    "debtor",
-    "renter",
-    "tenant",
+    "tohoku",
+    "tohoku region",
   ],
-  "streak": 8,
-  "synonyms": Array [
-    29481,
-  ],
-  "synonymsById": Object {
-    "29481": Object {
-      "id": 29481,
-      "primaryReading": "たとえば",
-      "reviewId": 2696518,
-      "word": "例えば",
-    },
-  },
-  "unlockDate": "2016-02-24T08:50:55.553542Z",
+  "streak": 0,
+  "synonyms": Array [],
+  "synonymsById": Object {},
+  "unlockDate": "2018-01-19T22:58:39.767993Z",
   "vocab": Array [
-    1752,
+    515,
   ],
   "vocabById": Object {
-    "1752": Object {
-      "furi": "0:よ;1:こく",
-      "id": 1752,
-      "level": 18,
+    "515": Object {
+      "furi": "0:とう;1:ほく",
+      "id": 515,
+      "level": 6,
       "pitch": Array [
         0,
       ],
-      "primaryReading": "よこく",
+      "primaryReading": "とうほく",
       "secondaryReadings": Array [],
-      "sentenceEn": "We received an eviction notice.",
-      "sentenceJa": "立ち退きの予告を受けた",
+      "sentenceEn": "Traffic was also disrupted including the suspension of the Akita, Tohoku bullet train.",
+      "sentenceJa": "東北新幹線が運転を見合わせるなど交通も混乱した",
       "tags": Array [
         "n",
-        "vs",
       ],
-      "word": "予告",
+      "word": "東北",
     },
   },
-  "wanikaniStreak": 9,
+  "wanikaniStreak": 8,
 }
 `;
 
@@ -11849,74 +11827,6 @@ Object {
 `;
 
 exports[`serializers user 2`] = `
-Object {
-  "email": "duncan.bay@gmail.com",
-  "profile": Object {
-    "apiKey": "5fa2d9c257dda131a54018f5c3f5ff90",
-    "apiValid": false,
-    "autoAdvanceOnSuccess": false,
-    "autoAdvanceOnSuccessDelayMilliseconds": 0,
-    "autoExpandAnswerOnFailure": true,
-    "autoExpandAnswerOnSuccess": true,
-    "followMe": false,
-    "id": 2119,
-    "joinDate": null,
-    "kanjiSvgDrawSpeed": 10,
-    "lastWanikaniSyncDate": null,
-    "lessonsCount": 0,
-    "level": 0,
-    "minimumWkSrsLevelToReview": "APPRENTICE",
-    "name": "Subversity",
-    "nextReviewDate": null,
-    "onVacation": false,
-    "reviewsCount": 0,
-    "reviewsWithinDayCount": 0,
-    "reviewsWithinHourCount": 0,
-    "showKanjiSvgGrid": true,
-    "showKanjiSvgStrokeOrder": true,
-    "srsCounts": Object {
-      "apprentice": 112,
-      "burned": 3124,
-      "enlightened": 1228,
-      "guru": 0,
-      "master": 293,
-      "untrained": 0,
-    },
-    "unlockedLevels": Array [],
-    "upcomingReviews": Array [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-    ],
-    "useEijiroProLink": true,
-    "vacationDate": null,
-  },
-  "username": "Subversity",
-}
-`;
-
-exports[`serializers user 3`] = `
 Object {
   "email": "duncan.bay@gmail.com",
   "profile": Object {

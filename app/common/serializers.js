@@ -1,8 +1,9 @@
 /* eslint-disable camelcase */
-import { uniq } from 'lodash';
+import { flatMap, uniq } from 'lodash';
 import condenseReadings from 'common/utils/condenseReadings';
 import { camelCaseKeys, snakeCaseKeys } from 'common/utils/caseKeys';
 import toUniqueStringsArray from 'common/utils/toUniqueStringsArray';
+import filterRomajiReadings from 'common/utils/filterRomajiReadings';
 import createDict from 'common/utils/createDict';
 
 export const serializeLoginResponse = ({ token }) => token;
@@ -67,12 +68,13 @@ export function serializeLevel({ level, unlocked, vocabulary_count } = {}) {
   };
 }
 
-export function serializeMeanings(meaning, meaningSynonyms) {
+export function serializeMeanings(meaning, meaningSynonyms, vocab) {
+  const readings = flatMap(vocab, (v) => [v.primaryReading, ...v.secondaryReadings]);
   const meaningStrings = meaning.split(', ');
   const synonymStrings = uniq(meaningSynonyms.map(({ text }) => text.replace(/"/g, '')));
 
   const [primaryMeaning, ...secondaryMeanings] = toUniqueStringsArray(
-    meaningStrings.concat(synonymStrings)
+    filterRomajiReadings(meaningStrings.concat(synonymStrings), readings)
   );
 
   return {
@@ -158,7 +160,8 @@ export function serializeStubbedReview({
   const synonymsById = serializeSynonyms(reading_synonyms);
   const { primaryMeaning, secondaryMeanings } = serializeMeanings(
     vocabulary.meaning,
-    meaning_synonyms
+    meaning_synonyms,
+    Object.values(vocabById),
   );
   return {
     id: +id,
