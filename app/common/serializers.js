@@ -11,6 +11,7 @@ export const serializeUserResponse = (res = {}) => serializeUser(res);
 export const serializeReviewResponse = serializeReview;
 export const serializeLevelsResponse = (res = {}) => createDict(res.map(serializeLevel), 'id');
 
+// FIXME: can probably remove remaining since we're not using in selector anymore?
 export const serializeQueueResponse = ({ count, results }) => ({
   remaining: count,
   ...serializeReviews(results, true),
@@ -72,7 +73,6 @@ export function serializeMeanings(meaning, meaningSynonyms, vocab) {
   const readings = flatMap(vocab, (v) => [v.primaryReading, ...v.secondaryReadings]);
   const meaningStrings = meaning.split(', ');
   const synonymStrings = uniq(meaningSynonyms.map(({ text }) => text.replace(/"/g, '')));
-
   const [primaryMeaning, ...secondaryMeanings] = toUniqueStringsArray(
     filterRomajiReadings(meaningStrings.concat(synonymStrings), readings)
   );
@@ -161,7 +161,7 @@ export function serializeStubbedReview({
   const { primaryMeaning, secondaryMeanings } = serializeMeanings(
     vocabulary.meaning,
     meaning_synonyms,
-    Object.values(vocabById),
+    Object.values(vocabById)
   );
   return {
     id: +id,

@@ -2,11 +2,12 @@ import { handleActions } from 'redux-actions';
 import update from 'immutability-helper';
 import { merge, union, difference } from 'lodash';
 
+import { WRAP_UP_STARTING_COUNT } from './constants';
 import quiz from 'features/quiz/actions';
 
 export const initialQuizSessionState = {
   category: '',
-  wrapUp: false,
+  wrapUp: { active: false, count: 10 },
   synonymModalOpen: false,
   current: {},
   remaining: null,
@@ -21,16 +22,40 @@ const setCategory = (state, { payload }) =>
     category: { $set: payload },
   });
 
-// TODO: move to synonyms or info?
 const setSynonymModalOpen = (state, { payload }) =>
   update(state, {
     synonymModalOpen: { $set: payload },
   });
 
-const setWrapUp = (state, { payload }) =>
-  update(state, {
-    wrapUp: { $set: payload },
+const toggleWrapUp = (state) => {
+  let { queue, incorrect } = state; // eslint-disable-line prefer-const
+  let count = WRAP_UP_STARTING_COUNT;
+  const active = !state.wrapUp.active;
+
+  if (active) {
+    const incorrectQueuePaddedToMinCount = incorrect
+      .concat(difference(queue, incorrect))
+      .slice(0, Math.max(incorrect.length, WRAP_UP_STARTING_COUNT));
+
+    queue = incorrectQueuePaddedToMinCount;
+    count = Math.max(queue.length, WRAP_UP_STARTING_COUNT);
+  }
+
+  return update(state, {
+    wrapUp: {
+      active: { $set: active },
+      count: { $set: count },
+    },
+    queue: { $set: queue },
   });
+};
+
+const decrementWrapUp = (state) =>
+  state.wrapUp.active
+    ? update(state, {
+      wrapUp: { count: { $set: state.wrapUp.count - 1 } },
+    })
+    : state;
 
 const replaceCurrent = (state, { payload }) =>
   update(state, {
@@ -89,7 +114,8 @@ export const quizSessionReducer = handleActions(
     [quiz.session.setCategory]: setCategory,
     // TODO: move to synonyms or info?
     [quiz.session.setSynonymModal]: setSynonymModalOpen,
-    [quiz.session.setWrapUp]: setWrapUp,
+    [quiz.session.wrapUp.toggle]: toggleWrapUp,
+    [quiz.session.wrapUp.decrement]: decrementWrapUp,
     [quiz.session.queue.load.success]: mergeQueue,
     [quiz.session.queue.remove]: removeIdFromQueue,
     [quiz.session.queue.clear]: clearQueue,

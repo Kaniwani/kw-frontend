@@ -15,10 +15,13 @@ export const { quiz } = createActions({
       RESET: SYNC,
       SET_CATEGORY: SYNC,
       SET_SYNONYM_MODAL: SYNC,
-      SET_WRAP_UP: SYNC,
       ADD_CORRECT: SYNC,
       ADD_INCORRECT: SYNC,
       ADD_COMPLETE: SYNC,
+      WRAP_UP: {
+        TOGGLE: SYNC,
+        DECREMENT: SYNC,
+      },
       QUEUE: {
         LOAD: ASYNC,
         CLEAR: SYNC,

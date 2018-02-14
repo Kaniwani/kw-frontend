@@ -10,7 +10,7 @@ import {
   selectQueueCount,
   selectCategory,
   selectQueueNeeded,
-  selectCorrectIds,
+  selectWrapUp,
   selectCurrentId,
 } from './selectors';
 
@@ -30,11 +30,12 @@ export const queueLoadLogic = createLogic({
     const category = action.payload || selectCategory(getState());
     const currentId = selectCurrentId(getState());
     const queueCount = selectQueueCount(getState());
-
-    api.queue.fetch[category]({
-      // NOTE: smaller subsequent loads allow incorrect items to be recycled into questions more often
-      limit: !queueCount ? INITIAL_QUEUE_LIMIT : SUBSEQUENT_QUEUE_LIMIT,
-    })
+    const wrapUp = selectWrapUp(getState());
+    const limit = wrapUp.active
+      ? wrapUp.count - queueCount
+      : !queueCount ? INITIAL_QUEUE_LIMIT : SUBSEQUENT_QUEUE_LIMIT;
+    // NOTE: smaller subsequent loads allow incorrect items to be recycled into questions more often
+    api.queue.fetch[category]({ limit })
       .then((res) => {
         dispatch(quiz.session.queue.load.success(serializeQueueResponse(res)));
         if (!currentId) {
@@ -51,20 +52,16 @@ export const queueLoadLogic = createLogic({
 
 export const replaceCurrentLogic = createLogic({
   type: quiz.session.current.replace,
-  validate({ getState, action }, allow, reject) {
+  transform({ getState, action }, next) {
     const currentId = selectCurrentId(getState());
     const queue = selectQueue(getState());
-    const correct = selectCorrectIds(getState());
     const newId = sample(difference(queue, [currentId]));
-    console.log('current.replace logic:');
-    console.log({ currentId, queue, correct, newId });
-    if (newId || queue.length) {
-      console.log('Allowing replaceCurrent with newId:');
-      const newCurrent = selectReviewById(getState(), { id: newId });
-      allow({ ...action, payload: newCurrent });
+    if (newId == null) {
+      console.warn('no new id when trying to replace current', currentId, queue, newId);
+      next(action);
     } else {
-      console.log('Rejecting replaceCurrent: No new id... End of queue?');
-      reject();
+      const newReview = selectReviewById(getState(), { id: newId });
+      next({ ...action, payload: newReview });
     }
   },
 });

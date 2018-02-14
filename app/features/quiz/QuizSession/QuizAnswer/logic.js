@@ -21,9 +21,10 @@ import {
   selectCategory,
   selectIsReviewQuiz,
   selectIsLessonQuiz,
+  selectIsFinalQuestion,
+  selectWrapUp,
   selectCurrent,
   selectCurrentPreviouslyIncorrect,
-  selectQueue,
 } from 'features/quiz/QuizSession/selectors';
 import { selectAnswer, selectAnswerIgnored } from './selectors';
 
@@ -216,12 +217,12 @@ export const ignoreAnswerLogic = createLogic({
 
 export const recordAnswerLogic = createLogic({
   type: quiz.answer.record.request,
-  process({ api, getState }, dispatch, done) {
-    const current = selectCurrent(getState());
-    const queue = selectQueue(getState());
-    const isFinalReview = queue.length === 1 && current.id === queue[0];
-    const isLessonQuiz = selectIsLessonQuiz(getState());
+  process({ api, history, getState }, dispatch, done) {
     const category = selectCategory(getState());
+    const current = selectCurrent(getState());
+    const wrapUp = selectWrapUp(getState());
+    const isLessonQuiz = selectIsLessonQuiz(getState());
+    const isFinalQuestion = selectIsFinalQuestion(getState());
     const { isCorrect } = selectAnswer(getState());
     const previouslyIncorrect = selectCurrentPreviouslyIncorrect(getState());
     stopAutoAdvance();
@@ -235,7 +236,15 @@ export const recordAnswerLogic = createLogic({
 
     if (isCorrect) {
       dispatch(quiz.session.addComplete(current.id));
-      dispatch(isFinalReview ? quiz.session.queue.clear() : quiz.session.current.replace());
+      if (wrapUp.active) {
+        dispatch(quiz.session.wrapUp.decrement());
+      }
+      if (isFinalQuestion) {
+        dispatch(quiz.session.queue.clear());
+        setTimeout(() => history.push(`/${category}`), 200);
+      } else {
+        dispatch(quiz.session.current.replace());
+      }
     } else {
       dispatch(quiz.session.current.rotate());
     }
@@ -252,13 +261,13 @@ export const recordAnswerLogic = createLogic({
         .then(() => {
           dispatch(quiz.answer.record.success(current));
           dispatch(review.update(current));
-          if (isFinalReview) {
-            if (isCorrect) {
-              setTimeout(() => {
-                dispatch(user.load.request());
-                done();
-              }, 5000);
-            }
+          if (isFinalQuestion && isCorrect) {
+            // wait for review times to be updated on server
+            // then reload lesson/review counts
+            setTimeout(() => {
+              dispatch(user.load.request());
+              done();
+            }, 5000);
           } else {
             dispatch(quiz.session.queue.load.request());
             done();

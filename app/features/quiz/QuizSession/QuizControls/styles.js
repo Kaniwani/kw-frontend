@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { darken, lighten } from 'polished';
 
 import { resetButton } from 'common/styles/utils';
@@ -37,6 +37,11 @@ export const ControlButton = styled.button`
     color: ${darken(0.1, greyDark)};
     background-color: ${lighten(1, whiteLight)};
   }
+
+  ${({ active }) => active && css`
+    color: ${darken(0.1, greyDark)};
+    background-color: ${lighten(1, whiteLight)};
+  `}
 
   &:disabled {
     opacity: .7;

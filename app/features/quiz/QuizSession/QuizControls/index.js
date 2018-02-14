@@ -4,20 +4,23 @@ import { connect } from 'react-redux';
 
 import { Controls, ControlButton } from './styles';
 
+import { selectWrapUp, selectSessionRemainingCount } from 'features/quiz/QuizSession/selectors';
 import {
   selectInfoDisabled,
   selectInfoDetailLevel,
 } from 'features/quiz/QuizSession/QuizInfo/selectors';
 
 QuizControls.propTypes = {
-  isDisabled: PropTypes.bool.isRequired,
-  detailLevel: PropTypes.number.isRequired,
   onWrapUp: PropTypes.func.isRequired,
   onInfo: PropTypes.func.isRequired,
   onAddSynonym: PropTypes.func.isRequired,
+  detailLevel: PropTypes.number.isRequired,
+  wrapUp: PropTypes.object.isRequired,
+  remainingCount: PropTypes.number.isRequired,
+  isDisabled: PropTypes.bool.isRequired,
 };
 
-const getLabel = (level) => {
+const getDetailText = (level) => {
   switch (level) {
     case 0:
       return 'INFO: LOW';
@@ -30,14 +33,25 @@ const getLabel = (level) => {
   }
 };
 
-export function QuizControls({ onWrapUp, onInfo, onAddSynonym, detailLevel, isDisabled }) {
+const getWrapUpText = ({ active, count }, remainingCount) =>
+  !active ? 'Wrap Up' : <strong>Wrap Up: {Math.min(count, remainingCount)}</strong>;
+
+export function QuizControls({
+  onWrapUp,
+  onInfo,
+  onAddSynonym,
+  detailLevel,
+  wrapUp,
+  remainingCount,
+  isDisabled,
+}) {
   return (
     <Controls>
-      <ControlButton disabled={isDisabled} onClick={onWrapUp}>
-        Wrap Up
+      <ControlButton active={wrapUp.active} onClick={onWrapUp}>
+        {getWrapUpText(wrapUp, remainingCount)}
       </ControlButton>
       <ControlButton disabled={isDisabled} onClick={onInfo}>
-        {getLabel(detailLevel)}
+        {getDetailText(detailLevel)}
       </ControlButton>
       <ControlButton disabled={isDisabled} onClick={onAddSynonym}>
         Add Synonym
@@ -49,6 +63,8 @@ export function QuizControls({ onWrapUp, onInfo, onAddSynonym, detailLevel, isDi
 const mapStateToProps = (state, props) => ({
   isDisabled: selectInfoDisabled(state, props),
   detailLevel: selectInfoDetailLevel(state, props),
+  wrapUp: selectWrapUp(state, props),
+  remainingCount: selectSessionRemainingCount(state, props),
 });
 
 export default connect(mapStateToProps)(QuizControls);

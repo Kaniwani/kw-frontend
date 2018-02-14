@@ -31,13 +31,13 @@ export class QuizSession extends React.Component {
   static propTypes = {
     isInfoOpen: PropTypes.bool.isRequired,
     isAnswerDisabled: PropTypes.bool.isRequired,
-    startWrapUp: PropTypes.func.isRequired,
+    isLessonQuiz: PropTypes.bool.isRequired,
+    toggleWrapUp: PropTypes.func.isRequired,
     showInfo: PropTypes.func.isRequired,
     cycleInfoDetail: PropTypes.func.isRequired,
     setSynonymModal: PropTypes.func.isRequired,
     ignoreAnswer: PropTypes.func.isRequired,
     confirmAnswer: PropTypes.func.isRequired,
-    isLessonQuiz: PropTypes.bool.isRequired,
   };
 
   guardHotKeyHandler = (handler) => (event) => {
@@ -63,7 +63,7 @@ export class QuizSession extends React.Component {
 
   render() {
     const {
-      startWrapUp,
+      toggleWrapUp,
       showInfo,
       cycleInfoDetail,
       setSynonymModal,
@@ -88,7 +88,7 @@ export class QuizSession extends React.Component {
           confirmAnswer: 'enter',
         }}
         handlers={{
-          wrapUp: this.guardHotKeyHandler(startWrapUp),
+          wrapUp: this.guardHotKeyHandler(toggleWrapUp),
           showInfo: this.guardHotKeyHandler(showInfo),
           cycleInfoDetail: this.guardHotKeyHandler(cycleInfoDetail),
           showSynonymModal: this.guardHotKeyHandler(() => setSynonymModal(true)),
@@ -103,7 +103,7 @@ export class QuizSession extends React.Component {
         </Upper>
         <Lower>
           <QuizControls
-            onWrapUp={startWrapUp}
+            onWrapUp={toggleWrapUp}
             onInfo={this.handleOnInfo}
             onAddSynonym={() => setSynonymModal(true)}
           />
@@ -122,9 +122,8 @@ const mapStateToProps = (state, props) => ({
   isLessonQuiz: selectIsLessonQuiz(state, props),
 });
 
-// TODO: move synonymModal to info reducer
 const mapDispatchToProps = {
-  startWrapUp: () => quiz.session.setWrapUp(true),
+  toggleWrapUp: quiz.session.wrapUp.toggle,
   showInfo: quiz.info.show,
   setSynonymModal: (payload) => quiz.session.setSynonymModal(payload),
   cycleInfoDetail: quiz.info.cycleDetail,

@@ -22,6 +22,7 @@ export const selectIsReviewQuiz = createSelector(
   (category) => category === 'reviews'
 );
 export const selectQueue = getState([UI_DOMAIN, 'queue'], []);
+export const selectWrapUp = getState([UI_DOMAIN, 'wrapUp'], {});
 export const selectCurrent = getState([UI_DOMAIN, 'current'], {});
 export const selectCorrectIds = getState([UI_DOMAIN, 'correct'], []);
 export const selectIncorrectIds = getState([UI_DOMAIN, 'incorrect'], []);
@@ -48,11 +49,14 @@ export const selectSessionCount = createSelector(
   (profile, category) => getState(`${category}Count`, 0)(profile)
 );
 
+// FIXME: can probably remove remaining from state, since we now derive from user count
+// and we reload user when necessary
 export const selectSessionRemainingCount = createSelector(
   [selectSessionCount, selectRemainingCount, selectCompleteCount],
   (sessionCount, remainingCount, completeCount) =>
     // we may not have loaded a queue yet, so start with sessionCount
-    remainingCount == null ? sessionCount : remainingCount - completeCount
+    // remainingCount == null ? sessionCount : remainingCount - completeCount
+    sessionCount - completeCount
 );
 
 export const selectSessionFinished = createSelector(
@@ -70,7 +74,7 @@ export const selectPercentComplete = createSelector(
   (complete, remaining) => calculatePercentage(complete, complete + remaining)
 );
 
-// FIXME: same as summary selector = extract transform function somewhere common
+// FIXME: same as summary selector = extract transform function somewhere common?
 export const selectPercentCorrect = createSelector(
   [selectCorrectCount, selectIncorrectCount],
   (correct, incorrect) => {
@@ -81,17 +85,26 @@ export const selectPercentCorrect = createSelector(
 );
 
 export const selectQueueNeeded = createSelector(
-  [selectQueueCount, selectSessionRemainingCount],
-  (queueCount, remaining) => {
-    const isQueueNeeded = queueCount < MINIMUM_QUEUE_COUNT && queueCount < remaining;
-    console.log({
-      queueCount,
-      MINIMUM_QUEUE_COUNT,
-      remaining,
-      isQueueNeeded,
-    });
-    return isQueueNeeded;
+  [selectWrapUp, selectQueueCount, selectSessionRemainingCount],
+  (wrapUp, queueCount, remaining) => {
+    const needMoreWrapUp = wrapUp.active && queueCount < wrapUp.count;
+    const needMoreMinimum = !wrapUp.active && queueCount < MINIMUM_QUEUE_COUNT;
+    const moreQueueExists = queueCount < remaining;
+    const queueNeeded = (needMoreWrapUp || needMoreMinimum) && moreQueueExists;
+    // console.log({
+    //   wrapUp,
+    //   queueCount,
+    //   MINIMUM_QUEUE_COUNT,
+    //   remaining,
+    //   queueNeeded,
+    // });
+    return queueNeeded;
   }
+);
+
+export const selectIsFinalQuestion = createSelector(
+  [selectQueue, selectCurrentId, selectWrapUp],
+  (queue, currentId) => queue.length === 1 && currentId === queue[0]
 );
 
 export default selectDomain;
