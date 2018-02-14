@@ -1,38 +1,32 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import cuid from 'cuid';
 
 import Element from 'common/components/Element';
-import NavLink from './NavLink/NavLink';
-import LogoutLink from './NavLink/LogoutLink';
-
-import { user } from 'features/user/actions';
+import NavLink from './NavLink';
 
 import crabigatorOutline from 'common/assets/img/crabigator-outline.svg';
 import { Footer, CrabigatorStencil, FooterLinks, FooterLinkGroup } from './styles';
 
-SiteFooter.propTypes = {
-  onLogout: PropTypes.func.isRequired,
-};
+const links = [
+  [{ route: '/lessons', name: 'lessons' }, { route: '/reviews', name: 'reviews' }],
+  [
+    { route: '/vocabulary', name: 'vocabulary' },
+    { route: '/settings', name: 'settings' },
+    { route: '/logout', name: 'logout' },
+  ],
+  [{ route: '/about', name: 'about' }, { route: '/contact', name: 'contact' }],
+];
 
-export function SiteFooter({ onLogout }) {
+export function SiteFooter() {
   return (
     <Footer>
       <Element style={{ position: 'relative' }} flexRow justifyContent="flex-end">
         <FooterLinks flexRow flexWrap flexCenter>
-          <FooterLinkGroup plainList>
-            <NavLink route="/lessons" name="lessons" />
-            <NavLink route="/reviews" name="reviews" />
-          </FooterLinkGroup>
-          <FooterLinkGroup plainList>
-            <NavLink route="/vocabulary" name="vocabulary" />
-            <NavLink route="/settings" name="settings" />
-            <LogoutLink route="/logout" name="logout" onLogout={onLogout} />
-          </FooterLinkGroup>
-          <FooterLinkGroup plainList>
-            <NavLink route="/about" name="about" />
-            <NavLink route="/contact" name="contact" />
-          </FooterLinkGroup>
+          {links.map((group) => (
+            <FooterLinkGroup key={cuid()}>
+              {group.map((link) => <NavLink key={cuid()} isOffCanvas={false} {...link} />)}
+            </FooterLinkGroup>
+          ))}
         </FooterLinks>
         <CrabigatorStencil imgSrc={crabigatorOutline} bgPosition="bottom left" bgSize="contain" />
       </Element>
@@ -40,8 +34,4 @@ export function SiteFooter({ onLogout }) {
   );
 }
 
-const mapDispatchToProps = {
-  onLogout: user.logout,
-};
-
-export default connect(null, mapDispatchToProps)(SiteFooter);
+export default SiteFooter;

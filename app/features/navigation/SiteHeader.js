@@ -29,7 +29,7 @@ const PRIMARY_LINKS = [
   },
 ];
 const SECONDARY_LINKS = [
-  { name: 'vocabulary', route: '/vocabulary/levels' },
+  { name: 'vocabulary', route: '/vocabulary' },
   { name: 'settings', route: '/settings' },
   { name: 'about', route: '/about' },
   { name: 'contact', route: '/contact' },
