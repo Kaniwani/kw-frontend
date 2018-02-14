@@ -45,7 +45,7 @@ const shouldLoad = ({ isLoading, lastLoad }) => {
   if (isLoading) {
     return false;
   }
-  const fiveMinsAgo = addMinutes(new Date(), -1);
+  const fiveMinsAgo = addMinutes(new Date(), -5);
   return !lastLoad || isBefore(parse(lastLoad), fiveMinsAgo);
 };
 
