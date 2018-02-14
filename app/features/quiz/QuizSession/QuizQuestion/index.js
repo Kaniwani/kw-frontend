@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { purple } from 'common/styles/colors';
-
 import { selectCurrent, selectIsLessonQuiz } from 'features/quiz/QuizSession/selectors';
 import {
   selectAnswerDisabled,
@@ -27,11 +25,10 @@ export class QuizQuestion extends React.Component {
     primaryMeaning: PropTypes.string,
     secondaryMeanings: PropTypes.array,
     tags: PropTypes.array,
-    isFlyoverActive: PropTypes.bool,
+    streak: PropTypes.number,
+    isLessonQuiz: PropTypes.bool,
     isAnswerIgnored: PropTypes.bool,
     isAnswerDisabled: PropTypes.bool,
-    streak: PropTypes.number,
-    bgColor: PropTypes.string,
   };
 
   static defaultProps = {
@@ -39,10 +36,9 @@ export class QuizQuestion extends React.Component {
     secondaryMeanings: [],
     tags: [],
     streak: null,
-    isFlyoverActive: false,
+    isLessonQuiz: false,
     isAnswerIgnored: false,
     isAnswerDisabled: false,
-    bgColor: purple,
   };
 
   state = {
@@ -60,21 +56,22 @@ export class QuizQuestion extends React.Component {
       primaryMeaning,
       secondaryMeanings,
       tags,
-      isFlyoverActive,
+      isLessonQuiz,
+      isAnswerDisabled,
       isAnswerIgnored,
-      bgColor,
     } = this.props;
     return (
-      <Wrapper bgColor={bgColor}>
+      <Wrapper>
         <Question primaryMeaning={primaryMeaning} secondaryMeanings={secondaryMeanings} />
-        <TagsList tags={tags} isVisible={!isFlyoverActive} />
-        {isFlyoverActive && (
-          <Flyover
-            isIgnored={isAnswerIgnored}
-            from={this.state.initialStreak}
-            to={this.props.streak}
-          />
-        )}
+        <TagsList tags={tags} isVisible={!isAnswerDisabled} />
+        {!isLessonQuiz &&
+          isAnswerDisabled && (
+            <Flyover
+              isIgnored={isAnswerIgnored}
+              from={this.state.initialStreak}
+              to={this.props.streak}
+            />
+          )}
       </Wrapper>
     );
   }
@@ -94,8 +91,8 @@ const mapStateToProps = (state, props) => {
     primaryMeaning,
     secondaryMeanings,
     tags,
-    isFlyoverActive: isAnswerDisabled && !isLessonQuiz,
     streak,
+    isLessonQuiz,
     isAnswerDisabled,
     isAnswerIgnored,
   };

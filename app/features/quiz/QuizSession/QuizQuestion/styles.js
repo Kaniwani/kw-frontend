@@ -1,9 +1,6 @@
 import styled, { css } from 'styled-components';
-import { lighten, darken } from 'polished';
 
-import { Upper } from 'features/quiz/QuizSession/styles';
-
-import { white, transparent } from 'common/styles/colors';
+import { white } from 'common/styles/colors';
 import { gutter, centerByMargin } from 'common/styles/layout';
 import { giga, gamma } from 'common/styles/typography';
 import { borderRadius } from 'common/styles/sizing';
@@ -46,20 +43,6 @@ export const Wrapper = styled.div`
   width: 100%;
   text-align: center;
   flex: 1 1 100%;
-
-  ${({ bgColor }) => css`
-    background-color: ${bgColor};
-    background-image: linear-gradient(180deg, ${lighten(0.05, bgColor)}, ${darken(0.05, bgColor)});
-    background-repeat: repeat-x;
-  `}
-
-  ${Upper} & {
-    background: ${transparent};
-  }
-
-  & ${Meanings} {
-    text-shadow: .1em .2em .4em ${({ bgColor }) => darken(0.1, bgColor)};
-  }
 `;
 
 export const FlyoverWrapper = styled.div`

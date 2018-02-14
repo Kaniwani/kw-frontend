@@ -6,6 +6,7 @@ import { pure } from 'recompose';
 
 import quiz from 'features/quiz/actions';
 import { selectInfoOpen } from 'features/quiz/QuizSession/QuizInfo/selectors';
+import { selectIsLessonQuiz } from 'features/quiz/QuizSession/selectors';
 import { selectAnswerDisabled } from 'features/quiz/QuizSession/QuizAnswer/selectors';
 
 import QuizHeader from './QuizHeader';
@@ -18,6 +19,7 @@ import AddSynonymModal from 'features/quiz/QuizSession/QuizInfo/AddSynonymModal'
 
 import backgroundImage from 'common/assets/img/reviews.svg';
 import { Upper, Lower, Background } from './styles';
+import { blue, purple } from 'common/styles/colors';
 const QuizBackground = pure(Background);
 
 const shouldIgnore = ({ target }) => Object.keys(target.dataset).includes('ignoreHotkeys');
@@ -35,6 +37,7 @@ export class QuizSession extends React.Component {
     setSynonymModal: PropTypes.func.isRequired,
     ignoreAnswer: PropTypes.func.isRequired,
     confirmAnswer: PropTypes.func.isRequired,
+    isLessonQuiz: PropTypes.bool.isRequired,
   };
 
   guardHotKeyHandler = (handler) => (event) => {
@@ -66,6 +69,7 @@ export class QuizSession extends React.Component {
       setSynonymModal,
       ignoreAnswer,
       confirmAnswer,
+      isLessonQuiz,
     } = this.props;
 
     return (
@@ -92,7 +96,7 @@ export class QuizSession extends React.Component {
           confirmAnswer: this.guardHotKeyHandler(confirmAnswer),
         }}
       >
-        <Upper>
+        <Upper bgColor={isLessonQuiz ? blue : purple}>
           <QuizHeader />
           <QuizQuestion />
           <QuizAnswer />
@@ -115,6 +119,7 @@ export class QuizSession extends React.Component {
 const mapStateToProps = (state, props) => ({
   isInfoOpen: selectInfoOpen(state, props),
   isAnswerDisabled: selectAnswerDisabled(state, props),
+  isLessonQuiz: selectIsLessonQuiz(state, props),
 });
 
 // TODO: move synonymModal to info reducer

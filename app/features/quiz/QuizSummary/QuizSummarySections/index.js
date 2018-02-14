@@ -16,6 +16,8 @@ import PercentageBar from './PercentageBar';
 import QuizSummarySection, { SECTION_TYPES } from './QuizSummarySection';
 import LastActivity from './LastActivity';
 
+import { blue, purple } from 'common/styles/colors';
+
 QuizSummarySections.propTypes = {
   category: PropTypes.string.isRequired,
   percentCorrect: PropTypes.number.isRequired,
@@ -29,14 +31,26 @@ export function QuizSummarySections({ category, percentCorrect, lastActivityDate
       render={({ on, toggle }) => (
         <PageWrapper>
           <Container flexRow>
-            <PercentageBar count={percentCorrect} />
+            <PercentageBar count={percentCorrect} color={category === 'lessons' ? blue : purple} />
             <VocabListToggleButton cardsExpanded={on} onToggle={toggle} />
           </Container>
           {lastActivityDate !== false && (
             <Aux>
-              <QuizSummarySection category={category} sectionType={SECTION_TYPES.INCORRECT} cardsExpanded={on} />
-              <QuizSummarySection category={category} sectionType={SECTION_TYPES.CORRECT} cardsExpanded={on} />
-              <QuizSummarySection category={category} sectionType={SECTION_TYPES.CRITICAL} cardsExpanded={on} />
+              <QuizSummarySection
+                category={category}
+                sectionType={SECTION_TYPES.INCORRECT}
+                cardsExpanded={on}
+              />
+              <QuizSummarySection
+                category={category}
+                sectionType={SECTION_TYPES.CORRECT}
+                cardsExpanded={on}
+              />
+              <QuizSummarySection
+                category={category}
+                sectionType={SECTION_TYPES.CRITICAL}
+                cardsExpanded={on}
+              />
             </Aux>
           )}
           <LastActivity date={lastActivityDate} />

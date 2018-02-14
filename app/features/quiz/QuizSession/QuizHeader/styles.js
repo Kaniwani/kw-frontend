@@ -1,8 +1,6 @@
 import styled, { css } from 'styled-components';
 import { lighten, darken } from 'polished';
 
-import { Upper } from 'features/quiz/QuizSession/styles';
-
 import { resetList, fluidType } from 'common/styles/utils';
 import { gutter } from 'common/styles/layout';
 import { white, whiteLight, blackLight, transparent } from 'common/styles/colors';
@@ -20,17 +18,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-
-  ${({ bgColor }) => css`
-    background-color: ${bgColor};
-    background-image: linear-gradient(180deg, ${lighten(0.05, bgColor)}, ${darken(0.05, bgColor)});
-    background-repeat: repeat-x;
-  `}
-
-  ${Upper} & {
-    background: ${transparent};
-  }
-
+  background-color: ${transparent};
 `;
 
 export const Bar = styled.div`

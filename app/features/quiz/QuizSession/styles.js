@@ -1,8 +1,9 @@
 import styled, { css } from 'styled-components';
 import { lighten, darken } from 'polished';
 
-import { white, purple } from 'common/styles/colors';
+import { white } from 'common/styles/colors';
 import BackgroundImg from 'common/components/BackgroundImg';
+import { Meanings } from 'features/quiz/QuizSession/QuizQuestion/styles';
 // match review background image svg color
 export const backgroundImageColor = '#e5e5e5';
 
@@ -11,11 +12,16 @@ export const Upper = styled.section`
   flex-direction: column;
   min-height: 30vh;
   color: ${white};
+
   ${({ bgColor }) => css`
-    background-color: ${bgColor || purple};
-    background-image: linear-gradient(180deg, ${lighten(0.05, bgColor || purple)}, ${darken(0.05, bgColor || purple)});
+    background-color: ${bgColor};
+    background-image: linear-gradient(180deg, ${lighten(0.05, bgColor)}, ${darken(0.05, bgColor)});
     background-repeat: repeat-x;
   `}
+
+  & ${Meanings} {
+    text-shadow: 0 0.1em 1em ${({ bgColor }) => darken(0.1, bgColor)};
+  }
 `;
 
 export const Lower = styled.section`

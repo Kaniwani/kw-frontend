@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { purple } from 'common/styles/colors';
-
 import {
   selectCategory,
   selectPercentComplete,
@@ -23,7 +21,6 @@ QuizHeader.propTypes = {
   percentCorrect: PropTypes.number,
   correctCount: PropTypes.number,
   remainingCount: PropTypes.number,
-  bgColor: PropTypes.string,
 };
 
 QuizHeader.defaultProps = {
@@ -31,7 +28,6 @@ QuizHeader.defaultProps = {
   percentCorrect: 0,
   correctCount: 0,
   remainingCount: 0,
-  bgColor: purple,
 };
 
 export function QuizHeader({
@@ -40,10 +36,9 @@ export function QuizHeader({
   percentCorrect,
   correctCount,
   remainingCount,
-  bgColor,
 }) {
   return (
-    <Wrapper bgColor={bgColor}>
+    <Wrapper>
       <ProgressBar value={percentComplete} />
       <IconLink
         plainLink
