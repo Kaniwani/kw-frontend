@@ -96,7 +96,7 @@ export class QuizAnswer extends React.Component {
               name="CLOSE"
               type="button"
               title="Ignore answer"
-              size="1.4em"
+              size="1.3em"
               onClick={this.onIgnore}
             />
           ) : (
