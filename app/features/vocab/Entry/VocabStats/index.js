@@ -13,17 +13,15 @@ import { selectReviewById } from 'features/reviews/selectors';
 import StreakStatus from './StreakStatus';
 import Status from './Status';
 
-function getReviewStatusText(isHidden, isReviewReady, nextReviewDate) {
-  if (isHidden) {
-    return 'Entry Locked';
+function getReviewStatusText(hidden, needsReview, nextReviewDate) {
+  switch (true) {
+    case hidden:
+      return 'Entry Locked';
+    case needsReview:
+      return 'Now';
+    default:
+      return getDateInWords(nextReviewDate);
   }
-  if (isReviewReady) {
-    return 'Now';
-  }
-  if (nextReviewDate) {
-    return getDateInWords(nextReviewDate);
-  }
-  return 'N/A';
 }
 
 VocabStats.propTypes = {
@@ -75,24 +73,26 @@ export function VocabStats({
       <StreakStatus category="WK" streak={wanikaniStreak} />
       <Status text="Unlocked" status={format(unlockDate, DATE_FORMAT)} />
       <Status text={kaniwaniBurned ? 'Burned' : 'Last reviewed'} status={lastStudiedStatus} />
-      {nextReviewDate != null && (
-        <Status
-          text="Next review"
-          status={getReviewStatusText(hidden, needsReview, nextReviewDate)}
-        />
-      )}
+      {nextReviewDate != null &&
+        !!streak && (
+          <Status
+            text="Next review"
+            status={getReviewStatusText(hidden, needsReview, nextReviewDate)}
+          />
+        )}
       <Status text="Correct" status={correct} />
       <Status text="Incorrect" status={incorrect} />
-      <Status
-        text="Accuracy"
-        status={`${calculatePercentage(correct, correct + incorrect)}%` || 'N/A'}
-      />
+      {!!streak && (
+        <Status
+          text="Accuracy"
+          status={`${calculatePercentage(correct, correct + incorrect)}%` || 'N/A'}
+        />
+      )}
       {!kaniwaniBurned && <Status text="Critical" status={critical ? 'Yes' : 'Nope!'} />}
     </div>
   );
 }
 
-// TODO: more refined selectors?
 const mapStateToProps = (state, props) => ({
   ...selectReviewById(state, props),
 });
