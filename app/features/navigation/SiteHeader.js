@@ -91,7 +91,6 @@ export class SiteHeader extends React.Component {
 
   render() {
     const { isWideViewport, offCanvasMenuActive } = this.state;
-    const logoSize = isWideViewport ? '4.25rem' : '3.25rem';
 
     return isWideViewport === undefined ? null : (
       <Header
@@ -100,7 +99,7 @@ export class SiteHeader extends React.Component {
         }}
       >
         <Nav>
-          <LogoLink size={logoSize} />
+          <LogoLink />
           <Element flexRow flex="999 1 auto" justifyContent="space-between">
             {this.renderMenu(PRIMARY_LINKS)}
             {isWideViewport && this.renderMenu(SECONDARY_LINKS)}
