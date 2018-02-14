@@ -60,20 +60,10 @@ export const replaceCurrentLogic = createLogic({
     console.log({ currentId, queue, correct, newId });
     if (newId || queue.length) {
       console.log('Allowing replaceCurrent with newId:');
-      console.log({ newId, queue });
       const newCurrent = selectReviewById(getState(), { id: newId });
       allow({ ...action, payload: newCurrent });
-    } else if (!newId && currentId && !correct.includes(currentId)) {
-      console.log('Rejecting replaceCurrent: current was the only remaining item:');
-      console.log({
-        queue,
-        currentId,
-        newId,
-      });
-      reject();
-    } else if (!newId) {
+    } else {
       console.log('Rejecting replaceCurrent: No new id... End of queue?');
-      console.log({ newId, queue });
       reject();
     }
   },
@@ -88,8 +78,10 @@ export const returnCurrentLogic = createLogic({
 
     if (newId) {
       const newCurrent = selectReviewById(getState(), { id: newId });
+      console.log('allowing rotate');
       allow({ ...action, payload: { newCurrent, currentId } });
     } else {
+      console.log('rejecting rotate');
       reject();
     }
   },

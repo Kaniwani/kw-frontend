@@ -23,9 +23,11 @@ import {
   selectIsLessonQuiz,
   selectCurrent,
   selectCurrentPreviouslyIncorrect,
+  selectQueue,
 } from 'features/quiz/QuizSession/selectors';
 import { selectAnswer, selectAnswerIgnored } from './selectors';
 
+import user from 'features/user/actions';
 import quiz from 'features/quiz/actions';
 import review from 'features/reviews/actions';
 import synonym from 'features/synonyms/actions';
@@ -216,6 +218,8 @@ export const recordAnswerLogic = createLogic({
   type: quiz.answer.record.request,
   process({ api, getState }, dispatch, done) {
     const current = selectCurrent(getState());
+    const queue = selectQueue(getState());
+    const isFinalReview = queue.length === 1 && current.id === queue[0];
     const isLessonQuiz = selectIsLessonQuiz(getState());
     const category = selectCategory(getState());
     const { isCorrect } = selectAnswer(getState());
@@ -231,7 +235,7 @@ export const recordAnswerLogic = createLogic({
 
     if (isCorrect) {
       dispatch(quiz.session.addComplete(current.id));
-      dispatch(quiz.session.current.replace());
+      dispatch(isFinalReview ? quiz.session.queue.clear() : quiz.session.current.replace());
     } else {
       dispatch(quiz.session.current.rotate());
     }
@@ -248,8 +252,17 @@ export const recordAnswerLogic = createLogic({
         .then(() => {
           dispatch(quiz.answer.record.success(current));
           dispatch(review.update(current));
-          dispatch(quiz.session.queue.load.request());
-          done();
+          if (isFinalReview) {
+            if (isCorrect) {
+              setTimeout(() => {
+                dispatch(user.load.request());
+                done();
+              }, 5000);
+            }
+          } else {
+            dispatch(quiz.session.queue.load.request());
+            done();
+          }
         })
         .catch((err) => {
           dispatch(quiz.answer.record.failure(err));

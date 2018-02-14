@@ -1,8 +1,7 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
-import { routerReducer } from 'react-router-redux';
+import { LOCATION_CHANGE, routerReducer } from 'react-router-redux';
 import { persistReducer, persistUiReducer } from 'common/persistence';
-import { reduceReducers, createConditionalSliceReducer } from 'reducers/utils';
 
 import { announcementsUiReducer, announcementsReducer } from 'features/announcements/reducer';
 import { userUiReducer, userReducer } from 'features/user/reducer';
@@ -26,7 +25,22 @@ const entitiesReducer = combineReducers({
   announcements: announcementsReducer,
 });
 
-const combinedReducer = combineReducers({
+// FIXME: create appReducer? globalReducer? reducerReducers with routerReducer?
+import { handleActions } from 'redux-actions';
+let fromPath = '';
+export const appReducer = handleActions(
+  {
+    [LOCATION_CHANGE]: (state, action) => {
+      const prevPath = fromPath;
+      fromPath = action.payload.pathname;
+      return { fromPath: prevPath };
+    },
+  },
+  { fromPath: '' }
+);
+
+const rootReducer = combineReducers({
+  app: appReducer,
   user: persistUiReducer('user', userUiReducer),
   search: searchReducer,
   announcements: persistUiReducer('announcements', announcementsUiReducer),
@@ -40,11 +54,5 @@ const combinedReducer = combineReducers({
   router: routerReducer,
   entities: persistReducer({ key: 'entities' }, entitiesReducer),
 });
-
-const rootReducer = (state, action) => combinedReducer(state, action);
-// return reduceReducers(
-// combinedReducer,
-// createConditionalSliceReducer('entities', entitiesCrudReducer)
-// )(state, action);
 
 export default rootReducer;

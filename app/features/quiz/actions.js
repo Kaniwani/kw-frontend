@@ -12,6 +12,7 @@ export const { quiz } = createActions({
       ADD_INCORRECT: SYNC,
     },
     SESSION: {
+      RESET: SYNC,
       SET_CATEGORY: SYNC,
       SET_SYNONYM_MODAL: SYNC,
       SET_WRAP_UP: SYNC,
@@ -21,6 +22,7 @@ export const { quiz } = createActions({
       QUEUE: {
         LOAD: ASYNC,
         CLEAR: SYNC,
+        REMOVE: SYNC,
       },
       CURRENT: {
         REPLACE: SYNC,

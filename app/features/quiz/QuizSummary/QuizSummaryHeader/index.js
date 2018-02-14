@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { titleCase } from 'voca';
 
-import { selectOnVacation } from 'features/user/selectors';
+import { selectReviewsCount, selectLessonsCount, selectOnVacation } from 'features/user/selectors';
 import { selectSessionRemainingCount } from 'features/quiz/QuizSession/selectors';
 import quiz from 'features/quiz/actions';
 import LogoLink from 'common/components/LogoLink';
@@ -55,8 +55,14 @@ export function QuizSummaryHeader({
 }
 
 const mapStateToProps = (state, { category }) => {
+  const fromSession = /session/.test(state.app.fromPath);
+  const sessionRemainingCount = selectSessionRemainingCount(state, { category });
   const isOnVacation = selectOnVacation(state);
-  const remainingCount = selectSessionRemainingCount(state, { category });
+  const remainingCount =
+    fromSession && !sessionRemainingCount
+      ? 0
+      : category === 'reviews' ? selectReviewsCount(state) : selectLessonsCount(state);
+
   const categoryTitle = titleCase(category);
   const isHeaderLinkDisabled = isOnVacation || remainingCount < 1;
   const headerLinkText =

@@ -56,8 +56,8 @@ export const selectSessionRemainingCount = createSelector(
 );
 
 export const selectSessionFinished = createSelector(
-  [selectRemainingCount],
-  (remaining) => remaining === 0
+  [selectCurrentId, selectQueue],
+  (id, queue) => !!id && !queue.length
 );
 
 export const selectCurrentPreviouslyIncorrect = createSelector(

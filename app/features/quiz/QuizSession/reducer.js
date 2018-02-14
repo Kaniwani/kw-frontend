@@ -2,7 +2,6 @@ import { handleActions } from 'redux-actions';
 import update from 'immutability-helper';
 import { merge, union, difference } from 'lodash';
 
-import { LOCATION_CHANGE } from 'react-router-redux';
 import quiz from 'features/quiz/actions';
 
 export const initialQuizSessionState = {
@@ -65,6 +64,11 @@ const addIdToComplete = (state, { payload }) =>
     complete: { $set: union(state.complete, [payload]) },
   });
 
+const removeIdFromQueue = (state, { payload }) =>
+  update(state, {
+    queue: { $set: difference(state.queue, [payload]) },
+  });
+
 const mergeQueue = (state, { payload }) =>
   update(state, {
     remaining: { $set: payload.remaining },
@@ -87,6 +91,7 @@ export const quizSessionReducer = handleActions(
     [quiz.session.setSynonymModal]: setSynonymModalOpen,
     [quiz.session.setWrapUp]: setWrapUp,
     [quiz.session.queue.load.success]: mergeQueue,
+    [quiz.session.queue.remove]: removeIdFromQueue,
     [quiz.session.queue.clear]: clearQueue,
     [quiz.session.current.replace]: replaceCurrent,
     [quiz.session.current.update]: mergeCurrent,
@@ -94,7 +99,7 @@ export const quizSessionReducer = handleActions(
     [quiz.session.addCorrect]: addIdToCorrect,
     [quiz.session.addIncorrect]: addIdToIncorrect,
     [quiz.session.addComplete]: addIdToComplete,
-    [LOCATION_CHANGE]: () => initialQuizSessionState,
+    [quiz.session.reset]: () => initialQuizSessionState,
   },
   initialQuizSessionState
 );
