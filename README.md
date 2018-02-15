@@ -39,10 +39,13 @@ The following Chrome extensions will allow you to explore the app structure whil
 - Join us on [Slack](https://rauchg-slackin-iurjmkotad.now.sh)
 
 ## Thanks
-Browser Testing generously provided by
 <a title="browserstack" href="https://www.browserstack.com/" target="_blank" rel="external noopener noreferrer">
 <img alt="browser stack logo" src="https://raw.githubusercontent.com/Kaniwani/kw-frontend/master/app/common/assets/img/browserstack.png"/>
 </a>
+<a title="sentry" href="https://www.sentry.io/" target="_blank" rel="external noopener noreferrer">
+<img width="230" alt="sentry logo" src="https://sentry-brand.storage.googleapis.com/sentry-logo-black.png"/>
+</a>
+
 
 ## License
 This project is licensed under the MIT license, Copyright (c) 2016 Duncan Bay. For more information see `LICENSE.md`.
