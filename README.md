@@ -1,8 +1,7 @@
 [![Slack Status](https://rauchg-slackin-iurjmkotad.now.sh/badge.svg)](https://rauchg-slackin-iurjmkotad.now.sh)
 [![Dependency Status](https://img.shields.io/david/Kaniwani/kw-frontend.svg)](https://david-dm.org/Kaniwani/kw-frontend)
 [![devDependency Status](https://img.shields.io/david/dev/Kaniwani/kw-frontend.svg)](https://david-dm.org/Kaniwani/kw-frontend#info=devDependencies)
-[![Build Status](https://img.shields.io/travis/Kaniwani/KW-Frontend.svg)](https://travis-ci.org/Kaniwani/KW-Frontend)
-[![Test Coverage](https://img.shields.io/coveralls/Kaniwani/KW-Frontend.svg)](https://coveralls.io/github/Kaniwani/KW-Frontend)
+[![Build Status](https://img.shields.io/travis/Kaniwani/kw-frontend.svg)](https://travis-ci.org/Kaniwani/kw-frontend)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 <div align="center">
@@ -41,7 +40,7 @@ The following Chrome extensions will allow you to explore the app structure whil
 - Join us on [Slack](https://rauchg-slackin-iurjmkotad.now.sh)
 
 ## Thanks
-Browser Testing generously provided by  
+Browser Testing generously provided by
 <a title="browserstack" href="https://www.browserstack.com/" target="_blank" rel="external noopener noreferrer">
 <img alt="browser stack logo" src="https://raw.githubusercontent.com/Kaniwani/kw-frontend/master/app/common/assets/img/browserstack.png"/>
 </a>
