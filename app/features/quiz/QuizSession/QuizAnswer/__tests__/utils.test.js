@@ -2,13 +2,14 @@ import {
   increment,
   decrement,
   isInputValid,
+  containsZenKaku,
   matchAnswer,
   fixTerminalN,
   combineAnswers,
-} from "../utils";
+} from '../utils';
 
-describe("increment", () => {
-  it("sane defaults", () => {
+describe('increment', () => {
+  it('sane defaults', () => {
     expect(increment()).toBe(1);
   });
   it('works', () => {
@@ -19,8 +20,8 @@ describe("increment", () => {
   });
 });
 
-describe("decrement", () => {
-  it("sane defaults", () => {
+describe('decrement', () => {
+  it('sane defaults', () => {
     expect(decrement()).toBe(0);
   });
   it('works', () => {
@@ -32,76 +33,90 @@ describe("decrement", () => {
   });
 });
 
-describe("isInputValid", () => {
-  it("sane defaults", () => {
+describe('containsZenkaku', () => {
+  it('sane defaults', () => {
+    expect(containsZenKaku()).toBe(false);
+  });
+  it('works', () => {
+    expect(containsZenKaku('abc')).toBe(false);
+    expect(containsZenKaku('ａｂｃ')).toBe(true);
+    expect(containsZenKaku('ＡＢＣ')).toBe(true);
+    expect(containsZenKaku('abcｄ')).toBe(true);
+    expect(containsZenKaku('かｄ')).toBe(true);
+  });
+});
+
+describe('isInputValid', () => {
+  it('sane defaults', () => {
     expect(isInputValid()).toBe(false);
   });
-  it("works", () => {
-    expect(isInputValid("")).toBe(false);
-    expect(isInputValid("n")).toBe(false);
-    expect(isInputValid("かｎ")).toBe(false);
-    expect(isInputValid("かな  ")).toBe(false);
-    expect(isInputValid("かな")).toBe(true);
-    expect(isInputValid("漢字")).toBe(true);
-    expect(isInputValid("送り仮名")).toBe(true);
+  it('works', () => {
+    expect(isInputValid('')).toBe(false);
+    expect(isInputValid('n')).toBe(false);
+    expect(isInputValid('かなa')).toBe(false);
+    expect(isInputValid('かなA')).toBe(false);
+    expect(isInputValid('かなａ')).toBe(false); // zenkaku
+    expect(isInputValid('かな')).toBe(true);
+    expect(isInputValid('漢字')).toBe(true);
+    expect(isInputValid('送り仮名')).toBe(true);
   });
 });
 
-describe("matchAnswer", () => {
-  it("sane defaults", () => {
-    expect(matchAnswer()).toBe("");
-    expect(matchAnswer("")).toBe("");
-    expect(matchAnswer("", [])).toBe("");
+describe('matchAnswer', () => {
+  it('sane defaults', () => {
+    expect(matchAnswer()).toBe('');
+    expect(matchAnswer('')).toBe('');
+    expect(matchAnswer('', [])).toBe('');
   });
 
-  it("simple cases", () => {
-    expect(matchAnswer("かな", ["かたかな"])).toBe("");
-    expect(matchAnswer("かな", ["かな"])).toBe("かな");
-    expect(matchAnswer("かな", ["ひらがな", "かな"])).toBe("かな");
-    expect(matchAnswer("漢字", ["ひらがな", "漢字"])).toBe("漢字");
-    expect(matchAnswer("送り仮名", ["ひらがな", "漢字", "送り仮名"])).toBe("送り仮名");
+  it('simple cases', () => {
+    expect(matchAnswer('かな', ['かたかな'])).toBe('');
+    expect(matchAnswer('かな', ['かな'])).toBe('かな');
+    expect(matchAnswer('かな', ['ひらがな', 'かな'])).toBe('かな');
+    expect(matchAnswer('漢字', ['ひらがな', '漢字'])).toBe('漢字');
+    expect(matchAnswer('送り仮名', ['ひらがな', '漢字', '送り仮名'])).toBe('送り仮名');
   });
 
-  it("match regardless of input tilde presence", () => {
-    expect(matchAnswer("〜かな", ["かな"])).toBe("かな");
-    expect(matchAnswer("~かな", ["かな"])).toBe("かな");
-    expect(matchAnswer("かな〜", ["かな"])).toBe("かな");
-    expect(matchAnswer("かな~", ["かな"])).toBe("かな");
-    expect(matchAnswer("〜かな", ["〜かな"])).toBe("〜かな");
-    expect(matchAnswer("~かな", ["~かな"])).toBe("~かな");
-    expect(matchAnswer("かな〜", ["かな〜"])).toBe("かな〜");
-    expect(matchAnswer("かな~", ["かな~"])).toBe("かな~");
+  it('match regardless of input tilde presence', () => {
+    expect(matchAnswer('〜かな', ['かな'])).toBe('かな');
+    expect(matchAnswer('~かな', ['かな'])).toBe('かな');
+    expect(matchAnswer('かな〜', ['かな'])).toBe('かな');
+    expect(matchAnswer('かな~', ['かな'])).toBe('かな');
+    expect(matchAnswer('〜かな', ['〜かな'])).toBe('〜かな');
+    expect(matchAnswer('~かな', ['~かな'])).toBe('~かな');
+    expect(matchAnswer('かな〜', ['かな〜'])).toBe('かな〜');
+    expect(matchAnswer('かな~', ['かな~'])).toBe('かな~');
   });
 
-  it("match regardless of answer tilde presence", () => {
-    expect(matchAnswer("かな", ["〜かな"])).toBe("〜かな");
-    expect(matchAnswer("かな", ["~かな"])).toBe("~かな");
-    expect(matchAnswer("かな", ["かな〜"])).toBe("かな〜");
-    expect(matchAnswer("かな", ["かな~"])).toBe("かな~");
+  it('match regardless of answer tilde presence', () => {
+    expect(matchAnswer('かな', ['〜かな'])).toBe('〜かな');
+    expect(matchAnswer('かな', ['~かな'])).toBe('~かな');
+    expect(matchAnswer('かな', ['かな〜'])).toBe('かな〜');
+    expect(matchAnswer('かな', ['かな~'])).toBe('かな~');
   });
 });
 
-describe("fixTerminalN", () => {
-  it("sane defaults", () => {
-    expect(fixTerminalN()).toBe("");
-    expect(fixTerminalN("")).toBe("");
+describe('fixTerminalN', () => {
+  it('sane defaults', () => {
+    expect(fixTerminalN()).toBe('');
+    expect(fixTerminalN('')).toBe('');
   });
 
   it('fix trailing english "n"', () => {
-    expect(fixTerminalN("かn")).toBe("かん");
+    expect(fixTerminalN('かn')).toBe('かん');
   });
 
   it('fix trailing japanese zenkaku "ｎ"', () => {
-    expect(fixTerminalN("かｎ")).toBe("かん");
+    expect(fixTerminalN('かｎ')).toBe('かん');
   });
 
-  it("pass through input otherwise", () => {
-    expect(fixTerminalN("かん")).toBe("かん");
-    expect(fixTerminalN("かs")).toBe("かs");
+  it('pass through input otherwise', () => {
+    expect(fixTerminalN('かん')).toBe('かん');
+    expect(fixTerminalN('かs')).toBe('かs');
   });
 });
 
-describe("combineAnswers", () => {
+describe('combineAnswers', () => {
   // prettier-ignore
   const vocab = [
     { word: "ビー玉", primaryReading: "びーだま", secondaryReadings: ["ビーだま"] },
@@ -114,22 +129,22 @@ describe("combineAnswers", () => {
     { word: "丸い", primaryReading: "まるい" },
   ];
 
-  it("sane defaults", () => {
+  it('sane defaults', () => {
     expect(combineAnswers()).toEqual([]);
     expect(combineAnswers([])).toEqual([]);
     expect(combineAnswers([], [])).toEqual([]);
     expect(combineAnswers([{}], [{}])).toEqual([]);
   });
 
-  it("combines vocab", () => {
+  it('combines vocab', () => {
     expect(combineAnswers(vocab)).toMatchSnapshot();
   });
 
-  it("combines synonyms", () => {
+  it('combines synonyms', () => {
     expect(combineAnswers(synonyms)).toMatchSnapshot();
   });
 
-  it("combines vocab & synonyms", () => {
+  it('combines vocab & synonyms', () => {
     expect(combineAnswers(vocab, synonyms)).toMatchSnapshot();
   });
 });
