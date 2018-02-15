@@ -1,8 +1,8 @@
-[![Slack Status](https://rauchg-slackin-iurjmkotad.now.sh/badge.svg)](https://rauchg-slackin-iurjmkotad.now.sh)
 [![Dependency Status](https://img.shields.io/david/Kaniwani/kw-frontend.svg)](https://david-dm.org/Kaniwani/kw-frontend)
 [![devDependency Status](https://img.shields.io/david/dev/Kaniwani/kw-frontend.svg)](https://david-dm.org/Kaniwani/kw-frontend#info=devDependencies)
 [![Build Status](https://img.shields.io/travis/Kaniwani/kw-frontend.svg)](https://travis-ci.org/Kaniwani/kw-frontend)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![Slack Status](https://rauchg-slackin-iurjmkotad.now.sh/badge.svg)](https://rauchg-slackin-iurjmkotad.now.sh)
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Kaniwani/kw-frontend/master/app/common/assets/img/logo.png" alt="kaniwani logo" width="100px" /><h1><strong>KaniWani Frontend</strong></h1>
@@ -22,14 +22,13 @@
 ## Quick start
 1. Clone this repo using `git clone https://github.com/Kaniwani/kw-frontend.git`
 2. Run `yarn` to install dependencies ([get yarn here](https://yarnpkg.com/en/docs/install)).
-3. Run `npm start` to load up the development server and watch for changes.
+3. Run `yarn start` to load up the development server and watch for changes.
 
 Now you're ready to rumble!
 
 ## Development
-- Quickly scaffold new components/containers via `npm run generate`
-- Test all the things via `npm run test:watch`
-- Auto-lint and format staged files using standardized commit messages via `npm run cz`
+- Test all the things via `yarn run test:watch`
+- Auto-lint and format staged files using standardized commit messages via `yarn run cz`
 
 The following Chrome extensions will allow you to explore the app structure while developing
 - [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd)

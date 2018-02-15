@@ -20,5 +20,5 @@ https://github.com/Kaniwani/kw-frontend/issues?q=is%3Aissue+is%3Aclosed
 
 # Versions
 
-- Node/NPM:
+- Node/Yarn:
 - Browser:
