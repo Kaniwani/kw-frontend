@@ -8,21 +8,22 @@ import { RouterLink, Svg } from './styles';
 export const LOGO_LARGE_REMS = '4.25rem';
 export const LOGO_SMALL_REMS = '3.25rem';
 
+const getSize = () => (window.innerWidth > breakpoints.md ? LOGO_LARGE_REMS : LOGO_SMALL_REMS);
+
 class LogoLink extends React.Component {
   static propTypes = {
     to: PropTypes.string,
-    size: PropTypes.string,
   };
 
   static defaultProps = {
     to: '/',
-    size: '',
   };
 
-  state = {};
+  state = {
+    size: getSize(),
+  };
 
   componentDidMount() {
-    this.handleResize();
     window.addEventListener('resize', this.handleResize);
   }
 
@@ -30,11 +31,8 @@ class LogoLink extends React.Component {
     window.removeEventListener('resize', this.handleResize);
   }
 
-  getSize = () =>
-    this.props.size || window.innerWidth > breakpoints.md ? LOGO_LARGE_REMS : LOGO_SMALL_REMS;
-
   handleResize = debounce(() => {
-    this.setState({ size: this.getSize() });
+    this.setState({ size: getSize() });
   }, 300);
 
   render() {
