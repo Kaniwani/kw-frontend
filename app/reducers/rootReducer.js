@@ -41,8 +41,8 @@ export const appReducer = handleActions(
 
 const rootReducer = combineReducers({
   app: appReducer,
-  user: persistUiReducer('user', userUiReducer),
   search: searchReducer,
+  user: persistUiReducer('user', userUiReducer),
   announcements: persistUiReducer('announcements', announcementsUiReducer),
   levels: persistUiReducer('levels', vocabLevelsUiReducer),
   level: persistUiReducer('level', vocabLevelUiReducer),

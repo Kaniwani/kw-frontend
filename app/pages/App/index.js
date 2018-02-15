@@ -6,7 +6,6 @@ import { Helmet } from "react-helmet";
 import styled from "styled-components";
 import ReactInterval from "react-interval";
 
-import ErrorBoundary from "common/components/ErrorBoundary";
 import ScrollToTop from "common/components/ScrollToTop";
 import Routes from "common/routes";
 import { user } from "features/user/actions";
@@ -77,10 +76,8 @@ class App extends React.Component {
           timeout={FIFTEEN_MINUTES_IN_MS}
           callback={this.props.loadUser}
         />
-        <ErrorBoundary>
           <Routes />
           <ScrollToTop />
-        </ErrorBoundary>
       </AppWrapper>
     );
   }

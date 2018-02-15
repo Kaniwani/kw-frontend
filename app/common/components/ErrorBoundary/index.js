@@ -1,38 +1,63 @@
-import React from "react";
+import styled from 'styled-components';
+import React from 'react';
+import Raven from 'common/raven';
 
-import NotFoundPage from "pages/NotFoundPage";
+import { IS_PROD_ENV } from 'common/constants';
+import A from 'common/components/A';
+import NotFoundPage from 'pages/NotFoundPage';
+
+const Box = styled.div`
+  padding: 1rem;
+`;
 
 class ErrorBoundary extends React.Component {
-  state = {
-    error: false,
-  };
+  state = { error: null };
 
-  componentDidCatch(error, info) {
-    console.group("ComponentDidCatch");
-    console.error(error);
-    console.log(info);
-    console.groupEnd("ComponentDidCatch");
-    // TODO: log errors to slack
-    // https://sentry.io/for/open-source/
-    this.setState((prevState) => ({
-      ...prevState,
-      error: { error, info },
-    }));
+  componentDidCatch(error, errorInfo) {
+    this.setState({ error, errorInfo });
+    if (IS_PROD_ENV) {
+      Raven.captureException(error, { extra: errorInfo });
+    }
   }
 
   render() {
-    return this.state.error ? (
-      <NotFoundPage>
-        <div>
-          <h1>A wild error has appeared!</h1>
-          <h2>
-            Please try reloading the application, or contact us if it happens again.
-          </h2>
+    if (this.state.error) {
+      return IS_PROD_ENV ? (
+        // eslint-disable-next-line
+        <div
+          style={{ minHeight: '100vh', minWidth: '100vw' }}
+          className="snap"
+          onClick={() => Raven.lastEventId() && Raven.showReportDialog()}
+        >
+          <NotFoundPage>
+            <div>
+              <h1>A wild error has appeared!</h1>
+              <h2>
+                Please try reloading the application, or{' '}
+                <A href="#report">let us know exactly what happened</A>.
+              </h2>
+            </div>
+          </NotFoundPage>
         </div>
-      </NotFoundPage>
-    ) : (
-      this.props.children
-    );
+      ) : (
+        <Box>
+          <Box>
+            <h5>MESSAGE</h5>
+            <p>{this.state.error.message}</p>
+          </Box>
+          <Box>
+            <h5>STACK</h5>
+            <p>{this.state.error.stack}</p>
+          </Box>
+          <Box>
+            <h5>COMPONENTSTACK</h5>
+            <p>{this.state.errorInfo.componentStack}</p>
+          </Box>
+        </Box>
+      );
+    }
+
+    return this.props.children;
   }
 }
 

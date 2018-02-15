@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ErrorBoundary from 'common/components/ErrorBoundary';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 
@@ -36,15 +37,17 @@ const render = () => {
   const App = require('pages/App').default;
 
   ReactDOM.render(
-    <DefaultLoadingComponentProvider component={null}>
-      <Provider store={store}>
-        <PersistGate persistor={persistor}>
-          <ConnectedRouter history={history}>
-            <App />
-          </ConnectedRouter>
-        </PersistGate>
-      </Provider>
-    </DefaultLoadingComponentProvider>,
+    <ErrorBoundary>
+      <DefaultLoadingComponentProvider component={null}>
+        <Provider store={store}>
+          <PersistGate persistor={persistor}>
+            <ConnectedRouter history={history}>
+              <App />
+            </ConnectedRouter>
+          </PersistGate>
+        </Provider>
+      </DefaultLoadingComponentProvider>
+    </ErrorBoundary>,
     MOUNT_NODE
   );
 };

@@ -24,9 +24,16 @@ function NotFoundPage({ children }) {
         <Container>
           {children || (
             <Aux>
-              <Title><span lang="ja">おろ〜</span> How did you get here?</Title>
-              <Subtitle>Double-check the url is correct, and if you’re certain we mussed up then go ahead and send us a <A to="/contact">contact message</A>.</Subtitle>
-              <Text><small>And remember, always be excellent to each other.</small></Text>
+              <Title>
+                <span lang="ja">おろ〜</span> How did you get here?
+              </Title>
+              <Subtitle>
+                Double-check the url is correct, and if you’re certain we mussed up then go ahead
+                and send us a <A to="/contact">contact message</A>.
+              </Subtitle>
+              <Text>
+                <small>And remember, always be excellent to each other.</small>
+              </Text>
             </Aux>
           )}
         </Container>

@@ -1,7 +1,8 @@
 {
   "presets": [
     [
-      "env", {
+      "env",
+      {
         "loose": false,
         "modules": false,
         "targets": {
@@ -14,7 +15,8 @@
   ],
   "plugins": [
     [
-      "transform-imports", {
+      "transform-imports",
+      {
         "voca": {
           "transform": "voca/${member}",
           "preventFullImport": true,
@@ -46,16 +48,15 @@
   ],
   "env": {
     "development": {
-      "plugins": [
-        "babel-plugin-styled-components"
-      ]
+      "plugins": ["babel-plugin-styled-components"]
     },
     "production": {
       "only": ["app"],
       "plugins": [
         "babel-plugin-styled-components",
         [
-          "transform-react-remove-prop-types", {
+          "transform-react-remove-prop-types",
+          {
             "removeImport": true
           }
         ],

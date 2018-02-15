@@ -1,18 +1,15 @@
-import React from "react";
-import { Helmet } from "react-helmet";
+import React from 'react';
+import { Helmet } from 'react-helmet';
 
-import PageWrapper from "common/components/PageWrapper";
-import Container from "common/components/Container";
-import Element from "common/components/Element";
-import H1 from "common/components/H1";
-import H2 from "common/components/H2";
-import H3 from "common/components/H3";
-import A from "common/components/A";
-import P from "common/components/P";
-import PayPalDonate from "./PayPalDonate";
-import BrowserStackLogo from "./BrowserStackLogo";
-
-AboutPage.propTypes = {};
+import PageWrapper from 'common/components/PageWrapper';
+import Container from 'common/components/Container';
+import Element from 'common/components/Element';
+import H1 from 'common/components/H1';
+import H2 from 'common/components/H2';
+import H3 from 'common/components/H3';
+import A from 'common/components/A';
+import P from 'common/components/P';
+import PayPalDonate from './PayPalDonate';
 
 function AboutPage() {
   return (
@@ -28,14 +25,14 @@ function AboutPage() {
           </Element>
           <Element>
             <P constrain>
-              KaniWani is a companion website to{" "}
+              KaniWani is a companion website to{' '}
               <A href="http://www.wanikani.com" external>
                 WaniKani
-              </A>, an SRS tool for kanji and vocabulary memorization. We felt that
-              WaniKani helped a lot with being able to recognize and read Kanji, but
-              didn’t help enough when trying to recall words without the visual
-              stimulation of the Kanji. KaniWani attempts to bridge that gap by using your
-              WaniKani vocabulary to force you to do the opposite of what you are used to.
+              </A>, an SRS tool for kanji and vocabulary memorization. We felt that WaniKani helped
+              a lot with being able to recognize and read Kanji, but didn’t help enough when trying
+              to recall words without the visual stimulation of the Kanji. KaniWani attempts to
+              bridge that gap by using your WaniKani vocabulary to force you to do the opposite of
+              what you are used to.
             </P>
           </Element>
         </Container>
@@ -44,61 +41,59 @@ function AboutPage() {
           <Element flex="1 0 320px">
             <H2>Moving Forward</H2>
             <P constrain>
-              KaniWani starts off at your current WaniKani level, so you don’t have to go
-              through all the previous levels unless you want to. Complete lessons to
-              introduce words into your regular review schedule.
+              KaniWani starts off at your current WaniKani level, so you don’t have to go through
+              all the previous levels unless you want to. Complete lessons to introduce words into
+              your regular review schedule.
             </P>
           </Element>
           <Element flex="1 0 320px">
             <H2>Unlocking the Past</H2>
             <P constrain>
-              Manually unlock and relock previous levels in the vocabulary section, or
-              even individual words to filter the vocabulary in your review schedule. You
-              can further filter your reviews by WaniKani SRS rank on the settings page.
+              Manually unlock and relock previous levels in the vocabulary section, or even
+              individual words to filter the vocabulary in your review schedule. You can further
+              filter your reviews by WaniKani SRS rank on the settings page.
             </P>
           </Element>
           <Element flex="1 0 320px">
             <H2>Keyboard Warrior</H2>
             <P constrain>
-              After answering a question, press <strong>spacebar</strong> to cycle through
-              the information panel detail levels, <strong>n</strong> to view and edit
-              your notes, <strong>f</strong> to switch back to info, and{" "}
-              <strong>s</strong> to add a new answer synonym.
+              After answering a question, press <strong>spacebar</strong> to cycle through the
+              information panel detail levels, <strong>n</strong> to view and edit your notes,{' '}
+              <strong>f</strong> to switch back to info, and <strong>s</strong> to add a new answer
+              synonym.
             </P>
           </Element>
           <Element flex="1 0 320px">
             <H2>Next Time Gadget</H2>
             <P constrain>
-              When your answer has been marked incorrect, but you totally knew what it
-              was, like, 本気で！ You can press <strong>/</strong>{" "}
-              <small>(forward slash)</small> on your keyboard or vehemently tap the{" "}
-              <strong>x</strong> icon to ignore your failure.
+              When your answer has been marked incorrect, but you totally knew what it was, like,
+              本気で！ You can press <strong>/</strong> <small>(forward slash)</small> on your
+              keyboard or vehemently tap the <strong>x</strong> icon to ignore your failure.
             </P>
           </Element>
           <Element flex="1 0 320px">
             <H2>Follow WaniKani</H2>
             <P constrain>
-              Automatically sync with WaniKani and unlock new levels here as you level up
-              there. If you wish to reset or suspend your WaniKani account, we recommend
-              turning this feature <strong>off</strong> to prevent future syncing.
+              Automatically sync with WaniKani and unlock new levels here as you level up there. If
+              you wish to reset or suspend your WaniKani account, we recommend turning this feature{' '}
+              <strong>off</strong> to prevent future syncing.
             </P>
           </Element>
           <Element flex="1 0 320px">
             <H2>Science Repeat... Science!</H2>
             <P constrain>
-              The algorithm is the same as WaniKani’s SRS, in that the more often you
-              correctly answer a review, the less often you will see it — until it is
-              burnt.
+              The algorithm is the same as WaniKani’s SRS, in that the more often you correctly
+              answer a review, the less often you will see it — until it is burnt.
             </P>
           </Element>
           <Element flex="1 0 320px">
             <H2>Vocab Synergy</H2>
             <P constrain>
-              Words in WaniKani that have the same <strong>identical</strong> base meaning
-              but different readings get combined. For example, when you see the word
-              “Arrow” you can answer either “や” or “やじるし”. If the meanings are
-              slightly different but you consider your answer valid - you can add it as a
-              KaniWani answer synonym during reviews or on the item’s vocabulary page.
+              Words in WaniKani that have the same <strong>identical</strong> base meaning but
+              different readings get combined. For example, when you see the word “Arrow” you can
+              answer either “や” or “やじるし”. If the meanings are slightly different but you
+              consider your answer valid - you can add it as a KaniWani answer synonym during
+              reviews or on the item’s vocabulary page.
             </P>
           </Element>
         </Container>
@@ -106,23 +101,12 @@ function AboutPage() {
         <Container flexColumn flexCenter>
           <Element flexRow flexCenter>
             <P constrain textAlign="center">
-              <em>
-                Contributions gratefully accepted for ongoing development, webhosting, and{" "}
-              </em>
+              <em>Contributions gratefully accepted for ongoing development, webhosting, and </em>
               <span lang="ja">日本酒</span>.
             </P>
           </Element>
           <Element>
             <PayPalDonate />
-          </Element>
-        </Container>
-
-        <Container flexColumn flexCenter>
-          <Element>
-            <H3>Powered by</H3>
-          </Element>
-          <Element style={{ height: "3.5rem" }}>
-            <BrowserStackLogo />
           </Element>
         </Container>
       </PageWrapper>
