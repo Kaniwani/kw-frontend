@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import { getState, getVal } from 'common/selectors';
+import { getState, getBy } from 'common/selectors';
 import { selectReviews } from 'features/reviews/selectors';
 import calculatePercentage from 'common/utils/calculatePercentage';
 import groupByRank from 'common/utils/groupByRank';
@@ -64,7 +64,7 @@ export const selectSummaryPercentCorrect = createSelector(
 
 export const selectLastActivityDate = createSelector(
   selectQuizSummary,
-  getVal('lastActivityDate', dateOrFalse)
+  getBy('lastActivityDate', dateOrFalse)
 );
 
 export default selectQuizSummary;

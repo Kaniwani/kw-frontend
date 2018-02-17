@@ -1,31 +1,27 @@
-import { createSelector } from "reselect";
+import { createSelector } from 'reselect';
 import { get } from 'lodash';
-import {
-  getProp,
-  makeSelectDomain,
-} from "common/selectors";
+import { getProp, getState } from 'common/selectors';
 
-export const UI_DOMAIN = "level";
-
-const selectVocabLevelUi = makeSelectDomain(UI_DOMAIN);
+export const UI_DOMAIN = 'level';
+const selectVocabLevelUi = getState(UI_DOMAIN);
 
 const shouldLoad = (isLoading, lastLoad) => !lastLoad && !isLoading;
 
 export const selectVocabLevelLastLoad = createSelector(
   [selectVocabLevelUi, getProp('id')],
-  (state, id) => get(state, ['lastLoad', id]) || false,
+  (state, id) => get(state, ['lastLoad', id]) || false
 );
 
 export const selectVocabLevelIsLoading = createSelector(
   [selectVocabLevelUi, getProp('id')],
-  (state, id) => get(state, 'isLoading').includes(id),
+  (state, id) => get(state, 'isLoading').includes(id)
 );
 
 export const selectVocabLevelShouldLoad = createSelector(
   [selectVocabLevelIsLoading, selectVocabLevelLastLoad],
-  shouldLoad,
+  shouldLoad
 );
 export const selectVocabLevelError = createSelector(
   [selectVocabLevelUi, getProp('id')],
-  (state, id) => get(state, ['error', id]) || false,
+  (state, id) => get(state, ['error', id]) || false
 );

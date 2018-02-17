@@ -5,13 +5,13 @@ import getSrsRankName from 'common/utils/getSrsRankName';
 
 import { MINIMUM_QUEUE_COUNT } from './constants';
 
-import { getVal, getState } from 'common/selectors';
+import { getBy, getState } from 'common/selectors';
 import { selectUserProfile } from 'features/user/selectors';
 import { selectPrimaryVocabId } from 'features/reviews/selectors';
 import { selectVocabById } from 'features/vocab/selectors';
 
 export const UI_DOMAIN = 'quizSession';
-export const selectDomain = getState(UI_DOMAIN);
+export const selectUiDomain = getState(UI_DOMAIN);
 export const selectCategory = getState([UI_DOMAIN, 'category'], '');
 export const selectIsLessonQuiz = createSelector(
   selectCategory,
@@ -21,22 +21,22 @@ export const selectIsReviewQuiz = createSelector(
   selectCategory,
   (category) => category === 'reviews'
 );
-export const selectQueue = getState([UI_DOMAIN, 'queue'], []);
-export const selectWrapUp = getState([UI_DOMAIN, 'wrapUp'], {});
-export const selectCurrent = getState([UI_DOMAIN, 'current'], {});
-export const selectCorrectIds = getState([UI_DOMAIN, 'correct'], []);
-export const selectIncorrectIds = getState([UI_DOMAIN, 'incorrect'], []);
-export const selectCompleteIds = getState([UI_DOMAIN, 'complete'], []);
-export const selectRemainingCount = getState([UI_DOMAIN, 'remaining'], null);
+export const selectQueue = createSelector(selectUiDomain, getState('queue', []));
+export const selectWrapUp = createSelector(selectUiDomain, getState('wrapUp', {}));
+export const selectCurrent = createSelector(selectUiDomain, getState('current', {}));
+export const selectCorrectIds = createSelector(selectUiDomain, getState('correct', []));
+export const selectIncorrectIds = createSelector(selectUiDomain, getState('incorrect', []));
+export const selectCompleteIds = createSelector(selectUiDomain, getState('complete', []));
+export const selectRemainingCount = createSelector(selectUiDomain, getState('remaining', null));
 export const selectQueueCount = createSelector(selectQueue, getState('length', 0));
 export const selectCorrectCount = createSelector(selectCorrectIds, getState('length', 0));
 export const selectIncorrectCount = createSelector(selectIncorrectIds, getState('length', 0));
 export const selectCompleteCount = createSelector(selectCompleteIds, getState('length', 0));
-export const selectSynonymModalOpen = createSelector(selectDomain, getState('synonymModalOpen'));
+export const selectSynonymModalOpen = createSelector(selectUiDomain, getState('synonymModalOpen'));
 export const selectCurrentId = createSelector(selectCurrent, getState('id'));
 export const selectCurrentStreakName = createSelector(
   selectCurrent,
-  getVal('streak', getSrsRankName)
+  getBy('streak', getSrsRankName)
 );
 
 export const selectPrimaryVocabFromCurrent = createSelector(
@@ -57,11 +57,6 @@ export const selectSessionRemainingCount = createSelector(
     // we may not have loaded a queue yet, so start with sessionCount
     // remainingCount == null ? sessionCount : remainingCount - completeCount
     sessionCount - completeCount
-);
-
-export const selectSessionFinished = createSelector(
-  [selectCurrentId, selectQueue],
-  (id, queue) => !!id && !queue.length
 );
 
 export const selectCurrentPreviouslyIncorrect = createSelector(
@@ -107,4 +102,4 @@ export const selectIsFinalQuestion = createSelector(
   (queue, currentId) => queue.length === 1 && currentId === queue[0]
 );
 
-export default selectDomain;
+export default selectUiDomain;

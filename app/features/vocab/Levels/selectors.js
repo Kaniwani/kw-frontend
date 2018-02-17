@@ -1,16 +1,14 @@
-import { isBefore, addDays, parse } from "date-fns";
-import { createSelector } from "reselect";
-import { selectUserLevel } from "features/user/selectors";
+import { isBefore, addDays, parse } from 'date-fns';
+import { createSelector } from 'reselect';
+import { selectUserLevel } from 'features/user/selectors';
 
 import {
   getState,
   getProp,
-  makeSelectDomain,
-  makeSelectEntityDomain,
   makeSelectItemIds,
   makeSelectItemById,
   makeSelectDomainShouldLoad,
-} from "common/selectors";
+} from 'common/selectors';
 
 export const UI_DOMAIN = 'levels';
 
@@ -24,25 +22,25 @@ const shouldLoad = ({ isLoading, lastLoad }) => {
 
 export const selectVocabLevelsShouldLoad = makeSelectDomainShouldLoad(UI_DOMAIN, shouldLoad);
 
-export const ENTITY_DOMAIN = "levels";
-export const selectVocabLevelsUi = makeSelectDomain(UI_DOMAIN);
-export const selectVocabLevelsDomain = makeSelectEntityDomain(ENTITY_DOMAIN);
+export const ENTITY_DOMAIN = 'levels';
+export const selectVocabLevelsUi = getState(UI_DOMAIN);
+export const selectVocabLevelsDomain = getState(['entities', ENTITY_DOMAIN]);
 export const selectVocabLevelIds = makeSelectItemIds(selectVocabLevelsDomain);
 export const selectVocabLevels = selectVocabLevelsDomain;
 export const selectVocabLevelById = makeSelectItemById(selectVocabLevels);
 
 export const selectVocabLevelsSubmitting = createSelector(
   selectVocabLevelsUi,
-  getState("submitting", [])
+  getState('submitting', [])
 );
 
 export const selectVocabLevelIsSubmitting = createSelector(
-  [selectVocabLevelsSubmitting, getProp("id")],
+  [selectVocabLevelsSubmitting, getProp('id')],
   (submitting, id) => submitting.includes(id)
 );
 
 export const isWithinUserWKLevel = createSelector(
-  [selectUserLevel, getProp("id")],
+  [selectUserLevel, getProp('id')],
   (userLevel, id) => +id <= +userLevel
 );
 
@@ -53,7 +51,7 @@ export const selectVocabLevelIsActionable = createSelector(
 
 export const selectVocabLevelReviewIds = createSelector(
   selectVocabLevelById,
-  getState("reviews", [])
+  getState('reviews', [])
 );
 
 export const selectVocabLevelIsLocked = createSelector(

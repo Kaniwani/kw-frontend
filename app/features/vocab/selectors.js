@@ -1,14 +1,9 @@
 import { createSelector } from 'reselect';
 import { VERB_TYPES } from 'common/utils/conjugate';
-import {
-  getState,
-  makeSelectEntityDomain,
-  makeSelectItemIds,
-  makeSelectItemById,
-} from 'common/selectors';
+import { getState, makeSelectItemIds, makeSelectItemById } from 'common/selectors';
 
 export const ENTITY_DOMAIN = 'vocab';
-export const selectVocabDomain = makeSelectEntityDomain(ENTITY_DOMAIN);
+export const selectVocabDomain = getState(['entities', ENTITY_DOMAIN]);
 export const selectVocabIds = makeSelectItemIds(selectVocabDomain);
 export const selectVocab = selectVocabDomain;
 export const selectVocabById = makeSelectItemById(selectVocab);

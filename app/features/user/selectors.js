@@ -5,25 +5,18 @@ import dateOrFalse from 'common/utils/dateOrFalse';
 import formatSrsCounts from 'common/utils/formatSrsCounts';
 import formatUpcomingReviews from 'common/utils/formatUpcomingReviews';
 
-import {
-  getState,
-  getVal,
-  makeSelectDomain,
-  makeSelectDomainShouldLoad,
-  makeSelectDomainLastLoad,
-  makeSelectEntityDomain,
-} from 'common/selectors';
+import { getState, getBy } from 'common/selectors';
 
 export const UI_DOMAIN = 'user';
 export const ENTITY_DOMAIN = 'user';
-export const selectUserUi = makeSelectDomain(UI_DOMAIN);
-export const selectUserDomain = makeSelectEntityDomain(ENTITY_DOMAIN);
+export const selectUserUi = getState(UI_DOMAIN);
+export const selectUserDomain = getState(['entities', ENTITY_DOMAIN]);
 
 export const selectUserProfile = createSelector(selectUserDomain, getState('profile', {}));
 
 export const selectUserSettings = createSelector(
   selectUserDomain,
-  getVal(
+  getBy(
     'profile',
     partialRight(pick, [
       'minimumWkSrsLevelToReview',
@@ -49,54 +42,49 @@ const shouldLoad = ({ isLoading, lastLoad }) => {
   return !lastLoad || isBefore(parse(lastLoad), fiveMinsAgo);
 };
 
-export const selectUserShouldLoad = makeSelectDomainShouldLoad(UI_DOMAIN, shouldLoad);
-export const selectUserLastLoad = makeSelectDomainLastLoad(UI_DOMAIN);
-
-export const selectUserName = createSelector(selectUserProfile, getVal('name'));
-
-export const selectReviewsCount = createSelector(selectUserProfile, getVal('reviewsCount', Number));
-
-export const selectLessonsCount = createSelector(selectUserProfile, getVal('lessonsCount', Number));
-
-export const selectUserLevel = createSelector(selectUserProfile, getVal('level', Number));
-
-export const selectOnVacation = createSelector(selectUserProfile, getVal('onVacation', Boolean));
+export const selectUserShouldLoad = createSelector(selectUserUi, shouldLoad);
+export const selectUserLastLoad = createSelector(selectUserUi, getBy('lastLoad', dateOrFalse));
+export const selectUserName = createSelector(selectUserProfile, getBy('name'));
+export const selectReviewsCount = createSelector(selectUserProfile, getBy('reviewsCount', Number));
+export const selectLessonsCount = createSelector(selectUserProfile, getBy('lessonsCount', Number));
+export const selectUserLevel = createSelector(selectUserProfile, getBy('level', Number));
+export const selectOnVacation = createSelector(selectUserProfile, getBy('onVacation', Boolean));
 
 export const selectVacationDate = createSelector(
   selectUserProfile,
-  getVal('vacationDate', dateOrFalse)
+  getBy('vacationDate', dateOrFalse)
 );
 
 export const selectNextReviewDate = createSelector(
   selectUserProfile,
-  getVal('nextReviewDate', dateOrFalse)
+  getBy('nextReviewDate', dateOrFalse)
 );
 
 export const selectLastWkSyncDate = createSelector(
   selectUserProfile,
-  getVal('lastWanikaniSyncDate', dateOrFalse)
+  getBy('lastWanikaniSyncDate', dateOrFalse)
 );
 
-export const selectApiValid = createSelector(selectUserProfile, getVal('apiValid', Boolean));
+export const selectApiValid = createSelector(selectUserProfile, getBy('apiValid', Boolean));
 
 export const selectSrsCounts = createSelector(
   selectUserProfile,
-  getVal('srsCounts', formatSrsCounts)
+  getBy('srsCounts', formatSrsCounts)
 );
 
 export const selectSrsCountsExist = createSelector(
   selectUserProfile,
-  getVal('srsCounts', (counts) => sum(Object.values(counts)) > 0)
+  getBy('srsCounts', (counts) => sum(Object.values(counts)) > 0)
 );
 
 export const selectUpcomingReviews = createSelector(
   selectUserProfile,
-  getVal('upcomingReviews', formatUpcomingReviews)
+  getBy('upcomingReviews', formatUpcomingReviews)
 );
 
 export const selectUseEijiroProLink = createSelector(
   selectUserProfile,
-  getVal('useEijiroProLink', Boolean)
+  getBy('useEijiroProLink', Boolean)
 );
 
 // NOTE: these only work for integers 1-10, my math-fu is not strong

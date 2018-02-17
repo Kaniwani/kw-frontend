@@ -3,37 +3,33 @@ import { get, identity, partialRight, flowRight as compose } from 'lodash';
 import dateOrFalse from 'common/utils/dateOrFalse';
 
 export const getProp = (keyPath) => (_, props) => get(props, keyPath);
-// TODO: rename getState to getDefault, and getVal to getTransform
 export const getState = (keyPath, defaultVal) => (state) => {
   const ret = get(state, keyPath);
   return ret === undefined ? defaultVal : ret;
 };
-export const getVal = (val, transform = identity) => (state) =>
+export const getBy = (val, transform = identity) => (state) =>
   compose(transform, partialRight(get, val))(state);
 
-export const makeSelectDomain = (domain) => (state) => get(state, domain);
-export const makeSelectEntityDomain = (domain) => (state) => get(state, ['entities', domain]);
+const selectUiDomain = (uiDomain) => getState(uiDomain, {});
 
 export const selectLocationPath = createSelector(
-  makeSelectDomain('router'),
+  getState('router', {}),
   getState('location.pathname', '/')
 );
 
-// FIXME: these are recomputing, sigh
 export const makeSelectDomainLastLoad = (uiDomain) =>
-  createSelector(makeSelectDomain(uiDomain), getVal('lastLoad', dateOrFalse));
-
+  createSelector(selectUiDomain(uiDomain), getBy('lastLoad', dateOrFalse));
 export const makeSelectDomainShouldLoad = (uiDomain, predicate) =>
   createSelector(
-    makeSelectDomain(uiDomain),
-    (ui) => (predicate ? predicate(ui) : !ui.isLoading && !ui.lastLoad)
+    selectUiDomain(uiDomain),
+    (ui) => !ui.error && (predicate ? predicate(ui) : !ui.isLoading && !ui.lastLoad)
   );
 
 export const makeSelectDomainIsLoading = (uiDomain) =>
-  createSelector(makeSelectDomain(uiDomain), getState('isLoading', false));
+  createSelector(selectUiDomain(uiDomain), getState('isLoading', false));
 
 export const makeSelectDomainError = (uiDomain) =>
-  createSelector(makeSelectDomain(uiDomain), getState('error', false));
+  createSelector(selectUiDomain(uiDomain), getState('error', false));
 
 export const makeSelectItemIds = (domainSelector) =>
   createSelector(domainSelector, (domain) => Object.keys(domain).map(Number));
