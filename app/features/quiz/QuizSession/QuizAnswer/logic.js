@@ -241,10 +241,9 @@ export const recordAnswerLogic = createLogic({
       }
       if (isFinalQuestion) {
         dispatch(quiz.session.queue.clear());
-        setTimeout(() => history.push(`/${category}`), 200);
-      } else {
-        dispatch(quiz.session.current.replace());
+        setTimeout(() => history.push(`/${category}`), 1000);
       }
+      dispatch(quiz.session.current.replace());
     } else {
       dispatch(quiz.session.current.rotate());
     }

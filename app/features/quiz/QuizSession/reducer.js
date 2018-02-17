@@ -53,7 +53,7 @@ const toggleWrapUp = (state) => {
 const decrementWrapUp = (state) =>
   state.wrapUp.active
     ? update(state, {
-      wrapUp: { count: { $set: state.wrapUp.count - 1 } },
+      wrapUp: { count: { $set: Math.max(state.wrapUp.count - 1, 0) } },
     })
     : state;
 

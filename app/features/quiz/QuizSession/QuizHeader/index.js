@@ -60,7 +60,7 @@ export function QuizHeader({
         </Stat>
         <Stat title="Items remaining">
           <Icon inline={false} size="1.1em" name="ASSIGNMENT_INBOX" />
-          <Label>{remainingCount}</Label>
+          <Label>{Math.max(remainingCount - 1, 0) /* don't include current question */}</Label>
         </Stat>
       </StatsWrapper>
     </Wrapper>

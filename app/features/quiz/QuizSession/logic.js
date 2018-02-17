@@ -57,8 +57,7 @@ export const replaceCurrentLogic = createLogic({
     const queue = selectQueue(getState());
     const newId = sample(difference(queue, [currentId]));
     if (newId == null) {
-      console.warn('no new id when trying to replace current', currentId, queue, newId);
-      next(action);
+      next({ ...action, payload: {} });
     } else {
       const newReview = selectReviewById(getState(), { id: newId });
       next({ ...action, payload: newReview });
@@ -68,17 +67,15 @@ export const replaceCurrentLogic = createLogic({
 
 export const returnCurrentLogic = createLogic({
   type: [quiz.session.current.rotate],
-  validate({ getState, action }, allow, reject) {
+  transform({ getState, action }, allow, reject) {
     const queue = selectQueue(getState());
     const currentId = selectCurrentId(getState());
     const newId = sample(difference(queue, [currentId]));
 
     if (newId) {
       const newCurrent = selectReviewById(getState(), { id: newId });
-      console.log('allowing rotate');
       allow({ ...action, payload: { newCurrent, currentId } });
     } else {
-      console.log('rejecting rotate');
       reject();
     }
   },
