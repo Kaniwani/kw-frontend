@@ -1,7 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
+import { isEqual } from 'lodash';
+import { IS_PROD_ENV } from 'common/constants';
+import Raven from 'common/raven';
 import Spinner from 'common/components/Spinner';
 
 import {
@@ -9,67 +12,44 @@ import {
   makeSelectDomainLastLoad,
   makeSelectDomainIsLoading,
   makeSelectDomainError,
-} from "common/selectors";
+} from 'common/selectors';
 
 class Loader extends React.Component {
   static propTypes = {
     uiDomain: PropTypes.string.isRequired,
     shouldLoad: PropTypes.bool.isRequired,
-    lastLoad: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.bool])
-      .isRequired,
+    lastLoad: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.bool]).isRequired,
     isLoading: PropTypes.bool.isRequired,
     error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]).isRequired,
     load: PropTypes.func.isRequired,
     render: PropTypes.func.isRequired,
   };
 
-  // TODO: make an error portal/notification (or a HoC to wrap Loader/other comps in)
-  static renderError({ status, response, ...rest }) {
-    return (
-      <div>
-        <h2>A Wild Error has Appeared!</h2>
-        {(status || response) && <h3>{JSON.stringify({ status, response })}</h3>}
-        <p>{JSON.stringify(rest)}</p>
-      </div>
-    );
-  }
-
-  state = {
-    error: false,
-  };
-
   componentDidMount() {
-    console.log(this.props.uiDomain, "Loader mount. shouldLoad =", this.props.shouldLoad);
     if (this.props.shouldLoad) {
       this.props.load();
     }
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return !isEqual(this.props, nextProps);
   }
 
   componentDidUpdate() {
-    console.log(this.props.uiDomain, "Loader update. shouldLoad =", this.props.shouldLoad);
+    if (this.props.error) {
+      console.warn(this.props.error);
+      if (IS_PROD_ENV) {
+        Raven.captureException(this.props.error);
+      }
+    }
     if (this.props.shouldLoad) {
       this.props.load();
     }
   }
 
-  componentDidCatch(error, info) {
-    console.group("ComponentDidCatch");
-    console.error(error);
-    console.log(info);
-    console.groupEnd("ComponentDidCatch");
-    // TODO: log errors to slack
-    // https://sentry.io/for/open-source/
-    this.setState((prevState) => ({
-      ...prevState,
-      error: { error, info },
-    }));
-  }
-
   render() {
-    const { render, error, ...props } = this.props;
-    return error || this.state.error
-      ? Loader.renderError(error)
-      : this.props.render({ ...props, Spinner });
+    const { render, ...props } = this.props;
+    return render({ ...props, Spinner });
   }
 }
 

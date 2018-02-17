@@ -1,36 +1,32 @@
-import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
-import { hasToken } from "common/utils/auth";
+import { hasToken } from 'common/utils/auth';
 
-import Aux from "common/components/Aux";
-import SiteHeader from "features/navigation/SiteHeader";
-import SiteFooter from "features/navigation/SiteFooter";
-import LandingPage from "pages/LandingPage/Loadable";
-import HomePage from "pages/HomePage/Loadable";
-import VocabLevelsPage from "pages/VocabLevelsPage/Loadable";
-import VocabLevelPage from "pages/VocabLevelPage/Loadable";
-import VocabEntryPage from "pages/VocabEntryPage/Loadable";
-import QuizSessionPage from "pages/QuizSessionPage/Loadable";
-import QuizSummaryPage from "pages/QuizSummaryPage/Loadable";
-import SettingsPage from "pages/SettingsPage/Loadable";
-import AboutPage from "pages/AboutPage/Loadable";
-import ContactPage from "pages/ContactPage/Loadable";
-import NotFoundPage from "pages/NotFoundPage/Loadable";
+import Aux from 'common/components/Aux';
+import SiteHeader from 'features/navigation/SiteHeader';
+import SiteFooter from 'features/navigation/SiteFooter';
+import LandingPage from 'pages/LandingPage/Loadable';
+import HomePage from 'pages/HomePage/Loadable';
+import VocabLevelsPage from 'pages/VocabLevelsPage/Loadable';
+import VocabLevelPage from 'pages/VocabLevelPage/Loadable';
+import VocabEntryPage from 'pages/VocabEntryPage/Loadable';
+import QuizSessionPage from 'pages/QuizSessionPage/Loadable';
+import QuizSummaryPage from 'pages/QuizSummaryPage/Loadable';
+import SettingsPage from 'pages/SettingsPage/Loadable';
+import AboutPage from 'pages/AboutPage/Loadable';
+import ContactPage from 'pages/ContactPage/Loadable';
+import NotFoundPage from 'pages/NotFoundPage/Loadable';
 
 // used for isolated testing of components in development with HMR
-import { IS_DEV_ENV } from "common/constants";
-import DevPage from "pages/DevPage/Loadable";
+import { IS_DEV_ENV } from 'common/constants';
+import DevPage from 'pages/DevPage/Loadable';
 
 export function Routes() {
   return (
     <Switch>
       {IS_DEV_ENV && <Route exact path="/dev" component={DevPage} />}
-      <Route
-        exact
-        path="/welcome"
-        component={LandingPage}
-      />
+      <Route exact path="/welcome" component={LandingPage} />
       <Route
         path=""
         render={() => (hasToken() ? renderProtectedRoutes() : <Redirect to="/welcome" />)}
@@ -72,7 +68,6 @@ function renderProtectedRoutes() {
 }
 
 function renderQuizRoutes() {
-  // TODO: shouldLoad summary / queue ?
   return (
     <Switch>
       <Route exact path="/:category/session" component={QuizSessionPage} />

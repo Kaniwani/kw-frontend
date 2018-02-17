@@ -1,12 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { reduxForm, Field, propTypes as formPropTypes } from "redux-form";
-import { isMixed, isRomaji, isJapanese } from "wanakana";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { reduxForm, Field, propTypes as formPropTypes } from 'redux-form';
+import { isMixed, isRomaji, isJapanese } from 'wanakana';
 
-import search from "./actions";
-import { whiteLight, blueLight, yellow } from "common/styles/colors";
+import search from './actions';
+import { whiteLight, blueLight, yellow } from 'common/styles/colors';
 
-import { Form, SubmitButton, InputWrapper, Label } from "./styles";
+import { Form, SubmitButton, InputWrapper, Label } from './styles';
 
 /* eslint-disable react/prop-types */
 const InputField = ({ input, meta, label, ...props }) => (
@@ -23,17 +23,11 @@ SearchBar.propTypes = {
 };
 
 SearchBar.defaultProps = {
-  labelText: "Search",
-  placeholderText: "meaning, かな, 漢字",
+  labelText: 'Search',
+  placeholderText: 'meaning, かな, 漢字',
 };
 
-export function SearchBar({
-  labelText,
-  placeholderText,
-  submitting,
-  handleSubmit,
-  invalid,
-}) {
+export function SearchBar({ labelText, placeholderText, submitting, handleSubmit, invalid }) {
   return (
     <Form onSubmit={handleSubmit}>
       {/* // TODO: add a button to allow users to toggle kana input in search field
@@ -54,8 +48,8 @@ export function SearchBar({
       />
       <SubmitButton
         type="submit"
-        name={submitting ? "SYNC" : "SEARCH"}
-        title={submitting ? "Searching..." : "Search"}
+        name={submitting ? 'SYNC' : 'SEARCH'}
+        title={submitting ? 'Searching...' : 'Search'}
         color={whiteLight}
         bgColor={invalid ? yellow : blueLight}
         isSubmitting={submitting}
@@ -66,8 +60,8 @@ export function SearchBar({
 }
 
 export default reduxForm({
-  form: "searchBar",
-  validate: ({ keywords }) => (isMixed(keywords) ? { keywords: "Mixed input" } : {}),
+  form: 'searchBar',
+  validate: ({ keywords }) => (isMixed(keywords) ? { keywords: 'Mixed input' } : {}),
   onSubmit: (
     { keywords },
     dispatch,
@@ -77,10 +71,13 @@ export default reduxForm({
       dispatch(setSubmitFailed({ keywords: syncErrors.keywords }));
     }
 
-    const payload = {
-      meaningContains: isRomaji(keywords) ? keywords.toLowerCase() : "",
-      readingContains: isJapanese(keywords) ? keywords : "",
-    };
-    dispatch(search.query.request(payload, { startSubmit, stopSubmit, reset, blur }));
+    const query = {};
+    if (isRomaji(keywords)) {
+      query.meaningContains = keywords.toLowerCase();
+    } else if (isJapanese(keywords)) {
+      query.readingContains = keywords;
+    }
+
+    dispatch(search.query.request(query, { startSubmit, stopSubmit, reset, blur }));
   },
 })(SearchBar);

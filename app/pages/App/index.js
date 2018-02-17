@@ -1,16 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { Helmet } from "react-helmet";
-import styled from "styled-components";
-import ReactInterval from "react-interval";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+import styled from 'styled-components';
+import ReactInterval from 'react-interval';
 
-import ScrollToTop from "common/components/ScrollToTop";
-import Routes from "common/routes";
-import { user } from "features/user/actions";
-import { selectLocationPath } from "common/selectors";
-import { selectUserShouldLoad } from "features/user/selectors";
+import ScrollToTop from 'common/components/ScrollToTop';
+import Routes from 'common/routes';
+import { user } from 'features/user/actions';
+import { selectLocationPath } from 'common/selectors';
+import { selectUserShouldLoad } from 'features/user/selectors';
 import { hasToken } from 'common/utils/auth';
 
 // ensure footer is flush with bottom of page
@@ -64,20 +64,12 @@ class App extends React.Component {
     return (
       <AppWrapper>
         <Helmet titleTemplate="%s - KaniWani">
-          <meta
-            name="description"
-            content="KaniWani - An English to Japanese SRS Quiz App"
-          />
+          <meta name="description" content="KaniWani - An English to Japanese SRS Quiz App" />
         </Helmet>
-        {/* Update review counts, upcoming reviews etc periodically  */}
-        {/* TODO: browser push notifications on review/lesson count change? */}
-        <ReactInterval
-          enabled
-          timeout={FIFTEEN_MINUTES_IN_MS}
-          callback={this.props.loadUser}
-        />
-          <Routes />
-          <ScrollToTop />
+        {/* TODO: browser push notifications on review/lesson count change (if page not focused)? */}
+        <ReactInterval enabled timeout={FIFTEEN_MINUTES_IN_MS} callback={this.props.loadUser} />
+        <Routes />
+        <ScrollToTop />
       </AppWrapper>
     );
   }
