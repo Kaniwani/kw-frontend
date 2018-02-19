@@ -1,8 +1,8 @@
-import { createLogic } from "redux-logic";
+import { createLogic } from 'redux-logic';
 
-import vocab from "features/vocab/actions";
-import user from "features/user/actions";
-import { selectVocabLevelsSubmitting } from "features/vocab/Levels/selectors";
+import vocab from 'features/vocab/actions';
+import user from 'features/user/actions';
+import { selectVocabLevelsSubmitting } from 'features/vocab/Levels/selectors';
 
 export const levelLoadLogic = createLogic({
   type: vocab.level.load.request,
@@ -12,6 +12,7 @@ export const levelLoadLogic = createLogic({
     api.reviews
       .search({
         level: id,
+        limit: 200,
       })
       .then((response) => {
         const level = serializers.serializeLevelResponse(response);
@@ -19,9 +20,7 @@ export const levelLoadLogic = createLogic({
         done();
       })
       .catch(({ status, response, message, ...rest }) => {
-        dispatch(
-          vocab.level.load.failure({ status, response, message, ...rest }, { id })
-        );
+        dispatch(vocab.level.load.failure({ status, response, message, ...rest }, { id }));
         done();
       });
   },
@@ -53,7 +52,7 @@ export const levelUnlockLogic = createLogic({
     const isAlreadySubmitting = selectVocabLevelsSubmitting(getState()).length >= 1;
     if (isAlreadySubmitting) {
       // FIXME: create a queue
-      alert("Please unlock levels one at a time.");
+      alert('Please unlock levels one at a time.');
       reject();
     } else {
       allow(action);
