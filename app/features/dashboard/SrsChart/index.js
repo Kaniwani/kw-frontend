@@ -1,13 +1,14 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { PieChart, Pie } from "recharts";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { sortBy } from 'lodash';
+import { connect } from 'react-redux';
+import { PieChart, Pie } from 'recharts';
 
-import { selectSrsCounts, selectSrsCountsExist } from "features/user/selectors";
+import { selectSrsCounts, selectSrsCountsExist } from 'features/user/selectors';
 
-import Element from "common/components/Element";
-import SrsLegend from "./SrsLegend";
-import renderActiveShape from "./renderActiveShape";
+import Element from 'common/components/Element';
+import SrsLegend from './SrsLegend';
+import renderActiveShape from './renderActiveShape';
 
 export class SrsChart extends React.Component {
   static propTypes = {
@@ -25,8 +26,19 @@ export class SrsChart extends React.Component {
     activeIndex: 1,
   };
 
+  componentDidMount() {
+    this.setLargestSliceActive();
+  }
+
   onPieEnter = (data, index) => {
     this.setState({ activeIndex: index });
+  };
+
+  setLargestSliceActive = () => {
+    const { data } = this.props;
+    const { value: largestValue } = sortBy(data, 'value')[data.length - 1];
+    const largestValueIndex = data.findIndex(({ value }) => value === largestValue);
+    this.setState({ activeIndex: largestValueIndex });
   };
 
   render() {
