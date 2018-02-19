@@ -32,7 +32,7 @@ export const user = {
   register: (data) =>
     api
       .auth('')
-      .url('auth/register/')
+      .url('auth/users/create/')
       .json(data)
       .post()
       .json(),
