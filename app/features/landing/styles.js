@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { transparentize, darken, placeholder, timingFunctions } from 'polished';
 
-import { whiteLight, greyLight, greyDark, purple, red, transparent } from 'common/styles/colors';
+import { white, grey, purple, red, transparent } from 'common/styles/colors';
 import { fastEaseQuad } from 'common/styles/animation';
 import { delta, gamma } from 'common/styles/typography';
 import { gutter } from 'common/styles/layout';
@@ -56,7 +56,7 @@ export const SelectList = styled.ul`
 export const SelectListItem = styled.li`
   width: 100%;
   text-align: center;
-  color: ${greyDark};
+  color: ${grey[8]};
   cursor: pointer;
   font-weight: 600;
   text-transform: uppercase;
@@ -93,17 +93,17 @@ export const InputField = styled.input`
   width: 100%;
   border: none;
   border-radius: 10px;
-  background-color: ${whiteLight};
-  ${placeholder({ color: greyLight })}
+  background-color: ${white[2]};
+  ${placeholder({ color: grey[2] })}
 
   &:focus {
-    ${placeholder({ color: transparentize(0.5, greyLight) })}
+    ${placeholder({ color: transparentize(0.5, grey[2]) })}
     outline: none;
   }
 
   /* override chrome autocomplete yellow bg*/
   &:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px ${whiteLight} inset;
+    -webkit-box-shadow: 0 0 0px 1000px ${white[2]} inset;
   }
 
   /*override stupid X on IE*/
@@ -132,7 +132,7 @@ export const ValidationMessage = styled.div`
   text-align: center;
   flex: 1 0 auto;
   font-style: italic;
-  color: ${red};
+  color: ${red[5]};
 `;
 
 export const InputWrapper = styled.div`
@@ -169,7 +169,7 @@ export const InputWrapper = styled.div`
 export const SelectedPointer = styled.span`
   border-left: 1rem solid transparent;
   border-right: 1rem solid transparent;
-  border-bottom: 1rem solid ${whiteLight};
+  border-bottom: 1rem solid ${white[2]};
   height: 0;
   position: relative;
   top: .3rem;
@@ -193,17 +193,17 @@ export const SubmitButton = styled.button`
   transition: all ${fastEaseQuad};
   cursor: pointer;
   font-weight: 700;
-  background-color: ${whiteLight};
-  color: ${purple};
+  background-color: ${white[2]};
+  color: ${purple[5]};
 
   &:hover,
   &:focus,
   &:active {
-    color: ${whiteLight};
-    background-color: ${purple};
+    color: ${white[2]};
+    background-color: ${purple[5]};
     outline: none;
   }
   &:active {
-    background-color: ${transparentize(0.1, darken(0.1, purple))};
+    background-color: ${transparentize(0.1, darken(0.1, purple[5]))};
   }
 `;

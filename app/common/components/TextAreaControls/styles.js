@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { gutter } from 'common/styles/layout';
-import { greyLight, grey, greyDark, black, orange, red } from 'common/styles/colors';
+import { grey, black, orange, red } from 'common/styles/colors';
 
 export const Controls = styled.div`
   ${gutter({ position: 'vertical' })}
@@ -14,12 +14,12 @@ export const Controls = styled.div`
 
 const textColorMixin = ({ maxLength, remaining }) => {
   switch (true) {
-    case remaining < maxLength / 10: return red;
-    case remaining < maxLength / 8: return orange;
-    case remaining < maxLength / 3: return black;
-    case remaining < maxLength / 2: return greyDark;
-    case remaining < maxLength / 1.5: return grey;
-    default: return greyLight;
+    case remaining < maxLength / 10: return red[5];
+    case remaining < maxLength / 8: return orange[5];
+    case remaining < maxLength / 3: return black[5];
+    case remaining < maxLength / 2: return grey[8];
+    case remaining < maxLength / 1.5: return grey[5];
+    default: return grey[2];
   }
 };
 

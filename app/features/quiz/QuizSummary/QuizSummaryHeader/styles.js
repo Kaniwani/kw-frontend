@@ -2,14 +2,14 @@ import styled from 'styled-components';
 
 import H1 from 'common/components/H1';
 
-import { white, whiteLight } from 'common/styles/colors';
+import { white } from 'common/styles/colors';
 import { bottomLight } from 'common/styles/shadows';
 import { gutter, centerByPadding } from 'common/styles/layout';
 
 export const Header = styled.header`
   ${centerByPadding}
   position: relative;
-  background: linear-gradient(to bottom, ${white}, ${whiteLight});
+  background: linear-gradient(to bottom, ${white[5]}, ${white[2]});
   box-shadow: ${bottomLight};
 `;
 

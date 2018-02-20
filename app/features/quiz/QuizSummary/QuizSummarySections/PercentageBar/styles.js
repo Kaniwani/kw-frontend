@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { transparentize, darken } from 'polished';
 
-import { whiteLight } from 'common/styles/colors';
+import { white } from 'common/styles/colors';
 import { gutter } from 'common/styles/layout';
 import { beta } from 'common/styles/typography';
 
@@ -17,7 +17,7 @@ export const Text = styled.h1`
   margin: 0;
   line-height: 1;
   align-self: center;
-  color: ${whiteLight};
+  color: ${white[2]};
   z-index: 2;
 `;
 

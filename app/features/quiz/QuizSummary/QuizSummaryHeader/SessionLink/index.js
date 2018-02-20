@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { white, blue } from "common/styles/colors";
+import { white, blue } from 'common/styles/colors';
 
-import { Wrapper, LinkBlock, Left, Right, InboxIcon, Count } from "./styles";
+import { Wrapper, LinkBlock, Left, Right, InboxIcon, Count } from './styles';
 
 SessionLink.propTypes = {
   text: PropTypes.string.isRequired,
@@ -15,18 +15,16 @@ SessionLink.propTypes = {
 };
 
 SessionLink.defaultProps = {
-  color: blue,
+  color: blue[5],
 };
 
-function SessionLink({
-  text, to, count, color, isDisabled, onClick,
-}) {
+function SessionLink({ text, to, count, color, isDisabled, onClick }) {
   return (
     <Wrapper onClick={onClick}>
       <LinkBlock plainLink isDisabled={isDisabled} bgColor={color} to={to}>
         <Left>{text}</Left>
         <Right title="Remaining reviews">
-          <InboxIcon inline={false} name="ASSIGNMENT_INBOX" color={white} size="1.2em" />
+          <InboxIcon inline={false} name="ASSIGNMENT_INBOX" color={white[5]} size="1.2em" />
           <Count>{count}</Count>
         </Right>
       </LinkBlock>

@@ -2,7 +2,7 @@ import styled, { keyframes } from 'styled-components';
 import { rgba, timingFunctions } from 'polished';
 
 import { gutter } from 'common/styles/layout';
-import { grey, whiteLight, orange, blueLight } from 'common/styles/colors';
+import { grey, white, orange, blue } from 'common/styles/colors';
 
 export const Form = styled.form`
   ${gutter()};
@@ -54,7 +54,7 @@ export const ValidationMessage = styled.div`
   flex: 1 0 100%;
   font-size: .9em;
   font-style: italic;
-  color: ${orange};
+  color: ${orange[5]};
 `;
 
 
@@ -111,8 +111,8 @@ export const ToggleSwitch = styled.input`
     transition: all 0.2s ${timingFunctions('easeQuint')};
     animation: ${switchOn} 0.3s ${timingFunctions('easeOutQuint')};
     border-radius: 50px;
-    background-color: ${whiteLight};
-    box-shadow: 0 1px 4px ${rgba(grey, 0.3)};
+    background-color: ${white[2]};
+    box-shadow: 0 1px 4px ${rgba(grey[5], 0.3)};
     z-index: 2;
   }
 
@@ -123,6 +123,6 @@ export const ToggleSwitch = styled.input`
 
   &:focus + .toggle-display:before,
   .user-is-tabbing &:focus + .toggle-display:before, {
-    outline: ${blueLight} auto .2rem;
+    outline: ${blue[3]} auto .2rem;
   }
 `;

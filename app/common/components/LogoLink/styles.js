@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { timingFunctions } from 'polished';
 
 import Logo from '-!babel-loader!svg-react-loader!common/assets/img/logo.svg';
-import { blueLight, purpleLight, pink } from 'common/styles/colors';
+import { blue, purple, pink } from 'common/styles/colors';
 
 const linkStyle = css`
   display: block;
@@ -14,18 +14,18 @@ const linkStyle = css`
   width: ${({ size }) => size}; /*CSS instead of html width attr to support non-pixel units*/
   height: ${({ size }) => size}; /*Prevents scaling issue in IE*/
   background-repeat: no-repeat;
-  color: ${blueLight};
+  color: ${blue[4]};
   cursor: pointer;
   transition: color .4s ${timingFunctions('easeInOutSine')};
 
   &:hover {
     transition: color .5s ${timingFunctions('easeOutQuad')};
-    color: ${purpleLight};
+    color: ${purple[4]};
   }
 
   &:active {
     transition: color .1s ${timingFunctions('easeOutQuad')};
-    color: ${pink};
+    color: ${pink[5]};
   }
 `;
 

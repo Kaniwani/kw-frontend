@@ -16,7 +16,7 @@ import PercentageBar from './PercentageBar';
 import QuizSummarySection, { SECTION_TYPES } from './QuizSummarySection';
 import LastActivity from './LastActivity';
 
-import { blue, purple } from 'common/styles/colors';
+import { SRS_COLORS } from 'common/styles/colors';
 
 QuizSummarySections.propTypes = {
   category: PropTypes.string.isRequired,
@@ -31,7 +31,10 @@ export function QuizSummarySections({ category, percentCorrect, lastActivityDate
       render={({ on, toggle }) => (
         <PageWrapper>
           <Container flexRow>
-            <PercentageBar count={percentCorrect} color={category === 'lessons' ? blue : purple} />
+            <PercentageBar
+              count={percentCorrect}
+              color={category === 'lessons' ? SRS_COLORS.UNTRAINED : SRS_COLORS.GURU}
+            />
             <VocabListToggleButton cardsExpanded={on} onToggle={toggle} />
           </Container>
           {lastActivityDate !== false && (

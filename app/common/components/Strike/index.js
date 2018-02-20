@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-import * as COLORS from 'common/styles/colors';
 
 const Strike = styled.span`
-  text-decoration: ${({ color }) => `line-through${color ? ` ${COLORS[color]}` : ''}`};
+  text-decoration: ${({ color }) => `line-through${color ? ` ${color}` : ''}`};
 `;
 
 export default Strike;

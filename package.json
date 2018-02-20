@@ -17,8 +17,7 @@
     "analyze": "node ./internals/scripts/analyze.js",
     "build:clean": "rimraf ./build",
     "build:dll": "node ./internals/scripts/dependencies.js",
-    "build":
-      "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js -p --progress --hide-modules",
+    "build": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js -p --progress --hide-modules",
     "cosmos": "cosmos",
     "cz": "git-cz",
     "format": "prettier-eslint --write --ignore '**/styles.js'",
@@ -37,22 +36,44 @@
     "test": "cross-env NODE_ENV=test jest"
   },
   "lint-staged": {
-    "*.js": ["npm run format", "npm run lint", "git add"]
+    "*.js": [
+      "npm run format",
+      "npm run lint",
+      "git add"
+    ]
   },
   "dllPlugin": {
     "path": "node_modules/react-boilerplate-dlls",
-    "exclude": ["chalk", "compression", "cross-env", "express", "ip", "minimist", "sanitize.css"],
-    "include": ["core-js", "lodash", "eventsource-polyfill"]
+    "exclude": [
+      "chalk",
+      "compression",
+      "cross-env",
+      "express",
+      "ip",
+      "minimist",
+      "sanitize.css"
+    ],
+    "include": [
+      "core-js",
+      "lodash",
+      "eventsource-polyfill"
+    ]
   },
   "jest": {
-    "moduleDirectories": ["node_modules", "app"],
+    "moduleDirectories": [
+      "node_modules",
+      "app"
+    ],
     "moduleNameMapper": {
       ".*\\.(css|less|styl|scss|sass)$": "<rootDir>/internals/mocks/cssModule.js",
-      ".*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
-        "<rootDir>/internals/mocks/image.js"
+      ".*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/image.js"
     },
-    "snapshotSerializers": ["enzyme-to-json/serializer"],
-    "setupFiles": ["<rootDir>/internals/testing/setupTests.js"],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "setupFiles": [
+      "<rootDir>/internals/testing/setupTests.js"
+    ],
     "testRegex": "__tests__/.*\\.test\\.js$"
   },
   "dependencies": {
@@ -89,6 +110,7 @@
     "redux-logic": "0.12.3",
     "redux-persist": "5.5.0",
     "reselect": "3.0.1",
+    "reshader": "1.0.0",
     "sanitize.css": "5.0.0",
     "styled-components": "2.4.0",
     "voca": "1.4.0",

@@ -19,7 +19,7 @@ import AddSynonymModal from 'features/quiz/QuizSession/QuizInfo/AddSynonymModal'
 
 import backgroundImage from 'common/assets/img/reviews.svg';
 import { Upper, Lower, Background } from './styles';
-import { blue, purple } from 'common/styles/colors';
+import { SRS_COLORS } from 'common/styles/colors';
 const QuizBackground = pure(Background);
 
 const shouldIgnore = ({ target }) => Object.keys(target.dataset).includes('ignoreHotkeys');
@@ -96,7 +96,7 @@ export class QuizSession extends React.Component {
           confirmAnswer: this.guardHotKeyHandler(confirmAnswer),
         }}
       >
-        <Upper bgColor={isLessonQuiz ? blue : purple}>
+        <Upper bgColor={isLessonQuiz ? SRS_COLORS.UNTRAINED : SRS_COLORS.GURU}>
           <QuizHeader />
           <QuizQuestion />
           <QuizAnswer />

@@ -16,7 +16,7 @@ injectGlobal`
 
   .vocab-tip ul {
     ${resetList}
-    color: ${white};
+    color: ${white[5]};
   }
 
   .vocab-tip li {
@@ -32,7 +32,7 @@ injectGlobal`
 
     /* left column category "JA", "RC" etc */
     span:first-child {
-      color: ${grey};
+      color: ${grey[5]};
       margin-right: .2em;
     }
   }

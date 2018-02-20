@@ -71,8 +71,14 @@ describe('parseFuriString()', () => {
   it('works', () => {
     expect(parseFuriString('1:せ;2:じ')).toEqual([[[1, 2], 'せ'], [[2, 3], 'じ']]);
   });
-  it('should properly cover the final kanji', () => {
+  it('can span multiple kanji', () => {
     expect(parseFuriString('0-1:おとな')).toEqual([[[0, 2], 'おとな']]);
+  });
+  it('can partially span multiple kanji', () => {
+    expect(parseFuriString('0-1:うーろん;2:ちゃ')).toEqual([
+      [[0, 2], 'うーろん'],
+      [[2, 3], 'ちゃ'],
+    ]);
   });
 });
 

@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import IconButton from 'common/components/IconButton';
 
-import { grey } from "common/styles/colors";
+import { grey } from 'common/styles/colors';
 
 VocabLockButton.propTypes = {
   onClick: PropTypes.func.isRequired,
@@ -17,8 +17,8 @@ VocabLockButton.defaultProps = {
 };
 
 function VocabLockButton({ isLocked, isSubmitting, onClick }) {
-  const icon = isLocked ? "LOCK_CLOSED" : "LOCK_OPEN";
-  const text = `${isLocked ? "Unlock" : "Lock"} Review`;
+  const icon = isLocked ? 'LOCK_CLOSED' : 'LOCK_OPEN';
+  const text = `${isLocked ? 'Unlock' : 'Lock'} Review`;
 
   return (
     <IconButton
@@ -27,15 +27,13 @@ function VocabLockButton({ isLocked, isSubmitting, onClick }) {
       name={icon}
       title={text}
       plainButton={false}
-      bgColor={grey}
-      colorHover={grey}
+      bgColor={grey[5]}
+      colorHover={grey[5]}
       onClick={onClick}
       isSubmitting={isSubmitting}
       data-ignore-hotkeys
     />
   );
 }
-
-// TODO: select hidden, lock/unlock dispatch from connect - only need to pass review id
 
 export default VocabLockButton;

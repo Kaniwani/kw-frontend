@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { isKanji } from 'wanakana';
 import { isEqual, merge } from 'lodash';
 
-import { greyLight, blackLight, purpleLight, purpleDark } from 'common/styles/colors';
+import { grey, black, purple } from 'common/styles/colors';
 import { rgba } from 'polished';
 
 import { Wrapper, Canvas, Controls, ControlButton } from './styles';
@@ -30,10 +30,10 @@ class KanjiStroke extends React.Component {
     config: {
       autoplay: true,
       stroke: {
-        order: { attr: { fill: blackLight } },
-        attr: { active: purpleDark, stroke: rgba(purpleLight, 0.7) },
+        order: { attr: { fill: black[2] } },
+        attr: { active: purple[6], stroke: rgba(purple[4], 0.7) },
       },
-      grid: { attr: { stroke: greyLight } },
+      grid: { attr: { stroke: grey[2] } },
     },
   };
 

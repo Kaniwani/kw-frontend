@@ -52,7 +52,7 @@ export class VocabList extends React.Component {
     showSecondary: false,
     showFuri: false,
     withSrsColors: false,
-    color: purple,
+    color: purple[5],
     tooltipSuffix: cuid(),
   };
 

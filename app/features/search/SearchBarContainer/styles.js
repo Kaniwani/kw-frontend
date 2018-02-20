@@ -3,7 +3,7 @@ import { transparentize, placeholder } from "polished";
 
 import { gutter } from "common/styles/layout";
 import { visuallyHidden } from "common/styles/utils";
-import { greyLight, blueLight } from "common/styles/colors";
+import { grey, blue } from "common/styles/colors";
 import { spin } from "common/styles/animation";
 
 import IconButton from "common/components/IconButton";
@@ -24,7 +24,7 @@ export const Label = styled.label`
 `;
 
 export const SubmitButton = styled(IconButton)`
-  background-color: ${blueLight};
+  background-color: ${blue[3]};
   padding-top: ${(inputHeight - iconHeight) / 2}em;
   padding-bottom: ${(inputHeight - iconHeight) / 2}em;
   /* shift icon to the left a little */
@@ -53,7 +53,7 @@ export const InputWrapper = styled.div`
   line-height: 1.75;
   padding-left: ${inputHeight / 2.25}em;
   padding-right: ${inputHeight / 2.25}em;
-  border: 1px solid ${transparentize(0.1, blueLight)};
+  border: 1px solid ${transparentize(0.1, blue[3])};
   border-right-width: 0;
   border-radius: ${inputHeight}em 0 0 ${inputHeight}em;
   display: flex;
@@ -65,8 +65,8 @@ export const InputWrapper = styled.div`
     box-shadow: none !important;
     border: none !important;
     width: 100%;
-    ${placeholder({ color: transparentize(0.1, greyLight) })} &:focus {
-      ${placeholder({ color: transparentize(0.5, greyLight) })} outline: none;
+    ${placeholder({ color: transparentize(0.1, grey[2]) })} &:focus {
+      ${placeholder({ color: transparentize(0.5, grey[2]) })} outline: none;
     }
 
     /*hide stupid X on IE*/

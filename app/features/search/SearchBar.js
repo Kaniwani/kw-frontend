@@ -4,7 +4,7 @@ import { reduxForm, Field, propTypes as formPropTypes } from 'redux-form';
 import { isMixed, isRomaji, isJapanese } from 'wanakana';
 
 import search from './actions';
-import { whiteLight, blueLight, yellow } from 'common/styles/colors';
+import { white, blue, yellow } from 'common/styles/colors';
 
 import { Form, SubmitButton, InputWrapper, Label } from './styles';
 
@@ -50,8 +50,8 @@ export function SearchBar({ labelText, placeholderText, submitting, handleSubmit
         type="submit"
         name={submitting ? 'SYNC' : 'SEARCH'}
         title={submitting ? 'Searching...' : 'Search'}
-        color={whiteLight}
-        bgColor={invalid ? yellow : blueLight}
+        color={white[2]}
+        bgColor={invalid ? yellow[5] : blue[3]}
         isSubmitting={submitting}
         submittingText=""
       />

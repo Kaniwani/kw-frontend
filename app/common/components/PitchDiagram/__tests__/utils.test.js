@@ -1,8 +1,10 @@
 import {
   isDigraph,
+  removeDigraphPitches,
   getMorae,
   getMoraCount,
   getPitchPatternName,
+  getPitchNum,
   makeHeiban,
   makeAtamadaka,
   makeOdaka,
@@ -162,6 +164,153 @@ describe('PitchDiagram utils', () => {
     it('sane default', () => expect(makeWeblioLink()).toMatchSnapshot());
     it('returns query by character', () => {
       expect(makeWeblioLink('悲しい')).toMatchSnapshot();
+    });
+  });
+});
+
+describe('reverse engineer pitchnum from pattern', () => {
+  describe('ojad format', () => {
+    it('こ', () => {
+      const reading = 'こ';
+      const pitchPattern = [0, 1];
+      const actual = getPitchNum(reading, pitchPattern, true);
+      const expected = 0;
+      expect(actual).toEqual(expected);
+      expect(makePitchPattern(getMoraCount(reading), actual)).toEqual(
+        removeDigraphPitches(reading, pitchPattern)
+      );
+    });
+  
+    it('て', () => {
+      const reading = 'て';
+      const pitchPattern = [1, 0];
+      const actual = getPitchNum(reading, pitchPattern, true);
+      const expected = 1;
+      expect(actual).toEqual(expected);
+      expect(makePitchPattern(getMoraCount(reading), actual)).toEqual(
+        removeDigraphPitches(reading, pitchPattern)
+      );
+    });
+  
+    it('たば', () => {
+      const reading = 'たば';
+      const pitchPattern = [1, 0, 0];
+      const actual = getPitchNum(reading, pitchPattern, true);
+      const expected = 1;
+      expect(actual).toEqual(expected);
+      expect(makePitchPattern(getMoraCount(reading), actual)).toEqual(
+        removeDigraphPitches(reading, pitchPattern)
+      );
+    });
+  
+    it('なんがつ', () => {
+      const reading = 'なんがつ';
+      const pitchPattern = [1, 0, 0, 0, 0];
+      const actual = getPitchNum(reading, pitchPattern, true);
+      const expected = 1;
+      expect(actual).toEqual(expected);
+      expect(makePitchPattern(getMoraCount(reading), actual)).toEqual(
+        removeDigraphPitches(reading, pitchPattern)
+      );
+    });
+  
+    it('えだ', () => {
+      const reading = 'えだ';
+      const pitchPattern = [0, 1, 1];
+      const actual = getPitchNum(reading, pitchPattern, true);
+      const expected = 0;
+      expect(actual).toEqual(expected);
+      expect(makePitchPattern(getMoraCount(reading), actual)).toEqual(
+        removeDigraphPitches(reading, pitchPattern)
+      );
+    });
+  
+    it('ようき', () => {
+      const reading = 'ようき';
+      const pitchPattern = [0, 1, 1, 1];
+      const actual = getPitchNum(reading, pitchPattern, true);
+      const expected = 0;
+      expect(actual).toEqual(expected);
+      expect(makePitchPattern(getMoraCount(reading), actual)).toEqual(
+        removeDigraphPitches(reading, pitchPattern)
+      );
+    });
+  
+    it('ひがしぐち', () => {
+      const reading = 'ひがしぐち';
+      const pitchPattern = [0, 1, 1, 1, 1, 1];
+      const actual = getPitchNum(reading, pitchPattern, true);
+      const expected = 0;
+      expect(actual).toEqual(expected);
+      expect(makePitchPattern(getMoraCount(reading), actual)).toEqual(
+        removeDigraphPitches(reading, pitchPattern)
+      );
+    });
+  
+    it('くみ', () => {
+      const reading = 'くみ';
+      const pitchPattern = [0, 1, 0];
+      const actual = getPitchNum(reading, pitchPattern, true);
+      const expected = 2;
+      expect(actual).toEqual(expected);
+      expect(makePitchPattern(getMoraCount(reading), actual)).toEqual(
+        removeDigraphPitches(reading, pitchPattern)
+      );
+    });
+  
+    it('きゅうけいじょ', () => {
+      const reading = 'きゅうけいじょ';
+      const pitchPattern = [0, 0, 1, 1, 1, 1, 1, 1];
+      const actual = getPitchNum(reading, pitchPattern, true);
+      const expected = 0;
+      expect(actual).toEqual(expected);
+      expect(makePitchPattern(getMoraCount(reading), actual)).toEqual(
+        removeDigraphPitches(reading, pitchPattern)
+      );
+    });
+  
+    it('ふらんすじん', () => {
+      const reading = 'ふらんすじん';
+      const pitchPattern = [0, 1, 1, 1, 0, 0, 0];
+      const actual = getPitchNum(reading, pitchPattern, true);
+      const expected = 4;
+      expect(actual).toEqual(expected);
+      expect(makePitchPattern(getMoraCount(reading), actual)).toEqual(
+        removeDigraphPitches(reading, pitchPattern)
+      );
+    });
+  
+    it('かいぎしつ', () => {
+      const reading = 'かいぎしつ';
+      const pitchPattern = [0, 1, 1, 0, 0, 0];
+      const actual = getPitchNum(reading, pitchPattern, true);
+      const expected = 3;
+      expect(actual).toEqual(expected);
+      expect(makePitchPattern(getMoraCount(reading), actual)).toEqual(
+        removeDigraphPitches(reading, pitchPattern)
+      );
+    });
+  
+    it('おとこのひと', () => {
+      const reading = 'おとこのひと';
+      const pitchPattern = [0, 1, 1, 1, 1, 1, 0];
+      const actual = getPitchNum(reading, pitchPattern, true);
+      const expected = 6;
+      expect(actual).toEqual(expected);
+      expect(makePitchPattern(getMoraCount(reading), actual)).toEqual(
+        removeDigraphPitches(reading, pitchPattern)
+      );
+    });
+  
+    it('りょこうしゃ', () => {
+      const reading = 'りょこうしゃ';
+      const pitchPattern = [0, 0, 1, 0, 0, 0, 0];
+      const actual = getPitchNum(reading, pitchPattern, true);
+      const expected = 2;
+      expect(actual).toEqual(expected);
+      expect(makePitchPattern(getMoraCount(reading), actual)).toEqual(
+        removeDigraphPitches(reading, pitchPattern)
+      );
     });
   });
 });

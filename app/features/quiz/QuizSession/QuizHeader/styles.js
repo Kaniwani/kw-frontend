@@ -1,9 +1,7 @@
-import styled, { css } from 'styled-components';
-import { lighten, darken } from 'polished';
-
+import styled from 'styled-components';
 import { resetList, fluidType } from 'common/styles/utils';
 import { gutter } from 'common/styles/layout';
-import { white, whiteLight, blackLight, transparent } from 'common/styles/colors';
+import { white, black, transparent } from 'common/styles/colors';
 
 const barHeight = 6;
 
@@ -12,7 +10,7 @@ export const Wrapper = styled.div`
   position: relative;
   padding-top: ${barHeight + 2}px !important;
   width: 100%;
-  color: ${white};
+  color: ${white[5]};
   ${fluidType(16, 22)}
   line-height: 1;
   display: flex;
@@ -27,14 +25,14 @@ export const Bar = styled.div`
   left: 0;
   width: 100%;
   height: ${barHeight}px !important;
-  background-color: ${blackLight};
+  background-color: ${black[2]};
   opacity: .75;
   overflow: hidden;
 `;
 
 export const Percentage = styled.span`
   display: block;
-  background-color: ${whiteLight};
+  background-color: ${white[2]};
   height: 100%;
 `;
 

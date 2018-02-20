@@ -4,7 +4,7 @@ import H2 from 'common/components/H2';
 import P from 'common/components/P';
 import BGImg from 'common/components/BackgroundImg';
 
-import { pink, greyDark } from 'common/styles/colors';
+import { pink, grey } from 'common/styles/colors';
 import { kilo, godzilla } from 'common/styles/typography';
 import { media } from 'common/styles/media';
 
@@ -28,7 +28,7 @@ export const BackgroundImg = BGImg.extend`
 
 export const Title = H1.extend`
   ${kilo}
-  color: ${pink};
+  color: ${pink[5]};
   ${media().md`
     ${godzilla}
     margin-left: auto;
@@ -37,7 +37,7 @@ export const Title = H1.extend`
 `;
 
 const textStyle = css`
-  color: ${greyDark};
+  color: ${grey[8]};
   ${media().md`
     max-width: 800px;
     margin-left: auto;

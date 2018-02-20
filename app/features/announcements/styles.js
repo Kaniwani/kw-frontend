@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { gutter } from 'common/styles/layout';
-import { whiteDark } from 'common/styles/colors';
+import { white } from 'common/styles/colors';
 
 import H4 from 'common/components/H4';
 
@@ -19,7 +19,7 @@ export const Article = styled.article`
 
 export const Header = styled.header`
   display: flex;
-  ${({ borderActive }) => borderActive && `border-bottom: 2px solid ${whiteDark};`}
+  ${({ borderActive }) => borderActive && `border-bottom: 2px solid ${white[7]};`}
 `;
 
 export const Title = styled.div`

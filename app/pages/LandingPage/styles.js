@@ -17,8 +17,8 @@ export const Title = H1.extend`
   letter-spacing: -0.04em;
   padding-top: .3em;
   padding-bottom: .3em;
-  color: ${lighten(0.1, purple)};
-  text-shadow: 0 .05rem .1rem ${transparentize(0.2, darken(0.3, purple))};
+  color: ${lighten(0.1, purple[5])};
+  text-shadow: 0 .05rem .1rem ${transparentize(0.2, darken(0.3, purple[5]))};
   text-align: center;
   z-index: 2;
 `;

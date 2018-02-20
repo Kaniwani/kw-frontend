@@ -11,11 +11,11 @@ export const Upper = styled.section`
   display: flex;
   flex-direction: column;
   min-height: 30vh;
-  color: ${white};
+  color: ${white[5]};
 
   ${({ bgColor }) => css`
     background-color: ${bgColor};
-    background-image: linear-gradient(180deg, ${lighten(0.05, bgColor)}, ${darken(0.05, bgColor)});
+    background-image: linear-gradient(180deg, ${lighten(0.01, bgColor)}, ${darken(0.02, bgColor)});
     background-repeat: repeat-x;
   `}
 

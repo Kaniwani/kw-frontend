@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Sector } from 'recharts';
-import { greyDark, blackLight } from 'common/styles/colors';
+import { grey, black } from 'common/styles/colors';
 
 renderActiveShape.propTypes = {
   cx: PropTypes.number.isRequired,
@@ -28,10 +28,18 @@ function renderActiveShape({
 }) {
   return (
     <g>
-      <text x={cx} y={cy} dy={-2} textAnchor="middle" fill={greyDark} style={{ fontSize: '.95rem' }}>
+      <text x={cx} y={cy} dy={-2} textAnchor="middle" fill={grey[8]} style={{ fontSize: '.95rem' }}>
         {payload.name}
       </text>
-      <text x={cx} y={cy} dx={2} dy={16} textAnchor="middle" fill={blackLight} style={{ fontSize: '.95rem', fontWeight: 600 }}>
+      <text
+        x={cx}
+        y={cy}
+        dx={2}
+        dy={16}
+        textAnchor="middle"
+        fill={black[2]}
+        style={{ fontSize: '.95rem', fontWeight: 600 }}
+      >
         {`${(percent * 100).toFixed(1)}%`}
       </text>
       <Sector

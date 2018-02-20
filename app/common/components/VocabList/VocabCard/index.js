@@ -6,7 +6,7 @@ import VocabWord from 'common/components/VocabWord';
 import VocabMeaning from 'common/components/VocabMeaning';
 import getSrsRankName from 'common/utils/getSrsRankName';
 import { selectStreak, selectPrimaryVocabId } from 'features/reviews/selectors';
-import { whiteLight, purple, SRS_COLORS } from 'common/styles/colors';
+import { white, purple, SRS_COLORS } from 'common/styles/colors';
 
 import { Wrapper, Link } from './styles';
 
@@ -22,8 +22,8 @@ VocabCard.propTypes = {
 VocabCard.defaultProps = {
   showSecondary: false,
   showFuri: false,
-  bgColor: purple,
-  textColor: whiteLight,
+  bgColor: purple[5],
+  textColor: white[2],
 };
 
 export function VocabCard({ id, vocabId, showFuri, showSecondary, textColor, bgColor, ...props }) {
@@ -37,10 +37,11 @@ export function VocabCard({ id, vocabId, showFuri, showSecondary, textColor, bgC
   );
 }
 
+// FIXME: use readableColor() instead of textColor ternary below
 const mapStateToProps = (state, props) => {
   const streak = selectStreak(state, props);
   const vocabId = selectPrimaryVocabId(state, props);
-  const textColor = props.withSrsColors && streak === 0 ? '#444' : props.textColor;
+  const textColor = props.withSrsColors ? white[1] : props.textColor;
   const bgColor = props.withSrsColors ? SRS_COLORS[getSrsRankName(streak)] : props.bgColor;
 
   return {

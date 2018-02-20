@@ -5,7 +5,7 @@ import getSrsRankName from 'common/utils/getSrsRankName';
 import Icon from 'common/components/Icon';
 import StreakIcon from 'common/components/StreakIcon';
 import { SRS_RANKS } from 'common/constants';
-import { blackLight, white, SRS_COLORS } from 'common/styles/colors';
+import { white, orange, SRS_COLORS } from 'common/styles/colors';
 import { FlyoverWrapper, FlyoverContent } from './styles';
 
 Flyover.propTypes = {
@@ -22,8 +22,8 @@ const getChanges = (isIgnored, from, to) => {
       toName: IGNORED,
       hasChanged: true,
       animateUp: true,
-      backgroundColor: 'orange',
-      color: blackLight,
+      bgColor: orange[4],
+      color: white[1],
     };
   }
   const [fromName, toName] = [from, to].map(getSrsRankName);
@@ -32,7 +32,7 @@ const getChanges = (isIgnored, from, to) => {
     hasChanged: fromName !== toName && toName !== SRS_RANKS.ZERO,
     animateUp: to > from,
     color: SRS_COLORS[toName],
-    backgroundColor: white,
+    bgColor: white[2],
   };
 };
 

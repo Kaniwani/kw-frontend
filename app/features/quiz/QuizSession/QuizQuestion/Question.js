@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Aux from 'common/components/Aux';
 import Spinner from 'common/components/Spinner';
-import { white, whiteLight } from 'common/styles/colors';
+import { white } from 'common/styles/colors';
 import { MeaningsWrapper, Meanings, Primary, Secondary } from './styles';
 
 Question.propTypes = {
@@ -20,7 +20,7 @@ export function Question({ primaryMeaning, secondaryMeanings }) {
     <MeaningsWrapper>
       <Meanings>
         {!primaryMeaning ? (
-          <Spinner color1={white} color2={whiteLight} />
+          <Spinner color1={white[5]} color2={white[2]} />
         ) : (
           <Aux>
             <Primary>{primaryMeaning}</Primary>

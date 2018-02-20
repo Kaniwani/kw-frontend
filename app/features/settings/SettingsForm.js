@@ -125,7 +125,7 @@ export function SettingsForm({ handleSubmit, submitting, submitSucceeded, dirty 
         </SubSection>
       </Section>
       <Controls>
-        <Button bgColor={dirty ? orange : blue} type="submit">
+        <Button bgColor={dirty ? orange[5] : blue[5]} type="submit">
           {submitting ? 'Saving' : submitSucceeded && !dirty ? 'Saved' : 'Save'}
         </Button>
       </Controls>

@@ -5,7 +5,7 @@ import BackgroundImg from 'common/components/BackgroundImg';
 import Ul from 'common/components/Ul';
 
 import { gutter, centerByPadding } from 'common/styles/layout';
-import { white, whiteLight, whiteDark, black, blackDark } from 'common/styles/colors';
+import { white, black } from 'common/styles/colors';
 import { bottomLight } from 'common/styles/shadows';
 
 export const Header = styled.header`
@@ -13,7 +13,7 @@ export const Header = styled.header`
   ${gutter({ prop: 'margin', position: 'bottom', type: 'outer' })} /* logo unfortunately adds height already */
   grid-area: Header;
   position: relative;
-  background: linear-gradient(to bottom, ${white}, ${whiteLight});
+  background: linear-gradient(to bottom, ${white[5]}, ${white[2]});
   box-shadow: ${bottomLight};
 `;
 
@@ -40,8 +40,8 @@ export const Footer = styled.footer`
   position: relative;
   grid-area: Footer;
   margin-top: auto;
-  background: linear-gradient(160deg, ${black}, ${blackDark});
-  color: ${whiteDark};
+  background: linear-gradient(160deg, ${black[5]}, ${black[8]});
+  color: ${white[7]};
 `;
 
 export const CrabigatorStencil = BackgroundImg.extend`

@@ -103,3 +103,22 @@ export function makeNakadaka(moraCount = 0, pitchNum = 0) {
   if (moraCount < 3 || pitchNum < 2 || pitchNum >= moraCount) return [];
   return [0, ...Array(pitchNum - 1).fill(1), ...Array(moraCount - pitchNum).fill(0), 0];
 }
+
+export function removeDigraphPitches(reading, pattern) {
+  return pattern.filter((x, i) => !isDigraph(reading[i]));
+}
+
+// ojad results include digraphs in pitch pattern, so we need to strip those to match our style
+export function getPitchNum(reading = '', pitchPattern = [], digraphsIncluded = false) {
+  let pattern = pitchPattern.slice();
+  const particle = pattern.pop();
+  const isHeiban = particle === 1;
+  if (isHeiban) {
+    return 0;
+  }
+  if (digraphsIncluded) {
+    pattern = removeDigraphPitches(reading, pattern);
+  }
+  pattern = pattern.slice(1);
+  return pattern.findIndex((x) => x === 0) + 1 || pattern.length + 1;
+}

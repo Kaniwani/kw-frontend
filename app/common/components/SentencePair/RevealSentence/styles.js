@@ -5,7 +5,7 @@ import Icon from "common/components/Icon";
 
 import { gutter } from "common/styles/layout";
 import { borderRadius } from "common/styles/sizing";
-import { greyDark, transparent } from "common/styles/colors";
+import { grey, transparent } from "common/styles/colors";
 import { fastEaseQuad, midEaseQuad } from "common/styles/animation";
 
 export const Wrapper = styled.div`
@@ -20,7 +20,7 @@ export const RevealIcon = styled(Icon)`
   transition: opacity ${fastEaseQuad};
   transform: translate(-50%, -50%);
   z-index: 1;
-  color: ${greyDark};
+  color: ${grey[8]};
   pointer-events: none;
 `;
 
@@ -40,7 +40,7 @@ export const Sentence = P.extend`
   &:focus {
     transition: all ${midEaseQuad};
     outline: none;
-    color: ${greyDark};
+    color: ${grey[8]};
     text-shadow: none;
     & ${RevealIcon} {
       transition: opacity ${midEaseQuad};

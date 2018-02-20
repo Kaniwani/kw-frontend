@@ -9,7 +9,7 @@ import { shadowBox, innerMedium } from 'common/styles/shadows';
 import { kilo } from 'common/styles/typography';
 import { gutter } from 'common/styles/layout';
 import { fastEaseQuad, shake } from 'common/styles/animation';
-import { transparent, white, whiteLight, whiteDark, black, yellowOrange, red, green } from 'common/styles/colors';
+import { transparent, white, black, yellow, red, green } from 'common/styles/colors';
 import { backgroundImageColor } from 'features/quiz/QuizSession/styles';
 
 /* eslint-disable indent */
@@ -17,7 +17,7 @@ export const AnswerWrapper = styled.div`
   position: relative;
   display: flex;
   color: currentColor;
-  background-color: ${whiteLight};
+  background-color: ${white[2]};
   ${shadowBox}
 `;
 
@@ -26,7 +26,7 @@ export const Form = styled.form`
   ${kilo}
   max-width: 100%;
   background-color: ${backgroundImageColor};
-  color: ${({ marked, valid }) => marked && valid ? white : black};
+  color: ${({ marked, valid }) => marked && valid ? white[5] : black[5]};
   border: 0;
   border-radius: 0;
   outline: none;
@@ -63,11 +63,11 @@ export const Input = styled.input`
   transition: all ${fastEaseQuad};
 
   &:placeholder-shown {
-    ${placeholder({ color: whiteDark })} /* focused input placeholder text color */
+    ${placeholder({ color: white[7] })} /* focused input placeholder text color */
   }
 
   ${({ marked, valid }) => {
-    const color = valid ? white : black;
+    const color = valid ? white[5] : black[5];
     return marked && css`
       color: ${color}; /* Override Android / IE font color change */
       -webkit-opacity: 1; /* Override iOS opacity change affecting text & background color */
@@ -134,9 +134,9 @@ function bgColorMixin({
   incorrect,
 }) {
   switch (true) {
-    case marked && !valid: return `background-color: ${yellowOrange};`;
-    case correct: return `background-color: ${green};`;
-    case incorrect: return `background-color: ${red};`;
+    case marked && !valid: return `background-color: ${yellow[7]};`;
+    case correct: return `background-color: ${green[5]};`;
+    case incorrect: return `background-color: ${red[5]};`;
     default: return false;
   }
 }

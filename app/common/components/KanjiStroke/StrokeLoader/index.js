@@ -1,17 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import { selectWord } from 'features/vocab/selectors';
 import { selectKanjiStrokeSettings } from 'features/user/selectors';
 
-import Aux from "common/components/Aux";
-import Toggle from "common/components/Toggle";
-import IconButton from "common/components/IconButton";
-import KanjiStroke from "../KanjiStroke";
+import Aux from 'common/components/Aux';
+import Toggle from 'common/components/Toggle';
+import IconButton from 'common/components/IconButton';
+import KanjiStroke from '../KanjiStroke';
 
-import { greyLight } from "common/styles/colors";
+import { grey } from 'common/styles/colors';
 import { gutter } from 'common/styles/layout';
 
 // prettier-ignore
@@ -44,8 +44,8 @@ export function StrokeLoader({ word, settings }) {
             name="BRUSH"
             title="View stroke diagram"
             plainButton={false}
-            bgColor={greyLight}
-            colorHover={greyLight}
+            bgColor={grey[2]}
+            colorHover={grey[2]}
             onClick={toggle}
             data-ignore-hotkeys
             render={({ Icon }) => (
@@ -54,8 +54,7 @@ export function StrokeLoader({ word, settings }) {
                 {Icon}
               </Aux>
             )}
-          >
-          </IconButton>
+          />
         )
       }
     />

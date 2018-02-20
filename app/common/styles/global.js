@@ -1,13 +1,7 @@
 import { injectGlobal } from 'styled-components';
-import { blackLight, whiteLight } from 'common/styles/colors';
+import { black, white } from 'common/styles/colors';
 
-import {
-  ffBody,
-  ffHeading,
-  ffJapanese,
-  epsilon,
-  milli,
-} from 'common/styles/typography';
+import { ffBody, ffHeading, ffJapanese, epsilon, milli } from 'common/styles/typography';
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
@@ -29,8 +23,8 @@ injectGlobal`
     margin: 0;
     padding: 0;
     font-family: ${ffBody};
-    color: ${blackLight};
-    background-color: ${whiteLight};
+    color: ${black[4]};
+    background-color: ${white[2]};
     line-height: 1;
     display: flex;
     flex-direction: column;

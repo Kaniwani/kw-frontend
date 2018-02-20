@@ -27,9 +27,9 @@ export const PLACEHOLDERS = {
 };
 
 const COLORS = {
-  CORRECT: green,
-  INCORRECT: red,
-  CRITICAL: orange,
+  CORRECT: green[5],
+  INCORRECT: red[5],
+  CRITICAL: orange[5],
 };
 
 QuizSummarySection.propTypes = {
@@ -41,7 +41,7 @@ QuizSummarySection.propTypes = {
 
 QuizSummarySection.defaultProps = {
   sectionType: SECTION_TYPES.CORRECT,
-  color: purple,
+  color: purple[5],
   cardsExpanded: false,
 };
 

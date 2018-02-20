@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { greyDark } from 'common/styles/colors';
+import { grey } from 'common/styles/colors';
 
-const DayTick = ({
-  x, y, width, height, payload: { value },
-}) =>
+const DayTick = ({ x, y, width, height, payload: { value } }) =>
   value ? (
     <g>
       <text
@@ -16,7 +14,7 @@ const DayTick = ({
         dx={0}
         dy={-10}
         textAnchor="middle"
-        fill={greyDark}
+        fill={grey[8]}
         fontSize=".85rem"
       >
         {value}

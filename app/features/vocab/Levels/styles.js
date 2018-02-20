@@ -5,7 +5,7 @@ import A from 'common/components/A';
 import H2 from 'common/components/H2';
 import LockButton from 'common/components/LockButton';
 import { gutter } from 'common/styles/layout';
-import { white, greyLight, blueLight, purpleLight } from 'common/styles/colors';
+import { white, grey, blue, purple } from 'common/styles/colors';
 import { fastEaseQuad, wobble, spin } from 'common/styles/animation';
 import { resetList } from 'common/styles/utils';
 
@@ -15,11 +15,11 @@ export const List = styled.ul`
   ${gutter({ prop: 'margin', position: 'horizontal', mod: 3 })}
   display: flex;
   flex-flow: row wrap;
-  border: 1px solid ${rgba(greyLight, 0.5)};
+  border: 1px solid ${rgba(grey[2], 0.5)};
   & > li {
     ${gutter({ type: 'inner', position: 'horizontal' })}
     flex: 1 1 400px;
-    border: 1px solid ${rgba(greyLight, 0.5)};
+    border: 1px solid ${rgba(grey[2], 0.5)};
   }
 `;
 
@@ -55,7 +55,7 @@ export const Button = styled(LockButton)`
 
 export const Wrapper = styled.li`
   display: flex;
-  background-color: ${white};
+  background-color: ${white[5]};
   transition: background-color ${fastEaseQuad};
   ${({ isActionable, isLocked }) => (isLocked || !isActionable) && css`
     & ${Link} {
@@ -65,16 +65,16 @@ export const Wrapper = styled.li`
 
   ${({ isActionable, isLocked }) => isActionable && !isLocked ? css`
     &:hover {
-      color: ${white};
-      background-color: ${rgba(purpleLight, 0.7)};
+      color: ${white[5]};
+      background-color: ${rgba(purple[4], 0.7)};
     }` : css`
-    color: ${greyLight};
+    color: ${grey[2]};
   `}
 
   ${({ isActionable, isLocked }) => isActionable && css`
     &:hover {
       & ${Button} {
-        color: ${isLocked ? rgba(purpleLight, 0.7) : 'currentColor'};
+        color: ${isLocked ? rgba(purple[4], 0.7) : 'currentColor'};
         animation: ${wobble} 1s linear infinite;
         &:hover {
           animation: none;
@@ -99,7 +99,7 @@ export const Wrapper = styled.li`
 
     & ${Button} {
       opacity: 1;
-      color: ${blueLight} !important;
+      color: ${blue[3]} !important;
       animation: ${spin} 1.5s linear infinite !important;
     }
   `}

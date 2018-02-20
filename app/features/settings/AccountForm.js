@@ -33,7 +33,7 @@ function AccountForm({ currentLevel, handleSubmit, submitting, submitSucceeded }
           <H4>Reset Kaniwani Progress</H4>
           <Field
             name="resetLevel"
-            label="Continue from level:"
+            label="Reset to start of level:"
             component={RangeField}
             min={1}
             max={currentLevel}

@@ -6,7 +6,7 @@ import { gutter } from 'common/styles/layout';
 import { visuallyHidden } from 'common/styles/utils';
 import { zeta } from 'common/styles/typography';
 import { borderRadius } from 'common/styles/sizing';
-import { greyLight, grey } from 'common/styles/colors';
+import { grey } from 'common/styles/colors';
 
 export const Block = styled.div`
   ${gutter()}
@@ -42,13 +42,13 @@ export const Label = styled.label`
 export const TextArea = styled(TextareaAutosize)`
   ${gutter({ prop: 'margin' })}
   ${gutter({ type: 'outer', prop: 'padding' })}
-  ${placeholder({ color: grey })};
+  ${placeholder({ color: grey[5] })};
   ${zeta}
   resize: none;
   border-radius: ${borderRadius};
-  border: 1px solid ${greyLight};
+  border: 1px solid ${grey[2]};
 
   &:not(:focus) {
-    border: 1px dashed ${greyLight};
+    border: 1px dashed ${grey[2]};
   }
 `;

@@ -55,8 +55,8 @@ export function AddSynonymForm({ handleSubmit, submitting, answerValue, answerTy
         style={{ maxWidth: '5em' }}
         type="submit"
         title="Add Synonym"
-        colorHover={blue}
-        bgColor={blue}
+        colorHover={blue[7]}
+        bgColor={blue[5]}
         disabled={submitting}
       >
         {submitting ? 'Adding' : 'Add'}

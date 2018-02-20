@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
-import { whiteLight } from 'common/styles/colors';
+import { white } from 'common/styles/colors';
 
 import IconButton from 'common/components/IconButton';
 
@@ -31,7 +31,7 @@ const Overlay = styled.div`
   left: 3vmin;
   height: calc(100% - 6vmin);
   width: calc(100% - 6vmin);
-  background-color: ${whiteLight};
+  background-color: ${white[1]};
   opacity: 0.9;
 `;
 

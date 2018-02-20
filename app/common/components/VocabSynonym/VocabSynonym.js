@@ -1,12 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import { selectSynonymById } from "features/synonyms/selectors";
-import synonyms from "features/synonyms/actions";
-import { VocabWord } from "common/components/VocabWord";
-import Button from "common/components/Button";
-import { red } from "common/styles/colors";
+import { selectSynonymById } from 'features/synonyms/selectors';
+import synonyms from 'features/synonyms/actions';
+import { VocabWord } from 'common/components/VocabWord';
+import Button from 'common/components/Button';
+import { red } from 'common/styles/colors';
 
 VocabSynonym.propTypes = {
   word: PropTypes.string.isRequired,
@@ -19,10 +19,10 @@ export function VocabSynonym({ word, primaryReading, onRemove }) {
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <VocabWord word={word} primaryReading={primaryReading} />
       <Button
-        style={{ maxWidth: "5em" }}
+        style={{ maxWidth: '5em' }}
         title="Remove Synonym"
-        colorHover={red}
-        bgColor={red}
+        colorHover={red[5]}
+        bgColor={red[5]}
         onClick={onRemove}
       >
         Remove

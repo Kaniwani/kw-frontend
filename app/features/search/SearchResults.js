@@ -39,12 +39,12 @@ export function SearchResults({ ids, isSearching, isSearchComplete, onReset }) {
         <Element flexRow flexCenter>
           <H3>{(isSearching && 'Searching...') || wordsFoundText}</H3>
           {isSearchComplete && (
-            <Button bgColor={orange} colorHover={orange} onClick={onReset}>
+            <Button bgColor={orange[5]} colorHover={orange[5]} onClick={onReset}>
               Clear Results
             </Button>
           )}
         </Element>
-        <VocabList ids={ids} color={blue} showSecondary showFuri />
+        <VocabList ids={ids} color={blue[5]} showSecondary showFuri />
       </Container>
     )
   );

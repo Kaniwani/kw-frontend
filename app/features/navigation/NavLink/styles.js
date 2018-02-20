@@ -4,7 +4,7 @@ import A from 'common/components/A';
 
 import { rubberBand } from 'common/styles/animation';
 import { resetButton } from 'common/styles/utils';
-import { blackLight, grey, pink, blueLight, purple } from 'common/styles/colors';
+import { black, grey, pink, blue, purple } from 'common/styles/colors';
 import { epsilon, giga } from 'common/styles/typography';
 import { gutter } from 'common/styles/layout';
 
@@ -33,7 +33,7 @@ export const Text = styled.span`
     left: 50%;
     opacity: 0;
     height: 3px;
-    background: ${purple};
+    background: ${purple[5]};
     transition: all .3s ease-out;
     transform: translateX(-50%);
   }
@@ -42,7 +42,7 @@ export const Text = styled.span`
 export const Count = styled.div`
   padding-top: 1px;
   margin-left: 5px;
-  color: ${({ disabled }) => disabled ? grey : blueLight};
+  color: ${({ disabled }) => disabled ? grey[5] : blue[4]};
   transform: scale3d(1, 1, 1);
   animation-duration: 0.9s;
   animation-fill-mode: both;
@@ -73,7 +73,7 @@ const linkStyle = css`
   }
 
   ${({ disabled, isOffCanvas }) => disabled && css`
-    color: ${isOffCanvas ? blackLight : grey };
+    color: ${isOffCanvas ? black[2] : grey[5]};
     pointer-events: none;
   `}
 `;
@@ -118,7 +118,7 @@ export const Li = styled.li`
     }
 
     & ${Count} {
-      color: ${pink};
+      color: ${pink[5]};
     }
   `};
 

@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import Button from "common/components/Button";
+import Button from 'common/components/Button';
 
-import { orange } from "common/styles/colors";
-import { Controls, Count } from "./styles";
+import { orange } from 'common/styles/colors';
+import { Controls, Count } from './styles';
 
 TextAreaControls.propTypes = {
   maxLength: PropTypes.number,
@@ -17,20 +17,14 @@ TextAreaControls.propTypes = {
 TextAreaControls.defaultProps = {
   maxLength: 1000,
   textLength: 0,
-  submitButtonText: "Submit",
+  submitButtonText: 'Submit',
 };
 
-function TextAreaControls({
-  maxLength,
-  textLength,
-  onReset,
-  submitButtonText,
-  ...props
-}) {
+function TextAreaControls({ maxLength, textLength, onReset, submitButtonText, ...props }) {
   const remaining = maxLength - textLength;
   return (
     <Controls {...props}>
-      <Button type="reset" onClick={onReset} bgColor={orange} colorHover={orange}>
+      <Button type="reset" onClick={onReset} bgColor={orange[5]} colorHover={orange[5]}>
         Reset
       </Button>
       <Button type="submit">{submitButtonText}</Button>

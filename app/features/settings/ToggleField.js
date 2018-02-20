@@ -11,7 +11,7 @@ const TRACK_HEIGHT = 1.3;
 const getSizes = (size) => {
   const trackHeight = TRACK_HEIGHT * size;
   const trackWidth = TRACK_WIDTH * size;
-  let switchWidth = (trackWidth / 2) - 0.2;
+  let switchWidth = trackWidth / 2 - 0.2;
   switchWidth = switchWidth > trackHeight ? trackHeight : switchWidth;
 
   return {
@@ -28,16 +28,13 @@ ToggleField.propTypes = {
   size: PropTypes.number,
   checkedColor: PropTypes.string,
   uncheckedColor: PropTypes.string,
-  note: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element,
-  ]),
+  note: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 };
 
 ToggleField.defaultProps = {
   size: 1,
-  checkedColor: green,
-  uncheckedColor: red,
+  checkedColor: green[5],
+  uncheckedColor: red[5],
   note: '',
 };
 
@@ -54,7 +51,7 @@ function ToggleField({ input, label, size, checkedColor, uncheckedColor, note })
           {...getSizes(size)}
           {...input}
         />
-        <span className="toggle-display"></span>
+        <span className="toggle-display" />
         <span>{label || input.name}</span>
       </ToggleLabel>
       {note && <Note>{note}</Note>}

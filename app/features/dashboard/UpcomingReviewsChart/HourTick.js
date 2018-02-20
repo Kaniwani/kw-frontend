@@ -1,17 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { greyDark } from 'common/styles/colors';
+import { grey } from 'common/styles/colors';
 
 const HourTick = ({ x, y, payload }) => (
   <g transform={`translate(${x},${y})`}>
-    <text
-      x={0}
-      y={0}
-      dy={18}
-      textAnchor="middle"
-      fill={greyDark}
-    >
+    <text x={0} y={0} dy={18} textAnchor="middle" fill={grey[8]}>
       {payload.value}
     </text>
   </g>

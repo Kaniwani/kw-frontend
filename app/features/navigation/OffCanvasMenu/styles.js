@@ -1,7 +1,7 @@
 import styled, { css, injectGlobal } from 'styled-components';
 import { rgba, lighten } from 'polished';
 
-import { whiteLight, purpleLight } from 'common/styles/colors';
+import { white, purple } from 'common/styles/colors';
 import { resetList } from 'common/styles/utils';
 import { midEaseQuad } from 'common/styles/animation';
 
@@ -21,8 +21,8 @@ injectGlobal`
 `;
 /* eslint-enable */
 
-const gradient1 = rgba(purpleLight, 0.95);
-const gradient2 = rgba(lighten(0.1, purpleLight), 0.95);
+const gradient1 = rgba(purple[4], 0.95);
+const gradient2 = rgba(lighten(0.1, purple[4]), 0.95);
 
 export const Wrapper = styled.nav`
   position: fixed;
@@ -31,7 +31,7 @@ export const Wrapper = styled.nav`
   top: 0;
   right: 0;
   background-image: linear-gradient(160deg, ${gradient1} 10%, ${gradient2} 100%);
-  color: ${whiteLight};
+  color: ${white[2]};
   z-index: 10;
   visibility: hidden;
   transform: translateX(100%);

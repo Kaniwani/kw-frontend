@@ -18,7 +18,7 @@ export const MeaningsWrapper = styled.div`
 
 export const Meanings = styled.h1`
   ${centerByMargin};
-  color: ${white};
+  color: ${white[5]};
   text-transform: capitalize;
   letter-spacing: -0.03em;
   padding: 4vmax .5rem;
@@ -68,9 +68,9 @@ export const FlyoverContent = H4.extend`
   opacity: 0;
   text-transform: capitalize;
 
-  ${({ hasChanged, animateUp, backgroundColor, color }) => hasChanged && css`
+  ${({ hasChanged, animateUp, bgColor, color }) => hasChanged && css`
       color: ${color};
-      background-color: ${backgroundColor};
+      background-color: ${bgColor};
       animation: ${animateUp ? srsRankUp : srsRankDown} 0.7s ease 0s 1 normal both running;
     `}
 

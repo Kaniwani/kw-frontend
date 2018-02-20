@@ -20,7 +20,7 @@ export const BackgroundImg = BGImg.extend`
 
 export const Title = H1.extend`
   ${fluidType(30, 90, 400, 2000)}
-  color: ${white};
+  color: ${white[5]};
   text-align: center;
   line-height: 1;
   ${media().md`
@@ -35,7 +35,7 @@ export const Title = H1.extend`
 
 const textStyle = css`
   ${fluidType(22, 45, 400, 2000)}
-  color: ${white};
+  color: ${white[5]};
   font-weight: 400;
   text-align: center;
   ${media().md`

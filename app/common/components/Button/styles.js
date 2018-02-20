@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { mix, lighten } from 'polished';
 
-import { greyDark } from 'common/styles/colors';
+import { grey } from 'common/styles/colors';
 import { epsilon } from 'common/styles/typography';
 import { fastEaseQuad } from 'common/styles/animation';
 import { resetButton } from 'common/styles/utils';
@@ -46,8 +46,8 @@ const buttonStyle = css`
 
     &:disabled {
       cursor: not-allowed;
-      background-color: ${({ bgColor }) => mix(0.5, bgColor, greyDark)};
-      border-color: ${({ bgColor }) => mix(0.5, bgColor, greyDark)};
+      background-color: ${({ bgColor }) => mix(0.5, bgColor, grey[8])};
+      border-color: ${({ bgColor }) => mix(0.5, bgColor, grey[8])};
     }
 
     &:not(:disabled) {

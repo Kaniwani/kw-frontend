@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { transparentize } from 'polished';
-import { blueLight } from 'common/styles/colors';
+import { blue } from 'common/styles/colors';
 
 import { StyledMark } from './styles';
 
@@ -11,14 +11,12 @@ Mark.propTypes = {
 };
 
 Mark.defaultProps = {
-  bgColor: transparentize(0.2, blueLight),
+  bgColor: transparentize(0.2, blue[4]),
   color: 'inherit',
 };
 
 function Mark({ color, bgColor, ...props }) {
-  return (
-    <StyledMark color={color} bgColor={bgColor} {...props} />
-  );
+  return <StyledMark color={color} bgColor={bgColor} {...props} />;
 }
 
 export default Mark;

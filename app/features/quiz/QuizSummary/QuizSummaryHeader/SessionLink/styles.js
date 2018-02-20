@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { darken } from 'polished';
 
-import { whiteLight } from 'common/styles/colors';
+import { white } from 'common/styles/colors';
 import { gutter } from 'common/styles/layout';
 import { borderRadius } from 'common/styles/sizing';
 import { fastEaseQuad } from 'common/styles/animation';
@@ -53,7 +53,7 @@ const leftRightStyle = css`
   align-content: center;
   align-items: center;
   padding: .9em 1em .7em;
-  color: ${whiteLight};
+  color: ${white[2]};
 `;
 
 export const Left = styled.div`

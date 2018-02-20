@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { darken, lighten } from 'polished';
 
 import { resetButton } from 'common/styles/utils';
-import { transparent, whiteLight, grey, greyDark } from 'common/styles/colors';
+import { transparent, white, grey } from 'common/styles/colors';
 import { micro } from 'common/styles/typography';
 import { gutter } from 'common/styles/layout';
 import { shadowBox } from 'common/styles/shadows';
@@ -29,18 +29,18 @@ export const ControlButton = styled.button`
   text-align: center;
   text-transform: uppercase;
   flex: 0 1 300px;
-  background-color: ${whiteLight};
-  color: ${grey};
+  background-color: ${white[2]};
+  color: ${grey[5]};
 
   &:not(:disabled):hover,
   &:focus {
-    color: ${darken(0.1, greyDark)};
-    background-color: ${lighten(1, whiteLight)};
+    color: ${darken(0.1, grey[8])};
+    background-color: ${lighten(1, white[2])};
   }
 
   ${({ active }) => active && css`
-    color: ${darken(0.1, greyDark)};
-    background-color: ${lighten(1, whiteLight)};
+    color: ${darken(0.1, grey[8])};
+    background-color: ${lighten(1, white[2])};
   `}
 
   &:disabled {

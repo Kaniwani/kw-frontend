@@ -4,7 +4,7 @@ import { placeholder } from 'polished';
 import { gutter } from 'common/styles/layout';
 import { zeta } from 'common/styles/typography';
 import { borderRadius } from 'common/styles/sizing';
-import { whiteDark, greyLight, grey, orange } from 'common/styles/colors';
+import { white, grey, orange } from 'common/styles/colors';
 
 export const Form = styled.form`
   display: flex;
@@ -18,17 +18,17 @@ export const Form = styled.form`
 `;
 
 export const Input = styled.input`
-  border: 2px solid ${whiteDark};
+  border: 2px solid ${white[7]};
   border-radius: ${borderRadius};
   &:focus {
-    border-color: ${greyLight};
+    border-color: ${grey[2]};
   }
 `;
 
 export const TextArea = styled.textarea`
   ${gutter({ type: 'outer', prop: 'padding' })}
   ${gutter({ prop: 'margin' })}
-  ${placeholder({ color: grey })};
+  ${placeholder({ color: grey[5] })};
   ${zeta}
   width: 100%;
   max-width: 100%;
@@ -36,7 +36,7 @@ export const TextArea = styled.textarea`
   border-radius: ${borderRadius};
 
   &:not(:focus) {
-    border: 1px dashed ${greyLight};
+    border: 1px dashed ${grey[2]};
   }
 `;
 
@@ -73,5 +73,5 @@ export const ValidationMessage = styled.div`
   flex: 1 0 100%;
   font-size: .9em;
   font-style: italic;
-  color: ${orange};
+  color: ${orange[5]};
 `;
