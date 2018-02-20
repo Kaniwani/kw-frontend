@@ -37,12 +37,12 @@ GET {{host}}/review/2696518/
 {{contentType}}
 
 ### search reviews
-# srs_level	
-# srs_level_gt	
-# srs_level_lt	
-# part_of_speech	
-# wanikani_burned	
-# level	
+# srs_level
+# srs_level_gt
+# srs_level_lt
+# part_of_speech
+# wanikani_burned
+# level
 # meaning_contains
 GET {{host}}/review/
   ?level=20
@@ -118,3 +118,17 @@ POST {{host}}/synonym/reading/
 DELETE {{host}}/synonym/reading/29482/
 {{auth}}
 {{contentType}}
+
+### get reports
+# 204 no content
+GET {{host}}/report/
+{{auth}}
+{{contentType}}
+
+### delete report
+# 204 no content
+DELETE {{host}}/report/6/
+{{auth}}
+{{contentType}}
+
+

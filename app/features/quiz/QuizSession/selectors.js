@@ -11,7 +11,7 @@ import { selectPrimaryVocabId } from 'features/reviews/selectors';
 import { selectVocabById } from 'features/vocab/selectors';
 
 export const UI_DOMAIN = 'quizSession';
-export const selectUiDomain = getState(UI_DOMAIN);
+export const selectQuizDomain = getState(UI_DOMAIN);
 export const selectCategory = getState([UI_DOMAIN, 'category'], '');
 export const selectIsLessonQuiz = createSelector(
   selectCategory,
@@ -21,18 +21,21 @@ export const selectIsReviewQuiz = createSelector(
   selectCategory,
   (category) => category === 'reviews'
 );
-export const selectQueue = createSelector(selectUiDomain, getState('queue', []));
-export const selectWrapUp = createSelector(selectUiDomain, getState('wrapUp', {}));
-export const selectCurrent = createSelector(selectUiDomain, getState('current', {}));
-export const selectCorrectIds = createSelector(selectUiDomain, getState('correct', []));
-export const selectIncorrectIds = createSelector(selectUiDomain, getState('incorrect', []));
-export const selectCompleteIds = createSelector(selectUiDomain, getState('complete', []));
-export const selectRemainingCount = createSelector(selectUiDomain, getState('remaining', null));
+export const selectQueue = createSelector(selectQuizDomain, getState('queue', []));
+export const selectWrapUp = createSelector(selectQuizDomain, getState('wrapUp', {}));
+export const selectCurrent = createSelector(selectQuizDomain, getState('current', {}));
+export const selectCorrectIds = createSelector(selectQuizDomain, getState('correct', []));
+export const selectIncorrectIds = createSelector(selectQuizDomain, getState('incorrect', []));
+export const selectCompleteIds = createSelector(selectQuizDomain, getState('complete', []));
+export const selectRemainingCount = createSelector(selectQuizDomain, getState('remaining', null));
 export const selectQueueCount = createSelector(selectQueue, getState('length', 0));
 export const selectCorrectCount = createSelector(selectCorrectIds, getState('length', 0));
 export const selectIncorrectCount = createSelector(selectIncorrectIds, getState('length', 0));
 export const selectCompleteCount = createSelector(selectCompleteIds, getState('length', 0));
-export const selectSynonymModalOpen = createSelector(selectUiDomain, getState('synonymModalOpen'));
+export const selectSynonymModalOpen = createSelector(
+  selectQuizDomain,
+  getState('synonymModalOpen')
+);
 export const selectCurrentId = createSelector(selectCurrent, getState('id'));
 export const selectCurrentStreakName = createSelector(
   selectCurrent,
@@ -102,4 +105,4 @@ export const selectIsFinalQuestion = createSelector(
   (queue, currentId) => queue.length === 1 && currentId === queue[0]
 );
 
-export default selectUiDomain;
+export default selectQuizDomain;

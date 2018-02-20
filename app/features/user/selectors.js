@@ -34,15 +34,25 @@ export const selectUserSettings = createSelector(
   )
 );
 
-const shouldLoad = ({ isLoading, lastLoad }) => {
-  if (isLoading) {
+export const selectUserShouldLoad = createSelector(
+  [selectUserUi, (state) => state.quizSession],
+  ({ isLoading, lastLoad }, quizSession) => {
+    const fiveMinsAgo = addMinutes(new Date(), -5);
+    const allow = !lastLoad || isBefore(parse(lastLoad), fiveMinsAgo);
+    const reject = isLoading || quizSession.active;
+    if (reject) {
+      console.log('rejecting load user');
+      return false;
+    }
+    if (allow) {
+      console.log('allowing load user');
+      return true;
+    }
+    console.log('rejecting load user by default');
     return false;
   }
-  const fiveMinsAgo = addMinutes(new Date(), -5);
-  return !lastLoad || isBefore(parse(lastLoad), fiveMinsAgo);
-};
+);
 
-export const selectUserShouldLoad = createSelector(selectUserUi, shouldLoad);
 export const selectUserLastLoad = createSelector(selectUserUi, getBy('lastLoad', dateOrFalse));
 export const selectUserName = createSelector(selectUserProfile, getBy('name'));
 export const selectReviewsCount = createSelector(selectUserProfile, getBy('reviewsCount', Number));

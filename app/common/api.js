@@ -289,13 +289,14 @@ export const reviews = {
 };
 
 export const report = {
-  // { reason, vocabulary }
-  send: (params) =>
+  // { reason, reading }
+  create: (params) =>
     api
       .auth(`JWT ${getToken()}`)
       .url('report/')
       .json(params)
-      .post(),
+      .post()
+      .json(),
   fetchAll: () => {
     api
       .auth(`JWT ${getToken()}`)

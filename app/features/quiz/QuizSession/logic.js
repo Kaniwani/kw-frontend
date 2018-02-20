@@ -31,10 +31,11 @@ export const queueLoadLogic = createLogic({
     const currentId = selectCurrentId(getState());
     const queueCount = selectQueueCount(getState());
     const wrapUp = selectWrapUp(getState());
+    // NOTE: smaller subsequent loads allow incorrect items to be recycled into questions more often
     const limit = wrapUp.active
       ? wrapUp.count - queueCount
       : !queueCount ? INITIAL_QUEUE_LIMIT : SUBSEQUENT_QUEUE_LIMIT;
-    // NOTE: smaller subsequent loads allow incorrect items to be recycled into questions more often
+
     api.queue.fetch[category]({ limit })
       .then((res) => {
         dispatch(quiz.session.queue.load.success(serializeQueueResponse(res)));

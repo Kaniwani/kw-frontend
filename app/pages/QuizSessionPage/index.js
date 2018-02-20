@@ -58,7 +58,7 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = {
   setSessionCategory: quiz.session.setCategory,
-  startNewSession: quiz.session.reset,
+  startNewSession: quiz.session.start,
   loadQueue: quiz.session.queue.load.request,
 };
 

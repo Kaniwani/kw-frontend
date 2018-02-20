@@ -1,15 +1,14 @@
-import { handleActions } from "redux-actions";
-import { merge } from "lodash";
-import { serializeUserResponse } from "common/serializers";
+import { handleActions } from 'redux-actions';
+import { serializeUserResponse } from 'common/serializers';
 
 import {
   initialUiState,
   updateUiLoadRequest,
   updateUiLoadSuccess,
   updateUiLoadFailure,
-} from "reducers/utils";
+} from 'reducers/utils';
 
-import { user } from "features/user/actions";
+import { user } from 'features/user/actions';
 
 export const initialUserState = {};
 
@@ -23,7 +22,7 @@ export const userUiReducer = handleActions(
   initialUiState
 );
 
-export const ingestUser = (state, { payload }) => merge({}, state, serializeUserResponse(payload));
+export const ingestUser = (state, { payload }) => serializeUserResponse(payload);
 
 export const userReducer = handleActions(
   {

@@ -9,6 +9,7 @@ import { Fixed, Absolute, Overlay, Flex } from 'rebass';
 import vocab from 'features/vocab/actions';
 import { selectVocabById } from 'features/vocab/selectors';
 
+import H3 from 'common/components/H3';
 import IconButton from 'common/components/IconButton';
 import TextAreaAutoSize from 'common/components/TextAreaAutoSize';
 import Toggle from 'common/components/Toggle';
@@ -21,11 +22,11 @@ const Form = styled.form`
   min-width: 320px;
 `;
 
-export const VocabReport = ({ vocabulary, handleSubmit, reset, submitting }) => (
+export const VocabReport = ({ reading, handleSubmit, reset, submitting, submitSucceeded }) => (
   <Toggle
     render={({ on, toggle }) => (
-      <div style={{ zIndex: 10 }}>
-        <IconButton name="BUG" title="Report vocab" color="tomato" onClick={toggle} />
+      <div style={{ zIndex: 2 }}>
+        <IconButton name="BUG" title="Report vocab" size="1.4em" color="tomato" onClick={toggle} />
         {on && (
           <div>
             <Fixed top right bottom left onClick={toggle} />
@@ -35,25 +36,27 @@ export const VocabReport = ({ vocabulary, handleSubmit, reset, submitting }) => 
               </Absolute>
               <Flex justify="center">
                 <Form onSubmit={handleSubmit}>
-                  <h3 style={{ verticalAlign: 'middle' }}>
-                    <span>Report Errata for </span>
+                  <H3 style={{ display: 'flex', alignItems: 'center' }}>
+                    <span style={{ marginRight: '.3rem' }}>Report Errata for </span>
                     <span style={{ fontSize: '1.3em', fontWeight: '400' }} lang="ja">
-                      {vocabulary.word}
+                      {reading.word}
                     </span>
-                  </h3>
+                  </H3>
 
                   <Field
                     component={TextAreaAutoSize}
                     name="reason"
-                    label="Reason:"
+                    label="Reason"
+                    showLabel={false}
                     maxLength={1000}
                     placeholder="The sentence/pitch/furigana seems wrong. I think it should be..."
                     rows={10}
                     showControls="always"
-                    showLabel
                     onReset={reset}
                     onSubmit={handleSubmit}
-                    submitButtonText={(submitting && 'Submitting') || 'Send'}
+                    submitButtonText={
+                      (submitting && 'Submitting') || (submitSucceeded && 'Sent!') || 'Submit'
+                    }
                   />
                 </Form>
               </Flex>
@@ -67,19 +70,19 @@ export const VocabReport = ({ vocabulary, handleSubmit, reset, submitting }) => 
 
 VocabReport.propTypes = {
   ...formPropTypes,
-  vocabulary: PropTypes.object.isRequired,
+  reading: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state, props) => ({
-  vocabulary: selectVocabById(state, props),
+  reading: selectVocabById(state, props),
 });
 
 const enhance = compose(
   connect(mapStateToProps),
   reduxForm({
     form: 'vocabReport',
-    onSubmit: ({ reason }, dispatch, { vocabulary }) =>
-      dispatch(vocab.report.request({ reason, vocabulary: vocabulary.id })),
+    onSubmit: ({ reason }, dispatch, { reading, ...form }) =>
+      dispatch(vocab.report.request({ reason, reading: reading.id }, { form })),
   })
 );
 

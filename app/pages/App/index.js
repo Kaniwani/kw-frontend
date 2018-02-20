@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import ReactInterval from 'react-interval';
 
 import ScrollToTop from 'common/components/ScrollToTop';
 import Routes from 'common/routes';
@@ -30,12 +29,6 @@ const AppWrapper = styled.div`
     flex: 1 0 auto;
   }
 `;
-
-// NOTE: uncomment to reset JWT token in dev testing
-// import { setToken } from 'common/utils/auth';
-// setToken('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6IlRhZGdoIiwiZXhwIjoxNTE0NTI0Nzg5LCJlbWFpbCI6ImdnZ0BnbWFpbC5jb20ifQ.iqy6a_-2KW3zBl2xgtU5P3TOU01-1Jfpl94f1um11R8');
-
-const FIFTEEN_MINUTES_IN_MS = 900000;
 
 class App extends React.Component {
   static propTypes = {
@@ -66,8 +59,6 @@ class App extends React.Component {
         <Helmet titleTemplate="%s - KaniWani">
           <meta name="description" content="KaniWani - An English to Japanese SRS Quiz App" />
         </Helmet>
-        {/* TODO: browser push notifications on review/lesson count change (if page not focused)? */}
-        <ReactInterval enabled timeout={FIFTEEN_MINUTES_IN_MS} callback={this.props.loadUser} />
         <Routes />
         <ScrollToTop />
       </AppWrapper>
