@@ -9,6 +9,16 @@ GET {{host}}/user/me
 {{auth}}
 {{contentType}}
 
+### create announcement
+POST {{host}}/announcement/
+{{auth}}
+{{contentType}}
+
+{
+  "title": "Welcome 2.0 Beta Testers",
+  "body": "<p>Please report any errors via the Contact form. However for vocab, any missing data / dodgy sentences you can report via the orange bug icon.</p>"
+}
+
 ### fetch announcements
 GET {{host}}/announcement/
 {{auth}}
