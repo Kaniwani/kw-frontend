@@ -30,15 +30,15 @@ export function QuizSummarySections({ category, percentCorrect, lastActivityDate
     <Toggle
       render={({ on, toggle }) => (
         <PageWrapper>
-          <Container flexRow>
-            <PercentageBar
-              count={percentCorrect}
-              color={category === 'lessons' ? SRS_COLORS.UNTRAINED : SRS_COLORS.GURU}
-            />
-            <VocabListToggleButton cardsExpanded={on} onToggle={toggle} />
-          </Container>
           {lastActivityDate !== false && (
             <Aux>
+              <Container flexRow>
+                <PercentageBar
+                  count={percentCorrect}
+                  color={category === 'lessons' ? SRS_COLORS.UNTRAINED : SRS_COLORS.GURU}
+                />
+                <VocabListToggleButton cardsExpanded={on} onToggle={toggle} />
+              </Container>
               <QuizSummarySection
                 category={category}
                 sectionType={SECTION_TYPES.INCORRECT}
