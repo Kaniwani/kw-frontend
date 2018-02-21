@@ -19,7 +19,7 @@ injectGlobal`
 
   body {
     ${epsilon}
-    min-height: 100%;
+    min-height: 100vh;
     margin: 0;
     padding: 0;
     font-family: ${ffBody};

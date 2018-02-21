@@ -113,6 +113,7 @@
     "reshader": "1.0.0",
     "sanitize.css": "5.0.0",
     "styled-components": "3.1.6",
+    "url-search-params-polyfill": "2.0.3",
     "voca": "1.4.0",
     "wanakana": "3.0.2-beta.3",
     "whatwg-fetch": "2.0.3",

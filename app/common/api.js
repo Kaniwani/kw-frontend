@@ -1,5 +1,8 @@
-import 'whatwg-fetch'; // polyfill for browsers without fetch
-import wretch from 'wretch'; // nicer wrapper over fetch api
+// polyfills for older brwosers
+import 'url-search-params-polyfill';
+import 'whatwg-fetch';
+
+import wretch from 'wretch';
 import { getToken } from 'common/utils/auth';
 import { API_BASE } from 'common/constants';
 

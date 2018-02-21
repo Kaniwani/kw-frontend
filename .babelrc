@@ -5,13 +5,14 @@
       {
         "loose": false,
         "modules": false,
+        "useBuiltIns": "usage",
         "targets": {
           "browsers": ["last 4 versions", "> 1%"]
         }
       }
     ],
     "react",
-    "stage-0"
+    "stage-1"
   ],
   "plugins": [
     [
