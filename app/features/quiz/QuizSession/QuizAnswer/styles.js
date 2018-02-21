@@ -32,7 +32,6 @@ export const Form = styled.form`
   outline: none;
   appearance: none;
   z-index: 2;
-  overflow-x: hidden; /* shake animation creates scrollbar otherwise */
 
   & ${AnswerWrapper} {
     ${bgColorMixin}
@@ -75,6 +74,10 @@ export const Input = styled.input`
       &:placeholder-shown {
         ${placeholder({ color })} /* Override browser-forced color */
       }
+      &:disabled {
+        color: ${white[5]};
+        ${placeholder({ color: white[5] })} /* Override browser-forced color */
+      }
     `;
   }}
 
@@ -94,12 +97,13 @@ export const Input = styled.input`
 
 const ActionButton = styled(IconButton)`
   ${kilo}
-  position: absolute;
   display: block;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   color: currentColor;
   background-color: ${transparent};
   transition: all ${fastEaseQuad};
-  align-self: center;
   z-index: 2;
   opacity: .9;
   &:hover {

@@ -28,8 +28,7 @@ export const Lower = styled.section`
   position: relative;
   display: flex;
   flex-direction: column;
-  flex: 1 1 100%;
-  min-height: 100%;
+  flex: 1 1 auto;
   background-color: ${backgroundImageColor};
 `;
 
