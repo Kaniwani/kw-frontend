@@ -89,13 +89,6 @@ export const selectQueueNeeded = createSelector(
     const needMoreMinimum = !wrapUp.active && queueCount < MINIMUM_QUEUE_COUNT;
     const moreQueueExists = queueCount < remaining;
     const queueNeeded = (needMoreWrapUp || needMoreMinimum) && moreQueueExists;
-    // console.log({
-    //   wrapUp,
-    //   queueCount,
-    //   MINIMUM_QUEUE_COUNT,
-    //   remaining,
-    //   queueNeeded,
-    // });
     return queueNeeded;
   }
 );

@@ -3,6 +3,7 @@ import { addMinutes, isBefore, parse } from 'date-fns';
 import { sum, pick, partialRight } from 'lodash';
 import dateOrFalse from 'common/utils/dateOrFalse';
 import formatSrsCounts from 'common/utils/formatSrsCounts';
+import devLog from 'common/utils/devLog';
 import formatUpcomingReviews from 'common/utils/formatUpcomingReviews';
 
 import { getState, getBy } from 'common/selectors';
@@ -41,14 +42,14 @@ export const selectUserShouldLoad = createSelector(
     const allow = !lastLoad || isBefore(parse(lastLoad), fiveMinsAgo);
     const reject = isLoading || quizSession.active;
     if (reject) {
-      console.log('rejecting load user');
+      devLog('rejecting load user');
       return false;
     }
     if (allow) {
-      console.log('allowing load user');
+      devLog('allowing load user');
       return true;
     }
-    console.log('rejecting load user by default');
+    devLog('rejecting load user by default');
     return false;
   }
 );
