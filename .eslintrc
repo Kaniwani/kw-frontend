@@ -62,6 +62,7 @@
     "jsx-a11y/scope": 1,
     "max-len": 0,
     "newline-per-chained-call": 0,
+    "no-mixed-operators": 1,
     "no-confusing-arrow": 0,
     "no-console": 1,
     "no-debugger": 1,
