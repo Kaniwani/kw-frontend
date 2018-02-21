@@ -29,17 +29,17 @@ exports[`<Mark /> should adopt color and bgColor props 1`] = `
 exports[`<Mark /> should match baseline snapshot with defaultProps 1`] = `
 .c0 {
   color: inherit;
-  background-color: rgba(48,192,249,0.8);
+  background-color: rgba(100,146,219,0.8);
   padding: 1px 2px 2px;
   border-radius: 2px;
 }
 
 <Mark
-  bgColor="rgba(48,192,249,0.8)"
+  bgColor="rgba(100,146,219,0.8)"
   color="inherit"
 >
   <styled.mark
-    bgColor="rgba(48,192,249,0.8)"
+    bgColor="rgba(100,146,219,0.8)"
     color="inherit"
   >
     <mark
