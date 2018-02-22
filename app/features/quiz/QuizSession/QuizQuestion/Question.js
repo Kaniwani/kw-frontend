@@ -20,7 +20,7 @@ export function Question({ primaryMeaning, secondaryMeanings }) {
     <MeaningsWrapper>
       <Meanings>
         {!primaryMeaning ? (
-          <Spinner color1={white[5]} color2={white[2]} />
+          <Spinner color1={white[3]} color2={white[2]} />
         ) : (
           <Aux>
             <Primary>{primaryMeaning}</Primary>

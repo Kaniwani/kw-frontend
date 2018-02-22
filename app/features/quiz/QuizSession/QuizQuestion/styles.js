@@ -18,7 +18,7 @@ export const MeaningsWrapper = styled.div`
 
 export const Meanings = styled.h1`
   ${centerByMargin};
-  color: ${white[5]};
+  color: ${white[3]};
   text-transform: capitalize;
   letter-spacing: -0.03em;
   padding: 4vmax .5rem;

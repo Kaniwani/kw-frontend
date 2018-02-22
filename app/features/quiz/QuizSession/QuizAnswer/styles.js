@@ -26,7 +26,7 @@ export const Form = styled.form`
   ${kilo}
   max-width: 100%;
   background-color: ${backgroundImageColor};
-  color: ${({ marked, valid }) => marked && valid ? white[5] : black[5]};
+  color: ${({ marked, valid }) => marked && valid ? white[3] : black[5]};
   border: 0;
   border-radius: 0;
   outline: none;
@@ -66,7 +66,7 @@ export const Input = styled.input`
   }
 
   ${({ marked, valid }) => {
-    const color = valid ? white[5] : black[5];
+    const color = valid ? white[3] : black[5];
     return marked && css`
       color: ${color}; /* Override Android / IE font color change */
       -webkit-opacity: 1; /* Override iOS opacity change affecting text & background color */
@@ -75,8 +75,8 @@ export const Input = styled.input`
         ${placeholder({ color })} /* Override browser-forced color */
       }
       &:disabled {
-        color: ${white[5]};
-        ${placeholder({ color: white[5] })} /* Override browser-forced color */
+        color: ${white[3]};
+        ${placeholder({ color: white[3] })} /* Override browser-forced color */
       }
     `;
   }}

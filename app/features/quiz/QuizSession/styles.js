@@ -11,7 +11,7 @@ export const Upper = styled.section`
   display: flex;
   flex-direction: column;
   min-height: 30vh;
-  color: ${white[5]};
+  color: ${white[3]};
 
   ${({ bgColor }) => css`
     background-color: ${bgColor};

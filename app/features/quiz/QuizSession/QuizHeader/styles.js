@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   position: relative;
   padding-top: ${barHeight + 2}px !important;
   width: 100%;
-  color: ${white[5]};
+  color: ${white[3]};
   ${fluidType(16, 22)}
   line-height: 1;
   display: flex;
