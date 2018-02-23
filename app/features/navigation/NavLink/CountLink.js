@@ -25,14 +25,14 @@ export class CountLink extends React.Component {
   }
 
   render() {
-    const { name, route, count, onVacation, disabled, isOffCanvas } = this.props;
+    const { name, route, count, onVacation, noReviews, isOffCanvas } = this.props;
     return (
-      <Li isOffCanvas={isOffCanvas} disabled={disabled} title={onVacation ? 'On Vacation!' : ''}>
-        <Link disabled={disabled} to={route} tabIndex={disabled ? -1 : 0}>
+      <Li isOffCanvas={isOffCanvas} title={onVacation ? 'On Vacation!' : ''}>
+        <Link noReviews={noReviews} to={route}>
           <Text>
             <div>{name}</div>
-            {!disabled && (
-              <Count changed={this.state.changed} disabled={disabled}>
+            {!noReviews && (
+              <Count changed={this.state.changed} noReviews={noReviews}>
                 {count}
               </Count>
             )}
@@ -48,10 +48,10 @@ const mapStateToProps = (_, { name }) => {
 
   return (state, props) => {
     const count = selectCount(state, props);
-    const disabled = Number.isNaN(count) || count < 1;
+    const noReviews = Number.isNaN(count) || count < 1;
     return {
       count,
-      disabled,
+      noReviews,
       onVacation: selectOnVacation(state, props),
     };
   };

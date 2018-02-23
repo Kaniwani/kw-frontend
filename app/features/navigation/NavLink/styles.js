@@ -42,11 +42,11 @@ export const Text = styled.span`
 export const Count = styled.div`
   padding-top: 1px;
   margin-left: 5px;
-  color: ${({ disabled }) => disabled ? grey[5] : blue[4]};
+  color: ${({ noReviews }) => noReviews ? grey[5] : blue[4]};
   transform: scale3d(1, 1, 1);
   animation-duration: 0.9s;
   animation-fill-mode: both;
-  ${({ changed }) => changed && `
+  ${({ changed }) => changed && css`
     animation-name: ${rubberBand};
   `};
 `;
@@ -72,9 +72,8 @@ const linkStyle = css`
     }
   }
 
-  ${({ disabled, isOffCanvas }) => disabled && css`
+  ${({ noReviews, isOffCanvas }) => noReviews && css`
     color: ${isOffCanvas ? black[2] : grey[5]};
-    pointer-events: none;
   `}
 `;
 
@@ -121,8 +120,4 @@ export const Li = styled.li`
       color: ${pink[5]};
     }
   `};
-
-  ${({ disabled }) => disabled && css`
-    cursor: not-allowed;
-  `}
 `;
