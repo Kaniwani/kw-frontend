@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 import { resetButton } from "common/styles/utils";
 import { shadowBox } from "common/styles/shadows";
-import { blue, pink } from "common/styles/colors";
+import { purple, pink } from "common/styles/colors";
 import { fastEaseQuad } from "common/styles/animation";
 
 const visibleMixin = ({ isVisible }) => isVisible && css`
@@ -26,7 +26,7 @@ export const StyledButton = styled.button`
   bottom: 0.75rem;
   right: 0.75rem;
   border-radius: 100%;
-  background-color: ${blue[4]};
+  background-color: ${purple[3]};
   opacity: 0.8;
   transform: scale(0);
   transition: all ${fastEaseQuad};
