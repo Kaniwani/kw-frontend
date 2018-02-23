@@ -55,7 +55,7 @@ export const selectUserShouldLoad = createSelector(
 );
 
 export const selectUserLastLoad = createSelector(selectUserUi, getBy('lastLoad', dateOrFalse));
-export const selectUserName = createSelector(selectUserProfile, getBy('name'));
+export const selectUsername = createSelector(selectUserProfile, getBy('name'));
 export const selectReviewsCount = createSelector(selectUserProfile, getBy('reviewsCount', Number));
 export const selectLessonsCount = createSelector(selectUserProfile, getBy('lessonsCount', Number));
 export const selectUserLevel = createSelector(selectUserProfile, getBy('level', Number));

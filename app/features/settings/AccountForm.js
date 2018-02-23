@@ -5,7 +5,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 
 import settings from './actions';
-import { selectUserName, selectUserLevel } from 'features/user/selectors';
+import { selectUsername, selectUserLevel } from 'features/user/selectors';
 import { doValuesMatch, numberValid } from 'common/validations';
 
 import H2 from 'common/components/H2';
@@ -57,7 +57,7 @@ function AccountForm({ currentLevel, handleSubmit, submitting, submitSucceeded }
 }
 
 const mapStateToProps = (state) => ({
-  name: selectUserName(state),
+  name: selectUsername(state),
   currentLevel: selectUserLevel(state),
   initialValues: { resetLevel: 1 },
 });

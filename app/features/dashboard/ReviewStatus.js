@@ -5,22 +5,26 @@ import { createStructuredSelector } from 'reselect';
 import { format, isPast, isFuture, distanceInWordsToNow } from 'date-fns';
 import ReactInterval from 'react-interval';
 import { DATE_FORMAT } from 'common/constants';
+import { grey } from 'common/styles/colors';
 
 import {
   selectReviewsCount,
   selectOnVacation,
   selectVacationDate,
   selectNextReviewDate,
+  selectUsername,
 } from 'features/user/selectors';
 
 import user from 'features/user/actions';
 
+import H2 from 'common/components/H2';
 import H3 from 'common/components/H3';
 import Element from 'common/components/Element';
 
 /* eslint-disable react/no-unused-prop-types */
 export class ReviewStatus extends React.Component {
   static propTypes = {
+    username: PropTypes.string.isRequired,
     isOnVacation: PropTypes.bool.isRequired,
     reviewsCount: PropTypes.number.isRequired,
     vacationDate: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.oneOf([false])])
@@ -38,8 +42,9 @@ export class ReviewStatus extends React.Component {
 
   render() {
     return (
-      <Element flexRow flexCenter>
-        <H3>{this.state.text}</H3>
+      <Element flexColumn flexCenter>
+        <H2>{this.props.username}</H2>
+        <H3 style={{ color: grey[8] }}>{this.state.text}</H3>
         {/* updates "review in x time" text periodically */}
         <ReactInterval
           enabled={!this.props.isOnVacation && isFuture(this.props.nextReviewDate)}
@@ -59,7 +64,7 @@ export function getReviewStatusText({
   loadUser,
 } = {}) {
   if (isOnVacation) {
-    return `On Vacation since ${format(vacationDate, DATE_FORMAT)}`;
+    return `On Vacation: since ${format(vacationDate, DATE_FORMAT)}`;
   }
   if (reviewsCount > 0) {
     return 'Next Review: Now!';
@@ -80,6 +85,7 @@ export function getReviewStatusText({
 }
 
 const mapStateToProps = createStructuredSelector({
+  username: selectUsername,
   reviewsCount: selectReviewsCount,
   isOnVacation: selectOnVacation,
   vacationDate: selectVacationDate,
