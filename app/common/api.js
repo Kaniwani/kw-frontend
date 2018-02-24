@@ -223,7 +223,7 @@ export const quiz = {
       .url(`review/${id}/${slug}/`)
       .json(body)
       .post()
-      .res();
+      .json();
   },
 };
 

@@ -1,6 +1,6 @@
 import { createLogic } from 'redux-logic';
 import { isKana } from 'wanakana';
-
+import { serializeReviewResponse } from 'common/serializers';
 import { SRS_RANGES } from 'common/constants';
 import { ANSWER_TYPES } from 'common/components/AddSynonym/AddSynonymForm';
 
@@ -257,9 +257,10 @@ export const recordAnswerLogic = createLogic({
     } else {
       api.quiz
         .record({ id: current.id, isCorrect, previouslyIncorrect })
-        .then(() => {
-          dispatch(quiz.answer.record.success(current));
-          dispatch(review.update(current));
+        .then((response) => {
+          const { vocabById, synonymsById, ...updatedReview } = serializeReviewResponse(response);
+          dispatch(quiz.answer.record.success(current.id));
+          dispatch(review.update(updatedReview));
           if (isFinalQuestion && isCorrect) {
             // wait for review times to be updated on server
             // then reload lesson/review counts
