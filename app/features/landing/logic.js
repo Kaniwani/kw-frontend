@@ -70,15 +70,18 @@ export const resetPasswordLogic = createLogic({
   type: user.resetPassword.request,
   process({ api, action: { payload } }, dispatch, done) {
     dispatch(startSubmit(FORM_NAME));
-    api
+    api.user
       .resetPassword(payload)
       .then((res) => {
+        debugger; // eslint-disable-line
         dispatch(user.resetPassword.success(res));
         dispatch(stopSubmit(FORM_NAME));
-        // TODO: notify user
+        // TODO: notification user to check email
+        window.alert('Check your email to complete reset');
         done();
       })
       .catch((error) => {
+        debugger; // eslint-disable-line
         dispatch(stopSubmit(FORM_NAME, { ...error, _error: error.non_field_errors }));
         dispatch(user.resetPassword.failure(error));
         console.warn(`API failure. Response error was: ${JSON.stringify(error)}`);
@@ -87,4 +90,26 @@ export const resetPasswordLogic = createLogic({
   },
 });
 
-export default [registerLogic, loginLogic, resetPasswordLogic];
+export const confirmResetPasswordLogic = createLogic({
+  type: user.confirmResetPassword.request,
+  process({ api, action: { payload } }, dispatch, done) {
+    api.user
+      .confirmResetPassword(payload)
+      .then((res) => {
+        debugger; // eslint-disable-line
+        dispatch(user.confirmResetPassword.success(res));
+        // TODO: proper notification
+        window.alert('Password reset complete');
+        done();
+      })
+      .catch((error) => {
+        debugger; // eslint-disable-line
+        dispatch(stopSubmit(FORM_NAME, { ...error, _error: error.non_field_errors }));
+        dispatch(user.confirmResetPassword.failure(error));
+        console.warn(`API failure. Response error was: ${JSON.stringify(error)}`);
+        done();
+      });
+  },
+});
+
+export default [registerLogic, loginLogic, resetPasswordLogic, confirmResetPasswordLogic];

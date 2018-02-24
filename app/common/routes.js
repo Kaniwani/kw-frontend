@@ -17,6 +17,7 @@ import SettingsPage from 'pages/SettingsPage/Loadable';
 import AboutPage from 'pages/AboutPage/Loadable';
 import ContactPage from 'pages/ContactPage/Loadable';
 import NotFoundPage from 'pages/NotFoundPage/Loadable';
+import ConfirmResetPasswordPage from 'pages/ConfirmResetPasswordPage/Loadable';
 
 // used for isolated testing of components in development with HMR
 import { IS_DEV_ENV } from 'common/constants';
@@ -26,6 +27,7 @@ export function Routes() {
   return (
     <Switch>
       {IS_DEV_ENV && <Route exact path="/dev" component={DevPage} />}
+      <Route path="/password-reset/:uid/:token" component={ConfirmResetPasswordPage} />
       <Route exact path="/welcome" component={LandingPage} />
       <Route
         path=""

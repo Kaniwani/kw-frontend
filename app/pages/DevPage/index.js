@@ -3,10 +3,7 @@
   Content is not important, welcome to clear it anytime.
 */
 
-import React from "react";
-import HomePage from 'pages/HomePage/Loadable';
-
-// import ReactInterval from "react-interval";
+import React from 'react';
 
 class DevPage extends React.Component {
   state = {};
@@ -14,11 +11,7 @@ class DevPage extends React.Component {
   //   this.setState((prevState) => ({ }));
 
   render() {
-    return (
-      <div>
-        <HomePage />
-      </div>
-    );
+    return <div>Hello Devpage</div>;
   }
 }
 

@@ -64,17 +64,15 @@ export const user = {
   // { email }
   resetPassword: (data) =>
     api
-      .auth(`JWT ${getToken()}`)
-      .url('auth/reset/')
+      .url('auth/password/reset/')
       .json(data)
-      .post()
-      .json(),
-  confirmResetPassword: ({ token }) =>
+      .post(),
+  // { uid, token, new_password }
+  confirmResetPassword: (data) =>
     api
-      .auth(`JWT ${getToken()}`)
-      .url(`auth/reset/${token}/`)
-      .post()
-      .json(),
+      .url(`auth/password/reset/confirm/`)
+      .json(data)
+      .post(),
   // deserialize entire profile state
   update: (data) =>
     api
