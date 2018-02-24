@@ -3,11 +3,11 @@ import { readableColor } from 'polished';
 
 let palette = {
   default: { bgColor: COLORS.grey[7] },
-  common: { bgColor: COLORS.blue[3] },
-  noun: { bgColor: COLORS.purple[3] },
-  adverb: { bgColor: COLORS.pink[3] },
-  verb: { bgColor: COLORS.teal[3] },
-  adj: { bgColor: COLORS.yellow[3] },
+  common: { bgColor: COLORS.blue[2] },
+  noun: { bgColor: COLORS.orange[2] },
+  adverb: { bgColor: COLORS.pink[2] },
+  verb: { bgColor: COLORS.teal[1] },
+  adj: { bgColor: COLORS.yellow[2] },
 };
 
 palette = Object.entries(palette).reduce((hash, [key, { bgColor }]) => {
