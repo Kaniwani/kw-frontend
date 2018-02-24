@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { Helmet } from 'react-helmet';
 
 import PageWrapper from 'common/components/PageWrapper';
@@ -6,10 +7,15 @@ import Container from 'common/components/Container';
 import Element from 'common/components/Element';
 import H1 from 'common/components/H1';
 import H2 from 'common/components/H2';
-import H3 from 'common/components/H3';
 import A from 'common/components/A';
 import P from 'common/components/P';
 import PayPalDonate from './PayPalDonate';
+
+import { purple } from 'common/styles/colors';
+
+const Shortcut = styled.span`
+  color: ${purple[4]};
+`;
 
 function AboutPage() {
   return (
@@ -57,18 +63,18 @@ function AboutPage() {
           <Element flex="1 0 320px">
             <H2>Keyboard Warrior</H2>
             <P constrain>
-              After answering a question, press <strong>spacebar</strong> to cycle through the
-              information panel detail levels, <strong>n</strong> to view and edit your notes,{' '}
-              <strong>f</strong> to switch back to info, and <strong>s</strong> to add a new answer
-              synonym.
+              After answering a question, press <Shortcut>f</Shortcut> to open info panel,{' '}
+              <Shortcut>spacebar</Shortcut> to cycle through the information panel detail levels,{' '}
+              <Shortcut>w</Shortcut> to enable wrap-up mode, and <Shortcut>s</Shortcut> to add a new
+              answer synonym.
             </P>
           </Element>
           <Element flex="1 0 320px">
             <H2>Next Time Gadget</H2>
             <P constrain>
               When your answer has been marked incorrect, but you totally knew what it was, like,
-              本気で！ You can press <strong>/</strong> <small>(forward slash)</small> on your
-              keyboard or vehemently tap the <strong>x</strong> icon to ignore your failure.
+              本気で！ You can press <Shortcut>/</Shortcut> <small>(forward slash)</small> on your
+              keyboard or vehemently tap the <Shortcut>x</Shortcut> icon to ignore your failure.
             </P>
           </Element>
           <Element flex="1 0 320px">
