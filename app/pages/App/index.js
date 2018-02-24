@@ -8,9 +8,10 @@ import styled from 'styled-components';
 import ScrollToTop from 'common/components/ScrollToTop';
 import Routes from 'common/routes';
 import { user } from 'features/user/actions';
-import { selectLocationPath } from 'common/selectors';
+import { selectLocationPath, selectMaintenanceMode } from 'common/selectors';
 import { selectUserShouldLoad } from 'features/user/selectors';
 import { hasToken } from 'common/utils/auth';
+import MaintenancePage from 'pages/MaintenancePage/Loadable';
 
 // ensure footer is flush with bottom of page
 // if content in header + main is less than the viewport height
@@ -32,6 +33,7 @@ const AppWrapper = styled.div`
 
 class App extends React.Component {
   static propTypes = {
+    maintenanceMode: PropTypes.bool.isRequired,
     path: PropTypes.string.isRequired,
     loadUser: PropTypes.func.isRequired,
     userShouldLoad: PropTypes.bool.isRequired,
@@ -44,9 +46,6 @@ class App extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.userShouldLoad && hasToken()) {
-      this.props.loadUser();
-    }
     // ensure route change scrolls to top of page
     if (this.props.path !== prevProps.path) {
       window.scrollTo(0, 0);
@@ -59,14 +58,21 @@ class App extends React.Component {
         <Helmet titleTemplate="%s - KaniWani">
           <meta name="description" content="KaniWani - An English to Japanese SRS Quiz App" />
         </Helmet>
-        <Routes />
-        <ScrollToTop />
+        {this.props.maintenanceMode ? (
+          <MaintenancePage />
+        ) : (
+          <React.Fragment>
+            <Routes />
+            <ScrollToTop />
+          </React.Fragment>
+        )}
       </AppWrapper>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
+  maintenanceMode: selectMaintenanceMode(state),
   userShouldLoad: selectUserShouldLoad(state),
   path: selectLocationPath(state),
 });

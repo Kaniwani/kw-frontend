@@ -1,5 +1,7 @@
 import { createLogic } from 'redux-logic';
 import { actions as formActions } from 'redux-form';
+
+import { app } from 'common/actions';
 import { user } from 'features/user/actions';
 import { setToken } from 'common/utils/auth';
 import { camelCaseKeys } from 'common/utils/caseKeys';
@@ -48,9 +50,17 @@ export const loginLogic = createLogic({
         done();
       })
       .catch((error) => {
-        dispatch(stopSubmit(FORM_NAME, { ...error.json, _error: error.json.non_field_errors }));
-        dispatch(user.login.failure(error.json));
         console.warn(`Login failure. Response was: ${JSON.stringify(error)}`);
+        dispatch(user.login.failure(error));
+        if (!Object.keys(error).length || error.status === 500) {
+          dispatch(app.maintenanceMode(true));
+        } else if (error.status && error.status === 400) {
+          dispatch(stopSubmit(FORM_NAME, { ...error.json, _error: error.json.non_field_errors }));
+        } else {
+          dispatch(
+            stopSubmit(FORM_NAME, { _error: ['There was an error contacting the server.'] })
+          );
+        }
         done();
       });
   },

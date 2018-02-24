@@ -1,21 +1,22 @@
-import { createLogic } from "redux-logic";
+import { createLogic } from 'redux-logic';
 
-import announcements from "./actions";
-import { selectAnnouncementsShouldLoad } from "./selectors";
+import announcements from './actions';
 
 export const loadLogic = createLogic({
   type: announcements.load.request,
   warnTimeout: 5000,
   latest: true,
-  processOptions: {
-    successType: announcements.load.success,
-    failType: announcements.load.failure,
-  },
-  validate({ getState, action }, allow, reject) {
-    return selectAnnouncementsShouldLoad(getState()) ? allow(action) : reject();
-  },
-  process({ api }) {
-    return api.announcements.fetchAll();
+  process({ api }, dispatch, done) {
+    api.announcements
+      .fetchAll()
+      .then((res) => {
+        dispatch(announcements.load.success(res));
+        done();
+      })
+      .catch((err) => {
+        dispatch(announcements.load.failure(err));
+        done();
+      });
   },
 });
 

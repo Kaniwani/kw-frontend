@@ -17,19 +17,13 @@ import SettingsPage from 'pages/SettingsPage/Loadable';
 import AboutPage from 'pages/AboutPage/Loadable';
 import ContactPage from 'pages/ContactPage/Loadable';
 import NotFoundPage from 'pages/NotFoundPage/Loadable';
-import MaintenancePage from 'pages/MaintenancePage/Loadable';
 
 // used for isolated testing of components in development with HMR
 import { IS_DEV_ENV } from 'common/constants';
 import DevPage from 'pages/DevPage/Loadable';
 
-// TODO: set state from api calls if 502 returned
-// TODO: create selector
-const maintenanceMode = false;
 export function Routes() {
-  return maintenanceMode ? (
-    <Route component={MaintenancePage} />
-  ) : (
+  return (
     <Switch>
       {IS_DEV_ENV && <Route exact path="/dev" component={DevPage} />}
       <Route exact path="/welcome" component={LandingPage} />

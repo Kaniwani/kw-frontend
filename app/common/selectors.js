@@ -12,6 +12,11 @@ export const getBy = (val, transform = identity) => (state) =>
 
 const selectUiDomain = (uiDomain) => getState(uiDomain, {});
 
+export const selectMaintenanceMode = createSelector(
+  getState(['app', 'maintenance'], {}),
+  getState('active', false)
+);
+
 export const selectLocationPath = createSelector(
   getState('router', {}),
   getState('location.pathname', '/')

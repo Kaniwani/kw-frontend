@@ -1,8 +1,7 @@
+import { createActions } from 'redux-actions';
+
 // optional meta as 2nd arg
-const actionSignature = [
-  (payload) => payload,
-  (payload, meta) => meta,
-];
+const actionSignature = [(payload) => payload, (payload, meta) => meta];
 
 // { type: TYPE, payload [, meta ] }
 export const SYNC = actionSignature;
@@ -14,3 +13,7 @@ export const ASYNC = {
   FAILURE: actionSignature,
   // CANCEL: actionSignature,
 };
+
+export const { app } = createActions({
+  MAINTENANCE_MODE: SYNC,
+});

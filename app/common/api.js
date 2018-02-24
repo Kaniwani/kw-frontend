@@ -13,9 +13,7 @@ const options = {
   },
 };
 
-const api = wretch(API_BASE, options)
-  // FIXME: set all the errorTypes manually for below requests - some are text/html zzz
-  .errorType('json');
+const api = wretch(API_BASE, options).errorType('json');
 
 export const user = {
   fetch: () =>
@@ -102,6 +100,7 @@ export const announcements = {
       .url('announcement/')
       .get()
       .json(),
+
   // { title, body, pub_date }
   create: (data) =>
     api

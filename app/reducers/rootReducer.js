@@ -3,6 +3,8 @@ import { reducer as formReducer } from 'redux-form';
 import { LOCATION_CHANGE, routerReducer } from 'react-router-redux';
 import { persistReducer, persistUiReducer } from 'common/persistence';
 
+import { app } from 'common/actions';
+
 import { announcementsUiReducer, announcementsReducer } from 'features/announcements/reducer';
 import { userUiReducer, userReducer } from 'features/user/reducer';
 import { vocabReducer } from 'features/vocab/reducer';
@@ -28,15 +30,20 @@ const entitiesReducer = combineReducers({
 // FIXME: create appReducer? globalReducer? reducerReducers with routerReducer?
 import { handleActions } from 'redux-actions';
 let fromPath = '';
+const globalInitialState = { maintenance: { active: false }, fromPath: '' };
 export const appReducer = handleActions(
   {
+    [app.maintenanceMode]: (state, action) => ({
+      ...state,
+      maintenance: { active: action.payload },
+    }),
     [LOCATION_CHANGE]: (state, action) => {
       const prevPath = fromPath;
       fromPath = action.payload.pathname;
-      return { fromPath: prevPath };
+      return { ...state, fromPath: prevPath };
     },
   },
-  { fromPath: '' }
+  globalInitialState
 );
 
 const rootReducer = combineReducers({
