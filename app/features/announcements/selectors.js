@@ -17,6 +17,10 @@ const shouldLoad = ({ isLoading, lastLoad }) => {
 };
 
 export const selectAnnouncementsShouldLoad = createSelector(selectAnnouncementsUi, shouldLoad);
+export const selectAnnouncementsIsLoading = createSelector(
+  selectAnnouncementsUi,
+  getState('isLoading', false)
+);
 export const selectAnnouncementIds = makeSelectItemIds(selectAnnouncementEntities);
 export const selectAnnouncements = selectAnnouncementEntities;
 export const selectAnnouncementById = makeSelectItemById(selectAnnouncements);

@@ -5,9 +5,13 @@ import { createStructuredSelector } from 'reselect';
 import cuid from 'cuid';
 
 import announcements from './actions';
-import { UI_DOMAIN, selectAnnouncementIds, selectAnnouncementsShouldLoad } from './selectors';
+import {
+  selectAnnouncementIds,
+  selectAnnouncementsIsLoading,
+  selectAnnouncementsShouldLoad,
+} from './selectors';
 
-import Loader from 'common/components/Loader';
+import Spinner from 'common/components/Spinner';
 import Toggle from 'common/components/Toggle';
 import Aux from 'common/components/Aux';
 import Ul from 'common/components/Ul';
@@ -39,20 +43,32 @@ export function AnnouncementList({ ids }) {
 }
 
 const mapStateToProps = createStructuredSelector({
+  shouldLoad: selectAnnouncementsShouldLoad,
+  isLoading: selectAnnouncementsIsLoading,
   ids: selectAnnouncementIds,
 });
 
-function AnnouncementListContainer(props) {
-  return (
-    <Loader
-      uiDomain={UI_DOMAIN}
-      selectShouldLoad={selectAnnouncementsShouldLoad}
-      load={announcements.load.request}
-      render={({ isLoading, Spinner }) =>
-        isLoading ? <Spinner /> : <AnnouncementList {...props} />
-      }
-    />
-  );
+const mapDispatchToProps = {
+  load: announcements.load.request,
+};
+
+class AnnouncementListContainer extends React.Component {
+  static propTypes = {
+    ids: PropTypes.array.isRequired,
+    shouldLoad: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    load: PropTypes.func.isRequired,
+  };
+
+  componentDidMount() {
+    if (this.props.shouldLoad) {
+      this.props.load();
+    }
+  }
+
+  render() {
+    return this.props.isLoading ? <Spinner /> : <AnnouncementList ids={this.props.ids} />;
+  }
 }
 
-export default connect(mapStateToProps)(AnnouncementListContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AnnouncementListContainer);
