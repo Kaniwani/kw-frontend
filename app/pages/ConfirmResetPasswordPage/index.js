@@ -1,13 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import { user } from 'features/user/actions';
+
 import Container from 'common/components/Container';
 import PageWrapper from 'common/components/PageWrapper';
 
-class DevPage extends React.Component {
-  state = {};
-  // updateState = () =>
-  //   this.setState((prevState) => ({ }));
+class ConfirmResetPassword extends React.Component {
+  static propTypes = {
+    confirmReset: PropTypes.func.isRequired,
+  };
 
   handleSubmit = (event) => {
     event.preventDefault();
@@ -47,8 +50,8 @@ const mapDispatchToProps = (dispatch, props) => ({
       token,
       new_password: newPassword,
     };
-    return dispatch(user.confirmResetPassword.request(data));
+    dispatch(user.confirmResetPassword.request(data));
   },
 });
 
-export default connect(null, mapDispatchToProps)(DevPage);
+export default connect(null, mapDispatchToProps)(ConfirmResetPassword);

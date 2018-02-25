@@ -9,6 +9,17 @@ GET {{host}}/user/me
 {{auth}}
 {{contentType}}
 
+
+### update profile
+patch {{host}}/profile/2119
+{{auth}}
+{{contentType}}
+
+{
+  "id": 2119,
+  "api_key": "5fa2d9c257dda131a54018f5c3f5ff91"
+}
+
 ### create announcement
 POST {{host}}/announcement/
 {{auth}}

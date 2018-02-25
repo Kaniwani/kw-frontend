@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { reduxForm, Field, SubmissionError } from 'redux-form';
-import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { reduxForm, Field, SubmissionError, propTypes as formPropTypes } from 'redux-form';
 
 import settings from './actions';
-import { selectUsername, selectUserLevel } from 'features/user/selectors';
+import { selectUsername, selectUserLevel, selectApiKey } from 'features/user/selectors';
 import { doValuesMatch, numberValid } from 'common/validations';
 
 import H2 from 'common/components/H2';
@@ -15,57 +15,47 @@ import Button from 'common/components/Button';
 import InputField from './InputField';
 import RangeField from './RangeField';
 
-import { Form, Section, SubSection, Controls } from './styles';
+import { Form, Section, SubSection, Block, Controls } from './styles';
 
-AccountForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
-  submitSucceeded: PropTypes.bool.isRequired,
+const ResetProgress = ({ currentLevel, handleSubmit, submitting, submitSucceeded }) => (
+  <Form onSubmit={handleSubmit}>
+    <Block>
+      <Field
+        name="resetLevel"
+        label="Reset to start of level:"
+        component={RangeField}
+        min={1}
+        max={currentLevel}
+        step={1}
+      />
+      <Field
+        name="confirmation"
+        label="Enter username to confirm:"
+        placeholder="名前"
+        component={InputField}
+      />
+    </Block>
+    <Controls>
+      <Button type="submit">
+        {(submitting && 'Submitting') || (submitSucceeded && 'Reset!') || 'Reset Progress'}
+      </Button>
+    </Controls>
+  </Form>
+);
+
+ResetProgress.propTypes = {
+  ...formPropTypes,
   currentLevel: PropTypes.number.isRequired,
 };
 
-function AccountForm({ currentLevel, handleSubmit, submitting, submitSucceeded }) {
-  return (
-    <Form onSubmit={handleSubmit}>
-      <Section>
-        <H2>Account</H2>
-        <SubSection>
-          <H4>Reset Kaniwani Progress</H4>
-          <Field
-            name="resetLevel"
-            label="Reset to start of level:"
-            component={RangeField}
-            min={1}
-            max={currentLevel}
-            step={1}
-          />
-          <Field
-            name="confirmation"
-            label="Enter username to confirm:"
-            placeholder="名前"
-            component={InputField}
-          />
-        </SubSection>
-        <Controls>
-          <Button type="submit">
-            {(submitting && 'Submitting') || (submitSucceeded && 'Reset!') || 'Reset Progress'}
-          </Button>
-        </Controls>
-      </Section>
-    </Form>
-  );
-}
-
-const mapStateToProps = (state) => ({
-  name: selectUsername(state),
-  currentLevel: selectUserLevel(state),
-  initialValues: { resetLevel: 1 },
-});
-
-const enhance = compose(
-  connect(mapStateToProps),
+const ResetProgressForm = compose(
+  connect((state) => ({
+    name: selectUsername(state),
+    currentLevel: selectUserLevel(state),
+    initialValues: { resetLevel: 1 },
+  })),
   reduxForm({
-    form: 'account',
+    form: 'resetProgress',
     onSubmit: ({ confirmation, resetLevel }, dispatch, { name }) => {
       const errors = {
         confirmation: doValuesMatch(confirmation, name),
@@ -78,6 +68,41 @@ const enhance = compose(
       }
     },
   })
+)(ResetProgress);
+
+const ApiKey = ({ handleSubmit, submitting, submitSucceeded }) => (
+  <Form onSubmit={handleSubmit}>
+    <Field name="apiKey" label="Api Key:" component={InputField} />
+    <Button type="submit">
+      {(submitting && 'Updating') || (submitSucceeded && 'Updated!') || 'Update'}
+    </Button>
+  </Form>
 );
 
-export default enhance(AccountForm);
+ApiKey.propTypes = formPropTypes;
+
+const ApiKeyForm = compose(
+  connect((state) => ({
+    initialValues: { apiKey: selectApiKey(state) },
+  })),
+  reduxForm({
+    form: 'apiKey',
+    enableReinitialize: true,
+    onSubmit: (values, dispatch, props) => dispatch(settings.save.request(values, { form: props })),
+  })
+)(ApiKey);
+
+function AccountForm() {
+  return (
+    <Section>
+      <H2>Account</H2>
+      <ApiKeyForm />
+      <SubSection>
+        <H4>Reset Kaniwani Progress</H4>
+        <ResetProgressForm />
+      </SubSection>
+    </Section>
+  );
+}
+
+export default AccountForm;
