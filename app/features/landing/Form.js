@@ -140,11 +140,7 @@ const enhance = compose(
       }
 
       if (resetSelected) {
-        // FIXME: this step works, but we don't have a confirmation in place yet
         dispatch(user.resetPassword.request({ email }));
-        // window.alert(
-        //   'Temporarily disabled - please let us know on Slack to reset your password.\n\nhttps://rauchg-slackin-iurjmkotad.now.sh'
-        // );
       }
     },
   }),
