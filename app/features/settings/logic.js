@@ -19,12 +19,16 @@ export const saveSettingsLogic = createLogic({
       .then((response) => {
         dispatch(user.load.success({ profile: response }));
         dispatch(settings.save.success());
-        form.setSubmitSucceeded();
+        form.stopSubmit();
         done();
       })
       .catch((err) => {
         dispatch(settings.save.failure(err));
-        form.setSubmitFailed();
+        if (err.json.api_key) {
+          form.stopSubmit({ apiKey: err.json.api_key[0] });
+        } else {
+          form.stopSubmit();
+        }
         done();
       });
   },

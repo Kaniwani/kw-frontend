@@ -15,7 +15,7 @@ import Button from 'common/components/Button';
 import InputField from './InputField';
 import RangeField from './RangeField';
 
-import { Form, Section, SubSection, Block, Controls } from './styles';
+import { Form, Section, SubSection, Block, Controls, ValidationMessage } from './styles';
 
 const ResetProgress = ({ currentLevel, handleSubmit, submitting, submitSucceeded }) => (
   <Form onSubmit={handleSubmit}>
@@ -70,33 +70,39 @@ const ResetProgressForm = compose(
   })
 )(ResetProgress);
 
-const ApiKey = ({ handleSubmit, submitting, submitSucceeded }) => (
+const UpdateApiKey = ({ handleSubmit, submitting, submitSucceeded }) => (
   <Form onSubmit={handleSubmit}>
-    <Field name="apiKey" label="Api Key:" component={InputField} />
-    <Button type="submit">
-      {(submitting && 'Updating') || (submitSucceeded && 'Updated!') || 'Update'}
-    </Button>
+    <Block>
+      <Field name="apiKey" label="Api Key:" component={InputField} />s
+    </Block>
+    <Controls>
+      <Button type="submit">
+        {(submitting && 'Updating') || (submitSucceeded && 'Updated!') || 'Update'}
+      </Button>
+    </Controls>
   </Form>
 );
 
-ApiKey.propTypes = formPropTypes;
+UpdateApiKey.propTypes = formPropTypes;
 
-const ApiKeyForm = compose(
+const UpdateApiKeyForm = compose(
   connect((state) => ({
     initialValues: { apiKey: selectApiKey(state) },
   })),
   reduxForm({
-    form: 'apiKey',
+    form: 'updateApiKey',
     enableReinitialize: true,
-    onSubmit: (values, dispatch, props) => dispatch(settings.save.request(values, { form: props })),
+    onSubmit: (values, dispatch, props) => {
+      dispatch(settings.save.request(values, { form: props }));
+    },
   })
-)(ApiKey);
+)(UpdateApiKey);
 
 function AccountForm() {
   return (
     <Section>
       <H2>Account</H2>
-      <ApiKeyForm />
+      <UpdateApiKeyForm />
       <SubSection>
         <H4>Reset Kaniwani Progress</H4>
         <ResetProgressForm />
