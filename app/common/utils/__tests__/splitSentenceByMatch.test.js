@@ -69,6 +69,20 @@ describe('splitSentenceByMatch()', () => {
       });
     });
 
+    it('matches word before reading when stripping okurigana', () => {
+      expect(
+        splitSentenceByMatch({
+          sentence: '自民党が人気の尻馬に乗った',
+          word: '乗る',
+          reading: 'のる',
+        })
+      ).toEqual({
+        head: '自民党が人気の尻馬に',
+        match: '乗',
+        tail: 'った',
+      });
+    });
+
     it('differing trailing okurigana conjugation', () => {
       expect(
         splitSentenceByMatch({ sentence: '私は小銭を探したが見当たらない', word: '見当たる' })
@@ -101,6 +115,21 @@ describe('splitSentenceByMatch()', () => {
         head: '彼の話は一言も聞き',
         match: '逃さなかった',
         tail: '',
+      });
+    });
+
+    it('attempts various conjugations with verbType', () => {
+      expect(
+        splitSentenceByMatch({
+          sentence: '私はその映画を見逃してしまった',
+          word: '見逃す',
+          reading: 'みのがす',
+          verbType: 'v5',
+        })
+      ).toEqual({
+        head: '私はその映画を',
+        match: '見逃して',
+        tail: 'しまった',
       });
     });
 
