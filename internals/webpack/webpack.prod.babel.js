@@ -60,11 +60,13 @@ module.exports = require('./webpack.base.babel')({
         // All chunks marked as `additional`, loaded after main section
         // and do not prevent SW to install. Change to `optional` if
         // do not want them to be preloaded at all (cached only when first loaded)
-        additional: ['*.chunk.js'],
+        additional: ['*.chunk.js', '*.png', '*.svg', '*.jpg'],
       },
 
       // Removes warning for about `additional` section usage
       safeToUseOptionalCaches: true,
+
+      autoUpdate: true,
 
       AppCache: false,
 
