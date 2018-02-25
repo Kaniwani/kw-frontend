@@ -108,6 +108,8 @@ export class SiteHeader extends React.Component {
         >
           <Switch>
             <Route path="/:category(lessons|reviews)/session" />
+            <Route path="/welcome" />
+            <Route path="/maintenance" />
             <Route
               render={() => (
                 <Aux>
