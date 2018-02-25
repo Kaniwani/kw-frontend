@@ -94,7 +94,10 @@ export const InputField = styled.input`
   border: none;
   border-radius: 10px;
   background-color: ${white[2]};
-  ${placeholder({ color: grey[2] })}
+  ${placeholder({
+    color: grey[2],
+    opacity: 1, // firefox sets lower opacity >_<
+  })}
 
   &:focus {
     ${placeholder({ color: transparentize(0.5, grey[2]) })}
