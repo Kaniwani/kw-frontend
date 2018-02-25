@@ -4,8 +4,15 @@ import { connect } from 'react-redux';
 
 import { user } from 'features/user/actions';
 
-import Container from 'common/components/Container';
-import PageWrapper from 'common/components/PageWrapper';
+import LandingPage from 'pages/LandingPage/Loadable';
+import {
+  Wrapper,
+  Form,
+  InputWrapper,
+  Label,
+  InputField,
+  SubmitButton,
+} from 'features/landing/styles';
 
 class ConfirmResetPassword extends React.Component {
   static propTypes = {
@@ -20,24 +27,26 @@ class ConfirmResetPassword extends React.Component {
   // TODO: try formik here?
   render() {
     return (
-      <PageWrapper>
-        <Container>
-          <form onSubmit={this.handleSubmit}>
-            <label htmlFor="newPassword">
-              New Password
-              <input
-                type="password"
+      <LandingPage>
+        <Wrapper>
+          <Form onSubmit={this.handleSubmit}>
+            <InputWrapper>
+              <Label htmlFor="newPassword">New Password</Label>
+              <InputField
                 id="newPassword"
-                name="newPassword"
-                ref={(node) => {
+                type="password"
+                placeholder="New Password"
+                innerRef={(node) => {
                   this.inputRef = node;
                 }}
               />
-            </label>
-            <button type="submit">Reset Password</button>
-          </form>
-        </Container>
-      </PageWrapper>
+              <SubmitButton lang="ja" type="submit">
+                Reset
+              </SubmitButton>
+            </InputWrapper>
+          </Form>
+        </Wrapper>
+      </LandingPage>
     );
   }
 }

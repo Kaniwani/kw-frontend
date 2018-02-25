@@ -4,15 +4,13 @@ import landingBackground from 'common/assets/img/landing.svg';
 import MultiLogin from 'features/landing';
 import { Wrapper, Title, LandingBackgroundImg } from './styles';
 
-function LandingPage() {
+function LandingPage({ children }) {
   return (
     <Wrapper fullWidth>
       <header>
         <Title>KaniWani</Title>
       </header>
-      <main>
-        <MultiLogin />
-      </main>
+      <main>{children || <MultiLogin />}</main>
       <LandingBackgroundImg imgSrc={landingBackground} />
     </Wrapper>
   );

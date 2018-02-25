@@ -198,6 +198,7 @@ export const SubmitButton = styled.button`
   font-weight: 700;
   background-color: ${white[2]};
   color: ${purple[5]};
+  align-self: center;
 
   &:hover,
   &:focus,
