@@ -66,13 +66,15 @@ export const user = {
     api
       .url('auth/password/reset/')
       .json(data)
-      .post(),
+      .post()
+      .res(),
   // { uid, token, new_password }
   confirmResetPassword: (data) =>
     api
       .url(`auth/password/reset/confirm/`)
       .json(data)
-      .post(),
+      .post()
+      .res(),
   // deserialize entire profile state
   update: (data) =>
     api

@@ -72,16 +72,14 @@ export const resetPasswordLogic = createLogic({
     dispatch(startSubmit(FORM_NAME));
     api.user
       .resetPassword(payload)
-      .then((res) => {
-        debugger; // eslint-disable-line
-        dispatch(user.resetPassword.success(res));
+      .then(() => {
+        dispatch(user.resetPassword.success());
         dispatch(stopSubmit(FORM_NAME));
         // TODO: notification user to check email
         window.alert('Check your email to complete reset');
         done();
       })
       .catch((error) => {
-        debugger; // eslint-disable-line
         dispatch(stopSubmit(FORM_NAME, { ...error, _error: error.non_field_errors }));
         dispatch(user.resetPassword.failure(error));
         console.warn(`API failure. Response error was: ${JSON.stringify(error)}`);
@@ -95,15 +93,13 @@ export const confirmResetPasswordLogic = createLogic({
   process({ api, action: { payload } }, dispatch, done) {
     api.user
       .confirmResetPassword(payload)
-      .then((res) => {
-        debugger; // eslint-disable-line
-        dispatch(user.confirmResetPassword.success(res));
+      .then(() => {
+        dispatch(user.confirmResetPassword.success());
         // TODO: proper notification
         window.alert('Password reset complete');
         done();
       })
       .catch((error) => {
-        debugger; // eslint-disable-line
         dispatch(stopSubmit(FORM_NAME, { ...error, _error: error.non_field_errors }));
         dispatch(user.confirmResetPassword.failure(error));
         console.warn(`API failure. Response error was: ${JSON.stringify(error)}`);

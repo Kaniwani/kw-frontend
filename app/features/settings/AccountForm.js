@@ -15,7 +15,7 @@ import Button from 'common/components/Button';
 import InputField from './InputField';
 import RangeField from './RangeField';
 
-import { Form, Section, SubSection, Block, Controls, ValidationMessage } from './styles';
+import { Form, Section, SubSection, Block, Controls } from './styles';
 
 const ResetProgress = ({ currentLevel, handleSubmit, submitting, submitSucceeded }) => (
   <Form onSubmit={handleSubmit}>
