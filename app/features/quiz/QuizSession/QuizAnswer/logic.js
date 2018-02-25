@@ -116,23 +116,16 @@ export const checkAnswerLogic = createLogic({
         })
       );
       dispatch(quiz.answer.correct());
-      dispatch(quiz.info.update({ isDisabled: false, detailLevel: 1 }));
-
-      if (
-        settings.autoExpandAnswerOnSuccess &&
-        settings.autoAdvanceOnSuccessDelayMilliseconds > 0
-      ) {
-        dispatch(quiz.info.update({ isOpen: true }));
-      }
+      const isOpen =
+        settings.autoExpandAnswerOnSuccess && settings.autoAdvanceOnSuccessDelayMilliseconds > 0;
+      dispatch(quiz.info.update({ isDisabled: false, detailLevel: 1, isOpen }));
     }
 
     if (!matchedAnswer) {
       dispatch(quiz.answer.update({ ...updatedAnswer, isIncorrect: true }));
       dispatch(quiz.answer.incorrect());
-      dispatch(quiz.info.update({ isDisabled: false, detailLevel: 0 }));
-      if (settings.autoExpandAnswerOnFailure) {
-        dispatch(quiz.info.update({ isOpen: true }));
-      }
+      const isOpen = settings.autoExpandAnswerOnFailure;
+      dispatch(quiz.info.update({ isDisabled: false, detailLevel: 0, isOpen }));
     }
 
     done();
@@ -168,7 +161,7 @@ export const correctAnswerLogic = createLogic({
 export const incorrectAnswerLogic = createLogic({
   type: quiz.answer.incorrect,
   latest: true,
-  process({ getState }, dispatch, done) {
+  process({ getState, action: { payload } }, dispatch, done) {
     const current = selectCurrent(getState());
     const isLessonQuiz = selectIsLessonQuiz(getState());
     const previouslyIncorrect = selectCurrentPreviouslyIncorrect(getState());
@@ -192,7 +185,14 @@ export const incorrectAnswerLogic = createLogic({
     };
 
     dispatch(quiz.session.current.update(updatedReview));
-    done();
+    if (payload.forceIncorrect) {
+      setTimeout(() => {
+        dispatch(quiz.answer.record.request());
+        done();
+      }, 1000);
+    } else {
+      done();
+    }
   },
 });
 
@@ -208,9 +208,15 @@ export const ignoreAnswerLogic = createLogic({
       reject();
     }
   },
-  process(_, dispatch, done) {
-    // update state immediately for "ignored" animation
-    dispatch(quiz.question.advance());
+  process({ getState }, dispatch, done) {
+    const { isCorrect } = selectAnswer(getState());
+    if (isCorrect) {
+      dispatch(quiz.answer.update({ isCorrect: false, isIncorrect: true }));
+      dispatch(quiz.answer.incorrect({ forceIncorrect: true }));
+    } else {
+      dispatch(quiz.answer.update({ isIgnored: true }));
+      dispatch(quiz.question.advance());
+    }
     done();
   },
 });
@@ -289,7 +295,6 @@ export const autoAdvanceLogic = createLogic({
     const answerIgnored = selectAnswerIgnored(getState());
 
     if (answerIgnored) {
-      dispatch(quiz.answer.update({ isIgnored: true }));
       const isReviewQuiz = selectIsReviewQuiz(getState());
       const reviewsQuizDelay = 700;
       const lessonsQuizDelay = 200;
@@ -317,9 +322,12 @@ export const autoAdvanceLogic = createLogic({
 
 export const synonymAddLogic = createLogic({
   type: synonym.add.success,
-  process(_, dispatch, done) {
+  process({ getState }, dispatch, done) {
     dispatch(quiz.session.setSynonymModal(false));
-    dispatch(quiz.answer.ignore());
+    const { isIncorrect } = selectAnswer(getState());
+    if (isIncorrect) {
+      dispatch(quiz.answer.ignore());
+    }
     done();
   },
 });

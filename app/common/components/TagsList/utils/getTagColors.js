@@ -7,7 +7,7 @@ let palette = {
   noun: { bgColor: COLORS.orange[2] },
   adverb: { bgColor: COLORS.pink[2] },
   verb: { bgColor: COLORS.teal[1] },
-  adj: { bgColor: COLORS.yellow[2] },
+  adj: { bgColor: COLORS.yellow[3] },
 };
 
 palette = Object.entries(palette).reduce((hash, [key, { bgColor }]) => {

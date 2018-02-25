@@ -22,6 +22,7 @@ export class QuizAnswer extends React.Component {
     isDisabled: PropTypes.bool,
     isCorrect: PropTypes.bool,
     isIncorrect: PropTypes.bool,
+    isIgnored: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -32,6 +33,7 @@ export class QuizAnswer extends React.Component {
     isDisabled: false,
     isCorrect: false,
     isIncorrect: false,
+    isIgnored: false,
   };
 
   componentDidMount() {
@@ -74,6 +76,7 @@ export class QuizAnswer extends React.Component {
       isDisabled,
       isCorrect,
       isIncorrect,
+      isIgnored,
       isMarked,
       isValid,
       streakName,
@@ -88,6 +91,7 @@ export class QuizAnswer extends React.Component {
         valid={isValid}
         correct={isCorrect}
         incorrect={isIncorrect}
+        ignored={isIgnored}
         tabIndex={0}
       >
         <AnswerWrapper>

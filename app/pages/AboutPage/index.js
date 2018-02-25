@@ -15,6 +15,7 @@ import { purple } from 'common/styles/colors';
 
 const Shortcut = styled.span`
   color: ${purple[4]};
+  font-weight: 600;
 `;
 
 function AboutPage() {
@@ -72,9 +73,15 @@ function AboutPage() {
           <Element flex="1 0 320px">
             <H2>Next Time Gadget</H2>
             <P constrain>
-              When your answer has been marked incorrect, but you totally knew what it was, like,
-              本気で！ You can press <Shortcut>/</Shortcut> <small>(forward slash)</small> on your
-              keyboard or vehemently tap the <Shortcut>x</Shortcut> icon to ignore your failure.
+              If your answer is marked incorrect, but you totally knew what it was, truly your
+              honour. You can press <Shortcut>/</Shortcut> or <Shortcut>i</Shortcut> on your
+              keyboard, or vehemently tap the <strong>x</strong> icon
+              <strong> to ignore your failure as if nothing ever happened</strong>.
+            </P>
+            <P constrain>
+              <em>However</em>, if your answer was correct, using this feature will
+              <strong> mark your correct answer as incorrect and penalise appropriately</strong>.
+              Use with caution!
             </P>
           </Element>
           <Element flex="1 0 320px">

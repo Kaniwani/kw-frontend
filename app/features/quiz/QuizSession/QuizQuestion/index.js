@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { selectCurrent, selectIsLessonQuiz } from 'features/quiz/QuizSession/selectors';
-import {
-  selectAnswerDisabled,
-  selectAnswerIgnored,
-} from 'features/quiz/QuizSession/QuizAnswer/selectors';
+import { selectAnswer } from 'features/quiz/QuizSession/QuizAnswer/selectors';
 import {
   selectPrimaryMeaning,
   selectSecondaryMeanings,
@@ -27,8 +24,10 @@ export class QuizQuestion extends React.Component {
     tags: PropTypes.array,
     streak: PropTypes.number,
     isLessonQuiz: PropTypes.bool,
-    isAnswerIgnored: PropTypes.bool,
-    isAnswerDisabled: PropTypes.bool,
+    isIgnored: PropTypes.bool,
+    isDisabled: PropTypes.bool,
+    isCorrect: PropTypes.bool,
+    isIncorrect: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -37,8 +36,10 @@ export class QuizQuestion extends React.Component {
     tags: [],
     streak: null,
     isLessonQuiz: false,
-    isAnswerIgnored: false,
-    isAnswerDisabled: false,
+    isIgnored: false,
+    isDisabled: false,
+    isCorrect: false,
+    isIncorrect: false,
   };
 
   state = {
@@ -46,8 +47,13 @@ export class QuizQuestion extends React.Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.isAnswerDisabled === false) {
+    // answer reset = new question
+    if (!nextProps.isDisabled) {
       this.setState({ initialStreak: nextProps.streak });
+    }
+    // forced incorrect
+    if (this.props.isCorrect && nextProps.isIncorrect) {
+      this.setState({ initialStreak: this.props.streak });
     }
   }
 
@@ -57,20 +63,16 @@ export class QuizQuestion extends React.Component {
       secondaryMeanings,
       tags,
       isLessonQuiz,
-      isAnswerDisabled,
-      isAnswerIgnored,
+      isDisabled,
+      isIgnored,
     } = this.props;
     return (
       <Wrapper>
         <Question primaryMeaning={primaryMeaning} secondaryMeanings={secondaryMeanings} />
-        <TagsList tags={tags} isVisible={!isAnswerDisabled} />
+        <TagsList tags={tags} isVisible={!isDisabled} />
         {!isLessonQuiz &&
-          isAnswerDisabled && (
-            <Flyover
-              isIgnored={isAnswerIgnored}
-              from={this.state.initialStreak}
-              to={this.props.streak}
-            />
+          isDisabled && (
+            <Flyover isIgnored={isIgnored} from={this.state.initialStreak} to={this.props.streak} />
           )}
       </Wrapper>
     );
@@ -83,8 +85,6 @@ const mapStateToProps = (state, props) => {
   const tags = selectTags(state, { id: primaryVocabId });
   const primaryMeaning = selectPrimaryMeaning(state, { id: reviewId });
   const secondaryMeanings = selectSecondaryMeanings(state, { id: reviewId });
-  const isAnswerDisabled = selectAnswerDisabled(state, props);
-  const isAnswerIgnored = selectAnswerIgnored(state, props);
   const isLessonQuiz = selectIsLessonQuiz(state, props);
 
   return {
@@ -93,8 +93,7 @@ const mapStateToProps = (state, props) => {
     tags,
     streak,
     isLessonQuiz,
-    isAnswerDisabled,
-    isAnswerIgnored,
+    ...selectAnswer(state, props),
   };
 };
 
