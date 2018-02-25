@@ -26,6 +26,7 @@ export class Dashboard extends React.Component {
     return (
       <Aux>
         <Container>
+          <h1>Service worker check</h1>
           <ApiKeyCheck />
           <ReviewStatus />
         </Container>
