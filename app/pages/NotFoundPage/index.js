@@ -25,7 +25,8 @@ function NotFoundPage({ children }) {
           {children || (
             <Aux>
               <Title>
-                <span lang="ja">おろ〜</span> How did you get here?
+                <span lang="ja">おろ〜 </span>
+                <span>How did you get here?</span>
               </Title>
               <Subtitle>
                 Double-check the url is correct, and if you’re certain we mussed up then go ahead

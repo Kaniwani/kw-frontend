@@ -5,8 +5,8 @@ import P from 'common/components/P';
 import BGImg from 'common/components/BackgroundImg';
 
 import { pink, grey } from 'common/styles/colors';
-import { kilo, godzilla } from 'common/styles/typography';
-import { media } from 'common/styles/media';
+import { godzilla } from 'common/styles/typography';
+import { breakpoints } from 'common/styles/media';
 
 export const Wrapper = styled.div`
   margin: 0;
@@ -16,33 +16,34 @@ export const Wrapper = styled.div`
 `;
 
 export const BackgroundImg = BGImg.extend`
-  max-width: 75vmax;
   max-width: 700px;
   background-position: left bottom;
   background-size: contain;
-  ${media().lg`
-    background-position: 15% center;
-    background-size: cover;
-  `}
+
+  @media (min-width: ${breakpoints.lg}px ) {
+    max-width: 50vw;
+  }
+
 `;
 
 export const Title = H1.extend`
-  ${kilo}
+  ${godzilla}
   color: ${pink[5]};
-  ${media().md`
-    ${godzilla}
+  display: flex;
+  flex-flow: row wrap;
+  @media (min-width: ${breakpoints.md}px) {
     margin-left: auto;
     text-align: right;
-  `}
+  }
 `;
 
 const textStyle = css`
   color: ${grey[8]};
-  ${media().md`
+  @media (min-width: ${breakpoints.md}px ) {
     max-width: 800px;
     margin-left: auto;
     text-align: right;
-  `}
+  }
 `;
 
 export const Subtitle = H2.extend`
