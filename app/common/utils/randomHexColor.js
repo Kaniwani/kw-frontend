@@ -1,3 +1,4 @@
+/* eslint-disable no-bitwise */
 /**
  * Creates a randomised hex color string
  * @return {String} hex color
@@ -5,6 +6,7 @@
  * randomHexColor()
  * // => '#ed6ae7'
  */
-const randomHexColor = () => `#${(Math.random() * 0xFFFFFF << 0).toString(16)}`; // eslint-disable-line no-bitwise
+const randomHexColor = '#000000'.replace(/0/g, () => (~~(Math.random() * 16)).toString(16));
+/* eslint-enable no-bitwise */
 
 export default randomHexColor;
