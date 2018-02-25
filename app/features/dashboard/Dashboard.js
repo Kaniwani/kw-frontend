@@ -23,7 +23,6 @@ export class Dashboard extends React.Component {
   }
 
   render() {
-    window.alert('serviceworker updated');
     return (
       <Aux>
         <Container>
