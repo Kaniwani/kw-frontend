@@ -4,11 +4,15 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { debounce, isEqual } from 'lodash';
 import cuid from 'cuid';
+import { Switch, Route } from 'react-router-dom';
+import { hasToken } from 'common/utils/auth';
 
 import { breakpoints } from 'common/styles/media';
 import { selectLocationPath } from 'common/selectors';
 
+import Aux from 'common/components/Aux';
 import Element from 'common/components/Element';
+import QuizSummaryHeader from 'features/quiz/QuizSummary/QuizSummaryHeader';
 import LogoLink from 'common/components/LogoLink';
 import Hamburger from './Hamburger';
 import OffCanvasMenu from './OffCanvasMenu';
@@ -91,27 +95,50 @@ export class SiteHeader extends React.Component {
 
   render() {
     const { isWideViewport, offCanvasMenuActive } = this.state;
+    if (isWideViewport === undefined) {
+      return null;
+    }
 
-    return isWideViewport === undefined ? null : (
-      <Header
-        innerRef={(node) => {
-          this.HeaderRef = node;
-        }}
-      >
-        <Nav>
-          <LogoLink />
-          <Element flexRow flex="999 1 auto" justifyContent="space-between">
-            {this.renderMenu(PRIMARY_LINKS)}
-            {isWideViewport && this.renderMenu(SECONDARY_LINKS)}
-          </Element>
-          {!isWideViewport && <Hamburger onToggle={this.showOffCanvasMenu} />}
-        </Nav>
-        <OffCanvasMenu
-          links={SECONDARY_LINKS}
-          isVisible={offCanvasMenuActive}
-          onClose={this.hideOffCanvasMenu}
-        />
-      </Header>
+    return (
+      hasToken() && (
+        <Header
+          innerRef={(node) => {
+            this.HeaderRef = node;
+          }}
+        >
+          <Switch>
+            <Route path="/:category(lessons|reviews)/session" />
+            <Route
+              render={() => (
+                <Aux>
+                  <Nav>
+                    <LogoLink />
+                    <Switch>
+                      <Route path="/:category(lessons|reviews)" component={QuizSummaryHeader} />
+                      <Route
+                        render={() => (
+                          <Aux>
+                            <Element flexRow flex="999 1 auto" justifyContent="space-between">
+                              {this.renderMenu(PRIMARY_LINKS)}
+                              {isWideViewport && this.renderMenu(SECONDARY_LINKS)}
+                            </Element>
+                            {!isWideViewport && <Hamburger onToggle={this.showOffCanvasMenu} />}
+                          </Aux>
+                        )}
+                      />
+                    </Switch>
+                  </Nav>
+                  <OffCanvasMenu
+                    links={SECONDARY_LINKS}
+                    isVisible={offCanvasMenuActive}
+                    onClose={this.hideOffCanvasMenu}
+                  />
+                </Aux>
+              )}
+            />
+          </Switch>
+        </Header>
+      )
     );
   }
 }

@@ -28,6 +28,13 @@ injectGlobal`
     line-height: 1;
     display: flex;
     flex-direction: column;
+    transition: transform 0.5s;
+    &.offCanvasMenu--isOpen {
+      transform: translateX(-50%);
+      height: 100vh;
+      overflow-y: hidden;
+      overflow-x: auto;
+    }
   }
 
   [lang="ja"],

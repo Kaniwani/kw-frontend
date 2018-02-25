@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { debounce } from 'lodash';
 import { breakpoints } from 'common/styles/media';
-import { RouterLink, Svg } from './styles';
+import { StyledLink, Svg } from './styles';
 
 export const LOGO_LARGE_REMS = '4.25rem';
 export const LOGO_SMALL_REMS = '3.25rem';
@@ -37,9 +37,9 @@ class LogoLink extends React.Component {
 
   render() {
     return (
-      <RouterLink to={this.props.to} size={this.state.size} title="Return Home">
+      <StyledLink to={this.props.to} size={this.state.size} title="Return Home">
         <Svg width="100%" height="100%" />
-      </RouterLink>
+      </StyledLink>
     );
   }
 }

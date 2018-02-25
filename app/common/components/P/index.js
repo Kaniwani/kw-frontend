@@ -1,17 +1,23 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { epsilon, bodyRhythm } from 'common/styles/typography';
-import { gutter } from 'common/styles/layout';
 
-const alignMixin = ({ align }) => `
+const alignMixin = ({ align }) => css`
   margin-left: ${align === 'center' ? 'auto' : 0};
   margin-right: ${align === 'center' ? 'auto' : 0};
 `;
 
-const textAlignMixin = ({ textAlign }) => textAlign && `text-align: ${textAlign};`;
-const constrainMixin = ({ constrain }) => constrain && 'max-width: 45em;';
+const textAlignMixin = ({ textAlign }) =>
+  textAlign &&
+  css`
+    text-align: ${textAlign};
+  `;
+const constrainMixin = ({ constrain }) =>
+  constrain &&
+  css`
+    max-width: 45em;
+  `;
 
 export const P = styled.p`
-  ${gutter()}
   ${epsilon}
   ${bodyRhythm}
   ${alignMixin}

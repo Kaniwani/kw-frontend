@@ -6,10 +6,9 @@ import { titleCase } from 'voca';
 import { selectReviewsCount, selectLessonsCount, selectOnVacation } from 'features/user/selectors';
 import { selectSessionRemainingCount } from 'features/quiz/QuizSession/selectors';
 import quiz from 'features/quiz/actions';
-import LogoLink from 'common/components/LogoLink';
 import SessionLink from './SessionLink';
 
-import { Header, Wrapper, Heading } from './styles';
+import { Wrapper, Heading } from './styles';
 
 QuizSummaryHeader.propTypes = {
   heading: PropTypes.string,
@@ -38,23 +37,21 @@ export function QuizSummaryHeader({
   onResetSummary,
 }) {
   return (
-    <Header>
-      <Wrapper>
-        <LogoLink />
-        <Heading>{heading}</Heading>
-        <SessionLink
-          isDisabled={isDisabled}
-          text={linkText}
-          to={sessionRoute}
-          count={count}
-          onClick={isDisabled ? () => {} : onResetSummary}
-        />
-      </Wrapper>
-    </Header>
+    <Wrapper>
+      <Heading>{heading} Summary</Heading>
+      <SessionLink
+        isDisabled={isDisabled}
+        text={linkText}
+        to={sessionRoute}
+        count={count}
+        onClick={isDisabled ? () => {} : onResetSummary}
+      />
+    </Wrapper>
   );
 }
 
-const mapStateToProps = (state, { category }) => {
+const mapStateToProps = (state, props) => {
+  const { category } = props.match.params;
   const fromSession = /session/.test(state.app.fromPath);
   const sessionRemainingCount = selectSessionRemainingCount(state, { category });
   const isOnVacation = selectOnVacation(state);

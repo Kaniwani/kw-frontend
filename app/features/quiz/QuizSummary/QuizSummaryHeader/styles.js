@@ -1,26 +1,17 @@
 import styled from 'styled-components';
 
-import H1 from 'common/components/H1';
+import H2 from 'common/components/H2';
 
-import { white } from 'common/styles/colors';
-import { bottomLight } from 'common/styles/shadows';
-import { gutter, centerByPadding } from 'common/styles/layout';
-
-export const Header = styled.header`
-  ${centerByPadding}
-  position: relative;
-  background: linear-gradient(to bottom, ${white[5]}, ${white[2]});
-  box-shadow: ${bottomLight};
-`;
-
-export const Wrapper = styled.nav`
-  ${gutter({ type: 'outer', position: 'horizontal' })} /* logo adds enough vertical space already */
+export const Wrapper = styled.div`
   display: flex;
   flex-flow: row wrap;
   align-items: center;
+  align-content: center;
   justify-content: space-between;
+  flex: 1 1 auto;
 `;
 
-export const Heading = H1.extend`
-  margin-left: .5rem;
+export const Heading = H2.extend`
+  font-weight: 500;
+  margin-left: auto;
 `;

@@ -8,7 +8,7 @@ import { titleCase } from 'voca';
 import Aux from 'common/components/Aux';
 import user from 'features/user/actions';
 import quiz from 'features/quiz/actions';
-import QuizSummary from 'features/quiz/QuizSummary';
+import QuizSummarySections from 'features/quiz/QuizSummary/QuizSummarySections';
 
 export class QuizSummaryPage extends React.Component {
   static propTypes = {
@@ -33,7 +33,8 @@ export class QuizSummaryPage extends React.Component {
           <title>{`${pageTitle} Summary`}</title>
           <meta name="description" content={`Kaniwani ${pageTitle} Summary`} />
         </Helmet>
-        <QuizSummary category={this.props.category} />
+        {/* QuizSummaryHeader rendered via SiteHeader route match */}
+        <QuizSummarySections category={this.props.category} />
       </Aux>
     );
   }

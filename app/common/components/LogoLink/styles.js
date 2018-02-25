@@ -8,7 +8,6 @@ import { purple, pink } from 'common/styles/colors';
 const linkStyle = css`
   display: block;
   position: relative;
-  vertical-align: middle;
   align-self: center;
   flex: 0 0 auto;
   width: ${({ size }) => size}; /*CSS instead of html width attr to support non-pixel units*/
@@ -45,5 +44,5 @@ const logoStyle = css`
 `;
 
 
-export const RouterLink = styled(Link)`${linkStyle}`;
+export const StyledLink = styled(Link)`${linkStyle}`;
 export const Svg = styled(Logo)`${logoStyle}`;

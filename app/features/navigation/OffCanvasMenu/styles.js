@@ -1,5 +1,4 @@
-import styled, { css, injectGlobal } from 'styled-components';
-import { rgba, lighten } from 'polished';
+import styled, { css } from 'styled-components';
 
 import { white, purple } from 'common/styles/colors';
 import { resetList } from 'common/styles/utils';
@@ -7,8 +6,10 @@ import { midEaseQuad } from 'common/styles/animation';
 
 import IconButton from 'common/components/IconButton';
 
-/* eslint-disable no-unused-expressions */
-injectGlobal`
+
+/*
+  NOTE: expects body to have this applied
+  via app/common/styles/global.js
   body {
     transition: transform 0.5s;
     &.offCanvasMenu--isOpen {
@@ -18,11 +19,8 @@ injectGlobal`
       overflow-x: auto;
     }
   }
-`;
-/* eslint-enable */
+*/
 
-const gradient1 = rgba(purple[4], 0.95);
-const gradient2 = rgba(lighten(0.1, purple[4]), 0.95);
 
 export const Wrapper = styled.nav`
   position: fixed;
@@ -30,7 +28,7 @@ export const Wrapper = styled.nav`
   height: 100%;
   top: 0;
   right: 0;
-  background-image: linear-gradient(160deg, ${gradient1} 10%, ${gradient2} 100%);
+  background-image: linear-gradient(160deg, ${purple[4]} 10%, ${purple[3]} 100%);
   color: ${white[2]};
   z-index: 10;
   visibility: hidden;

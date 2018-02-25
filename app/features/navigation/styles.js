@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+import { StyledLink as LogoLink } from 'common/components/LogoLink/styles';
 import Container from 'common/components/Container';
 import BackgroundImg from 'common/components/BackgroundImg';
 import Ul from 'common/components/Ul';
@@ -10,7 +11,6 @@ import { bottomLight } from 'common/styles/shadows';
 
 export const Header = styled.header`
   ${centerByPadding}
-  ${gutter({ prop: 'margin', position: 'bottom', type: 'outer' })} /* logo unfortunately adds height already */
   grid-area: Header;
   position: relative;
   background: linear-gradient(to bottom, ${white[5]}, ${white[2]});
@@ -18,11 +18,14 @@ export const Header = styled.header`
 `;
 
 export const Nav = styled.nav`
-  ${gutter({ position: 'horizontal', type: 'outer' })} /* logo unfortunately adds height already */
+  ${gutter({ position: 'horizontal', type: 'outer' })} /* logo adds enough height already */
   display: flex;
   align-items: center;
   align-content: center;
   justify-content: space-between;
+  & > ${LogoLink} {
+    margin-right: .5em;
+  }
 `;
 
 export const NavLinks = styled(Ul).attrs({

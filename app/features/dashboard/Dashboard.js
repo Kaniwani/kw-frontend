@@ -17,43 +17,37 @@ import ApiKeyCheck from './ApiKeyCheck';
 import SearchBar from 'features/search/SearchBar';
 import SearchResults from 'features/search/SearchResults';
 
-export class Dashboard extends React.Component {
-  shouldComponentUpdate(nextProps) {
-    return this.props.lastLoad.toString() !== nextProps.lastLoad.toString();
-  }
-
-  render() {
-    return (
-      <Aux>
-        <Container>
-          <ApiKeyCheck />
-          <ReviewStatus />
-        </Container>
-        <Container flexColumn>
-          <SearchBar />
-          <SearchResults />
-        </Container>
-        <Container>
-          <Element flexRow flexCenter>
-            <H2>Coming Up</H2>
-          </Element>
-          <UpcomingReviewsChart />
-        </Container>
-        <Container>
-          <Element flexRow flexCenter>
-            <H2>SRS Progress</H2>
-          </Element>
-          <SrsChart />
-        </Container>
-        <Container flexColumn flexCenter textAlign="center">
-          <Element flexRow flexCenter>
-            <H2>News & Updates</H2>
-          </Element>
-          <Announcements />
-        </Container>
-      </Aux>
-    );
-  }
+function Dashboard() {
+  return (
+    <Aux>
+      <Container>
+        <ApiKeyCheck />
+        <ReviewStatus />
+      </Container>
+      <Container flexColumn>
+        <SearchBar />
+        <SearchResults />
+      </Container>
+      <Container>
+        <Element flexRow flexCenter>
+          <H2>Coming Up</H2>
+        </Element>
+        <UpcomingReviewsChart />
+      </Container>
+      <Container>
+        <Element flexRow flexCenter>
+          <H2>SRS Progress</H2>
+        </Element>
+        <SrsChart />
+      </Container>
+      <Container flexColumn flexCenter textAlign="center">
+        <Element flexRow flexCenter>
+          <H2>News & Updates</H2>
+        </Element>
+        <Announcements />
+      </Container>
+    </Aux>
+  );
 }
 
 const mapStateToProps = (state) => ({ lastLoad: selectUserLastLoad(state) });

@@ -3,9 +3,6 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { hasToken } from 'common/utils/auth';
 
-import Aux from 'common/components/Aux';
-import SiteHeader from 'features/navigation/SiteHeader';
-import SiteFooter from 'features/navigation/SiteFooter';
 import LandingPage from 'pages/LandingPage/Loadable';
 import HomePage from 'pages/HomePage/Loadable';
 import VocabLevelsPage from 'pages/VocabLevelsPage/Loadable';
@@ -39,54 +36,18 @@ export function Routes() {
 
 function renderProtectedRoutes() {
   return (
-    <Aux>
-      <Switch>
-        <Route path="/:path(lessons|reviews)" />
-        <Route path="" component={SiteHeader} />
-      </Switch>
-      <main>
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/about" component={AboutPage} />
-          <Route exact path="/contact" component={ContactPage} />
-          <Route exact path="/settings" component={SettingsPage} />
-          <Route path="/:category(lessons|reviews)" render={renderQuizRoutes} />
-          <Route path="/vocabulary" render={renderVocabularyRoutes} />
-          <Route path="" component={NotFoundPage} />
-        </Switch>
-      </main>
-      <Switch>
-        <Route exact path="/:path(lessons|reviews)" component={SiteFooter} />
-        <Route path="/:path(lessons|reviews)" />
-        <Route path="/:path(settings|about|contact)" component={SiteFooter} />
-        <Route exact path="/vocabulary/levels" component={SiteFooter} />
-        <Route exact path="/vocabulary/levels/:id" component={SiteFooter} />
-        <Route exact path="/vocabulary/entry/:id" component={SiteFooter} />
-        <Route exact path="/" component={SiteFooter} />
-        <Route path="" />
-      </Switch>
-    </Aux>
-  );
-}
-
-function renderQuizRoutes() {
-  return (
     <Switch>
-      <Route exact path="/:category/session" component={QuizSessionPage} />
-      <Route exact path="/:category" component={QuizSummaryPage} />
-      <Route path="" component={NotFoundPage} />
-    </Switch>
-  );
-}
-
-function renderVocabularyRoutes() {
-  return (
-    <Switch>
+      <Route exact path="/" component={HomePage} />
+      <Route exact path="/about" component={AboutPage} />
+      <Route exact path="/contact" component={ContactPage} />
+      <Route exact path="/settings" component={SettingsPage} />
       <Redirect exact path="/vocabulary" to="/vocabulary/levels" />
       <Route exact path="/vocabulary/levels" component={VocabLevelsPage} />
       <Route exact path="/vocabulary/levels/:id" component={VocabLevelPage} />
       <Route exact path="/vocabulary/entry/:id" component={VocabEntryPage} />
-      <Route path="" component={NotFoundPage} />
+      <Route exact path="/:category(lessons|reviews)/session" component={QuizSessionPage} />
+      <Route exact path="/:category(lessons|reviews)" component={QuizSummaryPage} />
+      <Route component={NotFoundPage} />
     </Switch>
   );
 }

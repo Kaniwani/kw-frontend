@@ -12,11 +12,11 @@ import A from 'common/components/A';
 import Icon from 'common/components/Icon';
 
 export const Wrapper = styled.div`
-  ${gutter({ type: 'outer', position: 'vertical' })}
-  display: flex;
-  justify-content: flex-end;
+  ${gutter({ position: 'vertical' })}
+  display: inline-flex;
   align-items: center;
-  flex: 1 0 auto;
+  flex: 0 0 auto;
+  margin-left: auto;
 `;
 
 // peel off bgColor/isDisabled so not applied to <A/> as html attrs
@@ -52,7 +52,7 @@ const leftRightStyle = css`
   justify-content: center;
   align-content: center;
   align-items: center;
-  padding: .9em 1em .7em;
+  padding: .7em .6em .6em;
   color: ${white[2]};
 `;
 

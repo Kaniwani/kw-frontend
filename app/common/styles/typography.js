@@ -22,8 +22,10 @@ const generateFontSize = (exponent) => {
   return fluidType(mobileSize, desktopSize, minFontRange, maxFontRange);
 };
 
+// prettier-ignore
 export const headingRhythm = css`
-  ${gutter()} margin-top: 0;
+  ${gutter()}
+  margin-top: 0;
   margin-bottom: 0;
   line-height: 1.2;
   letter-spacing: -1px;
@@ -32,9 +34,10 @@ export const headingRhythm = css`
     margin-bottom: 0;
   }
 `;
-
+// prettier-ignore
 export const bodyRhythm = css`
-  ${gutter()} margin-top: 0;
+  ${gutter()}
+  margin-top: 0;
   margin-bottom: 0;
   line-height: 1.3;
 `;
