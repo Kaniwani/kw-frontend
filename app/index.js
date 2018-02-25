@@ -1,7 +1,6 @@
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ErrorBoundary from 'common/components/ErrorBoundary';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 
@@ -13,6 +12,7 @@ import { PersistGate } from 'redux-persist/lib/integration/react';
 
 // Import default LoadingComponent provider and LoadingIndicator that will be used as a loading component
 import DefaultLoadingComponentProvider from 'common/components/Loadable/DefaultLoadingComponentProvider';
+import ErrorBoundary from 'common/components/ErrorBoundary';
 
 // Load the favicon, the manifest.json file and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
@@ -66,7 +66,25 @@ render();
 // it's not most important operation and if main code fails,
 // we do not want it installed
 if (IS_PROD_ENV) {
-  require('offline-plugin/runtime').install();
+  const runtime = require('offline-plugin/runtime');
+  runtime.install({
+    onUpdating: () => {
+      console.log('SW Event:', 'updating');
+    },
+    onUpdateReady: () => {
+      // Tell new SW to take control immediately
+      runtime.applyUpdate();
+    },
+    onUpdated: () => {
+      console.log('SW Event:', 'update successful');
+      // Reload the webpage to load into the new version
+      window.location.reload();
+    },
+
+    onUpdateFailed: () => {
+      console.warn('SW Event:', 'update failed');
+    },
+  });
 }
 
 /* eslint-disable */
