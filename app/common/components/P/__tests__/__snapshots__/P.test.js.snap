@@ -2,7 +2,6 @@
 
 exports[`should adopt a textAlign prop 1`] = `
 .c0 {
-  padding: 0.225rem;
   font-size: 15.3px;
   padding: 0.225rem;
   margin-top: 0;
@@ -11,12 +10,6 @@ exports[`should adopt a textAlign prop 1`] = `
   margin-left: 0;
   margin-right: 0;
   text-align: center;
-}
-
-@media (min-width:600px) {
-  .c0 {
-    padding: 0.33325rem;
-  }
 }
 
 @media (min-width:600px) and (max-width:1800px) {
@@ -46,7 +39,6 @@ exports[`should adopt a textAlign prop 1`] = `
 
 exports[`should adopt an align prop 1`] = `
 .c0 {
-  padding: 0.225rem;
   font-size: 15.3px;
   padding: 0.225rem;
   margin-top: 0;
@@ -54,12 +46,6 @@ exports[`should adopt an align prop 1`] = `
   line-height: 1.3;
   margin-left: auto;
   margin-right: auto;
-}
-
-@media (min-width:600px) {
-  .c0 {
-    padding: 0.33325rem;
-  }
 }
 
 @media (min-width:600px) and (max-width:1800px) {
@@ -89,7 +75,6 @@ exports[`should adopt an align prop 1`] = `
 
 exports[`should match baseline snapshot 1`] = `
 .c0 {
-  padding: 0.225rem;
   font-size: 15.3px;
   padding: 0.225rem;
   margin-top: 0;
@@ -97,12 +82,6 @@ exports[`should match baseline snapshot 1`] = `
   line-height: 1.3;
   margin-left: 0;
   margin-right: 0;
-}
-
-@media (min-width:600px) {
-  .c0 {
-    padding: 0.33325rem;
-  }
 }
 
 @media (min-width:600px) and (max-width:1800px) {
