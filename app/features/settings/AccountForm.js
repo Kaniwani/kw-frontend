@@ -73,7 +73,7 @@ const ResetProgressForm = compose(
 const UpdateApiKey = ({ handleSubmit, submitting, submitSucceeded }) => (
   <Form onSubmit={handleSubmit}>
     <Block>
-      <Field name="apiKey" label="Api Key:" component={InputField} />s
+      <Field name="apiKey" label="Api Key:" component={InputField} />
     </Block>
     <Controls>
       <Button type="submit">
