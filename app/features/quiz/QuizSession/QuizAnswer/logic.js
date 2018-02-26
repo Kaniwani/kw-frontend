@@ -161,7 +161,7 @@ export const correctAnswerLogic = createLogic({
 export const incorrectAnswerLogic = createLogic({
   type: quiz.answer.incorrect,
   latest: true,
-  process({ getState, action: { payload } }, dispatch, done) {
+  process({ getState, action: { payload = {} } }, dispatch, done) {
     const current = selectCurrent(getState());
     const isLessonQuiz = selectIsLessonQuiz(getState());
     const previouslyIncorrect = selectCurrentPreviouslyIncorrect(getState());
