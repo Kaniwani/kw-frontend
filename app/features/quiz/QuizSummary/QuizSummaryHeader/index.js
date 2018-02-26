@@ -75,8 +75,8 @@ const mapStateToProps = (state, props) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, { category }) => ({
-  onResetSummary: () => dispatch(quiz.summary.reset({}, { category })),
+const mapDispatchToProps = (dispatch, { match }) => ({
+  onResetSummary: () => dispatch(quiz.summary.reset({}, { category: match.params.category })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuizSummaryHeader);
