@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { review } from 'features/reviews/actions';
-import { selectIsStubbed } from 'features/reviews/selectors';
+import { selectShouldLoad, selectLastLoad } from 'features/reviews/selectors';
 
 import Aux from 'common/components/Aux';
 import H1 from 'common/components/H1';
@@ -15,17 +15,20 @@ import VocabStats from './VocabStats';
 export class VocabEntry extends React.Component {
   static propTypes = {
     id: PropTypes.number.isRequired,
-    isStubbed: PropTypes.bool.isRequired,
+    shouldLoad: PropTypes.bool.isRequired,
+    lastLoad: PropTypes.any.isRequired,
     loadReview: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
-    this.props.loadReview();
+    if (this.props.shouldLoad) {
+      this.props.loadReview();
+    }
   }
 
   render() {
-    const { id, isStubbed } = this.props;
-    return isStubbed ? (
+    const { id, lastLoad } = this.props;
+    return !lastLoad ? (
       <Spinner />
     ) : (
       <Aux>
@@ -38,7 +41,8 @@ export class VocabEntry extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  isStubbed: selectIsStubbed(state, props),
+  shouldLoad: selectShouldLoad(state, props),
+  lastLoad: selectLastLoad(state, props),
 });
 
 const mapDispatchToProps = (dispatch, props) => ({

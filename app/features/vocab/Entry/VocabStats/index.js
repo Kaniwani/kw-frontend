@@ -73,7 +73,8 @@ export function VocabStats({
       <StreakStatus category="WK" streak={wanikaniStreak} />
       <Status text="Unlocked" status={format(unlockDate, DATE_FORMAT)} />
       <Status text={kaniwaniBurned ? 'Burned' : 'Last reviewed'} status={lastStudiedStatus} />
-      {nextReviewDate != null &&
+      {!kaniwaniBurned &&
+        nextReviewDate != null &&
         !!streak && (
           <Status
             text="Next review"

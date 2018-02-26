@@ -4,6 +4,7 @@ import { merge } from 'lodash';
 import vocab from './actions';
 import quiz from 'features/quiz/actions';
 import review from 'features/reviews/actions';
+import user from 'features/user/actions';
 
 export const initialVocabEntitiesState = {};
 
@@ -17,6 +18,7 @@ export const vocabReducer = handleActions(
       review.load.success,
       vocab.batchUpdate
     )]: ingestVocabs,
+    [user.logout]: () => initialVocabEntitiesState,
   },
   initialVocabEntitiesState
 );
