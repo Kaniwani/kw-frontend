@@ -41,6 +41,7 @@ export function SiteFooterContainer() {
     hasToken() && (
       <Switch>
         <Route exact path="/" render={SiteFooter} />
+        <Route exact path="/:category(reviews|lessons)" render={SiteFooter} />
         <Route exact path="/(vocabulary|settings|about|contact)" render={SiteFooter} />
         <Route exact path="/vocabulary/levels/:level?" render={SiteFooter} />
         <Route exact path="/vocabulary/entry/:id?" render={SiteFooter} />

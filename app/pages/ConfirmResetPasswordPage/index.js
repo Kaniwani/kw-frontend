@@ -41,7 +41,7 @@ class ConfirmResetPassword extends React.Component {
                 }}
               />
               <SubmitButton lang="ja" type="submit">
-                Reset
+                Submit
               </SubmitButton>
             </InputWrapper>
           </Form>

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { debounce, isEqual } from 'lodash';
+import { debounce } from 'lodash';
 import cuid from 'cuid';
 import { Switch, Route } from 'react-router-dom';
 import { hasToken } from 'common/utils/auth';
@@ -54,11 +54,6 @@ export class SiteHeader extends React.Component {
     window.addEventListener('resize', this.handleResize);
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    const unchanged = isEqual(this.props, nextProps) && isEqual(this.state, nextState);
-    return !unchanged;
-  }
-
   componentDidUpdate(prevProps) {
     if (this.props.locationPath !== prevProps.locationPath) {
       this.hideOffCanvasMenu();
@@ -107,9 +102,8 @@ export class SiteHeader extends React.Component {
           }}
         >
           <Switch>
-            <Route path="/:category(lessons|reviews)/session" />
-            <Route path="/welcome" />
-            <Route path="/maintenance" />
+            <Route exact path="/:category(lessons|reviews)/session" />
+            <Route exact path="/maintenance" />
             <Route
               render={() => (
                 <Aux>
