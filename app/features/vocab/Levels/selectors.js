@@ -4,7 +4,7 @@ import { createSelector } from 'reselect';
 import devLog from 'common/utils/devLog';
 import dateOrFalse from 'common/utils/dateOrFalse';
 
-import { getState, getProp, makeSelectItemIds, makeSelectItemById } from 'common/selectors';
+import { getState, getBy, getProp, makeSelectItemIds, makeSelectItemById } from 'common/selectors';
 import { selectUserLevel, selectLastWkSyncDate } from 'features/user/selectors';
 
 export const UI_DOMAIN = 'levels';
@@ -15,12 +15,8 @@ export const selectVocabLevelIds = makeSelectItemIds(selectVocabLevelsDomain);
 export const selectVocabLevels = selectVocabLevelsDomain;
 export const selectVocabLevelById = makeSelectItemById(selectVocabLevels);
 
-export const selectIsLoading = createSelector([selectVocabLevelById], getState('isLoading', false));
-
-export const selectLastLoad = createSelector(
-  [selectVocabLevelById],
-  getState('lastLoad', dateOrFalse)
-);
+export const selectIsLoading = createSelector(selectVocabLevelsUi, getState('isLoading', false));
+export const selectLastLoad = createSelector(selectVocabLevelsUi, getBy('lastLoad', dateOrFalse));
 
 export const selectShouldLoad = createSelector(
   [selectLastWkSyncDate, selectIsLoading, selectLastLoad],
@@ -36,7 +32,7 @@ export const selectShouldLoad = createSelector(
     });
     devLog(
       'vocab levels should load?',
-      isLoading || (lastLoad && lastWkSync && isAfter(lastWkSync, lastLoad))
+      (!lastLoad && !isLoading) || (lastLoad && lastWkSync && isAfter(lastWkSync, lastLoad))
     );
     return (!lastLoad && !isLoading) || (lastLoad && lastWkSync && isAfter(lastWkSync, lastLoad));
   }
