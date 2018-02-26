@@ -4,6 +4,7 @@ import { getState, getBy } from 'common/selectors';
 export const DOMAIN = 'search';
 export const selectSearch = getState(DOMAIN);
 
+export const selectSearchResultCount = createSelector(selectSearch, getState('resultCount', 0));
 export const selectSearchResultIds = createSelector(selectSearch, getState('ids', []));
 export const selectIsSearching = createSelector(selectSearch, getBy('isSearching', Boolean));
 export const selectIsSearchComplete = createSelector(

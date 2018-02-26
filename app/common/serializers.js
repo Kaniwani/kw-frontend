@@ -6,31 +6,67 @@ import toUniqueStringsArray from 'common/utils/toUniqueStringsArray';
 import filterRomajiReadings from 'common/utils/filterRomajiReadings';
 import createDict from 'common/utils/createDict';
 
+import devLog from 'common/utils/devLog';
+
 export const serializeLoginResponse = ({ token }) => token;
 export const serializeUserResponse = (res = {}) => serializeUser(res);
 export const serializeReviewResponse = serializeReview;
 export const serializeLevelsResponse = (res = {}) => createDict(res.map(serializeLevel), 'id');
-
-// FIXME: can probably remove remaining since we're not using in selector anymore?
-export const serializeQueueResponse = ({ count, results }) => ({
-  remaining: count,
-  ...serializeReviews(results, true),
-});
-
-export const serializeLevelResponse = ({ results }) => serializeReviews(results);
+export const serializeQueueResponse = ({ results }) =>
+  serializeReviews(results, serializeStubbedReview);
+export const serializeLevelResponse = ({ results }) => serializeReviews(results, serializeReview);
 
 export const serializeVocabSearchResponse = ({ results }, persistedReviews = {}) => {
   const persistedIds = [];
   const missingIds = [];
+  const missingData = [];
+  const unreviewableIds = [];
+  const unreviewableData = [];
 
-  results.forEach(({ review, is_reviewable: isReviewable }) => {
+  results.forEach(({ review, is_reviewable: isReviewable, ...vocabData }) => {
+    if (review && !isReviewable) {
+      unreviewableIds.push(review);
+      unreviewableData.push({ id: review, vocabulary: vocabData });
+    }
     if (review && isReviewable) {
       (persistedReviews[review] ? persistedIds : missingIds).push(review);
+      if (!persistedReviews[review]) {
+        missingData.push({ id: review, vocabulary: vocabData });
+      }
     }
   });
 
-  return { persistedIds, missingIds };
+  if (unreviewableIds.length) {
+    // TODO: do any of these actually exist?
+    devLog('should we show these?', {
+      unreviewableData: serializeReviews(unreviewableData, serializeSearchReviewData),
+    });
+  }
+
+  return {
+    persistedIds,
+    missingIds,
+    missingData: serializeReviews(missingData, serializeSearchReviewData),
+  };
 };
+
+export function serializeSearchReviewData({ id, vocabulary } = {}) {
+  const vocabById = serializeVocabs(vocabulary.readings);
+  const { primaryMeaning, secondaryMeanings } = serializeMeanings(
+    vocabulary.meaning,
+    [],
+    Object.values(vocabById)
+  );
+  return {
+    id: +id,
+    primaryMeaning,
+    secondaryMeanings,
+    vocab: Object.keys(vocabById).map(Number),
+    lastLoad: false,
+    vocabById,
+    synonymsById: {},
+  };
+}
 
 export const serializeAddSynonymResponse = serializeSynonym;
 
@@ -87,8 +123,7 @@ export function serializeVocabs(data = []) {
   return createDict(condenseReadings(data).map(serializeVocab), 'id');
 }
 
-export function serializeReviews(data, isStubbed) {
-  const reviewSerializer = isStubbed ? serializeStubbedReview : serializeReview;
+export function serializeReviews(data, reviewSerializer) {
   const vocabById = {};
   const synonymsById = {};
   const reviews = [];
@@ -153,8 +188,8 @@ export function serializeStubbedReview({
   streak,
   notes,
   vocabulary,
-  reading_synonyms,
-  meaning_synonyms,
+  reading_synonyms = [],
+  meaning_synonyms = [],
 } = {}) {
   const vocabById = serializeVocabs(vocabulary.readings);
   const synonymsById = serializeSynonyms(reading_synonyms);
@@ -173,6 +208,7 @@ export function serializeStubbedReview({
     incorrect: +incorrect,
     streak: +streak,
     notes: notes == null ? '' : notes,
+    lastLoad: new Date(),
     vocabById,
     synonymsById,
   };
@@ -193,7 +229,7 @@ export function serializeReview({
     critical,
     hidden,
     needsReview: needs_review,
-    nextReviewDate: next_review_date,
+    nextReviewDate: next_review_date === null ? false : next_review_date,
     lastStudied: last_studied,
     unlockDate: unlock_date,
     ...serializeStubbedReview(rest),

@@ -12,7 +12,6 @@ export const initialQuizSessionState = {
   wrapUp: { active: false, count: 10 },
   synonymModalOpen: false,
   current: {},
-  remaining: null,
   queue: [],
   correct: [],
   incorrect: [],
@@ -98,7 +97,6 @@ const removeIdFromQueue = (state, { payload }) =>
 
 const mergeQueue = (state, { payload }) =>
   update(state, {
-    remaining: { $set: payload.remaining },
     queue: {
       $set: union(state.queue, difference(payload.reviewIds, state.current.id)),
     },

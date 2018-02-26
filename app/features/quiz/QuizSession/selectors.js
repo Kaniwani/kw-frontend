@@ -27,7 +27,6 @@ export const selectCurrent = createSelector(selectQuizDomain, getState('current'
 export const selectCorrectIds = createSelector(selectQuizDomain, getState('correct', []));
 export const selectIncorrectIds = createSelector(selectQuizDomain, getState('incorrect', []));
 export const selectCompleteIds = createSelector(selectQuizDomain, getState('complete', []));
-export const selectRemainingCount = createSelector(selectQuizDomain, getState('remaining', null));
 export const selectQueueCount = createSelector(selectQueue, getState('length', 0));
 export const selectCorrectCount = createSelector(selectCorrectIds, getState('length', 0));
 export const selectIncorrectCount = createSelector(selectIncorrectIds, getState('length', 0));
@@ -52,14 +51,9 @@ export const selectSessionCount = createSelector(
   (profile, category) => getState(`${category}Count`, 0)(profile)
 );
 
-// FIXME: can probably remove remaining from state, since we now derive from user count
-// and we reload user when necessary
 export const selectSessionRemainingCount = createSelector(
-  [selectSessionCount, selectRemainingCount, selectCompleteCount],
-  (sessionCount, remainingCount, completeCount) =>
-    // we may not have loaded a queue yet, so start with sessionCount
-    // remainingCount == null ? sessionCount : remainingCount - completeCount
-    sessionCount - completeCount
+  [selectSessionCount, selectCompleteCount],
+  (sessionCount, completeCount) => sessionCount - completeCount
 );
 
 export const selectCurrentPreviouslyIncorrect = createSelector(

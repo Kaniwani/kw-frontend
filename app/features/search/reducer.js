@@ -7,12 +7,16 @@ import search from './actions';
 export const initialSearchState = {
   ids: [],
   unreviewableIds: [],
+  resultCount: 0,
   isSearching: false,
   isSearchComplete: false,
 };
 
 // FIXME: proper failure handling
-const log = (state, action) => (console.warn('search failure', state, action), state);
+const log = (state, action) => {
+  console.warn('search failure', state, action);
+  return state;
+};
 
 const startSearch = () => ({ ...initialSearchState, isSearching: true });
 const mergePayload = (state, { payload }) => merge({}, state, payload);
