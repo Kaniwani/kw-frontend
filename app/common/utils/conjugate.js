@@ -1,3 +1,6 @@
+// TODO: add i and na conjugations
+// https://laits.utexas.edu/japanese/joshu/conjugation/conref/cr_conj_adj.php -> select view all
+
 const PLAIN_FORM = {
   name: 'plain affirmative',
   forms: ['う', 'く', 'ぐ', 'す', 'つ', 'む', 'ぶ', 'ぬ', 'る', 'る'],
@@ -461,6 +464,21 @@ const CONJUGATIONS = [
     ],
   },
   {
+    name: 'past passive',
+    forms: [
+      'われた',
+      'かれた',
+      'がれた',
+      'された',
+      'たれた',
+      'まれた',
+      'ばれた',
+      'なれた',
+      'られた',
+      'られた',
+    ],
+  },
+  {
     name: 'causative',
     forms: [
       'わせる',
@@ -476,6 +494,21 @@ const CONJUGATIONS = [
     ],
   },
   {
+    name: 'past causative',
+    forms: [
+      'わせた',
+      'かせた',
+      'がせた',
+      'させた',
+      'たせた',
+      'ませた',
+      'ばせた',
+      'なせた',
+      'らせた',
+      'させた',
+    ],
+  },
+  {
     name: 'causative passive',
     forms: [
       'わせられる',
@@ -488,6 +521,21 @@ const CONJUGATIONS = [
       'なせられる',
       'らせられる',
       'させられる',
+    ],
+  },
+  {
+    name: 'past causative passive',
+    forms: [
+      'わせられた',
+      'かせられた',
+      'がせられた',
+      'させられた',
+      'たせられた',
+      'ませられた',
+      'ばせられた',
+      'なせられた',
+      'らせられた',
+      'させられた',
     ],
   },
 
@@ -593,8 +641,10 @@ const CONJUGATIONS = [
 ];
 
 const sortByFormSuffixLength = (list) => list.sort((a, b) => b.forms[0].length - a.forms[0].length);
-const inflectConjugations = sortByFormSuffixLength([PLAIN_FORM, ...CONJUGATIONS]);
+const inflectConjugations = [PLAIN_FORM, ...sortByFormSuffixLength(CONJUGATIONS)];
 const deinflectConjugations = sortByFormSuffixLength(CONJUGATIONS);
+
+console.log(inflectConjugations);
 
 export const VERB_TYPES = ['v5u', 'v5k', 'v5g', 'v5s', 'v5t', 'v5m', 'v5b', 'v5n', 'v5r', 'v1'];
 export const VERB_ENDINGS = ['う', 'く', 'ぐ', 'す', 'つ', 'む', 'ぶ', 'ぬ', 'る', 'る'];

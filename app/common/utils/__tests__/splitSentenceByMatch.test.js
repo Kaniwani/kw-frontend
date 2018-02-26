@@ -106,6 +106,51 @@ describe('splitSentenceByMatch()', () => {
     it('attempts various conjugations with verbType', () => {
       expect(
         splitSentenceByMatch({
+          sentence: 'このお守りを肌身離さず身に着けると約束してくれないか？',
+          word: '着ける',
+          reading: 'つける',
+          verbType: 'v1',
+        })
+      ).toEqual({
+        head: 'このお守りを肌身離さず身に',
+        match: '着ける',
+        tail: 'と約束してくれないか？',
+      });
+    });
+
+    it('attempts various conjugations with verbType', () => {
+      expect(
+        splitSentenceByMatch({
+          sentence: '名声を求めるな',
+          word: '求める',
+          reading: 'もとめる',
+          verbType: 'v1',
+        })
+      ).toEqual({
+        head: '名声を',
+        match: '求める',
+        tail: 'な',
+      });
+    });
+
+    it('attempts various conjugations with verbType', () => {
+      expect(
+        splitSentenceByMatch({
+          sentence: '要求は認められた',
+          word: '認める',
+          reading: 'みとめる',
+          verbType: 'v1',
+        })
+      ).toEqual({
+        head: '要求は',
+        match: '認められた',
+        tail: '',
+      });
+    });
+
+    it('attempts various conjugations with verbType', () => {
+      expect(
+        splitSentenceByMatch({
           sentence: '彼の話は一言も聞き逃さなかった',
           word: '逃す',
           reading: 'のがす',
