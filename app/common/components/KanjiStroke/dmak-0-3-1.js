@@ -10,7 +10,7 @@ import { merge } from 'lodash';
 /* eslint-disable */
 
 const defaultOptions = {
-  uri: 'http://kanjivg.tagaini.net/kanjivg/kanji/',
+  uri: 'https://kanjivg.tagaini.net/kanjivg/kanji/',
   skipLoad: false,
   autoplay: true,
   height: 200,
