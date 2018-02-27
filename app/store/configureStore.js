@@ -3,6 +3,9 @@ import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import { createLogicMiddleware } from 'redux-logic';
 import { routerMiddleware } from 'react-router-redux';
 import { persistStore } from 'redux-persist';
+import Raven from 'common/raven';
+import createRavenMiddleware from 'raven-for-redux';
+import { omit } from 'lodash';
 
 import * as api from 'common/api';
 import * as serializers from 'common/serializers';
@@ -18,21 +21,17 @@ export default function configureStore(preloadedState, history) {
     history,
   });
 
-  const middlewares = [routerMiddleware(history), logicMiddleware];
+  const ravenMiddleware = createRavenMiddleware(Raven, {
+    stateTransformer: (state) =>
+      omit(state, ['entities.vocab', 'entities.reviews', 'entities.synonyms']),
+    getUserContext: (state) => state.entities.user,
+  });
 
-  // Enforces state to be read-only (in dev) - it'll throw if we try to mutate
-  if (IS_DEV_ENV) {
-    const freeze = require('redux-freeze'); // eslint-disable-line global-require
-    middlewares.push(freeze);
-  }
+  const middlewares = [routerMiddleware(history), logicMiddleware, ravenMiddleware];
 
-  const middlewareEnhancer = applyMiddleware(...middlewares);
-  const storeEnhancers = [middlewareEnhancer];
-
-  const composedEnhancer = composeWithDevTools(...storeEnhancers);
+  const composedEnhancer = composeWithDevTools(applyMiddleware(...middlewares));
 
   const store = createStore(rootReducer, preloadedState, composedEnhancer);
-
   const persistor = persistStore(store);
 
   if (IS_DEV_ENV) {
