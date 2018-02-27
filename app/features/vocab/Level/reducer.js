@@ -1,8 +1,8 @@
-import { handleActions } from "redux-actions";
-import update from "immutability-helper";
+import { handleActions } from 'redux-actions';
+import update from 'immutability-helper';
 
-import user from "features/user/actions";
-import vocab from "features/vocab/actions";
+import user from 'features/user/actions';
+import vocab from 'features/vocab/actions';
 
 export const initialVocabLevelUiState = {
   isLoading: [],

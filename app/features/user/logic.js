@@ -27,10 +27,9 @@ export const loadLogic = createLogic({
 
 export const logoutLogic = createLogic({
   type: user.logout,
-  process({ history }, dispatch, done) {
+  process({ history }) {
     clearToken();
     history.push('/welcome');
-    done();
   },
 });
 

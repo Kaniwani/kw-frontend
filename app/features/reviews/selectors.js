@@ -40,6 +40,7 @@ export const selectShouldLoad = createSelector(
       'review should load?',
       isStubbed || (lastLoad && lastWkSync && isAfter(lastWkSync, lastLoad))
     );
+
     return isStubbed || (lastLoad && lastWkSync && isAfter(lastWkSync, lastLoad));
   }
 );

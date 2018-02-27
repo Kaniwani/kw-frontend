@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { user } from 'features/user/actions';
+import user from 'features/user/actions';
 
 import LandingPage from 'pages/LandingPage/Loadable';
 import {

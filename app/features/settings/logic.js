@@ -1,8 +1,8 @@
 import { createLogic } from 'redux-logic';
 
 import settings from './actions';
-import { user } from 'features/user/actions';
-import { vocab } from 'features/vocab/actions';
+import user from 'features/user/actions';
+import vocab from 'features/vocab/actions';
 import { selectUserProfile } from 'features/user/selectors';
 import { deserializeUserProfile } from 'common/serializers';
 

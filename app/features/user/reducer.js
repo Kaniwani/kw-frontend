@@ -8,8 +8,7 @@ import {
   updateUiLoadFailure,
 } from 'reducers/utils';
 
-import { user } from 'features/user/actions';
-
+import user from 'features/user/actions';
 export const initialUserState = {};
 
 export const userUiReducer = handleActions(

@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 import ScrollToTop from 'common/components/ScrollToTop';
 import Routes from 'common/routes';
-import { user } from 'features/user/actions';
+import user from 'features/user/actions';
 import { selectLocationPath, selectMaintenanceMode } from 'common/selectors';
 import { selectUserShouldLoad } from 'features/user/selectors';
 import { hasToken } from 'common/utils/auth';

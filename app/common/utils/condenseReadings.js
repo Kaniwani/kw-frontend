@@ -10,7 +10,8 @@ export default function condenseReadings(readings = []) {
   const groupedReadings = Object.values(groupBy(readings, 'character'));
   // re-order entry with furistring to front
   const primaryFirst = groupedReadings.map((group) =>
-    group.sort((entry) => (entry.furigana != null ? -1 : 1)));
+    group.sort((entry) => (entry.furigana != null ? -1 : 1))
+  );
 
   return combineKana(primaryFirst);
 }
@@ -19,7 +20,8 @@ function combineKana(list) {
   return list.map((entries) =>
     entries
       .map(ensureKanaArray)
-      .reduce((entry, next) => (!entry.kana ? next : spreadKana(entry, next)), {}));
+      .reduce((entry, next) => (!entry.kana ? next : spreadKana(entry, next)), {})
+  );
 }
 
 function spreadKana(entry, next) {

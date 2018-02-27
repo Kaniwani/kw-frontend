@@ -10,16 +10,14 @@ export const searchLogic = createLogic({
   type: search.query.request,
   warnTimeout: 10000,
   latest: true,
-  processOptions: {
-    failType: search.query.failure,
-  },
-
   process({ api, serializers, getState, action: { payload, meta } }, dispatch, done) {
     const { startSubmit, stopSubmit, reset } = meta;
     startSubmit();
     const { serializeVocabSearchResponse } = serializers;
 
-    api.vocab.search(snakeCaseKeys(payload)).then((res) => {
+    // FIXME: switch to reviews once tadgh implements reading_contains
+
+    api.vocab.search({ ...snakeCaseKeys(payload), limit: 50 }).then((res) => {
       const { missingData, persistedIds, missingIds } = serializeVocabSearchResponse(
         res,
         selectReviews(getState())
@@ -32,7 +30,6 @@ export const searchLogic = createLogic({
           ids: [...persistedIds, ...missingIds],
           isSearching: false,
           isSearchComplete: true,
-          resultCount: res.count,
         })
       );
 

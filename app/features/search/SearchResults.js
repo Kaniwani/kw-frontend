@@ -6,12 +6,7 @@ import pluralize from 'common/utils/pluralize';
 
 import search from './actions';
 
-import {
-  selectSearchResultCount,
-  selectSearchResultIds,
-  selectIsSearching,
-  selectIsSearchComplete,
-} from './selectors';
+import { selectSearchResultIds, selectIsSearching, selectIsSearchComplete } from './selectors';
 
 import Container from 'common/components/Container';
 import Element from 'common/components/Element';
@@ -22,7 +17,6 @@ import VocabList from 'common/components/VocabList';
 import { blue, orange } from 'common/styles/colors';
 
 SearchResults.propTypes = {
-  resultCount: PropTypes.number,
   ids: PropTypes.arrayOf(PropTypes.number),
   isSearching: PropTypes.bool,
   isSearchComplete: PropTypes.bool,
@@ -30,16 +24,16 @@ SearchResults.propTypes = {
 };
 
 SearchResults.defaultProps = {
-  resultCount: 0,
   ids: [],
   isSearching: false,
   isSearchComplete: false,
 };
 
-export function SearchResults({ resultCount, ids, isSearching, isSearchComplete, onReset }) {
-  const amount = `${ids.length}${resultCount > ids.length ? '+' : ''}`;
-  const wordsFoundText = `${amount} ${pluralize('word', ids.length)} found ${
-    isSearching ? ' so far...' : ''
+export function SearchResults({ ids, isSearching, isSearchComplete, onReset }) {
+  const tooBroad = ids.length >= 50;
+  const amount = `${ids.length}${tooBroad ? '+' : ''}`;
+  const wordsFoundText = `${amount} ${pluralize('word', ids.length)} found${
+    tooBroad ? '. Try refining your search keywords.' : ''
   }`;
   return (
     (isSearching || isSearchComplete) && (
@@ -59,7 +53,6 @@ export function SearchResults({ resultCount, ids, isSearching, isSearchComplete,
 }
 
 const mapStateToProps = (state, props) => ({
-  resultCount: selectSearchResultCount(state, props),
   ids: selectSearchResultIds(state, props),
   isSearching: selectIsSearching(state, props),
   isSearchComplete: selectIsSearchComplete(state, props),

@@ -2,7 +2,7 @@ import { createLogic } from 'redux-logic';
 import { actions as formActions } from 'redux-form';
 
 import { app } from 'common/actions';
-import { user } from 'features/user/actions';
+import user from 'features/user/actions';
 import { setToken } from 'common/utils/auth';
 import { camelCaseKeys } from 'common/utils/caseKeys';
 
