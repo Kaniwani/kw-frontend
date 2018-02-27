@@ -77,6 +77,7 @@ if (IS_PROD_ENV) {
     },
     onUpdated: () => {
       console.log('SW Event:', 'update successful');
+      window.alert('Kaniwani has been updated and will now reload.');
       // Reload the webpage to load into the new version
       window.location.reload();
     },
