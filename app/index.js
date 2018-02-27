@@ -74,10 +74,11 @@ if (IS_PROD_ENV) {
     onUpdateReady: () => {
       // Tell new SW to take control immediately
       runtime.applyUpdate();
+      window.alert('Kaniwani has been updated and will reload shortly.');
     },
     onUpdated: () => {
       console.log('SW Event:', 'update successful');
-      window.alert('Kaniwani has been updated and will now reload.');
+      // TODO: set sessionStorage item to inform user after refresh
       // Reload the webpage to load into the new version
       window.location.reload();
     },

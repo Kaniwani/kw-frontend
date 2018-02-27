@@ -11,6 +11,7 @@ import {
 
 import user from 'features/user/actions';
 import vocab from 'features/vocab/actions';
+import settings from 'features/settings/actions';
 
 export const initialVocabLevelsUiState = {
   ...initialUiState,
@@ -27,6 +28,11 @@ const removeLevelSubmitting = (state, { payload }) =>
     submitting: { $apply: (ids) => difference(ids, [payload.id]) },
   });
 
+const onSettingsSave = (state, { meta }) => ({
+  ...state,
+  lastLoad: meta.filterChanged ? {} : state.lastLoad,
+});
+
 export const vocabLevelsUiReducer = handleActions(
   {
     [vocab.levels.load.request]: updateUiLoadRequest,
@@ -40,6 +46,7 @@ export const vocabLevelsUiReducer = handleActions(
       vocab.level.unlock.failure
     )]: removeLevelSubmitting,
     [combineActions(vocab.level.lock.failure, vocab.level.unlock.failure)]: updateUiLoadFailure,
+    [settings.save.success]: onSettingsSave,
     [user.logout]: () => initialVocabLevelsUiState,
   },
   initialVocabLevelsUiState

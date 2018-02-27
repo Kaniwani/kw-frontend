@@ -10,15 +10,17 @@ export const saveSettingsLogic = createLogic({
   type: settings.save.request,
   process({ getState, api, action }, dispatch, done) {
     const { form } = action.meta;
-    const { id } = selectUserProfile(getState());
+    const profile = selectUserProfile(getState());
     const updatedProfile = deserializeUserProfile(action.payload);
+    const filterChanged =
+      profile.minimumWkSrsLevelToReview !== action.payload.minimumWkSrsLevelToReview;
     form.startSubmit();
 
     api.user
-      .update({ id, ...updatedProfile })
+      .update({ id: profile.id, ...updatedProfile })
       .then((response) => {
         dispatch(user.load.success({ profile: response }));
-        dispatch(settings.save.success());
+        dispatch(settings.save.success({}, { filterChanged }));
         form.stopSubmit();
         done();
       })

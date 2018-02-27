@@ -3,6 +3,7 @@ import update from 'immutability-helper';
 
 import user from 'features/user/actions';
 import vocab from 'features/vocab/actions';
+import settings from 'features/settings/actions';
 
 export const initialVocabLevelUiState = {
   isLoading: [],
@@ -26,11 +27,17 @@ const updateUiLoadFailure = (state, { payload, meta }) =>
     error: (error) => ({ ...error, [meta.id]: payload }),
   });
 
+const onSettingsSave = (state, { meta }) => ({
+  ...state,
+  lastLoad: meta.filterChanged ? {} : state.lastLoad,
+});
+
 export const vocabLevelUiReducer = handleActions(
   {
     [vocab.level.load.request]: updateUiLoadRequest,
     [vocab.level.load.success]: updateUiLoadSuccess,
     [vocab.level.load.failure]: updateUiLoadFailure,
+    [settings.save.success]: onSettingsSave,
     [user.logout]: () => initialVocabLevelUiState,
   },
   initialVocabLevelUiState
