@@ -11,7 +11,7 @@ import { vocabReducer } from 'features/vocab/reducer';
 import { vocabLevelsUiReducer, vocabLevelsReducer } from 'features/vocab/Levels/reducer';
 import { vocabLevelUiReducer } from 'features/vocab/Level/reducer';
 import { reviewsReducer } from 'features/reviews/reducer';
-import { synonymsReducer } from 'features/synonyms/reducer';
+import { synonymsUiReducer, synonymsReducer } from 'features/synonyms/reducer';
 import { searchReducer } from 'features/search/reducer';
 import { quizSessionReducer } from 'features/quiz/QuizSession/reducer';
 import { quizAnswerReducer } from 'features/quiz/QuizSession/QuizAnswer/reducer';
@@ -53,6 +53,7 @@ const rootReducer = combineReducers({
   announcements: persistUiReducer('announcements', announcementsUiReducer),
   levels: persistUiReducer('levels', vocabLevelsUiReducer),
   level: persistUiReducer('level', vocabLevelUiReducer),
+  synonyms: synonymsUiReducer,
   quizSession: quizSessionReducer,
   quizSummary: persistReducer({ key: 'quizSummary' }, quizSummaryReducer),
   quizAnswer: quizAnswerReducer,

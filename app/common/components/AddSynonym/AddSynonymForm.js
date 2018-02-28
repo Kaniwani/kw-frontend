@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { toKana } from 'wanakana';
-import { reduxForm, Field, SubmissionError, propTypes as formPropTypes } from 'redux-form';
+import { connect } from 'react-redux';
+import { bind, unbind } from 'wanakana';
 
-import synonyms from 'features/synonyms/actions';
 import { onlyKanjiOrKana, onlyKana } from 'common/validations';
+import synonyms from 'features/synonyms/actions';
+import { selectSynonymsSubmitting } from 'features/synonyms/selectors';
 
 import AddSynonymField from './AddSynonymField';
 import Button from 'common/components/Button';
@@ -16,65 +17,117 @@ export const ANSWER_TYPES = {
   READING: 'READING',
 };
 
-AddSynonymForm.propTypes = {
-  ...formPropTypes,
-  id: PropTypes.number.isRequired, // associated review id
-  answerValue: PropTypes.string,
-  answerType: PropTypes.oneOf([...Object.keys(ANSWER_TYPES), '']),
-};
+export class AddSynonymForm extends React.Component {
+  static propTypes = {
+    id: PropTypes.number.isRequired, // associated review id
+    answerValue: PropTypes.string,
+    answerType: PropTypes.oneOf([...Object.keys(ANSWER_TYPES), '']),
+    initialValues: PropTypes.shape({
+      word: PropTypes.string,
+      reading: PropTypes.string,
+    }),
+    onSubmit: PropTypes.func.isRequired,
+    submitting: PropTypes.bool.isRequired,
+  };
 
-AddSynonymForm.defaultProps = {
-  answerValue: '',
-  answerType: '',
-};
+  static defaultProps = {
+    answerValue: '',
+    answerType: '',
+    initialValues: {
+      word: '',
+      reading: '',
+    },
+  };
 
-export function AddSynonymForm({ handleSubmit, submitting, answerValue, answerType }) {
-  return (
-    <Form onSubmit={handleSubmit}>
-      <Field
-        name="word"
-        type="text"
-        component={AddSynonymField}
-        label={ANSWER_TYPES.WORD}
-        // FIXME: use a react-wanakana input component instead
-        normalize={(value) => toKana(value, { IMEMode: true })}
-        userAnswer={answerValue}
-        answerType={answerType}
-      />
-      <Field
-        name="reading"
-        type="text"
-        component={AddSynonymField}
-        label={ANSWER_TYPES.READING}
-        // FIXME: use a react-wanakana input component instead
-        normalize={(value) => toKana(value, { IMEMode: true })}
-        userAnswer={answerValue}
-        answerType={answerType}
-      />
-      <Button
-        style={{ maxWidth: '5em' }}
-        type="submit"
-        title="Add Synonym"
-        colorHover={blue[7]}
-        bgColor={blue[5]}
-        disabled={submitting}
-      >
-        {submitting ? 'Adding' : 'Add'}
-      </Button>
-    </Form>
-  );
-}
+  state = {
+    errors: {
+      word: undefined,
+      reading: undefined,
+    },
+  };
 
-export default reduxForm({
-  form: 'addSynonym',
-  onSubmit: ({ word, reading }, dispatch, { id, ...form }) => {
+  componentDidMount() {
+    this.wordInputRef.value = this.props.initialValues.word;
+    this.readingInputRef.value = this.props.initialValues.reading;
+    bind(this.wordInputRef);
+    bind(this.readingInputRef);
+  }
+
+  componentWillUnmount() {
+    unbind(this.wordInputRef);
+    unbind(this.readingInputRef);
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const word = this.wordInputRef.value;
+    const reading = this.readingInputRef.value;
     const errors = {
       word: onlyKanjiOrKana(word),
       reading: onlyKana(reading),
     };
+    this.setState({ errors });
+
     if (Object.values(errors).some(Boolean)) {
-      throw new SubmissionError(errors);
+      return;
     }
-    dispatch(synonyms.add.request({ reviewId: id, word, reading }, { form }));
-  },
-})(AddSynonymForm);
+
+    this.props.onSubmit({
+      review: this.props.id,
+      word,
+      reading,
+    });
+  };
+
+  handleRef = (name) => (node) => {
+    this[name] = node;
+  };
+
+  render() {
+    const { answerValue, answerType, submitting } = this.props;
+    return (
+      <Form onSubmit={this.handleSubmit}>
+        <AddSynonymField
+          name="word"
+          type="text"
+          label={ANSWER_TYPES.WORD}
+          userAnswer={answerValue}
+          answerType={answerType}
+          handleRef={this.handleRef('wordInputRef')}
+          error={this.state.errors.word}
+        />
+        <AddSynonymField
+          name="reading"
+          type="text"
+          component={AddSynonymField}
+          label={ANSWER_TYPES.READING}
+          userAnswer={answerValue}
+          answerType={answerType}
+          handleRef={this.handleRef('readingInputRef')}
+          error={this.state.errors.reading}
+        />
+        <Button
+          style={{ maxWidth: '5em' }}
+          type="submit"
+          title="Add Synonym"
+          colorHover={blue[7]}
+          bgColor={blue[5]}
+          disabled={submitting}
+        >
+          {submitting ? 'Adding' : 'Add'}
+        </Button>
+      </Form>
+    );
+  }
+}
+
+const mapStateToProps = (state) => ({
+  submitting: selectSynonymsSubmitting(state),
+});
+
+const mapDispatchToProps = {
+  onSubmit: synonyms.add.request,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddSynonymForm);

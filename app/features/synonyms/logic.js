@@ -6,21 +6,16 @@ export const addSynonymLogic = createLogic({
   type: synonym.add.request,
   warnTimeout: 10000,
   process({ api, serializers, action }, dispatch, done) {
-    // change to server naming format
-    const { reviewId: review, word: character, reading: kana } = action.payload;
-    const { form } = action.meta;
-    form.startSubmit();
+    // transform to server naming format
+    const { review, word: character, reading: kana } = action.payload;
     api.synonym
       .create({ review, character, kana })
       .then((res) => {
         dispatch(synonym.add.success(serializers.serializeAddSynonymResponse(res)));
-        form.setSubmitSucceeded();
-        form.reset();
         done();
       })
       .catch((err) => {
         dispatch(synonym.add.failure(err));
-        form.setSubmitFailed({ _error: err });
         done();
       });
   },
