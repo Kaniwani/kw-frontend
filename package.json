@@ -77,7 +77,6 @@
   },
   "dependencies": {
     "cuid": "2.1.0",
-    "deep-map-keys": "1.2.0",
     "immutability-helper": "2.6.5",
     "localforage": "1.5.7",
     "lodash": "4.17.5",
@@ -193,6 +192,7 @@
     "url-loader": "0.6.2",
     "warning": "3.0.0",
     "webpack": "3.11.0",
+    "webpack-bundle-analyzer": "2.11.0",
     "webpack-dev-middleware": "2.0.6",
     "webpack-hot-middleware": "2.21.0",
     "why-did-you-update": "0.1.1"

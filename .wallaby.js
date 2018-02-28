@@ -9,7 +9,7 @@ module.exports = (wallaby) => {
       '!app/**/*.test.js',
       '!app/**/*.fixture.js',
     ],
-    tests: ['app/common/utils/__tests__/splitSentenceByMatch.test.js'],
+    tests: ['app/common/utils/__tests__/caseKeys.test.js'],
 
     env: {
       type: 'node',
