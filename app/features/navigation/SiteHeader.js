@@ -20,6 +20,8 @@ import OffCanvasMenu from './OffCanvasMenu';
 import { Header, Nav, NavLinks } from './styles';
 import NavLink from './NavLink';
 
+const ConnectedSwitch = connect((state) => ({ location: state.router.location }))(Switch);
+
 const PRIMARY_LINKS = [
   {
     name: 'lessons',
@@ -101,7 +103,7 @@ export class SiteHeader extends React.Component {
             this.HeaderRef = node;
           }}
         >
-          <Switch>
+          <ConnectedSwitch>
             <Route exact path="/:category(lessons|reviews)/session" />
             <Route exact path="/maintenance" />
             <Route
@@ -132,7 +134,7 @@ export class SiteHeader extends React.Component {
                 </Aux>
               )}
             />
-          </Switch>
+          </ConnectedSwitch>
         </Header>
       )
     );
