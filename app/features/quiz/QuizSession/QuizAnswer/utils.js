@@ -6,7 +6,7 @@ import stripTilde from 'common/utils/stripTilde';
 export const increment = (x = 0) => x + 1;
 export const decrement = (x = 0) => Math.max(0, x - 1);
 export const containsZenKaku = (input = '') => /[ａ-ｚ]/gi.test(input);
-export const isInputValid = (input = '') => !containsZenKaku(input) && isJapanese(input);
+export const isInputValid = (input = '') => !containsZenKaku(input) && isJapanese(input, /[0-9]/);
 export const cleanseInput = (input = '') => fixTerminalN(input.trim());
 
 const cleanAnswer = (text) => ({
