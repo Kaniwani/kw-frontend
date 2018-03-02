@@ -14,7 +14,7 @@ export const black = reshader('#3b3b3b').palette;
 export const purple = reshader('#8523e7').palette;
 export const blue = reshader('#4c81d6').palette;
 export const green = reshader('#7fd468').palette;
-export const teal = reshader('#19d6b1').palette;
+export const cyan = reshader('#82e8d4').palette;
 export const pink = reshader('#ff00c3').palette;
 export const red = reshader('#e2325b').palette;
 export const orange = reshader('#f66f46').palette;
@@ -24,10 +24,10 @@ export const link = blue[5];
 export const linkHover = blue[8];
 
 export const SRS_COLORS = {
-  UNTRAINED: '#a1a3b6',
-  APPRENTICE: '#ff00c3',
+  UNTRAINED: '#a2bfff',
+  APPRENTICE: '#ff6edc',
   GURU: '#8523e7',
-  MASTER: '#2e50dc',
-  ENLIGHTENED: '#30c0f9',
+  MASTER: '#2a50dc',
+  ENLIGHTENED: '#62cffa',
   BURNED: '#4d4d4d',
 };

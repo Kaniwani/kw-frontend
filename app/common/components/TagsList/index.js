@@ -1,14 +1,14 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import cuid from "cuid";
+import cuid from 'cuid';
 
 import { selectTags } from 'features/vocab/selectors';
 
-import parseTags from "common/utils/parseTags";
-import getTagColors from "./utils/getTagColors";
+import parseTags from 'common/utils/parseTags';
+import getTagColors from './utils/getTagColors';
 
-import { Ul, Li, Span } from "./styles";
+import { Ul, Li, Text } from './styles';
 
 TagsList.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.string),
@@ -26,7 +26,7 @@ export function TagsList({ tags, isVisible, ...props }) {
     <Ul isHidden={!isVisible} {...props}>
       {longformTags.map((text) => (
         <Li key={cuid()} {...getTagColors(text)}>
-          <Span>{text}</Span>
+          <Text>{text}</Text>
         </Li>
       ))}
     </Ul>

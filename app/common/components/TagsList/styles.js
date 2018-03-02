@@ -27,9 +27,9 @@ export const Li = styled.li`
   border-radius: ${borderRadius};
 `;
 
-export const Span = styled.span`
+export const Text = styled.span`
   overflow: hidden;
-  text-transform: capitalize;
+  text-transform: lowercase;
   text-overflow: ellipsis;
   white-space: nowrap;
   margin-left: .2em;
