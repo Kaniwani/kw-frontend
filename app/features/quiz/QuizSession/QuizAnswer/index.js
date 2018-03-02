@@ -112,7 +112,6 @@ export class QuizAnswer extends React.Component {
               this.inputFieldRef = node;
             }}
             id="answer"
-            lang="ja"
             type="text"
             placeholder="答え"
             focus={isFocused}
@@ -120,10 +119,6 @@ export class QuizAnswer extends React.Component {
             marked={isMarked}
             valid={isValid}
             autoFocus={isFocused}
-            autoCapitalize="none"
-            autoCorrect="off"
-            autoComplete="off"
-            spellCheck="false"
           />
           <SubmitButton
             name="ARROW_RIGHT"

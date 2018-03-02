@@ -18,8 +18,11 @@ export class QuizSummaryPage extends React.Component {
     fromSession: PropTypes.bool.isRequired,
   };
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.setSessionCategory(this.props.category);
+  }
+
+  componentDidMount() {
     if (this.props.fromSession) {
       this.props.loadUser();
     }

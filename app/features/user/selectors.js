@@ -1,18 +1,17 @@
 import { createSelector } from 'reselect';
-import { addMinutes, isBefore, parse } from 'date-fns';
 import { sum, pick, partialRight } from 'lodash';
 import dateOrFalse from 'common/utils/dateOrFalse';
 import formatSrsCounts from 'common/utils/formatSrsCounts';
-import devLog from 'common/utils/devLog';
 import formatUpcomingReviews from 'common/utils/formatUpcomingReviews';
 
 import { getState, getBy } from 'common/selectors';
 
 export const UI_DOMAIN = 'user';
 export const ENTITY_DOMAIN = 'user';
-export const selectUserUi = getState(UI_DOMAIN);
-export const selectUserDomain = getState(['entities', ENTITY_DOMAIN]);
+export const selectUserUi = getState(UI_DOMAIN, {});
+export const selectUserDomain = getState(['entities', ENTITY_DOMAIN], {});
 
+export const selectUserLastLoad = createSelector(selectUserUi, getBy('lastLoad', dateOrFalse));
 export const selectUserProfile = createSelector(selectUserDomain, getState('profile', {}));
 
 export const selectUserSettings = createSelector(
@@ -35,26 +34,6 @@ export const selectUserSettings = createSelector(
   )
 );
 
-export const selectUserShouldLoad = createSelector(
-  [selectUserUi, (state) => state.quizSession],
-  ({ isLoading, lastLoad }, quizSession) => {
-    const fiveMinsAgo = addMinutes(new Date(), -5);
-    const allow = !lastLoad || isBefore(parse(lastLoad), fiveMinsAgo);
-    const reject = isLoading || quizSession.active;
-    if (reject) {
-      devLog('rejecting load user');
-      return false;
-    }
-    if (allow) {
-      devLog('allowing load user');
-      return true;
-    }
-    devLog('rejecting load user by default');
-    return false;
-  }
-);
-
-export const selectUserLastLoad = createSelector(selectUserUi, getBy('lastLoad', dateOrFalse));
 export const selectUsername = createSelector(selectUserProfile, getBy('name'));
 export const selectApiKey = createSelector(selectUserProfile, getBy('apiKey'));
 export const selectReviewsCount = createSelector(selectUserProfile, getBy('reviewsCount', Number));

@@ -1,13 +1,11 @@
 import { handleActions } from 'redux-actions';
 import update from 'immutability-helper';
 import { merge, union, difference } from 'lodash';
-import { LOCATION_CHANGE } from 'react-router-redux';
 
 import { WRAP_UP_STARTING_COUNT } from './constants';
 import quiz from 'features/quiz/actions';
 
 export const initialQuizSessionState = {
-  active: false,
   category: '',
   wrapUp: { active: false, count: 10 },
   synonymModalOpen: false,
@@ -125,8 +123,7 @@ export const quizSessionReducer = handleActions(
     [quiz.session.addCorrect]: addIdToCorrect,
     [quiz.session.addIncorrect]: addIdToIncorrect,
     [quiz.session.addComplete]: addIdToComplete,
-    [quiz.session.start]: () => ({ ...initialQuizSessionState, active: true }),
-    [LOCATION_CHANGE]: (state) => ({ ...state, active: false }),
+    [quiz.session.reset]: (state) => ({ ...initialQuizSessionState, category: state.category }),
   },
   initialQuizSessionState
 );

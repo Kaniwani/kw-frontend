@@ -16,7 +16,7 @@ QuizSummaryHeader.propTypes = {
   count: PropTypes.number,
   sessionRoute: PropTypes.string,
   isDisabled: PropTypes.bool,
-  onResetSummary: PropTypes.func,
+  onSessionStart: PropTypes.func,
 };
 
 QuizSummaryHeader.defaultProps = {
@@ -25,7 +25,7 @@ QuizSummaryHeader.defaultProps = {
   count: 0,
   sessionRoute: '/reviews/session',
   isDisabled: false,
-  onResetSummary: () => {},
+  onSessionStart: () => {},
 };
 
 export function QuizSummaryHeader({
@@ -34,7 +34,7 @@ export function QuizSummaryHeader({
   count,
   sessionRoute,
   isDisabled,
-  onResetSummary,
+  onSessionStart,
 }) {
   return (
     <Wrapper>
@@ -44,7 +44,7 @@ export function QuizSummaryHeader({
         text={linkText}
         to={sessionRoute}
         count={count}
-        onClick={isDisabled ? () => {} : onResetSummary}
+        onClick={isDisabled ? () => {} : onSessionStart}
       />
     </Wrapper>
   );
@@ -76,7 +76,13 @@ const mapStateToProps = (state, props) => {
 };
 
 const mapDispatchToProps = (dispatch, { match }) => ({
-  onResetSummary: () => dispatch(quiz.summary.reset({}, { category: match.params.category })),
+  onSessionStart: () => {
+    dispatch(quiz.summary.reset({}, { category: match.params.category }));
+    dispatch(quiz.session.reset());
+    // FIXME: could preload on mouseEnter as well
+    // but we need to set quiz isLoading to prevent double request on quizSessionpage mount
+    //    dispatch(quiz.session.queue.load.request(match.params.category));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuizSummaryHeader);

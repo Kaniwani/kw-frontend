@@ -27,13 +27,14 @@ export class QuizSessionPage extends React.Component {
   static propTypes = {
     category: PropTypes.string.isRequired,
     setSessionCategory: PropTypes.func.isRequired,
-    startNewSession: PropTypes.func.isRequired,
     loadQueue: PropTypes.func.isRequired,
   };
 
-  componentDidMount() {
-    this.props.startNewSession();
+  componentWillMount() {
     this.props.setSessionCategory(this.props.category);
+  }
+
+  componentDidMount() {
     this.props.loadQueue(this.props.category);
   }
 
@@ -58,7 +59,6 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = {
   setSessionCategory: quiz.session.setCategory,
-  startNewSession: quiz.session.start,
   loadQueue: quiz.session.queue.load.request,
 };
 

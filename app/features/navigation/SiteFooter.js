@@ -9,8 +9,10 @@ import NavLink from './NavLink';
 import crabigatorOutline from 'common/assets/img/crabigator-outline.svg';
 import { Footer, CrabigatorStencil, FooterLinks, FooterLinkGroup } from './styles';
 
+import { SESSION_CATEGORIES } from 'features/quiz/QuizSession/constants';
+
 const links = [
-  [{ route: '/lessons', name: 'lessons' }, { route: '/reviews', name: 'reviews' }],
+  Object.values(SESSION_CATEGORIES).map((category) => ({ route: `/${category}`, name: category })),
   [
     { route: '/vocabulary', name: 'vocabulary' },
     { route: '/settings', name: 'settings' },

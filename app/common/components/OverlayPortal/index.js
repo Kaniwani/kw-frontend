@@ -67,12 +67,6 @@ class OverlayPortal extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!this.state.overlayActive && nextProps.isOpen) {
-      this.setState({ overlayActive: true });
-    }
-  }
-
   componentWillUnmount() {
     document.body.removeChild(this.overlayContainer);
   }

@@ -22,18 +22,14 @@ import NavLink from './NavLink';
 
 const ConnectedSwitch = connect((state) => ({ location: state.router.location }))(Switch);
 
-const PRIMARY_LINKS = [
-  {
-    name: 'lessons',
-    route: '/lessons',
-    hasCount: true,
-  },
-  {
-    name: 'reviews',
-    route: '/reviews',
-    hasCount: true,
-  },
-];
+import { SESSION_CATEGORIES } from 'features/quiz/QuizSession/constants';
+
+const PRIMARY_LINKS = Object.values(SESSION_CATEGORIES).map((category) => ({
+  route: `/${category}`,
+  name: category,
+  hasCount: true,
+}));
+
 const SECONDARY_LINKS = [
   { name: 'vocabulary', route: '/vocabulary' },
   { name: 'settings', route: '/settings' },
@@ -42,13 +38,65 @@ const SECONDARY_LINKS = [
   { name: 'logout', route: '/logout' },
 ];
 
-export class SiteHeader extends React.Component {
+const Menu = ({ links }) => (
+  <NavLinks>{links.map((link) => <NavLink key={cuid()} isOffCanvas={false} {...link} />)}</NavLinks>
+);
+
+SiteHeader.propTypes = {
+  expanded: PropTypes.bool.isRequired,
+  showOffCanvasMenu: PropTypes.bool.isRequired,
+  onHamburgerToggle: PropTypes.func.isRequired,
+  onMenuClose: PropTypes.func.isRequired,
+};
+
+export function SiteHeader({ expanded, showOffCanvasMenu, onHamburgerToggle, onMenuClose }) {
+  return (
+    <Header>
+      <ConnectedSwitch>
+        <Route exact path="/:category(lessons|reviews)/session" />
+        <Route exact path="/maintenance" />
+        <Route exact path="/welcome" />
+        <Route
+          render={() => (
+            <Aux>
+              <Nav>
+                <LogoLink />
+                <Switch>
+                  <Route path="/:category(lessons|reviews)" component={QuizSummaryHeader} />
+                  <Route
+                    render={() => (
+                      <Aux>
+                        <Element flexRow flex="999 1 auto" justifyContent="space-between">
+                          <Menu links={PRIMARY_LINKS} />
+                          {expanded && <Menu links={SECONDARY_LINKS} />}
+                        </Element>
+                        {!expanded && <Hamburger onToggle={onHamburgerToggle} />}
+                      </Aux>
+                    )}
+                  />
+                </Switch>
+              </Nav>
+              <OffCanvasMenu
+                links={SECONDARY_LINKS}
+                isVisible={showOffCanvasMenu}
+                onClose={onMenuClose}
+              />
+            </Aux>
+          )}
+        />
+      </ConnectedSwitch>
+    </Header>
+  );
+}
+
+export class SiteHeaderContainer extends React.Component {
   static propTypes = {
     locationPath: PropTypes.string.isRequired,
   };
 
   state = {
     offCanvasMenuActive: false,
+    isWideViewport: null,
   };
 
   componentDidMount() {
@@ -69,9 +117,9 @@ export class SiteHeader extends React.Component {
 
   handleResize = debounce(() => {
     this.hideOffCanvasMenu();
-    this.setState(() => ({
+    this.setState({
       isWideViewport: window.innerWidth > breakpoints.md,
-    }));
+    });
   }, 150);
 
   hideOffCanvasMenu = () => {
@@ -84,58 +132,17 @@ export class SiteHeader extends React.Component {
     document.body.classList.add('offCanvasMenu--isOpen');
   };
 
-  renderMenu = (links) => (
-    <NavLinks>
-      {links.map((link) => <NavLink key={cuid()} isOffCanvas={false} {...link} />)}
-    </NavLinks>
-  );
-
   render() {
-    const { isWideViewport, offCanvasMenuActive } = this.state;
-    if (isWideViewport === undefined) {
-      return null;
-    }
-
+    const viewportMeasured = this.state.isWideViewport != null;
     return (
+      viewportMeasured &&
       hasToken() && (
-        <Header
-          innerRef={(node) => {
-            this.HeaderRef = node;
-          }}
-        >
-          <ConnectedSwitch>
-            <Route exact path="/:category(lessons|reviews)/session" />
-            <Route exact path="/maintenance" />
-            <Route
-              render={() => (
-                <Aux>
-                  <Nav>
-                    <LogoLink />
-                    <Switch>
-                      <Route path="/:category(lessons|reviews)" component={QuizSummaryHeader} />
-                      <Route
-                        render={() => (
-                          <Aux>
-                            <Element flexRow flex="999 1 auto" justifyContent="space-between">
-                              {this.renderMenu(PRIMARY_LINKS)}
-                              {isWideViewport && this.renderMenu(SECONDARY_LINKS)}
-                            </Element>
-                            {!isWideViewport && <Hamburger onToggle={this.showOffCanvasMenu} />}
-                          </Aux>
-                        )}
-                      />
-                    </Switch>
-                  </Nav>
-                  <OffCanvasMenu
-                    links={SECONDARY_LINKS}
-                    isVisible={offCanvasMenuActive}
-                    onClose={this.hideOffCanvasMenu}
-                  />
-                </Aux>
-              )}
-            />
-          </ConnectedSwitch>
-        </Header>
+        <SiteHeader
+          expanded={this.state.isWideViewport}
+          showOffCanvasMenu={this.state.offCanvasMenuActive}
+          onHamburgerToggle={this.showOffCanvasMenu}
+          onMenuClose={this.hideOffCanvasMenu}
+        />
       )
     );
   }
@@ -145,4 +152,4 @@ const mapStateToProps = createStructuredSelector({
   locationPath: selectLocationPath,
 });
 
-export default connect(mapStateToProps)(SiteHeader);
+export default connect(mapStateToProps)(SiteHeaderContainer);

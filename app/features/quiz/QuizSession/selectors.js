@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 import calculatePercentage from 'common/utils/calculatePercentage';
 import getSrsRankName from 'common/utils/getSrsRankName';
 
-import { MINIMUM_QUEUE_COUNT } from './constants';
+import { SESSION_CATEGORIES, MINIMUM_QUEUE_COUNT } from './constants';
 
 import { getBy, getState } from 'common/selectors';
 import { selectUserProfile } from 'features/user/selectors';
@@ -15,12 +15,13 @@ export const selectQuizDomain = getState(UI_DOMAIN);
 export const selectCategory = getState([UI_DOMAIN, 'category'], '');
 export const selectIsLessonQuiz = createSelector(
   selectCategory,
-  (category) => category === 'lessons'
+  (category) => category === SESSION_CATEGORIES.LESSONS
 );
 export const selectIsReviewQuiz = createSelector(
   selectCategory,
-  (category) => category === 'reviews'
+  (category) => category === SESSION_CATEGORIES.REVIEWS
 );
+
 export const selectQueue = createSelector(selectQuizDomain, getState('queue', []));
 export const selectWrapUp = createSelector(selectQuizDomain, getState('wrapUp', {}));
 export const selectCurrent = createSelector(selectQuizDomain, getState('current', {}));

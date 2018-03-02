@@ -9,7 +9,6 @@ import ScrollToTop from 'common/components/ScrollToTop';
 import Routes from 'common/routes';
 import user from 'features/user/actions';
 import { selectLocationPath, selectMaintenanceMode } from 'common/selectors';
-import { selectUserShouldLoad } from 'features/user/selectors';
 import { hasToken } from 'common/utils/auth';
 import MaintenancePage from 'pages/MaintenancePage/Loadable';
 import Aux from 'common/components/Aux';
@@ -38,11 +37,10 @@ class App extends React.Component {
     maintenanceMode: PropTypes.bool.isRequired,
     path: PropTypes.string.isRequired,
     loadUser: PropTypes.func.isRequired,
-    userShouldLoad: PropTypes.bool.isRequired,
   };
 
   componentDidMount() {
-    if (this.props.userShouldLoad && hasToken()) {
+    if (hasToken()) {
       this.props.loadUser();
     }
   }
@@ -79,7 +77,6 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => ({
   maintenanceMode: selectMaintenanceMode(state),
-  userShouldLoad: selectUserShouldLoad(state),
   path: selectLocationPath(state),
 });
 
