@@ -10197,9 +10197,9 @@ walker@~1.0.5:
   dependencies:
     makeerror "1.0.x"
 
-wanakana@3.1.0-rc.3:
-  version "3.1.0-rc.3"
-  resolved "https://registry.yarnpkg.com/wanakana/-/wanakana-3.1.0-rc.3.tgz#3f7e1b46cf46d1fc9979417f97f11359e47afc9b"
+wanakana@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/wanakana/-/wanakana-3.1.0.tgz#910ca54f921e4e1d3b4e0f56c9002a7579e059e8"
 
 ware@^1.2.0:
   version "1.3.0"
