@@ -67,15 +67,12 @@ const mapStateToProps = (state, props) => {
   const primaryReading = selectPrimaryReading(state, { id: vocabId });
 
   const tooltip = generateToolTip({ ...review, primaryReading });
-  // FIXME: use contrastRatio() instead of textColor ternary below
-  const textColor = props.withSrsColors && review.streak === 0 ? '#222' : props.textColor;
   const bgColor = props.withSrsColors ? SRS_COLORS[getSrsRankName(review.streak)] : props.bgColor;
 
   return () => ({
     word,
     tooltip,
     bgColor,
-    textColor,
   });
 };
 

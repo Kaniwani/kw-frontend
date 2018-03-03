@@ -1,11 +1,13 @@
 import { isAfter } from 'date-fns';
 import { createSelector } from 'reselect';
+import { sortBy } from 'lodash';
 
 import devLog from 'common/utils/devLog';
 import dateOrFalse from 'common/utils/dateOrFalse';
 
 import { getState, getBy, getProp, makeSelectItemIds, makeSelectItemById } from 'common/selectors';
 import { selectUserLevel, selectLastWkSyncDate } from 'features/user/selectors';
+import { selectReviewById } from 'features/reviews/selectors';
 
 export const UI_DOMAIN = 'levels';
 export const ENTITY_DOMAIN = 'levels';
@@ -59,8 +61,8 @@ export const selectVocabLevelIsActionable = createSelector(
 );
 
 export const selectVocabLevelReviewIds = createSelector(
-  selectVocabLevelById,
-  getState('reviews', [])
+  [selectVocabLevelById, (state) => state],
+  ({ reviews }, state) => sortBy(reviews, (id) => selectReviewById(state, { id }).streak)
 );
 
 export const selectVocabLevelIsLocked = createSelector(

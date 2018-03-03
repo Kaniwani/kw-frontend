@@ -35,7 +35,6 @@ export const ITEM_TYPES = {
   CHIP: 'CHIP',
 };
 
-// FIXME: stateless?
 export class VocabList extends React.Component {
   static propTypes = {
     ids: PropTypes.arrayOf(PropTypes.number).isRequired,
