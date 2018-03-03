@@ -53,7 +53,6 @@ export function SearchBar({ labelText, placeholderText, submitting, handleSubmit
         color={white[2]}
         bgColor={invalid ? yellow[5] : blue[3]}
         isSubmitting={submitting}
-        submittingText=""
       />
     </Form>
   );

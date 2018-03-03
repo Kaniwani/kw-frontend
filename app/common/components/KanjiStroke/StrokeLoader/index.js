@@ -6,12 +6,12 @@ import styled from 'styled-components';
 import { selectWord } from 'features/vocab/selectors';
 import { selectKanjiStrokeSettings } from 'features/user/selectors';
 
-import Aux from 'common/components/Aux';
 import Toggle from 'common/components/Toggle';
-import IconButton from 'common/components/IconButton';
+import Button from 'common/components/Button';
+import Icon from 'common/components/Icon';
 import KanjiStroke from '../KanjiStroke';
 
-import { grey } from 'common/styles/colors';
+import { white, grey } from 'common/styles/colors';
 import { gutter } from 'common/styles/layout';
 
 // prettier-ignore
@@ -39,22 +39,20 @@ export function StrokeLoader({ word, settings }) {
         on ? (
           renderKanjiStroke({ word, settings })
         ) : (
-          <IconButton
+          <Button
             lang="ja"
-            name="BRUSH"
-            title="View stroke diagram"
+            title="View Stroke Diagram"
             plainButton={false}
-            bgColor={grey[2]}
-            colorHover={grey[2]}
+            color={white[2]}
+            colorHover={grey[4]}
+            bgColor={grey[4]}
+            bgColorHover={white[2]}
             onClick={toggle}
             data-ignore-hotkeys
-            render={({ Icon }) => (
-              <Aux>
-                <Text lang="ja">筆順</Text>
-                {Icon}
-              </Aux>
-            )}
-          />
+          >
+            <Text lang="ja">筆順</Text>
+            <Icon name="BRUSH" />
+          </Button>
         )
       }
     />

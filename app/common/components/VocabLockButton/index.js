@@ -1,9 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import IconButton from 'common/components/IconButton';
+import Button from 'common/components/Button';
+import Icon from 'common/components/Icon';
+import { gutter } from 'common/styles/layout';
 
-import { grey } from 'common/styles/colors';
+// prettier-ignore
+export const Text = styled.div`
+  /* slightly nicer centering otherwise too far left due to button min-width & 2 char text */
+  ${gutter({ position: 'left', mod: 1.5 })}
+  ${gutter({ position: 'right', mod: 2 })}
+`;
+
+import { white, grey } from 'common/styles/colors';
 
 VocabLockButton.propTypes = {
   onClick: PropTypes.func.isRequired,
@@ -21,18 +31,20 @@ function VocabLockButton({ isLocked, isSubmitting, onClick }) {
   const text = `${isLocked ? 'Unlock' : 'Lock'} Review`;
 
   return (
-    <IconButton
-      inline
-      text={text}
-      name={icon}
+    <Button
       title={text}
       plainButton={false}
-      bgColor={grey[5]}
-      colorHover={grey[5]}
+      color={white[2]}
+      colorHover={grey[4]}
+      bgColor={grey[4]}
+      bgColorHover={white[2]}
       onClick={onClick}
       isSubmitting={isSubmitting}
       data-ignore-hotkeys
-    />
+    >
+      <Text>{text}</Text>
+      <Icon name={icon} />
+    </Button>
   );
 }
 
