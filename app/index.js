@@ -7,7 +7,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import 'sanitize.css/sanitize.css';
 
-import { IS_DEV_ENV, IS_PROD_ENV } from 'common/constants';
+import { VERSION, IS_PROD_ENV } from 'common/constants';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 
 // Import default LoadingComponent provider and LoadingIndicator that will be used as a loading component
@@ -19,7 +19,6 @@ import ErrorBoundary from 'common/components/ErrorBoundary';
 import '!file-loader?name=[name].[ext]!./favicon.ico';
 import '!file-loader?name=[name].[ext]!./favicon.png';
 import '!file-loader?name=[name].[ext]!./manifest.json';
-import 'file-loader?name=[name].[ext]!./.htaccess'; // eslint-disable-line import/extensions
 /* eslint-enable import/no-webpack-loader-syntax */
 
 // Import CSS reset and Global Styles
@@ -68,52 +67,49 @@ render();
 if (IS_PROD_ENV) {
   const runtime = require('offline-plugin/runtime');
   runtime.install({
-    onUpdating: () => {
-      console.log('SW Event:', 'updating');
-    },
     onUpdateReady: () => {
+      console.info(`Kaniwani ${VERSION}: update ready`);
       // Tell new SW to take control immediately
       runtime.applyUpdate();
-      window.alert('Kaniwani has been updated and will reload shortly.');
+    },
+    onUpdating: () => {
+      console.info(`Kaniwani ${VERSION}: updating`);
     },
     onUpdated: () => {
-      console.log('SW Event:', 'update successful');
-      // TODO: set sessionStorage item to inform user after refresh
-      // Reload the webpage to load into the new version
+      console.info(`Kaniwani ${VERSION}: update successful`);
+      window.alert(`Kaniwani has been updated to ${VERSION} and will now reload.`);
       window.location.reload();
     },
 
     onUpdateFailed: () => {
-      console.warn('SW Event:', 'update failed');
+      console.warn(`Kaniwani ${VERSION}: update failed`);
     },
   });
 }
 
 /* eslint-disable */
 // Trace component updates to determine any necessary perf optimizations
-if (IS_DEV_ENV) {
-  // From devtools console:
-  // To enable temporarily: Why();
-  // To enable until disabled (even after refresh): Why(true);
-  // To disable: Why(false);
-  const Why = (enabled) => {
-    if (enabled) {
-      console.debug('why-did-you-update always');
-      window.localStorage.setItem('why-did-you-update', true);
-    } else if (enabled === false) {
-      console.debug('why-did-you-update never');
-      window.localStorage.removeItem('why-did-you-update');
-      React.__WHY_DID_YOU_UPDATE_RESTORE_FN__ && React.__WHY_DID_YOU_UPDATE_RESTORE_FN__();
-      return;
-    }
-    console.debug('why-did-you-update enabled');
-    const { whyDidYouUpdate } = require('why-did-you-update');
-    whyDidYouUpdate(React);
-  };
+//   // From devtools console:
+//   // To enable temporarily: Why();
+//   // To enable until disabled (even after refresh): Why(true);
+//   // To disable: Why(false);
+//   const Why = (enabled) => {
+//     if (enabled) {
+//       console.debug('why-did-you-update always');
+//       window.localStorage.setItem('why-did-you-update', true);
+//     } else if (enabled === false) {
+//       console.debug('why-did-you-update never');
+//       window.localStorage.removeItem('why-did-you-update');
+//       React.__WHY_DID_YOU_UPDATE_RESTORE_FN__ && React.__WHY_DID_YOU_UPDATE_RESTORE_FN__();
+//       return;
+//     }
+//     console.debug('why-did-you-update enabled');
+//     const { whyDidYouUpdate } = require('why-did-you-update');
+//     whyDidYouUpdate(React);
+//   };
 
-  window.Why = Why;
-  if (window.localStorage.getItem('why-did-you-update')) {
-    Why();
-  }
-}
+//   window.Why = Why;
+//   if (window.localStorage.getItem('why-did-you-update')) {
+//     Why();
+//   }
 /* eslint-enable */
