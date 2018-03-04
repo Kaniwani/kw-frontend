@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bind, unbind } from 'wanakana';
 
 import { SRS_RANKS } from 'common/constants';
+import smoothScrollY from 'common/utils/smoothScrollY';
 
 import quiz from 'features/quiz/actions';
 import selectAnswer from 'features/quiz/QuizSession/QuizAnswer/selectors';
@@ -47,6 +48,7 @@ export class QuizAnswer extends React.Component {
     }
     if (this.props.isFocused) {
       this.inputFieldRef.focus();
+      smoothScrollY(0, 1000);
     } else {
       // Input is blurred when disabled,
       // so we need to focus on something for hotkeys in QuizSession
