@@ -4,10 +4,11 @@ import { gutter } from 'common/styles/layout';
 import { fluidType } from 'common/styles/utils';
 
 export const ffBody =
-  '"Nunito Sans", "Liberation Sans", "Helvetica Neue", Helvetica, Arial, sans-serif';
-export const ffHeading = '"Ubuntu", Helvetica, Arial, sans-serif';
+  '"Nunito Sans","Liberation Sans",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Cantarell,"Helvetica Neue",sans-serif';
+export const ffHeading =
+  '"Ubuntu", system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Cantarell,"Helvetica Neue",sans-serif';
 export const ffJapanese =
-  "'Takao Pゴシック', 'ヒラギノ角ゴ ProN' , 'Hiragino Kaku Gothic ProN' , '游ゴシック' , '游ゴシック体' , YuGothic , 'Yu Gothic' , 'メイリオ' , Meiryo , 'ＭＳ ゴシック' , 'MS Gothic' , HiraKakuProN-W3 , 'TakaoExゴシック' , TakaoExGothic , 'MotoyaLCedar' , 'Droid Sans Japanese' , sans-serif";
+  "'ヒラギノ角ゴ ProN' , 'Hiragino Kaku Gothic ProN' , '游ゴシック' , '游ゴシック体' , YuGothic , 'Yu Gothic' , 'メイリオ' , Meiryo , 'ＭＳ ゴシック' , 'MS Gothic' , HiraKakuProN-W3 , 'TakaoExゴシック' , TakaoExGothic , 'MotoyaLCedar' , 'Droid Sans Japanese' , sans-serif";
 
 // Modular scale
 export const minFontSize = 14;
