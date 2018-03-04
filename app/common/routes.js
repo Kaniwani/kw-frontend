@@ -26,10 +26,7 @@ export function Routes() {
       {IS_DEV_ENV && <Route exact path="/dev" component={DevPage} />}
       <Route path="/password-reset/:uid/:token" component={ConfirmResetPasswordPage} />
       <Route exact path="/welcome" component={LandingPage} />
-      <Route
-        path=""
-        render={() => (hasToken() ? renderProtectedRoutes() : <Redirect to="/welcome" />)}
-      />
+      <Route render={() => (hasToken() ? renderProtectedRoutes() : <Redirect to="/welcome" />)} />
     </Switch>
   );
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { darken } from 'polished';
 import styled, { css } from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
@@ -12,10 +13,10 @@ const plainStyles = css`
 
 const linkStyles = css`
   transition: all ${fastEaseQuad};
-  color: ${link};
+  color: ${({ color }) => color || link};
   &:hover,
   &:focus {
-    color: ${linkHover};
+    color: ${({ color }) => (color && darken(0.2, color)) || linkHover};
   }
 `;
 

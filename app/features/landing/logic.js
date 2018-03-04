@@ -52,8 +52,8 @@ export const loginLogic = createLogic({
       .catch((error) => {
         console.warn(`Login failure. Response was: ${JSON.stringify(error)}`);
         dispatch(user.login.failure(error));
-        if (!Object.keys(error).length || error.status === 500) {
-          dispatch(app.maintenanceMode(true));
+        if (error.status && error.status === 503) {
+          dispatch(app.setMaintenance(true));
         } else if (error.status && error.status === 400) {
           dispatch(stopSubmit(FORM_NAME, { ...error.json, _error: error.json.non_field_errors }));
         } else {

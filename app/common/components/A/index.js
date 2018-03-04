@@ -7,16 +7,11 @@ import invariant from 'invariant';
 import { Anchor, ExternalAnchor, RouterLink } from './styles';
 
 A.propTypes = {
-  href: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.string,
-  ]),
-  to: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.string,
-  ]),
+  href: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  to: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   external: PropTypes.bool,
   plainLink: PropTypes.bool,
+  color: PropTypes.string,
 };
 
 A.defaultProps = {
@@ -41,7 +36,7 @@ function A({ href, to, external, ...props }) {
 
   invariant(
     isEmpty(to) && isEmpty(href),
-    '(app/components/A/index.js) <A/>: Expected either "to" or "href" prop to be supplied to <A/>',
+    '(app/components/A/index.js) <A/>: Expected either "to" or "href" prop to be supplied to <A/>'
   );
 }
 

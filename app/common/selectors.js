@@ -9,10 +9,7 @@ export const getState = (keyPath, defaultVal) => (state) => {
 export const getBy = (val, transform = identity) => (state) =>
   compose(transform, partialRight(get, val))(state);
 
-export const selectMaintenanceMode = createSelector(
-  getState(['app', 'maintenance'], {}),
-  getState('active', false)
-);
+export const selectMaintenance = getState(['app', 'maintenance'], false);
 
 export const selectLocationPath = createSelector(
   getState('router', {}),

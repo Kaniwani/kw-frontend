@@ -17,8 +17,10 @@ export const loadLogic = createLogic({
       })
       .catch((err) => {
         dispatch(user.load.failure(err));
-        if (!Object.keys(err).length || err.status === 500) {
-          dispatch(app.maintenanceMode(true));
+        if (err.status && err.status === 503) {
+          dispatch(app.setMaintenance(true));
+        } else {
+          dispatch(app.setMaintenance(false));
         }
         done();
       });

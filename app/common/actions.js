@@ -16,6 +16,6 @@ export const ASYNC = {
 
 export const { app } = createActions({
   APP: {
-    MAINTENANCE_MODE: SYNC,
+    SET_MAINTENANCE: SYNC,
   },
 });
