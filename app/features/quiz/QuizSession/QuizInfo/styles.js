@@ -10,6 +10,7 @@ export const Wrapper = styled.div`
   flex: 1 1 100%;
   background-color: ${white[2]};
   overflow: hidden;
+  position: relative; /* engage z-index */
   z-index: 2; /* Stay above absolute Quiz Background Image */
   text-align: center;
   ${({ isMinimized }) => isMinimized ? 'flex: 0 1 0px' : css`

@@ -69,13 +69,16 @@ export const Input = styled.input`
     const color = valid ? white[3] : black[5];
     return marked && css`
       color: ${color}; /* Override Android / IE font color change */
+      -webkit-text-fill-color: ${color};
       -webkit-opacity: 1; /* Override iOS opacity change affecting text & background color */
       ${placeholder({ color })} /* Override browser-forced color */
       &:placeholder-shown {
         ${placeholder({ color })} /* Override browser-forced color */
       }
-      &:disabled {
+      &[type="text"]:disabled {
         color: ${white[3]};
+        -webkit-text-fill-color: ${white[3]};
+        -webkit-opacity: 1;
         ${placeholder({ color: white[3] })} /* Override browser-forced color */
       }
     `;
