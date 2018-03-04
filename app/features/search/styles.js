@@ -60,6 +60,7 @@ export const InputWrapper = styled.div`
     box-sizing: content-box;
     font-size: 1em;
     height: 1.2em;
+    min-height: 2em;
     line-height: 2em;
     width: 100%;
     ${placeholder({

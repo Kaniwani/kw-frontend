@@ -42,7 +42,6 @@ export function QuizHeader({
       <ProgressBar value={percentComplete} />
       <IconLink
         plainLink
-        // FIXME: remove style and allow toggling fade on/off as prop in <IconLink />
         style={{ opacity: 1 }}
         to={summaryRoute}
         title="View session summary"

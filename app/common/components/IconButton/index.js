@@ -4,9 +4,16 @@ import styled from 'styled-components';
 
 import { gutter } from 'common/styles/layout';
 
-import Aux from 'common/components/Aux';
 import Button from 'common/components/Button';
 import Icon from 'common/components/Icon';
+
+// Button can't apply flex on some old browsers, so wrap children with a div
+const FlexWrapper = styled.div`
+  display: flex;
+  justify-content: inherit;
+  align-content: inherit;
+  align-items: inherit;
+`;
 
 // prettier-ignore
 export const Text = styled.span`
@@ -54,10 +61,10 @@ function IconButton({ name, text, title, color, size, inline, isSubmitting, ...p
 
   return (
     <Button {...props} title={title} aria-label={title} color={color}>
-      <Aux>
+      <FlexWrapper>
         {RenderedText}
         {RenderedIcon}
-      </Aux>
+      </FlexWrapper>
     </Button>
   );
 }

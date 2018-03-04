@@ -8,7 +8,7 @@ import search from './actions';
 
 import { selectSearchResultIds, selectIsSearching, selectIsSearchComplete } from './selectors';
 
-import Container from 'common/components/Container';
+import Aux from 'common/components/Aux';
 import Element from 'common/components/Element';
 import H3 from 'common/components/H3';
 import Button from 'common/components/Button';
@@ -37,7 +37,7 @@ export function SearchResults({ ids, isSearching, isSearchComplete, onReset }) {
   }`;
   return (
     (isSearching || isSearchComplete) && (
-      <Container>
+      <Aux>
         <Element flexRow flexCenter>
           <H3>{(isSearching && 'Searching...') || wordsFoundText}</H3>
           {isSearchComplete && (
@@ -47,7 +47,7 @@ export function SearchResults({ ids, isSearching, isSearchComplete, onReset }) {
           )}
         </Element>
         <VocabList ids={ids} color={blue[5]} showSecondary showFuri />
-      </Container>
+      </Aux>
     )
   );
 }

@@ -33,7 +33,7 @@ export function VocabLevel({ id, reviewIds, isLocked }) {
       defaultOn
       render={({ on, toggle }) => (
         <Aux>
-          <Element flexRow>
+          <Element flexRow alignItems="center">
             <H1>{title}</H1>
             <VocabListToggleButton cardsExpanded={on} onToggle={toggle} />
           </Element>

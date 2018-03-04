@@ -17,7 +17,6 @@ import './styles'; // NOTE: global styles for tooltip injected
 const List = styled(Ul)`
   display: flex;
   flex-flow: row wrap;
-
   & > * {
     &:only-child {
       flex-grow: 0;

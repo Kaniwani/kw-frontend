@@ -7,6 +7,7 @@ import A from 'common/components/A';
 
 export const Wrapper = styled.li`
   display: inline-flex;
+  min-width: 8em;
   flex: 1 0 auto;
   justify-content: center;
   color: ${({ textColor }) => textColor};
@@ -18,7 +19,7 @@ export const Wrapper = styled.li`
 
 export const Link = styled(A)`
   ${gutter({ position: 'vertical', mod: 2 })}
-  ${gutter({ position: 'horizontal', mod: 4 })}
+  ${gutter({ position: 'horizontal', mod: 2 })}
   display: flex;
   width: 100%;
   flex-flow: column nowrap;

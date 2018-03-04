@@ -1,14 +1,14 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { titleCase, truncate } from "voca";
+import { titleCase, truncate } from 'voca';
 
-import Aux from "common/components/Aux";
-import { selectPrimaryMeaning, selectSecondaryMeanings } from "features/reviews/selectors";
+import Aux from 'common/components/Aux';
+import { selectPrimaryMeaning, selectSecondaryMeanings } from 'features/reviews/selectors';
 
-import { PrimaryMeaning, SecondaryMeanings } from "./styles";
+import { PrimaryMeaning, SecondaryMeanings } from './styles';
 
 VocabMeaning.propTypes = {
   primaryMeaning: PropTypes.string.isRequired,
@@ -36,15 +36,15 @@ function VocabMeaning({
   renderSecondary,
 }) {
   const noSplit = ["'"];
-  let secondaryText = secondaryMeanings.join(", ");
+  let secondaryText = secondaryMeanings.join(', ');
   secondaryText = truncate(secondaryText, shouldTruncate ? 30 : secondaryText.length);
   return (
-    <Aux>
+    <div>
       {renderPrimary({ text: titleCase(primaryMeaning, noSplit) })}
       {showSecondary &&
         !!secondaryText.length &&
         renderSecondary({ text: titleCase(secondaryText, noSplit) })}
-    </Aux>
+    </div>
   );
 }
 
