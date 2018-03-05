@@ -17,7 +17,7 @@ export const loadLogic = createLogic({
       })
       .catch((err) => {
         dispatch(user.load.failure(err));
-        if (err.status && err.status === 503) {
+        if (err.status && (err.status === 503 || err.status === 502)) {
           dispatch(app.setMaintenance(true));
         } else {
           dispatch(app.setMaintenance(false));

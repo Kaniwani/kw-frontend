@@ -49,13 +49,13 @@ export const loginLogic = createLogic({
         history.push('/');
         done();
       })
-      .catch((error) => {
-        console.warn(`Login failure. Response was: ${JSON.stringify(error)}`);
-        dispatch(user.login.failure(error));
-        if (error.status && error.status === 503) {
+      .catch((err) => {
+        console.warn(`Login failure. Response was: ${JSON.stringify(err)}`);
+        dispatch(user.login.failure(err));
+        if (err.status && (err.status === 503 || err.status === 502)) {
           dispatch(app.setMaintenance(true));
-        } else if (error.status && error.status === 400) {
-          dispatch(stopSubmit(FORM_NAME, { ...error.json, _error: error.json.non_field_errors }));
+        } else if (err.status && err.status === 400) {
+          dispatch(stopSubmit(FORM_NAME, { ...err.json, _error: err.json.non_field_errors }));
         } else {
           dispatch(
             stopSubmit(FORM_NAME, { _error: ['There was an error contacting the server.'] })
