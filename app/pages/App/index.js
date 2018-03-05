@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import Network from 'react-network';
 import styled from 'styled-components';
 
 import user from 'features/user/actions';
@@ -22,9 +21,6 @@ import SiteFooter from 'features/navigation/SiteFooter';
 import MAINTENANCE_IMG from 'common/assets/loops/confused.jpg';
 import MAINTENANCE_MP4 from 'common/assets/loops/confused.mp4';
 import MAINTENANCE_WEBM from 'common/assets/loops/confused.webm';
-import OFFLINE_IMG from 'common/assets/loops/running.jpg';
-import OFFLINE_MP4 from 'common/assets/loops/running.mp4';
-import OFFLINE_WEBM from 'common/assets/loops/running.webm';
 
 // ensure footer is flush with bottom of page
 // if content in header + main is less than the viewport height
@@ -71,10 +67,10 @@ class App extends React.Component {
         <Helmet titleTemplate="%s - KaniWani">
           <meta name="description" content="KaniWani - An English to Japanese SRS Quiz App" />
         </Helmet>
-        {underMaintenance && (
+        {underMaintenance ? (
           <VideoBanner
             active={!underMaintenance}
-            sources={{ mp4: MAINTENANCE_MP4, webm: MAINTENANCE_WEBM, img: MAINTENANCE_IMG }}
+            sources={{ mp4: MAINTENANCE_MP4, webm: MAINTENANCE_WEBM, jpg: MAINTENANCE_IMG }}
             headerText="Huh, where’d KW go?"
             subHeaderText={
               <Aux>
@@ -85,30 +81,15 @@ class App extends React.Component {
               </Aux>
             }
           />
-        )}
-        {!underMaintenance && (
-          <Network
-            render={({ online }) => (
-              <Aux>
-                {online && (
-                  <Aux>
-                    <SiteHeader />
-                    <main>
-                      <Routes />
-                      <ScrollToTop />
-                    </main>
-                    <SiteFooter />
-                  </Aux>
-                )}
-                <VideoBanner
-                  active={!online}
-                  sources={{ mp4: OFFLINE_MP4, webm: OFFLINE_WEBM, img: OFFLINE_IMG }}
-                  headerText="Connection lost!"
-                  subHeaderText="Please reconnect to continue using Kaniwani."
-                />
-              </Aux>
-            )}
-          />
+        ) : (
+          <Aux>
+            <SiteHeader />
+            <main>
+              <Routes />
+              <ScrollToTop />
+            </main>
+            <SiteFooter />
+          </Aux>
         )}
       </AppWrapper>
     );

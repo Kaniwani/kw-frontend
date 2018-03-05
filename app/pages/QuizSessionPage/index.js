@@ -5,6 +5,13 @@ import { Helmet } from 'react-helmet';
 import { titleCase } from 'voca';
 import { get } from 'lodash';
 import styled from 'styled-components';
+import Network from 'react-network';
+
+import OFFLINE_IMG from 'common/assets/loops/running.jpg';
+import OFFLINE_MP4 from 'common/assets/loops/running.mp4';
+import OFFLINE_WEBM from 'common/assets/loops/running.webm';
+import Aux from 'common/components/Aux';
+import VideoBanner from 'common/components/VideoBanner';
 
 import quiz from 'features/quiz/actions';
 
@@ -47,7 +54,19 @@ export class QuizSessionPage extends React.Component {
           <title>{pageTitle}</title>
           <meta name="description" content={pageTitle} />
         </Helmet>
-        <QuizSession category={this.props.category} />
+        <Network
+          render={({ online }) => (
+            <Aux>
+              {online && <QuizSession category={this.props.category} />}
+              <VideoBanner
+                active={!online}
+                sources={{ mp4: OFFLINE_MP4, webm: OFFLINE_WEBM, jpg: OFFLINE_IMG }}
+                headerText="Connection lost!"
+                subHeaderText="Please reconnect to continue using Kaniwani."
+              />
+            </Aux>
+          )}
+        />
       </Wrapper>
     );
   }
