@@ -22,6 +22,7 @@
     "cz": "git-cz",
     "format": "prettier-eslint --write --ignore '**/styles.js'",
     "lint": "eslint --color --ignore-path .gitignore --ignore-pattern internals/scripts",
+    "lint:app": "eslint --color --ignore-path .gitignore app/**/*.js",
     "postinstall": "npm run build:dll",
     "preanalyze": "npm run analyze:clean",
     "prebuild": "npm run build:clean",
