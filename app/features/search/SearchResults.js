@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -8,7 +8,6 @@ import search from './actions';
 
 import { selectSearchResultIds, selectIsSearching, selectIsSearchComplete } from './selectors';
 
-import Aux from 'common/components/Aux';
 import Element from 'common/components/Element';
 import H3 from 'common/components/H3';
 import Button from 'common/components/Button';
@@ -37,7 +36,7 @@ export function SearchResults({ ids, isSearching, isSearchComplete, onReset }) {
   }`;
   return (
     (isSearching || isSearchComplete) && (
-      <Aux>
+      <Fragment>
         <Element flexRow flexCenter>
           <H3>{(isSearching && 'Searching...') || wordsFoundText}</H3>
           {isSearchComplete && (
@@ -47,7 +46,7 @@ export function SearchResults({ ids, isSearching, isSearchComplete, onReset }) {
           )}
         </Element>
         <VocabList ids={ids} color={blue[5]} showSecondary showFuri />
-      </Aux>
+      </Fragment>
     )
   );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -7,7 +7,6 @@ import {
   selectLastActivityDate,
 } from 'features/quiz/QuizSummary/selectors';
 
-import Aux from 'common/components/Aux';
 import PageWrapper from 'common/components/PageWrapper';
 import Container from 'common/components/Container';
 import Toggle from 'common/components/Toggle';
@@ -31,7 +30,7 @@ export function QuizSummarySections({ category, percentCorrect, lastActivityDate
       render={({ on, toggle }) => (
         <PageWrapper>
           {lastActivityDate !== false && (
-            <Aux>
+            <Fragment>
               <Container flexRow>
                 <PercentageBar
                   count={percentCorrect}
@@ -54,7 +53,7 @@ export function QuizSummarySections({ category, percentCorrect, lastActivityDate
                 sectionType={SECTION_TYPES.CRITICAL}
                 cardsExpanded={on}
               />
-            </Aux>
+            </Fragment>
           )}
           <LastActivity date={lastActivityDate} />
         </PageWrapper>

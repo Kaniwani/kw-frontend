@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -11,7 +11,6 @@ import {
   selectVocabLevelIsLocked,
 } from 'features/vocab/Levels/selectors';
 
-import Aux from 'common/components/Aux';
 import Spinner from 'common/components/Spinner';
 import Element from 'common/components/Element';
 import H1 from 'common/components/H1';
@@ -32,7 +31,7 @@ export function VocabLevel({ id, reviewIds, isLocked }) {
     <Toggle
       defaultOn
       render={({ on, toggle }) => (
-        <Aux>
+        <Fragment>
           <Element flexRow alignItems="center">
             <H1>{title}</H1>
             <VocabListToggleButton cardsExpanded={on} onToggle={toggle} />
@@ -44,7 +43,7 @@ export function VocabLevel({ id, reviewIds, isLocked }) {
             itemType={on ? ITEM_TYPES.CARD : ITEM_TYPES.CHIP}
             withSrsColors
           />
-        </Aux>
+        </Fragment>
       )}
     />
   );

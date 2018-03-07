@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import Aux from 'common/components/Aux';
 import A from 'common/components/A';
 import Image from 'common/assets/img/404.png';
 import Container from 'common/components/Container';
@@ -23,7 +22,7 @@ function NotFoundPage({ children }) {
       <PageWrapper>
         <Container>
           {children || (
-            <Aux>
+            <Fragment>
               <Title>
                 <span lang="ja">おろ〜 </span>
                 <span>How did you get here?</span>
@@ -35,7 +34,7 @@ function NotFoundPage({ children }) {
               <Text>
                 <small>And remember, always be excellent to each other.</small>
               </Text>
-            </Aux>
+            </Fragment>
           )}
         </Container>
       </PageWrapper>

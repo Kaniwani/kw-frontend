@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { get } from 'lodash';
 import { titleCase } from 'voca';
 
-import Aux from 'common/components/Aux';
 import user from 'features/user/actions';
 import quiz from 'features/quiz/actions';
 import QuizSummarySections from 'features/quiz/QuizSummary/QuizSummarySections';
@@ -31,14 +30,14 @@ export class QuizSummaryPage extends React.Component {
   render() {
     const pageTitle = titleCase(this.props.category);
     return (
-      <Aux>
+      <Fragment>
         <Helmet>
           <title>{`${pageTitle} Summary`}</title>
           <meta name="description" content={`Kaniwani ${pageTitle} Summary`} />
         </Helmet>
         {/* QuizSummaryHeader rendered via SiteHeader route match */}
         <QuizSummarySections category={this.props.category} />
-      </Aux>
+      </Fragment>
     );
   }
 }

@@ -1,18 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import {
   selectWord,
   selectFuri,
   selectPrimaryReading,
   selectSecondaryReadings,
-} from "features/vocab/selectors";
+} from 'features/vocab/selectors';
 
-import Aux from "common/components/Aux";
-import Ruby from "common/components/Ruby";
-import P from "common/components/P";
+import Ruby from 'common/components/Ruby';
+import P from 'common/components/P';
 
 const SecondaryReadings = P.extend`
   opacity: 0.8;
@@ -31,8 +30,8 @@ VocabWord.propTypes = {
 };
 
 VocabWord.defaultProps = {
-  furi: "",
-  primaryReading: "",
+  furi: '',
+  primaryReading: '',
   secondaryReadings: [],
   showFuri: true,
   showSecondary: true,
@@ -56,15 +55,15 @@ export function VocabWord({
   renderSecondary,
 }) {
   return (
-    <Aux>
+    <Fragment>
       {renderPrimary({
         word,
         furi,
         showFuri,
         reading: primaryReading,
       })}
-      {showSecondary && renderSecondary({ text: secondaryReadings.join(" ・ ") })}
-    </Aux>
+      {showSecondary && renderSecondary({ text: secondaryReadings.join(' ・ ') })}
+    </Fragment>
   );
 }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -6,7 +6,6 @@ import { review } from 'features/reviews/actions';
 import { selectShouldLoad, selectLastLoad, selectReviewVocabIds } from 'features/reviews/selectors';
 import { selectVocabById } from 'features/vocab/selectors';
 
-import Aux from 'common/components/Aux';
 import A from 'common/components/A';
 import H1 from 'common/components/H1';
 import H3 from 'common/components/H3';
@@ -35,16 +34,16 @@ export class VocabEntry extends React.Component {
     return !lastLoad ? (
       <Spinner />
     ) : (
-      <Aux>
+      <Fragment>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <VocabMeaning id={id} renderPrimary={({ text }) => <H1>{text}</H1>} />
-          <H3 style={{fontWeight: '400'}}>
+          <H3 style={{ fontWeight: '400' }}>
             <A to={`/vocabulary/levels/${level}`}>Level {level}</A>
           </H3>
         </div>
         <VocabDetail id={id} />
         <VocabStats id={id} />
-      </Aux>
+      </Fragment>
     );
   }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -13,7 +13,7 @@ import {
 
 import Spinner from 'common/components/Spinner';
 import Toggle from 'common/components/Toggle';
-import Aux from 'common/components/Aux';
+
 import Ul from 'common/components/Ul';
 import Button from 'common/components/Button';
 import Announcement from './Announcement';
@@ -32,10 +32,10 @@ export function AnnouncementList({ ids }) {
       render={({ on, toggle }) => {
         const idsToShow = on ? recent.concat(old) : recent;
         return (
-          <Aux>
+          <Fragment>
             <Ul plainList>{idsToShow.map((id) => <Announcement key={cuid()} id={id} />)}</Ul>
             {hasOld && !on && <Button onClick={toggle}>View All</Button>}
-          </Aux>
+          </Fragment>
         );
       }}
     />

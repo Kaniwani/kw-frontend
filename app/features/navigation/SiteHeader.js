@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -10,7 +10,6 @@ import { hasToken } from 'common/utils/auth';
 import { breakpoints } from 'common/styles/media';
 import { selectLocationPath } from 'common/selectors';
 
-import Aux from 'common/components/Aux';
 import Element from 'common/components/Element';
 import QuizSummaryHeader from 'features/quiz/QuizSummary/QuizSummaryHeader';
 import LogoLink from 'common/components/LogoLink';
@@ -58,20 +57,20 @@ export function SiteHeader({ expanded, showOffCanvasMenu, onHamburgerToggle, onM
         <Route exact path="/welcome" />
         <Route
           render={() => (
-            <Aux>
+            <Fragment>
               <Nav>
                 <LogoLink />
                 <Switch>
                   <Route path="/:category(lessons|reviews)" component={QuizSummaryHeader} />
                   <Route
                     render={() => (
-                      <Aux>
+                      <Fragment>
                         <Element flexRow flex="999 1 auto" justifyContent="space-between">
                           <Menu links={PRIMARY_LINKS} />
                           {expanded && <Menu links={SECONDARY_LINKS} />}
                         </Element>
                         {!expanded && <Hamburger onToggle={onHamburgerToggle} />}
-                      </Aux>
+                      </Fragment>
                     )}
                   />
                 </Switch>
@@ -81,7 +80,7 @@ export function SiteHeader({ expanded, showOffCanvasMenu, onHamburgerToggle, onM
                 isVisible={showOffCanvasMenu}
                 onClose={onMenuClose}
               />
-            </Aux>
+            </Fragment>
           )}
         />
       </ConnectedSwitch>

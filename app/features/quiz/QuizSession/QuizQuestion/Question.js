@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import Aux from 'common/components/Aux';
 import Spinner from 'common/components/Spinner';
 import { white } from 'common/styles/colors';
 import { MeaningsWrapper, Meanings, Primary, Secondary } from './styles';
@@ -22,11 +21,11 @@ export function Question({ primaryMeaning, secondaryMeanings }) {
         {!primaryMeaning ? (
           <Spinner color1={white[3]} color2={white[2]} />
         ) : (
-          <Aux>
+          <Fragment>
             <Primary>{primaryMeaning}</Primary>
             {/* Enforce a min-height even if no terms by using japanese space as placeholder */}
             <Secondary>{secondaryMeanings.length ? secondaryMeanings.join(', ') : '　'}</Secondary>
-          </Aux>
+          </Fragment>
         )}
       </Meanings>
     </MeaningsWrapper>

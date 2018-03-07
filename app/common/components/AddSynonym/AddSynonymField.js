@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { titleCase } from 'voca';
 
-import Aux from 'common/components/Aux';
 import Element from 'common/components/Element';
 import JishoSearchLink from './JishoSearchLink';
 
@@ -32,7 +31,7 @@ function AddSynonymField({ userAnswer, answerType, label, type, error, handleRef
   const japanesePlaceholder = PLACEHOLDERS[label];
 
   return (
-    <Aux>
+    <Fragment>
       <Element tag="label" flexRow flexCenter>
         <LabelText>{labelText}</LabelText>
         <Input
@@ -58,7 +57,7 @@ function AddSynonymField({ userAnswer, answerType, label, type, error, handleRef
           <ValidationMessage>{error}</ValidationMessage>
         </Element>
       )}
-    </Aux>
+    </Fragment>
   );
 }
 

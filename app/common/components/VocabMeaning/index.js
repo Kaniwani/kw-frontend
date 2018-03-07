@@ -5,7 +5,6 @@ import { createStructuredSelector } from 'reselect';
 
 import { titleCase, truncate } from 'voca';
 
-import Aux from 'common/components/Aux';
 import { selectPrimaryMeaning, selectSecondaryMeanings } from 'features/reviews/selectors';
 
 import { PrimaryMeaning, SecondaryMeanings } from './styles';

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import cuid from 'cuid';
@@ -11,7 +11,6 @@ import {
   selectIsHidden,
 } from 'features/reviews/selectors';
 
-import Aux from 'common/components/Aux';
 import VocabWord from 'common/components/VocabWord';
 import VocabSynonymList from 'common/components/VocabSynonym';
 import TagsList from 'common/components/TagsList';
@@ -75,7 +74,7 @@ export function VocabDetail({
   unlockReview,
 }) {
   return (
-    <Aux>
+    <Fragment>
       {vocabIds.map((vocabId) => (
         <div key={cuid()}>
           {<VocabWord id={vocabId} showFuri={showFuri} showSecondary={showSecondaryReadings} />}
@@ -95,7 +94,7 @@ export function VocabDetail({
           onClick={isReviewLocked ? unlockReview : lockReview}
         />
       )}
-    </Aux>
+    </Fragment>
   );
 }
 

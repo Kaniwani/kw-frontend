@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { selectUserLastLoad, selectUpcomingReviewsTotal } from 'features/user/selectors';
 
 import { grey } from 'common/styles/colors';
-import Aux from 'common/components/Aux';
+
 import Spinner from 'common/components/Spinner';
 import Container from 'common/components/Container';
 import Element from 'common/components/Element';
@@ -28,7 +28,7 @@ function Dashboard({ upcomingReviewsTotal, lastLoad }) {
   return !lastLoad ? (
     <Spinner />
   ) : (
-    <Aux>
+    <Fragment>
       <Container>
         <ApiKeyCheck />
         <ReviewStatus />
@@ -58,7 +58,7 @@ function Dashboard({ upcomingReviewsTotal, lastLoad }) {
         </Element>
         <Announcements />
       </Container>
-    </Aux>
+    </Fragment>
   );
 }
 

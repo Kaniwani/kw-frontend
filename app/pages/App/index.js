@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -11,7 +11,7 @@ import { selectLocationPath, selectMaintenance } from 'common/selectors';
 import { cyan } from 'common/styles/colors';
 
 import Routes from 'common/routes';
-import Aux from 'common/components/Aux';
+
 import ScrollToTop from 'common/components/ScrollToTop';
 import A from 'common/components/A';
 import VideoBanner from 'common/components/VideoBanner';
@@ -73,23 +73,23 @@ class App extends React.Component {
             sources={{ mp4: MAINTENANCE_MP4, webm: MAINTENANCE_WEBM, jpg: MAINTENANCE_IMG }}
             headerText="Huh, where’d KW go?"
             subHeaderText={
-              <Aux>
+              <Fragment>
                 We’re probably rebooting the server. Check in with us on{' '}
                 <A href="https://rauchg-slackin-iurjmkotad.now.sh" external color={cyan[4]}>
                   Slack
                 </A>.
-              </Aux>
+              </Fragment>
             }
           />
         ) : (
-          <Aux>
+          <Fragment>
             <SiteHeader />
             <main>
               <Routes />
               <ScrollToTop />
             </main>
             <SiteFooter />
-          </Aux>
+          </Fragment>
         )}
       </AppWrapper>
     );

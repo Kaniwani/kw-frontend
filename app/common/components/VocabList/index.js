@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ReactTooltip from 'react-tooltip';
 import cuid from 'cuid';
 
-import Aux from 'common/components/Aux';
 import Ul from 'common/components/Ul';
 import VocabCard from './VocabCard';
 import VocabChip from './VocabChip';
@@ -86,13 +85,13 @@ export class VocabList extends React.Component {
     const isCard = itemType === ITEM_TYPES.CARD;
     const isChip = itemType === ITEM_TYPES.CHIP;
     return (
-      <Aux>
+      <Fragment>
         {isChip && this.renderTooltipManager(tooltipId)}
         <List plainList isCard={isCard} isChip={isChip}>
           {isChip && this.renderChips(ids, tooltipId)}
           {isCard && this.renderCards(ids)}
         </List>
-      </Aux>
+      </Fragment>
     );
   }
 }
