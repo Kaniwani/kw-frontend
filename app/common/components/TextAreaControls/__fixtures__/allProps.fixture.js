@@ -1,8 +1,8 @@
-import TextAreaControls from "common/components/TextAreaControls";
+import TextAreaControls from 'common/components/TextAreaControls';
 
 export default {
   component: TextAreaControls,
-  withCosmosXRay: false,
+
   props: {
     maxLength: 50,
     textLength: 24,

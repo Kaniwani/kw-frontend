@@ -1,7 +1,7 @@
-import PitchDiagram from "common/components/PitchDiagram/PitchDiagram";
+import PitchDiagram from 'common/components/PitchDiagram/PitchDiagram';
 
 export default {
   component: PitchDiagram,
-  withCosmosXRay: false,
+
   props: {},
 };

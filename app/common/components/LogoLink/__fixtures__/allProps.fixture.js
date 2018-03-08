@@ -1,11 +1,11 @@
-import LogoLink from "common/components/LogoLink";
+import LogoLink from 'common/components/LogoLink';
 
 export default {
   component: LogoLink,
-  withCosmosXRay: false,
-  url: "/",
+
+  url: '/',
   props: {
-    to: "/",
-    size: "20rem",
+    to: '/',
+    size: '20rem',
   },
 };

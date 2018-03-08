@@ -8,7 +8,7 @@ export default {
     },
   },
   component: OffCanvasMenu,
-  withCosmosXRay: false,
+
   url: '/',
   props: {
     links: [

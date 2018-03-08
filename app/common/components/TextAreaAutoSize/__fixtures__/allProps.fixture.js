@@ -2,7 +2,7 @@ import TextAreaAutoSize from 'common/components/TextAreaAutoSize';
 
 export default {
   component: TextAreaAutoSize,
-  withCosmosXRay: false,
+
   reduxState: {},
   props: {
     input: {

@@ -1,15 +1,15 @@
-import QuizHeader from "old/features/QuizHeader";
+import QuizHeader from 'old/features/QuizHeader';
 
 export default {
-  url: "/",
+  url: '/',
   component: QuizHeader,
-  withCosmosXRay: false,
+
   props: {
-    summaryRoute: "/reviews",
+    summaryRoute: '/reviews',
     percentComplete: 33,
     percentCorrect: 10,
     correctCount: 10,
     remainingCount: 20,
-    bgColor: "tomato",
+    bgColor: 'tomato',
   },
 };

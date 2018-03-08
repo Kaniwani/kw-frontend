@@ -4,7 +4,7 @@ import { sample } from 'lodash';
 
 export default {
   withCosmosWrapper: true,
-  withCosmosXRay: false,
+
   component: Announcement,
   props: {
     ...sample(items),

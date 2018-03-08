@@ -2,7 +2,7 @@ import AddSynonymForm, { ANSWER_TYPES } from 'common/components/AddSynonym/AddSy
 
 export default {
   component: AddSynonymForm,
-  withCosmosXRay: false,
+
   reduxState: {},
   props: {
     form: 'addSynonym',

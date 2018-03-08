@@ -2,7 +2,7 @@ import { ReviewStatus } from 'features/dashboard/ReviewStatus';
 
 export default {
   withCosmosWrapper: false,
-  withCosmosXRay: false,
+
   component: ReviewStatus,
   props: {
     reviewsCount: 0,

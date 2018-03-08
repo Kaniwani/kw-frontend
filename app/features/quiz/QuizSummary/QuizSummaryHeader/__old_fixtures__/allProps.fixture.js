@@ -1,9 +1,9 @@
-import QuizSummaryHeader from "old/features/QuizSummaryHeader";
+import QuizSummaryHeader from 'old/features/QuizSummaryHeader';
 
 export default {
   component: QuizSummaryHeader,
-  withCosmosXRay: false,
-  url: "/",
+
+  url: '/',
   props: {
     ...QuizSummaryHeader.defaultProps,
   },

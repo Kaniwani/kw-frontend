@@ -1,6 +1,5 @@
-import LoadingCrabigator from "common/components/LoadingCrabigator";
+import LoadingCrabigator from 'common/components/LoadingCrabigator';
 
 export default {
   component: LoadingCrabigator,
-  withCosmosXRay: false,
 };

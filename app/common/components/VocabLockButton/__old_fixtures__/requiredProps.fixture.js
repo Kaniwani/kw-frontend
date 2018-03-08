@@ -4,7 +4,7 @@ import VocabLockButton from 'components/VocabLockButton';
 export default {
   withCosmosWrapper: true,
   component: VocabLockButton,
-  withCosmosXRay: false,
+
   props: {},
   children: [],
   state: {},

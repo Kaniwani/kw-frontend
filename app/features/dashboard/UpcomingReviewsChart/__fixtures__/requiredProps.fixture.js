@@ -1,28 +1,28 @@
-import { UpcomingReviewsChart } from "features/dashboard/UpcomingReviewsChart";
+import { UpcomingReviewsChart } from 'features/dashboard/UpcomingReviewsChart';
 
 export default {
   withCosmosWrapper: {
     style: {
-      backgroundColor: "white",
+      backgroundColor: 'white',
     },
   },
   component: UpcomingReviewsChart,
-  withCosmosXRay: false,
+
   props: {
     data: [
       {
-        day: "",
-        hour: "11pm",
+        day: '',
+        hour: '11pm',
         value: 24,
       },
       {
-        day: "Friday",
-        hour: "12am",
+        day: 'Friday',
+        hour: '12am',
         value: 2,
       },
       {
-        day: "",
-        hour: "6pm",
+        day: '',
+        hour: '6pm',
         value: 224,
       },
     ],

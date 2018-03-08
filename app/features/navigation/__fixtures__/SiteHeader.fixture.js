@@ -24,7 +24,7 @@ const secondaryLinks = [
 
 export default {
   component: SiteHeader,
-  withCosmosXRay: false,
+
   url: '/',
   reduxState: {},
   props: {

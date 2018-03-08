@@ -5,7 +5,7 @@ const ids = Object.keys(items).map(Number);
 
 export default {
   withCosmosWrapper: true,
-  withCosmosXRay: false,
+
   component: AnnouncementList,
   reduxState: {
     entities: {

@@ -1,11 +1,10 @@
-import ScrollToTop from "common/components/ScrollToTop";
+import ScrollToTop from 'common/components/ScrollToTop';
 
 export default {
   withCosmosWrapper: {
     style: {
-      height: "3000px",
+      height: '3000px',
     },
   },
   component: ScrollToTop,
-  withCosmosXRay: false,
 };

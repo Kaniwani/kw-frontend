@@ -3,7 +3,7 @@ import formatSrsCounts from 'common/utils/formatSrsCounts';
 
 export default {
   component: SrsChart,
-  withCosmosXRay: false,
+
   props: {
     data: formatSrsCounts({
       UNTRAINED: 12,

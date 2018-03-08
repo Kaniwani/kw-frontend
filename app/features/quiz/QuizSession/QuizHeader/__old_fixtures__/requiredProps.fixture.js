@@ -1,10 +1,10 @@
-import QuizHeader from "old/features/QuizHeader";
+import QuizHeader from 'old/features/QuizHeader';
 
 export default {
-  url: "/",
+  url: '/',
   component: QuizHeader,
-  withCosmosXRay: false,
+
   props: {
-    summaryRoute: "/lessons",
+    summaryRoute: '/lessons',
   },
 };

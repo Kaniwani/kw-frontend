@@ -2,7 +2,6 @@ import VocabLevelPage from 'pages/VocabLevelPage';
 import reviews from 'common/data/fixtures/reviews';
 
 export default {
-  withCosmosXRay: false,
   component: VocabLevelPage,
   url: '/vocabulary/levels/2',
   props: {
