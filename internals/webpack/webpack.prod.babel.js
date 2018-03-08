@@ -40,9 +40,9 @@ module.exports = require('./webpack.base.babel')({
     }),
 
     new WebpackPwaManifest({
+      filename: 'manifest.json',
       name: 'KaniWani',
       short_name: 'KaniWani',
-      description: 'English <-> Japanese Study Tool',
       background_color: '#fafafa',
       theme_color: '#8523e7',
       display: 'standalone',
