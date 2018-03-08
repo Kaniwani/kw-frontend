@@ -14,7 +14,7 @@ import {
   createWkVocabUrl,
   createJishoUrl,
   createEijiroUrl,
-  createGooUrl,
+  createKotobankUrl,
   createWeblioUrl,
   createForvoUrl,
 } from 'common/api';
@@ -33,7 +33,7 @@ export function ReadingLinks({ id, word, useEijiroProLink }) {
       name: `Eijiro${useEijiroProLink ? ' Pro' : ''}`,
       href: createEijiroUrl(word, useEijiroProLink),
     },
-    { name: 'Goo', href: createGooUrl(word) },
+    { name: 'Kotobank', href: createKotobankUrl(word) },
     { name: 'Weblio', href: createWeblioUrl(word) },
     { name: 'Forvo', href: createForvoUrl(word) },
   ];

@@ -311,15 +311,14 @@ export const report = {
 //-----------------------------------------------------------------------------
 //  EXTERNAL ROUTES
 //-----------------------------------------------------------------------------
-export const createJishoApiUrl = (keyword) => `//jisho.org/api/v1/search/words?keyword=${keyword}`;
-export const createJishoUrl = (keyword) => `//jisho.org/search/${keyword}`;
-export const createGooUrl = (keyword) =>
-  `http://dictionary.goo.ne.jp/srch/all/${encodeURIComponent(keyword)}/m0u/`;
+export const createJishoUrl = (keyword) => `https://jisho.org/search/${keyword}`;
+export const createKotobankUrl = (keyword) =>
+  `https://kotobank.jp/jeword//${encodeURIComponent(keyword)}`;
 export const createWeblioUrl = (keyword) =>
-  `http://ejje.weblio.jp/content/${encodeURIComponent(keyword)}`;
+  `https://ejje.weblio.jp/content/${encodeURIComponent(keyword)}`;
 export const createForvoUrl = (keyword) =>
-  `http://forvo.com/search/${encodeURIComponent(keyword)}/`;
+  `https://forvo.com/search/${encodeURIComponent(keyword)}/`;
 export const createWkVocabUrl = (keyword) =>
   `https://wanikani.com/vocabulary/${encodeURIComponent(keyword)}`;
 export const createEijiroUrl = (keyword, useEijiroProLink) =>
-  `http://${useEijiroProLink ? 'eowpf' : 'eow'}.alc.co.jp/search?q=${encodeURIComponent(keyword)}`;
+  `https://${useEijiroProLink ? 'eowpf' : 'eow'}.alc.co.jp/search?q=${encodeURIComponent(keyword)}`;
