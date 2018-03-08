@@ -1,10 +1,10 @@
-// Important modules this config uses
 const path = require('path');
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
 
 module.exports = require('./webpack.base.babel')({
+  mode: 'production',
   // In production, we skip all hot-reloading stuff
   entry: [path.join(process.cwd(), 'app/index.js')],
 
@@ -14,18 +14,13 @@ module.exports = require('./webpack.base.babel')({
     chunkFilename: '[name].[chunkhash].chunk.js',
   },
 
+  optimization: {
+    minimize: true,
+    sideEffects: true,
+    concatenateModules: true,
+  },
+
   plugins: [
-    // create a dedicated vendor bundle
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'main',
-      children: true,
-      minChunks: 2,
-      async: true,
-    }),
-
-    // hoist modules rather than fn() wrap
-    new webpack.optimize.ModuleConcatenationPlugin(),
-
     // Minify and optimize the index.html
     new HtmlWebpackPlugin({
       template: 'app/index.html',
@@ -44,11 +39,33 @@ module.exports = require('./webpack.base.babel')({
       inject: true,
     }),
 
+    new WebpackPwaManifest({
+      name: 'KaniWani',
+      short_name: 'KaniWani',
+      description: 'English <-> Japanese Study Tool',
+      background_color: '#fafafa',
+      theme_color: '#8523e7',
+      display: 'standalone',
+      orientation: 'portrait',
+      start_url: '/',
+      icons: [
+        {
+          src: path.resolve('app/favicon.png'),
+          sizes: [36, 48, 72, 96, 144, 192, 512],
+        },
+      ],
+    }),
+
     // Put it in the end to capture all the HtmlWebpackPlugin's
     // assets manipulations and do leak its manipulations to HtmlWebpackPlugin
     new OfflinePlugin({
       relativePaths: false,
       publicPath: '/',
+
+      ServiceWorker: {
+        minify: false, // TODO: Can minify when offline-plugin supports webpack 4
+        events: true,
+      },
 
       // No need to cache .htaccess. See http://mxs.is/googmp,
       // this is applied before any match in `caches` section
@@ -69,10 +86,6 @@ module.exports = require('./webpack.base.babel')({
       autoUpdate: true,
 
       AppCache: false,
-
-      ServiceWorker: {
-        events: true,
-      },
     }),
   ],
 

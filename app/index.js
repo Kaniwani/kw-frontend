@@ -14,11 +14,8 @@ import { PersistGate } from 'redux-persist/lib/integration/react';
 import DefaultLoadingComponentProvider from 'common/components/Loadable/DefaultLoadingComponentProvider';
 import ErrorBoundary from 'common/components/ErrorBoundary';
 
-// Load the favicon, the manifest.json file and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
 import '!file-loader?name=[name].[ext]!./favicon.ico';
-import '!file-loader?name=[name].[ext]!./favicon.png';
-import '!file-loader?name=[name].[ext]!./manifest.json';
 /* eslint-enable import/no-webpack-loader-syntax */
 
 // Import CSS reset and Global Styles
