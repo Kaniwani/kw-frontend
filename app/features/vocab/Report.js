@@ -32,13 +32,13 @@ export const VocabReport = ({ reading, handleSubmit, reset, submitting, submitSu
             <Fixed top right bottom left onClick={toggle} />
             <Overlay w={['320px', '80vw', '720px']}>
               <Absolute top right p={1}>
-                <IconButton name="CLOSE" title="Close Add Synonym window" onClick={toggle} />
+                <IconButton name="CLOSE" title="Close Report Window" onClick={toggle} />
               </Absolute>
               <Flex justify="center">
                 <Form onSubmit={handleSubmit}>
-                  <H3 style={{ display: 'flex', alignItems: 'center' }}>
+                  <H3 style={{ display: 'flex', alignItems: 'center', fontWeight: 400 }}>
                     <span style={{ marginRight: '.3rem' }}>Report Errata for </span>
-                    <span style={{ fontSize: '1.3em', fontWeight: '400' }} lang="ja">
+                    <span style={{ fontSize: '1.3em' }} lang="ja">
                       {reading.word}
                     </span>
                   </H3>
