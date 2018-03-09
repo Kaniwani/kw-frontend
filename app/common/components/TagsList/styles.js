@@ -15,12 +15,9 @@ export const Li = styled.li`
   ${fluidType(10, 16, 300, 1800)}
   display: inline-flex;
   max-width: 100%;
-  padding: .25rem .5rem .2rem;
   ${gutter({ prop: 'margin', position: 'horizontal', mod: 0.5 })}
   ${gutter({ prop: 'margin', position: 'vertical', mod: 0.5 })}
-  line-height: 1.2;
   text-decoration: none;
-  vertical-align: middle;
   align-items: center;
   color: ${({ textColor }) => textColor};
   background-color: ${({ bgColor }) => bgColor};
@@ -29,8 +26,10 @@ export const Li = styled.li`
 
 export const Text = styled.span`
   overflow: hidden;
+  padding: .25rem .5rem;
   text-transform: lowercase;
   text-overflow: ellipsis;
+  line-height: 1;
   white-space: nowrap;
   margin-left: .2em;
   margin-right: .2em;

@@ -62,13 +62,15 @@ export function VocabStats({
   unlockDate,
 }) {
   const kaniwaniBurned = getSrsRankName(streak) === 'BURNED';
-  // TODO: get Tadgh to investigate why these are the same minute,
+  // TODO: get Tadgh to investigate why these were the same minute,
   // but different seconds when it seems lastStudied should be null
+  // Could just have been a dodgy staging server state due to his failed duplicate merging
+  // IE: check if any of these are bad on live server
   const fishyLastStudiedDate = isSameMinute(lastStudied, unlockDate);
   let lastStudiedStatus = fishyLastStudiedDate ? 'N/A' : getDateInWords(lastStudied);
   lastStudiedStatus = kaniwaniBurned ? format(lastStudied, DATE_FORMAT) : lastStudiedStatus;
   return (
-    <div>
+    <div style={{ marginTop: '1rem' }}>
       <StreakStatus category="KW" streak={streak} />
       <StreakStatus category="WK" streak={wanikaniStreak} />
       <Status text="Unlocked" status={format(unlockDate, DATE_FORMAT)} />

@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import cuid from 'cuid';
-
 import review from 'features/reviews/actions';
 
 import {
@@ -10,6 +9,12 @@ import {
   selectReviewSynonymIds,
   selectIsHidden,
 } from 'features/reviews/selectors';
+
+const ReadingWrapper = styled.div`
+  &:not(:first-child) {
+    margin-top: 1rem;
+  }
+`;
 
 import VocabWord from 'common/components/VocabWord';
 import VocabSynonymList from 'common/components/VocabSynonym';
@@ -21,12 +26,9 @@ import PitchDiagramList from 'common/components/PitchDiagram';
 import AddSynonym from 'common/components/AddSynonym';
 import VocabLockButton from 'common/components/VocabLockButton';
 import Notes from 'features/reviews/Notes';
+import styled from 'styled-components';
 
 VocabDetail.propTypes = {
-  id: PropTypes.number.isRequired,
-  vocabIds: PropTypes.array.isRequired,
-  synonymIds: PropTypes.array.isRequired,
-  isReviewLocked: PropTypes.bool,
   showFuri: PropTypes.bool,
   showSecondaryReadings: PropTypes.bool,
   showTags: PropTypes.bool,
@@ -37,6 +39,10 @@ VocabDetail.propTypes = {
   showNotes: PropTypes.bool,
   showLock: PropTypes.bool,
   showAddSynoynm: PropTypes.bool,
+  id: PropTypes.number.isRequired,
+  vocabIds: PropTypes.array.isRequired,
+  synonymIds: PropTypes.array.isRequired,
+  isReviewLocked: PropTypes.bool,
   lockReview: PropTypes.func.isRequired,
   unlockReview: PropTypes.func.isRequired,
 };
@@ -76,14 +82,14 @@ export function VocabDetail({
   return (
     <Fragment>
       {vocabIds.map((vocabId) => (
-        <div key={cuid()}>
+        <ReadingWrapper key={cuid()}>
           {<VocabWord id={vocabId} showFuri={showFuri} showSecondary={showSecondaryReadings} />}
           {showPitch && <PitchDiagramList id={vocabId} />}
           {showTags && <TagsList id={vocabId} />}
           {showLinks && <ReadingLinks id={vocabId} />}
           {showSentence && <SentencePair id={vocabId} />}
           {showStroke && <StrokeLoader id={vocabId} />}
-        </div>
+        </ReadingWrapper>
       ))}
       {showNotes && <Notes id={id} />}
       {showAddSynoynm && <AddSynonym id={id} />}
