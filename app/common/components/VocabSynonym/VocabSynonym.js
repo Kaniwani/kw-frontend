@@ -21,8 +21,8 @@ export function VocabSynonym({ word, primaryReading, onRemove }) {
       <Button
         style={{ maxWidth: '5em' }}
         title="Remove Synonym"
-        colorHover={red[5]}
-        bgColor={red[5]}
+        colorHover={red[4]}
+        bgColor={red[4]}
         onClick={onRemove}
       >
         Remove

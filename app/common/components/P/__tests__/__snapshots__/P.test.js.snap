@@ -14,7 +14,7 @@ exports[`should adopt a textAlign prop 1`] = `
 
 @media (min-width:600px) and (max-width:1800px) {
   .c0 {
-    font-size: calc(15.3px + (17.4 - 15.3) * ( (100vw - 600px) / ( 1800 - 600) ));
+    font-size: calc( 15.3px + (17.4 - 15.3) * ((100vw - 600px) / (1800 - 600)) );
   }
 }
 
@@ -50,7 +50,7 @@ exports[`should adopt an align prop 1`] = `
 
 @media (min-width:600px) and (max-width:1800px) {
   .c0 {
-    font-size: calc(15.3px + (17.4 - 15.3) * ( (100vw - 600px) / ( 1800 - 600) ));
+    font-size: calc( 15.3px + (17.4 - 15.3) * ((100vw - 600px) / (1800 - 600)) );
   }
 }
 
@@ -86,7 +86,7 @@ exports[`should match baseline snapshot 1`] = `
 
 @media (min-width:600px) and (max-width:1800px) {
   .c0 {
-    font-size: calc(15.3px + (17.4 - 15.3) * ( (100vw - 600px) / ( 1800 - 600) ));
+    font-size: calc( 15.3px + (17.4 - 15.3) * ((100vw - 600px) / (1800 - 600)) );
   }
 }
 

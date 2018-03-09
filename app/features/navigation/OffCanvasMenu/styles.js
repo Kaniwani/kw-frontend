@@ -2,25 +2,9 @@ import styled, { css } from 'styled-components';
 
 import { white, purple } from 'common/styles/colors';
 import { resetList } from 'common/styles/utils';
-import { midEaseQuad } from 'common/styles/animation';
+import { fastEaseQuad } from 'common/styles/animation';
 
 import IconButton from 'common/components/IconButton';
-
-
-/*
-  NOTE: expects body to have this applied
-  via app/common/styles/global.js
-  body {
-    transition: transform 0.5s;
-    &.offCanvasMenu--isOpen {
-      transform: translateX(-50%);
-      height: 100vh;
-      overflow-y: hidden;
-      overflow-x: auto;
-    }
-  }
-*/
-
 
 export const Wrapper = styled.nav`
   position: fixed;
@@ -33,12 +17,12 @@ export const Wrapper = styled.nav`
   z-index: 10;
   visibility: hidden;
   transform: translateX(100%);
-  transition: transform ${midEaseQuad}, visibility 0s 0.5s;
+  transition: transform ${fastEaseQuad}, visibility 0s 0.5s;
 
   ${({ isVisible }) => isVisible && css`
     visibility: visible;
-    transform: translateX(50%);
-    transition: transform ${midEaseQuad};
+    transform: translateX(0%);
+    transition: transform ${fastEaseQuad};
   `}
 `;
 

@@ -9,6 +9,7 @@ import { selectSynonymsSubmitting } from 'features/synonyms/selectors';
 
 import AddSynonymField from './AddSynonymField';
 import Button from 'common/components/Button';
+
 import { blue } from 'common/styles/colors';
 import { Form } from './styles';
 
@@ -28,6 +29,7 @@ export class AddSynonymForm extends React.Component {
     }),
     onSubmit: PropTypes.func.isRequired,
     submitting: PropTypes.bool.isRequired,
+    centerButton: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -85,7 +87,7 @@ export class AddSynonymForm extends React.Component {
   };
 
   render() {
-    const { answerValue, answerType, submitting } = this.props;
+    const { answerValue, answerType, submitting, centerButton } = this.props;
     return (
       <Form onSubmit={this.handleSubmit}>
         <AddSynonymField
@@ -108,14 +110,14 @@ export class AddSynonymForm extends React.Component {
           error={this.state.errors.reading}
         />
         <Button
-          style={{ maxWidth: '5em' }}
+          style={{ alignSelf: centerButton ? 'center' : 'flex-start' }}
           type="submit"
           title="Add Synonym"
-          colorHover={blue[7]}
-          bgColor={blue[5]}
+          colorHover={blue[3]}
+          bgColor={blue[3]}
           disabled={submitting}
         >
-          {submitting ? 'Adding' : 'Add'}
+          {submitting ? 'Adding Synonym' : 'Add Synonym'}
         </Button>
       </Form>
     );

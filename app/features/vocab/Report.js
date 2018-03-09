@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { compose } from 'redux';
 import { reduxForm, Field, propTypes as formPropTypes } from 'redux-form';
 import { connect } from 'react-redux';
-import { Fixed, Absolute, Overlay, Flex } from 'rebass';
+import { Fixed, Absolute, Modal, Flex } from 'rebass';
 
 import vocab from 'features/vocab/actions';
 import { selectVocabById } from 'features/vocab/selectors';
@@ -29,9 +29,9 @@ export const VocabReport = ({ reading, handleSubmit, reset, submitting, submitSu
         <IconButton name="BUG" title="Report vocab" size="1.4em" color="tomato" onClick={toggle} />
         {on && (
           <div>
-            <Fixed top right bottom left onClick={toggle} />
-            <Overlay w={['320px', '80vw', '720px']}>
-              <Absolute top right p={1}>
+            <Fixed top={0} right={0} bottom={0} left={0} onClick={toggle} />
+            <Modal w={['320px', '80vw', '720px']}>
+              <Absolute top={0} right={0} p={1}>
                 <IconButton name="CLOSE" title="Close Report Window" onClick={toggle} />
               </Absolute>
               <Flex justify="center">
@@ -60,7 +60,7 @@ export const VocabReport = ({ reading, handleSubmit, reset, submitting, submitSu
                   />
                 </Form>
               </Flex>
-            </Overlay>
+            </Modal>
           </div>
         )}
       </div>

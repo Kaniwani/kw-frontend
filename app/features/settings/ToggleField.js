@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { green, red } from 'common/styles/colors';
 
-import { Block, ToggleLabel, ToggleSwitch, Note } from './styles';
+import { Block, ToggleLabel, ToggleSwitch, ToggleDisplay, Note } from './styles';
 
 const TRACK_WIDTH = 3;
 const TRACK_HEIGHT = 1.3;
@@ -42,16 +42,12 @@ function ToggleField({ input, label, size, checkedColor, uncheckedColor, note })
   return (
     <Block>
       <ToggleLabel htmlFor={input.name}>
-        <ToggleSwitch
-          id={input.name}
-          type="checkbox"
+        <ToggleSwitch id={input.name} type="checkbox" checked={input.value} {...input} />
+        <ToggleDisplay
           checkedColor={checkedColor}
           uncheckedColor={uncheckedColor}
-          checked={input.value}
           {...getSizes(size)}
-          {...input}
         />
-        <span className="toggle-display" />
         <span>{label || input.name}</span>
       </ToggleLabel>
       {note && <Note>{note}</Note>}

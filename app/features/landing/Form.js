@@ -116,31 +116,33 @@ function FormView({
   );
 }
 
-export const FORM_NAME = 'multiLogin';
 const enhance = compose(
   reduxForm({
-    form: FORM_NAME,
+    form: 'multiLogin',
     onSubmit: (values, dispatch, props) => {
-      const { loginSelected, registerSelected, resetSelected } = props;
+      const { loginSelected, registerSelected, resetSelected, ...form } = props;
       const { username, email, password, apiKey } = values;
 
       if (registerSelected) {
         dispatch(
-          user.register.request({
-            username,
-            email,
-            password,
-            api_key: apiKey,
-          })
+          user.register.request(
+            {
+              username,
+              email,
+              password,
+              api_key: apiKey,
+            },
+            { form }
+          )
         );
       }
 
       if (loginSelected) {
-        dispatch(user.login.request({ username, password }));
+        dispatch(user.login.request({ username, password }, { form }));
       }
 
       if (resetSelected) {
-        dispatch(user.resetPassword.request({ email }));
+        dispatch(user.resetPassword.request({ email }, { form }));
       }
     },
   }),

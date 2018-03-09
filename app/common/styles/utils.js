@@ -11,10 +11,13 @@ import { lighten, darken } from 'polished';
  * @return {String} CSS font-size rules
  */
 export function fluidType(minFont, maxFont, minWidth = 600, maxWidth = 1280) {
-  return `
+  return css`
     font-size: ${minFont}px;
     @media (min-width: ${minWidth}px) and (max-width: ${maxWidth}px) {
-      font-size: calc(${minFont}px + (${maxFont} - ${minFont}) * ( (100vw - ${minWidth}px) / ( ${maxWidth} - ${minWidth}) ));
+      font-size: calc(
+        ${minFont}px + (${maxFont} - ${minFont}) *
+          ((100vw - ${minWidth}px) / (${maxWidth} - ${minWidth}))
+      );
     }
     @media (min-width: ${maxWidth}px) {
       font-size: ${maxFont}px;
@@ -40,23 +43,6 @@ export function bgGradient(initialColor = 'grey', direction = 'bottom', amount =
   `;
 }
 
-/**
- * Increases clickable/hoverable/tappable area for element
- * without increasing size visually or adding internal padding
- * @param  {Object} config - option config of {x:String, y:String} to set axis size
- * @return {String} css as string
- */
-export const tapTarget = ({ x, y } = { x: '.1rem', y: '.1rem' }) => css`
-  &:after {
-    position: absolute;
-    content: "";
-    top: -${y};
-    right: -${x};
-    bottom: -${y};
-    left: -${x};
-  }
-`;
-
 export const visuallyHidden = `
   position: absolute;
   height: 1px !important;
@@ -77,7 +63,7 @@ export const resetList = `
   padding-left: 0;
 `;
 
-export const resetButton = `
+export const resetButton = css`
   background: none;
   border: 0;
   color: inherit;

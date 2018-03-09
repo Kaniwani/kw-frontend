@@ -1,8 +1,10 @@
 import { injectGlobal } from 'styled-components';
-import { black, white } from 'common/styles/colors';
+import { black, white, grey } from 'common/styles/colors';
 
 import { ffBody, ffHeading, ffJapanese, epsilon, milli } from 'common/styles/typography';
 import { fontface } from 'common/styles/fonts';
+import { borderRadius } from 'common/styles/sizing';
+import { resetList } from 'common/styles/utils';
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
@@ -32,13 +34,6 @@ injectGlobal`
     line-height: 1;
     display: flex;
     flex-direction: column;
-    transition: transform 0.5s;
-    &.offCanvasMenu--isOpen {
-      transform: translateX(-50%);
-      height: 100vh;
-      overflow-y: hidden;
-      overflow-x: auto;
-    }
   }
 
   [lang="ja"],
@@ -90,5 +85,34 @@ injectGlobal`
 
   small {
     ${milli}
+  }
+
+  .vocab-tip.vocab-tip {
+    ${epsilon}
+    padding: .4em .6em .5em;
+    border-radius: ${borderRadius};
+  }
+
+  .vocab-tip.vocab-tip ul {
+    ${resetList}
+    color: ${white[5]};
+  }
+
+  .vocab-tip.vocab-tip li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .vocab-tip.vocab-tip li span {
+    flex: 0 1 auto;
+    padding: .2em;
+    text-transform: capitalize;
+  }
+
+  /* left column category "JA", "RC" etc */
+  .vocab-tip.vocab-tip li span:first-child {
+    color: ${grey[5]};
+    margin-right: .2em;
   }
 `;

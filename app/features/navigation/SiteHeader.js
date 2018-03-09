@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import { debounce } from 'lodash';
 import cuid from 'cuid';
 import { Switch, Route } from 'react-router-dom';
@@ -123,12 +122,10 @@ export class SiteHeaderContainer extends React.Component {
 
   hideOffCanvasMenu = () => {
     this.setState({ offCanvasMenuActive: false });
-    document.body.classList.remove('offCanvasMenu--isOpen');
   };
 
   showOffCanvasMenu = () => {
     this.setState({ offCanvasMenuActive: true });
-    document.body.classList.add('offCanvasMenu--isOpen');
   };
 
   render() {
@@ -147,8 +144,8 @@ export class SiteHeaderContainer extends React.Component {
   }
 }
 
-const mapStateToProps = createStructuredSelector({
-  locationPath: selectLocationPath,
+const mapStateToProps = (state, props) => ({
+  locationPath: selectLocationPath(state, props),
 });
 
 export default connect(mapStateToProps)(SiteHeaderContainer);

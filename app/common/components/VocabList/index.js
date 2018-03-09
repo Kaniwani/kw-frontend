@@ -10,7 +10,6 @@ import VocabChip from './VocabChip';
 import { purple } from 'common/styles/colors';
 import { gutter } from 'common/styles/layout';
 import { media } from 'common/styles/media';
-import './styles'; // NOTE: global styles for tooltip injected
 
 // prettier-ignore
 const List = styled(Ul)`

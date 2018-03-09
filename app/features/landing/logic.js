@@ -1,34 +1,28 @@
 import { createLogic } from 'redux-logic';
-import { actions as formActions } from 'redux-form';
 
 import { app } from 'common/actions';
 import user from 'features/user/actions';
 import { setToken } from 'common/utils/auth';
 import { camelCaseKeys } from 'common/utils/caseKeys';
 
-const { startSubmit, stopSubmit } = formActions;
-import { FORM_NAME } from './Form';
-
 export const registerLogic = createLogic({
   type: user.register.request,
-  process({ api, action: { payload } }, dispatch, done) {
-    dispatch(startSubmit(FORM_NAME));
+  process({ api, action: { payload, meta: { form } } }, dispatch, done) {
+    form.startSubmit();
     api.user
       .register(payload)
       .then(() => {
-        dispatch(user.login.request(payload));
-        dispatch(stopSubmit(FORM_NAME));
+        dispatch(user.login.request(payload, {}));
+        form.stopSubmit();
         done();
       })
       .catch((error) => {
         const { json } = error;
         const errors = camelCaseKeys(json || {});
-        dispatch(
-          stopSubmit(FORM_NAME, {
-            ...errors,
-            _error: errors.non_field_errors && errors.non_field_errors,
-          })
-        );
+        form.stopSubmit({
+          ...errors,
+          _error: errors.non_field_errors && errors.non_field_errors,
+        });
         dispatch(user.register.failure(error));
         console.warn(`Register failure. Response error was: ${JSON.stringify(error)}`);
         done();
@@ -38,8 +32,10 @@ export const registerLogic = createLogic({
 
 export const loginLogic = createLogic({
   type: user.login.request,
-  process({ api, history, action: { payload } }, dispatch, done) {
-    dispatch(startSubmit(FORM_NAME));
+  process({ api, history, action: { payload, meta: { form } } }, dispatch, done) {
+    if (form) {
+      form.startSubmit();
+    }
     api.user
       .login(payload)
       .then(({ token }) => {
@@ -55,11 +51,11 @@ export const loginLogic = createLogic({
         if (err.status && (err.status === 503 || err.status === 502)) {
           dispatch(app.setMaintenance(true));
         } else if (err.status && err.status === 400) {
-          dispatch(stopSubmit(FORM_NAME, { ...err.json, _error: err.json.non_field_errors }));
-        } else {
-          dispatch(
-            stopSubmit(FORM_NAME, { _error: ['There was an error contacting the server.'] })
-          );
+          if (form) {
+            form.stopSubmit({ ...err.json, _error: err.json.non_field_errors });
+          }
+        } else if (form) {
+          form.stopSubmit({ _error: ['There was an error contacting the server.'] });
         }
         done();
       });
@@ -68,19 +64,19 @@ export const loginLogic = createLogic({
 
 export const resetPasswordLogic = createLogic({
   type: user.resetPassword.request,
-  process({ api, action: { payload } }, dispatch, done) {
-    dispatch(startSubmit(FORM_NAME));
+  process({ api, action: { payload, meta: { form } } }, dispatch, done) {
+    form.startSubmit();
     api.user
       .resetPassword(payload)
       .then(() => {
         dispatch(user.resetPassword.success());
-        dispatch(stopSubmit(FORM_NAME));
+        form.stopSubmit();
         // TODO: notification user to check email
         window.alert('Check your email to complete reset');
         done();
       })
       .catch((error) => {
-        dispatch(stopSubmit(FORM_NAME, { ...error, _error: error.non_field_errors }));
+        form.stopSubmit({ ...error, _error: error.non_field_errors });
         dispatch(user.resetPassword.failure(error));
         console.warn(`API failure. Response error was: ${JSON.stringify(error)}`);
         done();
@@ -95,12 +91,10 @@ export const confirmResetPasswordLogic = createLogic({
       .confirmResetPassword(payload)
       .then(() => {
         dispatch(user.confirmResetPassword.success());
-        // TODO: proper notification
         window.alert('Password reset complete');
         done();
       })
       .catch((error) => {
-        dispatch(stopSubmit(FORM_NAME, { ...error, _error: error.non_field_errors }));
         dispatch(user.confirmResetPassword.failure(error));
         console.warn(`API failure. Response error was: ${JSON.stringify(error)}`);
         done();

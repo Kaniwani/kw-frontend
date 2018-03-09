@@ -14,43 +14,53 @@
     "react",
     "stage-1"
   ],
-  "plugins": [
-    [
-      "transform-imports",
-      {
-        "voca": {
-          "transform": "voca/${member}",
-          "preventFullImport": true,
-          "snakeCase": true
-        },
-        "date-fns": {
-          "transform": "date-fns/${member}",
-          "preventFullImport": true,
-          "snakeCase": true
-        },
-        "recompose": {
-          "transform": "recompose/${member}",
-          "preventFullImport": true
-        },
-        "lodash": {
-          "transform": "lodash/${member}",
-          "preventFullImport": true
-        },
-        "redux-form": {
-          "transform": "redux-form/es/${member}",
-          "preventFullImport": true
-        }
-      }
-    ]
-  ],
   "env": {
     "development": {
-      "plugins": ["babel-plugin-styled-components"]
+      "plugins": [
+        [
+          "babel-plugin-styled-components",
+          {
+            "displayName": true
+          }
+        ]
+      ]
     },
     "production": {
       "only": ["app"],
       "plugins": [
-        "babel-plugin-styled-components",
+        [
+          "babel-plugin-styled-components",
+          {
+            "displayName": false
+          }
+        ],
+        [
+          "transform-imports",
+          {
+            "voca": {
+              "transform": "voca/${member}",
+              "preventFullImport": true,
+              "snakeCase": true
+            },
+            "date-fns": {
+              "transform": "date-fns/${member}",
+              "preventFullImport": true,
+              "snakeCase": true
+            },
+            "recompose": {
+              "transform": "recompose/${member}",
+              "preventFullImport": true
+            },
+            "lodash": {
+              "transform": "lodash/${member}",
+              "preventFullImport": true
+            },
+            "redux-form": {
+              "transform": "redux-form/es/${member}",
+              "preventFullImport": true
+            }
+          }
+        ],
         [
           "transform-react-remove-prop-types",
           {

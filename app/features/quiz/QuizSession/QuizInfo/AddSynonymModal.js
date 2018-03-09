@@ -16,13 +16,13 @@ import AddSynonymForm, { ANSWER_TYPES } from 'common/components/AddSynonym/AddSy
 export const AddSynonymModal = ({ isOpen, onClose, formProps }) =>
   isOpen ? (
     <div style={{ zIndex: '100' }}>
-      <Fixed top right bottom left onClick={onClose} />
+      <Fixed top={0} right={0} bottom={0} left={0} onClick={onClose} />
       <Overlay w={['320px', '80vw', '720px']}>
-        <Absolute top right p={1}>
+        <Absolute top={0} right={0} p={1}>
           <IconButton name="CLOSE" title="Close Add Synonym window" onClick={onClose} />
         </Absolute>
         <Flex justify="center">
-          <AddSynonymForm {...formProps} />
+          <AddSynonymForm centerButton {...formProps} />
         </Flex>
       </Overlay>
     </div>

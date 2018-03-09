@@ -30,6 +30,7 @@ const { persistor, store } = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
 
 const render = () => {
+  localStorage.setItem('kw_bootstrapped', 'true');
   // Dynamically import our main App component, and render it
   const App = require('pages/App').default;
 

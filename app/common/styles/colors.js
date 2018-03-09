@@ -2,7 +2,6 @@ import reshader from 'reshader';
 
 // safer than 'transparent' css value since browser implementations are different
 export const transparent = 'rgba(0, 0, 0, 0)';
-export const chromeDefaultBg = '#fafafa';
 
 // we sometimes use COLORS[color]
 // so ensure that we can still set currentColor easily instead of returning 'undefined'

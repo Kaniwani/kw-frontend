@@ -38,14 +38,6 @@ import NunitoSansB from '../assets/fonts/NunitoSans-B-subset.woff';
 import NunitoSansB2 from '../assets/fonts/NunitoSans-B-subset.woff2';
 import NunitoSansBI from '../assets/fonts/NunitoSans-BI-subset.woff';
 import NunitoSansBI2 from '../assets/fonts/NunitoSans-BI-subset.woff2';
-import NunitoSansEB from '../assets/fonts/NunitoSans-EB-subset.woff';
-import NunitoSansEB2 from '../assets/fonts/NunitoSans-EB-subset.woff2';
-import NunitoSansEBI from '../assets/fonts/NunitoSans-EBI-subset.woff';
-import NunitoSansEBI2 from '../assets/fonts/NunitoSans-EBI-subset.woff2';
-import NunitoSansBL from '../assets/fonts/NunitoSans-BL-subset.woff';
-import NunitoSansBL2 from '../assets/fonts/NunitoSans-BL-subset.woff2';
-import NunitoSansBLI from '../assets/fonts/NunitoSans-BLI-subset.woff';
-import NunitoSansBLI2 from '../assets/fonts/NunitoSans-BLI-subset.woff2';
 
 export const fontface = {
   ubuntu: css`
@@ -217,42 +209,6 @@ export const fontface = {
       src: url(${NunitoSansBI2}) format('woff2'), url(${NunitoSansBI}) format('woff');
       font-display: swap;
       font-weight: 700;
-      font-style: italic;
-      unicode-range: U + 20-7e;
-    }
-
-    @font-face {
-      font-family: 'Nunito Sans';
-      src: url(${NunitoSansEB2}) format('woff2'), url(${NunitoSansEB}) format('woff');
-      font-display: swap;
-      font-weight: 800;
-      font-style: normal;
-      unicode-range: U + 20-7e;
-    }
-
-    @font-face {
-      font-family: 'Nunito Sans';
-      src: url(${NunitoSansEBI2}) format('woff2'), url(${NunitoSansEBI}) format('woff');
-      font-display: swap;
-      font-weight: 800;
-      font-style: italic;
-      unicode-range: U + 20-7e;
-    }
-
-    @font-face {
-      font-family: 'Nunito Sans';
-      src: url(${NunitoSansBL2}) format('woff2'), url(${NunitoSansBL}) format('woff');
-      font-display: swap;
-      font-weight: 900;
-      font-style: normal;
-      unicode-range: U + 20-7e;
-    }
-
-    @font-face {
-      font-family: 'Nunito Sans';
-      src: url(${NunitoSansBLI2}) format('woff2'), url(${NunitoSansBLI}) format('woff');
-      font-display: swap;
-      font-weight: 900;
       font-style: italic;
       unicode-range: U + 20-7e;
     }

@@ -12,10 +12,16 @@ import {
   selectIsHidden,
 } from 'features/reviews/selectors';
 
+import { gutter } from 'common/styles/layout';
+
 const ReadingWrapper = styled.div`
   &:not(:first-child) {
     margin-top: 1rem;
   }
+`;
+
+const SentenceWrapper = styled.div`
+  ${gutter({ type: 'outer', position: 'vertical' })};
 `;
 
 import VocabMeaning from 'common/components/VocabMeaning';
@@ -69,7 +75,9 @@ export function VocabDetail({
               </div>
               <ReadingLinks id={vocabId} />
               <TagsList id={vocabId} />
-              <SentencePair id={vocabId} />
+              <SentenceWrapper>
+                <SentencePair id={vocabId} />
+              </SentenceWrapper>
               <StrokeLoader id={vocabId} />
             </ReadingWrapper>
           ))}

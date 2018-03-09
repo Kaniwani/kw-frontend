@@ -87,9 +87,12 @@ function AboutPage() {
           <Element flex="1 0 320px">
             <H2>Follow WaniKani</H2>
             <P constrain>
-              Automatically sync with WaniKani and unlock new levels here as you level up there. If
-              you wish to reset or suspend your WaniKani account, we recommend turning this feature{' '}
-              <strong>off</strong> to prevent future syncing.
+              Automatically sync with WaniKani and unlock new levels here as you level up there.{' '}
+              <strong>
+                If you wish to reset or suspend your WaniKani account, we recommend turning this
+                feature off
+              </strong>{' '}
+              to prevent future syncing when your WaniKani level resets to level 3!.
             </P>
           </Element>
           <Element flex="1 0 320px">

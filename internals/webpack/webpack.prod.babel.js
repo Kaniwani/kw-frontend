@@ -8,6 +8,8 @@ module.exports = require('./webpack.base.babel')({
   // In production, we skip all hot-reloading stuff
   entry: [path.join(process.cwd(), 'app/index.js')],
 
+  //  devtool: 'source-map',
+
   // Utilize long-term caching by adding content hashes (not compilation hashes) to compiled assets
   output: {
     filename: '[name].[chunkhash].js',
@@ -72,7 +74,8 @@ module.exports = require('./webpack.base.babel')({
         // All chunks marked as `additional`, loaded after main section
         // and do not prevent SW to install. Change to `optional` if
         // do not want them to be preloaded at all (cached only when first loaded)
-        additional: ['*.chunk.js', '*.mp4', '*.webm', '*.png', '*.svg', '*.jpg', '*.woff*'],
+        additional: ['*.chunk.js'],
+        optional: ['*.mp4', '*.webm', '*.svg', '*.png', '*.jpg', '*.woff*'],
       },
 
       // Removes warning for about `additional` section usage

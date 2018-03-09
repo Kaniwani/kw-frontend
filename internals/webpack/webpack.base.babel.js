@@ -74,6 +74,7 @@ module.exports = (options) => ({
       },
       {
         test: /\.json$/,
+        exclude: /node_modules/,
         use: 'json-loader',
       },
       {

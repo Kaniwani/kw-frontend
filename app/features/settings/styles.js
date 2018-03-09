@@ -1,17 +1,17 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { rgba, timingFunctions } from 'polished';
 
 import { gutter } from 'common/styles/layout';
 import { grey, white, orange, blue } from 'common/styles/colors';
 
 export const Form = styled.form`
-  ${gutter()};
+  ${gutter()}
   display: flex;
   flex-flow: row wrap;
 `;
 
 export const Controls = styled.div`
-  ${gutter()};
+  ${gutter()}
   flex: 1 0 100%;
 `;
 
@@ -66,20 +66,20 @@ const switchOff = keyframes` 50% { transform: scaleX(1.31);  } `;
 export const ToggleSwitch = styled.input`
   position: absolute;
   opacity: 0;
+`;
 
-  /* switch track container */
-  & + .toggle-display {
-    ${gutter({ prop: 'margin', type: 'inner', position: 'right' })}
-    position: relative;
-    flex: 0 0 auto;
-    width: ${({ trackWidth }) => trackWidth}rem;
-    height: ${({ trackHeight }) => trackHeight}rem;
-    cursor: pointer;
-    vertical-align: middle;
-  }
+/* switch track container */
+export const ToggleDisplay = styled.span`
+  ${gutter({ prop: 'margin', type: 'inner', position: 'right' })}
+  position: relative;
+  flex: 0 0 auto;
+  width: ${({ trackWidth }) => trackWidth}rem;
+  height: ${({ trackHeight }) => trackHeight}rem;
+  cursor: pointer;
+  vertical-align: middle;
 
   /* switch track */
-  & + .toggle-display:before {
+  &:before {
     display: block;
     position: absolute;
     content: "";
@@ -87,20 +87,24 @@ export const ToggleSwitch = styled.input`
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: ${({ uncheckedColor }) => uncheckedColor};
     border-radius: 50px;
     transition: background 0.2s 0.1s ${timingFunctions('easeQuint')};
-    box-shadow: ${({ uncheckedColor }) => `inset 0px 1px 1px ${rgba(uncheckedColor, 0.5)}`}
-  }
+    background-color: ${({ uncheckedColor }) => uncheckedColor};
+    box-shadow: ${({ uncheckedColor }) => css`inset 0px 1px 1px ${rgba(uncheckedColor, 0.5)}`};
 
-  &:checked + .toggle-display:before {
-    content: "";
-    background-color: ${({ checkedColor }) => checkedColor};
-    box-shadow: ${({ checkedColor }) => `inset 0px 1px 1px ${rgba(checkedColor, 0.5)}`}
+    ${ToggleSwitch}:checked + & {
+      content: "";
+      background-color: ${({ checkedColor }) => checkedColor};
+      box-shadow: ${({ checkedColor }) => css`inset 0px 1px 1px ${rgba(checkedColor, 0.5)}`};
+    }
+
+    .user-is-tabbing ${ToggleSwitch}:focus + & {
+      outline: ${blue[3]} auto .2rem;
+    }
   }
 
   /* switch button */
-  & + .toggle-display:after {
+  &:after {
     display: block;
     position: absolute;
     content: "";
@@ -114,15 +118,10 @@ export const ToggleSwitch = styled.input`
     background-color: ${white[2]};
     box-shadow: 0 1px 4px ${rgba(grey[5], 0.3)};
     z-index: 2;
-  }
 
-  &:checked + .toggle-display:after {
-    animation: ${switchOff} 0.3s ${timingFunctions('easeOutQuint')};
-    left: ${({ trackWidth, switchWidth }) => `calc(${trackWidth}rem - ${switchWidth}rem)`};
-  }
-
-  &:focus + .toggle-display:before,
-  .user-is-tabbing &:focus + .toggle-display:before, {
-    outline: ${blue[3]} auto .2rem;
+    ${ToggleSwitch}:checked + & {
+      animation: ${switchOff} 0.3s ${timingFunctions('easeOutQuint')};
+      left: ${({ trackWidth, switchWidth }) => `calc(${trackWidth}rem - ${switchWidth}rem)`};
+    }
   }
 `;

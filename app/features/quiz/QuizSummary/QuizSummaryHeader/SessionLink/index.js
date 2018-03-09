@@ -15,7 +15,7 @@ SessionLink.propTypes = {
 };
 
 SessionLink.defaultProps = {
-  color: blue[5],
+  color: blue[4],
 };
 
 function SessionLink({ text, to, count, color, isDisabled, onClick }) {

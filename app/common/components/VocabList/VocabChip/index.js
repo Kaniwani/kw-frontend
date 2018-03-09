@@ -43,7 +43,7 @@ const generateToolTip = (review) => {
   const previouslyAnswered = total > 0;
   const percent = calculatePercentage(correct, total);
   return `
-    <ul>
+    <ul style="list-style:none;margin:0;padding:0;">
       <li>
         <span>JA </span>
         <span lang="ja">${primaryReading}</span>
