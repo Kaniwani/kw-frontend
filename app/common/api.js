@@ -313,7 +313,7 @@ export const report = {
 //-----------------------------------------------------------------------------
 export const createJishoUrl = (keyword) => `https://jisho.org/search/${keyword}`;
 export const createKotobankUrl = (keyword) =>
-  `https://kotobank.jp/jeword//${encodeURIComponent(keyword)}`;
+  `https://kotobank.jp/jeword/${encodeURIComponent(keyword)}`;
 export const createWeblioUrl = (keyword) =>
   `https://ejje.weblio.jp/content/${encodeURIComponent(keyword)}`;
 export const createForvoUrl = (keyword) =>
