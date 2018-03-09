@@ -6,6 +6,7 @@ import { fastEaseQuad } from 'common/styles/animation';
 import { delta, gamma } from 'common/styles/typography';
 import { gutter } from 'common/styles/layout';
 import { resetList, resetButton, visuallyHidden } from 'common/styles/utils';
+import { bgImgColor } from 'pages/LandingPage/styles';
 
 import IconLink from 'common/components/IconLink';
 
@@ -136,6 +137,8 @@ export const ValidationMessage = styled.div`
   flex: 1 0 auto;
   font-style: italic;
   color: ${red[5]};
+  background-color: ${bgImgColor};
+  border-radius: 5px;
 `;
 
 export const InputWrapper = styled.div`

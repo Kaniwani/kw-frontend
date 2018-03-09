@@ -1,12 +1,12 @@
-import React from "react";
-import { Wrapper } from "./styles";
-import FormSelector from "./FormSelector";
-import Form from "./Form";
+import React from 'react';
+import FormSelector from './FormSelector';
+import Form from './Form';
+import { Wrapper } from './styles';
 
 class MultiLogin extends React.Component {
   state = {
-    activePanel: "Login",
-    panels: ["Register", "Login", "Reset"],
+    activePanel: 'Login',
+    panels: ['Register', 'Login', 'Reset'],
   };
 
   setActivePanel = (activePanel) => {
@@ -17,9 +17,9 @@ class MultiLogin extends React.Component {
 
   render() {
     const selections = {
-      registerSelected: this.isActivePanel("Register"),
-      loginSelected: this.isActivePanel("Login"),
-      resetSelected: this.isActivePanel("Reset"),
+      registerSelected: this.isActivePanel('Register'),
+      loginSelected: this.isActivePanel('Login'),
+      resetSelected: this.isActivePanel('Reset'),
     };
 
     return (

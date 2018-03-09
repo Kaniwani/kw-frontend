@@ -8,8 +8,10 @@ import H1 from 'common/components/H1';
 import BackgroundImg from 'common/components/BackgroundImg';
 import PageWrapper from 'common/components/PageWrapper';
 
+export const bgImgColor = '#e5e5e5';
+
 export const Wrapper = styled(PageWrapper)`
-  background: #e5e5e5; /* same as background-image */
+  background: ${bgImgColor}; /* same as background-image */
 `;
 
 export const Title = H1.extend`
