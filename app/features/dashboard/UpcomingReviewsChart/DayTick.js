@@ -16,6 +16,7 @@ const DayTick = ({ x, y, width, height, payload: { value } }) =>
         textAnchor="middle"
         fill={grey[8]}
         fontSize=".85rem"
+        fontWeight={600}
       >
         {value}
       </text>
