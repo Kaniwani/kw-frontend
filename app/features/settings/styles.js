@@ -36,7 +36,7 @@ export const Label = styled.label`
   align-items: center;
   & > * {
     ${gutter()}
-    display: block;
+    display: inline-flex;
   }
 `;
 
