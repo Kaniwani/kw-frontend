@@ -6,10 +6,11 @@ module.exports = (wallaby) => {
       'app/**/*.js',
       'app/**/*.json',
       'package.json',
+      'internals/testing/setupTests.js',
       '!app/**/*.test.js',
       '!app/**/*.fixture.js',
     ],
-    tests: ['app/common/utils/__tests__/caseKeys.test.js'],
+    tests: ['app/common/utils/__tests__/conjugate.test.js'],
 
     env: {
       type: 'node',

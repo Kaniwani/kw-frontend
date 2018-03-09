@@ -5,6 +5,21 @@ describe('splitSentenceByMatch()', () => {
     expect(splitSentenceByMatch()).toEqual({ head: '', match: '', tail: '' });
   });
 
+  it('attempts various conjugations with verbType', () => {
+    expect(
+      splitSentenceByMatch({
+        sentence: '同窓会の日取りを決めた',
+        word: '決める',
+        reading: 'きめる',
+        verbType: 'v1',
+      })
+    ).toEqual({
+      head: '同窓会の日取りを',
+      match: '決めた',
+      tail: '',
+    });
+  });
+
   describe('matches word', () => {
     it('jukugo', () => {
       expect(splitSentenceByMatch({ sentence: '立ち退きの予告を受けた', word: '予告' })).toEqual({

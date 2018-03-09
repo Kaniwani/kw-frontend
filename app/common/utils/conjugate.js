@@ -640,10 +640,11 @@ const CONJUGATIONS = [
   },
 ];
 
-const sortByFormSuffixLength = (list) => list.sort((a, b) => b.forms[0].length - a.forms[0].length);
+const last = (list = []) => list[list.length - 1];
+const sortByFormSuffixLength = (list) =>
+  list.sort((a, b) => last(b.forms).length - last(a.forms).length);
 const inflectConjugations = [PLAIN_FORM, ...sortByFormSuffixLength(CONJUGATIONS)];
 const deinflectConjugations = sortByFormSuffixLength(CONJUGATIONS);
-
 export const VERB_TYPES = ['v5u', 'v5k', 'v5g', 'v5s', 'v5t', 'v5m', 'v5b', 'v5n', 'v5r', 'v1'];
 export const VERB_ENDINGS = ['う', 'く', 'ぐ', 'す', 'つ', 'む', 'ぶ', 'ぬ', 'る', 'る'];
 
