@@ -10,6 +10,7 @@ import calculatePercentage from 'common/utils/calculatePercentage';
 
 import { selectReviewById } from 'features/reviews/selectors';
 
+import Element from 'common/components/Element';
 import StreakStatus from './StreakStatus';
 import Status from './Status';
 
@@ -70,7 +71,7 @@ export function VocabStats({
   let lastStudiedStatus = fishyLastStudiedDate ? 'N/A' : getDateInWords(lastStudied);
   lastStudiedStatus = kaniwaniBurned ? format(lastStudied, DATE_FORMAT) : lastStudiedStatus;
   return (
-    <div style={{ marginTop: '1rem' }}>
+    <Element>
       <StreakStatus category="KW" streak={streak} />
       <StreakStatus category="WK" streak={wanikaniStreak} />
       <Status text="Unlocked" status={format(unlockDate, DATE_FORMAT)} />
@@ -92,7 +93,7 @@ export function VocabStats({
         />
       )}
       {!kaniwaniBurned && <Status text="Critical" status={critical ? 'Yes' : 'Nope!'} />}
-    </div>
+    </Element>
   );
 }
 

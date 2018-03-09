@@ -11,7 +11,7 @@ import Button from 'common/components/Button';
 import Icon from 'common/components/Icon';
 import KanjiStroke from '../KanjiStroke';
 
-import { white, grey } from 'common/styles/colors';
+import { purple, white } from 'common/styles/colors';
 import { gutter } from 'common/styles/layout';
 
 // prettier-ignore
@@ -43,10 +43,10 @@ export function StrokeLoader({ word, settings }) {
             lang="ja"
             title="View Stroke Diagram"
             plainButton={false}
-            color={white[2]}
-            colorHover={grey[4]}
-            bgColor={grey[4]}
-            bgColorHover={white[2]}
+            color={white[0]}
+            bgColorHover={white[0]}
+            colorHover={purple[1]}
+            bgColor={purple[1]}
             onClick={toggle}
             data-ignore-hotkeys
           >

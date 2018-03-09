@@ -26,7 +26,6 @@ export const LabelText = styled.div`
   ${gutter()}
   ${gutter({ prop: "margin", position: "right" })}
   flex: 0 1 4.5em;
-  text-align: right;
 `;
 
 export const ValidationMessage = styled.div`

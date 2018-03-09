@@ -11,7 +11,7 @@ VocabSynonymList.propTypes = {
 
 export function VocabSynonymList({ ids, reviewId }) {
   return (
-    ids.length > 1 && (
+    ids.length > 0 && (
       <Element flexRow>
         {ids.map((id) => <VocabSynonym key={id} id={id} reviewId={reviewId} />)}
       </Element>

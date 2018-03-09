@@ -3,12 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { reduxForm, Field, propTypes as formPropTypes } from 'redux-form';
+import styled from 'styled-components';
 
 import review from 'features/reviews/actions';
 import { selectNotes } from 'features/reviews/selectors';
 
 import TextAreaAutoSize from 'common/components/TextAreaAutoSize';
 import { MAX_NOTES_LENGTH } from 'common/constants';
+const Form = styled.form`
+  display: flex;
+`;
 
 Notes.propTypes = {
   id: PropTypes.number.isRequired,
@@ -17,7 +21,7 @@ Notes.propTypes = {
 
 export function Notes({ handleSubmit, reset }) {
   return (
-    <form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       <Field
         component={TextAreaAutoSize}
         maxLength={MAX_NOTES_LENGTH}
@@ -28,7 +32,7 @@ export function Notes({ handleSubmit, reset }) {
         showControls
         rows={1}
       />
-    </form>
+    </Form>
   );
 }
 

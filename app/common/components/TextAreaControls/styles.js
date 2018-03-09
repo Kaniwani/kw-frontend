@@ -6,6 +6,7 @@ import { grey, black, orange, red } from 'common/styles/colors';
 export const Controls = styled.div`
   ${gutter({ position: 'vertical' })}
   display: flex;
+  justify-content: center;
 
   & > button {
     ${gutter({ prop: 'margin', position: 'horizontal' })}

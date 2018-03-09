@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -38,12 +38,12 @@ function VocabMeaning({
   let secondaryText = secondaryMeanings.join(', ');
   secondaryText = truncate(secondaryText, shouldTruncate ? 30 : secondaryText.length);
   return (
-    <div>
+    <Fragment>
       {renderPrimary({ text: titleCase(primaryMeaning, noSplit) })}
       {showSecondary &&
         !!secondaryText.length &&
         renderSecondary({ text: titleCase(secondaryText, noSplit) })}
-    </div>
+    </Fragment>
   );
 }
 

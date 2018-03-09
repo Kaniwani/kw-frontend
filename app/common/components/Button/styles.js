@@ -11,6 +11,7 @@ import A from 'common/components/A';
 
 const buttonStyle = css`
   ${epsilon}
+  appearance: none !important;
   display: inline-flex;
   text-align: center;
   justify-content: center;
@@ -20,7 +21,6 @@ const buttonStyle = css`
   color: ${({ color }) => color};
   transition: all ${fastEaseQuad};
   text-decoration: none;
-  appearance: none;
   user-select: none;
   cursor: pointer;
   -webkit-font-smoothing: antialiased;
@@ -38,7 +38,7 @@ const buttonStyle = css`
     ${resetButton}
   ` : css`
     ${gutter({ prop: 'margin' })}
-    ${gutter({ prop: 'padding', position: 'vertical' })}
+    ${gutter({ prop: 'padding', position: 'vertical', mod: 1.5 })}
     ${gutter({ prop: 'padding', position: 'horizontal', mod: 3 })}
     border: 2px solid ${({ bgColor }) => bgColor};
     border-radius: 4px;
