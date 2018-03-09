@@ -2,9 +2,13 @@ import { injectGlobal } from 'styled-components';
 import { black, white } from 'common/styles/colors';
 
 import { ffBody, ffHeading, ffJapanese, epsilon, milli } from 'common/styles/typography';
+import { fontface } from 'common/styles/fonts';
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
+  ${fontface.ubuntu}
+  ${fontface.nunitoSans}
+
   html {
     box-sizing: border-box;
     height: 100%;

@@ -69,7 +69,6 @@ module.exports = require('./webpack.base.babel')({
 
       caches: {
         main: [':rest:'],
-
         // All chunks marked as `additional`, loaded after main section
         // and do not prevent SW to install. Change to `optional` if
         // do not want them to be preloaded at all (cached only when first loaded)
