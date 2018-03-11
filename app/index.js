@@ -64,23 +64,22 @@ render();
 // we do not want it installed
 if (IS_PROD_ENV) {
   const runtime = require('offline-plugin/runtime');
-  const { KW_VERSION } = process.env;
   runtime.install({
     onUpdateReady: () => {
-      console.info(`Kaniwani ${KW_VERSION}: update ready`);
+      console.info(`Kaniwani: update ready`);
       // Tell new SW to take control immediately
       runtime.applyUpdate();
     },
     onUpdating: () => {
-      console.info(`Kaniwani ${KW_VERSION}: updating`);
+      console.info(`Kaniwani: updating`);
     },
     onUpdated: () => {
-      console.info(`Kaniwani ${KW_VERSION}: update successful`);
-      window.alert(`Kaniwani has been updated to ${KW_VERSION} and will now reload.`);
+      console.info(`Kaniwani: update successful`);
+      window.alert(`Kaniwani has been updated and will now reload.`);
       window.location.reload();
     },
     onUpdateFailed: () => {
-      console.warn(`Kaniwani ${KW_VERSION}: update failed`);
+      console.warn(`Kaniwani: update failed`);
     },
   });
 }
