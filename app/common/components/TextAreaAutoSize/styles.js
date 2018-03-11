@@ -37,7 +37,7 @@ export const TextArea = styled(TextareaAutosize)`
   resize: none;
   border-radius: ${borderRadius};
   border: 1px solid ${grey[2]};
-  min-width: 340px;
+  min-width: 300px;
   max-width: 100%;
 
   &:not(:focus) {

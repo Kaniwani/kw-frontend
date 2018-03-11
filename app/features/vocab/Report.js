@@ -25,10 +25,10 @@ const Form = styled.form`
 export const VocabReport = ({ reading, handleSubmit, reset, submitting, submitSucceeded }) => (
   <Toggle
     render={({ on, toggle }) => (
-      <div style={{ zIndex: 2 }}>
+      <div>
         <IconButton name="BUG" title="Report vocab" size="1.4em" color="tomato" onClick={toggle} />
         {on && (
-          <div>
+          <div style={{ position: 'relative', zIndex: 10 }}>
             <Fixed top={0} right={0} bottom={0} left={0} onClick={toggle} />
             <Modal w={['320px', '80vw', '720px']}>
               <Absolute top={0} right={0} p={1}>
