@@ -12,7 +12,8 @@ export const Li = styled.li`
 `;
 
 export const VocabLink = styled(A)`
-  ${gutter()}
+  ${gutter({ position: 'vertical' })}
+  ${gutter({ position: 'horizontal', mod: 1.5 })}
   display: block;
   font-size: 0.9em;
   text-decoration: underline;
