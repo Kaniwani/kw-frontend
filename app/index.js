@@ -7,7 +7,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import 'sanitize.css/sanitize.css';
 
-import { VERSION, IS_PROD_ENV } from 'common/constants';
+import { IS_PROD_ENV } from 'common/constants';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 
 // Import default LoadingComponent provider and LoadingIndicator that will be used as a loading component
@@ -64,23 +64,23 @@ render();
 // we do not want it installed
 if (IS_PROD_ENV) {
   const runtime = require('offline-plugin/runtime');
+  const { KW_VERSION } = process.env;
   runtime.install({
     onUpdateReady: () => {
-      console.info(`Kaniwani ${VERSION}: update ready`);
+      console.info(`Kaniwani ${KW_VERSION}: update ready`);
       // Tell new SW to take control immediately
       runtime.applyUpdate();
     },
     onUpdating: () => {
-      console.info(`Kaniwani ${VERSION}: updating`);
+      console.info(`Kaniwani ${KW_VERSION}: updating`);
     },
     onUpdated: () => {
-      console.info(`Kaniwani ${VERSION}: update successful`);
-      window.alert(`Kaniwani has been updated to ${VERSION} and will now reload.`);
+      console.info(`Kaniwani ${KW_VERSION}: update successful`);
+      window.alert(`Kaniwani has been updated to ${KW_VERSION} and will now reload.`);
       window.location.reload();
     },
-
     onUpdateFailed: () => {
-      console.warn(`Kaniwani ${VERSION}: update failed`);
+      console.warn(`Kaniwani ${KW_VERSION}: update failed`);
     },
   });
 }

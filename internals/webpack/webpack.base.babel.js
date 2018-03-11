@@ -88,7 +88,7 @@ module.exports = (options) => ({
       },
     ],
   },
-  plugins: options.plugins.concat([
+  plugins: [
     // Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
     // inside your code for any environment checks; UglifyJS will automatically
     // drop any unreachable code.
@@ -98,7 +98,7 @@ module.exports = (options) => ({
         KW_VERSION: JSON.stringify(process.env.npm_package_version),
       },
     }),
-  ]),
+  ].concat(options.plugins),
   resolve: {
     modules: ['app', 'node_modules'],
     extensions: ['.js', '.jsx', '.react.js'],
