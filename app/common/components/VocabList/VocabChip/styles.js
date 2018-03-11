@@ -3,7 +3,6 @@ import { mix } from 'polished';
 
 import A from 'common/components/A';
 
-import { gutter } from 'common/styles/layout';
 import { fluidType } from 'common/styles/utils';
 import { borderRadius } from 'common/styles/sizing';
 
@@ -17,8 +16,7 @@ export const Wrapper = styled.li`
 `;
 
 export const Link = styled(A)`
-  ${gutter({ position: 'vertical' })}
-  ${gutter({ position: 'horizontal', mod: 1.5 })}
+  padding: .3rem .6rem;
   display: block;
 `;
 
