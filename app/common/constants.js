@@ -1,4 +1,4 @@
-export const VERSION = '2.0.1';
+export const VERSION = process.env.npm_package_version;
 export const RAVEN_DSN = 'https://0e8d8bd5cc8142dda1cedeaabc91b1d2@sentry.io/286123';
 export const IS_DEV_ENV = process.env.NODE_ENV === 'development';
 export const IS_PROD_ENV = process.env.NODE_ENV === 'production';
