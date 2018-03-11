@@ -1,5 +1,6 @@
 # Tokens etc
 **/secrets.js
+.sentryclirc
 
 # Don't check auto-generated stuff into git
 coverage
