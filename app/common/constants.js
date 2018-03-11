@@ -1,9 +1,9 @@
-export const VERSION = '2.0.0';
+export const VERSION = '2.0.1';
 export const RAVEN_DSN = 'https://0e8d8bd5cc8142dda1cedeaabc91b1d2@sentry.io/286123';
 export const IS_DEV_ENV = process.env.NODE_ENV === 'development';
 export const IS_PROD_ENV = process.env.NODE_ENV === 'production';
 const DEV_DOMAIN = 'https://staging.kaniwani.com';
-const PROD_DOMAIN = 'https://staging.kaniwani.com'; // FIXME: what's the final api server?
+const PROD_DOMAIN = 'https://www.kaniwani.com';
 const BASE_URL = IS_DEV_ENV ? DEV_DOMAIN : PROD_DOMAIN;
 
 export const API_BASE = `${BASE_URL}/api/v1/`;

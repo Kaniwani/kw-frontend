@@ -1,8 +1,9 @@
 import Raven from 'raven-js';
-import { IS_PROD_ENV, RAVEN_DSN } from 'common/constants';
+import { VERSION, IS_PROD_ENV, RAVEN_DSN } from 'common/constants';
 
 if (IS_PROD_ENV) {
   Raven.config(RAVEN_DSN, {
+    release: VERSION,
     ignoreErrors: [
       // Random plugins/extensions
       'top.GLOBALS',
