@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-
+import { get } from 'lodash';
 import { getState, getBy } from 'common/selectors';
 import { selectReviews } from 'features/reviews/selectors';
 import calculatePercentage from 'common/utils/calculatePercentage';
@@ -13,7 +13,7 @@ const groupIdsByRank = (entities, ids) => {
 };
 
 export const DOMAIN = 'quizSummary';
-export const selectQuizSummary = (state, { category }) => state[DOMAIN][category];
+export const selectQuizSummary = (state, { category }) => state[DOMAIN][category] || {};
 
 export const selectSummaryCorrectIds = createSelector(selectQuizSummary, getState('correct', []));
 
@@ -25,7 +25,7 @@ export const selectSummaryIncorrectIds = createSelector(
 export const selectSummaryCriticalIds = createSelector(
   [selectReviews, selectSummaryCorrectIds, selectSummaryIncorrectIds],
   (reviews, correctIds, incorrectIds) =>
-    [...correctIds, ...incorrectIds].filter((id) => reviews[id].critical)
+    [...correctIds, ...incorrectIds].filter((id) => get(reviews[id], 'critical', false))
 );
 
 export const selectSummaryCorrectRankedIds = createSelector(
