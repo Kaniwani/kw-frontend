@@ -30,7 +30,7 @@ function flattenReadings([vocab = [], synonyms = []] = []) {
  */
 export function matchAnswer(input = '', answers = []) {
   const cleanedInput = stripTilde(input);
-  const re = new RegExp(`[〜~]?${cleanedInput}[〜~]?`);
+  const re = new RegExp(`^[〜~]?${cleanedInput}[〜~]?$`);
   return flattenReadings(answers).reduce(
     (ret, { word, readings }) => ([...readings, word].some((vocab) => re.test(vocab)) ? word : ret),
     ''

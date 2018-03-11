@@ -120,6 +120,10 @@ describe('matchAnswer', () => {
       '〜放題'
     );
   });
+
+  it('should not partial match', () => {
+    expect(matchAnswer('やく', [[{ word: '約束', primaryReading: ['やくそく'] }]])).toBe('');
+  });
 });
 
 describe('fixTerminalN', () => {
