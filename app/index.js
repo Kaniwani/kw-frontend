@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
+import { Provider as ThemeProvider } from 'rebass';
 
 import createHistory from 'history/createBrowserHistory';
 import 'sanitize.css/sanitize.css';
@@ -40,7 +41,9 @@ const render = () => {
         <Provider store={store}>
           <PersistGate persistor={persistor}>
             <ConnectedRouter history={history}>
-              <App />
+              <ThemeProvider>
+                <App />
+              </ThemeProvider>
             </ConnectedRouter>
           </PersistGate>
         </Provider>

@@ -6,7 +6,6 @@ import { titleCase } from 'voca';
 import { get } from 'lodash';
 import styled from 'styled-components';
 import Network from 'react-network';
-import { Provider as ThemeProvider } from 'rebass';
 
 import OFFLINE_IMG from 'common/assets/loops/running.jpg';
 import OFFLINE_MP4 from 'common/assets/loops/running.mp4';
@@ -50,27 +49,25 @@ export class QuizSessionPage extends React.Component {
     const pageTitle = `${titleCase(this.props.category)} Session`;
 
     return (
-      <ThemeProvider>
-        <Wrapper>
-          <Helmet>
-            <title>{pageTitle}</title>
-            <meta name="description" content={pageTitle} />
-          </Helmet>
-          <Network
-            render={({ online }) => (
-              <Fragment>
-                {online && <QuizSession category={this.props.category} />}
-                <VideoBanner
-                  active={!online}
-                  sources={{ mp4: OFFLINE_MP4, webm: OFFLINE_WEBM, jpg: OFFLINE_IMG }}
-                  headerText="Connection lost!"
-                  subHeaderText="Please reconnect to continue using Kaniwani."
-                />
-              </Fragment>
-            )}
-          />
-        </Wrapper>
-      </ThemeProvider>
+      <Wrapper>
+        <Helmet>
+          <title>{pageTitle}</title>
+          <meta name="description" content={pageTitle} />
+        </Helmet>
+        <Network
+          render={({ online }) => (
+            <Fragment>
+              {online && <QuizSession category={this.props.category} />}
+              <VideoBanner
+                active={!online}
+                sources={{ mp4: OFFLINE_MP4, webm: OFFLINE_WEBM, jpg: OFFLINE_IMG }}
+                headerText="Connection lost!"
+                subHeaderText="Please reconnect to continue using Kaniwani."
+              />
+            </Fragment>
+          )}
+        />
+      </Wrapper>
     );
   }
 }
