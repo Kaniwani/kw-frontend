@@ -5,14 +5,7 @@ import { SRS_RANGES } from 'common/constants';
 import { ANSWER_TYPES } from 'common/components/AddSynonym/AddSynonymForm';
 
 import determineCriticality from 'common/utils/determineCriticality';
-import {
-  matchAnswer,
-  combineAnswers,
-  increment,
-  decrement,
-  isInputValid,
-  cleanseInput,
-} from './utils';
+import { matchAnswer, increment, decrement, isInputValid, cleanseInput } from './utils';
 
 import { selectQuizSettings } from 'features/user/selectors';
 import { selectVocabById } from 'features/vocab/selectors';
@@ -97,7 +90,7 @@ export const checkAnswerLogic = createLogic({
     let { vocab, synonyms } = selectCurrent(getState());
     vocab = vocab.map((id) => selectVocabById(getState(), { id }));
     synonyms = synonyms.map((id) => selectSynonymById(getState(), { id }));
-    const matchedAnswer = matchAnswer(value, combineAnswers(vocab, synonyms));
+    const matchedAnswer = matchAnswer(value, [vocab, synonyms]);
     const updatedAnswer = {
       isFocused: false,
       isMarked: true,

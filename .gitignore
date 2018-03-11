@@ -1,5 +1,6 @@
 # Tokens etc
 **/secrets.js
+**/requests.http
 .sentryclirc
 
 # Don't check auto-generated stuff into git

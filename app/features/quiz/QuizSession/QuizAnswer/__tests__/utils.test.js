@@ -2,10 +2,9 @@ import {
   increment,
   decrement,
   isInputValid,
-  containsZenKaku,
+  containsZenkakuLatin,
   matchAnswer,
   fixTerminalN,
-  combineAnswers,
 } from '../utils';
 
 describe('increment', () => {
@@ -35,14 +34,14 @@ describe('decrement', () => {
 
 describe('containsZenkaku', () => {
   it('sane defaults', () => {
-    expect(containsZenKaku()).toBe(false);
+    expect(containsZenkakuLatin()).toBe(false);
   });
   it('works', () => {
-    expect(containsZenKaku('abc')).toBe(false);
-    expect(containsZenKaku('ａｂｃ')).toBe(true);
-    expect(containsZenKaku('ＡＢＣ')).toBe(true);
-    expect(containsZenKaku('abcｄ')).toBe(true);
-    expect(containsZenKaku('かｄ')).toBe(true);
+    expect(containsZenkakuLatin('abc')).toBe(false);
+    expect(containsZenkakuLatin('ａｂｃ')).toBe(true);
+    expect(containsZenkakuLatin('ＡＢＣ')).toBe(true);
+    expect(containsZenkakuLatin('abcｄ')).toBe(true);
+    expect(containsZenkakuLatin('かｄ')).toBe(true);
   });
 });
 
@@ -70,29 +69,56 @@ describe('matchAnswer', () => {
   });
 
   it('simple cases', () => {
-    expect(matchAnswer('かな', ['かたかな'])).toBe('');
-    expect(matchAnswer('かな', ['かな'])).toBe('かな');
-    expect(matchAnswer('かな', ['ひらがな', 'かな'])).toBe('かな');
-    expect(matchAnswer('漢字', ['ひらがな', '漢字'])).toBe('漢字');
-    expect(matchAnswer('送り仮名', ['ひらがな', '漢字', '送り仮名'])).toBe('送り仮名');
-  });
-
-  it('match regardless of input tilde presence', () => {
-    expect(matchAnswer('〜かな', ['かな'])).toBe('かな');
-    expect(matchAnswer('~かな', ['かな'])).toBe('かな');
-    expect(matchAnswer('かな〜', ['かな'])).toBe('かな');
-    expect(matchAnswer('かな~', ['かな'])).toBe('かな');
-    expect(matchAnswer('〜かな', ['〜かな'])).toBe('〜かな');
-    expect(matchAnswer('~かな', ['~かな'])).toBe('~かな');
-    expect(matchAnswer('かな〜', ['かな〜'])).toBe('かな〜');
-    expect(matchAnswer('かな~', ['かな~'])).toBe('かな~');
+    const vocab = [
+      { word: 'ビー玉', primaryReading: 'びーだま', secondaryReadings: ['ビーだま', 'カタカナ'] },
+      { word: '日本', primaryReading: 'にほん', secondaryReadings: ['にっぽん'] },
+      { word: '四', primaryReading: 'よん', secondaryReadings: [] },
+    ];
+    // prettier-ignore
+    const synonyms = [
+      { word: "天国", primaryReading: "てんごく" },
+      { word: "丸い", primaryReading: "まるい" },
+    ];
+    expect(matchAnswer(vocab[0].word, [vocab, synonyms])).toBe(vocab[0].word);
+    expect(matchAnswer(vocab[1].word, [vocab, synonyms])).toBe(vocab[1].word);
+    expect(matchAnswer(vocab[2].word, [vocab, synonyms])).toBe(vocab[2].word);
+    expect(matchAnswer(vocab[0].primaryReading, [vocab, synonyms])).toBe(vocab[0].word);
+    expect(matchAnswer(vocab[1].primaryReading, [vocab, synonyms])).toBe(vocab[1].word);
+    expect(matchAnswer(vocab[2].primaryReading, [vocab, synonyms])).toBe(vocab[2].word);
+    expect(matchAnswer(vocab[0].secondaryReadings[0], [vocab, synonyms])).toBe(vocab[0].word);
+    expect(matchAnswer(vocab[0].secondaryReadings[1], [vocab, synonyms])).toBe(vocab[0].word);
+    expect(matchAnswer(vocab[1].secondaryReadings[0], [vocab, synonyms])).toBe(vocab[1].word);
+    expect(matchAnswer(synonyms[0].word, [vocab, synonyms])).toBe(synonyms[0].word);
+    expect(matchAnswer(synonyms[0].primaryReading, [vocab, synonyms])).toBe(synonyms[0].word);
+    expect(matchAnswer(synonyms[1].word, [vocab, synonyms])).toBe(synonyms[1].word);
+    expect(matchAnswer(synonyms[1].primaryReading, [vocab, synonyms])).toBe(synonyms[1].word);
   });
 
   it('match regardless of answer tilde presence', () => {
-    expect(matchAnswer('かな', ['〜かな'])).toBe('〜かな');
-    expect(matchAnswer('かな', ['~かな'])).toBe('~かな');
-    expect(matchAnswer('かな', ['かな〜'])).toBe('かな〜');
-    expect(matchAnswer('かな', ['かな~'])).toBe('かな~');
+    expect(matchAnswer('間', [[{ word: '間〜', primaryReading: ['かん'] }]])).toBe('間〜');
+    expect(matchAnswer('間〜', [[{ word: '間〜', primaryReading: ['かん'] }]])).toBe('間〜');
+    expect(matchAnswer('間~', [[{ word: '間〜', primaryReading: ['かん'] }]])).toBe('間〜');
+    expect(matchAnswer('かん', [[{ word: '間〜', primaryReading: ['かん'] }]])).toBe('間〜');
+    expect(matchAnswer('かん〜', [[{ word: '間〜', primaryReading: ['かん'] }]])).toBe('間〜');
+    expect(matchAnswer('かん~', [[{ word: '間〜', primaryReading: ['かん'] }]])).toBe('間〜');
+    expect(matchAnswer('放題', [[{ word: '〜放題', primaryReading: ['〜ほうだい'] }]])).toBe(
+      '〜放題'
+    );
+    expect(matchAnswer('〜放題', [[{ word: '〜放題', primaryReading: ['〜ほうだい'] }]])).toBe(
+      '〜放題'
+    );
+    expect(matchAnswer('~放題', [[{ word: '〜放題', primaryReading: ['〜ほうだい'] }]])).toBe(
+      '〜放題'
+    );
+    expect(matchAnswer('ほうだい', [[{ word: '〜放題', primaryReading: ['〜ほうだい'] }]])).toBe(
+      '〜放題'
+    );
+    expect(matchAnswer('〜ほうだい', [[{ word: '〜放題', primaryReading: ['〜ほうだい'] }]])).toBe(
+      '〜放題'
+    );
+    expect(matchAnswer('~ほうだい', [[{ word: '〜放題', primaryReading: ['〜ほうだい'] }]])).toBe(
+      '〜放題'
+    );
   });
 });
 
@@ -113,38 +139,5 @@ describe('fixTerminalN', () => {
   it('pass through input otherwise', () => {
     expect(fixTerminalN('かん')).toBe('かん');
     expect(fixTerminalN('かs')).toBe('かs');
-  });
-});
-
-describe('combineAnswers', () => {
-  // prettier-ignore
-  const vocab = [
-    { word: "ビー玉", primaryReading: "びーだま", secondaryReadings: ["ビーだま"] },
-    { word: "四", primaryReading: "よん", secondaryReadings: [] },
-    { word: "日本", primaryReading: "にほん", secondaryReadings: ["にっぽん"] },
-  ];
-  // prettier-ignore
-  const synonyms = [
-    { word: "天国", primaryReading: "てんごく" },
-    { word: "丸い", primaryReading: "まるい" },
-  ];
-
-  it('sane defaults', () => {
-    expect(combineAnswers()).toEqual([]);
-    expect(combineAnswers([])).toEqual([]);
-    expect(combineAnswers([], [])).toEqual([]);
-    expect(combineAnswers([{}], [{}])).toEqual([]);
-  });
-
-  it('combines vocab', () => {
-    expect(combineAnswers(vocab)).toMatchSnapshot();
-  });
-
-  it('combines synonyms', () => {
-    expect(combineAnswers(synonyms)).toMatchSnapshot();
-  });
-
-  it('combines vocab & synonyms', () => {
-    expect(combineAnswers(vocab, synonyms)).toMatchSnapshot();
   });
 });

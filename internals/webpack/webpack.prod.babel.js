@@ -63,11 +63,18 @@ module.exports = require('./webpack.base.babel')({
     new OfflinePlugin({
       relativePaths: false,
       publicPath: '/',
+      excludes: ['**/*.map'],
+      autoUpdate: 1000 * 60 * 2, // 2mins
 
       ServiceWorker: {
         minify: false, // TODO: Can minify when offline-plugin supports webpack 4
         events: true,
       },
+
+      // Removes warning for about `additional` section usage
+      safeToUseOptionalCaches: true,
+
+      AppCache: false,
 
       caches: {
         main: [':rest:'],
@@ -77,13 +84,6 @@ module.exports = require('./webpack.base.babel')({
         additional: ['*.chunk.js'],
         optional: ['*.mp4', '*.webm', '*.svg', '*.png', '*.jpg', '*.woff*'],
       },
-
-      // Removes warning for about `additional` section usage
-      safeToUseOptionalCaches: true,
-
-      autoUpdate: true,
-
-      AppCache: false,
     }),
   ],
 
