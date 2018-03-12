@@ -78,6 +78,11 @@ export const selectUpcomingReviewsTotal = createSelector(
   getBy('upcomingReviews', sum)
 );
 
+export const selectNextReviewCount = createSelector(
+  selectUserProfile,
+  getBy('upcomingReviews', (data) => (data && data.find((n) => n > 0)) || 0)
+);
+
 export const selectUseEijiroProLink = createSelector(
   selectUserProfile,
   getBy('useEijiroProLink', Boolean)

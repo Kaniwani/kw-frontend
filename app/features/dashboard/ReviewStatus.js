@@ -43,8 +43,8 @@ export class ReviewStatus extends React.Component {
   render() {
     return (
       <Element flexColumn flexCenter>
-        <H2>{this.props.username}</H2>
-        <H3 style={{ fontWeight: 500, color: grey[8] }}>{this.state.text}</H3>
+        <H2 style={{ color: grey[8] }}>{this.props.username}</H2>
+        <H3 style={{ fontWeight: 500 }}>{this.state.text}</H3>
         {/* updates "review in x time" text periodically */}
         <ReactInterval
           enabled={!this.props.isOnVacation && isFuture(this.props.nextReviewDate)}
