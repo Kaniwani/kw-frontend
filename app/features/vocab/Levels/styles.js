@@ -72,12 +72,15 @@ export const Wrapper = styled.li`
   `}
 
   ${({ isActionable, isLocked }) => isActionable && css`
+    & ${Button} {
+      color: ${isLocked && isActionable && rgba(purple[4], 0.7)};
+    }
     &:hover {
       & ${Button} {
         color: ${isLocked ? rgba(purple[4], 0.7) : 'currentColor'};
-        animation: ${wobble} 1s linear infinite;
+        ${isLocked && `animation: ${wobble} 1s linear infinite;`}
         &:hover {
-          animation: none;
+          animation: ${wobble} 1s linear infinite;
         }
       }
     }
