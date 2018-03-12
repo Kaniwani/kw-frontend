@@ -6,8 +6,6 @@ import toUniqueStringsArray from 'common/utils/toUniqueStringsArray';
 import filterRomajiReadings from 'common/utils/filterRomajiReadings';
 import createDict from 'common/utils/createDict';
 
-import devLog from 'common/utils/devLog';
-
 export const serializeLoginResponse = ({ token }) => token;
 export const serializeUserResponse = (res = {}) => serializeUser(res);
 export const serializeReviewResponse = serializeReview;
@@ -20,14 +18,7 @@ export const serializeVocabSearchResponse = ({ results }, persistedReviews = {})
   const persistedIds = [];
   const missingIds = [];
   const missingData = [];
-  const unreviewableIds = [];
-  const unreviewableData = [];
-
   results.forEach(({ review, is_reviewable: isReviewable, ...vocabData }) => {
-    if (review && !isReviewable) {
-      unreviewableIds.push(review);
-      unreviewableData.push({ id: review, vocabulary: vocabData });
-    }
     if (review && isReviewable) {
       (persistedReviews[review] ? persistedIds : missingIds).push(review);
       if (!persistedReviews[review]) {
@@ -35,13 +26,6 @@ export const serializeVocabSearchResponse = ({ results }, persistedReviews = {})
       }
     }
   });
-
-  if (unreviewableIds.length) {
-    // TODO: do any of these actually exist?
-    devLog('should we show these?', {
-      unreviewableData: serializeReviews(unreviewableData, serializeSearchReviewData),
-    });
-  }
 
   return {
     persistedIds,
