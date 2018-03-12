@@ -31,7 +31,13 @@ const { persistor, store } = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
 
 const render = () => {
-  localStorage.setItem('kw_bootstrapped', 'true');
+  try {
+    localStorage.setItem('kw_bootstrapped', 'true');
+  } catch (e) {
+    window.alert(
+      'LocalStorage access has been denied by your browser. Kaniwani will not work properly if we cannot store local data! Please re-enable it in browser settings or upgrade your browser to use this site.'
+    );
+  }
   // Dynamically import our main App component, and render it
   const App = require('pages/App').default;
 
