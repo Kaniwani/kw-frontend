@@ -49,8 +49,9 @@ function AboutPage() {
             <H2>Moving Forward</H2>
             <P constrain>
               KaniWani starts off at your current WaniKani level, so you don’t have to go through
-              all the previous levels unless you want to. Complete lessons to introduce words into
-              your regular review schedule.
+              all the previous levels unless you want to. Newly synced or unlocked words appear in
+              your lesson queue. Complete lessons to introduce words into your regular review
+              schedule.
             </P>
           </Element>
           <Element flex="1 0 320px">
@@ -89,8 +90,8 @@ function AboutPage() {
             <P constrain>
               Automatically sync with WaniKani and unlock new levels here as you level up there.{' '}
               <strong>
-                If you wish to reset or suspend your WaniKani account, we recommend turning this
-                feature off
+                If you intend to cancel or suspend your WaniKani account, you should turn this
+                feature off beforehand
               </strong>{' '}
               to prevent future syncing when your WaniKani level resets to level 3!.
             </P>
