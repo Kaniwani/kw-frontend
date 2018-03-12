@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
+import { Provider as ThemeProvider } from 'rebass';
 
 import user from 'features/user/actions';
 import { hasToken } from 'common/utils/auth';
@@ -85,8 +86,10 @@ class App extends React.Component {
           <Fragment>
             <SiteHeader />
             <main>
-              <Routes />
-              <ScrollToTop />
+              <ThemeProvider>
+                <Routes />
+                <ScrollToTop />
+              </ThemeProvider>
             </main>
             <SiteFooter />
           </Fragment>

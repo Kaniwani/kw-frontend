@@ -26,7 +26,7 @@ export const saveSettingsLogic = createLogic({
       })
       .catch((err) => {
         dispatch(settings.save.failure(err));
-        if (err.json.api_key) {
+        if (err.json && err.json.api_key) {
           form.stopSubmit({ apiKey: err.json.api_key[0] });
         } else {
           form.stopSubmit();

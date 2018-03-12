@@ -68,7 +68,6 @@ const mapStateToProps = (state, { form = "contact" }) => {
 export default compose(
   connect(mapStateToProps),
   reduxForm({
-    onSubmit: (values, dispatch) => dispatch(contact.send.request(values)),
-    onSubmitSuccess: (values, dispatch, { reset }) => reset(),
+    onSubmit: (values, dispatch, form) => dispatch(contact.send.request(values, { form })),
   }),
 )(Contact);
