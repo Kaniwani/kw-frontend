@@ -12,7 +12,7 @@ import { toHiragana } from 'wanakana';
  */
 const filterRomajiReadings = (meanings = [], readings = []) => {
   const filteredMeanings = meanings.filter(
-    (meaning) => !readings.some((reading) => RegExp(reading, 'gi').test(toHiragana(meaning)))
+    (meaning) => !readings.some((reading) => RegExp(`^${reading}$`, 'i').test(toHiragana(meaning)))
   );
   return filteredMeanings.length ? filteredMeanings : meanings;
 };
