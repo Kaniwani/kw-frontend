@@ -7,7 +7,7 @@ import H4 from 'common/components/H4';
 
 export const Article = styled.article`
   & .ReactCollapse--content {
-    ${gutter()}
+    ${gutter({ position: 'vertical', mod: 3 })}
     max-width: 30em;
     line-height: 1.3;
     text-align: left;
@@ -25,12 +25,12 @@ export const Header = styled.header`
 export const Title = styled.div`
   display: flex;
   flex-flow: row wrap;
-  align-items: flex-end;
+  align-items: flex-start;
+  text-align: left;
 `;
 
 export const TitleText = H4.extend`
-  ${''/* already has a gutter */}
-  font-weight: 400;
+  font-weight: 500;
   color: inherit;
 `;
 

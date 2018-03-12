@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { isBefore, addDays, parse } from 'date-fns';
+import { isBefore, addMinutes, parse } from 'date-fns';
 
 import { getState, makeSelectItemIds, makeSelectItemById } from 'common/selectors';
 
@@ -12,8 +12,7 @@ const shouldLoad = ({ isLoading, lastLoad }) => {
   if (isLoading) {
     return false;
   }
-  const yesterday = addDays(new Date(), -1);
-  return !lastLoad || isBefore(parse(lastLoad), yesterday);
+  return !lastLoad || isBefore(parse(lastLoad), addMinutes(new Date(), -30));
 };
 
 export const selectAnnouncementsShouldLoad = createSelector(selectAnnouncementsUi, shouldLoad);
