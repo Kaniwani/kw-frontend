@@ -21,6 +21,7 @@ import {
 } from 'features/quiz/QuizSession/selectors';
 import { selectAnswer, selectAnswerIgnored } from './selectors';
 
+import { app } from 'common/actions';
 import user from 'features/user/actions';
 import quiz from 'features/quiz/actions';
 import review from 'features/reviews/actions';
@@ -273,6 +274,7 @@ export const recordAnswerLogic = createLogic({
           }
         })
         .catch((err) => {
+          dispatch(app.captureError(err, {}));
           dispatch(quiz.answer.record.failure(err));
           done();
         });

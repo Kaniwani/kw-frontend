@@ -1,14 +1,15 @@
 import { createLogic } from 'redux-logic';
 
+import { app } from 'common/actions';
 import vocab from './actions';
 
 const reportVocabLogic = createLogic({
   type: vocab.report.request,
-  process: ({ api, action }, dispatch, done) => {
-    const { form } = action.meta;
+  process: ({ api, action: { payload, meta } }, dispatch, done) => {
+    const { form } = meta;
     form.startSubmit();
     api.report
-      .create(action.payload)
+      .create(payload)
       .then(() => {
         form.setSubmitSucceeded();
         form.reset();
@@ -17,6 +18,7 @@ const reportVocabLogic = createLogic({
       })
       .catch((err) => {
         form.setSubmitFailed();
+        dispatch(app.captureError(err, payload));
         dispatch(vocab.report.failure(err));
         done();
       });

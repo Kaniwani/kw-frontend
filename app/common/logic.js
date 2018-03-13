@@ -1,3 +1,5 @@
+import { createLogic } from 'redux-logic';
+
 import landingLogic from 'features/landing/logic';
 import userLogic from 'features/user/logic';
 import announcementsLogic from 'features/announcements/logic';
@@ -12,7 +14,18 @@ import quizAnswerLogic from 'features/quiz/QuizSession/QuizAnswer/logic';
 import settingsLogic from 'features/settings/logic';
 import contactLogic from 'features/contact/logic';
 
+import { app } from 'common/actions';
+import Raven from 'common/raven';
+
+const errorLogic = createLogic({
+  type: app.captureError,
+  process({ action: { payload, meta } }) {
+    Raven.captureException(payload, { extra: meta });
+  },
+});
+
 export default [
+  errorLogic,
   ...landingLogic,
   ...userLogic,
   ...announcementsLogic,

@@ -16,15 +16,14 @@ export const registerLogic = createLogic({
         form.stopSubmit();
         done();
       })
-      .catch((error) => {
-        const { json } = error;
+      .catch((err) => {
+        const { json } = err;
         const errors = camelCaseKeys(json || {});
         form.stopSubmit({
           ...errors,
           _error: errors.non_field_errors && errors.non_field_errors,
         });
-        dispatch(user.register.failure(error));
-        console.warn(`Register failure. Response error was: ${JSON.stringify(error)}`);
+        dispatch(user.register.failure(err));
         done();
       });
   },
@@ -46,7 +45,6 @@ export const loginLogic = createLogic({
         done();
       })
       .catch((err) => {
-        console.warn(`Login failure. Response was: ${JSON.stringify(err)}`);
         dispatch(user.login.failure(err));
         if (err.status && (err.status === 503 || err.status === 502)) {
           dispatch(app.setMaintenance(true));
@@ -56,6 +54,9 @@ export const loginLogic = createLogic({
           }
         } else if (form) {
           form.stopSubmit({ _error: ['There was an error contacting the server.'] });
+        }
+        if (err.status !== 400) {
+          dispatch(app.captureError(err, payload));
         }
         done();
       });
@@ -75,10 +76,10 @@ export const resetPasswordLogic = createLogic({
         window.alert('Check your email to complete reset');
         done();
       })
-      .catch((error) => {
-        form.stopSubmit({ ...error, _error: error.non_field_errors });
-        dispatch(user.resetPassword.failure(error));
-        console.warn(`API failure. Response error was: ${JSON.stringify(error)}`);
+      .catch((err) => {
+        dispatch(app.captureError(err, payload));
+        form.stopSubmit({ ...err, _error: err.non_field_errors });
+        dispatch(user.resetPassword.failure(err));
         done();
       });
   },
@@ -94,9 +95,9 @@ export const confirmResetPasswordLogic = createLogic({
         window.alert('Password reset complete');
         done();
       })
-      .catch((error) => {
-        dispatch(user.confirmResetPassword.failure(error));
-        console.warn(`API failure. Response error was: ${JSON.stringify(error)}`);
+      .catch((err) => {
+        dispatch(app.captureError(err, payload));
+        dispatch(user.confirmResetPassword.failure(err));
         done();
       });
   },

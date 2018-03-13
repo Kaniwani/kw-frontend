@@ -1,5 +1,6 @@
 import { createLogic } from 'redux-logic';
 
+import { app } from 'common/actions';
 import synonym from './actions';
 
 export const addSynonymLogic = createLogic({
@@ -15,6 +16,7 @@ export const addSynonymLogic = createLogic({
         done();
       })
       .catch((err) => {
+        dispatch(app.captureError(err, action.payload));
         dispatch(synonym.add.failure(err));
         done();
       });
@@ -24,14 +26,18 @@ export const addSynonymLogic = createLogic({
 export const removeSynonymLogic = createLogic({
   type: synonym.remove.request,
   warnTimeout: 10000,
-  processOptions: {
-    successType: synonym.remove.success,
-    failType: synonym.remove.failure,
-  },
-
-  process({ api, action }) {
-    const { id, reviewId } = action.payload;
-    return api.synonym.remove({ id }).then(() => ({ id, reviewId }));
+  process({ api, action: { payload } }, dispatch, done) {
+    const { id, reviewId } = payload;
+    return api.synonym
+      .remove({ id })
+      .then(() => {
+        dispatch(synonym.remove.success({ id, reviewId }));
+        done();
+      })
+      .catch((err) => {
+        dispatch(app.captureError(err, payload));
+        dispatch(synonym.remove.failure(err));
+      });
   },
 });
 

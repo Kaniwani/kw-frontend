@@ -3,6 +3,7 @@ import { sample, difference } from 'lodash';
 
 import { INITIAL_QUEUE_LIMIT, SUBSEQUENT_QUEUE_LIMIT } from './constants';
 
+import { app } from 'common/actions';
 import quiz from 'features/quiz/actions';
 import { selectReviewById } from 'features/reviews/selectors';
 import {
@@ -25,9 +26,9 @@ export const queueLoadLogic = createLogic({
       reject();
     }
   },
-  process({ api, serializers, getState, action }, dispatch, done) {
+  process({ api, serializers, getState, action: { payload } }, dispatch, done) {
     const { serializeQueueResponse } = serializers;
-    const category = action.payload || selectCategory(getState());
+    const category = payload || selectCategory(getState());
     const currentId = selectCurrentId(getState());
     const queueCount = selectQueueCount(getState());
     const wrapUp = selectWrapUp(getState());
@@ -45,6 +46,7 @@ export const queueLoadLogic = createLogic({
         done();
       })
       .catch((err) => {
+        dispatch(app.captureError(err, payload));
         dispatch(quiz.session.queue.load.failure(err));
         done();
       });

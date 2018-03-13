@@ -1,5 +1,6 @@
 import { createLogic } from 'redux-logic';
 
+import { app } from 'common/actions';
 import vocab from 'features/vocab/actions';
 import user from 'features/user/actions';
 import { selectVocabLevelsSubmitting } from 'features/vocab/Levels/selectors';
@@ -7,8 +8,8 @@ import { selectVocabLevelsSubmitting } from 'features/vocab/Levels/selectors';
 export const levelLoadLogic = createLogic({
   type: vocab.level.load.request,
   warnTimeout: 10000,
-  process({ api, serializers, action }, dispatch, done) {
-    const { payload: { id } } = action;
+  process({ api, serializers, action: { payload } }, dispatch, done) {
+    const { id } = payload;
     api.reviews
       .search({
         level: id,
@@ -19,8 +20,9 @@ export const levelLoadLogic = createLogic({
         dispatch(vocab.level.load.success(level, { id }));
         done();
       })
-      .catch(({ status, response, message, ...rest }) => {
-        dispatch(vocab.level.load.failure({ status, response, message, ...rest }, { id }));
+      .catch((err) => {
+        dispatch(app.captureError(err, payload));
+        dispatch(vocab.level.load.failure(err, { id }));
         done();
       });
   },
@@ -29,8 +31,8 @@ export const levelLoadLogic = createLogic({
 export const levelLockLogic = createLogic({
   type: vocab.level.lock.request,
   warnTimeout: 10000,
-  process({ api, action }, dispatch, done) {
-    const { payload: { id } } = action;
+  process({ api, action: { payload } }, dispatch, done) {
+    const { id } = payload;
     api.vocab.level
       .lock({ id })
       .then(() => {
@@ -38,8 +40,9 @@ export const levelLockLogic = createLogic({
         dispatch(user.load.request()); // update review counts due to locking
         done();
       })
-      .catch(({ status, response, message, ...rest }) => {
-        dispatch(vocab.level.lock.failure({ status, response, message, ...rest }));
+      .catch((err) => {
+        dispatch(app.captureError(err, payload));
+        dispatch(vocab.level.lock.failure(err));
         done();
       });
   },
@@ -51,15 +54,14 @@ export const levelUnlockLogic = createLogic({
   validate({ getState, action }, allow, reject) {
     const isAlreadySubmitting = selectVocabLevelsSubmitting(getState()).length >= 1;
     if (isAlreadySubmitting) {
-      // FIXME: create a queue
       alert('Please unlock levels one at a time.');
       reject();
     } else {
       allow(action);
     }
   },
-  process({ api, action }, dispatch, done) {
-    const { payload: { id } } = action;
+  process({ api, action: { payload } }, dispatch, done) {
+    const { id } = payload;
 
     api.vocab.level
       .unlock({ id })
@@ -70,8 +72,9 @@ export const levelUnlockLogic = createLogic({
         dispatch(user.load.request()); // update review counts due to unlocking
         done();
       })
-      .catch(({ status, response, message, ...rest }) => {
-        dispatch(vocab.level.unlock.failure({ status, response, message, ...rest }));
+      .catch((err) => {
+        dispatch(app.captureError(err, payload));
+        dispatch(vocab.level.unlock.failure(err));
         done();
       });
   },

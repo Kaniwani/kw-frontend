@@ -1,6 +1,7 @@
 import { createLogic } from 'redux-logic';
 
 import settings from './actions';
+import { app } from 'common/actions';
 import user from 'features/user/actions';
 import vocab from 'features/vocab/actions';
 import { selectUserProfile } from 'features/user/selectors';
@@ -8,14 +9,12 @@ import { deserializeUserProfile } from 'common/serializers';
 
 export const saveSettingsLogic = createLogic({
   type: settings.save.request,
-  process({ getState, api, action }, dispatch, done) {
-    const { form } = action.meta;
+  process({ getState, api, action: { payload, meta: { form } } }, dispatch, done) {
     const profile = selectUserProfile(getState());
-    const updatedProfile = deserializeUserProfile(action.payload);
-    const filterChanged =
-      profile.minimumWkSrsLevelToReview !== action.payload.minimumWkSrsLevelToReview;
-    form.startSubmit();
+    const updatedProfile = deserializeUserProfile(payload);
+    const filterChanged = profile.minimumWkSrsLevelToReview !== payload.minimumWkSrsLevelToReview;
 
+    form.startSubmit();
     api.user
       .update({ id: profile.id, ...updatedProfile })
       .then((response) => {
@@ -25,6 +24,7 @@ export const saveSettingsLogic = createLogic({
         done();
       })
       .catch((err) => {
+        dispatch(app.captureError(err, payload));
         dispatch(settings.save.failure(err));
         if (err.json && err.json.api_key) {
           form.stopSubmit({ apiKey: err.json.api_key[0] });
@@ -42,11 +42,17 @@ export const resetProgressLogic = createLogic({
     failType: settings.resetProgress.failure,
   },
   process({ api, action: { payload } }, dispatch, done) {
-    api.user.resetProgress(payload).then(() => {
-      dispatch(user.load.request());
-      dispatch(vocab.levels.load.request());
-      done();
-    });
+    api.user
+      .resetProgress(payload)
+      .then(() => {
+        dispatch(user.load.request());
+        dispatch(vocab.levels.load.request());
+        done();
+      })
+      .catch((err) => {
+        dispatch(app.captureError(err, payload));
+        done();
+      });
   },
 });
 

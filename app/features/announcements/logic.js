@@ -1,5 +1,6 @@
 import { createLogic } from 'redux-logic';
 
+import { app } from 'common/actions';
 import announcements from './actions';
 
 export const loadLogic = createLogic({
@@ -14,6 +15,7 @@ export const loadLogic = createLogic({
         done();
       })
       .catch((err) => {
+        dispatch(app.captureError(err));
         dispatch(announcements.load.failure(err));
         done();
       });

@@ -29,7 +29,7 @@ export class AddSynonymForm extends React.Component {
     }),
     onSubmit: PropTypes.func.isRequired,
     submitting: PropTypes.bool.isRequired,
-    centerButton: PropTypes.bool.isRequired,
+    centerButton: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -39,6 +39,7 @@ export class AddSynonymForm extends React.Component {
       word: '',
       reading: '',
     },
+    centerButton: false,
   };
 
   state = {
