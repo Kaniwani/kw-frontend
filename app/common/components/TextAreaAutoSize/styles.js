@@ -34,6 +34,7 @@ export const TextArea = styled(TextareaAutosize)`
   ${placeholder({ color: grey[5] })};
   ${zeta}
   font-family: ${ffJapanese};
+  line-height: 1.2;
   resize: none;
   border-radius: ${borderRadius};
   border: 1px solid ${grey[2]};
