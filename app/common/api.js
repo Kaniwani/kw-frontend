@@ -126,7 +126,7 @@ export const contact = {
       .url('contact/')
       .json(data)
       .post()
-      .json(),
+      .res(),
 };
 
 export const faq = {
