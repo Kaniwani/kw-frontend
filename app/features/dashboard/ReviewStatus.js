@@ -45,9 +45,8 @@ export class ReviewStatus extends React.Component {
       <Element flexColumn flexCenter>
         <H2 style={{ color: grey[8] }}>{this.props.username}</H2>
         <H3 style={{ fontWeight: 500 }}>{this.state.text}</H3>
-        {/* updates "review in x time" text periodically */}
         <ReactInterval
-          enabled={!this.props.isOnVacation && isFuture(this.props.nextReviewDate)}
+          enabled={!this.props.isOnVacation}
           timeout={5000}
           callback={this.updateText}
         />

@@ -5,6 +5,9 @@ if (IS_PROD_ENV) {
   Raven.config(RAVEN_DSN, {
     release: VERSION,
     ignoreErrors: [
+      // multiple tabs open fetching service workers
+      // 'Failed to update a ServiceWorker: An unknown error occurred when fetching the script',
+
       // Random plugins/extensions
       'top.GLOBALS',
       // See: http://blog.errorception.com/2012/03/tale-of-unfindable-js-error. html
