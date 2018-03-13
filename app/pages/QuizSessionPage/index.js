@@ -54,19 +54,7 @@ export class QuizSessionPage extends React.Component {
           <title>{pageTitle}</title>
           <meta name="description" content={pageTitle} />
         </Helmet>
-        <Network
-          render={({ online }) => (
-            <Fragment>
-              {online && <QuizSession category={this.props.category} />}
-              <VideoBanner
-                active={!online}
-                sources={{ mp4: OFFLINE_MP4, webm: OFFLINE_WEBM, jpg: OFFLINE_IMG }}
-                headerText="Connection lost!"
-                subHeaderText="Please reconnect to continue using Kaniwani."
-              />
-            </Fragment>
-          )}
-        />
+        <QuizSession category={this.props.category} />
       </Wrapper>
     );
   }
@@ -81,4 +69,19 @@ const mapDispatchToProps = {
   loadQueue: quiz.session.queue.load.request,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(QuizSessionPage);
+export default connect(mapStateToProps, mapDispatchToProps)((props) => (
+  <Network
+    render={({ online }) => (
+      <Fragment>
+        {online && <QuizSessionPage {...props} />}
+        {!online && (
+          <VideoBanner
+            sources={{ mp4: OFFLINE_MP4, webm: OFFLINE_WEBM, jpg: OFFLINE_IMG }}
+            headerText="Connection lost!"
+            subHeaderText="Please reconnect to continue using Kaniwani."
+          />
+        )}
+      </Fragment>
+    )}
+  />
+));

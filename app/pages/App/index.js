@@ -70,7 +70,6 @@ class App extends React.Component {
         </Helmet>
         {underMaintenance ? (
           <VideoBanner
-            active={!underMaintenance}
             sources={{ mp4: MAINTENANCE_MP4, webm: MAINTENANCE_WEBM, jpg: MAINTENANCE_IMG }}
             headerText="Huh, where’d KW go?"
             subHeaderText={

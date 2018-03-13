@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 const Video = styled.video`
   position: fixed;
@@ -36,58 +36,36 @@ const SubHeaderText = styled.h3`
   padding-top: 5px;
 `;
 
-const Wrapper = styled.div`
-  ${({ hidden }) =>
-    hidden &&
-    css`
-      visibility: hidden;
-      width: 0;
-      height: 0;
-      overflow: hidden;
-    `};
-`;
+VideoBanner.propTypes = {
+  sources: PropTypes.shape({
+    jpg: PropTypes.string.isRequired,
+    mp4: PropTypes.string.isRequired,
+    webm: PropTypes.string.isRequired,
+  }).isRequired,
+  headerText: PropTypes.string,
+  subHeaderText: PropTypes.string,
+};
 
-class FullPageVideo extends React.Component {
-  static propTypes = {
-    active: PropTypes.bool.isRequired,
-    sources: PropTypes.shape({
-      jpg: PropTypes.string.isRequired,
-      mp4: PropTypes.string.isRequired,
-      webm: PropTypes.string.isRequired,
-    }).isRequired,
-    headerText: PropTypes.string,
-    subHeaderText: PropTypes.string,
-  };
+VideoBanner.defaultProps = {
+  headerText: '',
+  subHeaderText: '',
+};
 
-  componentDidUpdate() {
-    if (this.props.active) {
-      this.videoRef.play();
-    } else {
-      this.videoRef.pause();
-    }
-  }
-
-  handleRef = (node) => {
-    this.videoRef = node;
-  };
-
-  render() {
-    const { active, sources, headerText, subHeaderText } = this.props;
-    return (
-      <Wrapper hidden={!active}>
-        <Video innerRef={this.handleRef} autoPlay playsInline muted loop poster={sources.img}>
-          <source src={sources.webm} type="video/webm" />
-          <source src={sources.mp4} type="video/mp4" />
-        </Video>
-        {headerText && (
-          <Overlay>
-            <HeaderText>{headerText}</HeaderText>
-            <SubHeaderText>{subHeaderText}</SubHeaderText>
-          </Overlay>
-        )}
-      </Wrapper>
-    );
-  }
+function VideoBanner({ sources, headerText, subHeaderText }) {
+  return (
+    <div>
+      <Video autoPlay playsInline muted loop poster={sources.img}>
+        <source src={sources.webm} type="video/webm" />
+        <source src={sources.mp4} type="video/mp4" />
+      </Video>
+      {headerText && (
+        <Overlay>
+          <HeaderText>{headerText}</HeaderText>
+          <SubHeaderText>{subHeaderText}</SubHeaderText>
+        </Overlay>
+      )}
+    </div>
+  );
 }
 
-export default FullPageVideo;
+export default VideoBanner;

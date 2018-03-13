@@ -64,7 +64,7 @@ module.exports = require('./webpack.base.babel')({
       relativePaths: false,
       publicPath: '/',
       excludes: ['**/*.map'],
-      autoUpdate: 1000 * 60 * 2, // 2mins
+      autoUpdate: 1000 * 60 * 5, // 5mins
 
       ServiceWorker: {
         minify: false, // TODO: Can minify when offline-plugin supports webpack 4
@@ -81,8 +81,8 @@ module.exports = require('./webpack.base.babel')({
         // All chunks marked as `additional`, loaded after main section
         // and do not prevent SW to install. Change to `optional` if
         // do not want them to be preloaded at all (cached only when first loaded)
-        additional: ['*.chunk.js'],
-        optional: ['*.mp4', '*.webm', '*.svg', '*.png', '*.jpg', '*.woff*'],
+        additional: ['*.chunk.js', '*.mp4', '*.webm', '*.jpg'],
+        optional: ['*.svg', '*.png', '*.woff*'],
       },
     }),
   ],
