@@ -26,18 +26,25 @@ const setSynonymModalOpen = (state, { payload }) =>
     synonymModalOpen: { $set: payload },
   });
 
+export const getWrapUpItems = (state) => {
+  let needsReview = difference(state.incorrect, state.complete);
+  if (needsReview.length < 10) {
+    needsReview = [...needsReview, ...difference(state.queue, needsReview)].slice(
+      0,
+      WRAP_UP_STARTING_COUNT
+    );
+  }
+  return needsReview;
+};
+
 const toggleWrapUp = (state) => {
-  let { queue, incorrect } = state; // eslint-disable-line prefer-const
+  let { queue } = state;
   let count = WRAP_UP_STARTING_COUNT;
   const active = !state.wrapUp.active;
 
   if (active) {
-    const incorrectQueuePaddedToMinCount = incorrect
-      .concat(difference(queue, incorrect))
-      .slice(0, Math.max(incorrect.length, WRAP_UP_STARTING_COUNT));
-
-    queue = incorrectQueuePaddedToMinCount;
-    count = Math.max(queue.length, WRAP_UP_STARTING_COUNT);
+    queue = getWrapUpItems(state);
+    count = queue.length;
   }
 
   return update(state, {
