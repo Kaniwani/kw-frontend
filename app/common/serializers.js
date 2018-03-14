@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
-import { flatMap, uniq } from 'lodash';
+import { /* flatMap, */ uniq } from 'lodash';
 import condenseReadings from 'common/utils/condenseReadings';
 import { camelCaseKeys, snakeCaseKeys } from 'common/utils/caseKeys';
 import toUniqueStringsArray from 'common/utils/toUniqueStringsArray';
-import filterRomajiReadings from 'common/utils/filterRomajiReadings';
+// import filterRomajiReadings from 'common/utils/filterRomajiReadings';
 import createDict from 'common/utils/createDict';
 
 export const serializeLoginResponse = ({ token }) => token;
@@ -89,12 +89,14 @@ export function serializeLevel({ level, unlocked, vocabulary_count } = {}) {
   };
 }
 
-export function serializeMeanings(meaning, meaningSynonyms, vocab) {
-  const readings = flatMap(vocab, (v) => [v.primaryReading, ...v.secondaryReadings]);
+export function serializeMeanings(meaning, meaningSynonyms /* , vocab */) {
   const meaningStrings = meaning.split(', ');
   const synonymStrings = uniq(meaningSynonyms.map(({ text }) => text.replace(/"/g, '')));
+  // FIXME: temporarily disabled until it can be improved
+  //  const readings = flatMap(vocab, (v) => [v.primaryReading, ...v.secondaryReadings]);
+  //  const filteredMeanings = filterRomajiReadings(meaningStrings.concat(synonymStrings), readings);
   const [primaryMeaning, ...secondaryMeanings] = toUniqueStringsArray(
-    filterRomajiReadings(meaningStrings.concat(synonymStrings), readings)
+    meaningStrings.concat(synonymStrings)
   );
 
   return {

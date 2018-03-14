@@ -8,12 +8,11 @@ describe('filterRomajiReadings()', () => {
   });
 
   it('should strip romaji readings', () => {
-    expect(filterRomajiReadings(['Southern Barbarians', 'Nanban'], ['なんばん'])).toEqual([
-      'Southern Barbarians',
+    expect(filterRomajiReadings(['southern barbarians', 'nanban'], ['なんばん'])).toEqual([
+      'southern barbarians',
     ]);
     expect(filterRomajiReadings(['robo', 'bobo'], ['ろぼ'])).toEqual(['bobo']);
 
-    // can only do so much ¯\_(ツ)_/¯
     expect(
       filterRomajiReadings(
         ['jomon people', 'joumon people', 'joumon', 'jomon', 'ancient japanese'],
@@ -27,6 +26,15 @@ describe('filterRomajiReadings()', () => {
         ['とうほく']
       )
     ).toEqual(['northeast', 'tohoku', 'tohoku region']);
+  });
+
+  // can => かん in hiragana and removes meanings it shouldn't
+  it('should respect whitelisted meanings', () => {
+    expect(filterRomajiReadings(['tin can', 'tin', 'can'], ['かん'])).toEqual([
+      'tin can',
+      'tin',
+      'can',
+    ]);
   });
 
   it('should return original meanings if none left after filter', () => {
