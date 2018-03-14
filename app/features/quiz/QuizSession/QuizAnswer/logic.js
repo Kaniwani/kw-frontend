@@ -274,7 +274,7 @@ export const recordAnswerLogic = createLogic({
           }
         })
         .catch((err) => {
-          dispatch(app.captureError(err, {}));
+          dispatch(app.captureError(err, { current, isCorrect, previouslyIncorrect }));
           dispatch(quiz.answer.record.failure(err));
           done();
         });

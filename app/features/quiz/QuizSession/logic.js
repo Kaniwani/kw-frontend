@@ -46,7 +46,7 @@ export const queueLoadLogic = createLogic({
         done();
       })
       .catch((err) => {
-        dispatch(app.captureError(err, payload));
+        dispatch(app.captureError(err, { category, queueCount }));
         dispatch(quiz.session.queue.load.failure(err));
         done();
       });
