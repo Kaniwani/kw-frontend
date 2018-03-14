@@ -1,5 +1,7 @@
 import { createSelector } from 'reselect';
 import { sum, pick, partialRight } from 'lodash';
+import { addSeconds } from 'date-fns';
+
 import dateOrFalse from 'common/utils/dateOrFalse';
 import formatSrsCounts from 'common/utils/formatSrsCounts';
 import formatUpcomingReviews from 'common/utils/formatUpcomingReviews';
@@ -48,7 +50,8 @@ export const selectVacationDate = createSelector(
 
 export const selectNextReviewDate = createSelector(
   selectUserProfile,
-  getBy('nextReviewDate', dateOrFalse)
+  // padded with 30 second safety net to ensure server is completely updated when we request new review count
+  getBy('nextReviewDate', (date) => date != null ? addSeconds(date, 30) : false)
 );
 
 export const selectLastWkSyncDate = createSelector(
