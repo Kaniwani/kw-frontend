@@ -37,37 +37,55 @@ export default function splitSentenceByMatch({
   const hasWord = !!word.length;
   const hasReading = !!reading.length;
   const cleanWord = stripTilde(word);
-  const cleanKana = stripTilde(reading);
-  const wordInflections = verbType ? inflect(word, verbType).map(({ form }) => form) : [];
-  const hiraganaInflections = verbType ? inflect(reading, verbType).map(({ form }) => form) : [];
-  const wordMatchers = [];
-  const readingMatchers = [];
   let matched = null;
+  let matchers = [];
 
   if (hasWord) {
-    wordMatchers.push(cleanWord); // '〜漬け' => '漬け'
-    wordMatchers.push(stripOkurigana(cleanWord)); // '飛び込む' => '飛び込'
-    wordMatchers.push(stripOkurigana(cleanWord, { all: true })); // '売り上げ' => '売上'
+    matchers.push(cleanWord);
+    if (verbType) {
+      matchers.push(
+        ...inflect(word, verbType)
+          .map(({ form }) => form)
+          .sort((a, b) => b.length - a.length)
+      );
+    }
+    matchers.push(stripOkurigana(cleanWord)); // '飛び込む' => '飛び込'
+    matchers.push(stripOkurigana(cleanWord, { all: true })); // '売り上げ' => '売上'
+    matchers = [...new Set(matchers)];
+
+    while (matchers.length) {
+      const matcher = matchers.shift();
+      matched = sentence.match(makeRegex(matcher));
+      if (matched !== null) {
+        const [, head, match, tail] = matched;
+        return { head, match, tail };
+      }
+    }
   }
 
   if (hasReading) {
-    readingMatchers.push(cleanKana); // '〜つけ' => 'つけ'
-    readingMatchers.push(toKatakana(cleanKana)); // '〜つけ' => 'ツケ'
-    readingMatchers.push(stripKana(cleanKana, cleanWord)); // '〜つけ' => 'つ'
-  }
-  const matchers = [
-    ...new Set([...wordInflections, ...wordMatchers, ...hiraganaInflections, ...readingMatchers]),
-  ];
+    const cleanKana = stripTilde(reading);
+    matchers = [cleanKana];
+    if (verbType) {
+      matchers.push(
+        ...inflect(reading, verbType)
+          .map(({ form }) => form)
+          .sort((a, b) => b.length - a.length)
+      );
+    }
+    matchers.push(toKatakana(cleanKana)); // '〜つけ' => 'ツケ'
+    matchers.push(stripKana(cleanKana, cleanWord)); // '〜つけ' => 'つ'
+    matchers = [...new Set(matchers)];
 
-  // order = 売り上げ -> 売り上 -> 売上 -> うりあげ -> ウリアゲ -> うりあ
-  while (matched === null && !!matchers.length) {
-    const matcher = matchers.shift();
-    matched = sentence.match(makeRegex(matcher));
+    while (matchers.length) {
+      const matcher = matchers.shift();
+      matched = sentence.match(makeRegex(matcher));
+      if (matched !== null) {
+        const [, head, match, tail] = matched;
+        return { head, match, tail };
+      }
+    }
   }
 
-  if (matched !== null) {
-    const [, head, match, tail] = matched;
-    return { head, match, tail };
-  }
   return { head: sentence, match: '', tail: '' };
 }

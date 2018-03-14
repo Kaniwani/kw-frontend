@@ -47,6 +47,10 @@ Array [
     "name": "plain presumptive",
   },
   Object {
+    "form": "帰りなさい",
+    "name": "authoritative",
+  },
+  Object {
     "form": "帰りませぬ",
     "name": "polite negative (archaic)",
   },
@@ -59,10 +63,6 @@ Array [
     "name": "polite affirmative",
   },
   Object {
-    "form": "帰らせた",
-    "name": "past causative",
-  },
-  Object {
     "form": "帰っている",
     "name": "te iru",
   },
@@ -71,8 +71,8 @@ Array [
     "name": "past te iru",
   },
   Object {
-    "form": "帰らせる",
-    "name": "causative",
+    "form": "帰らせた",
+    "name": "past causative",
   },
   Object {
     "form": "帰ってある",
@@ -87,12 +87,16 @@ Array [
     "name": "te oru",
   },
   Object {
-    "form": "帰られた",
-    "name": "past passive",
+    "form": "帰らせる",
+    "name": "causative",
   },
   Object {
     "form": "帰っておく",
     "name": "te oku",
+  },
+  Object {
+    "form": "帰られた",
+    "name": "past passive",
   },
   Object {
     "form": "帰られる",
@@ -111,24 +115,20 @@ Array [
     "name": "claimed to be the case",
   },
   Object {
-    "form": "帰りなさい",
-    "name": "authoritative",
-  },
-  Object {
-    "form": "帰ろう",
-    "name": "pseudo futurum",
-  },
-  Object {
-    "form": "帰ります",
-    "name": "polite affirmative",
+    "form": "帰らないで",
+    "name": "without doing",
   },
   Object {
     "form": "帰るまい",
     "name": "plain negative presumptive",
   },
   Object {
-    "form": "帰りたい",
-    "name": "desire",
+    "form": "帰ろう",
+    "name": "pseudo futurum",
+  },
+  Object {
+    "form": "帰らない",
+    "name": "plain negative",
   },
   Object {
     "form": "帰れば",
@@ -143,6 +143,10 @@ Array [
     "name": "looks to be the case",
   },
   Object {
+    "form": "帰りたい",
+    "name": "desire",
+  },
+  Object {
     "form": "帰っとく",
     "name": "simplified te oku",
   },
@@ -155,8 +159,8 @@ Array [
     "name": "simplified te iru",
   },
   Object {
-    "form": "帰らない",
-    "name": "plain negative",
+    "form": "帰ります",
+    "name": "polite affirmative",
   },
   Object {
     "form": "帰りかた",
@@ -248,6 +252,10 @@ Array [
     "name": "plain presumptive",
   },
   Object {
+    "form": "使いなさい",
+    "name": "authoritative",
+  },
+  Object {
     "form": "使いませぬ",
     "name": "polite negative (archaic)",
   },
@@ -260,10 +268,6 @@ Array [
     "name": "polite affirmative",
   },
   Object {
-    "form": "使わせた",
-    "name": "past causative",
-  },
-  Object {
     "form": "使っている",
     "name": "te iru",
   },
@@ -272,8 +276,8 @@ Array [
     "name": "past te iru",
   },
   Object {
-    "form": "使わせる",
-    "name": "causative",
+    "form": "使わせた",
+    "name": "past causative",
   },
   Object {
     "form": "使ってある",
@@ -288,12 +292,16 @@ Array [
     "name": "te oru",
   },
   Object {
-    "form": "使われた",
-    "name": "past passive",
+    "form": "使わせる",
+    "name": "causative",
   },
   Object {
     "form": "使っておく",
     "name": "te oku",
+  },
+  Object {
+    "form": "使われた",
+    "name": "past passive",
   },
   Object {
     "form": "使われる",
@@ -312,24 +320,20 @@ Array [
     "name": "claimed to be the case",
   },
   Object {
-    "form": "使いなさい",
-    "name": "authoritative",
-  },
-  Object {
-    "form": "使おう",
-    "name": "pseudo futurum",
-  },
-  Object {
-    "form": "使います",
-    "name": "polite affirmative",
+    "form": "使わないで",
+    "name": "without doing",
   },
   Object {
     "form": "使うまい",
     "name": "plain negative presumptive",
   },
   Object {
-    "form": "使いたい",
-    "name": "desire",
+    "form": "使おう",
+    "name": "pseudo futurum",
+  },
+  Object {
+    "form": "使わない",
+    "name": "plain negative",
   },
   Object {
     "form": "使えば",
@@ -344,6 +348,10 @@ Array [
     "name": "looks to be the case",
   },
   Object {
+    "form": "使いたい",
+    "name": "desire",
+  },
+  Object {
     "form": "使っとく",
     "name": "simplified te oku",
   },
@@ -356,8 +364,8 @@ Array [
     "name": "simplified te iru",
   },
   Object {
-    "form": "使わない",
-    "name": "plain negative",
+    "form": "使います",
+    "name": "polite affirmative",
   },
   Object {
     "form": "使いかた",
@@ -449,6 +457,10 @@ Array [
     "name": "plain presumptive",
   },
   Object {
+    "form": "呼びなさい",
+    "name": "authoritative",
+  },
+  Object {
     "form": "呼びませぬ",
     "name": "polite negative (archaic)",
   },
@@ -461,10 +473,6 @@ Array [
     "name": "polite affirmative",
   },
   Object {
-    "form": "呼ばせた",
-    "name": "past causative",
-  },
-  Object {
     "form": "呼んでいる",
     "name": "te iru",
   },
@@ -473,8 +481,8 @@ Array [
     "name": "past te iru",
   },
   Object {
-    "form": "呼ばせる",
-    "name": "causative",
+    "form": "呼ばせた",
+    "name": "past causative",
   },
   Object {
     "form": "呼んである",
@@ -489,12 +497,16 @@ Array [
     "name": "te oru",
   },
   Object {
-    "form": "呼ばれた",
-    "name": "past passive",
+    "form": "呼ばせる",
+    "name": "causative",
   },
   Object {
     "form": "呼んでおく",
     "name": "te oku",
+  },
+  Object {
+    "form": "呼ばれた",
+    "name": "past passive",
   },
   Object {
     "form": "呼ばれる",
@@ -513,24 +525,20 @@ Array [
     "name": "claimed to be the case",
   },
   Object {
-    "form": "呼びなさい",
-    "name": "authoritative",
-  },
-  Object {
-    "form": "呼ぼう",
-    "name": "pseudo futurum",
-  },
-  Object {
-    "form": "呼びます",
-    "name": "polite affirmative",
+    "form": "呼ばないで",
+    "name": "without doing",
   },
   Object {
     "form": "呼ぶまい",
     "name": "plain negative presumptive",
   },
   Object {
-    "form": "呼びたい",
-    "name": "desire",
+    "form": "呼ぼう",
+    "name": "pseudo futurum",
+  },
+  Object {
+    "form": "呼ばない",
+    "name": "plain negative",
   },
   Object {
     "form": "呼べば",
@@ -545,6 +553,10 @@ Array [
     "name": "looks to be the case",
   },
   Object {
+    "form": "呼びたい",
+    "name": "desire",
+  },
+  Object {
     "form": "呼んどく",
     "name": "simplified te oku",
   },
@@ -557,8 +569,8 @@ Array [
     "name": "simplified te iru",
   },
   Object {
-    "form": "呼ばない",
-    "name": "plain negative",
+    "form": "呼びます",
+    "name": "polite affirmative",
   },
   Object {
     "form": "呼びかた",
@@ -650,6 +662,10 @@ Array [
     "name": "plain presumptive",
   },
   Object {
+    "form": "待ちなさい",
+    "name": "authoritative",
+  },
+  Object {
     "form": "待ちませぬ",
     "name": "polite negative (archaic)",
   },
@@ -662,10 +678,6 @@ Array [
     "name": "polite affirmative",
   },
   Object {
-    "form": "待たせた",
-    "name": "past causative",
-  },
-  Object {
     "form": "待っている",
     "name": "te iru",
   },
@@ -674,8 +686,8 @@ Array [
     "name": "past te iru",
   },
   Object {
-    "form": "待たせる",
-    "name": "causative",
+    "form": "待たせた",
+    "name": "past causative",
   },
   Object {
     "form": "待ってある",
@@ -690,12 +702,16 @@ Array [
     "name": "te oru",
   },
   Object {
-    "form": "待たれた",
-    "name": "past passive",
+    "form": "待たせる",
+    "name": "causative",
   },
   Object {
     "form": "待っておく",
     "name": "te oku",
+  },
+  Object {
+    "form": "待たれた",
+    "name": "past passive",
   },
   Object {
     "form": "待たれる",
@@ -714,24 +730,20 @@ Array [
     "name": "claimed to be the case",
   },
   Object {
-    "form": "待ちなさい",
-    "name": "authoritative",
-  },
-  Object {
-    "form": "待とう",
-    "name": "pseudo futurum",
-  },
-  Object {
-    "form": "待ちます",
-    "name": "polite affirmative",
+    "form": "待たないで",
+    "name": "without doing",
   },
   Object {
     "form": "待つまい",
     "name": "plain negative presumptive",
   },
   Object {
-    "form": "待ちたい",
-    "name": "desire",
+    "form": "待とう",
+    "name": "pseudo futurum",
+  },
+  Object {
+    "form": "待たない",
+    "name": "plain negative",
   },
   Object {
     "form": "待てば",
@@ -746,6 +758,10 @@ Array [
     "name": "looks to be the case",
   },
   Object {
+    "form": "待ちたい",
+    "name": "desire",
+  },
+  Object {
     "form": "待っとく",
     "name": "simplified te oku",
   },
@@ -758,8 +774,8 @@ Array [
     "name": "simplified te iru",
   },
   Object {
-    "form": "待たない",
-    "name": "plain negative",
+    "form": "待ちます",
+    "name": "polite affirmative",
   },
   Object {
     "form": "待ちかた",
@@ -851,6 +867,10 @@ Array [
     "name": "plain presumptive",
   },
   Object {
+    "form": "死になさい",
+    "name": "authoritative",
+  },
+  Object {
     "form": "死にませぬ",
     "name": "polite negative (archaic)",
   },
@@ -863,10 +883,6 @@ Array [
     "name": "polite affirmative",
   },
   Object {
-    "form": "死なせた",
-    "name": "past causative",
-  },
-  Object {
     "form": "死んでいる",
     "name": "te iru",
   },
@@ -875,8 +891,8 @@ Array [
     "name": "past te iru",
   },
   Object {
-    "form": "死なせる",
-    "name": "causative",
+    "form": "死なせた",
+    "name": "past causative",
   },
   Object {
     "form": "死んである",
@@ -891,12 +907,16 @@ Array [
     "name": "te oru",
   },
   Object {
-    "form": "死なれた",
-    "name": "past passive",
+    "form": "死なせる",
+    "name": "causative",
   },
   Object {
     "form": "死んでおく",
     "name": "te oku",
+  },
+  Object {
+    "form": "死なれた",
+    "name": "past passive",
   },
   Object {
     "form": "死なれる",
@@ -915,24 +935,20 @@ Array [
     "name": "claimed to be the case",
   },
   Object {
-    "form": "死になさい",
-    "name": "authoritative",
-  },
-  Object {
-    "form": "死のう",
-    "name": "pseudo futurum",
-  },
-  Object {
-    "form": "死にます",
-    "name": "polite affirmative",
+    "form": "死なないで",
+    "name": "without doing",
   },
   Object {
     "form": "死ぬまい",
     "name": "plain negative presumptive",
   },
   Object {
-    "form": "死にたい",
-    "name": "desire",
+    "form": "死のう",
+    "name": "pseudo futurum",
+  },
+  Object {
+    "form": "死なない",
+    "name": "plain negative",
   },
   Object {
     "form": "死ねば",
@@ -947,6 +963,10 @@ Array [
     "name": "looks to be the case",
   },
   Object {
+    "form": "死にたい",
+    "name": "desire",
+  },
+  Object {
     "form": "死んどく",
     "name": "simplified te oku",
   },
@@ -959,8 +979,8 @@ Array [
     "name": "simplified te iru",
   },
   Object {
-    "form": "死なない",
-    "name": "plain negative",
+    "form": "死にます",
+    "name": "polite affirmative",
   },
   Object {
     "form": "死にかた",
@@ -1052,6 +1072,10 @@ Array [
     "name": "plain presumptive",
   },
   Object {
+    "form": "泳ぎなさい",
+    "name": "authoritative",
+  },
+  Object {
     "form": "泳ぎませぬ",
     "name": "polite negative (archaic)",
   },
@@ -1064,10 +1088,6 @@ Array [
     "name": "polite affirmative",
   },
   Object {
-    "form": "泳がせた",
-    "name": "past causative",
-  },
-  Object {
     "form": "泳いでいる",
     "name": "te iru",
   },
@@ -1076,8 +1096,8 @@ Array [
     "name": "past te iru",
   },
   Object {
-    "form": "泳がせる",
-    "name": "causative",
+    "form": "泳がせた",
+    "name": "past causative",
   },
   Object {
     "form": "泳いである",
@@ -1092,12 +1112,16 @@ Array [
     "name": "te oru",
   },
   Object {
-    "form": "泳がれた",
-    "name": "past passive",
+    "form": "泳がせる",
+    "name": "causative",
   },
   Object {
     "form": "泳いでおく",
     "name": "te oku",
+  },
+  Object {
+    "form": "泳がれた",
+    "name": "past passive",
   },
   Object {
     "form": "泳がれる",
@@ -1116,24 +1140,20 @@ Array [
     "name": "claimed to be the case",
   },
   Object {
-    "form": "泳ぎなさい",
-    "name": "authoritative",
-  },
-  Object {
-    "form": "泳ごう",
-    "name": "pseudo futurum",
-  },
-  Object {
-    "form": "泳ぎます",
-    "name": "polite affirmative",
+    "form": "泳がないで",
+    "name": "without doing",
   },
   Object {
     "form": "泳ぐまい",
     "name": "plain negative presumptive",
   },
   Object {
-    "form": "泳ぎたい",
-    "name": "desire",
+    "form": "泳ごう",
+    "name": "pseudo futurum",
+  },
+  Object {
+    "form": "泳がない",
+    "name": "plain negative",
   },
   Object {
     "form": "泳げば",
@@ -1148,6 +1168,10 @@ Array [
     "name": "looks to be the case",
   },
   Object {
+    "form": "泳ぎたい",
+    "name": "desire",
+  },
+  Object {
     "form": "泳いどく",
     "name": "simplified te oku",
   },
@@ -1160,8 +1184,8 @@ Array [
     "name": "simplified te iru",
   },
   Object {
-    "form": "泳がない",
-    "name": "plain negative",
+    "form": "泳ぎます",
+    "name": "polite affirmative",
   },
   Object {
     "form": "泳ぎかた",
@@ -1253,6 +1277,10 @@ Array [
     "name": "plain presumptive",
   },
   Object {
+    "form": "焼きなさい",
+    "name": "authoritative",
+  },
+  Object {
     "form": "焼きませぬ",
     "name": "polite negative (archaic)",
   },
@@ -1265,10 +1293,6 @@ Array [
     "name": "polite affirmative",
   },
   Object {
-    "form": "焼かせた",
-    "name": "past causative",
-  },
-  Object {
     "form": "焼いている",
     "name": "te iru",
   },
@@ -1277,8 +1301,8 @@ Array [
     "name": "past te iru",
   },
   Object {
-    "form": "焼かせる",
-    "name": "causative",
+    "form": "焼かせた",
+    "name": "past causative",
   },
   Object {
     "form": "焼いてある",
@@ -1293,12 +1317,16 @@ Array [
     "name": "te oru",
   },
   Object {
-    "form": "焼かれた",
-    "name": "past passive",
+    "form": "焼かせる",
+    "name": "causative",
   },
   Object {
     "form": "焼いておく",
     "name": "te oku",
+  },
+  Object {
+    "form": "焼かれた",
+    "name": "past passive",
   },
   Object {
     "form": "焼かれる",
@@ -1317,24 +1345,20 @@ Array [
     "name": "claimed to be the case",
   },
   Object {
-    "form": "焼きなさい",
-    "name": "authoritative",
-  },
-  Object {
-    "form": "焼こう",
-    "name": "pseudo futurum",
-  },
-  Object {
-    "form": "焼きます",
-    "name": "polite affirmative",
+    "form": "焼かないで",
+    "name": "without doing",
   },
   Object {
     "form": "焼くまい",
     "name": "plain negative presumptive",
   },
   Object {
-    "form": "焼きたい",
-    "name": "desire",
+    "form": "焼こう",
+    "name": "pseudo futurum",
+  },
+  Object {
+    "form": "焼かない",
+    "name": "plain negative",
   },
   Object {
     "form": "焼けば",
@@ -1349,6 +1373,10 @@ Array [
     "name": "looks to be the case",
   },
   Object {
+    "form": "焼きたい",
+    "name": "desire",
+  },
+  Object {
     "form": "焼いとく",
     "name": "simplified te oku",
   },
@@ -1361,8 +1389,8 @@ Array [
     "name": "simplified te iru",
   },
   Object {
-    "form": "焼かない",
-    "name": "plain negative",
+    "form": "焼きます",
+    "name": "polite affirmative",
   },
   Object {
     "form": "焼きかた",
@@ -1454,6 +1482,10 @@ Array [
     "name": "plain presumptive",
   },
   Object {
+    "form": "示しなさい",
+    "name": "authoritative",
+  },
+  Object {
     "form": "示しませぬ",
     "name": "polite negative (archaic)",
   },
@@ -1466,10 +1498,6 @@ Array [
     "name": "polite affirmative",
   },
   Object {
-    "form": "示させた",
-    "name": "past causative",
-  },
-  Object {
     "form": "示している",
     "name": "te iru",
   },
@@ -1478,8 +1506,8 @@ Array [
     "name": "past te iru",
   },
   Object {
-    "form": "示させる",
-    "name": "causative",
+    "form": "示させた",
+    "name": "past causative",
   },
   Object {
     "form": "示してある",
@@ -1494,12 +1522,16 @@ Array [
     "name": "te oru",
   },
   Object {
-    "form": "示された",
-    "name": "past passive",
+    "form": "示させる",
+    "name": "causative",
   },
   Object {
     "form": "示しておく",
     "name": "te oku",
+  },
+  Object {
+    "form": "示された",
+    "name": "past passive",
   },
   Object {
     "form": "示される",
@@ -1518,24 +1550,20 @@ Array [
     "name": "claimed to be the case",
   },
   Object {
-    "form": "示しなさい",
-    "name": "authoritative",
-  },
-  Object {
-    "form": "示そう",
-    "name": "pseudo futurum",
-  },
-  Object {
-    "form": "示します",
-    "name": "polite affirmative",
+    "form": "示さないで",
+    "name": "without doing",
   },
   Object {
     "form": "示すまい",
     "name": "plain negative presumptive",
   },
   Object {
-    "form": "示したい",
-    "name": "desire",
+    "form": "示そう",
+    "name": "pseudo futurum",
+  },
+  Object {
+    "form": "示さない",
+    "name": "plain negative",
   },
   Object {
     "form": "示せば",
@@ -1550,6 +1578,10 @@ Array [
     "name": "looks to be the case",
   },
   Object {
+    "form": "示したい",
+    "name": "desire",
+  },
+  Object {
     "form": "示しとく",
     "name": "simplified te oku",
   },
@@ -1562,8 +1594,8 @@ Array [
     "name": "simplified te iru",
   },
   Object {
-    "form": "示さない",
-    "name": "plain negative",
+    "form": "示します",
+    "name": "polite affirmative",
   },
   Object {
     "form": "示しかた",
@@ -1655,6 +1687,10 @@ Array [
     "name": "plain presumptive",
   },
   Object {
+    "form": "読みなさい",
+    "name": "authoritative",
+  },
+  Object {
     "form": "読みませぬ",
     "name": "polite negative (archaic)",
   },
@@ -1667,10 +1703,6 @@ Array [
     "name": "polite affirmative",
   },
   Object {
-    "form": "読ませた",
-    "name": "past causative",
-  },
-  Object {
     "form": "読んでいる",
     "name": "te iru",
   },
@@ -1679,8 +1711,8 @@ Array [
     "name": "past te iru",
   },
   Object {
-    "form": "読ませる",
-    "name": "causative",
+    "form": "読ませた",
+    "name": "past causative",
   },
   Object {
     "form": "読んである",
@@ -1695,12 +1727,16 @@ Array [
     "name": "te oru",
   },
   Object {
-    "form": "読まれた",
-    "name": "past passive",
+    "form": "読ませる",
+    "name": "causative",
   },
   Object {
     "form": "読んでおく",
     "name": "te oku",
+  },
+  Object {
+    "form": "読まれた",
+    "name": "past passive",
   },
   Object {
     "form": "読まれる",
@@ -1719,24 +1755,20 @@ Array [
     "name": "claimed to be the case",
   },
   Object {
-    "form": "読みなさい",
-    "name": "authoritative",
-  },
-  Object {
-    "form": "読もう",
-    "name": "pseudo futurum",
-  },
-  Object {
-    "form": "読みます",
-    "name": "polite affirmative",
+    "form": "読まないで",
+    "name": "without doing",
   },
   Object {
     "form": "読むまい",
     "name": "plain negative presumptive",
   },
   Object {
-    "form": "読みたい",
-    "name": "desire",
+    "form": "読もう",
+    "name": "pseudo futurum",
+  },
+  Object {
+    "form": "読まない",
+    "name": "plain negative",
   },
   Object {
     "form": "読めば",
@@ -1751,6 +1783,10 @@ Array [
     "name": "looks to be the case",
   },
   Object {
+    "form": "読みたい",
+    "name": "desire",
+  },
+  Object {
     "form": "読んどく",
     "name": "simplified te oku",
   },
@@ -1763,8 +1799,8 @@ Array [
     "name": "simplified te iru",
   },
   Object {
-    "form": "読まない",
-    "name": "plain negative",
+    "form": "読みます",
+    "name": "polite affirmative",
   },
   Object {
     "form": "読みかた",
@@ -1856,6 +1892,10 @@ Array [
     "name": "plain presumptive",
   },
   Object {
+    "form": "走りなさい",
+    "name": "authoritative",
+  },
+  Object {
     "form": "走りませぬ",
     "name": "polite negative (archaic)",
   },
@@ -1868,10 +1908,6 @@ Array [
     "name": "polite affirmative",
   },
   Object {
-    "form": "走らせた",
-    "name": "past causative",
-  },
-  Object {
     "form": "走っている",
     "name": "te iru",
   },
@@ -1880,8 +1916,8 @@ Array [
     "name": "past te iru",
   },
   Object {
-    "form": "走らせる",
-    "name": "causative",
+    "form": "走らせた",
+    "name": "past causative",
   },
   Object {
     "form": "走ってある",
@@ -1896,12 +1932,16 @@ Array [
     "name": "te oru",
   },
   Object {
-    "form": "走られた",
-    "name": "past passive",
+    "form": "走らせる",
+    "name": "causative",
   },
   Object {
     "form": "走っておく",
     "name": "te oku",
+  },
+  Object {
+    "form": "走られた",
+    "name": "past passive",
   },
   Object {
     "form": "走られる",
@@ -1920,24 +1960,20 @@ Array [
     "name": "claimed to be the case",
   },
   Object {
-    "form": "走りなさい",
-    "name": "authoritative",
-  },
-  Object {
-    "form": "走ろう",
-    "name": "pseudo futurum",
-  },
-  Object {
-    "form": "走ります",
-    "name": "polite affirmative",
+    "form": "走らないで",
+    "name": "without doing",
   },
   Object {
     "form": "走るまい",
     "name": "plain negative presumptive",
   },
   Object {
-    "form": "走りたい",
-    "name": "desire",
+    "form": "走ろう",
+    "name": "pseudo futurum",
+  },
+  Object {
+    "form": "走らない",
+    "name": "plain negative",
   },
   Object {
     "form": "走れば",
@@ -1952,6 +1988,10 @@ Array [
     "name": "looks to be the case",
   },
   Object {
+    "form": "走りたい",
+    "name": "desire",
+  },
+  Object {
     "form": "走っとく",
     "name": "simplified te oku",
   },
@@ -1964,8 +2004,8 @@ Array [
     "name": "simplified te iru",
   },
   Object {
-    "form": "走らない",
-    "name": "plain negative",
+    "form": "走ります",
+    "name": "polite affirmative",
   },
   Object {
     "form": "走りかた",
@@ -2057,6 +2097,10 @@ Array [
     "name": "plain presumptive",
   },
   Object {
+    "form": "食べなさい",
+    "name": "authoritative",
+  },
+  Object {
     "form": "食べませぬ",
     "name": "polite negative (archaic)",
   },
@@ -2069,10 +2113,6 @@ Array [
     "name": "polite affirmative",
   },
   Object {
-    "form": "食べさせた",
-    "name": "past causative",
-  },
-  Object {
     "form": "食べている",
     "name": "te iru",
   },
@@ -2081,8 +2121,8 @@ Array [
     "name": "past te iru",
   },
   Object {
-    "form": "食べさせる",
-    "name": "causative",
+    "form": "食べさせた",
+    "name": "past causative",
   },
   Object {
     "form": "食べてある",
@@ -2097,12 +2137,16 @@ Array [
     "name": "te oru",
   },
   Object {
-    "form": "食べられた",
-    "name": "past passive",
+    "form": "食べさせる",
+    "name": "causative",
   },
   Object {
     "form": "食べておく",
     "name": "te oku",
+  },
+  Object {
+    "form": "食べられた",
+    "name": "past passive",
   },
   Object {
     "form": "食べられる",
@@ -2121,24 +2165,20 @@ Array [
     "name": "claimed to be the case",
   },
   Object {
-    "form": "食べなさい",
-    "name": "authoritative",
-  },
-  Object {
-    "form": "食べよう",
-    "name": "pseudo futurum",
-  },
-  Object {
-    "form": "食べます",
-    "name": "polite affirmative",
+    "form": "食べないで",
+    "name": "without doing",
   },
   Object {
     "form": "食べまい",
     "name": "plain negative presumptive",
   },
   Object {
-    "form": "食べたい",
-    "name": "desire",
+    "form": "食べよう",
+    "name": "pseudo futurum",
+  },
+  Object {
+    "form": "食べない",
+    "name": "plain negative",
   },
   Object {
     "form": "食べれば",
@@ -2153,6 +2193,10 @@ Array [
     "name": "looks to be the case",
   },
   Object {
+    "form": "食べたい",
+    "name": "desire",
+  },
+  Object {
     "form": "食べとく",
     "name": "simplified te oku",
   },
@@ -2165,8 +2209,8 @@ Array [
     "name": "simplified te iru",
   },
   Object {
-    "form": "食べない",
-    "name": "plain negative",
+    "form": "食べます",
+    "name": "polite affirmative",
   },
   Object {
     "form": "食べかた",

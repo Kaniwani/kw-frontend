@@ -5,21 +5,6 @@ describe('splitSentenceByMatch()', () => {
     expect(splitSentenceByMatch()).toEqual({ head: '', match: '', tail: '' });
   });
 
-  it('attempts various conjugations with verbType', () => {
-    expect(
-      splitSentenceByMatch({
-        sentence: '同窓会の日取りを決めた',
-        word: '決める',
-        reading: 'きめる',
-        verbType: 'v1',
-      })
-    ).toEqual({
-      head: '同窓会の日取りを',
-      match: '決めた',
-      tail: '',
-    });
-  });
-
   describe('matches word', () => {
     it('jukugo', () => {
       expect(splitSentenceByMatch({ sentence: '立ち退きの予告を受けた', word: '予告' })).toEqual({
@@ -207,6 +192,7 @@ describe('splitSentenceByMatch()', () => {
         tail: '',
       });
     });
+
     it('attempts various conjugations with verbType', () => {
       expect(
         splitSentenceByMatch({
@@ -221,12 +207,42 @@ describe('splitSentenceByMatch()', () => {
         tail: '',
       });
     });
+
+    it('attempts various conjugations with verbType', () => {
+      expect(
+        splitSentenceByMatch({
+          sentence: '同窓会の日取りを決めた',
+          word: '決める',
+          reading: 'きめる',
+          verbType: 'v1',
+        })
+      ).toEqual({
+        head: '同窓会の日取りを',
+        match: '決めた',
+        tail: '',
+      });
+    });
+
+    it('attempts various conjugations with verbType', () => {
+      expect(
+        splitSentenceByMatch({
+          sentence: '手を動かさないで',
+          word: '動かす',
+          reading: 'うごかす',
+          verbType: 'v5s',
+        })
+      ).toEqual({
+        head: '手を',
+        match: '動かさないで',
+        tail: '',
+      });
+    });
   });
 
   describe('matches reading', () => {
     it('hiragana', () => {
       expect(
-        splitSentenceByMatch({ sentence: 'すいか買った', word: '', reading: 'すいか' })
+        splitSentenceByMatch({ sentence: 'すいか買った', word: '西瓜', reading: 'すいか' })
       ).toEqual({
         head: '',
         match: 'すいか',
@@ -238,7 +254,7 @@ describe('splitSentenceByMatch()', () => {
       expect(
         splitSentenceByMatch({
           sentence: '言い換えれば磁石の磁場はハトの頭にある',
-          word: '',
+          word: 'はと',
           reading: 'ハト',
         })
       ).toEqual({

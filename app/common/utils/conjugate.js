@@ -1,10 +1,10 @@
 // TODO: add i and na conjugations
 // https://laits.utexas.edu/japanese/joshu/conjugation/conref/cr_conj_adj.php -> select view all
 
-const PLAIN_FORM = {
-  name: 'plain affirmative',
-  forms: ['う', 'く', 'ぐ', 'す', 'つ', 'む', 'ぶ', 'ぬ', 'る', 'る'],
-};
+// const PLAIN_FORM = {
+//   name: 'plain affirmative',
+//   forms: ['う', 'く', 'ぐ', 'す', 'つ', 'む', 'ぶ', 'ぬ', 'る', 'る'],
+// };
 
 const CONJUGATIONS = [
   // present tense: 0-5
@@ -573,6 +573,21 @@ const CONJUGATIONS = [
     ],
   },
   {
+    name: 'without doing',
+    forms: [
+      'わないで',
+      'かないで',
+      'がないで',
+      'さないで',
+      'たないで',
+      'まないで',
+      'ばないで',
+      'なないで',
+      'らないで',
+      'ないで',
+    ],
+  },
+  {
     name: 'negative request',
     forms: [
       'わないでください',
@@ -643,7 +658,7 @@ const CONJUGATIONS = [
 const last = (list = []) => list[list.length - 1];
 const sortByFormSuffixLength = (list) =>
   list.sort((a, b) => last(b.forms).length - last(a.forms).length);
-const inflectConjugations = [PLAIN_FORM, ...sortByFormSuffixLength(CONJUGATIONS)];
+const inflectConjugations = sortByFormSuffixLength(CONJUGATIONS);
 const deinflectConjugations = sortByFormSuffixLength(CONJUGATIONS);
 export const VERB_TYPES = ['v5u', 'v5k', 'v5g', 'v5s', 'v5t', 'v5m', 'v5b', 'v5n', 'v5r', 'v1'];
 export const VERB_ENDINGS = ['う', 'く', 'ぐ', 'す', 'つ', 'む', 'ぶ', 'ぬ', 'る', 'る'];
@@ -690,10 +705,11 @@ export function inflect(verb = '', type = 'v5') {
     verbstem = verb.slice(0, verb.length - 1);
   }
 
-  return inflectConjugations.reduce((acc, { name, forms }) => {
+  const inflections = inflectConjugations.reduce((acc, { name, forms }) => {
     const specific = forms[index];
     return specific !== false ? acc.concat({ name, form: verbstem + specific }) : acc;
   }, []);
+  return [{ name: 'plain affirmative', form: verb }].concat(inflections);
 }
 
 function destep(word, seen = []) {
