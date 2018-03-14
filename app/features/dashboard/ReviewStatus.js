@@ -53,6 +53,14 @@ export class ReviewStatus extends React.Component {
     text: getReviewStatusText(this.props),
   };
 
+  componentDidUpdate({ nextReviewDate }) {
+    // if already mounted and new props come in,
+    // text will otherwise be delayed 5 seconds awaiting interval
+    if (this.props.nextReviewDate !== nextReviewDate) {
+      this.updateText();
+    }
+  }
+
   updateText = () => this.setState({ text: getReviewStatusText(this.props) });
 
   render() {
@@ -80,7 +88,7 @@ export function getReviewStatusText({
   if (isOnVacation) {
     return (
       <Text>
-        On Vacation: <Emphasis>since ${format(vacationDate, DATE_FORMAT)}</Emphasis>
+        On Vacation: <Emphasis>since {format(vacationDate, DATE_FORMAT)}</Emphasis>
       </Text>
     );
   }
@@ -92,17 +100,14 @@ export function getReviewStatusText({
     );
   }
   if (reviewsCount < 1 && nextReviewDate === false) {
-    return (
-      <Text>
-        Next Review: <Emphasis>No reviews unlocked</Emphasis>
-      </Text>
-    );
+    return <Text>No reviews unlocked</Text>;
   }
   if (nextReviewDate && isFuture(nextReviewDate)) {
     return (
       <Text>
         Next Review:{' '}
         <Emphasis>
+          in{' '}
           {distanceInWordsToNow(nextReviewDate, {
             includeSeconds: true,
             suffix: true,

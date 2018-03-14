@@ -1,11 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`getReviewStatusText() has reviews ready 1`] = `"Next Review: Now!"`;
+exports[`getReviewStatusText() has reviews ready 1`] = `
+<styled.h3>
+  Next Review: 
+  <styled.span>
+    Now!
+  </styled.span>
+</styled.h3>
+`;
 
-exports[`getReviewStatusText() no reviews unlocked 1`] = `"Next Review: No reviews unlocked"`;
+exports[`getReviewStatusText() no reviews unlocked 1`] = `
+<styled.h3>
+  No reviews unlocked
+</styled.h3>
+`;
 
-exports[`getReviewStatusText() on vacation 1`] = `"On Vacation: since Dec 26th 2017"`;
+exports[`getReviewStatusText() on vacation 1`] = `
+<styled.h3>
+  On Vacation: 
+  <styled.span>
+    since 
+    Dec 26th 2017
+  </styled.span>
+</styled.h3>
+`;
 
-exports[`getReviewStatusText() review date is future 1`] = `"Next Review: about 2 hours"`;
+exports[`getReviewStatusText() review date is future 1`] = `
+<styled.h3>
+  Next Review:
+   
+  <styled.span>
+    in
+     
+    about 2 hours
+  </styled.span>
+</styled.h3>
+`;
 
-exports[`getReviewStatusText() should have sane default 1`] = `"Next Review: Unknown"`;
+exports[`getReviewStatusText() should have sane default 1`] = `
+<styled.h3>
+  Next Review: 
+  <styled.span>
+    Unknown
+  </styled.span>
+</styled.h3>
+`;
