@@ -40,7 +40,6 @@ function VocabLockButton({ isLocked, isSubmitting, onClick }) {
       bgColorHover={white[2]}
       onClick={onClick}
       isSubmitting={isSubmitting}
-      data-ignore-hotkeys
     >
       <Text>{text}</Text>
       <Icon name={icon} />

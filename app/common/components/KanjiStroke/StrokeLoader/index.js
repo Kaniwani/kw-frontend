@@ -48,7 +48,6 @@ export function StrokeLoader({ word, settings }) {
             colorHover={purple[1]}
             bgColor={purple[1]}
             onClick={toggle}
-            data-ignore-hotkeys
           >
             <Text lang="ja">筆順</Text>
             <Icon name="BRUSH" />

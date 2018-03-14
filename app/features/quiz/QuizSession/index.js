@@ -22,7 +22,6 @@ import { Upper, Lower, Background } from './styles';
 import { SRS_COLORS } from 'common/styles/colors';
 const QuizBackground = pure(Background);
 
-const shouldIgnore = ({ target }) => Object.keys(target.dataset).includes('ignoreHotkeys');
 const isInputField = ({ target }) => ['INPUT', 'TEXTAREA'].includes(target.nodeName);
 const isButton = ({ target }) => ['button', 'submit', 'reset'].includes(target.type);
 const isLink = ({ target }) => target.href != null;
@@ -41,13 +40,7 @@ export class QuizSession extends React.Component {
   };
 
   guardHotKeyHandler = (handler) => (event) => {
-    if (
-      !this.props.isAnswerDisabled ||
-      shouldIgnore(event) ||
-      isInputField(event) ||
-      isButton(event) ||
-      isLink(event)
-    ) {
+    if (!this.props.isAnswerDisabled || isInputField(event) || isButton(event) || isLink(event)) {
       return;
     }
     event.preventDefault();

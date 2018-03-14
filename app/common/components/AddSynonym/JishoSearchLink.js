@@ -24,7 +24,6 @@ function JishoSearchLink({ keyword, visuallyHidden, ...props }) {
       external
       plainLink
       visuallyHidden={visuallyHidden}
-      data-ignore-hotkeys
       {...props}
     />
   );
