@@ -5,8 +5,8 @@ if (IS_PROD_ENV) {
   Raven.config(RAVEN_DSN, {
     release: VERSION,
     ignoreErrors: [
-      // multiple tabs open fetching service workers
-      // 'Failed to update a ServiceWorker: An unknown error occurred when fetching the script',
+      // multiple tabs open or user offline when service worker checks for update
+      'Failed to update a ServiceWorker: An unknown error occurred when fetching the script',
 
       // Random plugins/extensions
       'top.GLOBALS',
