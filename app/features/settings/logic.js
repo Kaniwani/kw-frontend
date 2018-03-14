@@ -24,11 +24,11 @@ export const saveSettingsLogic = createLogic({
         done();
       })
       .catch((err) => {
-        dispatch(app.captureError(err, payload));
         dispatch(settings.save.failure(err));
         if (err.json && err.json.api_key) {
           form.stopSubmit({ apiKey: err.json.api_key[0] });
         } else {
+          dispatch(app.captureError(err, payload));
           form.stopSubmit();
         }
         done();
@@ -38,9 +38,6 @@ export const saveSettingsLogic = createLogic({
 
 export const resetProgressLogic = createLogic({
   type: settings.resetProgress.request,
-  processOptions: {
-    failType: settings.resetProgress.failure,
-  },
   process({ api, action: { payload } }, dispatch, done) {
     api.user
       .resetProgress(payload)
