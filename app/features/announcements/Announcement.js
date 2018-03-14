@@ -13,7 +13,7 @@ import Toggle from 'common/components/Toggle';
 import Icon from 'common/components/Icon';
 import Button from 'common/components/Button';
 
-import { Article, Header, Title, TitleText, Time } from './styles';
+import { Article, Header, Title, Time } from './styles';
 
 Announcement.propTypes = {
   title: PropTypes.string.isRequired,
@@ -32,16 +32,9 @@ export function Announcement({ title, body, pubDate, ...props }) {
         <Article {...props}>
           <Button plainButton {...getTogglerProps()}>
             <Header borderActive={on}>
-              <Title>
-                <TitleText>{title}</TitleText>
-                <Time dateTime={dateTime}>{dateText} </Time>
-              </Title>
-              <Icon
-                inline={false}
-                name={on ? 'ARROW_UP' : 'ARROW_DOWN'}
-                size="1.8rem"
-                color={grey[2]}
-              />
+              <Title>{title}</Title>
+              <Time dateTime={dateTime}>{dateText} </Time>
+              <Icon name={on ? 'ARROW_UP' : 'ARROW_DOWN'} size="1.7rem" color={grey[2]} />
             </Header>
           </Button>
           <Collapse isOpened={on} springConfig={{ stiffness: 205, damping: 22 }}>
