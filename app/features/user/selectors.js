@@ -51,7 +51,7 @@ export const selectVacationDate = createSelector(
 export const selectNextReviewDate = createSelector(
   selectUserProfile,
   // padded with 30 second safety net to ensure server is completely updated when we request new review count
-  getBy('nextReviewDate', (date) => date != null ? addSeconds(date, 30) : false)
+  getBy('nextReviewDate', (date) => (date != null ? addSeconds(date, 30) : false))
 );
 
 export const selectLastWkSyncDate = createSelector(
@@ -79,11 +79,6 @@ export const selectUpcomingReviews = createSelector(
 export const selectUpcomingReviewsTotal = createSelector(
   selectUserProfile,
   getBy('upcomingReviews', sum)
-);
-
-export const selectNextReviewCount = createSelector(
-  selectUserProfile,
-  getBy('upcomingReviews', (data) => (data && data.find((n) => n > 0)) || 0)
 );
 
 export const selectUseEijiroProLink = createSelector(

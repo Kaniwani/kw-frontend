@@ -6,7 +6,6 @@ import cuid from 'cuid';
 import { Switch, Route } from 'react-router-dom';
 import { hasToken } from 'common/utils/auth';
 
-import { breakpoints } from 'common/styles/media';
 import { selectLocationPath } from 'common/selectors';
 
 import Element from 'common/components/Element';
@@ -17,6 +16,8 @@ import OffCanvasMenu from './OffCanvasMenu';
 
 import { Header, Nav, NavLinks } from './styles';
 import NavLink from './NavLink';
+
+const MIN_VIEWPORT_SIZE = 700;
 
 const ConnectedSwitch = connect((state) => ({ location: state.router.location }))(Switch);
 
@@ -94,7 +95,7 @@ export class SiteHeaderContainer extends React.Component {
 
   state = {
     offCanvasMenuActive: false,
-    isWideViewport: null,
+    allLinksFit: null,
   };
 
   componentDidMount() {
@@ -116,7 +117,7 @@ export class SiteHeaderContainer extends React.Component {
   handleResize = debounce(() => {
     this.hideOffCanvasMenu();
     this.setState({
-      isWideViewport: window.innerWidth > breakpoints.md,
+      allLinksFit: window.innerWidth > MIN_VIEWPORT_SIZE,
     });
   }, 150);
 
@@ -129,12 +130,12 @@ export class SiteHeaderContainer extends React.Component {
   };
 
   render() {
-    const viewportMeasured = this.state.isWideViewport != null;
+    const viewportMeasured = this.state.allLinksFit != null;
     return (
       viewportMeasured &&
       hasToken() && (
         <SiteHeader
-          expanded={this.state.isWideViewport}
+          expanded={this.state.allLinksFit}
           showOffCanvasMenu={this.state.offCanvasMenuActive}
           onHamburgerToggle={this.showOffCanvasMenu}
           onMenuClose={this.hideOffCanvasMenu}

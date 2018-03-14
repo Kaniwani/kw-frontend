@@ -3,7 +3,7 @@ import { transparentize, placeholder } from "polished";
 
 import { gutter } from "common/styles/layout";
 import { visuallyHidden } from "common/styles/utils";
-import { grey, blue, yellow } from "common/styles/colors";
+import { grey } from "common/styles/colors";
 import { fastEaseQuad } from 'common/styles/animation';
 
 import IconButton from "common/components/IconButton";
@@ -39,17 +39,13 @@ export const SubmitButton = styled(IconButton)`
 export const InputWrapper = styled.div`
   width: 100%;
   font-size: 1em;
-  border: 1px solid ${transparentize(0.1, blue[3])};
+  border: ${({ bgColor }) => css`1px solid ${transparentize(0.1, bgColor)}`};
   border-right-width: 0;
   border-radius: ${SIZE}em 0 0 ${SIZE}em;
   display: flex;
   flex-direction: column;
   justify-content: center;
   transition: all ${fastEaseQuad};
-
-  ${({ invalid }) => invalid && css`
-    border-color: ${yellow[5]};
-  `}
 
   & > input {
     margin-left: ${SIZE / 2.25}em;
