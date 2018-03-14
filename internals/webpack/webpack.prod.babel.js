@@ -8,7 +8,10 @@ module.exports = require('./webpack.base.babel')({
   // In production, we skip all hot-reloading stuff
   entry: [path.join(process.cwd(), 'app/index.js')],
 
+  // ignore source-maps in open devtools in production, but still create and link them for uploading to Sentry
   devtool: 'hidden-source-map',
+
+  babelQuery: { plugins: ['recharts'] },
 
   // Utilize long-term caching by adding content hashes (not compilation hashes) to compiled assets
   output: {

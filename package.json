@@ -129,6 +129,7 @@
     "babel-loader": "7.1.4",
     "babel-plugin-dynamic-import-node": "1.2.0",
     "babel-plugin-react-transform": "3.0.0",
+    "babel-plugin-recharts": "1.1.1",
     "babel-plugin-styled-components": "1.5.1",
     "babel-plugin-transform-es2015-modules-commonjs": "6.26.0",
     "babel-plugin-transform-imports": "1.5.0",
