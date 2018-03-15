@@ -40,7 +40,7 @@ function Dashboard({ upcomingReviewsTotal, lastLoad }) {
       <Container>
         <Element flexColumn flexCenter>
           <H2 style={{ color: grey[8] }}>Coming Up</H2>
-          {upcomingReviewsTotal && (
+          {upcomingReviewsTotal > 0 && (
             <H3 style={{ fontWeight: 500, color: grey[9] }}>{upcomingReviewsTotal} reviews</H3>
           )}
         </Element>
