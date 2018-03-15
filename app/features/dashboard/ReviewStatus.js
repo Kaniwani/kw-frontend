@@ -85,6 +85,10 @@ export function getReviewStatusText({
   nextReviewDate,
   loadUser,
 } = {}) {
+  const freshUser = reviewsCount < 1 && !nextReviewDate;
+  const past = nextReviewDate && isPast(nextReviewDate);
+  const upcoming = nextReviewDate && isFuture(nextReviewDate);
+
   if (isOnVacation) {
     return (
       <Text>
@@ -92,6 +96,7 @@ export function getReviewStatusText({
       </Text>
     );
   }
+
   if (reviewsCount > 0) {
     return (
       <Text>
@@ -99,10 +104,17 @@ export function getReviewStatusText({
       </Text>
     );
   }
-  if (reviewsCount < 1 && nextReviewDate === false) {
-    return <Text>No reviews unlocked</Text>;
+
+  if (past) {
+    loadUser();
+    return (
+      <Text>
+        Next Review: <Emphasis>Loading...</Emphasis>
+      </Text>
+    );
   }
-  if (nextReviewDate && isFuture(nextReviewDate)) {
+
+  if (upcoming) {
     return (
       <Text>
         Next Review:{' '}
@@ -116,9 +128,11 @@ export function getReviewStatusText({
       </Text>
     );
   }
-  if (nextReviewDate && isPast(nextReviewDate)) {
-    loadUser();
+
+  if (freshUser) {
+    return <Text>No reviews unlocked</Text>;
   }
+
   return (
     <Text>
       Next Review: <Emphasis>Unknown</Emphasis>
