@@ -19,3 +19,9 @@ export const Wrapper = styled.div`
     ${gutter({ prop: 'padding', type: 'outer' })}
   `};
 `;
+
+export const ReadingWrapper = styled.div`
+  &:not(:first-child) {
+    margin-top: 1rem;
+  }
+`;

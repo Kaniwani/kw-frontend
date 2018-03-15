@@ -32,7 +32,7 @@ import synonym from 'features/synonyms/actions';
 // we set this in quiz.advance and hold onto for clearing in quiz.answer.record
 let autoAdvance = {};
 
-const stopAutoAdvance = () => {
+export const stopAutoAdvance = () => {
   if (autoAdvance.timeoutId != null) {
     clearTimeout(autoAdvance.timeoutId);
     autoAdvance.done();
@@ -223,6 +223,27 @@ export const ignoreAnswerLogic = createLogic({
   },
 });
 
+export const disableReviewLogic = createLogic({
+  type: review.lock.request,
+  process({ history, getState, action: { payload: { id } } }, dispatch, done) {
+    stopAutoAdvance();
+    const isFinalQuestion = selectIsFinalQuestion(getState());
+    const category = selectCategory(getState());
+    dispatch(quiz.answer.update({ isIgnored: true }));
+    if (isFinalQuestion) {
+      dispatch(quiz.info.reset());
+      dispatch(quiz.question.advance());
+      dispatch(quiz.session.queue.clear());
+      dispatch(quiz.session.current.replace());
+      setTimeout(() => history.push(`/${category}`), 2000);
+    } else {
+      dispatch(quiz.session.queue.remove(id));
+      dispatch(quiz.question.advance());
+    }
+    done();
+  },
+});
+
 export const recordAnswerLogic = createLogic({
   type: quiz.answer.record.request,
   process({ api, history, getState }, dispatch, done) {
@@ -340,6 +361,7 @@ export default [
   confirmAnswerLogic,
   checkAnswerLogic,
   ignoreAnswerLogic,
+  disableReviewLogic,
   incorrectAnswerLogic,
   correctAnswerLogic,
   recordAnswerLogic,

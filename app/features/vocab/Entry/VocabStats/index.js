@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { format, isSameMinute } from 'date-fns';
+import { format } from 'date-fns';
 
 import { DATE_FORMAT } from 'common/constants';
 import getSrsRankName from 'common/utils/getSrsRankName';
@@ -17,7 +17,7 @@ import Status from './Status';
 function getReviewStatusText(hidden, needsReview, nextReviewDate) {
   switch (true) {
     case hidden:
-      return 'Entry Locked';
+      return 'Suspended';
     case needsReview:
       return 'Now';
     default:
@@ -63,13 +63,9 @@ export function VocabStats({
   unlockDate,
 }) {
   const kaniwaniBurned = getSrsRankName(streak) === 'BURNED';
-  // TODO: get Tadgh to investigate why these were the same minute,
-  // but different seconds when it seems lastStudied should be null
-  // Could just have been a dodgy staging server state due to his failed duplicate merging
-  // IE: check if any of these are bad on live server
-  const fishyLastStudiedDate = isSameMinute(lastStudied, unlockDate);
-  let lastStudiedStatus = fishyLastStudiedDate ? 'N/A' : getDateInWords(lastStudied);
-  lastStudiedStatus = kaniwaniBurned ? format(lastStudied, DATE_FORMAT) : lastStudiedStatus;
+  const lastStudiedStatus = kaniwaniBurned
+    ? format(lastStudied, DATE_FORMAT)
+    : getDateInWords(lastStudied);
   return (
     <Element>
       <StreakStatus category="KW" streak={streak} />

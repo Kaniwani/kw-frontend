@@ -28,7 +28,7 @@ VocabLockButton.defaultProps = {
 
 function VocabLockButton({ isLocked, isSubmitting, onClick }) {
   const icon = isLocked ? 'LOCK_CLOSED' : 'LOCK_OPEN';
-  const text = `${isLocked ? 'Unlock' : 'Lock'} Review`;
+  const text = `${isLocked ? 'Enable' : 'Suspend'} Review`;
 
   return (
     <Button
