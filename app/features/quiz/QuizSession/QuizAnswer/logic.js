@@ -8,6 +8,7 @@ import determineCriticality from 'common/utils/determineCriticality';
 import { matchAnswer, increment, decrement, isInputValid, cleanseInput } from './utils';
 
 import { selectQuizSettings } from 'features/user/selectors';
+import { selectReviewById } from 'features/reviews/selectors';
 import { selectVocabById } from 'features/vocab/selectors';
 import { selectSynonymById } from 'features/synonyms/selectors';
 import {
@@ -17,6 +18,7 @@ import {
   selectIsFinalQuestion,
   selectWrapUp,
   selectCurrent,
+  selectCurrentId,
   selectCurrentPreviouslyIncorrect,
 } from 'features/quiz/QuizSession/selectors';
 import { selectAnswer, selectAnswerIgnored } from './selectors';
@@ -75,8 +77,12 @@ export const confirmAnswerLogic = createLogic({
     if (value && isValid && isDisabled) {
       dispatch(quiz.answer.record.request());
     } else {
-      // eslint-disable-next-line no-console
-      console.warn('Tried to confirm answer, but answer state was invalid');
+      dispatch(
+        app.captureError(
+          'Tried to confirm answer, but answer state was invalid',
+          selectAnswer(getState())
+        )
+      );
     }
     done();
   },
@@ -86,11 +92,13 @@ export const checkAnswerLogic = createLogic({
   type: quiz.answer.check,
   latest: true,
   process({ getState }, dispatch, done) {
-    const { value } = selectAnswer(getState());
-    const settings = selectQuizSettings(getState());
-    let { vocab, synonyms } = selectCurrent(getState());
-    vocab = vocab.map((id) => selectVocabById(getState(), { id }));
-    synonyms = synonyms.map((id) => selectSynonymById(getState(), { id }));
+    const state = getState();
+    const { value } = selectAnswer(state);
+    const settings = selectQuizSettings(state);
+    const currentId = selectCurrentId(state);
+    let { vocab, synonyms } = selectReviewById(state, { id: currentId });
+    vocab = vocab.map((id) => selectVocabById(state, { id }));
+    synonyms = synonyms.map((id) => selectSynonymById(state, { id }));
     const matchedAnswer = matchAnswer(value, [vocab, synonyms]);
     const updatedAnswer = {
       isFocused: false,
@@ -227,7 +235,7 @@ export const recordAnswerLogic = createLogic({
     const previouslyIncorrect = selectCurrentPreviouslyIncorrect(getState());
     stopAutoAdvance();
 
-    // only add to totals if not already present
+    // only add to correct/incorrect totals on first attempt
     if (!previouslyIncorrect) {
       const action = isCorrect ? 'addCorrect' : 'addIncorrect';
       dispatch(quiz.session[action](current.id));
