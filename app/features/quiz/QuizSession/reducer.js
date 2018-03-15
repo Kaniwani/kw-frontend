@@ -103,7 +103,7 @@ const removeIdFromQueue = (state, { payload }) =>
 const mergeQueue = (state, { payload }) =>
   update(state, {
     queue: {
-      $set: union(state.queue, difference(payload.reviewIds, state.current.id)),
+      $set: union(state.queue, difference(payload.reviewIds, [state.current.id], state.complete)),
     },
   });
 
