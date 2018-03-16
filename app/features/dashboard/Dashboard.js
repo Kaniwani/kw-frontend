@@ -26,7 +26,9 @@ Dashboard.propTypes = {
 
 function Dashboard({ upcomingReviewsTotal, lastLoad }) {
   return !lastLoad ? (
-    <Spinner />
+    <Container>
+      <Spinner />
+    </Container>
   ) : (
     <Fragment>
       <Container>
