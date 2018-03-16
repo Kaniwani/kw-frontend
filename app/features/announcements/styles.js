@@ -7,13 +7,23 @@ import { ffBody } from 'common/styles/typography';
 import H4 from 'common/components/H4';
 
 export const Article = styled.article`
+  ${gutter({ position: 'vertical', type: 'margin' })}
   & .ReactCollapse--content {
-    ${gutter({ position: 'vertical', mod: 3 })}
-    max-width: 30em;
+    ${gutter({ position: 'vertical' })}
+    display: flex;
+    justify-content: center;
     line-height: 1.3;
-    text-align: left;
     & > div {
-      ${gutter()}
+      padding: 4px 0 8px;
+      max-width: 30em;
+      ul {
+        padding-left: 12px;
+        text-align: left;
+        max-width: 26em;
+        li {
+          padding: 5px 0;
+        }
+      }
     }
   }
 `;
@@ -21,7 +31,7 @@ export const Article = styled.article`
 export const Header = styled.header`
   display: flex;
   flex-flow: row wrap;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   ${({ borderActive }) => borderActive && `border-bottom: 2px solid ${white[7]};`}
 `;
@@ -31,8 +41,7 @@ export const Title = H4.extend`
 `;
 
 export const Time = styled.time`
-  ${gutter({ mod: 1 })}
-  display: block;
+  padding: 0 .6rem;
   color: ${grey[8]};
   font-family: ${ffBody};
   font-weight: 400;

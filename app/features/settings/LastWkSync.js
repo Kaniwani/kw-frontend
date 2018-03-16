@@ -1,32 +1,30 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { distanceInWordsToNow } from "date-fns";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { distanceInWordsToNow } from 'date-fns';
 
-import { selectLastWkSyncDate } from "features/user/selectors";
+import { selectLastWkSyncDate } from 'features/user/selectors';
 
-import Element from "common/components/Element";
+import Element from 'common/components/Element';
 // import Button from "common/components/Button";
-import H5 from "common/components/H5";
-import P from "common/components/P";
+import H5 from 'common/components/H5';
+import P from 'common/components/P';
 
 LastWkSync.propTypes = {
-  lastWkSyncDate: PropTypes.oneOfType([
-    PropTypes.instanceOf(Date),
-    PropTypes.oneOf([false]),
-  ]).isRequired,
+  lastWkSyncDate: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.oneOf([false])])
+    .isRequired,
 };
 
 export function LastWkSync({ lastWkSyncDate }) {
   return (
-    <Element flexRow>
+    <Element flexRow alignItems="center">
       <H5>Last Sync with WaniKani:</H5>
-      <P>
+      <P style={{ fontSize: '0.95rem' }}>
         {distanceInWordsToNow(lastWkSyncDate, {
           includeSeconds: true,
           suffix: true,
         })}
-        {" ago"}
+        {' ago'}
       </P>
       {
         // TODO: allow user to force syncing?
