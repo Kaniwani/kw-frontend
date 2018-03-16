@@ -8,8 +8,8 @@ import { visuallyHidden } from 'common/styles/utils';
 import { shadowBox, innerMedium } from 'common/styles/shadows';
 import { kilo } from 'common/styles/typography';
 import { gutter } from 'common/styles/layout';
-import { fastEaseQuad, shake } from 'common/styles/animation';
-import { transparent, white, black, yellow, red, green, orange } from 'common/styles/colors';
+import { fastEaseQuad } from 'common/styles/animation';
+import { transparent, white, grey, yellow, red, green, orange } from 'common/styles/colors';
 import { backgroundImageColor } from 'features/quiz/QuizSession/styles';
 
 /* eslint-disable indent */
@@ -26,7 +26,7 @@ export const Form = styled.form`
   ${kilo}
   max-width: 100%;
   background-color: ${backgroundImageColor};
-  color: ${({ marked, valid }) => marked && valid ? white[3] : black[5]};
+  color: ${({ marked, valid }) => marked && valid ? white[3] : grey[9]};
   border: 0;
   border-radius: 0;
   outline: none;
@@ -66,7 +66,7 @@ export const Input = styled.input`
   }
 
   ${({ marked, valid }) => {
-    const color = valid ? white[3] : black[5];
+    const color = valid ? white[3] : grey[9];
     return marked && css`
       color: ${color}; /* Override Android / IE font color change */
       -webkit-text-fill-color: ${color};
@@ -85,10 +85,6 @@ export const Input = styled.input`
       }
     `;
   }}
-
-  ${({ marked, valid }) => marked && !valid && css`
-    animation: ${shake} .35s ease-in-out;
-  `}
 
   &:focus {
     outline: none;

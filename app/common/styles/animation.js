@@ -29,37 +29,6 @@ export const wobble = keyframes`
   }
 `;
 
-export const shake = keyframes`
-  from, to {
-    transform: translate3d(0, 0, 0);
-  }
-
-  10% {
-    transform: translate3d(-1rem, 0, 0);
-  }
-
-  25% {
-    transform: translate3d(1rem, 0, 0);
-  }
-
-  40% {
-    transform: translate3d(-1.2rem, 0, 0);
-  }
-
-  55% {
-    transform: translate3d(1.2rem, 0, 0);
-  }
-
-  70% {
-    transform: translate3d(-.5rem, 0, 0);
-  }
-
-  85% {
-    transform: translate3d(.5rem, 0, 0);
-  }
-
-}`;
-
 export const fadeOutUp = keyframes`
   0% {
     opacity: 1;
