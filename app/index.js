@@ -7,6 +7,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import 'sanitize.css/sanitize.css';
 
+import Raven from 'common/raven';
 import { IS_PROD_ENV } from 'common/constants';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 
@@ -34,7 +35,7 @@ const render = () => {
     localStorage.setItem('kw_bootstrapped', 'true');
   } catch (e) {
     window.alert(
-      'LocalStorage access has been denied by your browser. Kaniwani will not work properly if we cannot store local data! Please re-enable it in browser settings or upgrade your browser to use this site.'
+      'LocalStorage access has been denied by your device. Kaniwani reviews will not work properly if we cannot store local data! Please use normal (not private or incognito browsing), re-enable it in browser settings, or upgrade your browser to use this site.'
     );
   }
   // Dynamically import our main App component, and render it
@@ -68,27 +69,29 @@ render();
 // Install ServiceWorker and AppCache in the end since
 // it's not most important operation and if main code fails,
 // we do not want it installed
+/* eslint-disable no-console, no-alert */
 if (IS_PROD_ENV) {
   const runtime = require('offline-plugin/runtime');
   runtime.install({
     onUpdateReady: () => {
-      console.info(`Kaniwani: update ready`);
+      console.info('Kaniwani: update ready');
       // Tell new SW to take control immediately
       runtime.applyUpdate();
     },
     onUpdating: () => {
-      console.info(`Kaniwani: updating`);
+      console.info('Kaniwani: updating');
     },
     onUpdated: () => {
-      console.info(`Kaniwani: update successful`);
-      window.alert(`Kaniwani has been updated and will now reload.`);
+      console.info('Kaniwani: update successful');
+      window.alert('Kaniwani update ready! The app will now reload to install updates.');
       window.location.reload();
     },
     onUpdateFailed: () => {
-      console.warn(`Kaniwani: update failed`);
+      console.warn('Kaniwani: update failed');
     },
   });
 }
+/* eslint-enable no-console */
 
 /* eslint-disable */
 // Trace component updates to determine any necessary perf optimizations
