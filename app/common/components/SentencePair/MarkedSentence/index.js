@@ -24,7 +24,7 @@ function MarkedSentence({ sentence, word, reading, verbType }) {
   return (
     <Sentence lang="ja">
       <A
-        href={`http://jisho.org/search/${sentence}`}
+        href={`https://jisho.org/search/${sentence}`}
         title="Deconstruct sentence at Jisho.org"
         plainLink
         external

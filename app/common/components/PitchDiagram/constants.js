@@ -1,4 +1,4 @@
-export const WEBLIO_QUERY_URL = 'http://www.weblio.jp/content?query=';
+export const WEBLIO_QUERY_URL = 'https://www.weblio.jp/content?query=';
 
 export const HIRA_DIGRAPHS = ['ぁ', 'ぃ', 'ぅ', 'ぇ', 'ぉ', 'ゃ', 'ゅ', 'ょ', 'ゎ', 'ゕ', 'ゖ'];
 export const KATA_DIGRAPHS = ['ァ', 'ィ', 'ゥ', 'ェ', 'ォ', 'ャ', 'ュ', 'ョ', 'ヮ', 'ヵ', 'ヶ'];

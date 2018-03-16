@@ -31,7 +31,7 @@ function AboutPage() {
             <H1>What’s this all about then?</H1>
             <P constrain>
               KaniWani is a companion website to{' '}
-              <A href="http://www.wanikani.com" external>
+              <A href="https://www.wanikani.com" external>
                 WaniKani
               </A>, an SRS tool for kanji and vocabulary memorization. We felt that WaniKani helped
               a lot with being able to recognize and read Kanji, but didn’t help enough when trying
