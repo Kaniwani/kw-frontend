@@ -15,7 +15,7 @@ import AddSynonymForm, { ANSWER_TYPES } from 'common/components/AddSynonym/AddSy
 
 export const AddSynonymModal = ({ isOpen, onClose, formProps }) =>
   isOpen ? (
-    <div style={{ zIndex: '100' }}>
+    <div style={{ position: 'relative', zIndex: '100' }}>
       <Fixed top={0} right={0} bottom={0} left={0} onClick={onClose} />
       <Overlay w={['320px', '80vw', '720px']}>
         <Absolute top={0} right={0} p={1}>
