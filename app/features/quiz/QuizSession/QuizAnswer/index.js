@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bind, unbind } from 'wanakana';
 
-import { SRS_RANKS } from 'common/constants';
 import smoothScrollY from 'common/utils/smoothScrollY';
 
 import quiz from 'features/quiz/actions';
 import selectAnswer from 'features/quiz/QuizSession/QuizAnswer/selectors';
-import { selectCurrentStreakName } from 'features/quiz/QuizSession/selectors';
+import { selectCurrentStreak } from 'features/quiz/QuizSession/selectors';
 import { Form, AnswerWrapper, Label, Streak, Input, IgnoreButton, SubmitButton } from './styles';
 
 export class QuizAnswer extends React.Component {
@@ -16,7 +15,7 @@ export class QuizAnswer extends React.Component {
     onIgnore: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     value: PropTypes.string, // eslint-disable-line react/require-default-props
-    streakName: PropTypes.string,
+    streak: PropTypes.string,
     isFocused: PropTypes.bool,
     isMarked: PropTypes.bool,
     isValid: PropTypes.bool,
@@ -27,7 +26,7 @@ export class QuizAnswer extends React.Component {
   };
 
   static defaultProps = {
-    streakName: SRS_RANKS.ZERO,
+    streak: 0,
     isFocused: true,
     isMarked: false,
     isValid: false,
@@ -69,7 +68,9 @@ export class QuizAnswer extends React.Component {
   onSubmit = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    this.props.onSubmit(this.inputFieldRef.value);
+    if (this.inputFieldRef.value.length) {
+      this.props.onSubmit(this.inputFieldRef.value);
+    }
   };
 
   render() {
@@ -81,7 +82,7 @@ export class QuizAnswer extends React.Component {
       isIgnored,
       isMarked,
       isValid,
-      streakName,
+      streak,
     } = this.props;
     return (
       <Form
@@ -106,7 +107,7 @@ export class QuizAnswer extends React.Component {
               onClick={this.onIgnore}
             />
           ) : (
-            <Streak streakName={streakName} size="1.15em" />
+            <Streak streak={streak} size="1.15em" />
           )}
           <Label htmlFor="answer">Vocabulary reading</Label>
           <Input
@@ -137,7 +138,7 @@ export class QuizAnswer extends React.Component {
 
 const mapStateToProps = (state, props) => ({
   ...selectAnswer(state, props),
-  streakName: selectCurrentStreakName(state, props),
+  streak: selectCurrentStreak(state, props),
 });
 
 const mapDispatchToProps = {

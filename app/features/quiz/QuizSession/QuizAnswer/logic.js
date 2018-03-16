@@ -167,8 +167,7 @@ export const incorrectAnswerLogic = createLogic({
     const current = selectCurrent(getState());
     const isLessonQuiz = selectIsLessonQuiz(getState());
     const previouslyIncorrect = selectCurrentPreviouslyIncorrect(getState());
-    let { incorrect: newIncorrect } = current;
-    let { streak: newStreak } = current;
+    let { streak: newStreak, incorrect: newIncorrect } = current;
 
     if (!isLessonQuiz && !previouslyIncorrect) {
       const isCloseToBurned = [...SRS_RANGES.THREE, ...SRS_RANGES.FOUR].includes(newStreak);

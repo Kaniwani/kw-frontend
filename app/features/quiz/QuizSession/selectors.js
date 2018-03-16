@@ -1,11 +1,10 @@
 import { createSelector } from 'reselect';
 
 import calculatePercentage from 'common/utils/calculatePercentage';
-import getSrsRankName from 'common/utils/getSrsRankName';
 
 import { SESSION_CATEGORIES, MINIMUM_QUEUE_COUNT } from './constants';
 
-import { getBy, getState } from 'common/selectors';
+import { getState } from 'common/selectors';
 import { selectUserProfile } from 'features/user/selectors';
 import { selectPrimaryVocabId } from 'features/reviews/selectors';
 import { selectVocabById } from 'features/vocab/selectors';
@@ -37,10 +36,7 @@ export const selectSynonymModalOpen = createSelector(
   getState('synonymModalOpen')
 );
 export const selectCurrentId = createSelector(selectCurrent, getState('id'));
-export const selectCurrentStreakName = createSelector(
-  selectCurrent,
-  getBy('streak', getSrsRankName)
-);
+export const selectCurrentStreak = createSelector(selectCurrent, getState('streak'));
 
 export const selectPrimaryVocabFromCurrent = createSelector(
   [selectCurrentId, (state) => state],
