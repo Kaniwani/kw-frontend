@@ -74,7 +74,8 @@ class App extends React.Component {
             headerText="Huh, where’d KW go?"
             subHeaderText={
               <Fragment>
-                We’re probably rebooting the server. Check in with us on{' '}
+                The server is either under very heavy load or we’re restarting it. Check in with us
+                on{' '}
                 <A href="https://rauchg-slackin-iurjmkotad.now.sh" external color={cyan[4]}>
                   Slack
                 </A>.

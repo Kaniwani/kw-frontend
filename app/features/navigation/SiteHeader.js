@@ -53,7 +53,6 @@ export function SiteHeader({ expanded, showOffCanvasMenu, onHamburgerToggle, onM
     <Header>
       <ConnectedSwitch>
         <Route exact path="/:category(lessons|reviews)/session" />
-        <Route exact path="/maintenance" />
         <Route exact path="/welcome" />
         <Route
           render={() => (
