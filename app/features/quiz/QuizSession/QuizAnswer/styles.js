@@ -61,7 +61,7 @@ export const Input = styled.input`
   padding-right: 1.75em;
   transition: all ${fastEaseQuad};
 
-  &:placeholder-shown {
+  &&&:placeholder-shown {
     ${placeholder({ color: white[7] })} /* focused input placeholder text color */
   }
 
@@ -72,10 +72,12 @@ export const Input = styled.input`
       -webkit-text-fill-color: ${color};
       -webkit-opacity: 1; /* Override iOS opacity change affecting text & background color */
       ${placeholder({ color })} /* Override browser-forced color */
-      &:placeholder-shown {
+
+      &&&:placeholder-shown {
         ${placeholder({ color })} /* Override browser-forced color */
       }
-      &[type="text"]:disabled {
+
+      &&&:disabled {
         color: ${white[3]};
         -webkit-text-fill-color: ${white[3]};
         -webkit-opacity: 1;
@@ -109,6 +111,7 @@ const ActionButton = styled(IconButton)`
   transition: all ${fastEaseQuad};
   z-index: 2;
   opacity: .9;
+
   &:hover {
     opacity: 1;
   }
@@ -141,11 +144,17 @@ function bgColorMixin({
   incorrect,
   ignored,
 }) {
-  switch (true) {
-    case marked && !valid: return `background-color: ${yellow[7]};`;
-    case ignored: return `background-color: ${orange[4]};`;
-    case correct: return `background-color: ${green[5]};`;
-    case incorrect: return `background-color: ${red[5]};`;
-    default: return false;
-  }
+    if (marked && !valid) {
+      return `background-color: ${yellow[7]};`;
+    }
+    if (ignored) {
+      return `background-color: ${orange[4]};`;
+    }
+    if (correct) {
+      return `background-color: ${green[5]};`;
+    }
+    if (incorrect) {
+      return `background-color: ${red[5]};`;
+    }
+    return '';
 }

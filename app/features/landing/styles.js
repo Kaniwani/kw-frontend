@@ -152,24 +152,24 @@ export const InputWrapper = styled.div`
   margin: .25rem auto;
   transition: all 300ms ${timingFunctions('easeOutSine')};
 
-  &[aria-hidden="true"] {
+  ${({ isHidden }) => isHidden && css`
     transition: all 150ms ${timingFunctions('easeOutSine')};
     max-height: 0;
     margin: 0;
     padding: 0;
     overflow: hidden;
 
-    ${InputField},
-    ${ValidationMessage} {
+    & ${InputField},
+    & ${ValidationMessage} {
       border: none;
     }
 
-    ${ApiLink} {
+    & ${ApiLink} {
       pointer-events: none;
       opacity: 0;
       transform: translateY(-33%) scale(0);
     }
-  }
+  `}
 `;
 
 export const SelectedPointer = styled.span`

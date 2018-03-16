@@ -18,7 +18,7 @@ Input.defaultProps = {
 
 function Input({ label, input, meta, placeholder, isHidden, children, ...props }) {
   return (
-    <InputWrapper aria-hidden={isHidden}>
+    <InputWrapper aria-hidden={isHidden} isHidden={isHidden}>
       <Label htmlFor={input.name}>{label}</Label>
       <InputField
         id={input.name}
@@ -32,7 +32,9 @@ function Input({ label, input, meta, placeholder, isHidden, children, ...props }
         {...props}
       />
       {children}
-      {!isHidden && meta.touched && meta.error && <ValidationMessage>{meta.error}</ValidationMessage>}
+      {!isHidden &&
+        meta.touched &&
+        meta.error && <ValidationMessage>{meta.error}</ValidationMessage>}
     </InputWrapper>
   );
 }
