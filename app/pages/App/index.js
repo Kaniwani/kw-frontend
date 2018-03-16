@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { Provider as ThemeProvider } from 'rebass';
 
+import { ffBody } from 'common/styles/typography';
 import user from 'features/user/actions';
 import { hasToken } from 'common/utils/auth';
 import { selectLocationPath, selectMaintenance } from 'common/selectors';
@@ -86,7 +87,7 @@ class App extends React.Component {
           <Fragment>
             <SiteHeader />
             <main>
-              <ThemeProvider>
+              <ThemeProvider theme={{ fonts: { sans: ffBody } }}>
                 <Routes />
                 <ScrollToTop />
               </ThemeProvider>
