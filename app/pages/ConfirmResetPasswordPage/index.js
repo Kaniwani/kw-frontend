@@ -1,66 +1,48 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { reduxForm, Field, propTypes as formPropTypes } from 'redux-form';
 
 import user from 'features/user/actions';
 
 import LandingPage from 'pages/LandingPage/Loadable';
-import {
-  Wrapper,
-  Form,
-  InputWrapper,
-  Label,
-  InputField,
-  SubmitButton,
-} from 'features/landing/styles';
+import { requiredValid, minLengthValid } from 'common/validations';
+import Input from 'features/landing/Input';
+import { Wrapper, Form, SubmitButton } from 'features/landing/styles';
 
-class ConfirmResetPassword extends React.Component {
-  static propTypes = {
-    confirmReset: PropTypes.func.isRequired,
-  };
+ConfirmResetPassword.propTypes = {
+  ...formPropTypes,
+};
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    this.props.confirmReset(this.inputRef.value);
-  };
-
-  // TODO: try formik here?
-  render() {
-    return (
-      <LandingPage>
-        <Wrapper>
-          <Form onSubmit={this.handleSubmit}>
-            <InputWrapper>
-              <Label htmlFor="newPassword">New Password</Label>
-              <InputField
-                id="newPassword"
-                type="password"
-                placeholder="New Password"
-                innerRef={(node) => {
-                  this.inputRef = node;
-                }}
-              />
-              <SubmitButton lang="ja" type="submit">
-                Submit
-              </SubmitButton>
-            </InputWrapper>
-          </Form>
-        </Wrapper>
-      </LandingPage>
-    );
-  }
+function ConfirmResetPassword({ handleSubmit, submitting }) {
+  return (
+    <LandingPage>
+      <Wrapper>
+        <Form onSubmit={handleSubmit}>
+          <Field
+            label="New Password"
+            name="newPassword"
+            component={Input}
+            type="password"
+            placeholder="New Password"
+            validate={[requiredValid, minLengthValid]}
+          />
+          <SubmitButton type="submit" style={{ fontSize: '1.1rem' }}>
+            {submitting ? 'Resetting...' : 'Reset'}
+          </SubmitButton>
+        </Form>
+      </Wrapper>
+    </LandingPage>
+  );
 }
 
-const mapDispatchToProps = (dispatch, props) => ({
-  confirmReset: (newPassword) => {
+export default reduxForm({
+  form: 'resetPasswordConfirm',
+  onSubmit: ({ newPassword }, dispatch, props) => {
     const { uid, token } = props.match.params;
     const data = {
       uid,
       token,
       new_password: newPassword,
     };
-    dispatch(user.confirmResetPassword.request(data));
+    dispatch(user.confirmResetPassword.request(data, { form: props }));
   },
-});
-
-export default connect(null, mapDispatchToProps)(ConfirmResetPassword);
+})(ConfirmResetPassword);

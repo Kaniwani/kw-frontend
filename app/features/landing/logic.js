@@ -72,8 +72,9 @@ export const resetPasswordLogic = createLogic({
       .then(() => {
         dispatch(user.resetPassword.success());
         form.stopSubmit();
-        // TODO: notification user to check email
+        // FIXME: proper notification
         window.alert('Check your email to complete reset');
+        form.reset();
         done();
       })
       .catch((err) => {
@@ -87,16 +88,20 @@ export const resetPasswordLogic = createLogic({
 
 export const confirmResetPasswordLogic = createLogic({
   type: user.confirmResetPassword.request,
-  process({ api, action: { payload } }, dispatch, done) {
+  process({ history, api, action: { payload, meta: { form } } }, dispatch, done) {
+    form.startSubmit();
     api.user
       .confirmResetPassword(payload)
       .then(() => {
+        form.stopSubmit();
         dispatch(user.confirmResetPassword.success());
-        window.alert('Password reset complete');
+        history.push('/welcome');
         done();
       })
       .catch((err) => {
         dispatch(app.captureError(err, payload));
+        const errors = err.json && Object.values(err.json);
+        form.stopSubmit({ newPassword: errors });
         dispatch(user.confirmResetPassword.failure(err));
         done();
       });
