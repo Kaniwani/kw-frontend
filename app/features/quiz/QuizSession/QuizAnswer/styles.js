@@ -18,13 +18,13 @@ export const AnswerWrapper = styled.div`
   display: flex;
   color: currentColor;
   background-color: ${white[2]};
+  flex: 1;
   ${shadowBox}
 `;
 
 export const Form = styled.form`
   ${gutter()}
   ${kilo}
-  max-width: 100%;
   background-color: ${backgroundImageColor};
   color: ${({ marked, valid }) => marked && valid ? white[3] : grey[9]};
   border: 0;
@@ -45,7 +45,7 @@ export const Label = styled.label`
 export const Input = styled.input`
   ${kilo}
   display: block;
-  width: 100%;
+  flex: 1;
   margin: 0;
   outline: none;
   border: 0;
@@ -55,10 +55,6 @@ export const Input = styled.input`
   color: currentColor;
   box-shadow: ${innerMedium};
   background-color: inherit;
-
-  /* leave some space for streak icon / submit button */
-  padding-left: 1.75em;
-  padding-right: 1.75em;
   transition: all ${fastEaseQuad};
 
   &&&:placeholder-shown {

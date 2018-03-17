@@ -40,7 +40,6 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 100%;
   text-align: center;
   flex: 1 1 100%;
 `;
@@ -49,10 +48,10 @@ export const FlyoverWrapper = styled.div`
   ${gutter({ position: 'vertical', prop: 'margin' })}
   position: absolute;
   bottom: 0;
-  width: 100%;
   z-index: 4;
   display: flex;
   justify-content: center;
+  width: 100%;
 `;
 
 export const FlyoverContent = H4.extend`

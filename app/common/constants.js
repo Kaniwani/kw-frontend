@@ -9,8 +9,6 @@ const BASE_URL = IS_DEV_ENV ? DEV_DOMAIN : PROD_DOMAIN;
 
 export const API_BASE = `${BASE_URL}/api/v1/`;
 
-export const SESSION_EXPIRY_MINUTES = 30;
-
 export const DATE_FORMAT = 'MMM Do YYYY';
 export const TIME_FORMAT = 'hh:mma';
 export const DATE_TIME_FORMAT = `${DATE_FORMAT}[,] ${TIME_FORMAT}`;

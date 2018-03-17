@@ -1,7 +1,7 @@
-import { titleCase } from "voca";
-import { SRS_COLORS } from "common/styles/colors";
+import { titleCase } from 'voca';
+import { SRS_COLORS } from 'common/styles/colors';
 
-const formatSrsCounts = (data) =>
+const formatSrsCounts = (data = {}) =>
   Object.entries(data).map(([name, value], index) => ({
     name: titleCase(name),
     value: +value,

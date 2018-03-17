@@ -16,12 +16,13 @@ export const Wrapper = styled(PageWrapper)`
 
 export const Title = H1.extend`
   ${godzilla}
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
   padding-top: .3em;
   padding-bottom: .3em;
   color: ${lighten(0.1, purple[5])};
   text-shadow: 0 .05rem .1rem ${transparentize(0.2, darken(0.3, purple[5]))};
   text-align: center;
+  font-weight: 500;
   z-index: 2;
 `;
 

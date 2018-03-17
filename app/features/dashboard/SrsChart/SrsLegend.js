@@ -6,10 +6,12 @@ import StreakIcon from 'common/components/StreakIcon';
 import { LegendList, LegendListItem, LegendName, LegendValue } from './styles';
 
 SrsLegend.propTypes = {
-  data: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    value: PropTypes.number.isRequired,
-  }).isRequired,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      value: PropTypes.number.isRequired,
+    })
+  ).isRequired,
 };
 
 function SrsLegend({ data }) {
