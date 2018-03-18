@@ -38,6 +38,8 @@ if (IS_PROD_ENV) {
       // Woopra flakiness
       /eatdifferent\.com\.woopra-ns\.com/i,
       /static\.woopra\.com\/js\/woopra\.js/i,
+      // Firefox extensions
+      /^moz-extension:\/\//i,
       // Chrome extensions
       /extensions\//i,
       /^chrome:\/\//i,
