@@ -21,6 +21,7 @@ export const Furi = styled.div`
   letter-spacing: -0.025em;
   padding-bottom: 0.2em;
   opacity: 0.9;
+  user-select: none;
 `;
 
 export const Chars = styled.div`
