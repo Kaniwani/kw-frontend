@@ -1,5 +1,5 @@
 import Raven from 'raven-js';
-import { VERSION, IS_PROD_ENV, RAVEN_DSN } from 'common/constants';
+import { IS_PROD_ENV, VERSION, RAVEN_DSN } from 'common/constants';
 
 if (IS_PROD_ENV) {
   Raven.config(RAVEN_DSN, {
