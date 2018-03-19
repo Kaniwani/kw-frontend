@@ -46,7 +46,7 @@
     "jsx-a11y/aria-unsupported-elements": 1,
     "jsx-a11y/heading-has-content": 1,
     "jsx-a11y/anchor-is-valid": [
-      "error",
+      2,
       {
         "components": ["Link"],
         "specialLink": ["to"]
@@ -68,6 +68,7 @@
     "no-debugger": 1,
     "no-use-before-define": 0,
     "no-nested-ternary": 1,
+    "no-unused-expressions": [2, { "allowTernary": true }],
     "object-curly-newline": 0,
     "prefer-template": 1,
     "class-methods-use-this": 0,
