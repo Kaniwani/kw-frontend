@@ -49,7 +49,7 @@ export const Footer = styled.footer`
 
 export const CrabigatorStencil = BackgroundImg.extend`
   z-index: 1;
-  opacity: 0.5;
+  opacity: 0.7;
   max-height: 95%;
 `;
 
