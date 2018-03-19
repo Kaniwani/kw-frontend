@@ -24,7 +24,7 @@ export const Circle2 = styled.div`
 `;
 
 export const Wrapper = styled.div`
-  ${gutter({ type: 'outer' })}
+  ${({ padded }) => padded && gutter({ type: 'outer' })}
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;

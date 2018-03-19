@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import cuid from 'cuid';
 import { withContentRect, MeasureProps } from 'react-measure';
-import { compose } from 'recompose';
+import { compose, branch, renderNothing } from 'recompose';
 
 import { stopAutoAdvance } from 'features/quiz/QuizSession/QuizAnswer/logic';
 
@@ -87,12 +87,18 @@ class QuizInfo extends React.Component {
     const isMidDetail = detailLevel === 1 || isHighDetail;
 
     return (
-      <Wrapper onClick={stopAutoAdvance} innerRef={measureRef} isMinimized={isDisabled || !isOpen}>
-        <Readings id={id} isMidDetail={isMidDetail} isHighDetail={isHighDetail} />
-        {isHighDetail && <Notes id={id} />}
-        <VocabSynonymList ids={synonymIds} reviewId={id} />
-        {isHighDetail && <VocabLockButton isLocked={isReviewLocked} onClick={this.handleLock} />}
-      </Wrapper>
+      id && (
+        <Wrapper
+          onClick={stopAutoAdvance}
+          innerRef={measureRef}
+          isMinimized={isDisabled || !isOpen}
+        >
+          <Readings id={id} isMidDetail={isMidDetail} isHighDetail={isHighDetail} />
+          {isHighDetail && <Notes id={id} />}
+          <VocabSynonymList ids={synonymIds} reviewId={id} />
+          {isHighDetail && <VocabLockButton isLocked={isReviewLocked} onClick={this.handleLock} />}
+        </Wrapper>
+      )
     );
   }
 }
@@ -115,6 +121,10 @@ const mapDispatchToProps = {
   unlockReview: review.unlock.request,
 };
 
-const enhance = compose(connect(mapStateToProps, mapDispatchToProps), withContentRect('bounds'));
+const enhance = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  branch(({ id }) => !id, renderNothing),
+  withContentRect('bounds')
+);
 
 export default enhance(QuizInfo);
