@@ -10,7 +10,7 @@ function LandingPage({ children }) {
       <header>
         <Title>KaniWani</Title>
       </header>
-      <main>{children || <MultiLogin />}</main>
+      <div>{children || <MultiLogin />}</div>
       <LandingBackgroundImg imgSrc={landingBackground} />
     </Wrapper>
   );

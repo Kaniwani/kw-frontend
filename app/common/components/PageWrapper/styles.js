@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { centerByPadding, centerByMargin } from "common/styles/layout";
 
-const fullWidthStyle = `
+const fullWidthStyle = css`
   margin: 0;
   padding: 0 0 5rem 0;
   width: 100%;
@@ -10,7 +10,7 @@ const fullWidthStyle = `
   min-height: 100vh;
 `;
 
-const fullWidthBgStyle = `
+const fullWidthBgStyle = css`
   position: relative;
   ${centerByPadding}
 `;

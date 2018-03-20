@@ -18,6 +18,7 @@ Spinner.propTypes = {
   duration: PropTypes.number,
   color1: PropTypes.string,
   color2: PropTypes.string,
+  padded: PropTypes.bool,
 };
 
 Spinner.defaultProps = {
@@ -25,6 +26,7 @@ Spinner.defaultProps = {
   duration: 1000, // ms
   color1: purple[4],
   color2: purple[4],
+  padded: true,
 };
 
 export default Spinner;

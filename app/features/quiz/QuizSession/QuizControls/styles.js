@@ -16,7 +16,6 @@ export const Controls = styled.div`
   list-style: none;
   justify-content: center;
   background-color: ${transparent};
-  width: 100%;
 `;
 
 export const ControlButton = styled.button`

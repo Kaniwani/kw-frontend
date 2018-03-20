@@ -25,9 +25,8 @@ export const Wrapper = styled.div`
   flex-direction: column;
   background-color: ${backgroundImageColor};
   min-height: 100vh;
-  width: 100%;
-  padding-left: calc(50% - 2000px);
-  padding-right: calc(50% - 2000px);
+  /* Edge/IE11 is overflowing for some reason, unable to trace the culprit */
+  overflow-x: hidden;
 `;
 
 export class QuizSessionPage extends React.Component {

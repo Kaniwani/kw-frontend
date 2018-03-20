@@ -36,6 +36,7 @@ export class SrsChart extends React.Component {
 
   setLargestSliceActive = () => {
     const { data } = this.props;
+    // FIXME: move to selector, add largestValueSelector
     const { value: largestValue } = sortBy(data, 'value')[data.length - 1];
     const largestValueIndex = data.findIndex(({ value }) => value === largestValue);
     this.setState({ activeIndex: largestValueIndex });
@@ -60,7 +61,7 @@ export class SrsChart extends React.Component {
             />
           </PieChart>
         )}
-        <SrsLegend data={data} />
+        {hasPositiveCount && <SrsLegend data={data} />}
       </Element>
     );
   }

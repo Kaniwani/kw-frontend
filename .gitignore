@@ -1,7 +1,7 @@
-# Tokens etc
-**/secrets.js
-**/requests.http
+# secrets
+.env
 .sentryclirc
+**/requests.http
 
 # Don't check auto-generated stuff into git
 coverage

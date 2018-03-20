@@ -3,7 +3,8 @@
  */
 
 const path = require('path');
-const webpack = require('webpack');
+const { DefinePlugin } = require('webpack');
+const DotenvPlugin = require('dotenv-webpack');
 
 module.exports = (options) => ({
   mode: options.mode,
@@ -89,16 +90,17 @@ module.exports = (options) => ({
     ],
   },
   plugins: [
-    // Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
-    // inside your code for any environment checks; UglifyJS will automatically
-    // drop any unreachable code.
-    new webpack.DefinePlugin({
+    new DotenvPlugin({
+      systemVars: true,
+      safe: true,
+    }),
+    new DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-        KW_VERSION: JSON.stringify(process.env.npm_package_version),
+        VERSION: JSON.stringify(process.env.npm_package_version),
       },
     }),
-  ].concat(options.plugins),
+    ...options.plugins,
+  ],
   resolve: {
     modules: ['app', 'node_modules'],
     extensions: ['.js', '.jsx', '.react.js'],

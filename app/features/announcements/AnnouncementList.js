@@ -33,7 +33,16 @@ export function AnnouncementList({ ids }) {
         const idsToShow = on ? recent.concat(old) : recent;
         return (
           <Fragment>
-            <Ul plainList>{idsToShow.map((id) => <Announcement key={cuid()} id={id} />)}</Ul>
+            <Ul
+              plainList
+              style={{
+                display: 'flex',
+                flexFlow: 'column nowrap',
+                textAlign: 'center',
+              }}
+            >
+              {idsToShow.map((id) => <Announcement key={cuid()} id={id} />)}
+            </Ul>
             {hasOld && !on && <Button onClick={toggle}>View All</Button>}
           </Fragment>
         );

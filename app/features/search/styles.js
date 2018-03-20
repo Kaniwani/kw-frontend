@@ -23,7 +23,7 @@ export const Label = styled.label`
   ${visuallyHidden};
 `;
 
-// FIXME: sigh, buttons
+// FIXME: sigh, button component is too specific
 export const SubmitButton = styled(IconButton)`
   background-color: ${({ bgColor }) => bgColor} !important;
   margin: 0 !important;
@@ -59,15 +59,22 @@ export const InputWrapper = styled.div`
     min-height: 2em;
     line-height: 2em;
     width: 100%;
+    /* x icon on IE11 */
+    &::-ms-clear {
+      display: none;
+      width:0;
+      height:0;
+      pointer-events: none;
+    }
     ${placeholder({
       color: transparentize(0.1, grey[2]),
-      lineHeight: '1.2em',
+      lineHeight: '2em',
    })}
 
     &:focus {
       ${placeholder({
         color: transparentize(0.5, grey[2]),
-        lineHeight: '1.2em',
+        lineHeight: '2em',
      })}
       outline: none;
     }

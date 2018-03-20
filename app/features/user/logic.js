@@ -1,5 +1,5 @@
 import { createLogic } from 'redux-logic';
-import { clearToken } from 'common/utils/auth';
+import { hasToken, clearToken } from 'common/utils/auth';
 
 import { app } from 'common/actions';
 import { user } from './actions';
@@ -8,6 +8,9 @@ export const loadLogic = createLogic({
   type: user.load.request,
   warnTimeout: 10000,
   latest: true,
+  validate({ action }, allow, reject) {
+    hasToken() ? allow(action) : reject();
+  },
   process({ api }, dispatch, done) {
     api.user
       .fetch()
@@ -18,10 +21,15 @@ export const loadLogic = createLogic({
       .catch((err) => {
         dispatch(app.captureError(err, {}));
         dispatch(user.load.failure(err));
-        if (err.status && (err.status === 503 || err.status === 502)) {
-          dispatch(app.setMaintenance(true));
-        } else {
-          dispatch(app.setMaintenance(false));
+        if (err.status) {
+          if (err.status === 503 || err.status === 502) {
+            dispatch(app.setMaintenance(true));
+          } else {
+            dispatch(app.setMaintenance(false));
+          }
+          if (err.status === 401) {
+            dispatch(user.logout());
+          }
         }
         done();
       });

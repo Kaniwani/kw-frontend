@@ -5,10 +5,7 @@ import { Fixed, Absolute, Overlay, Flex } from 'rebass';
 
 import quiz from 'features/quiz/actions';
 import { selectCurrentId, selectSynonymModalOpen } from 'features/quiz/QuizSession/selectors';
-import {
-  selectAnswerValue,
-  selectAnswerType,
-} from 'features/quiz/QuizSession/QuizAnswer/selectors';
+import { selectAnswer } from 'features/quiz/QuizSession/QuizAnswer/selectors';
 
 import IconButton from 'common/components/IconButton';
 import AddSynonymForm, { ANSWER_TYPES } from 'common/components/AddSynonym/AddSynonymForm';
@@ -43,18 +40,20 @@ AddSynonymModal.propTypes = {
 };
 
 const mapStateToProps = (state, props) => {
-  const answerType = selectAnswerType(state, props);
-  const answerValue = selectAnswerValue(state, props);
+  const { type, value, isIncorrect } = selectAnswer(state, props);
+  const answerValue = isIncorrect ? value : '';
+  const answerType = isIncorrect ? type : '';
+  const initialValues = {
+    word: answerType === ANSWER_TYPES.WORD ? answerValue : '',
+    reading: answerType === ANSWER_TYPES.READING ? answerValue : '',
+  };
   return {
     isOpen: selectSynonymModalOpen(state, props),
     formProps: {
       id: selectCurrentId(state, props),
       answerValue,
       answerType,
-      initialValues: {
-        word: answerType === ANSWER_TYPES.WORD ? answerValue : '',
-        reading: answerType === ANSWER_TYPES.READING ? answerValue : '',
-      },
+      initialValues,
     },
   };
 };

@@ -20,8 +20,8 @@ export class CountLink extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const positiveCount = !Number.isNaN(nextProps.count) && nextProps.count > 0;
-    const changed = positiveCount && nextProps.count !== this.props.count;
-    this.setState({ changed });
+    const newReviews = nextProps.count !== this.props.count;
+    this.setState({ changed: positiveCount && newReviews });
   }
 
   render() {

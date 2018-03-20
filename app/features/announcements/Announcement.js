@@ -33,8 +33,10 @@ export function Announcement({ title, body, pubDate, ...props }) {
           <Button plainButton {...getTogglerProps()}>
             <Header borderActive={on}>
               <Title>{title}</Title>
-              <Time dateTime={dateTime}>{dateText} </Time>
-              <Icon name={on ? 'ARROW_UP' : 'ARROW_DOWN'} size="1.7rem" color={grey[2]} />
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Time dateTime={dateTime}>{dateText} </Time>
+                <Icon name={on ? 'ARROW_UP' : 'ARROW_DOWN'} size="1.7rem" color={grey[2]} />
+              </div>
             </Header>
           </Button>
           <Collapse isOpened={on} springConfig={{ stiffness: 205, damping: 22 }}>

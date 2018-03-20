@@ -1,50 +1,32 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { distanceInWordsToNow } from "date-fns";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { distanceInWordsToNow } from 'date-fns';
 
-import { selectLastWkSyncDate } from "features/user/selectors";
+import { selectLastWkSyncDate } from 'features/user/selectors';
 
-import Element from "common/components/Element";
-// import Button from "common/components/Button";
-import H5 from "common/components/H5";
-import P from "common/components/P";
+import Element from 'common/components/Element';
+import H5 from 'common/components/H5';
+import P from 'common/components/P';
 
 LastWkSync.propTypes = {
-  lastWkSyncDate: PropTypes.oneOfType([
-    PropTypes.instanceOf(Date),
-    PropTypes.oneOf([false]),
-  ]).isRequired,
+  lastWkSync: PropTypes.string.isRequired,
 };
 
-export function LastWkSync({ lastWkSyncDate }) {
+export function LastWkSync({ lastWkSync }) {
   return (
-    <Element flexRow>
+    <Element flexRow flexWrap alignItems="center">
       <H5>Last Sync with WaniKani:</H5>
-      <P>
-        {distanceInWordsToNow(lastWkSyncDate, {
-          includeSeconds: true,
-          suffix: true,
-        })}
-        {" ago"}
-      </P>
-      {
-        // TODO: allow user to force syncing?
-        // limit to once per x hours?
-        /* <Element>
-        <Button disabled onClick={syncWithWanikani}>Sync Now</Button>
-      </Element> */
-      }
+      <P style={{ fontSize: '0.95rem' }}>{lastWkSync}</P>
     </Element>
   );
 }
 
 const mapStateToProps = (state) => ({
-  lastWkSyncDate: selectLastWkSyncDate(state),
+  lastWkSync: `${distanceInWordsToNow(selectLastWkSyncDate(state), {
+    includeSeconds: true,
+    suffix: true,
+  })} ago`,
 });
-
-// const mapDispatchToProps = ({
-//   syncWithWanikani: user.wksync.request,
-// });
 
 export default connect(mapStateToProps)(LastWkSync);

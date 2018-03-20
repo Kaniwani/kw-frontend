@@ -15,7 +15,7 @@ export class QuizAnswer extends React.Component {
     onIgnore: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     value: PropTypes.string, // eslint-disable-line react/require-default-props
-    streak: PropTypes.string,
+    streak: PropTypes.number,
     isFocused: PropTypes.bool,
     isMarked: PropTypes.bool,
     isValid: PropTypes.bool,

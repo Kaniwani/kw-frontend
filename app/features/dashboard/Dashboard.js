@@ -48,17 +48,19 @@ function Dashboard({ upcomingReviewsTotal, lastLoad }) {
         </Element>
         <UpcomingReviewsChart />
       </Container>
-      <Container>
-        <Element flexRow flexCenter>
-          <H2 style={{ color: grey[8] }}>SRS Progress</H2>
-        </Element>
-        <SrsChart />
-      </Container>
-      <Container flexColumn flexCenter textAlign="center">
-        <Element flexRow flexCenter>
-          <H2 style={{ color: grey[8] }}>News & Updates</H2>
-        </Element>
-        <Announcements />
+      <Container flexRow justifyContent="center" flexWrap>
+        <Container flex="0 1 550px">
+          <Element flexRow flexCenter>
+            <H2 style={{ color: grey[8] }}>SRS Progress</H2>
+          </Element>
+          <SrsChart />
+        </Container>
+        <Container flex="0 1 32em" flexColumn flexCenter>
+          <Element>
+            <H2 style={{ color: grey[8] }}>News & Updates</H2>
+          </Element>
+          <Announcements />
+        </Container>
       </Container>
     </Fragment>
   );

@@ -3,38 +3,28 @@ import styled from 'styled-components';
 import { gutter } from 'common/styles/layout';
 import { resetList } from 'common/styles/utils';
 
-export const LegendWrapper = styled.div`
-  ${gutter({ type: 'outer', position: 'vertical' })}
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-`;
-
 export const LegendList = styled.ul`
   ${resetList}
+  ${gutter({ type: 'outer' })}
   display: flex;
-  flex-flow: column wrap;
-  align-content: flex-start;
-  align-items: flex-start;
-  flex: 0 1 auto;
+  flex-direction: column;
+  flex: 0 1 200px;
 `;
 
 export const LegendListItem = styled.li`
-  ${gutter({ position: 'vertical', mod: 0.5 })}
+  ${gutter({ position: 'vertical', mod: 0.75 })}
   display: flex;
   font-size: .95rem;
-  flex: 0 1 auto;
-  min-width: 170px;
   align-items: center;
-  align-content: center;
 `;
 
 export const LegendName = styled.div`
-  margin-left: .4rem;
+  padding: 0 0.6rem;
+  flex: 1;
 `;
 
 export const LegendValue = styled.div`
   margin-left: auto;
-  margin-right: 1.2rem;
+  margin-right: 0.6rem;
   font-weight: 600;
 `;

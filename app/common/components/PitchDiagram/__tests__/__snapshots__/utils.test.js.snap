@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PitchDiagram utils makeWeblioLink() returns query by character 1`] = `"http://www.weblio.jp/content?query=悲しい"`;
+exports[`PitchDiagram utils makeWeblioLink() returns query by character 1`] = `"https://www.weblio.jp/content?query=悲しい"`;
 
-exports[`PitchDiagram utils makeWeblioLink() sane default 1`] = `"http://www.weblio.jp/content?query="`;
+exports[`PitchDiagram utils makeWeblioLink() sane default 1`] = `"https://www.weblio.jp/content?query="`;
 
 exports[`PitchDiagram utils patterns makePitchPattern() and getPitchPatternName() pitch pattern should match pattern type 1`] = `
 Array [

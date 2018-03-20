@@ -1,15 +1,16 @@
-export const VERSION = process.env.KW_VERSION;
+/* eslint-disable prefer-destructuring */
+// https://github.com/mrsteele/dotenv-webpack/issues/70
+export const VERSION = process.env.VERSION;
 window.KW_VERSION = VERSION;
-export const RAVEN_DSN = 'https://0e8d8bd5cc8142dda1cedeaabc91b1d2@sentry.io/286123';
+export const RAVEN_DSN = process.env.RAVEN_DSN;
+const DEV_DOMAIN = process.env.DEV_DOMAIN;
+const PROD_DOMAIN = 'https://www.kaniwani.com';
 export const IS_DEV_ENV = process.env.NODE_ENV === 'development';
 export const IS_PROD_ENV = process.env.NODE_ENV === 'production';
-const DEV_DOMAIN = 'https://staging.kaniwani.com';
-const PROD_DOMAIN = 'https://www.kaniwani.com';
 const BASE_URL = IS_DEV_ENV ? DEV_DOMAIN : PROD_DOMAIN;
+/* eslint-enable prefer-destructuring */
 
 export const API_BASE = `${BASE_URL}/api/v1/`;
-
-export const SESSION_EXPIRY_MINUTES = 30;
 
 export const DATE_FORMAT = 'MMM Do YYYY';
 export const TIME_FORMAT = 'hh:mma';

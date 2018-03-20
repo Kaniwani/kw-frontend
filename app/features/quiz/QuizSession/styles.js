@@ -36,9 +36,7 @@ export const Background = BackgroundImg.extend`
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  width: 100vw;
   height: 100%;
-  max-width: 100%;
   min-height: auto;
   max-height: 25vmax;
   margin-top: auto;

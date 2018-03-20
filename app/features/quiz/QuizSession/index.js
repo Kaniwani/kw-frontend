@@ -71,6 +71,7 @@ export class QuizSession extends React.Component {
           display: 'flex',
           flexDirection: 'column',
           flex: '1 0 100%',
+          minHeight: '100vh',
         }}
         keyMap={{
           wrapUp: 'w',
