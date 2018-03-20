@@ -39,6 +39,10 @@ exports[`<Ruby /> furi provided: render readings over related kanji blocks 1`] =
   letter-spacing: -0.025em;
   padding-bottom: 0.2em;
   opacity: 0.9;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .c3 {
@@ -126,6 +130,10 @@ exports[`<Ruby /> no furi provided: render entire reading over kanji block 1`] =
   letter-spacing: -0.025em;
   padding-bottom: 0.2em;
   opacity: 0.9;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .c3 {
