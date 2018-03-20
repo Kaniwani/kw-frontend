@@ -229,17 +229,26 @@ export const disableReviewLogic = createLogic({
     const isFinalQuestion = selectIsFinalQuestion(getState());
     const category = selectCategory(getState());
     dispatch(quiz.answer.update({ isIgnored: true }));
+
     if (isFinalQuestion) {
       dispatch(quiz.info.reset());
-      dispatch(quiz.question.advance());
+      dispatch(quiz.answer.reset());
       dispatch(quiz.session.queue.clear());
       dispatch(quiz.session.current.replace());
-      setTimeout(() => history.push(`/${category}`), 2000);
+      setTimeout(() => {
+        history.push(`/${category}`);
+        done();
+      }, 2000);
     } else {
+      dispatch(quiz.session.addComplete(id));
       dispatch(quiz.session.queue.remove(id));
-      dispatch(quiz.question.advance());
+      setTimeout(() => {
+        dispatch(quiz.info.reset());
+        dispatch(quiz.answer.reset());
+        dispatch(quiz.session.current.replace());
+        done();
+      }, 1000);
     }
-    done();
   },
 });
 
