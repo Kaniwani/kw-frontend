@@ -8,6 +8,7 @@ import {
   selectSentenceEn,
   selectSentenceJa,
   selectVerbType,
+  selectAdjType,
 } from 'features/vocab/selectors';
 
 import P from 'common/components/P';
@@ -21,15 +22,17 @@ SentencePair.propTypes = {
   sentenceEn: PropTypes.string,
   sentenceJa: PropTypes.string,
   verbType: PropTypes.string,
+  adjType: PropTypes.string,
 };
 
 SentencePair.defaultProps = {
   sentenceEn: '',
   sentenceJa: '',
   verbType: '',
+  adjType: '',
 };
 
-export function SentencePair({ word, primaryReading, sentenceEn, sentenceJa, verbType }) {
+export function SentencePair({ word, primaryReading, sentenceEn, sentenceJa, verbType, adjType }) {
   const hasData = sentenceEn && sentenceJa;
   return hasData ? (
     <Wrapper>
@@ -38,6 +41,7 @@ export function SentencePair({ word, primaryReading, sentenceEn, sentenceJa, ver
         word={word}
         reading={primaryReading}
         verbType={verbType}
+        adjType={adjType}
       />
       <RevealSentence sentence={sentenceEn} />
     </Wrapper>
@@ -54,6 +58,7 @@ const mapStateToProps = (state, props) => ({
   sentenceEn: selectSentenceEn(state, props),
   sentenceJa: selectSentenceJa(state, props),
   verbType: selectVerbType(state, props),
+  adjType: selectAdjType(state, props),
 });
 
 export default connect(mapStateToProps)(SentencePair);

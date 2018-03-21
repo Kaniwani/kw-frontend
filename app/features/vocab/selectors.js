@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { VERB_TYPES } from 'common/utils/conjugate';
+import { VERB_TYPES, ADJ_TYPES } from 'common/utils/conjugate';
 import { getState, makeSelectItemIds, makeSelectItemById } from 'common/selectors';
 
 export const ENTITY_DOMAIN = 'vocab';
@@ -11,6 +11,9 @@ export const selectVocabById = makeSelectItemById(selectVocab);
 export const selectTags = createSelector(selectVocabById, getState('tags', []));
 export const selectVerbType = createSelector(selectTags, (tags) =>
   tags.find((tag) => VERB_TYPES.includes(tag))
+);
+export const selectAdjType = createSelector(selectTags, (tags) =>
+  tags.find((tag) => ADJ_TYPES.includes(tag))
 );
 
 export const selectPitch = createSelector(selectVocabById, getState('pitch', [-1]));
