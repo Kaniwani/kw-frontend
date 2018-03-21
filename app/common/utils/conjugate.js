@@ -1,12 +1,4 @@
-// TODO: add i and na conjugations
-// https://laits.utexas.edu/japanese/joshu/conjugation/conref/cr_conj_adj.php -> select view all
-
-// const PLAIN_FORM = {
-//   name: 'plain affirmative',
-//   forms: ['う', 'く', 'ぐ', 'す', 'つ', 'む', 'ぶ', 'ぬ', 'る', 'る'],
-// };
-
-const CONJUGATIONS = [
+const VERB_CONJUGATIONS = [
   // present tense: 0-5
   {
     name: 'polite affirmative',
@@ -658,8 +650,8 @@ const CONJUGATIONS = [
 const last = (list = []) => list[list.length - 1];
 const sortByFormSuffixLength = (list) =>
   list.sort((a, b) => last(b.forms).length - last(a.forms).length);
-const inflectConjugations = sortByFormSuffixLength(CONJUGATIONS);
-const deinflectConjugations = sortByFormSuffixLength(CONJUGATIONS);
+const inflectVerbConjugations = sortByFormSuffixLength(VERB_CONJUGATIONS);
+const deinflectVerbConjugations = sortByFormSuffixLength(VERB_CONJUGATIONS);
 export const VERB_TYPES = ['v5u', 'v5k', 'v5g', 'v5s', 'v5t', 'v5m', 'v5b', 'v5n', 'v5r', 'v1'];
 export const VERB_ENDINGS = ['う', 'く', 'ぐ', 'す', 'つ', 'む', 'ぶ', 'ぬ', 'る', 'る'];
 
@@ -692,30 +684,31 @@ function process(word, seen, aggregated, entry, i, suffix, j) {
   }
 }
 
-export function inflect(verb = '', type = 'v5') {
-  let index = [];
-  let verbstem = [];
+export function inflectVerb(verb = '', type = 'v5') {
+  let index;
+  let stem;
 
   if (/v1/i.test(type)) {
     index = VERB_TYPES.indexOf('v1');
-    verbstem = verb.slice(0, verb.length - 1);
+    stem = verb.slice(0, verb.length - 1);
   } else {
     const lastchar = verb.slice(verb.length - 1, verb.length);
     index = VERB_ENDINGS.indexOf(lastchar);
-    verbstem = verb.slice(0, verb.length - 1);
+    stem = verb.slice(0, verb.length - 1);
   }
 
-  const inflections = inflectConjugations.reduce((acc, { name, forms }) => {
-    const specific = forms[index];
-    return specific !== false ? acc.concat({ name, form: verbstem + specific }) : acc;
-  }, []);
-  return [{ name: 'plain affirmative', form: verb }].concat(inflections);
+  return [{ name: 'plain affirmative', form: verb }].concat(
+    inflectVerbConjugations.reduce((acc, { name, forms }) => {
+      const specific = forms[index];
+      return specific !== false ? acc.concat({ name, form: stem + specific }) : acc;
+    }, [])
+  );
 }
 
 function destep(word, seen = []) {
   const aggregated = [];
 
-  deinflectConjugations.forEach((entry, i) => {
+  deinflectVerbConjugations.forEach((entry, i) => {
     entry.forms.forEach((suffix, j) => {
       // mutates aggregated
       process(word, seen, aggregated, entry, i, suffix, j);
@@ -724,6 +717,67 @@ function destep(word, seen = []) {
   return !aggregated.length ? seen.slice() : aggregated;
 }
 
-export const deinflect = (word) => destep(word);
+export const deinflectVerb = (word) => destep(word);
 
-export default inflect;
+const ADJ_CONJUGATIONS = [
+  {
+    name: 'plain negative',
+    form: 'くない',
+  },
+  {
+    name: 'adverbial',
+    form: 'く',
+  },
+  {
+    name: 'te-form',
+    form: 'くて',
+  },
+  {
+    name: 'plain affirmative past',
+    form: 'かった',
+  },
+  {
+    name: 'plain negative past',
+    form: 'くなかった',
+  },
+  {
+    name: 'conditional affirmative',
+    form: 'かったら',
+  },
+  {
+    name: 'conditional negative',
+    form: 'くなかったら',
+  },
+  {
+    name: 'provisional affirmative',
+    form: 'ければ',
+  },
+  {
+    name: 'provisional negative',
+    form: 'くなければ',
+  },
+  {
+    name: 'seems affirmative',
+    form: 'そう',
+  },
+  {
+    name: 'seems negative',
+    form: 'なさそう',
+  },
+];
+
+export const ADJ_TYPES = ['adj-i', 'adj-ix'];
+
+export function inflectAdjective(adj = '', type = 'adj-i') {
+  const isYoi = type === 'adj-ix'; // いい -> 良い・よい
+  const isYoiEdgeCase = (name) => isYoi && name === 'seems affirmative';
+  const stem = isYoi ? 'よ' : adj.slice(0, adj.length - 1);
+
+  return [{ name: 'plain affirmative', form: adj }].concat(
+    ADJ_CONJUGATIONS.reduce(
+      (acc, { name, form }) =>
+        acc.concat({ name, form: stem + (isYoiEdgeCase(name) ? `さ${form}` : form) }),
+      []
+    )
+  );
+}

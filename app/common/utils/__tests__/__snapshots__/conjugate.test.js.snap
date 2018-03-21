@@ -1,6 +1,165 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`conjugate inflect defaults to v5 1`] = `
+exports[`inflectAdjective() inflectAdjective defaults to adj-i 1`] = `
+Array [
+  Object {
+    "form": "新しい",
+    "name": "plain affirmative",
+  },
+  Object {
+    "form": "新しくない",
+    "name": "plain negative",
+  },
+  Object {
+    "form": "新しく",
+    "name": "adverbial",
+  },
+  Object {
+    "form": "新しくて",
+    "name": "te-form",
+  },
+  Object {
+    "form": "新しかった",
+    "name": "plain affirmative past",
+  },
+  Object {
+    "form": "新しくなかった",
+    "name": "plain negative past",
+  },
+  Object {
+    "form": "新しかったら",
+    "name": "conditional affirmative",
+  },
+  Object {
+    "form": "新しくなかったら",
+    "name": "conditional negative",
+  },
+  Object {
+    "form": "新しければ",
+    "name": "provisional affirmative",
+  },
+  Object {
+    "form": "新しくなければ",
+    "name": "provisional negative",
+  },
+  Object {
+    "form": "新しそう",
+    "name": "seems affirmative",
+  },
+  Object {
+    "form": "新しなさそう",
+    "name": "seems negative",
+  },
+]
+`;
+
+exports[`inflectAdjective() inflects いい adj-ix よい 1`] = `
+Array [
+  Object {
+    "form": "いい",
+    "name": "plain affirmative",
+  },
+  Object {
+    "form": "よくない",
+    "name": "plain negative",
+  },
+  Object {
+    "form": "よく",
+    "name": "adverbial",
+  },
+  Object {
+    "form": "よくて",
+    "name": "te-form",
+  },
+  Object {
+    "form": "よかった",
+    "name": "plain affirmative past",
+  },
+  Object {
+    "form": "よくなかった",
+    "name": "plain negative past",
+  },
+  Object {
+    "form": "よかったら",
+    "name": "conditional affirmative",
+  },
+  Object {
+    "form": "よくなかったら",
+    "name": "conditional negative",
+  },
+  Object {
+    "form": "よければ",
+    "name": "provisional affirmative",
+  },
+  Object {
+    "form": "よくなければ",
+    "name": "provisional negative",
+  },
+  Object {
+    "form": "よさそう",
+    "name": "seems affirmative",
+  },
+  Object {
+    "form": "よなさそう",
+    "name": "seems negative",
+  },
+]
+`;
+
+exports[`inflectAdjective() inflects 暖かい adj-i normal -い 1`] = `
+Array [
+  Object {
+    "form": "暖かい",
+    "name": "plain affirmative",
+  },
+  Object {
+    "form": "暖かくない",
+    "name": "plain negative",
+  },
+  Object {
+    "form": "暖かく",
+    "name": "adverbial",
+  },
+  Object {
+    "form": "暖かくて",
+    "name": "te-form",
+  },
+  Object {
+    "form": "暖かかった",
+    "name": "plain affirmative past",
+  },
+  Object {
+    "form": "暖かくなかった",
+    "name": "plain negative past",
+  },
+  Object {
+    "form": "暖かかったら",
+    "name": "conditional affirmative",
+  },
+  Object {
+    "form": "暖かくなかったら",
+    "name": "conditional negative",
+  },
+  Object {
+    "form": "暖かければ",
+    "name": "provisional affirmative",
+  },
+  Object {
+    "form": "暖かくなければ",
+    "name": "provisional negative",
+  },
+  Object {
+    "form": "暖かそう",
+    "name": "seems affirmative",
+  },
+  Object {
+    "form": "暖かなさそう",
+    "name": "seems negative",
+  },
+]
+`;
+
+exports[`inflectVerb() inflectVerb defaults to v5 1`] = `
 Array [
   Object {
     "form": "帰る",
@@ -205,7 +364,7 @@ Array [
 ]
 `;
 
-exports[`conjugate inflects 使う v5u -う -u 1`] = `
+exports[`inflectVerb() inflects 使う v5u -う -u 1`] = `
 Array [
   Object {
     "form": "使う",
@@ -410,7 +569,7 @@ Array [
 ]
 `;
 
-exports[`conjugate inflects 呼ぶ v5b -ぶ -bu 1`] = `
+exports[`inflectVerb() inflects 呼ぶ v5b -ぶ -bu 1`] = `
 Array [
   Object {
     "form": "呼ぶ",
@@ -615,7 +774,7 @@ Array [
 ]
 `;
 
-exports[`conjugate inflects 待つ v5t -つ -tsu 1`] = `
+exports[`inflectVerb() inflects 待つ v5t -つ -tsu 1`] = `
 Array [
   Object {
     "form": "待つ",
@@ -820,7 +979,7 @@ Array [
 ]
 `;
 
-exports[`conjugate inflects 死ぬ v5n -ぬ -nu 1`] = `
+exports[`inflectVerb() inflects 死ぬ v5n -ぬ -nu 1`] = `
 Array [
   Object {
     "form": "死ぬ",
@@ -1025,7 +1184,7 @@ Array [
 ]
 `;
 
-exports[`conjugate inflects 泳ぐ v5g -ぐ -gu 1`] = `
+exports[`inflectVerb() inflects 泳ぐ v5g -ぐ -gu 1`] = `
 Array [
   Object {
     "form": "泳ぐ",
@@ -1230,7 +1389,7 @@ Array [
 ]
 `;
 
-exports[`conjugate inflects 焼く v5k -く -ku 1`] = `
+exports[`inflectVerb() inflects 焼く v5k -く -ku 1`] = `
 Array [
   Object {
     "form": "焼く",
@@ -1435,7 +1594,7 @@ Array [
 ]
 `;
 
-exports[`conjugate inflects 示す v5s -す -su 1`] = `
+exports[`inflectVerb() inflects 示す v5s -す -su 1`] = `
 Array [
   Object {
     "form": "示す",
@@ -1640,7 +1799,7 @@ Array [
 ]
 `;
 
-exports[`conjugate inflects 読む v5m -む -mu 1`] = `
+exports[`inflectVerb() inflects 読む v5m -む -mu 1`] = `
 Array [
   Object {
     "form": "読む",
@@ -1845,7 +2004,7 @@ Array [
 ]
 `;
 
-exports[`conjugate inflects 走る v5r -る -ru 1`] = `
+exports[`inflectVerb() inflects 走る v5r -る -ru 1`] = `
 Array [
   Object {
     "form": "走る",
@@ -2050,7 +2209,7 @@ Array [
 ]
 `;
 
-exports[`conjugate inflects 食べる v1 -る -ru 1`] = `
+exports[`inflectVerb() inflects 食べる v1 -る -ru 1`] = `
 Array [
   Object {
     "form": "食べる",
