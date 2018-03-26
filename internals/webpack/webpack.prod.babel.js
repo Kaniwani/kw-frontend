@@ -67,7 +67,7 @@ module.exports = require('./webpack.base.babel')({
       relativePaths: false,
       publicPath: '/',
       excludes: ['**/*.map'],
-      autoUpdate: 1000 * 60 * 5, // 5mins
+      autoUpdate: true, // checks once an hour
 
       ServiceWorker: {
         minify: false, // TODO: Can minify when offline-plugin supports webpack 4

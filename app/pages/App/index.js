@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -8,21 +8,14 @@ import { Provider as ThemeProvider } from 'rebass';
 
 import { ffBody } from 'common/styles/typography';
 import user from 'features/user/actions';
-import { hasToken } from 'common/utils/auth';
-import { selectLocationPath, selectMaintenance } from 'common/selectors';
-import { cyan } from 'common/styles/colors';
+import { selectLocationPath } from 'common/selectors';
 
 import Routes from 'common/routes';
 
 import ScrollToTop from 'common/components/ScrollToTop';
-import A from 'common/components/A';
-import VideoBanner from 'common/components/VideoBanner';
 import SiteHeader from 'features/navigation/SiteHeader';
 import SiteFooter from 'features/navigation/SiteFooter';
-
-import MAINTENANCE_IMG from 'common/assets/loops/confused.jpg';
-import MAINTENANCE_MP4 from 'common/assets/loops/confused.mp4';
-import MAINTENANCE_WEBM from 'common/assets/loops/confused.webm';
+import Notify from 'features/notifications/Notify';
 
 // ensure footer is flush with bottom of page
 // if content in header + main is less than the viewport height
@@ -44,15 +37,14 @@ const AppWrapper = styled.div`
 
 class App extends React.Component {
   static propTypes = {
-    underMaintenance: PropTypes.bool.isRequired,
     path: PropTypes.string.isRequired,
     loadUser: PropTypes.func.isRequired,
+    loadQuizCounts: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
-    if (hasToken()) {
-      this.props.loadUser();
-    }
+    this.props.loadQuizCounts();
+    this.props.loadUser();
   }
 
   componentDidUpdate(prevProps) {
@@ -63,50 +55,32 @@ class App extends React.Component {
   }
 
   render() {
-    const { underMaintenance } = this.props;
     return (
       <AppWrapper>
         <Helmet titleTemplate="%s - KaniWani">
           <meta name="description" content="KaniWani - An English to Japanese SRS Quiz App" />
         </Helmet>
-        {underMaintenance ? (
-          <VideoBanner
-            sources={{ mp4: MAINTENANCE_MP4, webm: MAINTENANCE_WEBM, jpg: MAINTENANCE_IMG }}
-            headerText="Huh, where’d KW go?"
-            subHeaderText={
-              <Fragment>
-                The server is either under very heavy load or we’re restarting it. Check in with us
-                on{' '}
-                <A href="https://rauchg-slackin-iurjmkotad.now.sh" external color={cyan[4]}>
-                  Slack
-                </A>.
-              </Fragment>
-            }
-          />
-        ) : (
-          <Fragment>
-            <SiteHeader />
-            <main>
-              <ThemeProvider theme={{ fonts: { sans: ffBody } }}>
-                <Routes />
-                <ScrollToTop />
-              </ThemeProvider>
-            </main>
-            <SiteFooter />
-          </Fragment>
-        )}
+        <Notify />
+        <SiteHeader />
+        <main>
+          <ThemeProvider theme={{ fonts: { sans: ffBody } }}>
+            <Routes />
+            <ScrollToTop />
+          </ThemeProvider>
+        </main>
+        <SiteFooter />
       </AppWrapper>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  underMaintenance: selectMaintenance(state),
   path: selectLocationPath(state),
 });
 
 const mapDispatchToProps = {
   loadUser: user.load.request,
+  loadQuizCounts: user.quizCounts.request,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

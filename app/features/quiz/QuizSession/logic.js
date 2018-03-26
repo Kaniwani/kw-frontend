@@ -46,6 +46,7 @@ export const queueLoadLogic = createLogic({
         done();
       })
       .catch((err) => {
+        // FIXME: dispatch quiz timeout if seems like connection error
         dispatch(app.captureError(err, { category, queueCount }));
         dispatch(quiz.session.queue.load.failure(err));
         done();

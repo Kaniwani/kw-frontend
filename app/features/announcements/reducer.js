@@ -1,5 +1,4 @@
 import { handleActions } from 'redux-actions';
-import { serializeAnnouncementsResponse } from 'common/serializers';
 
 import {
   initialUiState,
@@ -23,11 +22,9 @@ export const announcementsUiReducer = handleActions(
   initialUiState
 );
 
-export const ingestAnnouncements = (state, { payload }) => serializeAnnouncementsResponse(payload);
-
 export const announcementsReducer = handleActions(
   {
-    [announcements.load.success]: ingestAnnouncements,
+    [announcements.load.success]: (state, { payload }) => payload,
   },
   initialEntitiesState
 );

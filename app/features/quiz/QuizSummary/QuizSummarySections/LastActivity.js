@@ -16,7 +16,6 @@ LastActivity.defaultProps = {
 
 export function LastActivity({ date }) {
   return (
-    /* FIXME: inline naughtiness */
     <div style={{ marginTop: '20px' }}>
       {date !== false ? (
         <Container>

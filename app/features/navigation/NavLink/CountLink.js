@@ -31,11 +31,9 @@ export class CountLink extends React.Component {
         <Link noReviews={noReviews} to={route}>
           <Text>
             <div>{name}</div>
-            {!noReviews && (
-              <Count changed={this.state.changed} noReviews={noReviews}>
-                {count}
-              </Count>
-            )}
+            <Count changed={this.state.changed} noReviews={noReviews}>
+              {!Number.isNaN(count) && count}
+            </Count>
           </Text>
         </Link>
       </Li>

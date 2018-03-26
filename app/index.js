@@ -7,7 +7,6 @@ import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import 'sanitize.css/sanitize.css';
 
-import Raven from 'common/raven';
 import { IS_PROD_ENV } from 'common/constants';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 
@@ -31,13 +30,6 @@ const { persistor, store } = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
 
 const render = () => {
-  try {
-    localStorage.setItem('kw_bootstrapped', 'true');
-  } catch (e) {
-    window.alert(
-      'LocalStorage access has been denied by your device. Kaniwani reviews will not work properly if we cannot store local data! Please use normal (not private or incognito browsing), re-enable it in browser settings, or upgrade your browser to use this site.'
-    );
-  }
   // Dynamically import our main App component, and render it
   const App = require('pages/App').default;
 
@@ -83,8 +75,7 @@ if (IS_PROD_ENV) {
     },
     onUpdated: () => {
       console.info('Kaniwani: update successful');
-      window.alert('Kaniwani update ready! The app will now reload to install updates.');
-      window.location.reload();
+      localStorage.setItem('kw_update', 'true');
     },
     onUpdateFailed: () => {
       console.warn('Kaniwani: update failed');
@@ -99,23 +90,23 @@ if (IS_PROD_ENV) {
 //   // To enable temporarily: Why();
 //   // To enable until disabled (even after refresh): Why(true);
 //   // To disable: Why(false);
-//   const Why = (enabled) => {
-//     if (enabled) {
-//       console.debug('why-did-you-update always');
-//       window.localStorage.setItem('why-did-you-update', true);
-//     } else if (enabled === false) {
-//       console.debug('why-did-you-update never');
-//       window.localStorage.removeItem('why-did-you-update');
-//       React.__WHY_DID_YOU_UPDATE_RESTORE_FN__ && React.__WHY_DID_YOU_UPDATE_RESTORE_FN__();
-//       return;
-//     }
-//     console.debug('why-did-you-update enabled');
-//     const { whyDidYouUpdate } = require('why-did-you-update');
-//     whyDidYouUpdate(React);
-//   };
-
-//   window.Why = Why;
-//   if (window.localStorage.getItem('why-did-you-update')) {
-//     Why();
+// const Why = (enabled) => {
+//   if (enabled) {
+//     console.debug('why-did-you-update always');
+//     window.localStorage.setItem('why-did-you-update', true);
+//   } else if (enabled === false) {
+//     console.debug('why-did-you-update never');
+//     window.localStorage.removeItem('why-did-you-update');
+//     React.__WHY_DID_YOU_UPDATE_RESTORE_FN__ && React.__WHY_DID_YOU_UPDATE_RESTORE_FN__();
+//     return;
 //   }
+//   console.debug('why-did-you-update enabled');
+//   const { whyDidYouUpdate } = require('why-did-you-update');
+//   whyDidYouUpdate(React);
+// };
+
+// window.Why = Why;
+// if (window.localStorage.getItem('why-did-you-update')) {
+//   Why();
+// }
 /* eslint-enable */

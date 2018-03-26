@@ -11,7 +11,9 @@ const SelectField = ({ input, options, label, note }) => (
       <span>{label || input.name}</span>
       <select id={input.name} {...input}>
         {options.map((text) => (
-          <option key={cuid()} value={text}>{titleCase(text)}</option>
+          <option key={cuid()} value={text}>
+            {titleCase(text)}
+          </option>
         ))}
       </select>
     </Label>
@@ -22,10 +24,7 @@ SelectField.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   input: PropTypes.object.isRequired,
   label: PropTypes.string.isRequired,
-  note: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element,
-  ]),
+  note: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 };
 
 SelectField.defaultProps = {

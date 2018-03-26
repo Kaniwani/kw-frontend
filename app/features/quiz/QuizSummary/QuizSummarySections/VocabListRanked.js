@@ -1,22 +1,20 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
-import { titleCase } from "voca";
-import cuid from "cuid";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { titleCase } from 'voca';
+import cuid from 'cuid';
 
-import VocabList, { ITEM_TYPES as VOCABLIST_TYPES } from "common/components/VocabList";
-import StripeHeading from "./StripeHeading";
+import VocabList, { ITEM_TYPES as VOCABLIST_TYPES } from 'common/components/VocabList';
+import StripeHeading from './StripeHeading';
 
-import { gutter } from "common/styles/layout";
+import { gutter } from 'common/styles/layout';
 
 // prettier-ignore
 const Wrapper = styled.div`
   ${gutter({ type: "inner" })}
 `;
 
-const VocabListRanked = ({
-  rankedIds, sectionType, color, cardsExpanded,
-}) =>
+const VocabListRanked = ({ rankedIds, sectionType, bgColor, cardsExpanded }) =>
   Object.entries(rankedIds).map(([rank, ids]) => {
     const count = ids.length;
     return (
@@ -26,7 +24,7 @@ const VocabListRanked = ({
           <VocabList
             itemType={cardsExpanded ? VOCABLIST_TYPES.CARD : VOCABLIST_TYPES.CHIP}
             ids={ids}
-            color={color}
+            bgColor={bgColor}
             tooltipSuffix={`${sectionType}-${rank}`}
           />
         </Wrapper>
@@ -37,7 +35,7 @@ const VocabListRanked = ({
 VocabListRanked.propTypes = {
   rankedIds: PropTypes.object,
   sectionType: PropTypes.string,
-  color: PropTypes.string,
+  bgColor: PropTypes.string,
   cardsExpanded: PropTypes.bool,
 };
 

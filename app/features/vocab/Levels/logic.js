@@ -1,6 +1,7 @@
-import { createLogic } from "redux-logic";
+import { createLogic } from 'redux-logic';
 
-import vocab from "features/vocab/actions";
+import vocab from 'features/vocab/actions';
+import notify from 'features/notifications/actions';
 
 export const levelsLoadLogic = createLogic({
   type: vocab.levels.load.request,
@@ -15,8 +16,11 @@ export const levelsLoadLogic = createLogic({
       })
       .catch(({ status, response, message, ...rest }) => {
         dispatch(
-          vocab.levels.load.failure({ status, response, message, ...rest })
+          notify.error({
+            content: 'Unable to load levels. You may be experiencing connection problems.',
+          })
         );
+        dispatch(vocab.levels.load.failure({ status, response, message, ...rest }));
         done();
       });
   },

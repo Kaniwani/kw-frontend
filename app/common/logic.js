@@ -1,4 +1,5 @@
 import { createLogic } from 'redux-logic';
+import { LOCATION_CHANGE } from 'react-router-redux';
 
 import landingLogic from 'features/landing/logic';
 import userLogic from 'features/user/logic';
@@ -15,6 +16,8 @@ import settingsLogic from 'features/settings/logic';
 import contactLogic from 'features/contact/logic';
 
 import { app } from 'common/actions';
+import announcements from 'features/announcements/actions';
+import notify from 'features/notifications/actions';
 import Raven from 'common/raven';
 
 const errorLogic = createLogic({
@@ -24,8 +27,29 @@ const errorLogic = createLogic({
   },
 });
 
+const updateLogic = createLogic({
+  type: LOCATION_CHANGE,
+  process(_, dispatch, done) {
+    if (localStorage.getItem('kw_update') === 'true') {
+      localStorage.removeItem('kw_update');
+      dispatch(announcements.load.request({ force: true }));
+      setTimeout(() => {
+        dispatch(
+          notify.info({
+            content: 'KaniWani update ready! Reload the app to start using the new version.',
+          })
+        );
+        done();
+      }, 2000);
+    } else {
+      done();
+    }
+  },
+});
+
 export default [
   errorLogic,
+  updateLogic,
   ...landingLogic,
   ...userLogic,
   ...announcementsLogic,

@@ -5,7 +5,6 @@ import cuid from 'cuid';
 import styled from 'styled-components';
 
 import review from 'features/reviews/actions';
-import user from 'features/user/actions';
 import { selectVocabById } from 'features/vocab/selectors';
 import {
   selectReviewVocabIds,
@@ -119,14 +118,8 @@ const mapStateToProps = (state, props) => {
 };
 
 const mapDispatchToProps = (dispatch, props) => ({
-  lockReview: () => {
-    dispatch(review.lock.request(props));
-    setTimeout(() => dispatch(user.load.request()), 1000);
-  },
-  unlockReview: () => {
-    dispatch(review.unlock.request(props));
-    setTimeout(() => dispatch(user.load.request()), 1000);
-  },
+  lockReview: () => dispatch(review.lock.request(props)),
+  unlockReview: () => dispatch(review.unlock.request(props)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VocabDetail);

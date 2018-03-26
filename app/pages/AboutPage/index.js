@@ -16,6 +16,14 @@ import { purple } from 'common/styles/colors';
 const Shortcut = styled.span`
   color: ${purple[4]};
   font-weight: 600;
+  &:before {
+    content: '[';
+    padding-right: 2px;
+  }
+  &:after {
+    content: ']';
+    padding-left: 2px;
+  }
 `;
 
 function AboutPage() {
@@ -50,6 +58,7 @@ function AboutPage() {
               schedule.
             </P>
           </Container>
+
           <Container flex="1 1 500px">
             <H2>Unlocking the Past</H2>
             <P constrain>
@@ -61,6 +70,7 @@ function AboutPage() {
               settings page.
             </P>
           </Container>
+
           <Container flex="1 1 500px">
             <H2>Follow WaniKani</H2>
             <P constrain>
@@ -85,12 +95,13 @@ function AboutPage() {
           <Container flex="1 1 500px">
             <H2>Keyboard Warrior</H2>
             <P constrain>
-              After answering a question, press <Shortcut>f</Shortcut> to open info panel,{' '}
+              After answering a question, press <Shortcut>f</Shortcut> to open the info panel,{' '}
               <Shortcut>spacebar</Shortcut> to cycle through the information panel detail levels,{' '}
               <Shortcut>w</Shortcut> to enable wrap-up mode, and <Shortcut>s</Shortcut> to add a new
               answer synonym.
             </P>
           </Container>
+
           <Container flex="1 1 500px">
             <H2>Next Time Gadget</H2>
             <P constrain>
@@ -105,7 +116,8 @@ function AboutPage() {
               Use with caution!
             </P>
           </Container>
-          <Container flex="1 1 500px">
+
+          <Container flex="1 1 500px" style={{ maxWidth: '38em' }}>
             <H2>Girl, Little Girl, Young Lady, Arggh!</H2>
             <P constrain>
               Many WaniKani words have very similar meanings. To alleviate this, if you add{' '}

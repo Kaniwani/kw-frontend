@@ -46,7 +46,7 @@ export class ReviewStatus extends React.Component {
       .isRequired,
     nextReviewDate: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.oneOf([false])])
       .isRequired,
-    loadUser: PropTypes.func.isRequired,
+    loadQuizCounts: PropTypes.func.isRequired,
   };
 
   state = {
@@ -83,7 +83,7 @@ export function getReviewStatusText({
   reviewsCount,
   vacationDate,
   nextReviewDate,
-  loadUser,
+  loadQuizCounts,
 } = {}) {
   const freshUser = reviewsCount < 1 && !nextReviewDate;
   const past = nextReviewDate && isPast(nextReviewDate);
@@ -106,7 +106,7 @@ export function getReviewStatusText({
   }
 
   if (past) {
-    loadUser();
+    loadQuizCounts();
     return (
       <Text>
         Next Review: <Emphasis>Loading...</Emphasis>
@@ -149,7 +149,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = {
-  loadUser: user.load.request,
+  loadQuizCounts: user.quizCounts.request,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReviewStatus);

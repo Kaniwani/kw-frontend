@@ -9,8 +9,6 @@ export const getState = (keyPath, defaultVal) => (state) => {
 export const getBy = (val, transform = identity) => (state) =>
   compose(transform, partialRight(get, val))(state);
 
-export const selectMaintenance = getState(['app', 'maintenance'], false);
-
 export const selectLocationPath = createSelector(
   getState('router', {}),
   getState('location.pathname', '/')

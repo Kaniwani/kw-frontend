@@ -1,6 +1,9 @@
-import { toKatakana, stripOkurigana, tokenize } from 'wanakana';
+import { toKatakana } from 'wanakana';
+import { inflectVerb, inflectAdjective } from './conjugate';
+import stripOkurigana from './stripOkurigana';
 import stripTilde from './stripTilde';
-import { inflect } from './conjugate';
+
+const makeRegex = (toMatch) => new RegExp(`(.*)(${toMatch})(.*)`);
 
 /**
  * @typedef {Object} splitSentenceByMatchReturn
@@ -15,6 +18,7 @@ import { inflect } from './conjugate';
  * @property {String} splitSentenceByMatchParams.word - vocab word
  * @property {String} splitSentenceByMatchParams.reading - primary vocab word reading
  * @property {String} splitSentenceByMatchParams.verbType - verb type tag IE: 'v1', 'v5', 'v5u'
+ * @property {String} splitSentenceByMatchParams.adjType - adj type tag IE: 'adj-i', 'adj-ix'
  */
 
 /**
@@ -31,61 +35,71 @@ export default function splitSentenceByMatch({
   word = '',
   reading = '',
   verbType = '',
+  adjType = '',
 } = {}) {
-  const stripKana = (kana, cleanWord) => kana.replace(tokenize(cleanWord).pop(), '');
-  const makeRegex = (toMatch) => new RegExp(`(.*)(${toMatch})(.*)`);
-  const hasWord = !!word.length;
-  const hasReading = !!reading.length;
-  const cleanWord = stripTilde(word);
-  let matched = null;
-  let matchers = [];
+  const [cleanWord, cleanReading] = [stripTilde(word), stripTilde(reading)];
 
-  if (hasWord) {
-    matchers.push(cleanWord);
-    if (verbType) {
-      matchers.push(
-        ...inflect(word, verbType)
-          .map(({ form }) => form)
-          .sort((a, b) => b.length - a.length)
-      );
-    }
-    matchers.push(stripOkurigana(cleanWord)); // '飛び込む' => '飛び込'
-    matchers.push(stripOkurigana(cleanWord, { all: true })); // '売り上げ' => '売上'
-    matchers = [...new Set(matchers)];
-
-    while (matchers.length) {
-      const matcher = matchers.shift();
-      matched = sentence.match(makeRegex(matcher));
-      if (matched !== null) {
-        const [, head, match, tail] = matched;
-        return { head, match, tail };
-      }
+  if (cleanWord.length) {
+    const wordResult = findMatch(sentence, createMatchers(cleanWord, '', verbType, adjType));
+    if (wordResult.match) {
+      return wordResult;
     }
   }
 
-  if (hasReading) {
-    const cleanKana = stripTilde(reading);
-    matchers = [cleanKana];
-    if (verbType) {
-      matchers.push(
-        ...inflect(reading, verbType)
-          .map(({ form }) => form)
-          .sort((a, b) => b.length - a.length)
-      );
-    }
-    matchers.push(toKatakana(cleanKana)); // '〜つけ' => 'ツケ'
-    matchers.push(stripKana(cleanKana, cleanWord)); // '〜つけ' => 'つ'
-    matchers = [...new Set(matchers)];
-
-    while (matchers.length) {
-      const matcher = matchers.shift();
-      matched = sentence.match(makeRegex(matcher));
-      if (matched !== null) {
-        const [, head, match, tail] = matched;
-        return { head, match, tail };
-      }
+  if (cleanReading.length) {
+    const readingResult = findMatch(
+      sentence,
+      createMatchers(cleanWord, cleanReading, verbType, adjType)
+    );
+    if (readingResult.match) {
+      return readingResult;
     }
   }
 
   return { head: sentence, match: '', tail: '' };
+}
+
+function createMatchers(word = '', reading = '', verbType = '', adjType = '') {
+  const base = reading || word;
+  const matchers = [base];
+
+  if (verbType) {
+    matchers.push(
+      ...inflectVerb(base, verbType)
+        .map(({ form }) => form)
+        .sort((a, b) => b.length - a.length)
+    );
+  } else if (adjType) {
+    matchers.push(
+      ...inflectAdjective(base, adjType)
+        .map(({ form }) => form)
+        .sort((a, b) => b.length - a.length)
+    );
+    // basic stem matching fallback if no verbType or adjType provided
+  } else if (reading) {
+    // 'づけ' => 'づ' via 漬け
+    matchers.push(stripOkurigana(base, { matchKanji: word }));
+    // 'おかね' => 'かね' via お金
+    matchers.push(stripOkurigana(base, { matchKanji: word, leading: true }));
+    // 'つけ' => 'ツケ'
+    matchers.push(toKatakana(base));
+  } else {
+    matchers.push(stripOkurigana(base)); // '飛び込む' => '飛び込'
+    matchers.push(stripOkurigana(base, { leading: true })); // 'お金' => '金'
+  }
+
+  return [...new Set(matchers)];
+}
+
+function findMatch(sentence = '', matchers = []) {
+  let matched;
+  while (matchers.length) {
+    const matcher = matchers.shift();
+    matched = sentence.match(makeRegex(matcher));
+    if (matched !== null) {
+      const [, head, match, tail] = matched;
+      return { head, match, tail };
+    }
+  }
+  return {};
 }

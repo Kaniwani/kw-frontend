@@ -7,7 +7,7 @@ import { ANSWER_TYPES } from 'common/components/AddSynonym/AddSynonymForm';
 import determineCriticality from 'common/utils/determineCriticality';
 import { matchAnswer, increment, decrement, isInputValid, cleanseInput } from './utils';
 
-import { selectQuizSettings } from 'features/user/selectors';
+import { selectUserSettings } from 'features/user/selectors';
 import { selectReviewById } from 'features/reviews/selectors';
 import { selectVocabById } from 'features/vocab/selectors';
 import { selectSynonymById } from 'features/synonyms/selectors';
@@ -24,13 +24,14 @@ import {
 import { selectAnswer, selectAnswerIgnored } from './selectors';
 
 import { app } from 'common/actions';
-import user from 'features/user/actions';
 import quiz from 'features/quiz/actions';
 import review from 'features/reviews/actions';
 import synonym from 'features/synonyms/actions';
+import notify from 'features/notifications/actions';
 
 // we set this in quiz.advance and hold onto for clearing in quiz.answer.record
 let autoAdvance = {};
+const pendingAnswers = new Set();
 
 export const stopAutoAdvance = () => {
   if (autoAdvance.timeoutId != null) {
@@ -92,13 +93,13 @@ export const checkAnswerLogic = createLogic({
   type: quiz.answer.check,
   latest: true,
   process({ getState }, dispatch, done) {
-    const state = getState();
-    const { value } = selectAnswer(state);
-    const settings = selectQuizSettings(state);
-    const currentId = selectCurrentId(state);
-    let { vocab, synonyms } = selectReviewById(state, { id: currentId });
-    vocab = vocab.map((id) => selectVocabById(state, { id }));
-    synonyms = synonyms.map((id) => selectSynonymById(state, { id }));
+    const { value } = selectAnswer(getState());
+    const settings = selectUserSettings(getState());
+    const currentId = selectCurrentId(getState());
+    const isLessonQuiz = selectIsLessonQuiz(getState());
+    let { vocab, synonyms } = selectReviewById(getState(), { id: currentId });
+    vocab = vocab.map((id) => selectVocabById(getState(), { id }));
+    synonyms = synonyms.map((id) => selectSynonymById(getState(), { id }));
     const matchedAnswer = matchAnswer(value, [vocab, synonyms]);
     const updatedAnswer = {
       isFocused: false,
@@ -120,14 +121,28 @@ export const checkAnswerLogic = createLogic({
       dispatch(quiz.answer.correct());
       const isOpen =
         settings.autoExpandAnswerOnSuccess && settings.autoAdvanceOnSuccessDelayMilliseconds > 0;
-      dispatch(quiz.info.update({ isDisabled: false, detailLevel: 1, isOpen }));
+
+      dispatch(
+        quiz.info.update({
+          isDisabled: false,
+          detailLevel: settings.infoDetailLevelOnSuccess,
+          isOpen,
+        })
+      );
     }
 
     if (!matchedAnswer) {
       dispatch(quiz.answer.update({ ...updatedAnswer, isIncorrect: true }));
       dispatch(quiz.answer.incorrect());
       const isOpen = settings.autoExpandAnswerOnFailure;
-      dispatch(quiz.info.update({ isDisabled: false, detailLevel: 0, isOpen }));
+      const detailLevel = isLessonQuiz ? 2 : settings.infoDetailLevelOnFailure;
+      dispatch(
+        quiz.info.update({
+          isDisabled: false,
+          detailLevel,
+          isOpen,
+        })
+      );
     }
 
     done();
@@ -138,7 +153,7 @@ export const correctAnswerLogic = createLogic({
   type: quiz.answer.correct,
   latest: true,
   process({ getState }, dispatch, done) {
-    const settings = selectQuizSettings(getState());
+    const settings = selectUserSettings(getState());
     const current = selectCurrent(getState());
     const previouslyIncorrect = selectCurrentPreviouslyIncorrect(getState());
 
@@ -292,26 +307,31 @@ export const recordAnswerLogic = createLogic({
       dispatch(review.update(current));
       done();
     } else {
+      pendingAnswers.add(current.id);
+      if (pendingAnswers.size >= 4) {
+        dispatch(
+          notify.warning({
+            content:
+              'You have several answer submissions still pending. You might be experiencing connection problems.',
+            duration: 8000,
+          })
+        );
+      }
       api.quiz
         .record({ id: current.id, isCorrect, previouslyIncorrect })
         .then((response) => {
+          pendingAnswers.delete(current.id);
           const { vocabById, synonymsById, ...updatedReview } = serializeReviewResponse(response);
           dispatch(quiz.answer.record.success(current.id));
           dispatch(review.update(updatedReview));
-          if (isFinalQuestion && isCorrect) {
-            // wait for review times to be updated on server
-            // then reload lesson/review counts
-            setTimeout(() => {
-              dispatch(user.load.request());
-              done();
-            }, 5000);
-          } else {
-            dispatch(quiz.session.queue.load.request());
-            done();
-          }
+          dispatch(quiz.session.queue.load.request());
+          done();
         })
         .catch((err) => {
-          dispatch(app.captureError(err, { current, isCorrect, previouslyIncorrect }));
+          // FIXME: dispatch quiz timeout if seems like connection error
+          dispatch(
+            app.captureError(err, { current, isCorrect, previouslyIncorrect, pendingAnswers })
+          );
           dispatch(quiz.answer.record.failure(err));
           done();
         });
@@ -323,7 +343,7 @@ export const autoAdvanceLogic = createLogic({
   type: quiz.question.advance,
   warnTimeout: 11000,
   process({ getState }, dispatch, done) {
-    const { autoAdvanceOnSuccessDelayMilliseconds } = selectQuizSettings(getState());
+    const { autoAdvanceOnSuccessDelayMilliseconds } = selectUserSettings(getState());
     const answerIgnored = selectAnswerIgnored(getState());
 
     if (answerIgnored) {

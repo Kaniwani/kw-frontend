@@ -16,6 +16,12 @@ const options = {
 const api = wretch(API_BASE, options).errorType('json');
 
 export const user = {
+  fetchQuizCounts: () =>
+    api
+      .auth(`JWT ${getToken()}`)
+      .url(`review/counts/`)
+      .get()
+      .json(),
   fetch: () =>
     api
       .auth(`JWT ${getToken()}`)
@@ -115,7 +121,7 @@ export const announcements = {
       .url('announcement/')
       .url(`/${id}/`)
       .delete()
-      .json(),
+      .res(),
 };
 
 export const contact = {

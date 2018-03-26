@@ -87,7 +87,7 @@ export function SiteHeader({ expanded, showOffCanvasMenu, onHamburgerToggle, onM
   );
 }
 
-export class SiteHeaderContainer extends React.Component {
+export class SiteHeaderContainer extends React.PureComponent {
   static propTypes = {
     locationPath: PropTypes.string.isRequired,
   };

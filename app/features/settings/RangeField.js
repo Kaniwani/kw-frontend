@@ -20,10 +20,7 @@ RangeField.propTypes = {
   max: PropTypes.number.isRequired,
   step: PropTypes.number.isRequired,
   label: PropTypes.string.isRequired,
-  note: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element,
-  ]),
+  note: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   display: PropTypes.func,
 };
 

@@ -13,7 +13,7 @@ export class QuizSummaryPage extends React.Component {
   static propTypes = {
     category: PropTypes.string.isRequired,
     setSessionCategory: PropTypes.func.isRequired,
-    loadUser: PropTypes.func.isRequired,
+    loadQuizCounts: PropTypes.func.isRequired,
     fromSession: PropTypes.bool.isRequired,
   };
 
@@ -23,7 +23,7 @@ export class QuizSummaryPage extends React.Component {
 
   componentDidMount() {
     if (this.props.fromSession) {
-      this.props.loadUser();
+      this.props.loadQuizCounts();
     }
   }
 
@@ -48,7 +48,7 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = {
   setSessionCategory: quiz.session.setCategory,
-  loadUser: user.load.request,
+  loadQuizCounts: user.quizCounts.request,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuizSummaryPage);

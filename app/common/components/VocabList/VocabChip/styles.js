@@ -13,6 +13,10 @@ export const Wrapper = styled.li`
   border-radius: ${borderRadius};
   box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
   flex-basis: auto !important;
+
+  .user-is-tabbing & a:focus {
+    outline-color: ${({ bgColor }) => bgColor};
+  }
 `;
 
 export const Link = styled(A)`

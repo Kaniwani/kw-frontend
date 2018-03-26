@@ -5,6 +5,7 @@ import { selectReviews } from 'features/reviews/selectors';
 import { app } from 'common/actions';
 import review from 'features/reviews/actions';
 import vocab from 'features/vocab/actions';
+import notify from 'features/notifications/actions';
 import search from './actions';
 
 export const searchLogic = createLogic({
@@ -17,7 +18,6 @@ export const searchLogic = createLogic({
     form.startSubmit();
 
     // FIXME: switch to reviews once tadgh implements reading_contains ?
-
     api.vocab
       .search({ ...snakeCaseKeys(payload), limit: 50 })
       .then((res) => {
@@ -42,6 +42,13 @@ export const searchLogic = createLogic({
         done();
       })
       .catch((err) => {
+        dispatch(
+          notify.error({
+            content:
+              'There was a problem processing your search request. Please wait a few moments and try again.',
+            duration: 3000,
+          })
+        );
         dispatch(app.captureError(err, payload));
         done();
       });

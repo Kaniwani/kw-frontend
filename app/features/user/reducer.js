@@ -1,5 +1,4 @@
 import { handleActions } from 'redux-actions';
-import { serializeUserResponse } from 'common/serializers';
 
 import {
   initialUiState,
@@ -21,11 +20,18 @@ export const userUiReducer = handleActions(
   initialUiState
 );
 
-export const ingestUser = (state, { payload }) => serializeUserResponse(payload);
+export const initialQuizCountsState = {};
+
+export const quizCountsReducer = handleActions(
+  {
+    [user.quizCounts.success]: (state, { payload }) => payload,
+  },
+  initialQuizCountsState
+);
 
 export const userReducer = handleActions(
   {
-    [user.load.success]: ingestUser,
+    [user.load.success]: (state, { payload }) => payload,
     [user.logout]: () => initialUserState,
   },
   initialUserState

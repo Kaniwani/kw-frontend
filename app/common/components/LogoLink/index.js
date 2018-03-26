@@ -10,7 +10,7 @@ export const LOGO_SMALL_REMS = '3.25rem';
 
 const getSize = () => (window.innerWidth > breakpoints.md ? LOGO_LARGE_REMS : LOGO_SMALL_REMS);
 
-class LogoLink extends React.Component {
+class LogoLink extends React.PureComponent {
   static propTypes = {
     to: PropTypes.string,
   };

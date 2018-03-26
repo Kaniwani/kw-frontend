@@ -5,7 +5,8 @@ import { persistReducer, persistUiReducer } from 'common/persistence';
 
 import appReducer from './appReducer';
 import { announcementsUiReducer, announcementsReducer } from 'features/announcements/reducer';
-import { userUiReducer, userReducer } from 'features/user/reducer';
+import { notificationsReducer } from 'features/notifications/reducer';
+import { userUiReducer, userReducer, quizCountsReducer } from 'features/user/reducer';
 import { vocabReducer } from 'features/vocab/reducer';
 import { vocabLevelsUiReducer, vocabLevelsReducer } from 'features/vocab/Levels/reducer';
 import { vocabLevelUiReducer } from 'features/vocab/Level/reducer';
@@ -34,12 +35,14 @@ const rootReducer = combineReducers({
   levels: persistUiReducer('levels', vocabLevelsUiReducer),
   level: persistUiReducer('level', vocabLevelUiReducer),
   synonyms: synonymsUiReducer,
+  quizCounts: persistReducer({ key: 'quizCounts' }, quizCountsReducer),
   quizSession: quizSessionReducer,
   quizSummary: persistReducer({ key: 'quizSummary' }, quizSummaryReducer),
   quizAnswer: quizAnswerReducer,
   quizInfo: quizInfoReducer,
   form: formReducer,
   router: routerReducer,
+  notifications: notificationsReducer,
   entities: persistReducer({ key: 'entities' }, entitiesReducer),
 });
 

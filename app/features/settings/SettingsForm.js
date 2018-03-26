@@ -22,6 +22,9 @@ import { Form, Section, SubSection, Controls } from './styles';
 
 const milliToSec = (value = 0) => +value * 1000;
 const secToMilli = (value = 0) => +value / 1000;
+const INFO_LEVELS = ['LOW', 'MID', 'HIGH'];
+const infoLevelNameToNum = (val) => INFO_LEVELS.findIndex((x) => x === val);
+const infoLevelNumToName = (val) => INFO_LEVELS[val];
 
 SettingsForm.propTypes = {
   ...formPropTypes,
@@ -32,41 +35,53 @@ export function SettingsForm({ handleSubmit, submitting, submitSucceeded, dirty 
     <Form onSubmit={handleSubmit}>
       <Section>
         <H2>Quiz</H2>
+        <Field name="onVacation" label="Vacation mode" component={ToggleField} parse={Boolean} />
         <Field
           name="minimumWkSrsLevelToReview"
-          label="Only review items at or above WaniKani: "
+          label="Only review words at or above WaniKani: "
           component={SelectField}
           options={Object.values(WK_SRS_RANKS)}
-        />
-        <Field
-          name="onVacation"
-          label="Vacation mode"
-          component={ToggleField}
-          parse={(value) => !!value}
         />
         <Field
           name="autoExpandAnswerOnSuccess"
           label="Auto expand quiz info when correct"
           component={ToggleField}
-          parse={(value) => !!value}
+          parse={Boolean}
         />
         <Field
           name="autoExpandAnswerOnFailure"
           label="Auto expand quiz info when incorrect"
           component={ToggleField}
-          parse={(value) => !!value}
+          parse={Boolean}
+        />
+        <Field
+          name="infoDetailLevelOnSuccess"
+          label="Info detail level when correct:"
+          component={SelectField}
+          options={INFO_LEVELS}
+          format={infoLevelNumToName}
+          normalize={infoLevelNameToNum}
+        />
+        <Field
+          name="infoDetailLevelOnFailure"
+          label="Info detail level when incorrect:"
+          component={SelectField}
+          options={INFO_LEVELS}
+          format={infoLevelNumToName}
+          normalize={infoLevelNameToNum}
+          note="Incorrect lessons are always high detail."
         />
         <SubSection>
           <H4>Auto Advance</H4>
           <Field
             name="autoAdvanceOnSuccess"
-            label="Auto advance quiz when correct"
+            label="Advance quiz when correct"
             component={ToggleField}
-            parse={(value) => !!value}
+            parse={Boolean}
           />
           <Field
             name="autoAdvanceOnSuccessDelayMilliseconds"
-            label="Auto advance speed"
+            label="Advance delay:"
             component={RangeField}
             normalize={milliToSec}
             format={secToMilli}
@@ -74,6 +89,7 @@ export function SettingsForm({ handleSubmit, submitting, submitSucceeded, dirty 
             min={0}
             max={10}
             step={0.5}
+            note="If you tap inside the info panel, it will cancel the pending advance for you."
           />
         </SubSection>
       </Section>
@@ -82,9 +98,15 @@ export function SettingsForm({ handleSubmit, submitting, submitSucceeded, dirty 
         <H2>Vocabulary</H2>
         <Field
           name="followMe"
-          label="Unlock new levels as you unlock vocabulary on WaniKani"
+          label="Follow WaniKani"
           component={ToggleField}
           parse={(value) => !!value}
+          note={
+            <span>
+              Automatically syncs and unlocks items as they are unlocked in WaniKani. Turn this off
+              if you wish to stop syncing, and<strong> before </strong>you end your WK subscription.
+            </span>
+          }
         />
         <Field
           name="useEijiroProLink"
@@ -98,7 +120,7 @@ export function SettingsForm({ handleSubmit, submitting, submitSucceeded, dirty 
             </span>
           }
           component={ToggleField}
-          parse={(value) => !!value}
+          parse={Boolean}
         />
         <SubSection>
           <H4>Kanji Stroke Diagrams</H4>
@@ -106,17 +128,17 @@ export function SettingsForm({ handleSubmit, submitting, submitSucceeded, dirty 
             name="showKanjiSvgStrokeOrder"
             label="Show stroke order numbers"
             component={ToggleField}
-            parse={(value) => !!value}
+            parse={Boolean}
           />
           <Field
             name="showKanjiSvgGrid"
             label="Show grid lines"
             component={ToggleField}
-            parse={(value) => !!value}
+            parse={Boolean}
           />
           <Field
             name="kanjiSvgDrawSpeed"
-            label="Animation speed"
+            label="Animation speed:"
             component={RangeField}
             min={1}
             max={10}

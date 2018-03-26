@@ -293,4 +293,199 @@ describe('splitSentenceByMatch()', () => {
       });
     });
   });
+
+  describe('i-adjective matching', () => {
+    describe('word', () => {
+      it('full match', () => {
+        expect(
+          splitSentenceByMatch({
+            sentence: '新しい靴を買った',
+            adjType: 'adj-i',
+            word: '新しい',
+            reading: 'あたらしい',
+          })
+        ).toEqual({
+          head: '',
+          match: '新しい',
+          tail: '靴を買った',
+        });
+      });
+    });
+
+    describe('reading', () => {
+      it('full match', () => {
+        expect(
+          splitSentenceByMatch({
+            sentence: 'あたらしい靴を買った',
+            adjType: 'adj-i',
+            word: '新しい',
+            reading: 'あたらしい',
+          })
+        ).toEqual({
+          head: '',
+          match: 'あたらしい',
+          tail: '靴を買った',
+        });
+      });
+    });
+
+    it('matches various conjugations', () => {
+      expect(
+        splitSentenceByMatch({
+          adjType: 'adj-i',
+          word: '涼しい',
+          reading: 'すずしい',
+          sentence: '涼しくなってきた',
+        })
+      ).toEqual({
+        head: '',
+        match: '涼しく',
+        tail: 'なってきた',
+      });
+    });
+
+    it('matches various conjugations', () => {
+      expect(
+        splitSentenceByMatch({
+          adjType: 'adj-i',
+          word: '仰々しい',
+          reading: 'ぎょうぎょうしい',
+          sentence: '彼はなんでもぎょうぎょうしく考える人だ',
+        })
+      ).toEqual({
+        head: '彼はなんでも',
+        match: 'ぎょうぎょうしく',
+        tail: '考える人だ',
+      });
+    });
+
+    it('matches various conjugations', () => {
+      expect(
+        splitSentenceByMatch({
+          adjType: 'adj-i',
+          word: '楽しい',
+          reading: 'たのしい',
+          sentence: '旅行は楽しかったですか',
+        })
+      ).toEqual({
+        head: '旅行は',
+        match: '楽しかった',
+        tail: 'ですか',
+      });
+    });
+
+    it('matches various conjugations', () => {
+      expect(
+        splitSentenceByMatch({
+          adjType: 'adj-i',
+          word: '苦しい',
+          reading: 'くるしい',
+          sentence: '病人は苦しそうに息をしていた',
+        })
+      ).toEqual({
+        head: '病人は',
+        match: '苦しそう',
+        tail: 'に息をしていた',
+      });
+    });
+
+    it('matches various conjugations', () => {
+      expect(
+        splitSentenceByMatch({
+          adjType: 'adj-i',
+          word: '辛い',
+          reading: 'からい',
+          sentence: '台湾料理はインド料理ほど辛くない',
+        })
+      ).toEqual({
+        head: '台湾料理はインド料理ほど',
+        match: '辛くない',
+        tail: '',
+      });
+    });
+
+    it('matches various conjugations', () => {
+      expect(
+        splitSentenceByMatch({
+          adjType: 'adj-i',
+          word: '悪い',
+          reading: 'わるい',
+          sentence: '部長の都合が悪くなってしまった',
+        })
+      ).toEqual({
+        head: '部長の都合が',
+        match: '悪く',
+        tail: 'なってしまった',
+      });
+    });
+
+    it('matches various conjugations', () => {
+      expect(
+        splitSentenceByMatch({
+          adjType: 'adj-i',
+          word: '暖かい',
+          reading: 'あたたかい',
+          sentence: 'とても暖かくて気持ちよい',
+        })
+      ).toEqual({
+        head: 'とても',
+        match: '暖かくて',
+        tail: '気持ちよい',
+      });
+    });
+
+    it('matches よい・いい conjugations', () => {
+      expect(
+        splitSentenceByMatch({
+          adjType: 'adj-ix',
+          word: '格好いい',
+          reading: 'かっこういい',
+          sentence: '彼が格好いいね',
+        })
+      ).toEqual({
+        head: '彼が',
+        match: '格好いい',
+        tail: 'ね',
+      });
+
+      expect(
+        splitSentenceByMatch({
+          adjType: 'adj-ix',
+          word: '格好いい',
+          reading: 'かっこういい',
+          sentence: '彼がかっこういいね',
+        })
+      ).toEqual({
+        head: '彼が',
+        match: 'かっこういい',
+        tail: 'ね',
+      });
+
+      expect(
+        splitSentenceByMatch({
+          adjType: 'adj-ix',
+          word: '良い',
+          reading: 'よい',
+          sentence: 'かき氷が良い',
+        })
+      ).toEqual({
+        head: 'かき氷が',
+        match: '良い',
+        tail: '',
+      });
+
+      expect(
+        splitSentenceByMatch({
+          adjType: 'adj-ix',
+          word: '良い',
+          reading: 'よい',
+          sentence: 'かれはよくやった',
+        })
+      ).toEqual({
+        head: 'かれは',
+        match: 'よく',
+        tail: 'やった',
+      });
+    });
+  });
 });

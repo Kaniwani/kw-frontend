@@ -39,7 +39,7 @@ export class VocabList extends React.Component {
     withSrsColors: PropTypes.bool,
     showSecondary: PropTypes.bool,
     showFuri: PropTypes.bool,
-    color: PropTypes.string,
+    bgColor: PropTypes.string,
     tooltipSuffix: PropTypes.string,
   };
 
@@ -48,7 +48,7 @@ export class VocabList extends React.Component {
     showSecondary: false,
     showFuri: false,
     withSrsColors: false,
-    color: purple[5],
+    bgColor: purple[5],
     tooltipSuffix: cuid(),
   };
 
@@ -59,7 +59,7 @@ export class VocabList extends React.Component {
       <VocabCard
         key={cuid()}
         id={id}
-        bgColor={this.props.color}
+        bgColor={this.props.bgColor}
         withSrsColors={this.props.withSrsColors}
         showSecondary={this.props.showSecondary}
         showFuri={this.props.showFuri}
@@ -72,7 +72,7 @@ export class VocabList extends React.Component {
         key={cuid()}
         id={id}
         withSrsColors={this.props.withSrsColors}
-        bgColor={this.props.color}
+        bgColor={this.props.bgColor}
         data-for={tooltipId}
         data-place="bottom"
       />

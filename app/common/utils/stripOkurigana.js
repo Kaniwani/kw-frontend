@@ -1,0 +1,40 @@
+import { isJapanese, isKana, isKanji, tokenize } from 'wanakana';
+
+const leadingWithoutInitialKana = (input, leading) => leading && !isKana(input[0]);
+const trailingWithoutFinalKana = (input, leading) => !leading && !isKana(input[input.length - 1]);
+const inValidMatcher = (input, matchKanji) =>
+  (matchKanji && ![...matchKanji].some(isKanji)) || (!matchKanji && isKana(input));
+
+/**
+ * Strips [Okurigana](https://en.wikipedia.org/wiki/Okurigana)
+ * @param  {String} input text
+ * @param  {Object} [options={ leading: false, matchKanji: '' }] optional config
+ * @return {String} text with okurigana removed
+ * @example
+ * stripOkurigana('踏み込む')
+ * // => '踏み込'
+ * stripOkurigana('お祝い')
+ * // => 'お祝'
+ * stripOkurigana('お腹', { leading: true });
+ * // => '腹'
+ * stripOkurigana('ふみこむ', { matchKanji: '踏み込む' });
+ * // => 'ふみこ'
+ * stripOkurigana('おみまい', { matchKanji: 'お祝い', leading: true });
+ * // => 'みまい'
+ */
+function stripOkurigana(input = '', { leading = false, matchKanji = '' } = {}) {
+  if (
+    !isJapanese(input) ||
+    leadingWithoutInitialKana(input, leading) ||
+    trailingWithoutFinalKana(input, leading) ||
+    inValidMatcher(input, matchKanji)
+  ) {
+    return input;
+  }
+
+  const chars = matchKanji || input;
+  const toMatch = leading ? [...chars].reverse().join() : chars;
+  return input.replace(tokenize(toMatch).pop(), '');
+}
+
+export default stripOkurigana;

@@ -12,6 +12,7 @@ import {
 } from 'features/vocab/Levels/selectors';
 
 import Spinner from 'common/components/Spinner';
+import Container from 'common/components/Container';
 import Element from 'common/components/Element';
 import H1 from 'common/components/H1';
 import Toggle from 'common/components/Toggle';
@@ -76,7 +77,13 @@ export class VocabLevelContainer extends React.Component {
   }
 
   render() {
-    return !this.props.lastLoad ? <Spinner /> : <VocabLevel {...this.props} />;
+    return !this.props.lastLoad ? (
+      <Container>
+        <Spinner />
+      </Container>
+    ) : (
+      <VocabLevel {...this.props} />
+    );
   }
 }
 

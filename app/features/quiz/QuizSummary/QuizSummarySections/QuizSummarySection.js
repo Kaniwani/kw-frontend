@@ -59,7 +59,7 @@ function QuizSummarySection({ rankedIds, sectionType, color, cardsExpanded }) {
         <VocabListRanked
           rankedIds={rankedIds}
           sectionType={sectionType}
-          color={sectionColor}
+          bgColor={sectionColor}
           cardsExpanded={cardsExpanded}
         />
       )}

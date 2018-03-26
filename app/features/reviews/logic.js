@@ -2,6 +2,7 @@ import { createLogic } from 'redux-logic';
 
 import review from './actions';
 import { app } from 'common/actions';
+import notify from 'features/notifications/actions';
 
 export const reviewLoadLogic = createLogic({
   type: review.load.request,
@@ -16,6 +17,13 @@ export const reviewLoadLogic = createLogic({
         done();
       })
       .catch((err) => {
+        dispatch(
+          notify.warning({
+            content:
+              'There was a problem contacting the server, you may be experiencing connection problems.',
+            duration: 3000,
+          })
+        );
         dispatch(app.captureError(err, payload));
         dispatch(review.load.failure(err));
         done();
@@ -73,6 +81,13 @@ export const updateNotesLogic = createLogic({
       })
       .catch((err) => {
         dispatch(app.captureError(err, payload));
+        dispatch(
+          notify.warning({
+            content:
+              'There was a problem saving notes to the server, you may be experiencing connection problems.',
+            duration: 3000,
+          })
+        );
         dispatch(review.updateNotes.failure(err));
         done();
       });

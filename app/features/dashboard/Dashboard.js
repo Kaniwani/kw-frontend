@@ -1,10 +1,8 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import { selectUserLastLoad, selectUpcomingReviewsTotal } from 'features/user/selectors';
-
-import { grey } from 'common/styles/colors';
+import { isBefore, addMinutes } from 'date-fns';
 
 import Spinner from 'common/components/Spinner';
 import Container from 'common/components/Container';
@@ -15,24 +13,24 @@ import Announcements from 'features/announcements';
 import SrsChart from './SrsChart';
 import UpcomingReviewsChart from './UpcomingReviewsChart';
 import ReviewStatus from './ReviewStatus';
-import ApiKeyCheck from './ApiKeyCheck';
 import SearchBar from 'features/search/SearchBar';
 import SearchResults from 'features/search/SearchResults';
 
+import { grey } from 'common/styles/colors';
+
 Dashboard.propTypes = {
   upcomingReviewsTotal: PropTypes.number.isRequired,
-  lastLoad: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.oneOf([false])]).isRequired,
+  showLoading: PropTypes.bool.isRequired,
 };
 
-function Dashboard({ upcomingReviewsTotal, lastLoad }) {
-  return !lastLoad ? (
+function Dashboard({ upcomingReviewsTotal, showLoading }) {
+  return showLoading ? (
     <Container>
       <Spinner />
     </Container>
   ) : (
     <Fragment>
       <Container>
-        <ApiKeyCheck />
         <ReviewStatus />
       </Container>
       <Container flexColumn>
@@ -66,9 +64,13 @@ function Dashboard({ upcomingReviewsTotal, lastLoad }) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  lastLoad: selectUserLastLoad(state),
-  upcomingReviewsTotal: selectUpcomingReviewsTotal(state),
-});
+const mapStateToProps = (state) => {
+  const lastLoad = selectUserLastLoad(state);
+  const showLoading = !lastLoad || isBefore(lastLoad, addMinutes(Date.now(), -60));
+  return {
+    showLoading,
+    upcomingReviewsTotal: selectUpcomingReviewsTotal(state),
+  };
+};
 
 export default connect(mapStateToProps)(Dashboard);

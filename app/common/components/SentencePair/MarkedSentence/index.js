@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import splitSentenceByMatch from 'common/utils/splitSentenceByMatch';
 import A from 'common/components/A';
 
@@ -7,20 +8,12 @@ import { Sentence, VocabMark } from './styles';
 
 MarkedSentence.propTypes = {
   sentence: PropTypes.string.isRequired,
-  word: PropTypes.string,
-  reading: PropTypes.string,
-  verbType: PropTypes.string,
+  head: PropTypes.string.isRequired,
+  match: PropTypes.string.isRequired,
+  tail: PropTypes.string.isRequired,
 };
 
-MarkedSentence.defaultProps = {
-  word: '',
-  reading: '',
-  verbType: '',
-};
-
-function MarkedSentence({ sentence, word, reading, verbType }) {
-  const { head, match, tail } = splitSentenceByMatch({ sentence, word, reading, verbType });
-
+function MarkedSentence({ sentence, head, match, tail }) {
   return (
     <Sentence lang="ja">
       <A
@@ -37,4 +30,9 @@ function MarkedSentence({ sentence, word, reading, verbType }) {
   );
 }
 
-export default MarkedSentence;
+const enhance = connect((state, props) => {
+  const { head, match, tail } = splitSentenceByMatch(props);
+  return { sentence: props.sentence, head, match, tail };
+});
+
+export default enhance(MarkedSentence);

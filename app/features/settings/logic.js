@@ -4,13 +4,14 @@ import settings from './actions';
 import { app } from 'common/actions';
 import user from 'features/user/actions';
 import vocab from 'features/vocab/actions';
-import { selectUserProfile } from 'features/user/selectors';
-import { deserializeUserProfile } from 'common/serializers';
+import notify from 'features/notifications/actions';
+import { selectUserDomain } from 'features/user/selectors';
 
 export const saveSettingsLogic = createLogic({
   type: settings.save.request,
-  process({ getState, api, action: { payload, meta: { form } } }, dispatch, done) {
-    const profile = selectUserProfile(getState());
+  process({ getState, api, serializers, action: { payload, meta: { form } } }, dispatch, done) {
+    const { serializeUserProfile, deserializeUserProfile } = serializers;
+    const { username, email, profile } = selectUserDomain(getState());
     const updatedProfile = deserializeUserProfile(payload);
     const filterChanged = profile.minimumWkSrsLevelToReview !== payload.minimumWkSrsLevelToReview;
 
@@ -18,9 +19,16 @@ export const saveSettingsLogic = createLogic({
     api.user
       .update({ id: profile.id, ...updatedProfile })
       .then((response) => {
-        dispatch(user.load.success({ profile: response }));
-        dispatch(settings.save.success({}, { filterChanged }));
         form.stopSubmit();
+        dispatch(
+          user.load.success({
+            username,
+            email,
+            profile: serializeUserProfile(response),
+          })
+        );
+        dispatch(settings.save.success({}, { filterChanged }));
+        dispatch(notify.success({ content: 'Settings Saved!', duration: 3000 }));
         done();
       })
       .catch((err) => {
@@ -28,6 +36,12 @@ export const saveSettingsLogic = createLogic({
         if (err.json && err.json.api_key) {
           form.stopSubmit({ apiKey: err.json.api_key[0] });
         } else {
+          dispatch(
+            notify.error({
+              content:
+                'Something went wrong saving your settings. Please wait a few moments and try again.',
+            })
+          );
           dispatch(app.captureError(err, payload));
           form.stopSubmit();
         }
@@ -42,12 +56,19 @@ export const resetProgressLogic = createLogic({
     api.user
       .resetProgress(payload)
       .then(() => {
-        dispatch(user.load.request());
+        dispatch(user.load.request({ force: true }));
         dispatch(vocab.levels.load.request());
+        dispatch(notify.success({ content: 'Reset complete!', duration: 3000 }));
         done();
       })
       .catch((err) => {
         dispatch(app.captureError(err, payload));
+        dispatch(
+          notify.error({
+            content:
+              'Something went wrong contacting the server to reset your progress. Please reload and try again or contact us with details of what happened.',
+          })
+        );
         done();
       });
   },

@@ -1,5 +1,5 @@
-import { createActions } from "redux-actions";
-import { SYNC, ASYNC } from "common/actions";
+import { createActions } from 'redux-actions';
+import { SYNC, ASYNC } from 'common/actions';
 
 export const { review } = createActions({
   REVIEW: {

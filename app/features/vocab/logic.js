@@ -1,6 +1,7 @@
 import { createLogic } from 'redux-logic';
 
 import { app } from 'common/actions';
+import notify from 'features/notifications/actions';
 import vocab from './actions';
 
 const reportVocabLogic = createLogic({
@@ -18,6 +19,11 @@ const reportVocabLogic = createLogic({
       })
       .catch((err) => {
         form.setSubmitFailed();
+        dispatch(
+          notify.error({
+            content: 'Unable to send report. You may be experiencing connection problems.',
+          })
+        );
         dispatch(app.captureError(err, payload));
         dispatch(vocab.report.failure(err));
         done();

@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
+import ReactInterval from 'react-interval';
 import { ResponsiveContainer, BarChart, Brush, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
-
+import { startOfHour, setHours, isBefore } from 'date-fns';
 import { selectOnVacation, selectUpcomingReviews } from 'features/user/selectors';
 
-import { purple } from 'common/styles/colors';
+import user from 'features/user/actions';
+
 import Element from 'common/components/Element';
 import VacationImage from './VacationImageLoadable';
 import HourTick from './HourTick';
 import DayTick from './DayTick';
 import BarLabel from './BarLabel';
+import { purple } from 'common/styles/colors';
 
 UpcomingReviewsChart.propTypes = {
   data: PropTypes.arrayOf(
@@ -21,17 +23,10 @@ UpcomingReviewsChart.propTypes = {
       value: PropTypes.number.isRequired,
     })
   ).isRequired,
-  isOnVacation: PropTypes.bool,
 };
 
-UpcomingReviewsChart.defaultProps = {
-  isOnVacation: false,
-};
-
-export function UpcomingReviewsChart({ data, isOnVacation }) {
-  return isOnVacation ? (
-    <VacationImage />
-  ) : (
+export function UpcomingReviewsChart({ data }) {
+  return (
     <Element flexRow flexCenter style={{ fontSize: '.75rem' }}>
       <ResponsiveContainer width="100%" minWidth={320} height={300} debounce={100}>
         <BarChart
@@ -61,14 +56,14 @@ export function UpcomingReviewsChart({ data, isOnVacation }) {
             tick={<DayTick />}
           />
           <Bar
-            isAnimationActive={false}
+            isAnimationActive
             xAxisId="day"
             dataKey="none"
             fill={purple[3]}
             label={<BarLabel />}
           />
           <Bar
-            isAnimationActive={false}
+            isAnimationActive
             xAxisId="hour"
             dataKey="value"
             fill={purple[3]}
@@ -81,9 +76,47 @@ export function UpcomingReviewsChart({ data, isOnVacation }) {
   );
 }
 
+class UpcomingReviewsChartContainer extends React.Component {
+  static propTypes = {
+    data: PropTypes.array.isRequired,
+    isOnVacation: PropTypes.bool.isRequired,
+    loadUser: PropTypes.func.isRequired,
+  };
+
+  componentDidMount() {
+    this.updateCounts();
+  }
+
+  updateCounts = () => {
+    const { data, loadUser } = this.props;
+    const { hour } = data[0];
+    const twentyFourHour = parseInt(hour, 10) + (/pm/gi.test(hour) ? 12 : 0);
+    const fullDate = setHours(Date.now(), twentyFourHour);
+    const hourTickedOver = isBefore(startOfHour(fullDate), Date.now());
+    if (hourTickedOver) {
+      loadUser();
+    }
+  };
+
+  render() {
+    return this.props.isOnVacation ? (
+      <VacationImage />
+    ) : (
+      <Fragment>
+        <ReactInterval enabled timeout={10000} callback={this.updateCounts} />
+        <UpcomingReviewsChart data={this.props.data} />
+      </Fragment>
+    );
+  }
+}
+
 const mapStateToProps = (state) => ({
   data: selectUpcomingReviews(state),
   isOnVacation: selectOnVacation(state),
 });
 
-export default connect(mapStateToProps)(UpcomingReviewsChart);
+const mapDispatchToProps = {
+  loadUser: user.load.request,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UpcomingReviewsChartContainer);

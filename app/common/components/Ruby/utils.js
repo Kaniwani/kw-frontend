@@ -1,7 +1,7 @@
 import { isEmpty } from 'lodash';
 import { stripOkurigana, isKanji, isKatakana } from 'wanakana';
 
-// FIXME: entires like { word: '申し申し', reading: 'もしもし' } end up with [['もしも', '申し申し']]
+// FIXME: entries like { word: '申し申し', reading: 'もしもし' } end up with [['もしも', '申し申し']]
 // with the もしも being centered over the first し - not wrong... but looks kinda weird.
 // Can we do anything about it?
 

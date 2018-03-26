@@ -1,6 +1,7 @@
 import styled, { css, keyframes } from 'styled-components';
 import { rgba, timingFunctions } from 'polished';
 
+import P from 'common/components/P';
 import { gutter } from 'common/styles/layout';
 import { grey, white, orange, blue } from 'common/styles/colors';
 
@@ -35,7 +36,7 @@ export const Label = styled.label`
   align-content: center;
   align-items: center;
   & > * {
-    ${gutter()}
+    ${gutter({ prop: 'margin' })}
     display: inline-flex;
   }
 `;
@@ -44,9 +45,13 @@ export const ToggleLabel = Label.extend`
   flex-wrap: nowrap;
 `;
 
-export const Note = styled.div`
+export const Note = styled(P).attrs({
+  constrain: true,
+})`
   ${gutter()}
-  font-style: italic;
+  padding-bottom: 0 !important;
+  color: ${grey[5]};
+  font-size: 0.8em;
 `;
 
 export const ValidationMessage = styled.div`
@@ -70,7 +75,7 @@ export const ToggleSwitch = styled.input`
 
 /* switch track container */
 export const ToggleDisplay = styled.span`
-  ${gutter({ prop: 'margin', type: 'inner', position: 'right' })}
+  ${gutter({ prop: 'margin', type: 'inner' })}
   position: relative;
   flex: 0 0 auto;
   width: ${({ trackWidth }) => trackWidth}rem;

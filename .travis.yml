@@ -3,7 +3,7 @@ language: node_js
 node_js:
   - 8
 
-script: npm run test && npm run build
+script: echo -e "RAVEN_DSN=nope\nDEV_DOMAIN=nope" >> ./.env && npm run test && npm run build
 
 notifications:
   email:

@@ -1,6 +1,7 @@
 import { createLogic } from 'redux-logic';
 
 import { app } from 'common/actions';
+import notify from 'features/notifications/actions';
 import synonym from './actions';
 
 export const addSynonymLogic = createLogic({
@@ -17,6 +18,12 @@ export const addSynonymLogic = createLogic({
       })
       .catch((err) => {
         dispatch(app.captureError(err, action.payload));
+        dispatch(
+          notify.error({
+            content:
+              'Unable to save synonym. There may have been a connection problem, or the synonym is a duplicate.',
+          })
+        );
         dispatch(synonym.add.failure(err));
         done();
       });
@@ -35,6 +42,11 @@ export const removeSynonymLogic = createLogic({
         done();
       })
       .catch((err) => {
+        dispatch(
+          notify.error({
+            content: 'Unable to remove synonym. You may be experiencing connection problems.',
+          })
+        );
         dispatch(app.captureError(err, payload));
         dispatch(synonym.remove.failure(err));
       });

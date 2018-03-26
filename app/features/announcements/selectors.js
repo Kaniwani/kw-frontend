@@ -1,24 +1,32 @@
 import { createSelector } from 'reselect';
 import { isBefore, addMinutes, parse } from 'date-fns';
-
-import { getState, makeSelectItemIds, makeSelectItemById } from 'common/selectors';
+import dateOrFalse from 'common/utils/dateOrFalse';
+import { getState, getBy, makeSelectItemIds, makeSelectItemById } from 'common/selectors';
 
 export const UI_DOMAIN = 'announcements';
 export const ENTITY_DOMAIN = 'announcements';
 export const selectAnnouncementsUi = getState(UI_DOMAIN, {});
 export const selectAnnouncementEntities = getState(['entities', ENTITY_DOMAIN], {});
 
-const shouldLoad = ({ isLoading, lastLoad }) => {
-  if (isLoading) {
-    return false;
-  }
-  return !lastLoad || isBefore(parse(lastLoad), addMinutes(new Date(), -30));
-};
+const getAnHourAgo = () => addMinutes(new Date(), -60);
 
-export const selectAnnouncementsShouldLoad = createSelector(selectAnnouncementsUi, shouldLoad);
-export const selectAnnouncementsIsLoading = createSelector(
+export const selectAnnouncementsLoading = createSelector(
   selectAnnouncementsUi,
   getState('isLoading', false)
+);
+export const selectAnnouncementsLastLoad = createSelector(
+  selectAnnouncementsUi,
+  getBy('lastLoad', dateOrFalse)
+);
+
+export const selectAnnouncementsShouldLoad = createSelector(
+  [selectAnnouncementsLoading, selectAnnouncementsLastLoad, getAnHourAgo],
+  (isLoading, lastLoad, anHourAgo) => {
+    if (isLoading) {
+      return false;
+    }
+    return !lastLoad || isBefore(parse(lastLoad), anHourAgo);
+  }
 );
 export const selectAnnouncementIds = makeSelectItemIds(selectAnnouncementEntities);
 export const selectAnnouncements = selectAnnouncementEntities;

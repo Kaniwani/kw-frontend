@@ -37,7 +37,6 @@ export function VocabCard({ id, vocabId, showFuri, showSecondary, textColor, bgC
   );
 }
 
-// FIXME: use readableColor() instead of textColor ternary below
 const mapStateToProps = (state, props) => {
   const streak = selectStreak(state, props);
   const vocabId = selectPrimaryVocabId(state, props);

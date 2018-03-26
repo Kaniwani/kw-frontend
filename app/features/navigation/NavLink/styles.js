@@ -42,12 +42,16 @@ export const Text = styled.span`
 export const Count = styled.div`
   padding-top: 1px;
   margin-left: 5px;
-  color: ${({ noReviews }) => noReviews ? grey[5] : blue[4]};
+  color: ${blue[4]};
   transform: scale3d(1, 1, 1);
   animation-duration: 0.9s;
   animation-fill-mode: both;
   ${({ changed }) => changed && css`
     animation-name: ${rubberBand};
+  `};
+  ${({ noReviews }) => noReviews && css`
+    opacity: 0;
+    width: 0px;
   `};
 `;
 

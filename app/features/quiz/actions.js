@@ -4,6 +4,7 @@ import { SYNC, ASYNC } from 'common/actions';
 // FIXME: these are nice to see all together, but everything related to them is nested
 // should probably break it apart into separate actions files
 // at least into export const { quizSession } & export const { quizSummary } (instead of { quiz })
+// OR rather we should just combine all the other quiz stuff into a single root logic / reducer file like this
 export const { quiz } = createActions({
   QUIZ: {
     SUMMARY: {

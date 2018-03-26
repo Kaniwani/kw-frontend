@@ -45,7 +45,7 @@
     }
 
     .loading-crabigator {
-      display: none;
+      display: block;
       pointer-events: none;
       position: absolute;
       top: 0;
@@ -56,16 +56,12 @@
       transition: all 200ms ease-in-out;
     }
 
-    .loading-crabigator.isActive {
-      display: block;
+    .loading-crabigator path[id*="Step1"] {
+      animation: fadeOut .75s steps(1) 0ms infinite;
     }
 
-    .loading-crabigator.isActive path[id*="Step1"] {
-      animation: fadeOut .75s steps(1) infinite;
-    }
-
-    .loading-crabigator.isActive path[id*="Step2"] {
-      animation: fadeIn .75s steps(1) infinite;
+    .loading-crabigator path[id*="Step2"] {
+      animation: fadeIn .75s steps(1) 0ms infinite;
     }
   </style>
 </head>
@@ -109,9 +105,6 @@
   </div>
   <!-- A lot of magic happens in this file. HtmlWebpackPlugin automatically includes all assets (e.g. bundle.js, main.css) with the correct HTML tags, which is why they are missing in this HTML file. Don't add any assets here! (Check out webpackconfig.js if you want to know more) -->
   <script>
-    if (localStorage.getItem('kw_bootstrapped') == null) {
-      document.querySelector('.loading-crabigator').classList.add('isActive')
-    }
     /*
     Adds a css class to body to enable highlight ring for focusable elements.
     This allows us to forego unnecessary focus states on taps/clicks by default.

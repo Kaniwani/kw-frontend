@@ -45,7 +45,7 @@ export function SearchResults({ ids, isSearching, isSearchComplete, onReset }) {
             </Button>
           )}
         </Element>
-        <VocabList ids={ids} color={blue[5]} showSecondary showFuri />
+        <VocabList ids={ids} bgColor={blue[5]} showSecondary showFuri />
       </Fragment>
     )
   );

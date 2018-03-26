@@ -49,7 +49,7 @@ export const Footer = styled.footer`
 
 export const CrabigatorStencil = BackgroundImg.extend`
   z-index: 1;
-  opacity: 0.7;
+  opacity: 0.6;
   max-height: 95%;
 `;
 
@@ -63,4 +63,7 @@ export const FooterLinkGroup = styled(Ul).attrs({
 })`
   display: flex;
   flex-direction: column;
+  & a {
+    padding: 0 1rem 0.5rem;
+  }
 `;
