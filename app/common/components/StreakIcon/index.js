@@ -21,7 +21,7 @@ StreakIcon.defaultProps = {
 
 function StreakIcon({ streak, streakName, colored, ...props }) {
   const name = streakName || getSrsRankName(streak);
-  const title = name ? `${streak}: ${titleCase(name)}` : titleCase(name);
+  const title = streak ? `${streak}: ${titleCase(name)}` : titleCase(name);
   const color = colored ? SRS_COLORS[name] : 'currentColor';
   return <Icon name={name} title={title} color={color} {...props} />;
 }
