@@ -42,6 +42,12 @@ export const levelLockLogic = createLogic({
       .lock({ id })
       .then(() => {
         dispatch(vocab.level.lock.success({ id }));
+        dispatch(
+          notify.success({
+            content: `Level ${id} locked.`,
+            duration: 2000,
+          })
+        );
         setTimeout(() => {
           dispatch(user.quizCounts.request());
           done();
@@ -80,6 +86,12 @@ export const levelUnlockLogic = createLogic({
       .unlock({ id })
       .then(() => {
         dispatch(vocab.level.unlock.success({ id }));
+        dispatch(
+          notify.success({
+            content: `Level ${id} unlocked.`,
+            duration: 2000,
+          })
+        );
         setTimeout(() => dispatch(user.quizCounts.request()), 1000);
         setTimeout(() => {
           dispatch(vocab.level.load.request({ id }));

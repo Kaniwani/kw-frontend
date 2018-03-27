@@ -40,6 +40,12 @@ export const reviewLockLogic = createLogic({
       .hide({ id })
       .then(() => {
         dispatch(review.lock.success({ id, hidden: true }));
+        dispatch(
+          notify.success({
+            content: `This word will no longer appear in your reviews.`,
+            duration: 2000,
+          })
+        );
         done();
       })
       .catch((err) => {
@@ -59,6 +65,12 @@ export const reviewUnlockLogic = createLogic({
       .unhide({ id })
       .then(() => {
         dispatch(review.unlock.success({ id, hidden: false }));
+        dispatch(
+          notify.success({
+            content: `This word will appear in your reviews again.`,
+            duration: 2000,
+          })
+        );
         done();
       })
       .catch((err) => {
@@ -77,6 +89,12 @@ export const updateNotesLogic = createLogic({
       .update(payload)
       .then((res) => {
         dispatch(review.updateNotes.success(res));
+        dispatch(
+          notify.success({
+            content: `Notes updated!`,
+            duration: 2000,
+          })
+        );
         done();
       })
       .catch((err) => {
