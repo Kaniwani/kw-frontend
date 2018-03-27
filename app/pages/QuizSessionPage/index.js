@@ -37,6 +37,8 @@ export const Wrapper = styled.div`
   overflow-x: hidden;
 `;
 
+const FIVE_MINS = 60000 * 5;
+
 const TimeoutOverlay = () => (
   <div style={{ position: 'relative', zIndex: '100' }}>
     <Fixed top={0} right={0} bottom={0} left={0} />
@@ -105,7 +107,7 @@ export class QuizSessionPage extends React.Component {
               {online && (
                 <Fragment>
                   <QuizSession category={category} />
-                  <ReactInterval enabled timeout={10000} callback={this.checkTimeOut} />
+                  <ReactInterval enabled timeout={FIVE_MINS} callback={this.checkTimeOut} />
                   {this.state.timedOut && <TimeoutOverlay />}
                 </Fragment>
               )}
