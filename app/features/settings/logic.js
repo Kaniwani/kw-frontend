@@ -27,7 +27,14 @@ export const saveSettingsLogic = createLogic({
             profile: serializeUserProfile(response),
           })
         );
-        dispatch(settings.save.success({}, { filterChanged }));
+
+        if (filterChanged) {
+          dispatch(user.quizCounts.request());
+          dispatch(user.load.request());
+          dispatch(vocab.levels.load.request());
+        }
+
+        dispatch(settings.save.success());
         dispatch(notify.success({ content: 'Settings Saved!', duration: 3000 }));
         done();
       })
