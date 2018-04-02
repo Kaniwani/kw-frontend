@@ -7,13 +7,14 @@ import smoothScrollY from 'common/utils/smoothScrollY';
 
 import quiz from 'features/quiz/actions';
 import selectAnswer from 'features/quiz/QuizSession/QuizAnswer/selectors';
-import { selectCurrentStreak } from 'features/quiz/QuizSession/selectors';
+import { selectCurrentStreak, selectIsLessonQuiz } from 'features/quiz/QuizSession/selectors';
 import { Form, AnswerWrapper, Label, Streak, Input, IgnoreButton, SubmitButton } from './styles';
 
 export class QuizAnswer extends React.Component {
   static propTypes = {
     onIgnore: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
+    isLessonQuiz: PropTypes.bool.isRequired,
     value: PropTypes.string, // eslint-disable-line react/require-default-props
     streak: PropTypes.number,
     isFocused: PropTypes.bool,
@@ -75,6 +76,7 @@ export class QuizAnswer extends React.Component {
 
   render() {
     const {
+      isLessonQuiz,
       isFocused,
       isDisabled,
       isCorrect,
@@ -98,7 +100,7 @@ export class QuizAnswer extends React.Component {
         tabIndex={0}
       >
         <AnswerWrapper>
-          {isDisabled ? (
+          {!isLessonQuiz && isDisabled ? (
             <IgnoreButton
               name="CLOSE"
               type="button"
@@ -139,6 +141,7 @@ export class QuizAnswer extends React.Component {
 const mapStateToProps = (state, props) => ({
   ...selectAnswer(state, props),
   streak: selectCurrentStreak(state, props),
+  isLessonQuiz: selectIsLessonQuiz(state, props),
 });
 
 const mapDispatchToProps = {
