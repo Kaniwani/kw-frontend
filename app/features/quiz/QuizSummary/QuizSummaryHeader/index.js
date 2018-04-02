@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { titleCase } from 'voca';
 
 import { selectReviewsCount, selectLessonsCount, selectOnVacation } from 'features/user/selectors';
-import { selectSessionRemainingCount } from 'features/quiz/QuizSession/selectors';
 import quiz from 'features/quiz/actions';
 import SessionLink from './SessionLink';
 
@@ -52,26 +51,20 @@ export function QuizSummaryHeader({
 
 const mapStateToProps = (state, props) => {
   const { category } = props.match.params;
-  const fromSession = /session/.test(state.app.fromPath);
-  const sessionRemainingCount = selectSessionRemainingCount(state, { category });
   const isOnVacation = selectOnVacation(state);
-  const remainingCount =
-    fromSession && !sessionRemainingCount
-      ? 0
-      : category === 'reviews' ? selectReviewsCount(state) : selectLessonsCount(state);
-
+  const count = category === 'reviews' ? selectReviewsCount(state) : selectLessonsCount(state);
   const categoryTitle = titleCase(category);
-  const isHeaderLinkDisabled = isOnVacation || remainingCount < 1;
+  const isHeaderLinkDisabled = isOnVacation || count < 1;
   const headerLinkText =
     (isOnVacation && 'On Vacation!') ||
-    (isHeaderLinkDisabled ? `No ${titleCase(category)}` : 'Begin Session');
+    (isHeaderLinkDisabled ? `No ${categoryTitle}` : 'Begin Session');
 
   return {
     heading: categoryTitle,
     linkText: headerLinkText,
-    count: remainingCount,
     sessionRoute: `/${category}/session`,
     isDisabled: isHeaderLinkDisabled,
+    count,
   };
 };
 
@@ -79,9 +72,6 @@ const mapDispatchToProps = (dispatch, { match }) => ({
   onSessionStart: () => {
     dispatch(quiz.summary.reset({}, { category: match.params.category }));
     dispatch(quiz.session.reset());
-    // FIXME: could preload on mouseEnter as well
-    // but we need to set quiz isLoading to prevent double request on quizSessionpage mount
-    //    dispatch(quiz.session.queue.load.request(match.params.category));
   },
 });
 

@@ -5,7 +5,7 @@ import calculatePercentage from 'common/utils/calculatePercentage';
 import { SESSION_CATEGORIES, MINIMUM_QUEUE_COUNT } from './constants';
 
 import { getState } from 'common/selectors';
-import { selectUserProfile } from 'features/user/selectors';
+import { selectLessonsCount, selectReviewsCount } from 'features/user/selectors';
 import { selectPrimaryVocabId } from 'features/reviews/selectors';
 import { selectVocabById } from 'features/vocab/selectors';
 
@@ -44,8 +44,12 @@ export const selectPrimaryVocabFromCurrent = createSelector(
 );
 
 export const selectSessionCount = createSelector(
-  [selectUserProfile, selectCategory],
-  (profile, category) => getState(`${category}Count`, 0)(profile)
+  [selectLessonsCount, selectReviewsCount, selectIsLessonQuiz, selectIsReviewQuiz],
+  (lessons, reviews, isLessonQuiz, isReviewsQuiz) => {
+    if (isLessonQuiz) return lessons;
+    if (isReviewsQuiz) return reviews;
+    return 0;
+  }
 );
 
 export const selectSessionRemainingCount = createSelector(
@@ -63,7 +67,6 @@ export const selectPercentComplete = createSelector(
   (complete, remaining) => calculatePercentage(complete, complete + remaining)
 );
 
-// FIXME: same as summary selector = extract transform function somewhere common?
 export const selectPercentCorrect = createSelector(
   [selectCorrectCount, selectIncorrectCount],
   (correct, incorrect) => {
@@ -78,7 +81,7 @@ export const selectQueueNeeded = createSelector(
   (wrapUp, queueCount, remaining) => {
     const needMoreWrapUp = wrapUp.active && queueCount < wrapUp.count;
     const needMoreMinimum = !wrapUp.active && queueCount < MINIMUM_QUEUE_COUNT;
-    const moreQueueExists = queueCount < remaining;
+    const moreQueueExists = remaining - queueCount >= 1;
     const queueNeeded = (needMoreWrapUp || needMoreMinimum) && moreQueueExists;
     return queueNeeded;
   }
