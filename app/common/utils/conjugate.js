@@ -142,7 +142,7 @@ const VERB_CONJUGATIONS = [
   // renyoukei: 12-13
   {
     name: 'conjunctive',
-    forms: ['い-', 'き-', 'ぎ-', 'し-', 'ち-', 'み-', 'び-', 'に-', 'り-', '-'],
+    forms: ['い', 'き', 'ぎ', 'し', 'ち', 'み', 'び', 'に', 'り', ''],
   },
   {
     name: 'way of doing',
