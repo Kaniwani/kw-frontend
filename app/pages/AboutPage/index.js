@@ -75,7 +75,7 @@ function AboutPage() {
             <H2>Follow WaniKani</H2>
             <P constrain>
               This setting will automatically sync with WaniKani and unlock <strong>new</strong>{' '}
-              levels here as you level up there.{' '}
+              levels here as you level up there.
               <strong>
                 If you intend to cancel or suspend your WaniKani account, you should turn this
                 feature off beforehand
@@ -117,13 +117,22 @@ function AboutPage() {
             </P>
           </Container>
 
-          <Container flex="1 1 500px" style={{ maxWidth: '38em' }}>
+          <Container flex="1 1 500px">
             <H2>Girl, Little Girl, Young Lady, Arggh!</H2>
             <P constrain>
               Many WaniKani words have very similar meanings. To alleviate this, if you add{' '}
               <strong>meaning synoynms on WaniKani</strong> they will appear as part of the KaniWani
               meaning. You can also add <strong>answer synonyms on KaniWani</strong> as acceptable
               answers during your reviews or on the vocabulary entry page.
+            </P>
+          </Container>
+
+          <Container flex="1 1 500px">
+            <H2>Dude, where’s my changes?</H2>
+            <P constrain>
+              It would be uncouth of us to hammer WaniKani constantly checking for potential changes
+              so we only periodically sync with WaniKani. You may have to wait up to 12 hours for
+              newly unlocked vocab or synonym changes to appear.
             </P>
           </Container>
         </Container>

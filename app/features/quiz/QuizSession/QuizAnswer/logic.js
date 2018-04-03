@@ -73,18 +73,16 @@ export const submitAnswerLogic = createLogic({
 export const confirmAnswerLogic = createLogic({
   type: quiz.answer.confirm,
   latest: true,
-  process({ getState }, dispatch, done) {
-    const { value, isValid, isDisabled } = selectAnswer(getState());
-    if (value && isValid && isDisabled) {
-      dispatch(quiz.answer.record.request());
+  validate({ getState, action }, allow, reject) {
+    const { value, isValid, isDisabled, isIgnored } = selectAnswer(getState());
+    if (value && isValid && isDisabled && !isIgnored) {
+      allow(action);
     } else {
-      dispatch(
-        app.captureError(
-          'Tried to confirm answer, but answer state was invalid',
-          selectAnswer(getState())
-        )
-      );
+      reject();
     }
+  },
+  process(_, dispatch, done) {
+    dispatch(quiz.answer.record.request());
     done();
   },
 });
@@ -215,9 +213,12 @@ export const incorrectAnswerLogic = createLogic({
 export const ignoreAnswerLogic = createLogic({
   type: quiz.answer.ignore,
   validate({ getState, action }, allow, reject) {
+    const isLessonQuiz = selectIsLessonQuiz(getState());
+    if (isLessonQuiz) {
+      reject();
+    }
     const { isMarked, isDisabled, isCorrect, isIncorrect } = selectAnswer(getState());
     stopAutoAdvance();
-
     if (isMarked && isDisabled && (isCorrect || isIncorrect)) {
       allow(action);
     } else {
@@ -308,7 +309,7 @@ export const recordAnswerLogic = createLogic({
       done();
     } else {
       pendingAnswers.add(current.id);
-      if (pendingAnswers.size >= 4) {
+      if (pendingAnswers.size >= 3) {
         dispatch(
           notify.warning({
             content:
@@ -324,11 +325,12 @@ export const recordAnswerLogic = createLogic({
           const { vocabById, synonymsById, ...updatedReview } = serializeReviewResponse(response);
           dispatch(quiz.answer.record.success(current.id));
           dispatch(review.update(updatedReview));
-          dispatch(quiz.session.queue.load.request());
+          if (isCorrect) {
+            dispatch(quiz.session.queue.load.request());
+          }
           done();
         })
         .catch((err) => {
-          // FIXME: dispatch quiz timeout if seems like connection error
           dispatch(
             app.captureError(err, { current, isCorrect, previouslyIncorrect, pendingAnswers })
           );

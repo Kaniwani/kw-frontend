@@ -48,6 +48,10 @@ export class QuizSession extends React.Component {
     handler();
   };
 
+  handleAddSynonym = () => {
+    this.props.setSynonymModal(true);
+  };
+
   handleOnInfo = (event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -59,7 +63,6 @@ export class QuizSession extends React.Component {
       toggleWrapUp,
       showInfo,
       cycleInfoDetail,
-      setSynonymModal,
       ignoreAnswer,
       confirmAnswer,
       isLessonQuiz,
@@ -85,7 +88,7 @@ export class QuizSession extends React.Component {
           wrapUp: this.guardHotKeyHandler(toggleWrapUp),
           showInfo: this.guardHotKeyHandler(showInfo),
           cycleInfoDetail: this.guardHotKeyHandler(cycleInfoDetail),
-          showSynonymModal: this.guardHotKeyHandler(() => setSynonymModal(true)),
+          showSynonymModal: this.guardHotKeyHandler(this.handleAddSynonym),
           ignoreAnswer: this.guardHotKeyHandler(ignoreAnswer),
           confirmAnswer: this.guardHotKeyHandler(confirmAnswer),
         }}
@@ -99,7 +102,7 @@ export class QuizSession extends React.Component {
           <QuizControls
             onWrapUp={toggleWrapUp}
             onInfo={this.handleOnInfo}
-            onAddSynonym={() => setSynonymModal(true)}
+            onAddSynonym={this.handleAddSynonym}
           />
           <QuizInfo />
           <AddSynonymModal />
@@ -119,7 +122,7 @@ const mapStateToProps = (state, props) => ({
 const mapDispatchToProps = {
   toggleWrapUp: quiz.session.wrapUp.toggle,
   showInfo: quiz.info.show,
-  setSynonymModal: (payload) => quiz.session.setSynonymModal(payload),
+  setSynonymModal: quiz.session.setSynonymModal,
   cycleInfoDetail: quiz.info.cycleDetail,
   ignoreAnswer: quiz.answer.ignore,
   confirmAnswer: quiz.answer.confirm,

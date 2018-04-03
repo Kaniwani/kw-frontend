@@ -9,6 +9,7 @@ import { selectReviewById } from 'features/reviews/selectors';
 import {
   selectQueue,
   selectQueueCount,
+  selectSessionRemainingCount,
   selectCategory,
   selectQueueNeeded,
   selectWrapUp,
@@ -21,21 +22,27 @@ export const queueLoadLogic = createLogic({
   latest: true,
   validate({ getState, action }, allow, reject) {
     if (selectQueueNeeded(getState())) {
-      allow(action);
+      const category = selectCategory(getState());
+      const currentId = selectCurrentId(getState());
+      const queueCount = selectQueueCount(getState());
+      const remainingCount = selectSessionRemainingCount(getState());
+      const wrapUp = selectWrapUp(getState());
+      const unqueuedSessionItems = remainingCount - queueCount;
+      // eslint-disable-next-line no-nested-ternary
+      const limit = !queueCount
+        ? INITIAL_QUEUE_LIMIT
+        : wrapUp.active
+          ? wrapUp.count - queueCount
+          : Math.min(unqueuedSessionItems, SUBSEQUENT_QUEUE_LIMIT);
+
+      allow({ ...action, payload: { category, limit, currentId } });
     } else {
       reject();
     }
   },
-  process({ api, serializers, getState, action: { payload } }, dispatch, done) {
+  process({ api, serializers, action }, dispatch, done) {
     const { serializeQueueResponse } = serializers;
-    const category = payload || selectCategory(getState());
-    const currentId = selectCurrentId(getState());
-    const queueCount = selectQueueCount(getState());
-    const wrapUp = selectWrapUp(getState());
-    // NOTE: smaller subsequent loads allow incorrect items to be recycled into questions more often
-    const limit = wrapUp.active
-      ? wrapUp.count - queueCount
-      : !queueCount ? INITIAL_QUEUE_LIMIT : SUBSEQUENT_QUEUE_LIMIT;
+    const { category, limit, currentId } = action.payload;
 
     api.queue.fetch[category]({ limit })
       .then((res) => {
@@ -46,8 +53,7 @@ export const queueLoadLogic = createLogic({
         done();
       })
       .catch((err) => {
-        // FIXME: dispatch quiz timeout if seems like connection error
-        dispatch(app.captureError(err, { category, queueCount }));
+        dispatch(app.captureError(err, { currentId }));
         dispatch(quiz.session.queue.load.failure(err));
         done();
       });
@@ -72,8 +78,8 @@ export const replaceCurrentLogic = createLogic({
 export const returnCurrentLogic = createLogic({
   type: [quiz.session.current.rotate],
   transform({ getState, action }, allow, reject) {
-    const queue = selectQueue(getState());
     const currentId = selectCurrentId(getState());
+    const queue = selectQueue(getState());
     const newId = sample(difference(queue, [currentId]));
 
     if (newId) {

@@ -279,6 +279,21 @@ describe('splitSentenceByMatch()', () => {
       });
     });
 
+    it('attempts various hiragana conjugations with verbType', () => {
+      expect(
+        splitSentenceByMatch({
+          sentence: '彼は読書にひたりきっていた',
+          word: '浸る',
+          reading: 'ひたる',
+          verbType: 'v5r',
+        })
+      ).toEqual({
+        head: '彼は読書に',
+        match: 'ひたり',
+        tail: 'きっていた',
+      });
+    });
+
     it('differing trailing okurigana conjugation partial match without verbType', () => {
       expect(
         splitSentenceByMatch({

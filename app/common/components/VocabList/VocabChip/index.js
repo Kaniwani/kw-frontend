@@ -7,7 +7,7 @@ import { selectWord, selectPrimaryReading } from 'features/vocab/selectors';
 
 import getSrsRankName from 'common/utils/getSrsRankName';
 import calculatePercentage from 'common/utils/calculatePercentage';
-import { purple, white, SRS_COLORS } from 'common/styles/colors';
+import { purple, grey, white, SRS_COLORS } from 'common/styles/colors';
 import { Wrapper, Link, Text } from './styles';
 
 VocabChip.propTypes = {
@@ -22,7 +22,7 @@ VocabChip.propTypes = {
 VocabChip.defaultProps = {
   withSrsColors: false,
   bgColor: purple[5],
-  textColor: white[2],
+  textColor: white[1],
 };
 
 export function VocabChip({ id, word, bgColor, textColor, withSrsColors, tooltip, ...props }) {
@@ -65,13 +65,16 @@ const mapStateToProps = (state, props) => {
   const vocabId = selectPrimaryVocabId(state, props);
   const word = selectWord(state, { id: vocabId });
   const primaryReading = selectPrimaryReading(state, { id: vocabId });
-
   const tooltip = generateToolTip({ ...review, primaryReading });
-  const bgColor = props.withSrsColors ? SRS_COLORS[getSrsRankName(review.streak)] : props.bgColor;
+  const textColor = !props.withSrsColors ? props.textColor : review.hidden ? grey[1] : white[1];
+  const bgColor = !props.withSrsColors
+    ? props.bgColor
+    : review.hidden ? grey[6] : SRS_COLORS[getSrsRankName(review.streak)];
 
   return () => ({
     word,
     tooltip,
+    textColor,
     bgColor,
   });
 };

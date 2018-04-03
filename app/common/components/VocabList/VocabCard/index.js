@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import VocabWord from 'common/components/VocabWord';
 import VocabMeaning from 'common/components/VocabMeaning';
 import getSrsRankName from 'common/utils/getSrsRankName';
-import { selectStreak, selectPrimaryVocabId } from 'features/reviews/selectors';
-import { white, purple, SRS_COLORS } from 'common/styles/colors';
+import { selectStreak, selectIsHidden, selectPrimaryVocabId } from 'features/reviews/selectors';
+import { white, purple, grey, SRS_COLORS } from 'common/styles/colors';
 
 import { Wrapper, Link } from './styles';
 
@@ -23,7 +23,7 @@ VocabCard.defaultProps = {
   showSecondary: false,
   showFuri: false,
   bgColor: purple[5],
-  textColor: white[2],
+  textColor: white[1],
 };
 
 export function VocabCard({ id, vocabId, showFuri, showSecondary, textColor, bgColor, ...props }) {
@@ -39,9 +39,12 @@ export function VocabCard({ id, vocabId, showFuri, showSecondary, textColor, bgC
 
 const mapStateToProps = (state, props) => {
   const streak = selectStreak(state, props);
+  const isHidden = selectIsHidden(state, props);
   const vocabId = selectPrimaryVocabId(state, props);
-  const textColor = props.withSrsColors ? white[1] : props.textColor;
-  const bgColor = props.withSrsColors ? SRS_COLORS[getSrsRankName(streak)] : props.bgColor;
+  const textColor = !props.withSrsColors ? props.textColor : isHidden ? grey[1] : white[1];
+  const bgColor = !props.withSrsColors
+    ? props.bgColor
+    : isHidden ? grey[6] : SRS_COLORS[getSrsRankName(streak)];
 
   return {
     vocabId,
