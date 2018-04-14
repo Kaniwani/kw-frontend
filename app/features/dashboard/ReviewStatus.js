@@ -15,6 +15,7 @@ import {
   selectOnVacation,
   selectVacationDate,
   selectNextReviewDate,
+  selectFreshUser,
   selectUsername,
 } from 'features/user/selectors';
 
@@ -41,6 +42,7 @@ export class ReviewStatus extends React.Component {
   static propTypes = {
     username: PropTypes.string.isRequired,
     isOnVacation: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired,
     reviewsCount: PropTypes.number.isRequired,
     vacationDate: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.oneOf([false])])
       .isRequired,
@@ -84,8 +86,8 @@ export function getReviewStatusText({
   vacationDate,
   nextReviewDate,
   loadQuizCounts,
+  freshUser,
 } = {}) {
-  const freshUser = reviewsCount < 1 && !nextReviewDate;
   const past = nextReviewDate && isPast(nextReviewDate);
   const upcoming = nextReviewDate && isFuture(nextReviewDate);
 
@@ -97,19 +99,10 @@ export function getReviewStatusText({
     );
   }
 
-  if (reviewsCount > 0) {
+  if (reviewsCount) {
     return (
       <Text>
         Next Review: <Emphasis>Now!</Emphasis>
-      </Text>
-    );
-  }
-
-  if (past) {
-    loadQuizCounts();
-    return (
-      <Text>
-        Next Review: <Emphasis>Loading...</Emphasis>
       </Text>
     );
   }
@@ -129,13 +122,17 @@ export function getReviewStatusText({
     );
   }
 
+  if (past) {
+    loadQuizCounts();
+  }
+
   if (freshUser) {
     return <Text>No reviews unlocked</Text>;
   }
 
   return (
     <Text>
-      Next Review: <Emphasis>Unknown</Emphasis>
+      Next Review: <Emphasis>Loading...</Emphasis>
     </Text>
   );
 }
@@ -144,6 +141,7 @@ const mapStateToProps = createStructuredSelector({
   username: selectUsername,
   reviewsCount: selectReviewsCount,
   isOnVacation: selectOnVacation,
+  freshUser: selectFreshUser,
   vacationDate: selectVacationDate,
   nextReviewDate: selectNextReviewDate,
 });

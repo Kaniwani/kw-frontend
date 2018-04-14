@@ -37,11 +37,29 @@ exports[`getReviewStatusText() review date is future 1`] = `
 </styled.h3>
 `;
 
-exports[`getReviewStatusText() should have sane default 1`] = `
+exports[`getReviewStatusText() review date is past 1`] = `
 <styled.h3>
   Next Review: 
   <styled.span>
-    Unknown
+    Loading...
+  </styled.span>
+</styled.h3>
+`;
+
+exports[`getReviewStatusText() sane default 1`] = `
+<styled.h3>
+  Next Review: 
+  <styled.span>
+    Loading...
+  </styled.span>
+</styled.h3>
+`;
+
+exports[`getReviewStatusText() user is loading 1`] = `
+<styled.h3>
+  Next Review: 
+  <styled.span>
+    Loading...
   </styled.span>
 </styled.h3>
 `;

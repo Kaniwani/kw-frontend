@@ -64,6 +64,17 @@ export const selectNextReviewDate = createSelector(
   getBy('nextReviewDate', (date) => (date != null ? addSeconds(date, 30) : false))
 );
 
+export const selectFreshUser = createSelector(
+  [
+    selectNextReviewDate,
+    selectLessonsCount,
+    selectReviewsCount,
+    getBy(['entities', 'reviews'], (x = {}) => Object.keys(x).length),
+  ],
+  (nextReviewDate, lessonsCount, reviewsCount, reviewEntitiesCount) =>
+    !nextReviewDate && lessonsCount && !reviewsCount && !reviewEntitiesCount
+);
+
 export const selectLastWkSyncDate = createSelector(
   selectUserProfile,
   getBy('lastWanikaniSyncDate', dateOrFalse)

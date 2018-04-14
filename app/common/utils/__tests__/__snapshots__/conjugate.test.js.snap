@@ -222,6 +222,10 @@ Array [
     "name": "polite affirmative",
   },
   Object {
+    "form": "帰られて",
+    "name": "passive te",
+  },
+  Object {
     "form": "帰っている",
     "name": "te iru",
   },
@@ -346,16 +350,16 @@ Array [
     "name": "past tense",
   },
   Object {
-    "form": "帰り-",
-    "name": "conjunctive",
-  },
-  Object {
     "form": "帰らん",
     "name": "curt negative (archaic)",
   },
   Object {
     "form": "帰って",
     "name": "te form",
+  },
+  Object {
+    "form": "帰り",
+    "name": "conjunctive",
   },
   Object {
     "form": "帰れる",
@@ -425,6 +429,10 @@ Array [
   Object {
     "form": "使いました",
     "name": "polite affirmative",
+  },
+  Object {
+    "form": "使われて",
+    "name": "passive te",
   },
   Object {
     "form": "使っている",
@@ -551,16 +559,16 @@ Array [
     "name": "past tense",
   },
   Object {
-    "form": "使い-",
-    "name": "conjunctive",
-  },
-  Object {
     "form": "使わん",
     "name": "curt negative (archaic)",
   },
   Object {
     "form": "使って",
     "name": "te form",
+  },
+  Object {
+    "form": "使い",
+    "name": "conjunctive",
   },
   Object {
     "form": "使える",
@@ -630,6 +638,10 @@ Array [
   Object {
     "form": "呼びました",
     "name": "polite affirmative",
+  },
+  Object {
+    "form": "呼ばれて",
+    "name": "passive te",
   },
   Object {
     "form": "呼んでいる",
@@ -756,16 +768,16 @@ Array [
     "name": "past tense",
   },
   Object {
-    "form": "呼び-",
-    "name": "conjunctive",
-  },
-  Object {
     "form": "呼ばん",
     "name": "curt negative (archaic)",
   },
   Object {
     "form": "呼んで",
     "name": "te form",
+  },
+  Object {
+    "form": "呼び",
+    "name": "conjunctive",
   },
   Object {
     "form": "呼べる",
@@ -835,6 +847,10 @@ Array [
   Object {
     "form": "待ちました",
     "name": "polite affirmative",
+  },
+  Object {
+    "form": "待たれて",
+    "name": "passive te",
   },
   Object {
     "form": "待っている",
@@ -961,16 +977,16 @@ Array [
     "name": "past tense",
   },
   Object {
-    "form": "待ち-",
-    "name": "conjunctive",
-  },
-  Object {
     "form": "待たん",
     "name": "curt negative (archaic)",
   },
   Object {
     "form": "待って",
     "name": "te form",
+  },
+  Object {
+    "form": "待ち",
+    "name": "conjunctive",
   },
   Object {
     "form": "待てる",
@@ -1040,6 +1056,10 @@ Array [
   Object {
     "form": "死にました",
     "name": "polite affirmative",
+  },
+  Object {
+    "form": "死なれて",
+    "name": "passive te",
   },
   Object {
     "form": "死んでいる",
@@ -1166,16 +1186,16 @@ Array [
     "name": "past tense",
   },
   Object {
-    "form": "死に-",
-    "name": "conjunctive",
-  },
-  Object {
     "form": "死なん",
     "name": "curt negative (archaic)",
   },
   Object {
     "form": "死んで",
     "name": "te form",
+  },
+  Object {
+    "form": "死に",
+    "name": "conjunctive",
   },
   Object {
     "form": "死ねる",
@@ -1245,6 +1265,10 @@ Array [
   Object {
     "form": "泳ぎました",
     "name": "polite affirmative",
+  },
+  Object {
+    "form": "泳がれて",
+    "name": "passive te",
   },
   Object {
     "form": "泳いでいる",
@@ -1371,16 +1395,16 @@ Array [
     "name": "past tense",
   },
   Object {
-    "form": "泳ぎ-",
-    "name": "conjunctive",
-  },
-  Object {
     "form": "泳がん",
     "name": "curt negative (archaic)",
   },
   Object {
     "form": "泳いで",
     "name": "te form",
+  },
+  Object {
+    "form": "泳ぎ",
+    "name": "conjunctive",
   },
   Object {
     "form": "泳げる",
@@ -1450,6 +1474,10 @@ Array [
   Object {
     "form": "焼きました",
     "name": "polite affirmative",
+  },
+  Object {
+    "form": "焼かれて",
+    "name": "passive te",
   },
   Object {
     "form": "焼いている",
@@ -1576,16 +1604,16 @@ Array [
     "name": "past tense",
   },
   Object {
-    "form": "焼き-",
-    "name": "conjunctive",
-  },
-  Object {
     "form": "焼かん",
     "name": "curt negative (archaic)",
   },
   Object {
     "form": "焼いて",
     "name": "te form",
+  },
+  Object {
+    "form": "焼き",
+    "name": "conjunctive",
   },
   Object {
     "form": "焼ける",
@@ -1655,6 +1683,10 @@ Array [
   Object {
     "form": "示しました",
     "name": "polite affirmative",
+  },
+  Object {
+    "form": "示されて",
+    "name": "passive te",
   },
   Object {
     "form": "示している",
@@ -1781,16 +1813,16 @@ Array [
     "name": "past tense",
   },
   Object {
-    "form": "示し-",
-    "name": "conjunctive",
-  },
-  Object {
     "form": "示さん",
     "name": "curt negative (archaic)",
   },
   Object {
     "form": "示して",
     "name": "te form",
+  },
+  Object {
+    "form": "示し",
+    "name": "conjunctive",
   },
   Object {
     "form": "示せる",
@@ -1860,6 +1892,10 @@ Array [
   Object {
     "form": "読みました",
     "name": "polite affirmative",
+  },
+  Object {
+    "form": "読まれて",
+    "name": "passive te",
   },
   Object {
     "form": "読んでいる",
@@ -1986,16 +2022,16 @@ Array [
     "name": "past tense",
   },
   Object {
-    "form": "読み-",
-    "name": "conjunctive",
-  },
-  Object {
     "form": "読まん",
     "name": "curt negative (archaic)",
   },
   Object {
     "form": "読んで",
     "name": "te form",
+  },
+  Object {
+    "form": "読み",
+    "name": "conjunctive",
   },
   Object {
     "form": "読める",
@@ -2065,6 +2101,10 @@ Array [
   Object {
     "form": "走りました",
     "name": "polite affirmative",
+  },
+  Object {
+    "form": "走られて",
+    "name": "passive te",
   },
   Object {
     "form": "走っている",
@@ -2191,16 +2231,16 @@ Array [
     "name": "past tense",
   },
   Object {
-    "form": "走り-",
-    "name": "conjunctive",
-  },
-  Object {
     "form": "走らん",
     "name": "curt negative (archaic)",
   },
   Object {
     "form": "走って",
     "name": "te form",
+  },
+  Object {
+    "form": "走り",
+    "name": "conjunctive",
   },
   Object {
     "form": "走れる",
@@ -2270,6 +2310,10 @@ Array [
   Object {
     "form": "食べました",
     "name": "polite affirmative",
+  },
+  Object {
+    "form": "食べられて",
+    "name": "passive te",
   },
   Object {
     "form": "食べている",
@@ -2396,16 +2440,16 @@ Array [
     "name": "past tense",
   },
   Object {
-    "form": "食べ-",
-    "name": "conjunctive",
-  },
-  Object {
     "form": "食べん",
     "name": "curt negative (archaic)",
   },
   Object {
     "form": "食べて",
     "name": "te form",
+  },
+  Object {
+    "form": "食べ",
+    "name": "conjunctive",
   },
   Object {
     "form": "食べ",

@@ -4,17 +4,19 @@ exports[`<Mark /> should adopt color and bgColor props 1`] = `
 .c0 {
   color: tomato;
   background-color: purple;
-  padding: 1px 2px 2px;
   border-radius: 2px;
+  padding: 1px 2px 2px;
 }
 
 <Mark
   bgColor="purple"
   color="tomato"
+  pad={true}
 >
   <styled.mark
     bgColor="purple"
     color="tomato"
+    pad={true}
   >
     <mark
       className="c0"
@@ -29,18 +31,20 @@ exports[`<Mark /> should adopt color and bgColor props 1`] = `
 exports[`<Mark /> should match baseline snapshot with defaultProps 1`] = `
 .c0 {
   color: inherit;
-  background-color: rgba(100,146,219,0.8);
-  padding: 1px 2px 2px;
+  background-color: rgba(185,206,239,0.8);
   border-radius: 2px;
+  padding: 1px 2px 2px;
 }
 
 <Mark
-  bgColor="rgba(100,146,219,0.8)"
+  bgColor="rgba(185,206,239,0.8)"
   color="inherit"
+  pad={true}
 >
   <styled.mark
-    bgColor="rgba(100,146,219,0.8)"
+    bgColor="rgba(185,206,239,0.8)"
     color="inherit"
+    pad={true}
   >
     <mark
       className="c0"

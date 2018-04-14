@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { Fixed, Absolute, Overlay, Flex } from 'rebass';
 
 import landingBackground from 'common/assets/img/landing.svg';
@@ -13,20 +14,23 @@ import Toggle from 'common/components/Toggle';
 import { grey } from 'common/styles/colors';
 import { Wrapper, Title, LandingBackgroundImg } from './styles';
 
-function LandingPage() {
+LandingPage.propTypes = {
+  children: PropTypes.any, // eslint-disable-line react/require-default-props
+};
+
+function LandingPage({ children }) {
   return (
     <Wrapper fullWidth>
       <header>
         <Title>KaniWani</Title>
       </header>
-      <div>
-        <MultiLogin />
-      </div>
+      <div>{children || <MultiLogin />}</div>
       <Toggle
         render={({ on, toggle }) => (
           <Fragment>
             <IconButton
               name="HELP"
+              title="About KaniWani"
               color={grey[6]}
               size="2rem"
               onClick={toggle}

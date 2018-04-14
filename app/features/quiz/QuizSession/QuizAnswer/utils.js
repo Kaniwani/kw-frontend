@@ -30,11 +30,16 @@ function flattenReadings([vocab = [], synonyms = []] = []) {
  */
 export function matchAnswer(input = '', answers = []) {
   const cleanedInput = stripTilde(input);
-  const re = new RegExp(`^[〜~]?${cleanedInput}[〜~]?$`);
-  return flattenReadings(answers).reduce(
-    (ret, { word, readings }) => ([...readings, word].some((vocab) => re.test(vocab)) ? word : ret),
-    ''
-  );
+  const answerList = flattenReadings(answers);
+  const findMatch = (text) =>
+    answerList.reduce(
+      (ret, { word, readings }) =>
+        [...readings, word].some((vocab) => RegExp(`^[〜~]?${text}[〜~]?$`).test(vocab))
+          ? word
+          : ret,
+      ''
+    );
+  return findMatch(cleanedInput) || findMatch(fixHandwriting(cleanedInput));
 }
 
 /**
@@ -47,3 +52,24 @@ export function fixTerminalN(input = '') {
   const ja = 'ｎ';
   return endsWith(input, en) || endsWith(input, ja) ? `${input.slice(0, -1)}ん` : input;
 }
+
+/**
+ * Convert katakana masquerading as kanji (from handwriting input) to their respective kanji
+ * @param {string} [input=''] text to fix: 人ロ (katakana 'ro')
+ * @returns {string} test with kana replaced as kanji: 人口 (kanji 'kou')
+ */
+export function fixHandwriting(input = '') {
+  return [...input].map((c) => LOOKALIKES[c] || c).join('');
+}
+
+// katakana and their kanji equivalents
+const LOOKALIKES = {
+  ー: '一',
+  ロ: '口',
+  カ: '力',
+  ニ: '二',
+  エ: '工',
+  タ: '夕',
+  ト: '卜',
+  ハ: '八',
+};

@@ -8,6 +8,7 @@ import quiz from 'features/quiz/actions';
 import { selectInfoOpen } from 'features/quiz/QuizSession/QuizInfo/selectors';
 import { selectIsLessonQuiz } from 'features/quiz/QuizSession/selectors';
 import { selectAnswerDisabled } from 'features/quiz/QuizSession/QuizAnswer/selectors';
+import { stopAutoAdvance } from 'features/quiz/QuizSession/QuizAnswer/logic';
 
 import QuizHeader from './QuizHeader';
 import QuizAnswer from './QuizAnswer';
@@ -77,6 +78,7 @@ export class QuizSession extends React.Component {
           minHeight: '100vh',
         }}
         keyMap={{
+          stopAutoAdvance: 'c',
           wrapUp: 'w',
           showInfo: 'f',
           showSynonymModal: 's',
@@ -85,6 +87,7 @@ export class QuizSession extends React.Component {
           confirmAnswer: 'enter',
         }}
         handlers={{
+          stopAutoAdvance: this.guardHotKeyHandler(stopAutoAdvance),
           wrapUp: this.guardHotKeyHandler(toggleWrapUp),
           showInfo: this.guardHotKeyHandler(showInfo),
           cycleInfoDetail: this.guardHotKeyHandler(cycleInfoDetail),

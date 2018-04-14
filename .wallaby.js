@@ -10,7 +10,7 @@ module.exports = (wallaby) => {
       '!app/**/*.test.js',
       '!app/**/*.fixture.js',
     ],
-    tests: ['app/common/utils/__tests__/conjugate.test.js'],
+    tests: ['app/**/*.test.js'],
 
     env: {
       type: 'node',

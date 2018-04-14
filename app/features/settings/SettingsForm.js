@@ -89,7 +89,7 @@ export function SettingsForm({ handleSubmit, submitting, submitSucceeded, dirty 
             min={0}
             max={10}
             step={0.5}
-            note="If you tap inside the info panel, it will cancel the pending advance for you."
+            note="Cancel by tapping inside the info panel or pressing [c]"
           />
         </SubSection>
       </Section>

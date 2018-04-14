@@ -18,5 +18,5 @@ export const Heading = H3.extend`
 `;
 
 export const Placeholder = H2.extend`
-  font-weight: normal;
+  font-weight: 400;
 `;

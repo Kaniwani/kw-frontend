@@ -8,6 +8,6 @@ export const Wrapper = styled.div`
 
 export const Text = styled.div`
   ${gutter({ position: 'horizontal', mod: 2 })}
-  font-weight: normal;
+  font-weight: 400;
   font-size: 1.3em;
 `;

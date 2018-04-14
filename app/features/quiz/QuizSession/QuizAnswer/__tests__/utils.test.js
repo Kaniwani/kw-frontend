@@ -5,6 +5,7 @@ import {
   containsZenkakuLatin,
   matchAnswer,
   fixTerminalN,
+  fixHandwriting,
 } from '../utils';
 
 describe('increment', () => {
@@ -124,6 +125,10 @@ describe('matchAnswer', () => {
   it('should not partial match', () => {
     expect(matchAnswer('やく', [[{ word: '約束', primaryReading: ['やくそく'] }]])).toBe('');
   });
+
+  it('should match accidental katakana "ta" masquerading as kanji "夕" (ゆう)', () => {
+    expect(matchAnswer('タべ', [[{ word: '夕べ', primaryReading: ['ゆうべ'] }]])).toBe('夕べ');
+  });
 });
 
 describe('fixTerminalN', () => {
@@ -143,5 +148,18 @@ describe('fixTerminalN', () => {
   it('pass through input otherwise', () => {
     expect(fixTerminalN('かん')).toBe('かん');
     expect(fixTerminalN('かs')).toBe('かs');
+  });
+});
+
+describe('fixHandwriting', () => {
+  it('sane defaults', () => {
+    expect(fixHandwriting()).toBe('');
+    expect(fixHandwriting('')).toBe('');
+  });
+
+  it('replaces masquerading katakana', () => {
+    expect(fixHandwriting('人ロ')).toBe('人口');
+    expect(fixHandwriting('ー人')).toBe('一人');
+    expect(fixHandwriting('ニ十日')).toBe('二十日');
   });
 });
