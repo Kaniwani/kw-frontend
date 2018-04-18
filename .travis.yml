@@ -1,3 +1,4 @@
+os: osx # at least until https://github.com/tcoopman/image-webpack-loader/issues/142 is fixed
 language: node_js
 
 node_js:
