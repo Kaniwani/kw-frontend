@@ -70,14 +70,11 @@ module.exports = require('./webpack.base.babel')({
       autoUpdate: true, // checks once an hour
 
       ServiceWorker: {
-        minify: false, // TODO: Can minify when offline-plugin supports webpack 4
         events: true,
       },
 
       // Removes warning for about `additional` section usage
       safeToUseOptionalCaches: true,
-
-      AppCache: false,
 
       caches: {
         main: [':rest:'],
