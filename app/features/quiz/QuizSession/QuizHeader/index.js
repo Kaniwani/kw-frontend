@@ -6,7 +6,7 @@ import {
   selectCategory,
   selectPercentComplete,
   selectPercentCorrect,
-  selectCorrectCount,
+  selectCompleteCount,
   selectSessionRemainingCount,
 } from 'features/quiz/QuizSession/selectors';
 
@@ -19,14 +19,14 @@ QuizHeader.propTypes = {
   summaryRoute: PropTypes.string.isRequired, // /lessons, /reviews
   percentComplete: PropTypes.number,
   percentCorrect: PropTypes.number,
-  correctCount: PropTypes.number,
+  completeCount: PropTypes.number,
   remainingCount: PropTypes.number,
 };
 
 QuizHeader.defaultProps = {
   percentComplete: 0,
   percentCorrect: 0,
-  correctCount: 0,
+  completeCount: 0,
   remainingCount: 0,
 };
 
@@ -34,7 +34,7 @@ export function QuizHeader({
   summaryRoute,
   percentComplete,
   percentCorrect,
-  correctCount,
+  completeCount,
   remainingCount,
 }) {
   return (
@@ -55,7 +55,7 @@ export function QuizHeader({
         </Stat>
         <Stat title="Items complete">
           <Icon inline={false} size="1.1em" name="ASSIGNMENT_CHECK" />
-          <Label>{correctCount}</Label>
+          <Label>{completeCount}</Label>
         </Stat>
         <Stat title="Items remaining">
           <Icon inline={false} size="1.1em" name="ASSIGNMENT_INBOX" />
@@ -70,7 +70,7 @@ const mapStateToProps = (state, props) => ({
   summaryRoute: `/${selectCategory(state, props)}`,
   percentComplete: selectPercentComplete(state, props),
   percentCorrect: selectPercentCorrect(state, props),
-  correctCount: selectCorrectCount(state, props),
+  completeCount: selectCompleteCount(state, props),
   remainingCount: selectSessionRemainingCount(state, props),
 });
 
