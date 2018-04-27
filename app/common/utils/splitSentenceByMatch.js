@@ -1,6 +1,5 @@
-import { toKatakana } from 'wanakana';
+import { toKatakana, stripOkurigana } from 'wanakana';
 import { inflectVerb, inflectAdjective } from './conjugate';
-import stripOkurigana from './stripOkurigana';
 import stripTilde from './stripTilde';
 
 const makeRegex = (toMatch) => new RegExp(`(.*)(${toMatch})(.*)`);
