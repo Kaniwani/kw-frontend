@@ -38,7 +38,7 @@ function LandingPage({ children }) {
             />
             {on && (
               <div style={{ position: 'relative', zIndex: '10' }}>
-                <Fixed top={0} right={0} bottom={0} left={0} />
+                <Fixed top={0} right={0} bottom={0} left={0} onClick={toggle} />
                 <Overlay w={['300px', '80vw', '720px']}>
                   <Absolute top={0} right={0} p={1}>
                     <IconButton name="CLOSE" title="Close" onClick={toggle} />
