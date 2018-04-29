@@ -53,10 +53,16 @@ module.exports = require('./webpack.base.babel')({
       display: 'minimal-ui',
       orientation: 'portrait',
       start_url: '/',
+      ios: true,
       icons: [
         {
           src: path.resolve('app/favicon.png'),
           sizes: [36, 48, 72, 96, 144, 192, 512],
+        },
+        {
+          src: path.resolve('app/favicon.png'),
+          sizes: [120, 152, 167, 180],
+          ios: true,
         },
       ],
     }),
