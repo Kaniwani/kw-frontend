@@ -82,7 +82,7 @@
   },
   "dependencies": {
     "cuid": "2.1.1",
-    "immutability-helper": "2.6.6",
+    "immutability-helper": "2.7.0",
     "localforage": "1.7.1",
     "lodash": "4.17.10",
     "polished": "1.9.2",
@@ -119,7 +119,7 @@
     "sanitize.css": "5.0.0",
     "styled-components": "^3.2.6",
     "voca": "1.4.0",
-    "wanakana": "4.0.0",
+    "wanakana": "4.0.1",
     "wretch": "1.1.2"
   },
   "devDependencies": {
@@ -179,7 +179,7 @@
     "minimist": "1.2.0",
     "ngrok": "3.0.1",
     "null-loader": "0.1.1",
-    "offline-plugin": "5.0.1",
+    "offline-plugin": "5.0.2",
     "opn-cli": "3.1.0",
     "prettier-eslint-cli": "4.7.1",
     "prop-types": "15.6.1",
@@ -195,7 +195,7 @@
     "warning": "3.0.0",
     "webpack": "4.6.0",
     "webpack-bundle-analyzer": "2.11.1",
-    "webpack-cli": "2.0.15",
+    "webpack-cli": "2.1.0",
     "webpack-dev-middleware": "3.1.3",
     "webpack-hot-middleware": "2.22.1",
     "webpack-pwa-manifest": "3.6.2",
