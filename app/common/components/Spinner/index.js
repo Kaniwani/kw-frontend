@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { purple } from 'common/styles/colors';
 import { Wrapper, Circles, Circle1, Circle2 } from './styles';
 
-const Spinner = (props) => (
-  <Wrapper>
-    <Circles {...props}>
+const Spinner = ({ size, duration, color1, color2, ...props }) => (
+  <Wrapper {...props}>
+    <Circles size={size} duration={duration} color1={color1} color2={color2}>
       <Circle1 />
       <Circle2 />
     </Circles>
