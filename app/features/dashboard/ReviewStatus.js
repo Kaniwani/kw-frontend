@@ -42,7 +42,6 @@ export class ReviewStatus extends React.Component {
   static propTypes = {
     username: PropTypes.string.isRequired,
     isOnVacation: PropTypes.bool.isRequired,
-    isLoading: PropTypes.bool.isRequired,
     reviewsCount: PropTypes.number.isRequired,
     vacationDate: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.oneOf([false])])
       .isRequired,
