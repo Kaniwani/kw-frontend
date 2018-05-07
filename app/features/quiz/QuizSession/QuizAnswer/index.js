@@ -38,7 +38,7 @@ export class QuizAnswer extends React.Component {
   };
 
   componentDidMount() {
-    bind(this.inputFieldRef);
+    bind(this.inputFieldRef, { IMEMode: 'toHiragana' });
   }
 
   componentDidUpdate() {

@@ -52,8 +52,8 @@ export class AddSynonymForm extends React.Component {
   componentDidMount() {
     this.wordInputRef.value = this.props.initialValues.word;
     this.readingInputRef.value = this.props.initialValues.reading;
-    bind(this.wordInputRef);
-    bind(this.readingInputRef);
+    bind(this.wordInputRef, { IMEMode: 'toHiragana' });
+    bind(this.readingInputRef, { IMEMode: 'toHiragana' });
   }
 
   componentWillUnmount() {
