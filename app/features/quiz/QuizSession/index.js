@@ -76,7 +76,6 @@ export class QuizSession extends React.Component {
           flexDirection: 'column',
           flex: '1 0 100%',
           minHeight: '100vh',
-          overflowY: 'scroll',
         }}
         keyMap={{
           stopAutoAdvance: 'c',
