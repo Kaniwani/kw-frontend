@@ -50,7 +50,7 @@ module.exports = require('./webpack.base.babel')({
       short_name: 'KaniWani',
       background_color: '#fafafa',
       theme_color: '#8523e7',
-      display: 'minimal-ui',
+      display: 'fullscreen',
       orientation: 'portrait',
       start_url: '/',
       ios: true,
