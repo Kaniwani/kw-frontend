@@ -44,6 +44,7 @@ export const SRS_RANGES = {
 export const KEYCODES = {
   SPACE: 32,
   ENTER: 13,
+  ESC: 27,
 };
 
 export const TAGS = {

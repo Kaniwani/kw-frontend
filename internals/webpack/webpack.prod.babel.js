@@ -50,17 +50,17 @@ module.exports = require('./webpack.base.babel')({
       short_name: 'KaniWani',
       background_color: '#fafafa',
       theme_color: '#8523e7',
-      display: 'minimal-ui',
+      display: 'fullscreen',
       orientation: 'portrait',
       start_url: '/',
       ios: true,
       icons: [
         {
-          src: path.resolve('app/favicon.png'),
+          src: path.resolve('app/common/assets/img/logo.png'),
           sizes: [36, 48, 72, 96, 144, 192, 512],
         },
         {
-          src: path.resolve('app/favicon.png'),
+          src: path.resolve('app/common/assets/img/logo-square.png'),
           sizes: [120, 152, 167, 180],
           ios: true,
         },

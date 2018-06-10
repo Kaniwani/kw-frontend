@@ -14,20 +14,15 @@ class ScrollToTop extends React.PureComponent {
     window.addEventListener('scroll', this.onScroll);
   }
 
-  componentWillUpdate(prevProps, prevState) {
-    if (!prevState.isVisible && prevState.isScrolling) {
-      this.setState({ isScrolling: false }); // eslint-disable-line react/no-will-update-set-state
-    }
-  }
-
   componentWillUnmount() {
     window.removeEventListener('scroll', this.onScroll);
   }
 
   onScroll = debounce(() => {
-    this.setState(() => ({
-      // user scrolled greater than 1/3 viewport height
-      isVisible: window.pageYOffset > window.innerHeight / 3,
+    const belowOneThirdViewport = window.pageYOffset > window.innerHeight / 3;
+    this.setState((prevState) => ({
+      isVisible: belowOneThirdViewport,
+      isScrolling: prevState.isScrolling && !belowOneThirdViewport ? false : prevState.isScrolling,
     }));
   }, 100);
 
@@ -39,10 +34,7 @@ class ScrollToTop extends React.PureComponent {
   };
 
   render() {
-    const { isVisible, isScrolling } = this.state;
-    return (
-      <ScrollTopButton onClick={this.scrollUp} isVisible={isVisible} isScrolling={isScrolling} />
-    );
+    return <ScrollTopButton onClick={this.scrollUp} {...this.state} />;
   }
 }
 

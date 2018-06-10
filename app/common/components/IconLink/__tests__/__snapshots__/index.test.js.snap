@@ -74,7 +74,6 @@ exports[`<IconLink />  renders a Link with "to" 1`] = `
 }
 
 <a
-  aria-current="false"
   class="c0 c1"
   href="/path"
   title="Does an action"
