@@ -65,8 +65,11 @@ const mapStateToProps = (state, props) => {
   };
 };
 
-const mapDispatchToProps = {
-  onClose: () => quiz.session.setSynonymModal(false),
-};
+const mapDispatchToProps = (dispatch) => ({
+  onClose: () => {
+    dispatch(quiz.session.setSynonymModal(false));
+    dispatch(quiz.answer.update({ isFocused: true }));
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddSynonymModal);

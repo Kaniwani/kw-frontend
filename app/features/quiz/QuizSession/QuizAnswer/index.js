@@ -46,12 +46,17 @@ export class QuizAnswer extends React.Component {
     if (this.inputFieldRef.value !== this.props.value) {
       this.inputFieldRef.value = this.props.value;
     }
-    if (this.props.isFocused) {
+    // Input is blurred when disabled,
+    // so we need to focus on something for hotkeys in QuizSession
+    // 1) addSynonymModal closed -> re-enable hotkeys
+    if (this.props.isDisabled && this.props.isFocused) {
+      this.formRef.focus();
+      // 2) new question, focus answer field
+    } else if (this.props.isFocused) {
       this.inputFieldRef.focus();
       smoothScrollY(0, 1000);
+      // 3) question answered, input disabled
     } else {
-      // Input is blurred when disabled,
-      // so we need to focus on something for hotkeys in QuizSession
       this.formRef.focus();
     }
   }
