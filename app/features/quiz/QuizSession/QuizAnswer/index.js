@@ -39,6 +39,8 @@ export class QuizAnswer extends React.Component {
 
   componentDidMount() {
     bind(this.inputFieldRef, { IMEMode: 'toHiragana' });
+    // IOS doesn't open keyboard via autofocus so let's give it a poke
+    this.inputFieldRef.focus();
   }
 
   componentDidUpdate() {
