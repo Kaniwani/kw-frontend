@@ -44,17 +44,18 @@ export class QuizAnswer extends React.Component {
   }
 
   componentDidUpdate() {
+    const { value, isFocused, isDisabled } = this.props;
     // Answer reset, terminal N fixed etc.
-    if (this.inputFieldRef.value !== this.props.value) {
-      this.inputFieldRef.value = this.props.value;
+    if (this.inputFieldRef.value !== value) {
+      this.inputFieldRef.value = value;
     }
     // Input is blurred when disabled,
     // so we need to focus on something for hotkeys in QuizSession
     // 1) addSynonymModal closed -> re-enable hotkeys
-    if (this.props.isDisabled && this.props.isFocused) {
+    if (isDisabled && isFocused) {
       this.formRef.focus();
       // 2) new question, focus answer field
-    } else if (this.props.isFocused) {
+    } else if (isFocused) {
       this.inputFieldRef.focus();
       smoothScrollY(0, 1000);
       // 3) question answered, input disabled
