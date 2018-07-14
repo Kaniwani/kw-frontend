@@ -178,7 +178,14 @@ export const correctAnswerLogic = createLogic({
 export const incorrectAnswerLogic = createLogic({
   type: quiz.answer.incorrect,
   latest: true,
-  process({ getState, action: { payload = {} } }, dispatch, done) {
+  process(
+    {
+      getState,
+      action: { payload = {} },
+    },
+    dispatch,
+    done
+  ) {
     const current = selectCurrent(getState());
     const isLessonQuiz = selectIsLessonQuiz(getState());
     const previouslyIncorrect = selectCurrentPreviouslyIncorrect(getState());
@@ -242,7 +249,17 @@ export const ignoreAnswerLogic = createLogic({
 
 export const disableReviewLogic = createLogic({
   type: review.lock.request,
-  process({ history, getState, action: { payload: { id } } }, dispatch, done) {
+  process(
+    {
+      history,
+      getState,
+      action: {
+        payload: { id },
+      },
+    },
+    dispatch,
+    done
+  ) {
     stopAutoAdvance();
     const isFinalQuestion = selectIsFinalQuestion(getState());
     const category = selectCategory(getState());
@@ -310,7 +327,11 @@ export const recordAnswerLogic = createLogic({
       dispatch(review.update(current));
       done();
     } else {
+      // TODO: early exit if answer already pending?
+      // NOTE: added this check for logging to Sentry with that annoying 403 error below
+      const wasAlreadyPending = pendingAnswers.has(current.id);
       pendingAnswers.add(current.id);
+
       if (pendingAnswers.size >= 3) {
         dispatch(
           notify.warning({
@@ -320,6 +341,23 @@ export const recordAnswerLogic = createLogic({
           })
         );
       }
+
+      const decorateResubmitError = (err) => {
+        /* eslint-disable no-param-reassign */
+        if (
+          err.status === 403 &&
+          err.json &&
+          err.json.detail &&
+          err.json.detail.includes('need to be reviewed')
+        ) {
+          err.message = 'Resubmit error';
+          err.originalMessage = JSON.stringify(err.message);
+          err.description = JSON.stringify(err.description);
+        }
+        /* eslint-enable no-param-reassign */
+        return err;
+      };
+
       api.quiz
         .record({ id: current.id, isCorrect, previouslyIncorrect })
         .then((response) => {
@@ -334,7 +372,13 @@ export const recordAnswerLogic = createLogic({
         })
         .catch((err) => {
           dispatch(
-            app.captureError(err, { current, isCorrect, previouslyIncorrect, pendingAnswers })
+            app.captureError(decorateResubmitError(err), {
+              current,
+              isCorrect,
+              previouslyIncorrect,
+              wasAlreadyPending,
+              pendingAnswers: [...pendingAnswers],
+            })
           );
           dispatch(quiz.answer.record.failure(err));
           done();
