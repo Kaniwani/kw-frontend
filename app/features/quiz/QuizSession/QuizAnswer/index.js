@@ -39,19 +39,27 @@ export class QuizAnswer extends React.Component {
 
   componentDidMount() {
     bind(this.inputFieldRef, { IMEMode: 'toHiragana' });
+    // IOS doesn't open keyboard via autofocus so let's give it a poke
+    this.inputFieldRef.focus();
   }
 
   componentDidUpdate() {
+    const { value, isFocused, isDisabled } = this.props;
     // Answer reset, terminal N fixed etc.
-    if (this.inputFieldRef.value !== this.props.value) {
-      this.inputFieldRef.value = this.props.value;
+    if (this.inputFieldRef.value !== value) {
+      this.inputFieldRef.value = value;
     }
-    if (this.props.isFocused) {
+    // Input is blurred when disabled,
+    // so we need to focus on something for hotkeys in QuizSession
+    // 1) addSynonymModal closed -> re-enable hotkeys
+    if (isDisabled && isFocused) {
+      this.formRef.focus();
+      // 2) new question, focus answer field
+    } else if (isFocused) {
       this.inputFieldRef.focus();
       smoothScrollY(0, 1000);
+      // 3) question answered, input disabled
     } else {
-      // Input is blurred when disabled,
-      // so we need to focus on something for hotkeys in QuizSession
       this.formRef.focus();
     }
   }
@@ -111,7 +119,9 @@ export class QuizAnswer extends React.Component {
           ) : (
             <Streak streak={streak} size="1.15em" />
           )}
-          <Label htmlFor="answer">Vocabulary reading</Label>
+          <Label htmlFor="answer">
+Vocabulary reading
+          </Label>
           <Input
             innerRef={(node) => {
               this.inputFieldRef = node;

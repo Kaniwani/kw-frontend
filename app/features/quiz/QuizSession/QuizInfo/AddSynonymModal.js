@@ -11,26 +11,25 @@ import IconButton from 'common/components/IconButton';
 import AddSynonymForm, { ANSWER_TYPES } from 'common/components/AddSynonym/AddSynonymForm';
 import { KEYCODES } from 'common/constants';
 
-export const AddSynonymModal = ({ isOpen, onClose, formProps }) =>
-  isOpen ? (
-    <div
-      style={{ position: 'relative', zIndex: '100' }}
-      role="presentation"
-      onKeyUp={(event) => {
-        if (event.which === KEYCODES.ESC) onClose();
-      }}
-    >
-      <Fixed top={0} right={0} bottom={0} left={0} onClick={onClose} />
-      <Overlay w={['320px', '80vw', '720px']}>
-        <Absolute top={0} right={0} p={1}>
-          <IconButton name="CLOSE" title="Close Add Synonym window" onClick={onClose} />
-        </Absolute>
-        <Flex justify="center">
-          <AddSynonymForm centerButton {...formProps} />
-        </Flex>
-      </Overlay>
-    </div>
-  ) : null;
+export const AddSynonymModal = ({ isOpen, onClose, formProps }) => isOpen ? (
+  <div
+    style={{ position: 'relative', zIndex: '100' }}
+    role="presentation"
+    onKeyUp={(event) => {
+      if (event.which === KEYCODES.ESC) onClose();
+    }}
+  >
+    <Fixed top={0} right={0} bottom={0} left={0} onClick={onClose} />
+    <Overlay w={['320px', '80vw', '720px']}>
+      <Absolute top={0} right={0} p={1}>
+        <IconButton name="CLOSE" title="Close Add Synonym window" onClick={onClose} />
+      </Absolute>
+      <Flex justify="center">
+        <AddSynonymForm centerButton {...formProps} />
+      </Flex>
+    </Overlay>
+  </div>
+) : null;
 
 AddSynonymModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
@@ -65,8 +64,11 @@ const mapStateToProps = (state, props) => {
   };
 };
 
-const mapDispatchToProps = {
-  onClose: () => quiz.session.setSynonymModal(false),
-};
+const mapDispatchToProps = (dispatch) => ({
+  onClose: () => {
+    dispatch(quiz.session.setSynonymModal(false));
+    dispatch(quiz.answer.update({ isFocused: true }));
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddSynonymModal);
