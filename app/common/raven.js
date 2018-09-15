@@ -6,8 +6,7 @@ if (IS_PROD_ENV) {
     release: VERSION,
     ignoreErrors: [
       // multiple tabs open or user offline when service worker checks for update
-      'Failed to update a ServiceWorker: An unknown error occurred when fetching the script',
-
+      /^Failed to update a ServiceWorker/i,
       // Random plugins/extensions
       'top.GLOBALS',
       // See: http://blog.errorception.com/2012/03/tale-of-unfindable-js-error. html
@@ -29,6 +28,10 @@ if (IS_PROD_ENV) {
       'EBCallBackMessageReceived',
       // See http://toolbar.conduit.com/Developer/HtmlAndGadget/Methods/JSInjection.aspx
       'conduitPage',
+      // network error - not relevant
+      /failed to fetch/i,
+      // third party extensions
+      /^chrome-extension:\/\//,
     ],
     ignoreUrls: [
       // Facebook flakiness
