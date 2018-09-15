@@ -47,7 +47,7 @@ export const Footer = styled.footer`
   color: ${white[7]};
 `;
 
-export const CrabigatorStencil = BackgroundImg.extend`
+export const CrabigatorStencil = styled(BackgroundImg)`
   z-index: 1;
   opacity: 0.6;
   max-height: 95%;

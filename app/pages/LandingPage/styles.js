@@ -14,7 +14,7 @@ export const Wrapper = styled(PageWrapper)`
   background: ${bgImgColor}; /* same as background-image */
 `;
 
-export const Title = H1.extend`
+export const Title = styled(H1)`
   ${godzilla}
   letter-spacing: -0.03em;
   padding-top: .3em;
@@ -26,7 +26,7 @@ export const Title = H1.extend`
   z-index: 2;
 `;
 
-export const LandingBackgroundImg = BackgroundImg.extend`
+export const LandingBackgroundImg = styled(BackgroundImg)`
   left: 50%;
   transform: translateX(-50%);
   height: 100vh;

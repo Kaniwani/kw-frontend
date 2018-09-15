@@ -157,4 +157,7 @@ const mapDispatchToProps = {
   onIgnore: quiz.answer.ignore,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(QuizAnswer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(QuizAnswer);

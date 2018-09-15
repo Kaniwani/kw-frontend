@@ -32,7 +32,7 @@ export const Lower = styled.section`
   background-color: ${backgroundImageColor};
 `;
 
-export const Background = BackgroundImg.extend`
+export const Background = styled(BackgroundImg)`
   position: absolute;
   left: 50%;
   transform: translateX(-50%);

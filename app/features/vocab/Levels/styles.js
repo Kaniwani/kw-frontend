@@ -33,7 +33,7 @@ export const Link = styled(A).attrs({
   align-items: center;
 `;
 
-export const Title = H2.extend`
+export const Title = styled(H2)`
   color: inherit;
   margin-right: 0.6em;
   transition: color ${fastEaseQuad};
@@ -44,7 +44,7 @@ export const ItemCount = styled.span`
   transition: color ${fastEaseQuad};
 `;
 
-export const LockedLabel = ItemCount.extend`
+export const LockedLabel = styled(ItemCount)`
   margin-left: auto;
 `;
 

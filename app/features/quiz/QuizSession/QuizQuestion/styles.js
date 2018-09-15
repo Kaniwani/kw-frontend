@@ -54,7 +54,7 @@ export const FlyoverWrapper = styled.div`
   width: 100%;
 `;
 
-export const FlyoverContent = H4.extend`
+export const FlyoverContent = styled(H4)`
   ${gutter({ position: 'left', mod: 2 })}
   ${gutter({ position: 'right', mod: 3 })}
   box-shadow: ${outerLight};

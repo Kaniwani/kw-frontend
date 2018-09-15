@@ -41,7 +41,7 @@ export const Label = styled.label`
   }
 `;
 
-export const ToggleLabel = Label.extend`
+export const ToggleLabel = styled(Label)`
   flex-wrap: nowrap;
 `;
 

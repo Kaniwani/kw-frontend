@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -13,7 +14,7 @@ import {
 import Ruby from 'common/components/Ruby';
 import P from 'common/components/P';
 
-const SecondaryReadings = P.extend`
+const SecondaryReadings = styled(P)`
   opacity: 0.8;
   line-height: 1;
 `;
@@ -36,12 +37,13 @@ VocabWord.defaultProps = {
   showFuri: true,
   showSecondary: true,
   renderPrimary: (props) => <Ruby {...props} />,
-  renderSecondary: ({ text }) =>
-    text && (
-      <SecondaryReadings lang="ja">
-        <small>Alternate:</small> {text}
-      </SecondaryReadings>
-    ),
+  renderSecondary: ({ text }) => text && (
+    <SecondaryReadings lang="ja">
+      <small>Alternate:</small>
+      {' '}
+      {text}
+    </SecondaryReadings>
+  ),
 };
 
 export function VocabWord({

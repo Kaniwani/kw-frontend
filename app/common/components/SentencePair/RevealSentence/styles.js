@@ -24,7 +24,7 @@ export const RevealIcon = styled(Icon)`
   pointer-events: none;
 `;
 
-export const Sentence = P.extend`
+export const Sentence = styled(P)`
   position: relative;
   display: inline-flex;
   font-size: 1.1em;

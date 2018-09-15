@@ -15,7 +15,7 @@ export const Wrapper = styled.div`
   height: 100%;
 `;
 
-export const BackgroundImg = BGImg.extend`
+export const BackgroundImg = styled(BGImg)`
   max-width: 700px;
   background-position: left bottom;
   background-size: contain;
@@ -26,7 +26,7 @@ export const BackgroundImg = BGImg.extend`
 
 `;
 
-export const Title = H1.extend`
+export const Title = styled(H1)`
   ${godzilla}
   color: ${pink[5]};
   display: flex;
@@ -46,11 +46,11 @@ const textStyle = css`
   }
 `;
 
-export const Subtitle = H2.extend`
+export const Subtitle = styled(H2)`
  ${textStyle}
 `;
 
-export const Text = P.extend`
+export const Text = styled(P)`
   ${textStyle}
   font-weight: 600;
   font-style: italic;

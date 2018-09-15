@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
   flex: 1 1 auto;
 `;
 
-export const Heading = H2.extend`
+export const Heading = styled(H2)`
   font-weight: 500;
   margin-left: auto;
 `;

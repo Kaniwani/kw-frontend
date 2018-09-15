@@ -36,7 +36,7 @@ export const Header = styled.header`
   ${({ borderActive }) => borderActive && `border-bottom: 2px solid ${white[7]};`}
 `;
 
-export const Title = H4.extend`
+export const Title = styled(H4)`
   font-weight: 500;
 `;
 

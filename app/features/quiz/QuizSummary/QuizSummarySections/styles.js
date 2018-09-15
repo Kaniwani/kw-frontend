@@ -12,11 +12,11 @@ export const Section = styled.section`
 `;
 
 // prettier-ignore
-export const Heading = H3.extend`
+export const Heading = styled(H3)`
   ${gutter({ type: "outer", position: "horizontal" })}
   text-transform: capitalize;
 `;
 
-export const Placeholder = H2.extend`
+export const Placeholder = styled(H2)`
   font-weight: 400;
 `;

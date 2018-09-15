@@ -109,11 +109,11 @@ const ActionButton = styled(IconButton)`
   }
 `;
 
-export const SubmitButton = ActionButton.extend`
+export const SubmitButton = styled(ActionButton)`
   right: .1em;
 `;
 
-export const IgnoreButton = ActionButton.extend`
+export const IgnoreButton = styled(ActionButton)`
   left: .1em;
 `;
 

@@ -25,7 +25,7 @@ import H2 from 'common/components/H2';
 import H3 from 'common/components/H3';
 import Element from 'common/components/Element';
 
-const Text = H3.extend`
+const Text = styled(H3)`
   font-family: ${ffBody};
   font-weight: 600;
   color: ${grey[9]};
@@ -93,7 +93,12 @@ export function getReviewStatusText({
   if (isOnVacation) {
     return (
       <Text>
-        On Vacation: <Emphasis>since {format(vacationDate, DATE_FORMAT)}</Emphasis>
+        On Vacation:
+        {' '}
+        <Emphasis>
+since
+          {format(vacationDate, DATE_FORMAT)}
+        </Emphasis>
       </Text>
     );
   }
@@ -101,7 +106,9 @@ export function getReviewStatusText({
   if (reviewsCount) {
     return (
       <Text>
-        Next Review: <Emphasis>Now!</Emphasis>
+        Next Review:
+        {' '}
+        <Emphasis>Now!</Emphasis>
       </Text>
     );
   }
@@ -109,9 +116,11 @@ export function getReviewStatusText({
   if (upcoming) {
     return (
       <Text>
-        Next Review:{' '}
+        Next Review:
+        {' '}
         <Emphasis>
-          in{' '}
+          in
+          {' '}
           {distanceInWordsToNow(nextReviewDate, {
             includeSeconds: true,
             suffix: true,
@@ -131,7 +140,9 @@ export function getReviewStatusText({
 
   return (
     <Text>
-      Next Review: <Emphasis>Loading...</Emphasis>
+      Next Review:
+      {' '}
+      <Emphasis>Loading...</Emphasis>
     </Text>
   );
 }
@@ -149,4 +160,7 @@ const mapDispatchToProps = {
   loadQuizCounts: user.quizCounts.request,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewStatus);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ReviewStatus);
