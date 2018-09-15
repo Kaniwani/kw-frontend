@@ -4,16 +4,17 @@ import { connect } from 'react-redux';
 import ReactInterval from 'react-interval';
 import { ResponsiveContainer, BarChart, Brush, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 import { startOfHour, setHours, isBefore } from 'date-fns';
+import { get } from 'lodash';
 import { selectOnVacation, selectUpcomingReviews } from 'features/user/selectors';
 
 import user from 'features/user/actions';
 
 import Element from 'common/components/Element';
-import VacationImage from './VacationImageLoadable';
-import HourTick from './HourTick';
-import DayTick from './DayTick';
-import BarLabel from './BarLabel';
 import { purple } from 'common/styles/colors';
+import BarLabel from './BarLabel';
+import DayTick from './DayTick';
+import HourTick from './HourTick';
+import VacationImage from './VacationImageLoadable';
 
 UpcomingReviewsChart.propTypes = {
   data: PropTypes.arrayOf(
@@ -89,22 +90,28 @@ class UpcomingReviewsChartContainer extends React.Component {
 
   updateCounts = () => {
     const { data, loadUser } = this.props;
-    const { hour } = data[0];
+    const hour = get(data, [0, 'hour'], null);
+
+    if (hour == null) return;
+
     const twentyFourHour = parseInt(hour, 10) + (/pm/gi.test(hour) ? 12 : 0);
     const fullDate = setHours(Date.now(), twentyFourHour);
     const hourTickedOver = isBefore(startOfHour(fullDate), Date.now());
-    if (hourTickedOver) {
+
+    if (hourTickedOver && window.navigator.onLine) {
       loadUser();
     }
   };
 
   render() {
-    return this.props.isOnVacation ? (
+    const { data, isOnVacation } = this.props;
+
+    return isOnVacation ? (
       <VacationImage />
     ) : (
       <Fragment>
         <ReactInterval enabled timeout={10000} callback={this.updateCounts} />
-        <UpcomingReviewsChart data={this.props.data} />
+        <UpcomingReviewsChart data={data} />
       </Fragment>
     );
   }
@@ -119,4 +126,7 @@ const mapDispatchToProps = {
   loadUser: user.load.request,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UpcomingReviewsChartContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UpcomingReviewsChartContainer);
