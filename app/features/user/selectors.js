@@ -32,6 +32,8 @@ export const selectUserSettings = createSelector(
     'profile',
     partialRight(pick, [
       'minimumWkSrsLevelToReview',
+      'maximumWkSrsLevelToReview',
+      'orderReviewsByLevel',
       'onVacation',
       'autoExpandAnswerOnSuccess',
       'autoExpandAnswerOnFailure',
@@ -71,8 +73,7 @@ export const selectFreshUser = createSelector(
     selectReviewsCount,
     getBy(['entities', 'reviews'], (x = {}) => Object.keys(x).length),
   ],
-  (nextReviewDate, lessonsCount, reviewsCount, reviewEntitiesCount) =>
-    !nextReviewDate && lessonsCount && !reviewsCount && !reviewEntitiesCount
+  (nextReviewDate, lessonsCount, reviewsCount, reviewEntitiesCount) => !nextReviewDate && lessonsCount && !reviewsCount && !reviewEntitiesCount
 );
 
 export const selectLastWkSyncDate = createSelector(
@@ -111,6 +112,11 @@ export const selectUpcomingReviewsTotal = createSelector(
 export const selectUseEijiroProLink = createSelector(
   selectUserProfile,
   getBy('useEijiroProLink', Boolean)
+);
+
+export const selectOrderReviewsByLevel = createSelector(
+  selectUserProfile,
+  getBy('orderReviewsByLevel', Boolean)
 );
 
 // NOTE: these only work for integers 1-10, my math-fu is not strong

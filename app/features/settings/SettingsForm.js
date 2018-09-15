@@ -3,17 +3,16 @@ import { connect } from 'react-redux';
 import { compose, branch, renderNothing } from 'recompose';
 import { reduxForm, Field, propTypes as formPropTypes } from 'redux-form';
 
-import { selectUserSettings } from 'features/user/selectors';
-import { orange, blue } from 'common/styles/colors';
-import settings from './actions';
-
 import { WK_SRS_RANKS } from 'common/constants';
+import { orange, blue } from 'common/styles/colors';
+import { selectUserSettings } from 'features/user/selectors';
 
 import H2 from 'common/components/H2';
 import H4 from 'common/components/H4';
 import A from 'common/components/A';
 import Button from 'common/components/Button';
 
+import settings from './actions';
 import SelectField from './SelectField';
 import ToggleField from './ToggleField';
 import RangeField from './RangeField';
@@ -36,11 +35,25 @@ export function SettingsForm({ handleSubmit, submitting, submitSucceeded, dirty 
       <Section>
         <H2>Quiz</H2>
         <Field name="onVacation" label="Vacation mode" component={ToggleField} parse={Boolean} />
+        {/* TODO: limit options based off maximum */}
         <Field
           name="minimumWkSrsLevelToReview"
-          label="Only review words at or above WaniKani: "
+          label="Do not review vocab below WK Rank: "
           component={SelectField}
           options={Object.values(WK_SRS_RANKS)}
+        />
+        {/* TODO: limit options based off minimum */}
+        <Field
+          name="maximumWkSrsLevelToReview"
+          label="Do not review vocab above WK Rank: "
+          component={SelectField}
+          options={Object.values(WK_SRS_RANKS)}
+        />
+        <Field
+          name="orderReviewsByLevel"
+          label="Order quiz items by lowest WK Level"
+          component={ToggleField}
+          parse={Boolean}
         />
         <Field
           name="autoExpandAnswerOnSuccess"
@@ -101,24 +114,27 @@ export function SettingsForm({ handleSubmit, submitting, submitSucceeded, dirty 
           label="Follow WaniKani"
           component={ToggleField}
           parse={(value) => !!value}
-          note={
+          note={(
             <span>
               Automatically syncs and unlocks items as they are unlocked in WaniKani. Turn this off
-              if you wish to stop syncing, and<strong> before </strong>you end your WK subscription.
+              if you wish to stop syncing, and
+              <strong> before </strong>
+              you end your WK subscription.
             </span>
-          }
+          )}
         />
         <Field
           name="useEijiroProLink"
           label="Use Eijiro Pro in reading links"
-          note={
+          note={(
             <span>
-              This requires a (free) account at{' '}
+              This requires a (free) account at
+              {' '}
               <A href="https://eowf.alc.co.jp" external>
                 eowf.alc.co.jp
               </A>
             </span>
-          }
+          )}
           component={ToggleField}
           parse={Boolean}
         />
