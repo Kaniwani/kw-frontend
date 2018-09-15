@@ -5,7 +5,6 @@ import { SRS_RANGES } from 'common/constants';
 import { ANSWER_TYPES } from 'common/components/AddSynonym/AddSynonymForm';
 
 import determineCriticality from 'common/utils/determineCriticality';
-import { matchAnswer, increment, decrement, isInputValid, cleanseInput } from './utils';
 
 import { selectUserSettings } from 'features/user/selectors';
 import { selectReviewById } from 'features/reviews/selectors';
@@ -21,13 +20,14 @@ import {
   selectCurrentId,
   selectCurrentPreviouslyIncorrect,
 } from 'features/quiz/QuizSession/selectors';
-import { selectAnswer, selectAnswerIgnored } from './selectors';
 
 import { app } from 'common/actions';
 import quiz from 'features/quiz/actions';
 import review from 'features/reviews/actions';
 import synonym from 'features/synonyms/actions';
 import notify from 'features/notifications/actions';
+import { selectAnswer, selectAnswerIgnored } from './selectors';
+import { matchAnswer, increment, decrement, isInputValid, cleanseInput } from './utils';
 
 // we set this in quiz.advance and hold onto for clearing in quiz.answer.record
 let autoAdvance = {};
@@ -119,8 +119,7 @@ export const checkAnswerLogic = createLogic({
         })
       );
       dispatch(quiz.answer.correct());
-      const isOpen =
-        settings.autoExpandAnswerOnSuccess && settings.autoAdvanceOnSuccessDelayMilliseconds > 0;
+      const isOpen = settings.autoExpandAnswerOnSuccess && settings.autoAdvanceOnSuccessDelayMilliseconds > 0;
 
       dispatch(
         quiz.info.update({
@@ -345,10 +344,10 @@ export const recordAnswerLogic = createLogic({
       const decorateResubmitError = (err) => {
         /* eslint-disable no-param-reassign */
         if (
-          err.status === 403 &&
-          err.json &&
-          err.json.detail &&
-          err.json.detail.includes('need to be reviewed')
+          err.status === 403
+          && err.json
+          && err.json.detail
+          && err.json.detail.includes('need to be reviewed')
         ) {
           err.message = 'Resubmit error';
           err.originalMessage = JSON.stringify(err.message);

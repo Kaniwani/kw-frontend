@@ -1,4 +1,4 @@
-import update from "immutability-helper";
+import update from 'immutability-helper';
 
 export function createReducer(initialState, fnMap) {
   return (state = initialState, { type, payload }) => {
@@ -44,12 +44,9 @@ export const initialUiState = {
   error: false,
 };
 
-export const updateUiLoadRequest = (state) =>
-  update(state, { $merge: { isLoading: true } });
-export const updateUiLoadSuccess = (state) =>
-  update(state, { $merge: { lastLoad: new Date(), isLoading: false, error: false } });
-export const updateUiLoadFailure = (state, action) =>
-  update(state, { $merge: { isLoading: false, error: action.payload } });
+export const updateUiLoadRequest = (state) => update(state, { $merge: { isLoading: true } });
+export const updateUiLoadSuccess = (state) => update(state, { $merge: { lastLoad: new Date(), isLoading: false, error: false } });
+export const updateUiLoadFailure = (state, action) => update(state, { $merge: { isLoading: false, error: action.payload } });
 
 export const updateUiLoadRequestById = (state, action) => {
   const { id } = action.payload;
@@ -61,11 +58,9 @@ export const updateUiLoadRequestById = (state, action) => {
   });
 };
 
-export const updateUiLoadSuccessById = (state, action) =>
-  update(state, {
-    [action.meta.id]: { $apply: (substate) => updateUiLoadSuccess(substate, action) },
-  });
-export const updateUiLoadFailureById = (state, action) =>
-  update(state, {
-    [action.meta.id]: { $apply: (substate) => updateUiLoadFailure(substate, action) },
-  });
+export const updateUiLoadSuccessById = (state, action) => update(state, {
+  [action.meta.id]: { $apply: (substate) => updateUiLoadSuccess(substate, action) },
+});
+export const updateUiLoadFailureById = (state, action) => update(state, {
+  [action.meta.id]: { $apply: (substate) => updateUiLoadFailure(substate, action) },
+});

@@ -10,8 +10,7 @@ export const serializeLoginResponse = ({ token }) => token;
 export const serializeUserResponse = (res = {}) => serializeUser(res);
 export const serializeReviewResponse = serializeReview;
 export const serializeLevelsResponse = (res = {}) => createDict(res.map(serializeLevel), 'id');
-export const serializeQueueResponse = ({ results }) =>
-  serializeReviews(results, serializeStubbedReview);
+export const serializeQueueResponse = ({ results }) => serializeReviews(results, serializeStubbedReview);
 export const serializeLevelResponse = ({ results }) => serializeReviews(results, serializeReview);
 
 export const serializeVocabSearchResponse = ({ results }, persistedReviews = {}) => {

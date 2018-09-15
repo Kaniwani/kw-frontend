@@ -22,8 +22,7 @@ export default function configureStore(preloadedState, history) {
   });
 
   const ravenMiddleware = createRavenMiddleware(Raven, {
-    stateTransformer: (state) =>
-      omit(state, ['entities.vocab', 'entities.reviews', 'entities.synonyms']),
+    stateTransformer: (state) => omit(state, ['entities.vocab', 'entities.reviews', 'entities.synonyms']),
     getUserContext: (state) => state.entities.user,
   });
 

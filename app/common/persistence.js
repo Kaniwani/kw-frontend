@@ -25,7 +25,6 @@ export const persistReducer = (
   return persist(config, reducer);
 };
 
-export const persistUiReducer = (key = 'kaniwani', reducer) =>
-  persistReducer({ key, whitelist: ['lastLoad'] }, reducer);
+export const persistUiReducer = (key = 'kaniwani', reducer) => persistReducer({ key, whitelist: ['lastLoad'] }, reducer);
 
 export default persistReducer;

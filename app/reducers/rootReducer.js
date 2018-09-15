@@ -3,7 +3,6 @@ import { reducer as formReducer } from 'redux-form';
 import { routerReducer } from 'react-router-redux';
 import { persistReducer, persistUiReducer } from 'common/persistence';
 
-import appReducer from './appReducer';
 import { announcementsUiReducer, announcementsReducer } from 'features/announcements/reducer';
 import { notificationsReducer } from 'features/notifications/reducer';
 import { userUiReducer, userReducer, quizCountsReducer } from 'features/user/reducer';
@@ -17,6 +16,7 @@ import { quizSessionReducer } from 'features/quiz/QuizSession/reducer';
 import { quizAnswerReducer } from 'features/quiz/QuizSession/QuizAnswer/reducer';
 import { quizInfoReducer } from 'features/quiz/QuizSession/QuizInfo/reducer';
 import { quizSummaryReducer } from 'features/quiz/QuizSummary/reducer';
+import appReducer from './appReducer';
 
 const entitiesReducer = combineReducers({
   user: userReducer,
