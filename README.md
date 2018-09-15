@@ -12,33 +12,39 @@
 <br />
 
 <div align="center">
-  <sub>Made with 🐢 by <a href="https://twitter.com/djtbay">Duncan Bay</a></sub>
+  <sub>Made with 🐢 by <a href="https://github.com/DJTB">Duncan Bay</a></sub>
 </div>
 
 <br />
 
-##### _Note: Currently requires a working [KW Backend](https://github.com/Kaniwani/kw-backend) set up_
+##### _Note: Requires a [KW Backend](https://github.com/Kaniwani/kw-backend)_
 
 ## Quick start
+
 1. Clone this repo using `git clone https://github.com/Kaniwani/kw-frontend.git`
-2. Run `yarn` to install dependencies ([get yarn here](https://yarnpkg.com/en/docs/install)).
-3. Run `yarn start` to load up the development server and watch for changes.
+2. Create a `.env` file with secrets (contact Duncan on [slack](https://rauchg-slackin-iurjmkotad.now.sh))
+3. Run `yarn` to install dependencies ([get yarn here](https://yarnpkg.com/en/docs/install))
+4. Run `yarn start` to load up the development server and watch for changes
 
 Now you're ready to rumble!
 
 ## Development
-- Test all the things via `yarn run test:watch`
+
+- Test via `yarn run test:watch`
 - Auto-lint and format staged files using standardized commit messages via `yarn run cz`
 
 The following Chrome extensions will allow you to explore the app structure while developing
+
 - [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd)
 - [React DevTools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
 
 ## Help
+
 - Visit our [Issues](https://github.com/Kaniwani/kw-frontend/issues) page
 - Join us on [Slack](https://rauchg-slackin-iurjmkotad.now.sh)
 
 ## Thanks
+
 <a title="browserstack" href="https://www.browserstack.com/" target="_blank" rel="external noopener noreferrer">
 <img alt="browser stack logo" src="https://raw.githubusercontent.com/Kaniwani/kw-frontend/master/app/common/assets/img/browserstack.png"/>
 </a>
@@ -46,6 +52,6 @@ The following Chrome extensions will allow you to explore the app structure whil
 <img width="230" alt="sentry logo" src="https://sentry-brand.storage.googleapis.com/sentry-logo-black.png"/>
 </a>
 
-
 ## License
-This project is licensed under the MIT license, Copyright (c) 2016 Duncan Bay. For more information see `LICENSE.md`.
+
+This project is licensed under the MIT license, Copyright (c) 2018 Duncan Bay. For more information see `LICENSE.md`.
