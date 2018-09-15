@@ -1,19 +1,32 @@
 import { createLogic } from 'redux-logic';
 
-import settings from './actions';
 import { app } from 'common/actions';
 import user from 'features/user/actions';
 import vocab from 'features/vocab/actions';
 import notify from 'features/notifications/actions';
 import { selectUserDomain } from 'features/user/selectors';
+import settings from './actions';
 
 export const saveSettingsLogic = createLogic({
   type: settings.save.request,
-  process({ getState, api, serializers, action: { payload, meta: { form } } }, dispatch, done) {
+  process(
+    {
+      getState,
+      api,
+      serializers,
+      action: {
+        payload,
+        meta: { form },
+      },
+    },
+    dispatch,
+    done
+  ) {
     const { serializeUserProfile, deserializeUserProfile } = serializers;
     const { username, email, profile } = selectUserDomain(getState());
     const updatedProfile = deserializeUserProfile(payload);
-    const filterChanged = profile.minimumWkSrsLevelToReview !== payload.minimumWkSrsLevelToReview;
+    const filterChanged = profile.minimumWkSrsLevelToReview !== payload.minimumWkSrsLevelToReview
+      || profile.maximumWkSrsLevelToReview !== payload.maximumWkSrsLevelToReview;
 
     form.startSubmit();
     api.user
@@ -59,7 +72,14 @@ export const saveSettingsLogic = createLogic({
 
 export const resetProgressLogic = createLogic({
   type: settings.resetProgress.request,
-  process({ api, action: { payload } }, dispatch, done) {
+  process(
+    {
+      api,
+      action: { payload },
+    },
+    dispatch,
+    done
+  ) {
     api.user
       .resetProgress(payload)
       .then(() => {
