@@ -1,11 +1,11 @@
 import { createLogic } from 'redux-logic';
 import { sample, difference } from 'lodash';
 
-import { INITIAL_QUEUE_LIMIT, SUBSEQUENT_QUEUE_LIMIT } from './constants';
-
 import { app } from 'common/actions';
 import quiz from 'features/quiz/actions';
 import { selectReviewById } from 'features/reviews/selectors';
+import { selectOrderReviewsByLevel } from 'features/user/selectors';
+import { INITIAL_QUEUE_LIMIT, SUBSEQUENT_QUEUE_LIMIT } from './constants';
 import {
   selectQueue,
   selectQueueCount,
@@ -15,6 +15,10 @@ import {
   selectWrapUp,
   selectCurrentId,
 } from './selectors';
+
+const getNextId = (queue = [], currentId, orderByLevel) => orderByLevel
+  ? queue[queue.findIndex((id) => id === currentId) + 1]
+  : sample(difference(queue, [currentId]));
 
 export const queueLoadLogic = createLogic({
   type: quiz.session.queue.load.request,
@@ -65,7 +69,9 @@ export const replaceCurrentLogic = createLogic({
   transform({ getState, action }, next) {
     const currentId = selectCurrentId(getState());
     const queue = selectQueue(getState());
-    const newId = sample(difference(queue, [currentId]));
+    const orderByLevel = selectOrderReviewsByLevel(getState());
+    const newId = getNextId(queue, currentId, orderByLevel);
+
     if (newId == null) {
       next({ ...action, payload: {} });
     } else {
@@ -80,9 +86,10 @@ export const returnCurrentLogic = createLogic({
   transform({ getState, action }, allow, reject) {
     const currentId = selectCurrentId(getState());
     const queue = selectQueue(getState());
-    const newId = sample(difference(queue, [currentId]));
+    const orderByLevel = selectOrderReviewsByLevel(getState());
+    const newId = getNextId(queue, currentId, orderByLevel);
 
-    if (newId) {
+    if (newId != null) {
       const newCurrent = selectReviewById(getState(), { id: newId });
       allow({ ...action, payload: { newCurrent, currentId } });
     } else {
