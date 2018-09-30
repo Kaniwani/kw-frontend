@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import cuid from 'cuid';
-import { withContentRect } from 'react-measure';
+import { withContentRect, MeasureProps } from 'react-measure';
 import { compose, branch, renderNothing } from 'recompose';
 
 import { stopAutoAdvance } from 'features/quiz/QuizSession/QuizAnswer/logic';
@@ -30,17 +30,16 @@ import { selectInfoDetailLevel, selectInfoDisabled, selectInfoOpen } from './sel
 import { Wrapper, ReadingWrapper } from './styles';
 
 const Readings = connect((state, { id }) => ({ ids: selectReviewVocabIds(state, { id }) }))(
-  ({ ids, isMidDetail, isHighDetail }) =>
-    ids.map((vocabId) => (
-      <ReadingWrapper key={cuid()} data-answer>
-        {<VocabWord id={vocabId} showFuri={isMidDetail} showSecondary={isMidDetail} />}
-        {isHighDetail && <PitchDiagramList id={vocabId} />}
-        {isMidDetail && <TagsList id={vocabId} />}
-        {isHighDetail && <ReadingLinks id={vocabId} />}
-        {isHighDetail && <SentencePair id={vocabId} />}
-        {isHighDetail && <StrokeLoader id={vocabId} />}
-      </ReadingWrapper>
-    ))
+  ({ ids, isMidDetail, isHighDetail }) => ids.map((vocabId) => (
+    <ReadingWrapper key={cuid()} data-answer>
+      {<VocabWord id={vocabId} showFuri={isMidDetail} showSecondary={isMidDetail} />}
+      {isHighDetail && <PitchDiagramList id={vocabId} />}
+      {isMidDetail && <TagsList id={vocabId} />}
+      {isHighDetail && <ReadingLinks id={vocabId} />}
+      {isHighDetail && <SentencePair id={vocabId} />}
+      {isHighDetail && <StrokeLoader id={vocabId} />}
+    </ReadingWrapper>
+  ))
 );
 
 class QuizInfo extends React.Component {
@@ -120,7 +119,10 @@ const mapDispatchToProps = {
 };
 
 const enhance = compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
   branch(({ id }) => !id, renderNothing),
   withContentRect('bounds')
 );
