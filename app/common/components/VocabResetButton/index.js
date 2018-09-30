@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Button from 'common/components/Button';
 import Icon from 'common/components/Icon';
 import { gutter } from 'common/styles/layout';
+import { white, grey } from 'common/styles/colors';
 
 // prettier-ignore
 export const Text = styled.div`
@@ -13,38 +14,27 @@ export const Text = styled.div`
   ${gutter({ position: 'right', mod: 2 })}
 `;
 
-import { white, grey } from 'common/styles/colors';
-
-VocabLockButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  isLocked: PropTypes.bool,
-  isSubmitting: PropTypes.bool,
-};
-
-VocabLockButton.defaultProps = {
-  isLocked: false,
-  isSubmitting: false,
-};
-
-function VocabLockButton({ isLocked, isSubmitting, onClick }) {
-  const icon = isLocked ? 'LOCK_CLOSED' : 'LOCK_OPEN';
-  const text = `${isLocked ? 'Enable' : 'Suspend'} Review`;
-
+function VocabResetButton({ disabled, onClick }) {
   return (
     <Button
-      title={text}
+      title="Reset SRS"
       plainButton={false}
+      disabled={disabled}
       color={white[2]}
       colorHover={grey[4]}
       bgColor={grey[4]}
       bgColorHover={white[2]}
       onClick={onClick}
-      isSubmitting={isSubmitting}
     >
-      <Text>{text}</Text>
-      <Icon size="1.3em" name={icon} />
+      <Text>Reset SRS</Text>
+      <Icon size="1.25em" name="RESTART" />
     </Button>
   );
 }
 
-export default VocabLockButton;
+VocabResetButton.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  disabled: PropTypes.bool.isRequired,
+};
+
+export default VocabResetButton;

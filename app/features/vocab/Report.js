@@ -6,6 +6,7 @@ import { reduxForm, Field, propTypes as formPropTypes } from 'redux-form';
 import { connect } from 'react-redux';
 import { Fixed, Absolute, Modal, Flex } from 'rebass';
 
+import { orange } from 'common/styles/colors';
 import vocab from 'features/vocab/actions';
 import { selectVocabById } from 'features/vocab/selectors';
 
@@ -26,7 +27,13 @@ export const VocabReport = ({ reading, handleSubmit, reset, submitting, submitSu
   <Toggle
     render={({ on, toggle }) => (
       <div>
-        <IconButton name="BUG" title="Report vocab" size="1.4em" color="tomato" onClick={toggle} />
+        <IconButton
+          name="BUG"
+          title="Report vocab"
+          size="1.4em"
+          color={orange[4]}
+          onClick={toggle}
+        />
         {on && (
           <div style={{ position: 'relative', zIndex: 10 }}>
             <Fixed top={0} right={0} bottom={0} left={0} onClick={toggle} />
@@ -81,8 +88,7 @@ const enhance = compose(
   connect(mapStateToProps),
   reduxForm({
     form: 'vocabReport',
-    onSubmit: ({ reason }, dispatch, { reading, ...form }) =>
-      dispatch(vocab.report.request({ reason, reading: reading.id }, { form })),
+    onSubmit: ({ reason }, dispatch, { reading, ...form }) => dispatch(vocab.report.request({ reason, reading: reading.id }, { form })),
   })
 );
 

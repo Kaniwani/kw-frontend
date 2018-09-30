@@ -32,6 +32,7 @@ const buttonStyle = css`
 
   &:disabled {
     cursor: not-allowed;
+    opacity: 0.5;
   }
 
   ${({ plainButton }) => plainButton ? css`

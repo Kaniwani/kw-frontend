@@ -1,13 +1,21 @@
 import { createLogic } from 'redux-logic';
 
-import review from './actions';
 import { app } from 'common/actions';
 import notify from 'features/notifications/actions';
+import review from './actions';
 
 export const reviewLoadLogic = createLogic({
   type: review.load.request,
   warnTimeout: 10000,
-  process({ api, serializers, action: { payload } }, dispatch, done) {
+  process(
+    {
+      api,
+      serializers,
+      action: { payload },
+    },
+    dispatch,
+    done
+  ) {
     const { id } = payload;
     api.review
       .fetch({ id })
@@ -34,7 +42,14 @@ export const reviewLoadLogic = createLogic({
 export const reviewLockLogic = createLogic({
   type: review.lock.request,
   warnTimeout: 5000,
-  process({ api, action: { payload } }, dispatch, done) {
+  process(
+    {
+      api,
+      action: { payload },
+    },
+    dispatch,
+    done
+  ) {
     const { id } = payload;
     return api.review
       .hide({ id })
@@ -59,7 +74,14 @@ export const reviewLockLogic = createLogic({
 export const reviewUnlockLogic = createLogic({
   type: review.unlock.request,
   warnTimeout: 5000,
-  process({ api, action: { payload } }, dispatch, done) {
+  process(
+    {
+      api,
+      action: { payload },
+    },
+    dispatch,
+    done
+  ) {
     const { id } = payload;
     return api.review
       .unhide({ id })
@@ -74,8 +96,40 @@ export const reviewUnlockLogic = createLogic({
         done();
       })
       .catch((err) => {
-        dispatch(app.captureError(err, payload));
         dispatch(review.unlock.failure(err));
+        dispatch(app.captureError(err, payload));
+        done();
+      });
+  },
+});
+
+export const reviewResetLogic = createLogic({
+  type: review.reset.request,
+  warnTimeout: 5000,
+  process(
+    {
+      api,
+      action: { payload },
+    },
+    dispatch,
+    done
+  ) {
+    const { id } = payload;
+    return api.review
+      .reset({ id })
+      .then(() => {
+        dispatch(review.reset.success({ id }));
+        dispatch(
+          notify.success({
+            content: `This word has been reset to Apprentice.`,
+            duration: 2000,
+          })
+        );
+        done();
+      })
+      .catch((err) => {
+        dispatch(review.reset.failure(err));
+        dispatch(app.captureError(err, payload));
         done();
       });
   },
@@ -84,7 +138,14 @@ export const reviewUnlockLogic = createLogic({
 export const updateNotesLogic = createLogic({
   type: review.updateNotes.request,
   warnTimeout: 10000,
-  process({ api, action: { payload } }, dispatch, done) {
+  process(
+    {
+      api,
+      action: { payload },
+    },
+    dispatch,
+    done
+  ) {
     return api.review
       .update(payload)
       .then((res) => {
@@ -98,6 +159,7 @@ export const updateNotesLogic = createLogic({
         done();
       })
       .catch((err) => {
+        dispatch(review.updateNotes.failure(err));
         dispatch(app.captureError(err, payload));
         dispatch(
           notify.warning({
@@ -106,10 +168,15 @@ export const updateNotesLogic = createLogic({
             duration: 3000,
           })
         );
-        dispatch(review.updateNotes.failure(err));
         done();
       });
   },
 });
 
-export default [reviewLoadLogic, reviewLockLogic, reviewUnlockLogic, updateNotesLogic];
+export default [
+  reviewLoadLogic,
+  reviewLockLogic,
+  reviewUnlockLogic,
+  reviewResetLogic,
+  updateNotesLogic,
+];

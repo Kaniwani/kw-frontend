@@ -6,6 +6,7 @@ export const { review } = createActions({
     LOAD: ASYNC,
     LOCK: ASYNC,
     UNLOCK: ASYNC,
+    RESET: ASYNC,
     UPDATE: SYNC,
     BATCH_UPDATE: SYNC,
     UPDATE_NOTES: ASYNC,

@@ -243,6 +243,12 @@ export const review = {
     .post()
     .res(),
 
+  reset: ({ id }) => api
+    .auth(`JWT ${getToken()}`)
+    .url(`review/${id}/reset/`)
+    .post()
+    .res(),
+
   update: ({ id, ...payload }) => api
     .auth(`JWT ${getToken()}`)
     .url(`review/${id}/`)

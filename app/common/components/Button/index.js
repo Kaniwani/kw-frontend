@@ -11,6 +11,7 @@ Button.propTypes = {
   href: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   to: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   onClick: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+  disabled: PropTypes.bool,
   color: PropTypes.string,
   colorHover: PropTypes.string,
   bgColor: PropTypes.string,
@@ -23,27 +24,22 @@ Button.defaultProps = {
   href: '',
   to: '',
   onClick: () => {},
+  disabled: false,
   color: white[1],
   colorHover: blue[7],
   bgColor: blue[5],
   bgColorHover: white[1],
 };
 
-function Button({ plainButton, children, type, href, to, onClick, disabled, ...props }) {
+function Button({ plainButton, children, type, href, to, onClick, ...props }) {
   const renderLink = () => (
-    <Anchor plainLink href={href} to={to} disabled={disabled} {...props}>
+    <Anchor plainLink href={href} to={to} {...props}>
       {Children.toArray(children)}
     </Anchor>
   );
 
   const renderButton = () => (
-    <StyledButton
-      plainButton={plainButton}
-      type={type}
-      disabled={disabled}
-      onClick={onClick}
-      {...props}
-    >
+    <StyledButton plainButton={plainButton} type={type} onClick={onClick} {...props}>
       {Children.toArray(children)}
     </StyledButton>
   );

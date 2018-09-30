@@ -19,30 +19,29 @@ export const ingestReview = (state, { payload }) => {
   });
 };
 
-export const updateReview = (state, { payload }) =>
-  update(state, {
-    [payload.id]: { $set: merge({}, state[payload.id], payload) },
-  });
+export const updateReview = (state, { payload }) => update(state, {
+  [payload.id]: { $set: merge({}, state[payload.id], payload) },
+});
 
-export const updateReviewHiddenStatus = (state, { payload }) =>
-  update(state, {
-    [payload.id]: { hidden: { $set: payload.hidden } },
-  });
+export const resetReview = (state, { payload }) => update(state, {
+  [payload.id]: { streak: { $set: 1 } },
+});
 
-export const updateReviewNotes = (state, { payload }) =>
-  update(state, {
-    [payload.id]: { notes: { $set: payload.notes } },
-  });
+export const updateReviewHiddenStatus = (state, { payload }) => update(state, {
+  [payload.id]: { hidden: { $set: payload.hidden } },
+});
 
-const addSynonymIdToReview = (state, { payload }) =>
-  update(state, {
-    [payload.reviewId]: { synonyms: { $push: [payload.id] } },
-  });
+export const updateReviewNotes = (state, { payload }) => update(state, {
+  [payload.id]: { notes: { $set: payload.notes } },
+});
 
-const removeSynonymIdFromReview = (state, { payload }) =>
-  update(state, {
-    [payload.reviewId]: { synonyms: (ids) => ids.filter((id) => id !== payload.id) },
-  });
+const addSynonymIdToReview = (state, { payload }) => update(state, {
+  [payload.reviewId]: { synonyms: { $push: [payload.id] } },
+});
+
+const removeSynonymIdFromReview = (state, { payload }) => update(state, {
+  [payload.reviewId]: { synonyms: (ids) => ids.filter((id) => id !== payload.id) },
+});
 
 export const reviewsReducer = handleActions(
   {
@@ -53,6 +52,7 @@ export const reviewsReducer = handleActions(
     )]: ingestReviews,
     [review.load.success]: ingestReview,
     [review.update]: updateReview,
+    [review.reset.success]: resetReview,
     [review.updateNotes.success]: updateReviewNotes,
     [combineActions(review.lock.success, review.unlock.success)]: updateReviewHiddenStatus,
     [synonyms.add.success]: addSynonymIdToReview,

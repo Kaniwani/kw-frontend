@@ -10,6 +10,7 @@ import {
   selectReviewVocabIds,
   selectReviewSynonymIds,
   selectIsHidden,
+  selectStreak,
 } from 'features/reviews/selectors';
 
 import { gutter } from 'common/styles/layout';
@@ -34,6 +35,7 @@ import ReadingLinks from 'common/components/ReadingLinks';
 import PitchDiagramList from 'common/components/PitchDiagram';
 import AddSynonym from 'common/components/AddSynonym';
 import VocabLockButton from 'common/components/VocabLockButton';
+import VocabResetButton from 'common/components/VocabResetButton';
 import VocabStats from 'features/vocab/Entry/VocabStats';
 import Notes from 'features/reviews/Notes';
 import Element from 'common/components/Element';
@@ -44,21 +46,25 @@ import H3 from 'common/components/H3';
 VocabDetail.propTypes = {
   id: PropTypes.number.isRequired,
   level: PropTypes.number.isRequired,
+  streak: PropTypes.number.isRequired,
   vocabIds: PropTypes.array.isRequired,
   synonymIds: PropTypes.array.isRequired,
   isReviewLocked: PropTypes.bool.isRequired,
   lockReview: PropTypes.func.isRequired,
   unlockReview: PropTypes.func.isRequired,
+  resetReview: PropTypes.func.isRequired,
 };
 
 export function VocabDetail({
   id,
   level,
+  streak,
   vocabIds,
   synonymIds,
   isReviewLocked,
   lockReview,
   unlockReview,
+  resetReview,
 }) {
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
@@ -91,16 +97,20 @@ export function VocabDetail({
       <div>
         <Element>
           <H3 style={{ fontWeight: '400' }}>
-            <A to={`/vocabulary/levels/${level}`}>Level {level}</A>
+            <A to={`/vocabulary/levels/${level}`}>
+Level
+              {level}
+            </A>
           </H3>
         </Element>
         <VocabStats id={id} />
-        <Element>
+        <div>
           <VocabLockButton
             isLocked={isReviewLocked}
             onClick={isReviewLocked ? unlockReview : lockReview}
           />
-        </Element>
+        </div>
+        <VocabResetButton onClick={resetReview} disabled={streak <= 1 || isReviewLocked} />
       </div>
     </div>
   );
@@ -109,17 +119,26 @@ export function VocabDetail({
 const mapStateToProps = (state, props) => {
   const vocabIds = selectReviewVocabIds(state, props);
   const { level } = selectVocabById(state, { id: vocabIds[0] });
+  const streak = selectStreak(state, props);
+  const synonymIds = selectReviewSynonymIds(state, props);
+  const isReviewLocked = selectIsHidden(state, props);
+
   return {
+    streak,
     vocabIds,
     level,
-    synonymIds: selectReviewSynonymIds(state, props),
-    isReviewLocked: selectIsHidden(state, props),
+    synonymIds,
+    isReviewLocked,
   };
 };
 
 const mapDispatchToProps = (dispatch, props) => ({
   lockReview: () => dispatch(review.lock.request(props)),
   unlockReview: () => dispatch(review.unlock.request(props)),
+  resetReview: () => dispatch(review.reset.request(props)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(VocabDetail);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(VocabDetail);
