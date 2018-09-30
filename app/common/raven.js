@@ -5,8 +5,6 @@ if (IS_PROD_ENV) {
   Raven.config(RAVEN_DSN, {
     release: VERSION,
     ignoreErrors: [
-      // multiple tabs open or user offline when service worker checks for update
-      /^Failed to update a ServiceWorker/i,
       // Random plugins/extensions
       'top.GLOBALS',
       // See: http://blog.errorception.com/2012/03/tale-of-unfindable-js-error. html
@@ -28,7 +26,12 @@ if (IS_PROD_ENV) {
       'EBCallBackMessageReceived',
       // See http://toolbar.conduit.com/Developer/HtmlAndGadget/Methods/JSInjection.aspx
       'conduitPage',
-      // network error - not relevant
+      // multiple tabs open or user offline when service worker checks for update
+      /failed to update a serviceworker/i,
+      // This is the network. Something interrupted the connection.
+      // It might be due losing the network connection or network being changed (it happens all the time in the wild).
+      /an ssl error has occurred and a secure connection to the server cannot be made/i,
+      // network error - user offline etc
       /failed to fetch/i,
       // third party extensions
       /^chrome-extension:\/\//,
