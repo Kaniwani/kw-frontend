@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, branch, renderNothing } from 'recompose';
-import { reduxForm, Field, propTypes as formPropTypes } from 'redux-form';
+import { reduxForm, Field, formValueSelector, propTypes as formPropTypes } from 'redux-form';
 
 import { WK_SRS_RANKS } from 'common/constants';
 import { orange, blue } from 'common/styles/colors';
@@ -25,33 +26,38 @@ const INFO_LEVELS = ['LOW', 'MID', 'HIGH'];
 const infoLevelNameToNum = (val) => INFO_LEVELS.findIndex((x) => x === val);
 const infoLevelNumToName = (val) => INFO_LEVELS[val];
 
-SettingsForm.propTypes = {
-  ...formPropTypes,
+const FORM_NAME = 'settings';
+
+const limitRanks = (rank, max = false) => {
+  const ranks = Object.values(WK_SRS_RANKS);
+  const index = ranks.indexOf(rank);
+  return max ? ranks.slice(index) : ranks.slice(0, index + 1);
 };
 
-export function SettingsForm({ handleSubmit, submitting, submitSucceeded, dirty }) {
+export function SettingsForm({ minWk, maxWk, handleSubmit, submitting, submitSucceeded, dirty }) {
+  const limitedMinRanks = limitRanks(maxWk);
+  const limitedMaxRanks = limitRanks(minWk, true);
+
   return (
     <Form onSubmit={handleSubmit}>
       <Section>
         <H2>Quiz</H2>
         <Field name="onVacation" label="Vacation mode" component={ToggleField} parse={Boolean} />
-        {/* TODO: limit options based off maximum */}
         <Field
           name="minimumWkSrsLevelToReview"
           label="Do not review vocab below WK Rank: "
           component={SelectField}
-          options={Object.values(WK_SRS_RANKS)}
+          options={limitedMinRanks}
         />
-        {/* TODO: limit options based off minimum */}
         <Field
           name="maximumWkSrsLevelToReview"
           label="Do not review vocab above WK Rank: "
           component={SelectField}
-          options={Object.values(WK_SRS_RANKS)}
+          options={limitedMaxRanks}
         />
         <Field
           name="orderReviewsByLevel"
-          label="Order quiz items by lowest WK Level"
+          label="Order quiz items by ascending WK Level"
           component={ToggleField}
           parse={Boolean}
         />
@@ -171,11 +177,23 @@ export function SettingsForm({ handleSubmit, submitting, submitSucceeded, dirty 
   );
 }
 
+SettingsForm.propTypes = {
+  ...formPropTypes,
+  minWk: PropTypes.string,
+  maxWk: PropTypes.string,
+};
+
+const valSelector = formValueSelector(FORM_NAME);
+
 const enhance = compose(
-  connect((state) => ({ initialValues: selectUserSettings(state) })),
+  connect((state) => ({
+    initialValues: selectUserSettings(state),
+    minWk: valSelector(state, 'minimumWkSrsLevelToReview'),
+    maxWk: valSelector(state, 'maximumWkSrsLevelToReview'),
+  })),
   branch(({ initialValues }) => Object.keys(initialValues).length < 1, renderNothing),
   reduxForm({
-    form: 'settings',
+    form: FORM_NAME,
     enableReinitialize: true,
     onSubmit: (values, dispatch, props) => dispatch(settings.save.request(values, { form: props })),
   })
