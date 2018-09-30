@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { reduxForm, Field, SubmissionError, propTypes as formPropTypes } from 'redux-form';
 
-import settings from './actions';
 import { selectUsername, selectUserLevel, selectApiKey } from 'features/user/selectors';
 import { doValuesMatch, numberValid } from 'common/validations';
 
 import H2 from 'common/components/H2';
 import H4 from 'common/components/H4';
 import Button from 'common/components/Button';
+import settings from './actions';
 
 import InputField from './InputField';
 import RangeField from './RangeField';
@@ -72,9 +72,12 @@ const ResetProgressForm = compose(
 
 const UpdateApiKey = ({ handleSubmit, submitting, submitSucceeded }) => (
   <Form onSubmit={handleSubmit}>
-    <Block>
-      <Field name="apiKey" label="Api Key:" component={InputField} />
-    </Block>
+    <Field
+      name="apiKey"
+      label="Api Key:"
+      component={InputField}
+      props={{ inputStyle: { minWidth: '300px' } }}
+    />
     <Controls>
       <Button type="submit">
         {(submitting && 'Updating') || (submitSucceeded && 'Updated!') || 'Update'}
