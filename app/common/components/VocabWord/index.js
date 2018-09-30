@@ -36,14 +36,13 @@ VocabWord.defaultProps = {
   secondaryReadings: [],
   showFuri: true,
   showSecondary: true,
-  renderPrimary: (props) => <Ruby {...props} />,
-  renderSecondary: ({ text }) => text && (
-    <SecondaryReadings lang="ja">
-      <small>Alternate:</small>
-      {' '}
-      {text}
-    </SecondaryReadings>
-  ),
+  renderPrimary: (props) => <Ruby {...props} withDataAttr />,
+  renderSecondary: ({ text }) =>
+    text && (
+      <SecondaryReadings lang="ja">
+        <small>Alternate:</small> {text}
+      </SecondaryReadings>
+    ),
 };
 
 export function VocabWord({

@@ -11,8 +11,8 @@ import {
 } from 'features/reviews/selectors';
 import { selectTags } from 'features/vocab/selectors';
 
-import Question from './Question';
 import { TagsList } from 'common/components/TagsList';
+import Question from './Question';
 import Flyover from './Flyover';
 
 import { Wrapper } from './styles';
@@ -47,17 +47,19 @@ export class QuizQuestion extends React.Component {
   };
 
   componentWillReceiveProps(nextProps) {
+    const { isCorrect, streak } = this.props;
     // answer reset = new question
     if (!nextProps.isDisabled) {
       this.setState({ initialStreak: nextProps.streak });
     }
     // forced incorrect
-    if (this.props.isCorrect && nextProps.isIncorrect) {
-      this.setState({ initialStreak: this.props.streak });
+    if (isCorrect && nextProps.isIncorrect) {
+      this.setState({ initialStreak: streak });
     }
   }
 
   render() {
+    const { initialStreak } = this.state;
     const {
       primaryMeaning,
       secondaryMeanings,
@@ -65,15 +67,14 @@ export class QuizQuestion extends React.Component {
       isLessonQuiz,
       isDisabled,
       isIgnored,
+      streak,
     } = this.props;
     return (
       <Wrapper>
         <Question primaryMeaning={primaryMeaning} secondaryMeanings={secondaryMeanings} />
         <TagsList tags={tags} isVisible={!isDisabled} />
         {!isLessonQuiz &&
-          isDisabled && (
-            <Flyover isIgnored={isIgnored} from={this.state.initialStreak} to={this.props.streak} />
-          )}
+          isDisabled && <Flyover isIgnored={isIgnored} from={initialStreak} to={streak} />}
       </Wrapper>
     );
   }

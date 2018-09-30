@@ -22,9 +22,11 @@ export function Question({ primaryMeaning, secondaryMeanings }) {
           <Spinner color1={white[3]} color2={white[2]} />
         ) : (
           <Fragment>
-            <Primary>{primaryMeaning}</Primary>
+            <Primary data-question-primary>{primaryMeaning}</Primary>
             {/* Enforce a min-height even if no terms by using japanese space as placeholder */}
-            <Secondary>{secondaryMeanings.length ? secondaryMeanings.join(', ') : '　'}</Secondary>
+            <Secondary data-question-secondary>
+              {secondaryMeanings.length ? secondaryMeanings.join(', ') : '　'}
+            </Secondary>
           </Fragment>
         )}
       </Meanings>

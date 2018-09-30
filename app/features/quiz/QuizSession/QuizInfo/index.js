@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import cuid from 'cuid';
-import { withContentRect, MeasureProps } from 'react-measure';
+import { withContentRect } from 'react-measure';
 import { compose, branch, renderNothing } from 'recompose';
 
 import { stopAutoAdvance } from 'features/quiz/QuizSession/QuizAnswer/logic';
@@ -15,7 +15,6 @@ import {
   selectReviewSynonymIds,
   selectIsHidden,
 } from 'features/reviews/selectors';
-import { selectInfoDetailLevel, selectInfoDisabled, selectInfoOpen } from './selectors';
 
 import VocabWord from 'common/components/VocabWord';
 import VocabSynonymList from 'common/components/VocabSynonym';
@@ -26,13 +25,14 @@ import ReadingLinks from 'common/components/ReadingLinks';
 import PitchDiagramList from 'common/components/PitchDiagram';
 import VocabLockButton from 'common/components/VocabLockButton';
 import Notes from 'features/reviews/Notes';
+import { selectInfoDetailLevel, selectInfoDisabled, selectInfoOpen } from './selectors';
 
 import { Wrapper, ReadingWrapper } from './styles';
 
 const Readings = connect((state, { id }) => ({ ids: selectReviewVocabIds(state, { id }) }))(
   ({ ids, isMidDetail, isHighDetail }) =>
     ids.map((vocabId) => (
-      <ReadingWrapper key={cuid()}>
+      <ReadingWrapper key={cuid()} data-answer>
         {<VocabWord id={vocabId} showFuri={isMidDetail} showSecondary={isMidDetail} />}
         {isHighDetail && <PitchDiagramList id={vocabId} />}
         {isMidDetail && <TagsList id={vocabId} />}
@@ -57,10 +57,8 @@ class QuizInfo extends React.Component {
   };
 
   componentDidUpdate(prevProps) {
-    if (
-      (!prevProps.isOpen && this.props.isOpen) ||
-      (this.props.isOpen && prevProps.detailLevel !== this.props.detailLevel)
-    ) {
+    const { isOpen, detailLevel } = this.props;
+    if ((!prevProps.isOpen && isOpen) || (isOpen && prevProps.detailLevel !== detailLevel)) {
       this.scrollIntoView();
     }
   }
