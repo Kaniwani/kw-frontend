@@ -80,7 +80,7 @@
     "react/jsx-first-prop-new-line": [2, "multiline"],
     "react/jsx-filename-extension": 0,
     "react/jsx-no-target-blank": 0,
-    "react/jsx-one-expression-per-line": [1, { "allow": "single-child" }],
+    "react/jsx-one-expression-per-line": 0,
     "react/require-extension": 0,
     "react/require-default-props": 1,
     "react/self-closing-comp": 0,

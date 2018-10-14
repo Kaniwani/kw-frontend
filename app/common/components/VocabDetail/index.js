@@ -97,10 +97,7 @@ export function VocabDetail({
       <div>
         <Element>
           <H3 style={{ fontWeight: '400' }}>
-            <A to={`/vocabulary/levels/${level}`}>
-Level
-              {level}
-            </A>
+            <A to={`/vocabulary/levels/${level}`}>Level {level}</A>
           </H3>
         </Element>
         <VocabStats id={id} />
