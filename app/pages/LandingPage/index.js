@@ -39,11 +39,16 @@ function LandingPage({ children }) {
             {on && (
               <div style={{ position: 'relative', zIndex: '10' }}>
                 <Fixed top={0} right={0} bottom={0} left={0} onClick={toggle} />
-                <Overlay w={['300px', '80vw', '720px']}>
+                <Overlay width={['300px', '80vw', '720px']}>
                   <Absolute top={0} right={0} p={1}>
                     <IconButton name="CLOSE" title="Close" onClick={toggle} />
                   </Absolute>
-                  <Flex flexDirection="column" justify="center" alignItems="center">
+                  <Flex
+                    flex="0 1 280px"
+                    flexDirection="column"
+                    justify="center"
+                    alignItems="center"
+                  >
                     <Element>
                       <H1>What’s this all about then?</H1>
                     </Element>
@@ -52,12 +57,13 @@ function LandingPage({ children }) {
                         KaniWani is a companion website to{' '}
                         <A href="https://www.wanikani.com" external>
                           WaniKani
-                        </A>, an SRS tool for kanji and vocabulary memorization. We felt that
-                        WaniKani helped a lot with being able to recognize and read Japanese, but
-                        didn’t help enough when trying to recall or reproduce words without the
-                        visual cue of seeing kanji. KaniWani attempts to bridge that gap by quizzing
-                        you from English to Japanese using your WaniKani vocabulary, forcing you to
-                        do the opposite of what you are used to.
+                        </A>
+                        , an SRS tool for kanji and vocabulary memorization. We felt that WaniKani
+                        helped a lot with being able to recognize and read Japanese, but didn’t help
+                        enough when trying to recall or reproduce words without the visual cue of
+                        seeing kanji. KaniWani attempts to bridge that gap by quizzing you from
+                        English to Japanese using your WaniKani vocabulary, forcing you to do the
+                        opposite of what you are used to.
                       </P>
                     </Element>
                   </Flex>
