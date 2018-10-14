@@ -8,7 +8,7 @@ const DotenvPlugin = require('dotenv-webpack');
 
 module.exports = (options) => ({
   mode: options.mode,
-  entry: options.entry,
+  entry: [require.resolve('react-app-polyfill/ie11'), ...options.entry],
   output: Object.assign(
     {
       path: path.resolve(process.cwd(), 'build'),

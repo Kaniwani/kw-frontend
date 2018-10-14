@@ -1,7 +1,7 @@
 {
   "presets": [
     [
-      "env",
+      "@babel/preset-env",
       {
         "loose": false,
         "modules": false,
@@ -11,8 +11,12 @@
         }
       }
     ],
-    "react",
-    "stage-1"
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-object-rest-spread"
   ],
   "env": {
     "development": {
@@ -68,12 +72,12 @@
             "removeImport": true
           }
         ],
-        "transform-react-inline-elements",
-        "transform-react-constant-elements"
+        "@babel/plugin-transform-react-inline-elements",
+        "@babel/plugin-transform-react-constant-elements"
       ]
     },
     "test": {
-      "plugins": ["transform-es2015-modules-commonjs", "dynamic-import-node"]
+      "plugins": ["@babel/plugin-transform-modules-commonjs", "dynamic-import-node"]
     }
   }
 }

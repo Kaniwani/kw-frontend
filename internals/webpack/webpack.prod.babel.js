@@ -2,6 +2,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
+const { HashedModuleIdsPlugin } = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = require('./webpack.base.babel')({
   mode: 'production',
@@ -21,8 +24,49 @@ module.exports = require('./webpack.base.babel')({
 
   optimization: {
     minimize: true,
+    minimizer: [
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          warnings: false,
+          comparisons: false,
+          compress: {},
+          parse: {},
+          mangle: true,
+          output: {
+            comments: false,
+            ascii_only: true,
+          },
+        },
+        parallel: true,
+        cache: true,
+        sourceMap: true,
+      }),
+    ],
+    nodeEnv: 'production',
     sideEffects: true,
     concatenateModules: true,
+    splitChunks: {
+      chunks: 'all',
+      minSize: 30000,
+      minChunks: 1,
+      maxAsyncRequests: 5,
+      maxInitialRequests: 3,
+      name: true,
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+        },
+        main: {
+          chunks: 'all',
+          minChunks: 2,
+          reuseExistingChunk: true,
+          enforce: true,
+        },
+      },
+    },
+    runtimeChunk: true,
   },
 
   plugins: [
@@ -42,29 +86,6 @@ module.exports = require('./webpack.base.babel')({
         minifyURLs: true,
       },
       inject: true,
-    }),
-
-    new WebpackPwaManifest({
-      filename: 'manifest.json',
-      name: 'KaniWani',
-      short_name: 'KaniWani',
-      background_color: '#fafafa',
-      theme_color: '#8523e7',
-      display: 'standalone',
-      orientation: 'portrait',
-      start_url: '/',
-      ios: true,
-      icons: [
-        {
-          src: path.resolve('app/common/assets/img/logo.png'),
-          sizes: [36, 48, 72, 96, 144, 192, 512],
-        },
-        {
-          src: path.resolve('app/common/assets/img/logo-square.png'),
-          sizes: [120, 152, 167, 180],
-          ios: true,
-        },
-      ],
     }),
 
     // Put it in the end to capture all the HtmlWebpackPlugin's
@@ -90,6 +111,42 @@ module.exports = require('./webpack.base.babel')({
         additional: ['*.chunk.js', '*.mp4', '*.webm', '*.jpg'],
         optional: ['*.svg', '*.png', '*.woff*'],
       },
+    }),
+
+    new WebpackPwaManifest({
+      filename: 'manifest.json',
+      name: 'KaniWani',
+      short_name: 'KaniWani',
+      background_color: '#fafafa',
+      theme_color: '#8523e7',
+      display: 'standalone',
+      orientation: 'portrait',
+      start_url: '/',
+      ios: true,
+      icons: [
+        {
+          src: path.resolve('app/common/assets/img/logo.png'),
+          sizes: [36, 48, 72, 96, 144, 192, 512],
+        },
+        {
+          src: path.resolve('app/common/assets/img/logo-square.png'),
+          sizes: [120, 152, 167, 180],
+          ios: true,
+        },
+      ],
+    }),
+
+    new CompressionPlugin({
+      algorithm: 'gzip',
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.8,
+    }),
+
+    new HashedModuleIdsPlugin({
+      hashFunction: 'sha256',
+      hashDigest: 'hex',
+      hashDigestLength: 20,
     }),
   ],
 

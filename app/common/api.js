@@ -1,6 +1,5 @@
 // polyfills for older brwosers
 import 'url-search-params-polyfill';
-import 'whatwg-fetch';
 
 import wretch from 'wretch';
 import { getToken } from 'common/utils/auth';
