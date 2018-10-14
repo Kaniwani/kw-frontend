@@ -5,10 +5,7 @@
       {
         "loose": false,
         "modules": false,
-        "useBuiltIns": "usage",
-        "targets": {
-          "browsers": ["last 4 versions", "> 1%"]
-        }
+        "useBuiltIns": "usage"
       }
     ],
     "@babel/preset-react"
