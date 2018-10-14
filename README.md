@@ -30,10 +30,10 @@ Now you're ready to rumble!
 
 ## Development
 
-- Test via `yarn run test:watch`
-- Auto-lint and format staged files using standardized commit messages via `yarn run cz`
+- Unit test via `yarn run test:watch`
+- Lint and format staged files + use standardized commit messages via `yarn run cz`
 
-The following Chrome extensions will allow you to explore the app structure while developing
+#### The following Chrome extensions will aid you on your journey:
 
 - [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd)
 - [React DevTools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
