@@ -5,6 +5,7 @@ const WebpackPwaManifest = require('webpack-pwa-manifest');
 const { HashedModuleIdsPlugin } = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
+const SentryCliPlugin = require('@sentry/webpack-plugin');
 
 module.exports = require('./webpack.base.babel')({
   mode: 'production',
@@ -147,6 +148,12 @@ module.exports = require('./webpack.base.babel')({
       hashFunction: 'sha256',
       hashDigest: 'hex',
       hashDigestLength: 20,
+    }),
+
+    new SentryCliPlugin({
+      release: process.env.npm_package_version,
+      include: 'build',
+      ignoreFile: '.gitignore',
     }),
   ],
 
