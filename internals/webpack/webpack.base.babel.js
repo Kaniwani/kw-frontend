@@ -92,7 +92,6 @@ module.exports = (options) => ({
   plugins: [
     new DotenvPlugin({
       systemVars: true,
-      safe: true,
     }),
     new DefinePlugin({
       'process.env': {
