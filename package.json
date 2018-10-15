@@ -29,6 +29,7 @@
     "lint:app": "eslint --color --ignore-path .gitignore app/**/*.js",
     "preanalyze": "npm run analyze:clean",
     "prebuild": "npm run build:clean",
+    "release": "cross-env SENTRY_UPLOAD=true npm run build",
     "start:prod": "cross-env NODE_ENV=production node server",
     "start:production": "npm run test && npm run build && npm run start:prod",
     "start:tunnel": "cross-env NODE_ENV=development ENABLE_TUNNEL=true node server",

@@ -149,13 +149,15 @@ module.exports = require('./webpack.base.babel')({
       hashDigest: 'hex',
       hashDigestLength: 20,
     }),
-
-    new SentryCliPlugin({
-      release: process.env.npm_package_version,
-      include: 'build',
-      ignoreFile: '.gitignore',
-    }),
-  ],
+  ].concat(
+    process.env.SENTRY_UPLOAD
+      ? new SentryCliPlugin({
+        release: process.env.npm_package_version,
+        include: 'build',
+        ignoreFile: '.gitignore',
+      })
+      : []
+  ),
 
   performance: {
     assetFilter: (assetFilename) => !/(\.map$)|(^(main\.|favicon\.))/.test(assetFilename),
