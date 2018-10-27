@@ -1,5 +1,5 @@
 import { createLogic } from 'redux-logic';
-import { sample, difference } from 'lodash';
+import { first, sample, difference } from 'lodash';
 
 import { app } from 'common/actions';
 import quiz from 'features/quiz/actions';
@@ -16,9 +16,7 @@ import {
   selectCurrentId,
 } from './selectors';
 
-const getNextId = (queue = [], currentId, orderByLevel) => orderByLevel
-  ? queue[queue.findIndex((id) => id === currentId) + 1]
-  : sample(difference(queue, [currentId]));
+const getNextId = (queue = [], currentId, orderByLevel) => orderByLevel ? first(difference(queue, [currentId])) : sample(difference(queue, [currentId]));
 
 export const queueLoadLogic = createLogic({
   type: quiz.session.queue.load.request,
