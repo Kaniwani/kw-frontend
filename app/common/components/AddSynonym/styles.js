@@ -11,9 +11,6 @@ export const Form = styled.form`
   ${gutter()}
   display: inline-flex;
   flex-flow: column nowrap;
-  align-items: inherit;
-  justify-content: inherit;
-  align-content: inherit;
 `;
 
 export const Label = styled.label`
@@ -24,8 +21,6 @@ export const Label = styled.label`
 
 export const LabelText = styled.div`
   ${gutter()}
-  ${gutter({ prop: "margin", position: "right" })}
-  flex: 0 1 4.5em;
 `;
 
 export const ValidationMessage = styled.div`
