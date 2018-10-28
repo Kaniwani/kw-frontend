@@ -10,7 +10,7 @@ const InputField = ({ input, meta, label, placeholder, note, inputStyle }) => (
       <input id={input.name} type="text" placeholder={placeholder} {...input} style={inputStyle} />
     </Label>
     {meta.touched && meta.error && <ValidationMessage>{meta.error}</ValidationMessage>}
-    {note && <Note>{note}</Note>}
+    {note && <Note constrain>{note}</Note>}
   </Block>
 );
 InputField.propTypes = {

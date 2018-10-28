@@ -11,12 +11,12 @@ export const Wrapper = styled.div`
 `;
 
 export const Canvas = styled.div`
-  ${gutter()}
-  min-height: 200px;
+  ${gutter()};
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
+  min-height: 200px;
 `;
 
 export const Controls = styled.div`

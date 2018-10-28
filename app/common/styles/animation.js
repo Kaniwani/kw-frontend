@@ -29,18 +29,6 @@ export const wobble = keyframes`
   }
 `;
 
-export const fadeOutUp = keyframes`
-  0% {
-    opacity: 1;
-    transform: translate3d(0,0,0) scale(1);
-  }
-
-  100% {
-    opacity: 0;
-    transform: translate3d(0, -125px, 0) scale(1.4);
-  }
-}`;
-
 export const rubberBand = keyframes`
   from {
     transform: scale3d(1, 1, 1);

@@ -17,8 +17,7 @@ import ErrorBoundary from 'common/components/ErrorBoundary';
 import '!file-loader?name=[name].[ext]!./favicon.ico';
 /* eslint-enable import/no-webpack-loader-syntax */
 
-// Import CSS reset and Global Styles
-import 'common/styles/global';
+import GlobalStyle from 'common/styles/global';
 
 import configureStore from './store/configureStore';
 
@@ -34,6 +33,7 @@ const render = () => {
 
   ReactDOM.render(
     <ErrorBoundary>
+      <GlobalStyle />
       <DefaultLoadingComponentProvider component={null}>
         <Provider store={store}>
           <PersistGate persistor={persistor}>

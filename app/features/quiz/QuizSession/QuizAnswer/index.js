@@ -96,7 +96,7 @@ export class QuizAnswer extends React.Component {
     } = this.props;
     return (
       <Form
-        innerRef={(node) => {
+        ref={(node) => {
           this.formRef = node;
         }}
         onSubmit={this.onSubmit}
@@ -121,7 +121,7 @@ export class QuizAnswer extends React.Component {
           )}
           <Label htmlFor="answer">Vocabulary reading</Label>
           <Input
-            innerRef={(node) => {
+            ref={(node) => {
               this.inputFieldRef = node;
             }}
             id="answer"

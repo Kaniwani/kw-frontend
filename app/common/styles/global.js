@@ -1,13 +1,12 @@
-import { injectGlobal } from 'styled-components';
-import { black, white, grey } from 'common/styles/colors';
+import { createGlobalStyle } from 'styled-components';
 
+import { black, white, grey } from 'common/styles/colors';
 import { ffBody, ffHeading, ffJapanese, epsilon, milli } from 'common/styles/typography';
 import { fontface } from 'common/styles/fonts';
 import { borderRadius } from 'common/styles/sizing';
 import { resetList } from 'common/styles/utils';
 
-/* eslint no-unused-expressions: 0 */
-injectGlobal`
+const GlobalStyle = createGlobalStyle`
   ${fontface.ubuntu}
   ${fontface.nunitoSans}
 
@@ -117,3 +116,5 @@ injectGlobal`
     margin-right: .2em;
   }
 `;
+
+export default GlobalStyle;
