@@ -4,12 +4,12 @@ import cuid from 'cuid';
 
 import { hasToken } from 'common/utils/auth';
 import Element from 'common/components/Element';
-import NavLink from './NavLink';
-
-import crabigatorOutline from 'common/assets/img/crabigator-outline.svg';
-import { Footer, CrabigatorStencil, FooterLinks, FooterLinkGroup } from './styles';
 
 import { SESSION_CATEGORIES } from 'features/quiz/QuizSession/constants';
+import crabigatorOutline from 'common/assets/img/crabigator-outline.svg';
+
+import NavLink from './NavLink';
+import { Footer, CrabigatorStencil, FooterLinks, FooterLinkGroup } from './styles';
 
 const links = [
   Object.values(SESSION_CATEGORIES).map((category) => ({ route: `/${category}`, name: category })),
@@ -27,8 +27,10 @@ export function SiteFooter() {
       <Element style={{ position: 'relative' }} flexRow justifyContent="flex-end">
         <FooterLinks flexRow flexWrap flexCenter>
           {links.map((group) => (
-            <FooterLinkGroup key={cuid()}>
-              {group.map((link) => <NavLink key={cuid()} isOffCanvas={false} {...link} />)}
+            <FooterLinkGroup key={cuid()} plainList>
+              {group.map((link) => (
+                <NavLink key={cuid()} isOffCanvas={false} {...link} />
+              ))}
             </FooterLinkGroup>
           ))}
         </FooterLinks>

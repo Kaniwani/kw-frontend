@@ -50,7 +50,7 @@ function ToggleField({ input, label, size, checkedColor, uncheckedColor, note })
         />
         <span>{label || input.name}</span>
       </ToggleLabel>
-      {note && <Note>{note}</Note>}
+      {note && <Note constrain>{note}</Note>}
     </Block>
   );
 }

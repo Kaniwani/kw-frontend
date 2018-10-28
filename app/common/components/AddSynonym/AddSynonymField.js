@@ -42,7 +42,7 @@ function AddSynonymField({ userAnswer, answerType, label, type, error, handleRef
             label={labelText}
             placeholder={japanesePlaceholder}
             autoFocus={answerType !== '' && !isSameAsAnswerType}
-            innerRef={handleRef}
+            ref={handleRef}
             lang="ja"
             autoCapitalize="none"
             autoCorrect="off"

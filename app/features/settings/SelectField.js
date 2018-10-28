@@ -17,7 +17,7 @@ const SelectField = ({ input, options, label, note }) => (
         ))}
       </select>
     </Label>
-    {note && <Note>{note}</Note>}
+    {note && <Note constrain>{note}</Note>}
   </Block>
 );
 SelectField.propTypes = {

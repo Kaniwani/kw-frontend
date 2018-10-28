@@ -58,9 +58,7 @@ export const FooterLinks = styled(Container)`
   margin-right: 50px;
 `;
 
-export const FooterLinkGroup = styled(Ul).attrs({
-  plainList: true,
-})`
+export const FooterLinkGroup = styled(Ul)`
   display: flex;
   flex-direction: column;
   & a {

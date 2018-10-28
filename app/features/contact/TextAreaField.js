@@ -10,7 +10,7 @@ const InputField = ({ input, meta, label, rows, note }) => (
     </Label>
     <TextArea id={input.name} rows={rows} maxLength={1000} {...input} />
     {meta.touched && meta.error && <ValidationMessage>{meta.error}</ValidationMessage>}
-    {note && <Note>{note}</Note>}
+    {note && <Note constrain>{note}</Note>}
   </Block>
 );
 
