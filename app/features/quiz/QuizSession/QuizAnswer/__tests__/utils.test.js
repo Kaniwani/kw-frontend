@@ -39,6 +39,8 @@ describe('containsZenkaku', () => {
   });
   it('works', () => {
     expect(containsZenkakuLatin('abc')).toBe(false);
+    expect(containsZenkakuLatin('か12')).toBe(false);
+    expect(containsZenkakuLatin('か０４')).toBe(false);
     expect(containsZenkakuLatin('ａｂｃ')).toBe(true);
     expect(containsZenkakuLatin('ＡＢＣ')).toBe(true);
     expect(containsZenkakuLatin('abcｄ')).toBe(true);
@@ -56,6 +58,10 @@ describe('isInputValid', () => {
     expect(isInputValid('かなa')).toBe(false);
     expect(isInputValid('かなA')).toBe(false);
     expect(isInputValid('かなａ')).toBe(false); // zenkaku
+    expect(isInputValid('2011ねん')).toBe(true);
+    expect(isInputValid('2011年')).toBe(true);
+    expect(isInputValid('２０１１ねん')).toBe(true);
+    expect(isInputValid('２０１１年')).toBe(true);
     expect(isInputValid('かな')).toBe(true);
     expect(isInputValid('漢字')).toBe(true);
     expect(isInputValid('送り仮名')).toBe(true);
@@ -74,6 +80,7 @@ describe('matchAnswer', () => {
       { word: 'ビー玉', primaryReading: 'びーだま', secondaryReadings: ['ビーだま', 'カタカナ'] },
       { word: '日本', primaryReading: 'にほん', secondaryReadings: ['にっぽん'] },
       { word: '四', primaryReading: 'よん', secondaryReadings: [] },
+      { word: '２０１１年', primaryReading: '２０１１ねん', secondaryReadings: [] },
     ];
     // prettier-ignore
     const synonyms = [

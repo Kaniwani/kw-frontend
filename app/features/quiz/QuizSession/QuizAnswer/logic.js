@@ -33,8 +33,6 @@ import { matchAnswer, increment, decrement, isInputValid, cleanseInput } from '.
 let autoAdvance = {};
 const pendingAnswers = new Set();
 
-// TODO: make an action, dispatch a notification?
-// could show a countdown (bottom left of quiz question?)
 export const stopAutoAdvance = () => {
   if (autoAdvance.timeoutId != null) {
     clearTimeout(autoAdvance.timeoutId);

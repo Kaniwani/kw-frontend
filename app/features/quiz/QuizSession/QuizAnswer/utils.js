@@ -5,8 +5,7 @@ import stripTilde from 'common/utils/stripTilde';
 export const increment = (x = 0) => x + 1;
 export const decrement = (x = 0) => Math.max(0, x - 1);
 export const containsZenkakuLatin = (input = '') => /[ａ-ｚ]/gi.test(input);
-export const isInputValid = (input = '') =>
-  !containsZenkakuLatin(input) && isJapanese(input, /[0-9]/);
+export const isInputValid = (input = '') => !containsZenkakuLatin(input) && isJapanese(input, /[0-9]|[０-９]/);
 export const cleanseInput = (input = '') => fixTerminalN(input.trim());
 
 function flattenReadings([vocab = [], synonyms = []] = []) {
@@ -31,14 +30,13 @@ function flattenReadings([vocab = [], synonyms = []] = []) {
 export function matchAnswer(input = '', answers = []) {
   const cleanedInput = stripTilde(input);
   const answerList = flattenReadings(answers);
-  const findMatch = (text) =>
-    answerList.reduce(
-      (ret, { word, readings }) =>
-        [...readings, word].some((vocab) => RegExp(`^[〜~]?${text}[〜~]?$`).test(vocab))
-          ? word
-          : ret,
-      ''
-    );
+  const hasTilde = (text = '') => (vocab = '') => RegExp(`^[〜~]?${text}[〜~]?$`).test(vocab);
+
+  const findMatch = (text) => answerList.reduce(
+    (ret, { word, readings }) => ([...readings, word].some(hasTilde(text)) ? word : ret),
+    ''
+  );
+
   return findMatch(cleanedInput) || findMatch(fixHandwriting(cleanedInput));
 }
 
