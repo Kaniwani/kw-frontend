@@ -43,6 +43,7 @@ class KanjiStroke extends React.Component {
     dmak: {},
     playing: false,
     erasing: false,
+    drawn: false,
   };
 
   componentDidMount() {
@@ -52,8 +53,8 @@ class KanjiStroke extends React.Component {
       getKanji(word),
       merge({}, this.defaultSettings, settings, {
         element: this.canvasRef.current,
-        drew: (finished) => finished && this.setState({ playing: false }),
-        erased: () => this.setState({ erasing: false }),
+        drew: (finished) => finished && this.setState({ playing: false, drawn: true }),
+        erased: () => this.setState({ erasing: false, drawn: false }),
       })
     );
   }
@@ -62,9 +63,22 @@ class KanjiStroke extends React.Component {
     return !isEqual(this.state, nextState) || !isEqual(this.props, nextProps);
   }
 
+  componentDidUpdate(_, prevState) {
+    const shouldLoop = prevState.drawn && prevState.erasing && (!this.state.erasing && !this.state.drawn);
+
+    if (shouldLoop) {
+      this.play();
+    }
+  }
+
   play = () => {
-    this.state.dmak.render();
-    this.setState({ playing: true });
+    if (this.state.drawn) {
+      this.state.dmak.erase();
+      this.setState({ erasing: true });
+    } else {
+      this.state.dmak.render();
+      this.setState({ playing: true });
+    }
   };
 
   pause = () => {
@@ -76,7 +90,7 @@ class KanjiStroke extends React.Component {
     if (this.state.playing) {
       this.pause();
     }
-    this.setState({ erasing: true });
+    this.setState({ erasing: true, drawn: false });
     this.state.dmak.erase();
   };
 
