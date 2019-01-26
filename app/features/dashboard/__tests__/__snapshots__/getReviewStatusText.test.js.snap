@@ -1,70 +1,70 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`getReviewStatusText() has reviews ready 1`] = `
-<Styled(styled.h3)>
+<ForwardRef>
   Next Review:
    
-  <styled.span>
+  <ForwardRef>
     Now!
-  </styled.span>
-</Styled(styled.h3)>
+  </ForwardRef>
+</ForwardRef>
 `;
 
 exports[`getReviewStatusText() no reviews unlocked 1`] = `
-<Styled(styled.h3)>
+<ForwardRef>
   No reviews unlocked
-</Styled(styled.h3)>
+</ForwardRef>
 `;
 
 exports[`getReviewStatusText() on vacation 1`] = `
-<Styled(styled.h3)>
+<ForwardRef>
   On Vacation:
    
-  <styled.span>
+  <ForwardRef>
     since
     Dec 26th 2017
-  </styled.span>
-</Styled(styled.h3)>
+  </ForwardRef>
+</ForwardRef>
 `;
 
 exports[`getReviewStatusText() review date is future 1`] = `
-<Styled(styled.h3)>
+<ForwardRef>
   Next Review:
    
-  <styled.span>
+  <ForwardRef>
     in
      
     about 2 hours
-  </styled.span>
-</Styled(styled.h3)>
+  </ForwardRef>
+</ForwardRef>
 `;
 
 exports[`getReviewStatusText() review date is past 1`] = `
-<Styled(styled.h3)>
+<ForwardRef>
   Next Review:
    
-  <styled.span>
+  <ForwardRef>
     Loading...
-  </styled.span>
-</Styled(styled.h3)>
+  </ForwardRef>
+</ForwardRef>
 `;
 
 exports[`getReviewStatusText() sane default 1`] = `
-<Styled(styled.h3)>
+<ForwardRef>
   Next Review:
    
-  <styled.span>
+  <ForwardRef>
     Loading...
-  </styled.span>
-</Styled(styled.h3)>
+  </ForwardRef>
+</ForwardRef>
 `;
 
 exports[`getReviewStatusText() user is loading 1`] = `
-<Styled(styled.h3)>
+<ForwardRef>
   Next Review:
    
-  <styled.span>
+  <ForwardRef>
     Loading...
-  </styled.span>
-</Styled(styled.h3)>
+  </ForwardRef>
+</ForwardRef>
 `;
