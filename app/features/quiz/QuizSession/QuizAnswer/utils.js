@@ -54,7 +54,7 @@ export function fixTerminalN(input = '') {
 /**
  * Convert katakana masquerading as kanji (from handwriting input) to their respective kanji
  * @param {string} [input=''] text to fix: 人ロ (katakana 'ro')
- * @returns {string} test with kana replaced as kanji: 人口 (kanji 'kou')
+ * @returns {string} text with kana replaced as kanji: 人口 (kanji 'kou')
  */
 export function fixHandwriting(input = '') {
   return [...input].map((c) => LOOKALIKES[c] || c).join('');
