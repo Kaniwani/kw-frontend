@@ -38,8 +38,7 @@ function FormView({
   submitting,
   error,
 }) {
-  const mainInputText =
-    (loginSelected && 'Username or Email') || (registerSelected && 'Username') || 'Email';
+  const mainInputText = (loginSelected && 'Username or Email') || (registerSelected && 'Username') || 'Email';
 
   return (
     <Form onSubmit={handleSubmit} autoComplete="on">
@@ -89,7 +88,7 @@ function FormView({
           title="Find WK API Key"
           name="HELP"
           color="black"
-          href="https://www.wanikani.com/settings/account#public-api-key"
+          href="https://www.wanikani.com/settings/personal_access_tokens"
           isHidden={loginSelected || resetSelected}
           tabIndex={loginSelected || resetSelected ? -1 : 0}
           external
@@ -100,16 +99,16 @@ function FormView({
         type="submit"
         lang="ja"
         title={
-          (submitting && 'Submitting...') ||
-          (registerSelected && 'Register') ||
-          (loginSelected && "Let's Go!") ||
-          (resetSelected && 'Submit')
+          (submitting && 'Submitting...')
+          || (registerSelected && 'Register')
+          || (loginSelected && "Let's Go!")
+          || (resetSelected && 'Submit')
         }
       >
-        {(submitting && '送信している...') ||
-          (registerSelected && '登録する') ||
-          (loginSelected && '行こう') ||
-          (resetSelected && '送信する')}
+        {(submitting && '送信している...')
+          || (registerSelected && '登録する')
+          || (loginSelected && '行こう')
+          || (resetSelected && '送信する')}
       </SubmitButton>
       {registerSelected && submitting && <Spinner />}
     </Form>
