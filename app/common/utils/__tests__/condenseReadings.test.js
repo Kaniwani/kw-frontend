@@ -1,4 +1,3 @@
-import vocab from 'common/data/fixtures/vocab';
 import condenseReadings from '../condenseReadings';
 
 describe('condenseReadings()', () => {
@@ -43,3 +42,75 @@ describe('condenseReadings()', () => {
     expect(condenseReadings(vocab.sameCharacters)).toMatchSnapshot();
   });
 });
+
+const vocab = {
+  single: [
+    {
+      character: '売り上げ',
+      kana: ['うりあげ'],
+    },
+  ],
+  sameCharacters: [
+    {
+      character: '近々',
+      kana: ['ちかぢか'],
+    },
+    {
+      character: '近々',
+      kana: ['きんきん'],
+      furigana: '0:きんきん',
+    },
+    {
+      character: '近々',
+      kana: ['ちかじか'],
+    },
+  ],
+  suffix: [
+    {
+      character: '各〜',
+      kana: ['かく'],
+    },
+  ],
+  prefix: [
+    {
+      character: '〜漬け',
+      kana: ['づけ'],
+    },
+    {
+      character: '〜才',
+      kana: ['さい'],
+    },
+  ],
+  mixed: [
+    {
+      character: 'ハート形',
+      kana: ['ハートがた'],
+    },
+    {
+      character: 'フランス人',
+      kana: ['ふらんすじん'],
+    },
+    {
+      character: '迷惑メール',
+      kana: ['めいわくメール'],
+    },
+    {
+      character: '烏龍茶',
+      kana: ['ウーロンちゃ'],
+    },
+    {
+      character: '缶ビール',
+      kana: ['かんビール'],
+    },
+  ],
+  onlyKana: [
+    {
+      character: 'そろそろ',
+      kana: ['そろそろ'],
+    },
+    {
+      character: 'マンコ',
+      kana: ['マンコ'],
+    },
+  ],
+};

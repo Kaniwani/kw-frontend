@@ -4,20 +4,11 @@ exports[`condenseReadings() should combine multiple readings with same character
 Array [
   Object {
     "character": "近々",
-    "common": true,
     "furigana": "0:きんきん",
-    "id": 583,
-    "jlpt": "JLPT N2",
     "kana": Array [
       "きんきん",
       "ちかじか",
       "ちかぢか",
-    ],
-    "level": 7,
-    "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
-    "sentenceJa": "彼らがデートをしているのを見かけて近々結婚するのってきいたんだ",
-    "tags": Array [
-      "Noun",
     ],
   },
 ]
@@ -29,35 +20,17 @@ exports[`condenseReadings() should not fail with unrelated readings 1`] = `
 Array [
   Object {
     "character": "近々",
-    "common": true,
     "furigana": "0:きんきん",
-    "id": 583,
-    "jlpt": "JLPT N2",
     "kana": Array [
       "きんきん",
       "ちかじか",
       "ちかぢか",
     ],
-    "level": 7,
-    "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
-    "sentenceJa": "彼らがデートをしているのを見かけて近々結婚するのってきいたんだ",
-    "tags": Array [
-      "Noun",
-    ],
   },
   Object {
     "character": "売り上げ",
-    "common": true,
-    "id": 351,
-    "jlpt": "JLPT N2",
     "kana": Array [
       "うりあげ",
-    ],
-    "level": 5,
-    "sentenceEn": "Sales are down this month.",
-    "sentenceJa": "今月は売上が落ちた",
-    "tags": Array [
-      "Noun",
     ],
   },
 ]
@@ -67,17 +40,8 @@ exports[`condenseReadings() should pass when only one reading 1`] = `
 Array [
   Object {
     "character": "売り上げ",
-    "common": true,
-    "id": 351,
-    "jlpt": "JLPT N2",
     "kana": Array [
       "うりあげ",
-    ],
-    "level": 5,
-    "sentenceEn": "Sales are down this month.",
-    "sentenceJa": "今月は売上が落ちた",
-    "tags": Array [
-      "Noun",
     ],
   },
 ]
@@ -87,20 +51,11 @@ exports[`condenseReadings() should pass when readings were already condensed 1`]
 Array [
   Object {
     "character": "近々",
-    "common": true,
     "furigana": "0:きんきん",
-    "id": 583,
-    "jlpt": "JLPT N2",
     "kana": Array [
       "きんきん",
       "ちかじか",
       "ちかぢか",
-    ],
-    "level": 7,
-    "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
-    "sentenceJa": "彼らがデートをしているのを見かけて近々結婚するのってきいたんだ",
-    "tags": Array [
-      "Noun",
     ],
   },
 ]
@@ -110,20 +65,11 @@ exports[`condenseReadings() should re-order primary reading to start 1`] = `
 Array [
   Object {
     "character": "近々",
-    "common": true,
     "furigana": "0:きんきん",
-    "id": 583,
-    "jlpt": "JLPT N2",
     "kana": Array [
       "きんきん",
       "ちかじか",
       "ちかぢか",
-    ],
-    "level": 7,
-    "sentenceEn": "When I saw them on a date, I asked them, “Do I hear wedding bells?”",
-    "sentenceJa": "彼らがデートをしているのを見かけて近々結婚するのってきいたんだ",
-    "tags": Array [
-      "Noun",
     ],
   },
 ]
@@ -133,77 +79,32 @@ exports[`condenseReadings() should work with mixed edge cases 1`] = `
 Array [
   Object {
     "character": "ハート形",
-    "common": false,
-    "id": 933,
-    "jlpt": null,
     "kana": Array [
       "ハートがた",
-    ],
-    "level": 9,
-    "sentenceEn": "When flamingos kiss, their heads and necks form a heart shape.",
-    "sentenceJa": "フラミンゴがキスをする時、二羽の頭と首がハート形を描く",
-    "tags": Array [
-      "Noun",
     ],
   },
   Object {
     "character": "フランス人",
-    "common": false,
-    "id": 30,
-    "jlpt": null,
     "kana": Array [
       "ふらんすじん",
-    ],
-    "level": 1,
-    "sentenceEn": "He is French.",
-    "sentenceJa": "彼はフランス人です",
-    "tags": Array [
-      "Noun",
     ],
   },
   Object {
     "character": "迷惑メール",
-    "common": false,
-    "id": 3190,
-    "jlpt": null,
     "kana": Array [
       "めいわくメール",
-    ],
-    "level": 29,
-    "sentenceEn": "He sent about 2.2 billion spam emails over a period of around one and a half years.",
-    "sentenceJa": "約１年半で約億通の迷惑メールを送りました",
-    "tags": Array [
-      "Noun",
     ],
   },
   Object {
     "character": "烏龍茶",
-    "common": null,
-    "id": 6193,
-    "jlpt": null,
     "kana": Array [
       "ウーロンちゃ",
-    ],
-    "level": 57,
-    "sentenceEn": "Oolong tea without ice, please.",
-    "sentenceJa": "烏龍茶を氷抜きでください",
-    "tags": Array [
-      "Noun",
     ],
   },
   Object {
     "character": "缶ビール",
-    "common": false,
-    "id": 4875,
-    "jlpt": null,
     "kana": Array [
       "かんビール",
-    ],
-    "level": 44,
-    "sentenceEn": "Oh, this canned beer is way too good for me.",
-    "sentenceJa": "ああ、この缶ビールはマジでうますぎる",
-    "tags": Array [
-      "Noun",
     ],
   },
 ]
@@ -213,31 +114,14 @@ exports[`condenseReadings() should work with only kana 1`] = `
 Array [
   Object {
     "character": "そろそろ",
-    "common": true,
-    "id": 9000,
-    "jlpt": "JLPT N4",
     "kana": Array [
       "そろそろ",
-    ],
-    "sentenceEn": "“Er, Karin ..., shouldn't we call it a night soon?” “No! No quitting while ahead! Next time I'll win for sure!”",
-    "sentenceJa": "「あの、かりんさん...、そろそろお開きにしませんか？」「駄目、勝ち逃げ禁止！今度こそボクが勝つの！」",
-    "tags": Array [
-      "Adverb",
-      "Adverb taking the 'to' particle",
     ],
   },
   Object {
     "character": "マンコ",
-    "common": false,
-    "id": 9001,
-    "jlpt": null,
     "kana": Array [
       "マンコ",
-    ],
-    "sentenceEn": "What a great pussy.",
-    "sentenceJa": "マンコいいな〜",
-    "tags": Array [
-      "Noun",
     ],
   },
 ]
@@ -247,32 +131,14 @@ exports[`condenseReadings() should work with prefixes 1`] = `
 Array [
   Object {
     "character": "〜漬け",
-    "common": null,
-    "id": 6337,
-    "jlpt": null,
     "kana": Array [
       "づけ",
-    ],
-    "level": 59,
-    "sentenceEn": "These are lightly pickled cucumbers.",
-    "sentenceJa": "胡瓜の浅漬けならありますよ",
-    "tags": Array [
-      "Suffix",
     ],
   },
   Object {
     "character": "〜才",
-    "common": null,
-    "id": 130,
-    "jlpt": null,
     "kana": Array [
       "さい",
-    ],
-    "level": 2,
-    "sentenceEn": "I am five years old.",
-    "sentenceJa": "わたしは５才です",
-    "tags": Array [
-      "Suffix",
     ],
   },
 ]
@@ -282,17 +148,8 @@ exports[`condenseReadings() should work with suffixes 1`] = `
 Array [
   Object {
     "character": "各〜",
-    "common": null,
-    "id": 2476,
-    "jlpt": null,
     "kana": Array [
       "かく",
-    ],
-    "level": 22,
-    "sentenceEn": "First, choose a representative for each team.",
-    "sentenceJa": "まず始めに、各チームの代表者を決めて下さい",
-    "tags": Array [
-      "Prefix",
     ],
   },
 ]
