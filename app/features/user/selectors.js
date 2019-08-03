@@ -52,6 +52,7 @@ export const selectUserSettings = createSelector(
 
 export const selectUsername = createSelector(selectUserProfile, getBy('name'));
 export const selectApiKey = createSelector(selectUserProfile, getBy('apiKey'));
+export const selectApiKeyV2 = createSelector(selectUserProfile, getBy('apiKeyV2'));
 export const selectUserLevel = createSelector(selectUserProfile, getBy('level', Number));
 export const selectOnVacation = createSelector(selectUserProfile, getBy('onVacation', Boolean));
 

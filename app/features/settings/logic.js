@@ -53,8 +53,11 @@ export const saveSettingsLogic = createLogic({
       })
       .catch((err) => {
         dispatch(settings.save.failure(err));
+
         if (err.json && err.json.api_key) {
           form.stopSubmit({ apiKey: err.json.api_key[0] });
+        } else if (err.json && err.json.api_key_v2) {
+          form.stopSubmit({ apiKeyV2: err.json.api_key_v2[0] });
         } else {
           dispatch(
             notify.error({
