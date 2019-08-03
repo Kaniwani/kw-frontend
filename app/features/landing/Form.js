@@ -77,15 +77,15 @@ function FormView({
         isHidden={loginSelected || resetSelected}
       />
       <Field
-        label="WaniKani V1 API Key"
-        name="apiKey"
+        label="WaniKani V2 Token"
+        name="apiKeyV2"
         component={Input}
-        placeholder="WaniKani V1 API Key"
+        placeholder="WaniKani V2 Token"
         validate={registerSelected ? [requiredValid] : []}
         isHidden={loginSelected || resetSelected}
       >
         <ApiLink
-          title="Find WK API Key"
+          title="Find WK V2 Token"
           name="HELP"
           color="black"
           href="https://www.wanikani.com/settings/personal_access_tokens"
@@ -120,7 +120,7 @@ const enhance = compose(
     form: 'multiLogin',
     onSubmit: (values, dispatch, props) => {
       const { loginSelected, registerSelected, resetSelected, ...form } = props;
-      const { username, email, password, apiKey } = values;
+      const { username, email, password, apiKeyV2 } = values;
 
       if (registerSelected) {
         dispatch(
@@ -129,7 +129,7 @@ const enhance = compose(
               username,
               email,
               password,
-              api_key: apiKey,
+              api_key_v2: apiKeyV2,
             },
             { form }
           )
