@@ -35,14 +35,10 @@ function ContactPage() {
               </A>{' '}
               would love to hear from you. Send us your compliments, woes, dreams, and haikus. If
               you find a bug in the site, <Strike>smoosh it goood</Strike> let us know all about it!
-              It’ll only take a moment, and we’ll get back to you shortly. Bonus 100 internet points
+              It’ll only take a moment, and we’ll get back to you shortly. Bonus 💯internet points
               if you include your{' '}
-              <A href="https://whatbrowser.org" external>
-                browser version
-              </A>{' '}
-              and{' '}
-              <A href="http://whatsmyos.com/" external>
-                operating system version
+              <A href="https://www.whatsmybrowser.org" external>
+                browser version and operating system
               </A>{' '}
               so we can accurately replicate the problem in testing.
               <br />
