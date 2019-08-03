@@ -1,70 +1,66 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`getReviewStatusText() has reviews ready 1`] = `
-<ForwardRef>
-  Next Review:
-   
-  <ForwardRef>
+<ForwardRef(Styled(styled.h3))>
+  Next Review: 
+  <ForwardRef(styled.span)>
     Now!
-  </ForwardRef>
-</ForwardRef>
+  </ForwardRef(styled.span)>
+</ForwardRef(Styled(styled.h3))>
 `;
 
 exports[`getReviewStatusText() no reviews unlocked 1`] = `
-<ForwardRef>
+<ForwardRef(Styled(styled.h3))>
   No reviews unlocked
-</ForwardRef>
+</ForwardRef(Styled(styled.h3))>
 `;
 
 exports[`getReviewStatusText() on vacation 1`] = `
-<ForwardRef>
+<ForwardRef(Styled(styled.h3))>
   On Vacation:
    
-  <ForwardRef>
+  <ForwardRef(styled.span)>
     since
     Dec 26th 2017
-  </ForwardRef>
-</ForwardRef>
+  </ForwardRef(styled.span)>
+</ForwardRef(Styled(styled.h3))>
 `;
 
 exports[`getReviewStatusText() review date is future 1`] = `
-<ForwardRef>
+<ForwardRef(Styled(styled.h3))>
   Next Review:
    
-  <ForwardRef>
+  <ForwardRef(styled.span)>
     in
      
     about 2 hours
-  </ForwardRef>
-</ForwardRef>
+  </ForwardRef(styled.span)>
+</ForwardRef(Styled(styled.h3))>
 `;
 
 exports[`getReviewStatusText() review date is past 1`] = `
-<ForwardRef>
-  Next Review:
-   
-  <ForwardRef>
+<ForwardRef(Styled(styled.h3))>
+  Next Review: 
+  <ForwardRef(styled.span)>
     Loading...
-  </ForwardRef>
-</ForwardRef>
+  </ForwardRef(styled.span)>
+</ForwardRef(Styled(styled.h3))>
 `;
 
 exports[`getReviewStatusText() sane default 1`] = `
-<ForwardRef>
-  Next Review:
-   
-  <ForwardRef>
+<ForwardRef(Styled(styled.h3))>
+  Next Review: 
+  <ForwardRef(styled.span)>
     Loading...
-  </ForwardRef>
-</ForwardRef>
+  </ForwardRef(styled.span)>
+</ForwardRef(Styled(styled.h3))>
 `;
 
 exports[`getReviewStatusText() user is loading 1`] = `
-<ForwardRef>
-  Next Review:
-   
-  <ForwardRef>
+<ForwardRef(Styled(styled.h3))>
+  Next Review: 
+  <ForwardRef(styled.span)>
     Loading...
-  </ForwardRef>
-</ForwardRef>
+  </ForwardRef(styled.span)>
+</ForwardRef(Styled(styled.h3))>
 `;

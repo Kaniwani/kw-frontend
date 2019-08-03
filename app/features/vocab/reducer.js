@@ -1,10 +1,10 @@
 import { handleActions, combineActions } from 'redux-actions';
 // import update from "immutability-helper";
 import { merge } from 'lodash';
-import vocab from './actions';
 import quiz from 'features/quiz/actions';
 import review from 'features/reviews/actions';
 import user from 'features/user/actions';
+import vocab from './actions';
 
 export const initialVocabEntitiesState = {};
 
