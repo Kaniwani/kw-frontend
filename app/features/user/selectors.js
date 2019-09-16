@@ -31,6 +31,7 @@ export const selectUserSettings = createSelector(
   getBy(
     'profile',
     partialRight(pick, [
+      'burnReviews',
       'minimumWkSrsLevelToReview',
       'maximumWkSrsLevelToReview',
       'orderReviewsByLevel',

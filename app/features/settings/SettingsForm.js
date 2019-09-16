@@ -44,6 +44,13 @@ export function SettingsForm({ minWk, maxWk, handleSubmit, submitting, submitSuc
         <H2>Quiz</H2>
         <Field name="onVacation" label="Vacation mode" component={ToggleField} parse={Boolean} />
         <Field
+          name="burnReviews"
+          label="Burn reviews"
+          component={ToggleField}
+          parse={Boolean}
+          note="Disable to reschedule Enlightened reviews, forever..."
+        />
+        <Field
           name="minimumWkSrsLevelToReview"
           label="Do not review vocab below WK Rank: "
           component={SelectField}
@@ -134,8 +141,7 @@ export function SettingsForm({ minWk, maxWk, handleSubmit, submitting, submitSuc
           label="Use Eijiro Pro in reading links"
           note={(
             <span>
-              This requires a (free) account at
-              {' '}
+              This requires a (free) account at{' '}
               <A href="https://eowf.alc.co.jp" external>
                 eowf.alc.co.jp
               </A>
