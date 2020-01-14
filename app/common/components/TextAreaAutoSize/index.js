@@ -14,6 +14,7 @@ TextAreaAutoSize.propTypes = {
   maxLength: PropTypes.number,
   showLabel: PropTypes.bool,
   showControls: PropTypes.oneOf([true, false, 'always']),
+  showReset: PropTypes.bool,
   onReset: PropTypes.func,
   onSubmit: PropTypes.func,
   submitButtonText: PropTypes.string,
@@ -27,6 +28,7 @@ TextAreaAutoSize.defaultProps = {
   maxLength: 1000,
   showLabel: false,
   showControls: true,
+  showReset: true,
   onReset: () => {},
   onSubmit: () => {},
   submitButtonText: 'Submit',
@@ -42,6 +44,7 @@ function TextAreaAutoSize({
   maxLength,
   showLabel,
   showControls,
+  showReset,
   submitButtonText,
   onReset,
   onSubmit,
@@ -63,6 +66,7 @@ function TextAreaAutoSize({
         <TextAreaControls
           maxLength={maxLength}
           textLength={input.value.length}
+          showReset={showReset}
           onReset={onReset}
           onSubmit={onSubmit}
           submitButtonText={submitButtonText}
