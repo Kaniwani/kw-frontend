@@ -145,7 +145,7 @@
     "jest-cli": "23.6.0",
     "jest-styled-components": "6.2.1",
     "lint-staged": "7.3.0",
-    "minimist": "1.2.0",
+    "minimist": "1.2.3",
     "ngrok": "3.1.0",
     "offline-plugin": "5.0.5",
     "prettier-eslint-cli": "4.7.1",
