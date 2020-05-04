@@ -76,8 +76,9 @@ const ResetProgressForm = compose(
 )(ResetProgress);
 
 const UpdateApiKey = ({ name, label, v2Exists, handleSubmit, submitting, submitSucceeded }) => {
+  const isV1 = name === 'apiKey';
   // users that have added a v2 key shouldn't see v1 options anymore
-  if (name === 'apiKey' && v2Exists) {
+  if (isV1 && v2Exists) {
     return null;
   }
 
@@ -87,13 +88,15 @@ const UpdateApiKey = ({ name, label, v2Exists, handleSubmit, submitting, submitS
         name={name}
         label={label}
         component={InputField}
-        props={{ inputStyle: { minWidth: '300px', width: '100%' } }}
+        props={{ disabled: isV1, inputStyle: { minWidth: '300px', width: '100%' } }}
       />
-      <Controls>
-        <Button type="submit">
-          {(submitting && 'Updating') || (submitSucceeded && 'Updated!') || 'Update'}
-        </Button>
-      </Controls>
+      {!isV1 && (
+        <Controls>
+          <Button type="submit">
+            {(submitting && 'Updating') || (submitSucceeded && 'Updated!') || 'Update'}
+          </Button>
+        </Controls>
+      )}
     </Form>
   );
 };
