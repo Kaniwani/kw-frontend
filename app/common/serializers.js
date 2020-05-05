@@ -17,6 +17,7 @@ export const serializeVocabSearchResponse = ({ results }, persistedReviews = {})
   const persistedIds = [];
   const missingIds = [];
   const missingData = [];
+
   results.forEach(({ review, is_reviewable: isReviewable, ...vocabData }) => {
     if (review && isReviewable) {
       (persistedReviews[review] ? persistedIds : missingIds).push(review);
@@ -40,6 +41,7 @@ export function serializeSearchReviewData({ id, vocabulary } = {}) {
     [],
     Object.values(vocabById)
   );
+
   return {
     id: +id,
     primaryMeaning,
@@ -60,6 +62,7 @@ export function serializeUser({ username, email, profile }) {
     profile: serializeUserProfile(profile),
   };
 }
+
 export function deserializeUser({ username, email, profile }) {
   return {
     username,
@@ -71,8 +74,10 @@ export function deserializeUser({ username, email, profile }) {
 export function serializeUserProfile(profile) {
   return camelCaseKeys(profile);
 }
-export function deserializeUserProfile(data) {
-  return snakeCaseKeys(data);
+
+// HACK: snakecase turns apiKeyV2 into api_key_v_2
+export function deserializeUserProfile({ apiKeyV2, ...profile }) {
+  return { ...snakeCaseKeys(profile), api_key_v2: apiKeyV2 };
 }
 
 export function serializeAnnouncementsResponse({ results }) {
@@ -91,7 +96,7 @@ export function serializeLevel({ level, unlocked, vocabulary_count } = {}) {
 export function serializeMeanings(meaning, meaningSynonyms /* , vocab */) {
   const meaningStrings = meaning.split(', ');
   const synonymStrings = uniq(meaningSynonyms.map(({ text }) => text.replace(/"/g, '')));
-  // FIXME: temporarily disabled until it can be improved
+  // FIXME: disabled until this can be improved, currently only a partial success
   //  const readings = flatMap(vocab, (v) => [v.primaryReading, ...v.secondaryReadings]);
   //  const filteredMeanings = filterRomajiReadings(meaningStrings.concat(synonymStrings), readings);
   const [primaryMeaning, ...secondaryMeanings] = toUniqueStringsArray(
@@ -139,6 +144,7 @@ export function serializeReviews(data, reviewSerializer) {
 
 export function serializeVocab(vocab) {
   const [primaryReading, ...secondaryReadings] = toUniqueStringsArray(vocab.kana);
+
   return {
     id: +vocab.id,
     level: +vocab.level,
@@ -183,6 +189,7 @@ export function serializeStubbedReview({
     meaning_synonyms,
     Object.values(vocabById)
   );
+
   return {
     id: +id,
     primaryMeaning,

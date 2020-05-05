@@ -9,9 +9,8 @@ import H1 from 'common/components/H1';
 import H2 from 'common/components/H2';
 import A from 'common/components/A';
 import P from 'common/components/P';
-import PayPalDonate from './PayPalDonate';
-
 import { purple } from 'common/styles/colors';
+import PayPalDonate from './PayPalDonate';
 
 const Shortcut = styled.span`
   color: ${purple[4]};

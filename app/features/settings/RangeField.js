@@ -10,7 +10,7 @@ const RangeField = ({ input, min, max, step, label, note, display }) => (
       <input id={input.name} type="range" {...input} min={min} max={max} step={step} />
       <div>{display(input.value)}</div>
     </Label>
-    {note && <Note>{note}</Note>}
+    {note && <Note constrain>{note}</Note>}
   </Block>
 );
 

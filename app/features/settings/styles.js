@@ -45,9 +45,7 @@ export const ToggleLabel = styled(Label)`
   flex-wrap: nowrap;
 `;
 
-export const Note = styled(P).attrs({
-  constrain: true,
-})`
+export const Note = styled(P)`
   ${gutter()}
   padding-bottom: 0 !important;
   color: ${grey[5]};

@@ -7,10 +7,10 @@ import { onlyKanjiOrKana, onlyKana } from 'common/validations';
 import synonyms from 'features/synonyms/actions';
 import { selectSynonymsSubmitting } from 'features/synonyms/selectors';
 
-import AddSynonymField from './AddSynonymField';
 import Button from 'common/components/Button';
 
 import { blue } from 'common/styles/colors';
+import AddSynonymField from './AddSynonymField';
 import { Form } from './styles';
 
 export const ANSWER_TYPES = {
@@ -29,7 +29,6 @@ export class AddSynonymForm extends React.Component {
     }),
     onSubmit: PropTypes.func.isRequired,
     submitting: PropTypes.bool.isRequired,
-    centerButton: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -39,7 +38,6 @@ export class AddSynonymForm extends React.Component {
       word: '',
       reading: '',
     },
-    centerButton: false,
   };
 
   state = {
@@ -50,8 +48,12 @@ export class AddSynonymForm extends React.Component {
   };
 
   componentDidMount() {
-    this.wordInputRef.value = this.props.initialValues.word;
-    this.readingInputRef.value = this.props.initialValues.reading;
+    const {
+      initialValues: { word, reading },
+    } = this.props;
+
+    this.wordInputRef.value = word;
+    this.readingInputRef.value = reading;
     bind(this.wordInputRef, { IMEMode: 'toHiragana' });
     bind(this.readingInputRef, { IMEMode: 'toHiragana' });
   }
@@ -64,20 +66,22 @@ export class AddSynonymForm extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
     event.stopPropagation();
+    const { onSubmit, id } = this.props;
     const word = this.wordInputRef.value;
     const reading = this.readingInputRef.value;
     const errors = {
       word: onlyKanjiOrKana(word),
       reading: onlyKana(reading),
     };
+
     this.setState({ errors });
 
     if (Object.values(errors).some(Boolean)) {
       return;
     }
 
-    this.props.onSubmit({
-      review: this.props.id,
+    onSubmit({
+      review: id,
       word,
       reading,
     });
@@ -88,7 +92,8 @@ export class AddSynonymForm extends React.Component {
   };
 
   render() {
-    const { answerValue, answerType, submitting, centerButton } = this.props;
+    const { answerValue, answerType, submitting } = this.props;
+    const { errors } = this.state;
     return (
       <Form onSubmit={this.handleSubmit}>
         <AddSynonymField
@@ -98,7 +103,7 @@ export class AddSynonymForm extends React.Component {
           userAnswer={answerValue}
           answerType={answerType}
           handleRef={this.handleRef('wordInputRef')}
-          error={this.state.errors.word}
+          error={errors.word}
         />
         <AddSynonymField
           name="reading"
@@ -108,10 +113,10 @@ export class AddSynonymForm extends React.Component {
           userAnswer={answerValue}
           answerType={answerType}
           handleRef={this.handleRef('readingInputRef')}
-          error={this.state.errors.reading}
+          error={errors.reading}
         />
         <Button
-          style={{ alignSelf: centerButton ? 'center' : 'flex-start' }}
+          style={{ marginTop: '1rem', alignSelf: 'flex-start' }}
           type="submit"
           title="Add Synonym"
           colorHover={blue[3]}
@@ -133,4 +138,7 @@ const mapDispatchToProps = {
   onSubmit: synonyms.add.request,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddSynonymForm);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddSynonymForm);

@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`<Img /> should match snapshot 1`] = `
-<styled.img
-  alt="test"
-  className=""
-  src="test.png"
-/>
-`;

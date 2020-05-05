@@ -25,7 +25,7 @@ export const AddSynonymModal = ({ isOpen, onClose, formProps }) => isOpen ? (
         <IconButton name="CLOSE" title="Close Add Synonym window" onClick={onClose} />
       </Absolute>
       <Flex justify="center">
-        <AddSynonymForm centerButton {...formProps} />
+        <AddSynonymForm {...formProps} />
       </Flex>
     </Overlay>
   </div>

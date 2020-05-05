@@ -1,7 +1,6 @@
 [![Dependency Status](https://img.shields.io/david/Kaniwani/kw-frontend.svg)](https://david-dm.org/Kaniwani/kw-frontend)
 [![devDependency Status](https://img.shields.io/david/dev/Kaniwani/kw-frontend.svg)](https://david-dm.org/Kaniwani/kw-frontend#info=devDependencies)
 [![Build Status](https://img.shields.io/travis/Kaniwani/kw-frontend.svg)](https://travis-ci.org/Kaniwani/kw-frontend)
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![Slack Status](https://rauchg-slackin-iurjmkotad.now.sh/badge.svg)](https://rauchg-slackin-iurjmkotad.now.sh)
 
 <div align="center">
@@ -27,11 +26,6 @@
 4. Run `yarn start` to load up the development server and watch for changes
 
 Now you're ready to rumble!
-
-## Development
-
-- Unit test via `yarn run test:watch`
-- Lint and format staged files + use standardized commit messages via `yarn run cz`
 
 #### The following Chrome extensions will aid you on your journey:
 

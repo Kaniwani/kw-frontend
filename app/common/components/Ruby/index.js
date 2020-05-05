@@ -24,14 +24,21 @@ Ruby.defaultProps = {
 function Ruby({ word, reading, furi, showFuri, withDataAttr }) {
   const pairs = combineFuri(word, reading, furi);
   const wrapperProps = withDataAttr ? { 'data-ruby': `${word} ${reading}` } : {};
+
   return (
     <Wrapper {...wrapperProps}>
-      {pairs.map(([kana, chars]) => (
-        <Block key={cuid()} lang="ja">
-          {showFuri && <Furi>{kana}</Furi>}
-          <Chars>{chars}</Chars>
+      {showFuri ? (
+        pairs.map(([kana, chars]) => (
+          <Block key={cuid()} lang="ja">
+            <Furi>{kana}</Furi>
+            <Chars>{chars}</Chars>
+          </Block>
+        ))
+      ) : (
+        <Block lang="ja">
+          <Chars>{word}</Chars>
         </Block>
-      ))}
+      )}
     </Wrapper>
   );
 }

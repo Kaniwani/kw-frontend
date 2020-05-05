@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { titleCase } from 'voca';
+import { Flex } from 'rebass';
 
 import Element from 'common/components/Element';
 import JishoSearchLink from './JishoSearchLink';
@@ -32,25 +33,27 @@ function AddSynonymField({ userAnswer, answerType, label, type, error, handleRef
 
   return (
     <Fragment>
-      <Element tag="label" flexRow flexCenter>
+      <Element tag="label" flexColumn>
         <LabelText>{labelText}</LabelText>
-        <Input
-          id={`addSynonynm-${labelText}`}
-          type={type}
-          label={labelText}
-          placeholder={japanesePlaceholder}
-          autoFocus={answerType !== '' && !isSameAsAnswerType}
-          innerRef={handleRef}
-          lang="ja"
-          autoCapitalize="none"
-          autoCorrect="off"
-          autoComplete="off"
-          spellCheck="false"
-        />
-        <JishoSearchLink
-          keyword={userAnswer}
-          visuallyHidden={isSameAsAnswerType || answerType === ''}
-        />
+        <Flex>
+          <Input
+            id={`addSynonynm-${labelText}`}
+            type={type}
+            label={labelText}
+            placeholder={japanesePlaceholder}
+            autoFocus={answerType !== '' && !isSameAsAnswerType}
+            ref={handleRef}
+            lang="ja"
+            autoCapitalize="none"
+            autoCorrect="off"
+            autoComplete="off"
+            spellCheck="false"
+          />
+          <JishoSearchLink
+            keyword={userAnswer}
+            visuallyHidden={isSameAsAnswerType || answerType === ''}
+          />
+        </Flex>
       </Element>
       {error && (
         <Element textAlign="center">

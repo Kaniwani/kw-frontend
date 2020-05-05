@@ -6,14 +6,13 @@ const alignMixin = ({ align }) => css`
   margin-right: ${align === 'center' ? 'auto' : 0};
 `;
 
-const textAlignMixin = ({ textAlign }) =>
-  textAlign &&
-  css`
+const textAlignMixin = ({ textAlign }) => textAlign
+  && css`
     text-align: ${textAlign};
   `;
-const constrainMixin = ({ constrain }) =>
-  constrain &&
-  css`
+
+const constrainMixin = ({ constrain }) => constrain
+  && css`
     max-width: 45em;
   `;
 

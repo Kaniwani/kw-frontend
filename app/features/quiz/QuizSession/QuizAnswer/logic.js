@@ -33,8 +33,6 @@ import { matchAnswer, increment, decrement, isInputValid, cleanseInput } from '.
 let autoAdvance = {};
 const pendingAnswers = new Set();
 
-// TODO: make an action, dispatch a notification?
-// could show a countdown (bottom left of quiz question?)
 export const stopAutoAdvance = () => {
   if (autoAdvance.timeoutId != null) {
     clearTimeout(autoAdvance.timeoutId);
@@ -155,13 +153,20 @@ export const correctAnswerLogic = createLogic({
     const settings = selectUserSettings(getState());
     const current = selectCurrent(getState());
     const previouslyIncorrect = selectCurrentPreviouslyIncorrect(getState());
+    let { streak: newStreak, correct: newCorrect } = current;
 
     if (settings.autoAdvanceOnSuccess) {
       dispatch(quiz.question.advance());
     }
 
-    const newCorrect = !previouslyIncorrect ? increment(current.correct) : current.correct;
-    const newStreak = !previouslyIncorrect ? increment(current.streak) : current.streak;
+    if (!previouslyIncorrect) {
+      const willBurn = [...SRS_RANGES.FOUR].includes(current.streak);
+      const skipStreakIncrement = !settings.burnReviews && willBurn;
+
+      newCorrect = increment(current.correct);
+      newStreak = skipStreakIncrement ? current.streak : increment(current.streak);
+    }
+
     const updatedReview = {
       ...current,
       correct: newCorrect,

@@ -93,10 +93,9 @@ export function getReviewStatusText({
   if (isOnVacation) {
     return (
       <Text>
-        On Vacation:
-        {' '}
+        On Vacation:{' '}
         <Emphasis>
-since
+          since
           {format(vacationDate, DATE_FORMAT)}
         </Emphasis>
       </Text>
@@ -106,9 +105,7 @@ since
   if (reviewsCount) {
     return (
       <Text>
-        Next Review:
-        {' '}
-        <Emphasis>Now!</Emphasis>
+        Next Review: <Emphasis>Now!</Emphasis>
       </Text>
     );
   }
@@ -116,11 +113,9 @@ since
   if (upcoming) {
     return (
       <Text>
-        Next Review:
-        {' '}
+        Next Review:{' '}
         <Emphasis>
-          in
-          {' '}
+          in{' '}
           {distanceInWordsToNow(nextReviewDate, {
             includeSeconds: true,
             suffix: true,
@@ -140,12 +135,12 @@ since
 
   return (
     <Text>
-      Next Review:
-      {' '}
-      <Emphasis>Loading...</Emphasis>
+      Next Review: <Emphasis>Loading...</Emphasis>
     </Text>
   );
 }
+
+getReviewStatusText.propTypes = ReviewStatus.propTypes;
 
 const mapStateToProps = createStructuredSelector({
   username: selectUsername,

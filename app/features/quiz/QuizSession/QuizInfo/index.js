@@ -85,11 +85,7 @@ class QuizInfo extends React.Component {
 
     return (
       id && (
-        <Wrapper
-          onClick={stopAutoAdvance}
-          innerRef={measureRef}
-          isMinimized={isDisabled || !isOpen}
-        >
+        <Wrapper onClick={stopAutoAdvance} ref={measureRef} isMinimized={isDisabled || !isOpen}>
           <Readings id={id} isMidDetail={isMidDetail} isHighDetail={isHighDetail} />
           {isHighDetail && <Notes id={id} />}
           <VocabSynonymList ids={synonymIds} reviewId={id} />
