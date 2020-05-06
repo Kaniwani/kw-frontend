@@ -66,6 +66,7 @@
     "react-helmet": "5.2.1",
     "react-hotkeys": "1.1.4",
     "react-interval": "2.1.1",
+    "react-is": "16.13.1",
     "react-loadable": "5.5.0",
     "react-measure": "2.3.0",
     "react-motion": "0.5.2",
@@ -85,7 +86,7 @@
     "redux-persist": "5.10.0",
     "reselect": "4.0.0",
     "sanitize.css": "8.0.0",
-    "styled-components": "4.3.2",
+    "styled-components": "5.1.0",
     "voca": "1.4.0",
     "wanakana": "4.0.2",
     "wretch": "1.7.2"
