@@ -55,7 +55,7 @@
     "immutability-helper": "3.0.2",
     "localforage": "1.7.3",
     "lodash": "4.17.15",
-    "polished": "2.3.3",
+    "polished": "3.6.1",
     "raphael": "2.3.0",
     "raven-for-redux": "1.4.0",
     "raven-js": "3.27.2",
