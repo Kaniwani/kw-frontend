@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactInterval from 'react-interval';
@@ -22,7 +22,7 @@ UpcomingReviewsChart.propTypes = {
       day: PropTypes.string,
       hour: PropTypes.string.isRequired,
       value: PropTypes.number.isRequired,
-    })
+    }),
   ).isRequired,
 };
 
@@ -57,14 +57,14 @@ export function UpcomingReviewsChart({ data }) {
             tick={<DayTick />}
           />
           <Bar
-            isAnimationActive
+            isAnimationActive={false}
             xAxisId="day"
             dataKey="none"
             fill={purple[3]}
             label={<BarLabel />}
           />
           <Bar
-            isAnimationActive
+            isAnimationActive={false}
             xAxisId="hour"
             dataKey="value"
             fill={purple[3]}
@@ -77,44 +77,40 @@ export function UpcomingReviewsChart({ data }) {
   );
 }
 
-class UpcomingReviewsChartContainer extends React.Component {
-  static propTypes = {
-    data: PropTypes.array.isRequired,
-    isOnVacation: PropTypes.bool.isRequired,
-    loadUser: PropTypes.func.isRequired,
-  };
+UpcomingReviewsChartContainer.propTypes = {
+  data: PropTypes.array.isRequired,
+  isOnVacation: PropTypes.bool.isRequired,
+  loadUser: PropTypes.func.isRequired,
+};
 
-  componentDidMount() {
-    this.updateCounts();
-  }
-
-  updateCounts = () => {
-    const { data, loadUser } = this.props;
+function UpcomingReviewsChartContainer({ data, loadUser, isOnVacation }) {
+  const updateCounts = React.useCallback(() => {
     const hour = get(data, [0, 'hour'], null);
 
-    if (hour == null) return;
+    if (hour == null) {
+      return;
+    }
 
     const twentyFourHour = parseInt(hour, 10) + (/pm/gi.test(hour) ? 12 : 0);
     const fullDate = setHours(Date.now(), twentyFourHour);
     const hourTickedOver = isBefore(startOfHour(fullDate), Date.now());
 
+    // reload counts when hour ticks over so the graph shifts along Y axis
     if (hourTickedOver && window.navigator.onLine) {
       loadUser();
     }
-  };
+  }, [data, loadUser]);
 
-  render() {
-    const { data, isOnVacation } = this.props;
+  React.useEffect(updateCounts, []);
 
-    return isOnVacation ? (
-      <VacationImage />
-    ) : (
-      <Fragment>
-        <ReactInterval enabled timeout={10000} callback={this.updateCounts} />
-        <UpcomingReviewsChart data={data} />
-      </Fragment>
-    );
-  }
+  return isOnVacation ? (
+    <VacationImage />
+  ) : (
+    <>
+      <ReactInterval enabled timeout={10000} callback={updateCounts} />
+      <UpcomingReviewsChart data={data} />
+    </>
+  );
 }
 
 const mapStateToProps = (state) => ({
@@ -126,7 +122,4 @@ const mapDispatchToProps = {
   loadUser: user.load.request,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UpcomingReviewsChartContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(UpcomingReviewsChartContainer);

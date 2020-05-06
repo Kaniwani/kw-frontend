@@ -75,7 +75,7 @@
     "react-router-dom": "^4",
     "react-router-redux": "5.0.0-alpha.9",
     "react-tooltip": "3.10.0",
-    "react-transition-group": "2.5.3",
+    "react-transition-group": "4.4.0",
     "rebass": "2.3.4",
     "recharts": "1.8.5",
     "recompose": "0.30.0",
