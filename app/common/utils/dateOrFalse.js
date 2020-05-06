@@ -1,5 +1,5 @@
-import typeOf from './typeOf';
 import { parse } from 'date-fns';
+import typeOf from './typeOf';
 
 // create a date instance from date-like (date, datestring etc) else false
 // used when rehydrating from localstorage/json which won't store real Date instances
