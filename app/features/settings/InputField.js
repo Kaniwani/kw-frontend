@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import { Block, Label, Note, ValidationMessage } from './styles';
 
-const InputField = ({ input, meta, label, placeholder, note, inputStyle, disabled }) => (
-  <Block>
+const InputField = ({ input, meta, label, icon, placeholder, note, inputStyle, disabled }) => (
+  <Block style={{ flex: '1 1 auto' }}>
     <Label htmlFor={input.name}>
       <span>{label || input.name}</span>
       <input
@@ -15,6 +15,7 @@ const InputField = ({ input, meta, label, placeholder, note, inputStyle, disable
         style={inputStyle}
         disabled={disabled}
       />
+      {icon && icon}
     </Label>
     {meta.touched && meta.error && <ValidationMessage>{meta.error}</ValidationMessage>}
     {note && <Note constrain>{note}</Note>}
@@ -26,6 +27,7 @@ InputField.propTypes = {
   label: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   note: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  icon: PropTypes.object,
   inputStyle: PropTypes.object,
   disabled: PropTypes.bool,
 };
@@ -35,6 +37,7 @@ InputField.defaultProps = {
   placeholder: '',
   inputStyle: {},
   disabled: false,
+  icon: undefined,
 };
 
 export default InputField;

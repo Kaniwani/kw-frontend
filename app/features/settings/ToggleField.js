@@ -42,13 +42,13 @@ function ToggleField({ input, label, size, checkedColor, uncheckedColor, note })
   return (
     <Block>
       <ToggleLabel htmlFor={input.name}>
+        <span>{label || input.name}</span>
         <ToggleSwitch id={input.name} type="checkbox" checked={input.value} {...input} />
         <ToggleDisplay
           checkedColor={checkedColor}
           uncheckedColor={uncheckedColor}
           {...getSizes(size)}
         />
-        <span>{label || input.name}</span>
       </ToggleLabel>
       {note && <Note constrain>{note}</Note>}
     </Block>
