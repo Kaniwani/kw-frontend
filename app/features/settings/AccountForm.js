@@ -87,7 +87,13 @@ const UpdateApiKey = ({ name, label, v2Exists, handleSubmit, submitting, submitS
     undefined
   ) : (
     <span>
-      <ApiLink title="Find WK V2 Token" name="HELP" color="black" href={WK_API_KEY_URL} external />
+      <ApiLink
+        title="Find WK Access Token"
+        name="HELP"
+        color="black"
+        href={WK_API_KEY_URL}
+        external
+      />
     </span>
   );
 
@@ -135,7 +141,7 @@ const UpdateApiKeyForm = compose(
 const UpdateApiKeyV2Form = compose(
   connect((state) => ({
     name: 'apiKeyV2',
-    label: 'V2 Api Key:',
+    label: 'Personal Access Token (V2 Api):',
     initialValues: {
       apiKeyV2: selectApiKeyV2(state),
     },
