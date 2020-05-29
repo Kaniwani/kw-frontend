@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { placeholder } from 'polished';
 
 import { gutter } from 'common/styles/layout';
 import { zeta } from 'common/styles/typography';
@@ -28,12 +27,15 @@ export const Input = styled.input`
 export const TextArea = styled.textarea`
   ${gutter({ type: 'outer', prop: 'padding' })}
   ${gutter({ prop: 'margin' })}
-  ${placeholder({ color: grey[5] })};
   ${zeta}
   width: 100%;
   max-width: 100%;
   resize: none;
   border-radius: ${borderRadius};
+
+  &::placeholder {
+    color: ${grey[5]};
+  }
 
   &:not(:focus) {
     border: 1px dashed ${grey[2]};

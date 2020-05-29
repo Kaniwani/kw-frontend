@@ -9,13 +9,11 @@ const DotenvPlugin = require('dotenv-webpack');
 module.exports = (options) => ({
   mode: options.mode,
   entry: [require.resolve('react-app-polyfill/ie11'), ...options.entry],
-  output: Object.assign(
-    {
-      path: path.resolve(process.cwd(), 'build'),
-      publicPath: '/',
-    },
-    options.output
-  ), // Merge with env dependent settings
+  output: {
+    path: path.resolve(process.cwd(), 'build'),
+    publicPath: '/',
+    ...options.output, // Merge with env dependent settings
+  },
   optimization: options.optimization,
   module: {
     rules: [
@@ -62,7 +60,7 @@ module.exports = (options) => ({
                 interlaced: false,
               },
               pngquant: {
-                quality: '65-90',
+                quality: [0.65, 0.9],
                 speed: 4,
               },
             },

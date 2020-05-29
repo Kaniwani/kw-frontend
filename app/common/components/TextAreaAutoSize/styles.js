@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { placeholder } from 'polished';
 
 import TextareaAutosize from "react-autosize-textarea";
 import { gutter } from 'common/styles/layout';
@@ -31,7 +30,6 @@ export const Label = styled.label`
 export const TextArea = styled(TextareaAutosize)`
   ${gutter({ prop: 'margin' })}
   ${gutter({ type: 'outer', prop: 'padding' })}
-  ${placeholder({ color: grey[5] })};
   ${zeta}
   font-family: ${ffJapanese};
   line-height: 1.2;
@@ -40,6 +38,7 @@ export const TextArea = styled(TextareaAutosize)`
   border: 1px solid ${grey[2]};
   min-width: 300px;
   max-width: 100%;
+
 
   &:not(:focus) {
     border: 1px dashed ${grey[2]};

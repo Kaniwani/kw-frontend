@@ -16,7 +16,7 @@
 
 <br />
 
-##### _Note: Requires a [KW Backend](https://github.com/Kaniwani/kw-backend)_
+##### _Note: Requires a [KW Backend](https://github.com/Kaniwani/kw-backend)_ 
 
 ## Quick start
 
@@ -26,6 +26,8 @@
 4. Run `yarn start` to load up the development server and watch for changes
 
 Now you're ready to rumble!
+
+⚠️ Be sure to take a look at the [Dependency Upgrade Notes](./DEPENDENCY_UPGRADE_NOTES.md) if planning on updating the build  ⚠️
 
 #### The following Chrome extensions will aid you on your journey:
 

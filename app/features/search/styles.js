@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { transparentize, placeholder } from "polished";
+import { transparentize } from "polished";
 
 import { gutter } from "common/styles/layout";
 import { visuallyHidden } from "common/styles/utils";
@@ -59,6 +59,7 @@ export const InputWrapper = styled.div`
     min-height: 2em;
     line-height: 2em;
     width: 100%;
+
     /* x icon on IE11 */
     &::-ms-clear {
       display: none;
@@ -66,17 +67,18 @@ export const InputWrapper = styled.div`
       height:0;
       pointer-events: none;
     }
-    ${placeholder({
-      color: transparentize(0.1, grey[2]),
-      lineHeight: '2em',
-   })}
+
+    &::placeholder {
+      color: ${transparentize(0.1, grey[2])};
+      line-height: '2em';
+   }
 
     &:focus {
-      ${placeholder({
-        color: transparentize(0.5, grey[2]),
-        lineHeight: '2em',
-     })}
       outline: none;
+      &::placeholder {
+        color: ${transparentize(0.5, grey[2])};
+        line-height: '2em';
+      }
     }
   }
 `;

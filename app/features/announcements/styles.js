@@ -8,6 +8,11 @@ import H4 from 'common/components/H4';
 
 export const Article = styled.article`
   ${gutter({ position: 'vertical', type: 'margin' })}
+
+  & .ReactCollapse--collapse {
+    transition: height 500ms;
+  }
+
   & .ReactCollapse--content {
     ${gutter({ position: 'vertical' })}
     display: flex;
