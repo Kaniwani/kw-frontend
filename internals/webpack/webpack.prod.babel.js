@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const { HashedModuleIdsPlugin } = require('webpack');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const SentryCliPlugin = require('@sentry/webpack-plugin');
 
@@ -26,21 +26,11 @@ module.exports = require('./webpack.base.babel')({
   optimization: {
     minimize: true,
     minimizer: [
-      new UglifyJsPlugin({
-        uglifyOptions: {
-          warnings: false,
-          comparisons: false,
-          compress: {},
-          parse: {},
-          mangle: true,
-          output: {
-            comments: false,
-            ascii_only: true,
-          },
-        },
+      new TerserPlugin({
         parallel: true,
-        cache: true,
-        sourceMap: true,
+        terserOptions: {
+          ecma: 6,
+        },
       }),
     ],
     nodeEnv: 'production',
@@ -156,7 +146,7 @@ module.exports = require('./webpack.base.babel')({
         include: 'build',
         ignoreFile: '.gitignore',
       })
-      : []
+      : [],
   ),
 
   performance: {
