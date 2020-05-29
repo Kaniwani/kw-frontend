@@ -1,27 +1,26 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { debounce } from 'lodash';
 import cuid from 'cuid';
 import { Switch, Route } from 'react-router-dom';
+
 import { hasToken } from 'common/utils/auth';
-
 import { selectLocationPath } from 'common/selectors';
-
 import Element from 'common/components/Element';
-import QuizSummaryHeader from 'features/quiz/QuizSummary/QuizSummaryHeader';
 import LogoLink from 'common/components/LogoLink';
+
+import QuizSummaryHeader from 'features/quiz/QuizSummary/QuizSummaryHeader';
+import { SESSION_CATEGORIES } from 'features/quiz/QuizSession/constants';
+
 import Hamburger from './Hamburger';
 import OffCanvasMenu from './OffCanvasMenu';
-
-import { Header, Nav, NavLinks } from './styles';
 import NavLink from './NavLink';
+import { Header, Nav, NavLinks } from './styles';
 
 const MIN_VIEWPORT_SIZE = 700;
 
 const ConnectedSwitch = connect((state) => ({ location: state.router.location }))(Switch);
-
-import { SESSION_CATEGORIES } from 'features/quiz/QuizSession/constants';
 
 const PRIMARY_LINKS = Object.values(SESSION_CATEGORIES).map((category) => ({
   route: `/${category}`,
@@ -56,20 +55,20 @@ export function SiteHeader({ expanded, showOffCanvasMenu, onHamburgerToggle, onM
         <Route exact path="/welcome" />
         <Route
           render={() => (
-            <Fragment>
+            <>
               <Nav>
                 <LogoLink />
                 <Switch>
                   <Route path="/:category(lessons|reviews)" component={QuizSummaryHeader} />
                   <Route
                     render={() => (
-                      <Fragment>
+                      <>
                         <Element flexRow flex="999 1 auto" justifyContent="space-between">
                           <Menu links={PRIMARY_LINKS} />
                           {expanded && <Menu links={SECONDARY_LINKS} />}
                         </Element>
                         {!expanded && <Hamburger onToggle={onHamburgerToggle} />}
-                      </Fragment>
+                      </>
                     )}
                   />
                 </Switch>
@@ -79,7 +78,7 @@ export function SiteHeader({ expanded, showOffCanvasMenu, onHamburgerToggle, onM
                 isVisible={showOffCanvasMenu}
                 onClose={onMenuClose}
               />
-            </Fragment>
+            </>
           )}
         />
       </ConnectedSwitch>
@@ -131,8 +130,8 @@ export class SiteHeaderContainer extends React.PureComponent {
   render() {
     const viewportMeasured = this.state.allLinksFit != null;
     return (
-      viewportMeasured &&
-      hasToken() && (
+      viewportMeasured
+      && hasToken() && (
         <SiteHeader
           expanded={this.state.allLinksFit}
           showOffCanvasMenu={this.state.offCanvasMenuActive}
