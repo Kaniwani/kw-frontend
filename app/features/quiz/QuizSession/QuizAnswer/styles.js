@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { placeholder } from 'polished';
 
 import StreakIcon from 'common/components/StreakIcon';
 import IconButton from 'common/components/IconButton';
@@ -58,7 +57,10 @@ export const Input = styled.input`
   transition: all ${fastEaseQuad};
 
   &&&:placeholder-shown {
-    ${placeholder({ color: white[7] })} /* focused input placeholder text color */
+    /* focused input placeholder text color */
+    &::placeholder {
+      color: ${white[7]};
+    }
   }
 
   ${({ marked, valid }) => {
@@ -67,17 +69,25 @@ export const Input = styled.input`
       color: ${color}; /* Override Android / IE font color change */
       -webkit-text-fill-color: ${color};
       -webkit-opacity: 1; /* Override iOS opacity change affecting text & background color */
-      ${placeholder({ color })} /* Override browser-forced color */
 
+      /* Override browser-forced color */
+      &&&::placeholder {
+        color: ${color};
+      }
+
+      /* Override browser-forced color */
       &&&:placeholder-shown {
-        ${placeholder({ color })} /* Override browser-forced color */
+        color: ${color};
       }
 
       &&&:disabled {
         color: ${white[3]};
         -webkit-text-fill-color: ${white[3]};
         -webkit-opacity: 1;
-        ${placeholder({ color: white[3] })} /* Override browser-forced color */
+        /* Override browser-forced color */
+        &&&::placeholder {
+         color: ${white[3]};
+        }
       }
     `;
   }}

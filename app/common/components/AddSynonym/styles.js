@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { rgba, placeholder } from "polished";
+import { rgba } from "polished";
 
 import Button from "common/components/Button";
 
@@ -42,9 +42,9 @@ export const Input = styled.input`
   border: 1px solid ${rgba(grey[2], 0.3)};
   border-radius: 3px;
   box-shadow: inset 0 3px 20px -8px ${rgba(black[5], 0.3)};
-  ${placeholder({ color: grey[2] })}
-  &:placeholder-shown {
-    ${placeholder({ color: grey[2] })};
+
+  &&&::placeholder, &&&:placeholder-shown {
+    color: ${grey[2]};
   }
 
   &:focus {

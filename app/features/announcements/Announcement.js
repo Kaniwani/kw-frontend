@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 import { UnmountClosed as Collapse } from 'react-collapse';
 import { format } from 'date-fns';
 
-import { selectAnnouncementById } from './selectors';
-
 import { grey } from 'common/styles/colors';
 import { DATE_FORMAT } from 'common/constants';
 
 import Toggle from 'common/components/Toggle';
 import Icon from 'common/components/Icon';
 import Button from 'common/components/Button';
+
+import { selectAnnouncementById } from './selectors';
 
 import { Article, Header, Title, Time } from './styles';
 
@@ -39,9 +39,7 @@ export function Announcement({ title, body, pubDate, ...props }) {
               </div>
             </Header>
           </Button>
-          <Collapse isOpened={on} springConfig={{ stiffness: 205, damping: 22 }}>
-            {content}
-          </Collapse>
+          <Collapse isOpened={on}>{content}</Collapse>
         </Article>
       )}
     />

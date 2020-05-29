@@ -132,8 +132,8 @@ const enhance = compose(
               password,
               api_key_v2: apiKeyV2,
             },
-            { form }
-          )
+            { form },
+          ),
         );
       }
 
@@ -153,7 +153,7 @@ const enhance = compose(
         this.props.reset();
       }
     },
-  })
+  }),
 );
 
 export default enhance(FormView);

@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
-
-import createHistory from 'history/createBrowserHistory';
+import * as history from 'history';
 import 'sanitize.css/sanitize.css';
 
 import { IS_PROD_ENV } from 'common/constants';
@@ -23,8 +22,8 @@ import configureStore from './store/configureStore';
 
 // Create redux store with history
 const initialState = {};
-const history = createHistory();
-const { persistor, store } = configureStore(initialState, history);
+const browserHistory = history.createBrowserHistory();
+const { persistor, store } = configureStore(initialState, browserHistory);
 const MOUNT_NODE = document.getElementById('app');
 
 const render = () => {
@@ -37,14 +36,14 @@ const render = () => {
       <DefaultLoadingComponentProvider component={null}>
         <Provider store={store}>
           <PersistGate persistor={persistor}>
-            <ConnectedRouter history={history}>
+            <ConnectedRouter history={browserHistory}>
               <App />
             </ConnectedRouter>
           </PersistGate>
         </Provider>
       </DefaultLoadingComponentProvider>
     </ErrorBoundary>,
-    MOUNT_NODE
+    MOUNT_NODE,
   );
 };
 

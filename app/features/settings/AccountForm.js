@@ -73,7 +73,7 @@ const ResetProgressForm = compose(
         dispatch(settings.resetProgress.request({ level: resetLevel }));
       }
     },
-  })
+  }),
 )(ResetProgress);
 
 const UpdateApiKey = ({ name, label, v2Exists, handleSubmit, submitting, submitSucceeded }) => {
@@ -135,7 +135,7 @@ const UpdateApiKeyForm = compose(
     onSubmit: (values, dispatch, props) => {
       dispatch(settings.save.request(values, { form: props }));
     },
-  })
+  }),
 )(UpdateApiKey);
 
 const UpdateApiKeyV2Form = compose(
@@ -152,7 +152,7 @@ const UpdateApiKeyV2Form = compose(
     onSubmit: (values, dispatch, props) => {
       dispatch(settings.save.request(values, { form: props }));
     },
-  })
+  }),
 )(UpdateApiKey);
 
 function AccountForm() {

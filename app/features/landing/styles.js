@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { transparentize, darken, placeholder, timingFunctions } from 'polished';
+import { transparentize, darken, timingFunctions } from 'polished';
 
 import { white, grey, purple, red, transparent } from 'common/styles/colors';
 import { fastEaseQuad } from 'common/styles/animation';
@@ -95,14 +95,17 @@ export const InputField = styled.input`
   border: none;
   border-radius: 10px;
   background-color: ${white[2]};
-  ${placeholder({
-    color: grey[2],
-    opacity: 1, // firefox sets lower opacity >_<
-  })}
+
+  &::placeholder {
+    color: ${grey[2]};
+    opacity: 1; /* firefox sets lower opacity >_< */
+  }
 
   &:focus {
-    ${placeholder({ color: transparentize(0.5, grey[2]) })}
     outline: none;
+    &::placeholder {
+     color: ${transparentize(0.5, grey[2])};
+    }
   }
 
   /* override chrome autocomplete yellow bg*/
