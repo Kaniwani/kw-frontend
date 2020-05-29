@@ -2,6 +2,7 @@ import styled, { css, keyframes } from 'styled-components';
 import { rgba, timingFunctions } from 'polished';
 
 import P from 'common/components/P';
+import IconLink from 'common/components/IconLink';
 import { gutter } from 'common/styles/layout';
 import { grey, white, orange, blue } from 'common/styles/colors';
 
@@ -22,6 +23,16 @@ export const Section = styled.section`
 
 export const SubSection = styled.section`
   ${gutter({ type: 'outer', position: 'vertical' })}
+`;
+
+export const ApiLink = styled(IconLink)`
+  opacity: .65;
+  transform: scale(1);
+
+  &:active {
+    opacity: 1;
+    transform: scale(.9);
+  }
 `;
 
 export const Block = styled.div`

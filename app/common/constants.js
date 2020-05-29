@@ -10,6 +10,7 @@ export const IS_PROD_ENV = process.env.NODE_ENV === 'production';
 const BASE_URL = IS_DEV_ENV ? DEV_DOMAIN : PROD_DOMAIN;
 /* eslint-enable prefer-destructuring */
 
+export const WK_API_KEY_URL = 'https://www.wanikani.com/settings/personal_access_tokens';
 export const API_BASE = `${BASE_URL}/api/v1/`;
 
 export const DATE_FORMAT = 'MMM Do YYYY';

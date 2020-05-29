@@ -11,6 +11,7 @@ import {
   selectApiKeyV2,
 } from 'features/user/selectors';
 import { doValuesMatch, numberValid } from 'common/validations';
+import { WK_API_KEY_URL } from 'common/constants';
 
 import H2 from 'common/components/H2';
 import H4 from 'common/components/H4';
@@ -20,7 +21,7 @@ import settings from './actions';
 import InputField from './InputField';
 import RangeField from './RangeField';
 
-import { Form, Section, SubSection, Block, Controls } from './styles';
+import { Form, Section, SubSection, Block, ApiLink, Controls } from './styles';
 
 const ResetProgress = ({ currentLevel, handleSubmit, submitting, submitSucceeded }) => (
   <Form onSubmit={handleSubmit}>
@@ -72,7 +73,7 @@ const ResetProgressForm = compose(
         dispatch(settings.resetProgress.request({ level: resetLevel }));
       }
     },
-  })
+  }),
 )(ResetProgress);
 
 const UpdateApiKey = ({ name, label, v2Exists, handleSubmit, submitting, submitSucceeded }) => {
@@ -82,14 +83,30 @@ const UpdateApiKey = ({ name, label, v2Exists, handleSubmit, submitting, submitS
     return null;
   }
 
+  const icon = isV1 ? (
+    undefined
+  ) : (
+    <span>
+      <ApiLink
+        title="Find WK Access Token"
+        name="HELP"
+        color="black"
+        href={WK_API_KEY_URL}
+        external
+      />
+    </span>
+  );
+
   return (
     <Form onSubmit={handleSubmit}>
       <Field
         name={name}
         label={label}
         component={InputField}
-        props={{ disabled: isV1, inputStyle: { minWidth: '300px', width: '100%' } }}
+        icon={icon}
+        props={{ disabled: isV1, inputStyle: { flex: '0 1 360px', opacity: isV1 ? '0.5' : '1' } }}
       />
+
       {!isV1 && (
         <Controls>
           <Button type="submit">
@@ -106,7 +123,7 @@ UpdateApiKey.propTypes = formPropTypes;
 const UpdateApiKeyForm = compose(
   connect((state) => ({
     name: 'apiKey',
-    label: 'V1 Api Key:',
+    label: 'V1 Api Key (discontinued):',
     v2Exists: selectApiKeyV2(state) != null,
     initialValues: {
       apiKey: selectApiKey(state),
@@ -118,13 +135,13 @@ const UpdateApiKeyForm = compose(
     onSubmit: (values, dispatch, props) => {
       dispatch(settings.save.request(values, { form: props }));
     },
-  })
+  }),
 )(UpdateApiKey);
 
 const UpdateApiKeyV2Form = compose(
   connect((state) => ({
     name: 'apiKeyV2',
-    label: 'V2 Api Key:',
+    label: 'Personal Access Token (V2 Api):',
     initialValues: {
       apiKeyV2: selectApiKeyV2(state),
     },
@@ -135,7 +152,7 @@ const UpdateApiKeyV2Form = compose(
     onSubmit: (values, dispatch, props) => {
       dispatch(settings.save.request(values, { form: props }));
     },
-  })
+  }),
 )(UpdateApiKey);
 
 function AccountForm() {

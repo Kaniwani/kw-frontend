@@ -3,15 +3,16 @@ import PropTypes from 'prop-types';
 import { compose, lifecycle } from 'recompose';
 import { reduxForm, Field } from 'redux-form';
 
-import user from 'features/user/actions';
-import Spinner from 'common/components/Spinner';
-
+import { WK_API_KEY_URL } from 'common/constants';
 import {
   requiredValid,
   emailValid,
   minLengthValid,
   confirmPasswordValid,
 } from 'common/validations';
+
+import user from 'features/user/actions';
+import Spinner from 'common/components/Spinner';
 
 import Input from './Input';
 
@@ -88,7 +89,7 @@ function FormView({
           title="Find WK V2 Token"
           name="HELP"
           color="black"
-          href="https://www.wanikani.com/settings/personal_access_tokens"
+          href={WK_API_KEY_URL}
           isHidden={loginSelected || resetSelected}
           tabIndex={loginSelected || resetSelected ? -1 : 0}
           external
@@ -131,8 +132,8 @@ const enhance = compose(
               password,
               api_key_v2: apiKeyV2,
             },
-            { form }
-          )
+            { form },
+          ),
         );
       }
 
@@ -152,7 +153,7 @@ const enhance = compose(
         this.props.reset();
       }
     },
-  })
+  }),
 );
 
 export default enhance(FormView);
