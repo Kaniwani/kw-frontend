@@ -35,7 +35,7 @@ function ContactPage() {
               </A>{' '}
               would love to hear from you. Send us your compliments, woes, dreams, and haikus. If
               you find a bug in the site, <Strike>smoosh it goood</Strike> let us know all about it!
-              It’ll only take a moment, and we’ll get back to you shortly. Bonus 💯internet points
+              It’ll only take a moment, and we’ll get back to you shortly. Bonus 💯 internet points
               if you include your{' '}
               <A href="https://www.whatsmybrowser.org" external>
                 browser version and operating system
