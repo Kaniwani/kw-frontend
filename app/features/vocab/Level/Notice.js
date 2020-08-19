@@ -24,8 +24,10 @@ function Notice({ ids, isLocked }) {
     notice = (
       <Element>
         <H3>
-          All entries hidden. Ensure you have unlocked <strong>vocabulary</strong> on WaniKani for
-          this level and check your WaniKani SRS filtering in <A to="/settings">Settings</A>
+          All entries hidden. Ensure you have unlocked{' '}
+          <strong>vocabulary words (not just Kanji)</strong> on WaniKani for this level. In{' '}
+          <A to="/settings">Settings</A> confirm that <strong>Follow Wanikani</strong> is enabled
+          and check your WaniKani SRS filters there as well.
         </H3>
       </Element>
     );
