@@ -20,7 +20,7 @@ export const saveSettingsLogic = createLogic({
       },
     },
     dispatch,
-    done
+    done,
   ) {
     const { serializeUserProfile, deserializeUserProfile } = serializers;
     const { username, email, profile } = selectUserDomain(getState());
@@ -38,7 +38,7 @@ export const saveSettingsLogic = createLogic({
             username,
             email,
             profile: serializeUserProfile(response),
-          })
+          }),
         );
 
         if (filterChanged) {
@@ -63,7 +63,7 @@ export const saveSettingsLogic = createLogic({
             notify.error({
               content:
                 'Something went wrong saving your settings. Please wait a few moments and try again.',
-            })
+            }),
           );
           dispatch(app.captureError(err, payload));
           form.stopSubmit();
@@ -75,20 +75,19 @@ export const saveSettingsLogic = createLogic({
 
 export const resetProgressLogic = createLogic({
   type: settings.resetProgress.request,
-  process(
-    {
-      api,
-      action: { payload },
-    },
-    dispatch,
-    done
-  ) {
+  process({ api, action: { payload } }, dispatch, done) {
     api.user
       .resetProgress(payload)
       .then(() => {
         dispatch(user.load.request({ force: true }));
         dispatch(vocab.levels.load.request());
-        dispatch(notify.success({ content: 'Reset complete!', duration: 3000 }));
+        dispatch(
+          notify.success({
+            content:
+              'Reset complete! Remember to unlock levels in Vocabulary when ready for new lessons.',
+            duration: 10000,
+          }),
+        );
         done();
       })
       .catch((err) => {
@@ -97,7 +96,7 @@ export const resetProgressLogic = createLogic({
           notify.error({
             content:
               'Something went wrong contacting the server to reset your progress. Please reload and try again or contact us with details of what happened.',
-          })
+          }),
         );
         done();
       });
