@@ -5,7 +5,11 @@ import ReactInterval from 'react-interval';
 import { ResponsiveContainer, BarChart, Brush, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 import { startOfHour, setHours, isBefore } from 'date-fns';
 import { get } from 'lodash';
-import { selectOnVacation, selectReviewsCount, selectUpcomingReviews } from 'features/user/selectors';
+import {
+  selectOnVacation,
+  selectReviewsCount,
+  selectUpcomingReviews,
+} from 'features/user/selectors';
 
 import user from 'features/user/actions';
 
@@ -29,6 +33,7 @@ UpcomingReviewsChart.propTypes = {
 
 export function UpcomingReviewsChart({ data, reviewsCount }) {
   const aggregateData = data;
+  // Populate current hour with currently available review count
   aggregateData[0] = { ...aggregateData[0], value: reviewsCount };
   return (
     <Element flexRow flexCenter style={{ fontSize: '.75rem' }}>
@@ -84,6 +89,7 @@ UpcomingReviewsChartContainer.propTypes = {
   data: PropTypes.array.isRequired,
   isOnVacation: PropTypes.bool.isRequired,
   loadUser: PropTypes.func.isRequired,
+  reviewsCount: PropTypes.number.isRequired,
 };
 
 function UpcomingReviewsChartContainer({ data, loadUser, isOnVacation, reviewsCount }) {
