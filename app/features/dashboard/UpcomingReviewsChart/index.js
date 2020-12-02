@@ -5,7 +5,7 @@ import ReactInterval from 'react-interval';
 import { ResponsiveContainer, BarChart, Brush, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 import { startOfHour, setHours, isBefore } from 'date-fns';
 import { get } from 'lodash';
-import { selectOnVacation, selectUpcomingReviews } from 'features/user/selectors';
+import { selectOnVacation, selectReviewsCount, selectUpcomingReviews } from 'features/user/selectors';
 
 import user from 'features/user/actions';
 
@@ -24,14 +24,17 @@ UpcomingReviewsChart.propTypes = {
       value: PropTypes.number.isRequired,
     }),
   ).isRequired,
+  reviewsCount: PropTypes.number.isRequired,
 };
 
-export function UpcomingReviewsChart({ data }) {
+export function UpcomingReviewsChart({ data, reviewsCount }) {
+  const aggregateData = data;
+  aggregateData[0] = { ...aggregateData[0], value: reviewsCount };
   return (
     <Element flexRow flexCenter style={{ fontSize: '.75rem' }}>
       <ResponsiveContainer width="100%" minWidth={320} height={300} debounce={100}>
         <BarChart
-          data={data}
+          data={aggregateData}
           barCategoryGap={2}
           maxBarSize={40}
           margin={{ top: 5, right: 35, left: 20 }}
@@ -83,7 +86,7 @@ UpcomingReviewsChartContainer.propTypes = {
   loadUser: PropTypes.func.isRequired,
 };
 
-function UpcomingReviewsChartContainer({ data, loadUser, isOnVacation }) {
+function UpcomingReviewsChartContainer({ data, loadUser, isOnVacation, reviewsCount }) {
   const updateCounts = React.useCallback(() => {
     const hour = get(data, [0, 'hour'], null);
 
@@ -108,13 +111,14 @@ function UpcomingReviewsChartContainer({ data, loadUser, isOnVacation }) {
   ) : (
     <>
       <ReactInterval enabled timeout={10000} callback={updateCounts} />
-      <UpcomingReviewsChart data={data} />
+      <UpcomingReviewsChart data={data} reviewsCount={reviewsCount} />
     </>
   );
 }
 
 const mapStateToProps = (state) => ({
   data: selectUpcomingReviews(state),
+  reviewsCount: selectReviewsCount(state),
   isOnVacation: selectOnVacation(state),
 });
 
