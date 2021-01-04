@@ -29,13 +29,12 @@ export const queueLoadLogic = createLogic({
       const queueCount = selectQueueCount(getState());
       const remainingCount = selectSessionRemainingCount(getState());
       const wrapUp = selectWrapUp(getState());
-      const unqueuedSessionItems = remainingCount - queueCount;
       // eslint-disable-next-line no-nested-ternary
       const limit = !queueCount
         ? INITIAL_QUEUE_LIMIT
         : wrapUp.active
           ? wrapUp.count - queueCount
-          : Math.min(unqueuedSessionItems, SUBSEQUENT_QUEUE_LIMIT);
+          : Math.min(remainingCount, SUBSEQUENT_QUEUE_LIMIT);
 
       allow({ ...action, payload: { category, limit, currentId } });
     } else {
