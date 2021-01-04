@@ -87,11 +87,8 @@ export const selectQueueNeeded = createSelector(
 );
 
 export const selectIsFinalQuestion = createSelector(
-  [selectQueue, selectSessionRemainingCount, selectCurrentId],
-  (queue, remainingCount, currentId) => {
-    console.log([queue, remainingCount, currentId]);
-    return remainingCount === 1 && currentId === queue[0];
-  },
+  [selectSessionRemainingCount, selectWrapUp, selectQueue, selectCurrentId],
+  (remainingCount, wrapUp, queue, currentId) => (remainingCount === 1 || wrapUp.count === 0) && queue.length > 0 && currentId === queue[0],
 );
 
 export default selectQuizDomain;
