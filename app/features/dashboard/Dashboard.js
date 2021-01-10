@@ -1,7 +1,10 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { selectUserLastLoad, selectUpcomingReviewsTotal } from 'features/user/selectors';
+import {
+  selectUserLastLoad,
+  selectOnVacation,
+  selectUpcomingReviewsTotal } from 'features/user/selectors';
 import { isBefore, addMinutes } from 'date-fns';
 
 import Spinner from 'common/components/Spinner';
@@ -23,7 +26,10 @@ Dashboard.propTypes = {
   showLoading: PropTypes.bool.isRequired,
 };
 
-function Dashboard({ upcomingReviewsTotal, showLoading }) {
+function Dashboard({ isOnVacation, upcomingReviewsTotal, showLoading }) {
+  const upcomingText = isOnVacation ?
+    "A relaxing time off" :
+    `${upcomingReviewsTotal} reviews`;
   return showLoading ? (
     <Container>
       <Spinner />
@@ -41,7 +47,7 @@ function Dashboard({ upcomingReviewsTotal, showLoading }) {
         <Element flexColumn flexCenter>
           <H2 style={{ color: grey[8] }}>Coming Up</H2>
           {upcomingReviewsTotal > 0 && (
-            <H3 style={{ fontWeight: 500, color: grey[9] }}>{upcomingReviewsTotal} reviews</H3>
+            <H3 style={{ fontWeight: 500, color: grey[9] }}>{upcomingText}</H3>
           )}
         </Element>
         <UpcomingReviewsChart />
@@ -65,9 +71,12 @@ function Dashboard({ upcomingReviewsTotal, showLoading }) {
 }
 
 const mapStateToProps = (state) => {
+  const isOnVacation = selectOnVacation(state);
   const lastLoad = selectUserLastLoad(state);
   const showLoading = !lastLoad || isBefore(lastLoad, addMinutes(Date.now(), -60));
+
   return {
+    isOnVacation,
     showLoading,
     upcomingReviewsTotal: selectUpcomingReviewsTotal(state),
   };

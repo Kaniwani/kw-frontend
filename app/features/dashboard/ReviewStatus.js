@@ -95,8 +95,7 @@ export function getReviewStatusText({
       <Text>
         On Vacation:{' '}
         <Emphasis>
-          since
-          {format(vacationDate, DATE_FORMAT)}
+          since {format(vacationDate, DATE_FORMAT)}
         </Emphasis>
       </Text>
     );
