@@ -16,9 +16,10 @@ https://github.com/Kaniwani/kw-frontend/issues?q=is%3Aissue+is%3Aclosed
 
 ## Steps to reproduce
 
-(Add link to a demo on https://jsfiddle.net or similar if possible)
+(Add link to a demo on https://codesandbox.io or similar if possible)
 
 # Versions
 
-- Node/Yarn:
+- Node:
+- NPM/Yarn:
 - Browser:
