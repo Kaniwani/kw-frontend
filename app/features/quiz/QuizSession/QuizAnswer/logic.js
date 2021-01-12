@@ -53,7 +53,7 @@ export const submitAnswerLogic = createLogic({
       quiz.answer.update({
         value: answerValue,
         type: isKana(answerValue) ? ANSWER_TYPES.READING : ANSWER_TYPES.WORD,
-      })
+      }),
     );
 
     if (!isValid) {
@@ -114,7 +114,7 @@ export const checkAnswerLogic = createLogic({
           ...updatedAnswer,
           value: matchedAnswer,
           isCorrect: true,
-        })
+        }),
       );
       dispatch(quiz.answer.correct());
       const isOpen = settings.autoExpandAnswerOnSuccess && settings.autoAdvanceOnSuccessDelayMilliseconds > 0;
@@ -124,7 +124,7 @@ export const checkAnswerLogic = createLogic({
           isDisabled: false,
           detailLevel: settings.infoDetailLevelOnSuccess,
           isOpen,
-        })
+        }),
       );
     }
 
@@ -138,7 +138,7 @@ export const checkAnswerLogic = createLogic({
           isDisabled: false,
           detailLevel,
           isOpen,
-        })
+        }),
       );
     }
 
@@ -182,14 +182,7 @@ export const correctAnswerLogic = createLogic({
 export const incorrectAnswerLogic = createLogic({
   type: quiz.answer.incorrect,
   latest: true,
-  process(
-    {
-      getState,
-      action: { payload = {} },
-    },
-    dispatch,
-    done
-  ) {
+  process({ getState, action: { payload = {} } }, dispatch, done) {
     const current = selectCurrent(getState());
     const isLessonQuiz = selectIsLessonQuiz(getState());
     const previouslyIncorrect = selectCurrentPreviouslyIncorrect(getState());
@@ -262,7 +255,7 @@ export const disableReviewLogic = createLogic({
       },
     },
     dispatch,
-    done
+    done,
   ) {
     stopAutoAdvance();
     const isFinalQuestion = selectIsFinalQuestion(getState());
@@ -298,7 +291,6 @@ export const recordAnswerLogic = createLogic({
     const current = selectCurrent(getState());
     const wrapUp = selectWrapUp(getState());
     const isLessonQuiz = selectIsLessonQuiz(getState());
-    const isFinalQuestion = selectIsFinalQuestion(getState());
     const { isCorrect } = selectAnswer(getState());
     const previouslyIncorrect = selectCurrentPreviouslyIncorrect(getState());
     stopAutoAdvance();
@@ -315,6 +307,7 @@ export const recordAnswerLogic = createLogic({
       if (wrapUp.active) {
         dispatch(quiz.session.wrapUp.decrement());
       }
+      const isFinalQuestion = selectIsFinalQuestion(getState());
       if (isFinalQuestion) {
         dispatch(quiz.session.queue.clear());
         setTimeout(() => history.push(`/${category}`), 1000);
@@ -342,7 +335,7 @@ export const recordAnswerLogic = createLogic({
             content:
               'You have several answer submissions still pending. You might be experiencing connection problems.',
             duration: 8000,
-          })
+          }),
         );
       }
 
@@ -382,7 +375,7 @@ export const recordAnswerLogic = createLogic({
               previouslyIncorrect,
               wasAlreadyPending,
               pendingAnswers: [...pendingAnswers],
-            })
+            }),
           );
           dispatch(quiz.answer.record.failure(err));
           done();
