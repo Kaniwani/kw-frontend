@@ -91,7 +91,7 @@ export const selectIsFinalQuestion = createSelector(
   (remainingCount, wrapUp, queue, currentId) => {
     const isLastInQueue = queue.length > 0 && currentId === queue[0];
     const shouldWrapUp = wrapUp.active && wrapUp.count === 0;
-    return (remainingCount === 1 || shouldWrapUp) && isLastInQueue;
+    return shouldWrapUp || (remainingCount === 1 && isLastInQueue);
   },
 );
 
