@@ -291,6 +291,7 @@ export const recordAnswerLogic = createLogic({
     const current = selectCurrent(getState());
     const wrapUp = selectWrapUp(getState());
     const isLessonQuiz = selectIsLessonQuiz(getState());
+    const isFinalQuestion = selectIsFinalQuestion(getState());
     const { isCorrect } = selectAnswer(getState());
     const previouslyIncorrect = selectCurrentPreviouslyIncorrect(getState());
     stopAutoAdvance();
@@ -307,7 +308,6 @@ export const recordAnswerLogic = createLogic({
       if (wrapUp.active) {
         dispatch(quiz.session.wrapUp.decrement());
       }
-      const isFinalQuestion = selectIsFinalQuestion(getState());
       if (isFinalQuestion) {
         dispatch(quiz.session.queue.clear());
         setTimeout(() => history.push(`/${category}`), 1000);
