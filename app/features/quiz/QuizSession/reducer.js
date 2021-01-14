@@ -27,10 +27,10 @@ const setSynonymModalOpen = (state, { payload }) => update(state, {
 
 export const getWrapUpItems = (state) => {
   let needsReview = difference(state.incorrect, state.complete);
-  if (needsReview.length < 10) {
+  if (needsReview.length < WRAP_UP_STARTING_COUNT) {
     needsReview = [...needsReview, ...difference(state.queue, needsReview)].slice(
       0,
-      WRAP_UP_STARTING_COUNT
+      WRAP_UP_STARTING_COUNT,
     );
   }
   return needsReview;
@@ -123,7 +123,7 @@ export const quizSessionReducer = handleActions(
     [quiz.session.addComplete]: addIdToComplete,
     [quiz.session.reset]: (state) => ({ ...initialQuizSessionState, category: state.category }),
   },
-  initialQuizSessionState
+  initialQuizSessionState,
 );
 
 export default quizSessionReducer;

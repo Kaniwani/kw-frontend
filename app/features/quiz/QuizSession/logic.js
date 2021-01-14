@@ -33,9 +33,8 @@ export const queueLoadLogic = createLogic({
       const limit = !queueCount
         ? INITIAL_QUEUE_LIMIT
         : wrapUp.active
-          ? wrapUp.count - queueCount
+          ? wrapUp.count
           : Math.min(remainingCount, SUBSEQUENT_QUEUE_LIMIT);
-
       allow({ ...action, payload: { category, limit, currentId } });
     } else {
       reject();
