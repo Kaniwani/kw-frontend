@@ -43,8 +43,7 @@ const toggleWrapUp = (state) => {
 
   if (active) {
     queue = getWrapUpItems(state);
-    // wrapUp count should be 1 less than queue length
-    count = queue.length - 1;
+    count = queue.length;
   }
 
   return update(state, {
