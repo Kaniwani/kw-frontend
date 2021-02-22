@@ -20,7 +20,7 @@ exports[`getReviewStatusText() on vacation 1`] = `
   On Vacation:
    
   <styled.span>
-    since
+    since 
     Dec 26th 2017
   </styled.span>
 </Styled(styled.h3)>
