@@ -23,31 +23,36 @@ import RangeField from './RangeField';
 
 import { Form, Section, SubSection, Block, ApiLink, Controls } from './styles';
 
-const ResetProgress = ({ currentLevel, handleSubmit, submitting, submitSucceeded }) => (
-  <Form onSubmit={handleSubmit}>
-    <Block>
-      <Field
-        name="resetLevel"
-        label="Reset to start of level:"
-        component={RangeField}
-        min={1}
-        max={currentLevel}
-        step={1}
-      />
-      <Field
-        name="confirmation"
-        label="Enter username to confirm:"
-        placeholder="名前"
-        component={InputField}
-      />
-    </Block>
-    <Controls>
-      <Button type="submit">
-        {(submitting && 'Submitting') || (submitSucceeded && 'Reset!') || 'Reset Progress'}
-      </Button>
-    </Controls>
-  </Form>
-);
+const ResetProgress = ({ currentLevel, handleSubmit, submitting, submitSucceeded }) => {
+  const tip = 'This action will reset all unlocked Vocab from higher levels; e.g. resetting to 19 resets Vocab from Levels 20 and up';
+
+  return (
+    <Form onSubmit={handleSubmit}>
+      <Block>
+        <Field
+          name="resetLevel"
+          label="Reset to level:"
+          component={RangeField}
+          note={tip}
+          min={0}
+          max={currentLevel}
+          step={1}
+        />
+        <Field
+          name="confirmation"
+          label="Enter username to confirm:"
+          placeholder="名前"
+          component={InputField}
+        />
+      </Block>
+      <Controls>
+        <Button type="submit">
+          {(submitting && 'Submitting') || (submitSucceeded && 'Reset!') || 'Reset Progress'}
+        </Button>
+      </Controls>
+    </Form>
+  );
+};
 
 ResetProgress.propTypes = {
   ...formPropTypes,
@@ -58,7 +63,7 @@ const ResetProgressForm = compose(
   connect((state) => ({
     name: selectUsername(state),
     currentLevel: selectUserLevel(state),
-    initialValues: { resetLevel: 1 },
+    initialValues: { resetLevel: 0 },
   })),
   reduxForm({
     form: 'resetProgress',
