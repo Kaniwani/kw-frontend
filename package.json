@@ -8,7 +8,7 @@
   },
   "engines": {
     "npm": ">=6.x",
-    "node": ">=10.x"
+    "node": ">=12.x"
   },
   "author": "Duncan Bay",
   "license": "MIT",

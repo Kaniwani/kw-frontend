@@ -2,7 +2,7 @@ os: osx # at least until https://github.com/tcoopman/image-webpack-loader/issues
 language: node_js
 
 node_js:
-  - 10
+  - 12
 
 script: npm run test && npm run build
 
