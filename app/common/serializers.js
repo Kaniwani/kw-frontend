@@ -10,7 +10,8 @@ export const serializeLoginResponse = ({ token }) => token;
 export const serializeUserResponse = (res = {}) => serializeUser(res);
 export const serializeReviewResponse = serializeReview;
 export const serializeLevelsResponse = (res = {}) => createDict(res.map(serializeLevel), 'id');
-export const serializeQueueResponse = ({ results }) => serializeReviews(results, serializeStubbedReview);
+export const serializeQueueResponse = ({ results }) =>
+  serializeReviews(results, serializeStubbedReview);
 export const serializeLevelResponse = ({ results }) => serializeReviews(results, serializeReview);
 
 export const serializeVocabSearchResponse = ({ results }, persistedReviews = {}) => {
@@ -182,6 +183,11 @@ export function serializeStubbedReview({
   reading_synonyms = [],
   meaning_synonyms = [],
 } = {}) {
+  const defaultReadingSynonyms =
+    typeof vocabulary.manual_reading_whitelist === 'string'
+      ? vocabulary.manual_reading_whitelist.split(',')
+      : [];
+
   const vocabById = serializeVocabs(vocabulary.readings);
   const synonymsById = serializeSynonyms(reading_synonyms);
   const { primaryMeaning, secondaryMeanings } = serializeMeanings(
@@ -203,6 +209,7 @@ export function serializeStubbedReview({
     lastLoad: new Date(),
     vocabById,
     synonymsById,
+    defaultReadingSynonyms,
   };
 }
 
