@@ -36,7 +36,7 @@ export const user = {
   // { email, username, password, api_key_v2 }
   register: (data) => api
     .auth('')
-    .url('auth/users/create/')
+    .url('auth/users/')
     .json(data)
     .post()
     .json(),
