@@ -9,14 +9,12 @@ export const isInputValid = (input = '') =>
   !containsZenkakuLatin(input) && isJapanese(input, /[0-9]|[０-９]/);
 export const cleanseInput = (input = '') => fixTerminalN(input.trim());
 
-function flattenReadings([vocab = [], synonyms = []] = []) {
+function flattenReadings([vocab = [], synonyms = [], defaultReadingSynonyms = []] = []) {
   return [
-    ...vocab.map(
-      ({ word, primaryReading, secondaryReadings = [], defaultReadingSynonyms = [] } = {}) => ({
-        word,
-        readings: [primaryReading, ...secondaryReadings, ...defaultReadingSynonyms],
-      })
-    ),
+    ...vocab.map(({ word, primaryReading, secondaryReadings = [] } = {}) => ({
+      word,
+      readings: [primaryReading, ...secondaryReadings, ...defaultReadingSynonyms],
+    })),
     ...synonyms.map(({ word, primaryReading } = {}) => ({
       word,
       readings: [primaryReading],
