@@ -87,6 +87,7 @@ describe('matchAnswer', () => {
       { word: "天国", primaryReading: "てんごく" },
       { word: "丸い", primaryReading: "まるい" },
     ];
+
     expect(matchAnswer(vocab[0].word, [vocab, synonyms])).toBe(vocab[0].word);
     expect(matchAnswer(vocab[1].word, [vocab, synonyms])).toBe(vocab[1].word);
     expect(matchAnswer(vocab[2].word, [vocab, synonyms])).toBe(vocab[2].word);
@@ -100,6 +101,26 @@ describe('matchAnswer', () => {
     expect(matchAnswer(synonyms[0].primaryReading, [vocab, synonyms])).toBe(synonyms[0].word);
     expect(matchAnswer(synonyms[1].word, [vocab, synonyms])).toBe(synonyms[1].word);
     expect(matchAnswer(synonyms[1].primaryReading, [vocab, synonyms])).toBe(synonyms[1].word);
+  });
+
+  it('match default reading synonyms', () => {
+    expect(matchAnswer('女', [[{ word: '女', primaryReading: ['おんな'] }], [], []])).toBe('女');
+
+    expect(
+      matchAnswer('おんなのこ', [
+        [{ word: '女', primaryReading: ['おんな'] }],
+        [],
+        ['おんなのこ', 'しょうじょ'],
+      ])
+    ).toBe('女');
+
+    expect(
+      matchAnswer('しょうじょ', [
+        [{ word: '女', primaryReading: ['おんな'] }],
+        [],
+        ['おんなのこ', 'しょうじょ'],
+      ])
+    ).toBe('女');
   });
 
   it('match regardless of answer tilde presence', () => {

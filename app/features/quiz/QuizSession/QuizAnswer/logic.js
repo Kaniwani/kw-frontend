@@ -53,7 +53,7 @@ export const submitAnswerLogic = createLogic({
       quiz.answer.update({
         value: answerValue,
         type: isKana(answerValue) ? ANSWER_TYPES.READING : ANSWER_TYPES.WORD,
-      }),
+      })
     );
 
     if (!isValid) {
@@ -95,10 +95,12 @@ export const checkAnswerLogic = createLogic({
     const settings = selectUserSettings(getState());
     const currentId = selectCurrentId(getState());
     const isLessonQuiz = selectIsLessonQuiz(getState());
-    let { vocab, synonyms } = selectReviewById(getState(), { id: currentId });
-    vocab = vocab.map((id) => selectVocabById(getState(), { id }));
-    synonyms = synonyms.map((id) => selectSynonymById(getState(), { id }));
-    const matchedAnswer = matchAnswer(value, [vocab, synonyms]);
+    const reviewItem = selectReviewById(getState(), {
+      id: currentId,
+    });
+    const vocab = reviewItem.vocab.map((id) => selectVocabById(getState(), { id }));
+    const synonyms = reviewItem.synonyms.map((id) => selectSynonymById(getState(), { id }));
+    const matchedAnswer = matchAnswer(value, [vocab, synonyms, reviewItem.defaultReadingSynonyms]);
     const updatedAnswer = {
       isFocused: false,
       isMarked: true,
@@ -114,17 +116,18 @@ export const checkAnswerLogic = createLogic({
           ...updatedAnswer,
           value: matchedAnswer,
           isCorrect: true,
-        }),
+        })
       );
       dispatch(quiz.answer.correct());
-      const isOpen = settings.autoExpandAnswerOnSuccess && settings.autoAdvanceOnSuccessDelayMilliseconds > 0;
+      const isOpen =
+        settings.autoExpandAnswerOnSuccess && settings.autoAdvanceOnSuccessDelayMilliseconds > 0;
 
       dispatch(
         quiz.info.update({
           isDisabled: false,
           detailLevel: settings.infoDetailLevelOnSuccess,
           isOpen,
-        }),
+        })
       );
     }
 
@@ -138,7 +141,7 @@ export const checkAnswerLogic = createLogic({
           isDisabled: false,
           detailLevel,
           isOpen,
-        }),
+        })
       );
     }
 
@@ -255,7 +258,7 @@ export const disableReviewLogic = createLogic({
       },
     },
     dispatch,
-    done,
+    done
   ) {
     stopAutoAdvance();
     const isFinalQuestion = selectIsFinalQuestion(getState());
@@ -335,17 +338,17 @@ export const recordAnswerLogic = createLogic({
             content:
               'You have several answer submissions still pending. You might be experiencing connection problems.',
             duration: 8000,
-          }),
+          })
         );
       }
 
       const decorateResubmitError = (err) => {
         /* eslint-disable no-param-reassign */
         if (
-          err.status === 403
-          && err.json
-          && err.json.detail
-          && err.json.detail.includes('need to be reviewed')
+          err.status === 403 &&
+          err.json &&
+          err.json.detail &&
+          err.json.detail.includes('need to be reviewed')
         ) {
           err.message = 'Resubmit error';
           err.originalMessage = JSON.stringify(err.message);
@@ -375,7 +378,7 @@ export const recordAnswerLogic = createLogic({
               previouslyIncorrect,
               wasAlreadyPending,
               pendingAnswers: [...pendingAnswers],
-            }),
+            })
           );
           dispatch(quiz.answer.record.failure(err));
           done();

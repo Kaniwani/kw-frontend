@@ -24,7 +24,7 @@ import RangeField from './RangeField';
 import { Form, Section, SubSection, Block, ApiLink, Controls } from './styles';
 
 const ResetProgress = ({ currentLevel, handleSubmit, submitting, submitSucceeded }) => {
-  const tip = 'This action will reset all unlocked Vocab from higher levels; e.g. resetting to 19 resets Vocab from Levels 20 and up';
+  const tip = 'This action will reset all unlocked vocab above the selected level; e.g. resetting to 19 resets the SRS (and locks) Levels 20 and above. Visit the Vocabulary pages to unlock them when you are ready to begin reviewing again.';
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -33,7 +33,6 @@ const ResetProgress = ({ currentLevel, handleSubmit, submitting, submitSucceeded
           name="resetLevel"
           label="Reset to level:"
           component={RangeField}
-          note={tip}
           min={0}
           max={currentLevel}
           step={1}
@@ -42,6 +41,7 @@ const ResetProgress = ({ currentLevel, handleSubmit, submitting, submitSucceeded
           name="confirmation"
           label="Enter username to confirm:"
           placeholder="名前"
+          note={tip}
           component={InputField}
         />
       </Block>
