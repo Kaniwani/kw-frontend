@@ -5,11 +5,11 @@ import ReactTooltip from 'react-tooltip';
 import cuid from 'cuid';
 
 import Ul from 'common/components/Ul';
-import VocabCard from './VocabCard';
-import VocabChip from './VocabChip';
 import { purple } from 'common/styles/colors';
 import { gutter } from 'common/styles/layout';
 import { media } from 'common/styles/media';
+import VocabChip from './VocabChip';
+import VocabCard from './VocabCard';
 
 // prettier-ignore
 const List = styled(Ul)`
@@ -84,13 +84,13 @@ export class VocabList extends React.Component {
     const isCard = itemType === ITEM_TYPES.CARD;
     const isChip = itemType === ITEM_TYPES.CHIP;
     return (
-      <Fragment>
+      <>
         {isChip && this.renderTooltipManager(tooltipId)}
         <List plainList isCard={isCard} isChip={isChip}>
           {isChip && this.renderChips(ids, tooltipId)}
           {isCard && this.renderCards(ids)}
         </List>
-      </Fragment>
+      </>
     );
   }
 }

@@ -10,13 +10,14 @@ import selectAnswer from 'features/quiz/QuizSession/QuizAnswer/selectors';
 import { selectCurrentStreak, selectIsLessonQuiz } from 'features/quiz/QuizSession/selectors';
 import { Form, AnswerWrapper, Label, Streak, Input, IgnoreButton, SubmitButton } from './styles';
 
-export class QuizAnswer extends React.Component {
+export class QuizAnswer extends React.PureComponent {
   static propTypes = {
     onIgnore: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     isLessonQuiz: PropTypes.bool.isRequired,
     value: PropTypes.string, // eslint-disable-line react/require-default-props
     streak: PropTypes.number,
+    isConversionEnabled: PropTypes.bool,
     isFocused: PropTypes.bool,
     isMarked: PropTypes.bool,
     isValid: PropTypes.bool,
@@ -28,6 +29,7 @@ export class QuizAnswer extends React.Component {
 
   static defaultProps = {
     streak: 0,
+    isConversionEnabled: true,
     isFocused: true,
     isMarked: false,
     isValid: false,
@@ -37,14 +39,26 @@ export class QuizAnswer extends React.Component {
     isIgnored: false,
   };
 
+  isInputBound = false;
+
   componentDidMount() {
     bind(this.inputFieldRef, { IMEMode: 'toHiragana' });
+    this.isInputBound = true;
     // IOS doesn't open keyboard via autofocus so let's give it a poke
     this.inputFieldRef.focus();
   }
 
   componentDidUpdate() {
-    const { value, isFocused, isDisabled } = this.props;
+    const { value, isFocused, isDisabled, isConversionEnabled } = this.props;
+
+    if (isConversionEnabled && !this.isInputBound) {
+      bind(this.inputFieldRef, { IMEMode: 'toHiragana' });
+      this.isInputBound = true;
+    } else if (!isConversionEnabled && this.isInputBound) {
+      unbind(this.inputFieldRef);
+      this.isInputBound = false;
+    }
+
     // Answer reset, terminal N fixed etc.
     if (this.inputFieldRef.value !== value) {
       this.inputFieldRef.value = value;
@@ -157,7 +171,4 @@ const mapDispatchToProps = {
   onIgnore: quiz.answer.ignore,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(QuizAnswer);
+export default connect(mapStateToProps, mapDispatchToProps)(QuizAnswer);

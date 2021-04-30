@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { HotKeys } from 'react-hotkeys';
 import { pure } from 'recompose';
 
+import backgroundImage from 'common/assets/img/reviews.svg';
+import { SRS_COLORS } from 'common/styles/colors';
+
 import quiz from 'features/quiz/actions';
 import { selectInfoOpen } from 'features/quiz/QuizSession/QuizInfo/selectors';
 import { selectIsLessonQuiz } from 'features/quiz/QuizSession/selectors';
@@ -15,12 +18,9 @@ import QuizAnswer from './QuizAnswer';
 import QuizQuestion from './QuizQuestion';
 import QuizControls from './QuizControls';
 import QuizInfo from './QuizInfo';
+import AddSynonymModal from './QuizInfo/AddSynonymModal';
 
-import AddSynonymModal from 'features/quiz/QuizSession/QuizInfo/AddSynonymModal';
-
-import backgroundImage from 'common/assets/img/reviews.svg';
 import { Upper, Lower, Background } from './styles';
-import { SRS_COLORS } from 'common/styles/colors';
 const QuizBackground = pure(Background);
 
 const isInputField = ({ target }) => ['INPUT', 'TEXTAREA'].includes(target.nodeName);
@@ -40,6 +40,10 @@ export class QuizSession extends React.Component {
     confirmAnswer: PropTypes.func.isRequired,
   };
 
+  state = {
+    isConversionEnabled: true,
+  };
+
   guardHotKeyHandler = (handler) => (event) => {
     if (!this.props.isAnswerDisabled || isInputField(event) || isButton(event) || isLink(event)) {
       return;
@@ -51,6 +55,10 @@ export class QuizSession extends React.Component {
 
   handleAddSynonym = () => {
     this.props.setSynonymModal(true);
+  };
+
+  handleToggleConversion = () => {
+    this.setState((s) => ({ isConversionEnabled: !s.isConversionEnabled }));
   };
 
   handleOnInfo = (event) => {
@@ -68,6 +76,8 @@ export class QuizSession extends React.Component {
       confirmAnswer,
       isLessonQuiz,
     } = this.props;
+
+    const { isConversionEnabled } = this.state;
 
     return (
       <HotKeys
@@ -97,9 +107,12 @@ export class QuizSession extends React.Component {
         }}
       >
         <Upper bgColor={isLessonQuiz ? SRS_COLORS.UNTRAINED : SRS_COLORS.GURU}>
-          <QuizHeader />
+          <QuizHeader
+            isConversionEnabled={isConversionEnabled}
+            onToggleConversion={this.handleToggleConversion}
+          />
           <QuizQuestion />
-          <QuizAnswer />
+          <QuizAnswer isConversionEnabled={isConversionEnabled} />
         </Upper>
         <Lower>
           <QuizControls

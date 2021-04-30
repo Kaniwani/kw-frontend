@@ -19,6 +19,12 @@ export const Wrapper = styled.div`
   background-color: ${transparent};
 `;
 
+export const ActionsWrapper = styled.div`
+  display: flex;
+  flex-wrap: none;
+  align-items: center;
+`;
+
 export const Bar = styled.div`
   position: absolute;
   top: 0;

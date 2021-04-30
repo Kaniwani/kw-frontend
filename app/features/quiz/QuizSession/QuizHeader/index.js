@@ -12,11 +12,15 @@ import {
 
 import Icon from 'common/components/Icon';
 import IconLink from 'common/components/IconLink';
+import IconButton from 'common/components/IconButton';
+import { grey } from 'common/styles/colors';
 import ProgressBar from './ProgressBar';
-import { Wrapper, StatsWrapper, Stat, Label } from './styles';
+import { Wrapper, ActionsWrapper, StatsWrapper, Stat, Label } from './styles';
 
 QuizHeader.propTypes = {
   summaryRoute: PropTypes.string.isRequired, // /lessons, /reviews
+  isConversionEnabled: PropTypes.bool.isRequired,
+  onToggleConversion: PropTypes.func.isRequired,
   percentComplete: PropTypes.number,
   percentCorrect: PropTypes.number,
   completeCount: PropTypes.number,
@@ -32,6 +36,8 @@ QuizHeader.defaultProps = {
 
 export function QuizHeader({
   summaryRoute,
+  isConversionEnabled,
+  onToggleConversion,
   percentComplete,
   percentCorrect,
   completeCount,
@@ -40,14 +46,23 @@ export function QuizHeader({
   return (
     <Wrapper>
       <ProgressBar value={percentComplete} />
-      <IconLink
-        plainLink
-        style={{ opacity: 1 }}
-        to={summaryRoute}
-        title="View session summary"
-        name="SUMMARY"
-        size="1.4em"
-      />
+      <ActionsWrapper>
+        <IconLink
+          plainLink
+          style={{ opacity: 1, marginRight: '.35em' }}
+          to={summaryRoute}
+          title="View session summary"
+          name="SUMMARY"
+          size="1.4em"
+        />
+        <IconButton
+          color={isConversionEnabled ? undefined : grey[6]}
+          title={`Romaji conversion ${isConversionEnabled ? 'enabled' : 'disabled'}`}
+          name="TRANSLATE"
+          size="1.25em"
+          onClick={onToggleConversion}
+        />
+      </ActionsWrapper>
       <StatsWrapper>
         <Stat title="Correctness">
           <Icon inline={false} size="1.15em" name="CHECK" />
