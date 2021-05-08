@@ -54,7 +54,7 @@
     "date-fns": "^1",
     "immutability-helper": "3.1.1",
     "localforage": "1.9.0",
-    "lodash": "4.17.20",
+    "lodash": "4.17.21",
     "polished": "3.6.3",
     "raphael": "2.3.0",
     "raven-for-redux": "1.4.0",
