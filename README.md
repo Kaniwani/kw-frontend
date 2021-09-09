@@ -1,7 +1,6 @@
 [![Dependency Status](https://img.shields.io/david/Kaniwani/kw-frontend.svg)](https://david-dm.org/Kaniwani/kw-frontend)
 [![devDependency Status](https://img.shields.io/david/dev/Kaniwani/kw-frontend.svg)](https://david-dm.org/Kaniwani/kw-frontend#info=devDependencies)
 [![Build Status](https://img.shields.io/travis/Kaniwani/kw-frontend.svg)](https://travis-ci.org/Kaniwani/kw-frontend)
-[![Slack Status](https://rauchg-slackin-iurjmkotad.now.sh/badge.svg)](https://rauchg-slackin-iurjmkotad.now.sh)
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Kaniwani/kw-frontend/master/app/common/assets/img/logo.png" alt="kaniwani logo" width="100px" /><h1><strong>KaniWani Frontend</strong></h1>
@@ -21,7 +20,7 @@
 ## Quick start
 
 1. Clone this repo using `git clone https://github.com/Kaniwani/kw-frontend.git`
-2. Create a `.env` file with secrets (contact Duncan on [slack](https://rauchg-slackin-iurjmkotad.now.sh))
+2. Create a `.env` file with secrets (contact Duncan on [slack](https://join.slack.com/t/kaniwani/shared_invite/zt-vhjipvbo-Wff3OQK7tIZfldX_tHNr~g))
 3. Run `yarn` to install dependencies ([get yarn here](https://yarnpkg.com/en/docs/install))
 4. Run `yarn start` to load up the development server and watch for changes
 
