@@ -63,6 +63,10 @@ const GlobalStyle = createGlobalStyle`
     outline: .15rem solid;
     outline-offset: .15rem;
   }
+  /* force search inputs of search type to have white background (Safari iOS) */
+  input[type="search"] {
+    background-color: white;
+  }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: ${ffHeading};
