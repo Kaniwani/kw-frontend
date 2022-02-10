@@ -195,7 +195,9 @@ export const SubmitButton = styled.button`
   ${resetButton}
   ${gamma}
   margin: .5rem 0;
-  padding: .2rem .3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 12rem;
   height: 2.5rem;
   border-radius: 10px;
