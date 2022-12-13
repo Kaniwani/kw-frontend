@@ -7,8 +7,8 @@
     "url": "git://github.com/Kaniwani/kw-frontend.git"
   },
   "engines": {
-    "npm": ">=6.x",
-    "node": ">=12.x"
+    "npm": ">=8.19.x",
+    "node": ">=16.18.x <17"
   },
   "author": "Duncan Bay",
   "license": "MIT",
