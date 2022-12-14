@@ -15,7 +15,7 @@
 
 <br />
 
-##### _Note: Requires a [KW Backend](https://github.com/Kaniwani/kw-backend)_ 
+##### _Note: Requires a [KW Backend](https://github.com/Kaniwani/kw-backend)_
 
 ## Quick start
 
@@ -28,15 +28,14 @@ Now you're ready to rumble!
 
 ⚠️ Be sure to take a look at the [Dependency Upgrade Notes](./DEPENDENCY_UPGRADE_NOTES.md) if planning on updating the build  ⚠️
 
-#### The following Chrome extensions will aid you on your journey:
+#### The following Chrome extensions will aid you on your journey
 
 - [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd)
 - [React DevTools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
 
-## Help
+## Help out
 
 - Visit our [Issues](https://github.com/Kaniwani/kw-frontend/issues) page
-- Join us on [Slack](https://rauchg-slackin-iurjmkotad.now.sh)
 
 ## Thanks
 
