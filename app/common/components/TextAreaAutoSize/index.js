@@ -24,7 +24,7 @@ TextAreaAutoSize.defaultProps = {
   label: '',
   rows: 10,
   placeholder: '文章',
-  minLength: 10,
+  minLength: 1,
   maxLength: 1000,
   showLabel: false,
   showControls: true,
