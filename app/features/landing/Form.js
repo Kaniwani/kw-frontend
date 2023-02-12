@@ -39,7 +39,8 @@ function FormView({
   submitting,
   error,
 }) {
-  const mainInputText = (loginSelected && 'Username or Email') || (registerSelected && 'Username') || 'Email';
+  const mainInputText =
+    (loginSelected && 'Username or Email') || (registerSelected && 'Username') || 'Email';
 
   return (
     <Form onSubmit={handleSubmit} autoComplete="on">
@@ -48,6 +49,7 @@ function FormView({
         name={!resetSelected ? 'username' : 'email'}
         component={Input}
         placeholder={mainInputText}
+        autoComplete={loginSelected && 'username'}
         validate={!resetSelected ? [requiredValid] : [requiredValid, emailValid]}
       />
       <Field
@@ -65,6 +67,7 @@ function FormView({
         component={Input}
         type="password"
         placeholder="Password"
+        autoComplete={loginSelected ? 'current-password' : 'new-password'}
         validate={!resetSelected ? [requiredValid, minLengthValid] : []}
         isHidden={resetSelected}
       />
@@ -74,6 +77,7 @@ function FormView({
         component={Input}
         type="password"
         placeholder="Confirm Password"
+        autoComplete="new-password"
         validate={registerSelected ? [requiredValid, minLengthValid, confirmPasswordValid] : []}
         isHidden={loginSelected || resetSelected}
       />
@@ -100,16 +104,16 @@ function FormView({
         type="submit"
         lang="ja"
         title={
-          (submitting && 'Submitting...')
-          || (registerSelected && 'Register')
-          || (loginSelected && "Let's Go!")
-          || (resetSelected && 'Submit')
+          (submitting && 'Submitting...') ||
+          (registerSelected && 'Register') ||
+          (loginSelected && "Let's Go!") ||
+          (resetSelected && 'Submit')
         }
       >
-        {(submitting && '送信している...')
-          || (registerSelected && '登録する')
-          || (loginSelected && '行こう')
-          || (resetSelected && '送信する')}
+        {(submitting && '送信している...') ||
+          (registerSelected && '登録する') ||
+          (loginSelected && '行こう') ||
+          (resetSelected && '送信する')}
       </SubmitButton>
       {registerSelected && submitting && <Spinner />}
     </Form>
@@ -132,8 +136,8 @@ const enhance = compose(
               password,
               api_key_v2: apiKeyV2,
             },
-            { form },
-          ),
+            { form }
+          )
         );
       }
 
@@ -153,7 +157,7 @@ const enhance = compose(
         this.props.reset();
       }
     },
-  }),
+  })
 );
 
 export default enhance(FormView);
