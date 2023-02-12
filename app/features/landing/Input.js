@@ -8,6 +8,7 @@ Input.propTypes = {
   input: PropTypes.object.isRequired,
   meta: PropTypes.object.isRequired,
   placeholder: PropTypes.string.isRequired,
+  autoComplete: PropTypes.string,
   isHidden: PropTypes.bool,
   children: PropTypes.node,
 };
@@ -16,13 +17,14 @@ Input.defaultProps = {
   isHidden: false,
 };
 
-function Input({ label, input, meta, placeholder, isHidden, children, ...props }) {
+function Input({ label, input, meta, placeholder, autoComplete, isHidden, children, ...props }) {
   return (
     <InputWrapper aria-hidden={isHidden} isHidden={isHidden}>
       <Label htmlFor={input.name}>{label}</Label>
       <InputField
         id={input.name}
         placeholder={placeholder}
+        autoComplete={autoComplete}
         isHidden={isHidden}
         disabled={meta.submitting || isHidden}
         autoCapitalize="none"
@@ -32,9 +34,9 @@ function Input({ label, input, meta, placeholder, isHidden, children, ...props }
         {...props}
       />
       {children}
-      {!isHidden &&
-        meta.touched &&
-        meta.error && <ValidationMessage>{meta.error}</ValidationMessage>}
+      {!isHidden && meta.touched && meta.error && (
+        <ValidationMessage>{meta.error}</ValidationMessage>
+      )}
     </InputWrapper>
   );
 }
