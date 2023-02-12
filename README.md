@@ -1,7 +1,3 @@
-[![Dependency Status](https://img.shields.io/david/Kaniwani/kw-frontend.svg)](https://david-dm.org/Kaniwani/kw-frontend)
-[![devDependency Status](https://img.shields.io/david/dev/Kaniwani/kw-frontend.svg)](https://david-dm.org/Kaniwani/kw-frontend#info=devDependencies)
-[![Build Status](https://img.shields.io/travis/Kaniwani/kw-frontend.svg)](https://travis-ci.org/Kaniwani/kw-frontend)
-
 <div align="center">
   <img src="https://raw.githubusercontent.com/Kaniwani/kw-frontend/master/app/common/assets/img/logo.png" alt="kaniwani logo" width="100px" /><h1><strong>KaniWani Frontend</strong></h1>
   <h2>Client UI</h2>
