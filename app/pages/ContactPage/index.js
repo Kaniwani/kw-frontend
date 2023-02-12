@@ -14,7 +14,7 @@ ContactPage.propTypes = {};
 
 function ContactPage() {
   return (
-    <Fragment>
+    <>
       <Helmet>
         <title>Contact</title>
         <meta name="description" content="Kaniwani Contact Page" />
@@ -45,22 +45,12 @@ function ContactPage() {
               <span lang="ja">ありがとうございます。</span>
             </P>
           </Element>
-          <Element>
-            <P constrain>
-              You can join us on{' '}
-              <A href="https://rauchg-slackin-iurjmkotad.now.sh/" external>
-                Slack
-              </A>{' '}
-              for a quick response or just to have a chat. Otherwise, feel free to send us a contact
-              email.
-            </P>
-          </Element>
         </Container>
         <Container>
           <Contact />
         </Container>
       </PageWrapper>
-    </Fragment>
+    </>
   );
 }
 
