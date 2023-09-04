@@ -2,7 +2,8 @@ import styled, { css } from 'styled-components';
 
 import { white } from 'common/styles/colors';
 import { gutter, centerByMargin } from 'common/styles/layout';
-import { giga, gamma } from 'common/styles/typography';
+import { ghost } from 'common/styles/utils';
+import { giga, gamma, delta } from 'common/styles/typography';
 import { borderRadius } from 'common/styles/sizing';
 import { srsRankUp, srsRankDown } from 'common/styles/animation';
 import { outerLight } from 'common/styles/shadows';
@@ -42,6 +43,22 @@ export const Wrapper = styled.div`
   justify-content: space-between;
   text-align: center;
   flex: 1 1 100%;
+`;
+
+export const Footer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+`;
+
+export const MoraCount = styled.div`
+  ${delta}
+  padding: .25rem .4rem;
+  font-weight: 500;
+`;
+
+export const MoraCountSpacer = styled(MoraCount)`
+  ${ghost}
 `;
 
 export const FlyoverWrapper = styled.div`
