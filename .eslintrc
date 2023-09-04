@@ -86,6 +86,8 @@
     "react/jsx-one-expression-per-line": 0,
     "react/require-extension": 0,
     "react/require-default-props": 1,
+    "react/state-in-constructor": 1,
+    "react/static-property-placement": 1,
     "react/self-closing-comp": 0,
     "require-yield": 0,
     "valid-jsdoc": 1
