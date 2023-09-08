@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getMoraCount } from 'hatsuon';
 
 import { selectCurrent, selectIsLessonQuiz } from 'features/quiz/QuizSession/selectors';
 import { selectAnswer } from 'features/quiz/QuizSession/QuizAnswer/selectors';
@@ -9,19 +10,21 @@ import {
   selectSecondaryMeanings,
   selectPrimaryVocabId,
 } from 'features/reviews/selectors';
-import { selectTags } from 'features/vocab/selectors';
+import { selectTags, selectPrimaryReading } from 'features/vocab/selectors';
 
+import A from 'common/components/A';
 import { TagsList } from 'common/components/TagsList';
 import Question from './Question';
 import Flyover from './Flyover';
 
-import { Wrapper } from './styles';
+import { Wrapper, Footer, MoraCount, MoraCountSpacer } from './styles';
 
 export class QuizQuestion extends React.Component {
   static propTypes = {
     primaryMeaning: PropTypes.string,
     secondaryMeanings: PropTypes.array,
     tags: PropTypes.array,
+    moraCount: PropTypes.number,
     streak: PropTypes.number,
     isLessonQuiz: PropTypes.bool,
     isIgnored: PropTypes.bool,
@@ -34,6 +37,7 @@ export class QuizQuestion extends React.Component {
     primaryMeaning: '',
     secondaryMeanings: [],
     tags: [],
+    moraCount: 0,
     streak: null,
     isLessonQuiz: false,
     isIgnored: false,
@@ -64,6 +68,7 @@ export class QuizQuestion extends React.Component {
       primaryMeaning,
       secondaryMeanings,
       tags,
+      moraCount,
       isLessonQuiz,
       isDisabled,
       isIgnored,
@@ -72,9 +77,25 @@ export class QuizQuestion extends React.Component {
     return (
       <Wrapper>
         <Question primaryMeaning={primaryMeaning} secondaryMeanings={secondaryMeanings} />
-        <TagsList tags={tags} isVisible={!isDisabled} />
-        {!isLessonQuiz &&
-          isDisabled && <Flyover isIgnored={isIgnored} from={initialStreak} to={streak} />}
+        <Footer>
+          {moraCount > 0 && (
+            <A
+              plainLink
+              external
+              href="https://en.wikipedia.org/wiki/On_(Japanese_prosody)#Examples"
+            >
+              <MoraCount lang="ja" title="Answer contains this many 音 (おん)">
+                {moraCount}音
+              </MoraCount>
+            </A>
+          )}
+          <TagsList tags={tags} isVisible={!isDisabled} />
+          {/* ensures TagsList is properly centered */}
+          {moraCount > 0 && <MoraCountSpacer>{moraCount}音</MoraCountSpacer>}
+        </Footer>
+        {!isLessonQuiz && isDisabled && (
+          <Flyover isIgnored={isIgnored} from={initialStreak} to={streak} />
+        )}
       </Wrapper>
     );
   }
@@ -83,6 +104,8 @@ export class QuizQuestion extends React.Component {
 const mapStateToProps = (state, props) => {
   const { id: reviewId, streak } = selectCurrent(state, props);
   const primaryVocabId = selectPrimaryVocabId(state, { id: reviewId });
+  const reading = selectPrimaryReading(state, { id: primaryVocabId });
+  const moraCount = getMoraCount(reading);
   const tags = selectTags(state, { id: primaryVocabId });
   const primaryMeaning = selectPrimaryMeaning(state, { id: reviewId });
   const secondaryMeanings = selectSecondaryMeanings(state, { id: reviewId });
@@ -92,6 +115,7 @@ const mapStateToProps = (state, props) => {
     primaryMeaning,
     secondaryMeanings,
     tags,
+    moraCount,
     streak,
     isLessonQuiz,
     ...selectAnswer(state, props),

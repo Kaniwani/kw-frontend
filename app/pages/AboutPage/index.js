@@ -124,7 +124,10 @@ function AboutPage() {
               Many WK words have very similar meanings. To alleviate this, if you add{' '}
               <strong>meaning synoynms on WK</strong> they will appear as part of the KW meaning /
               quiz question. You can also add <strong>answer synonyms on KW</strong> as acceptable
-              answers during your reviews or on the vocabulary entry page.
+              answers during your reviews or on the vocabulary entry page. The review screen also
+              contains a mora count in the bottom left corner of the question. For example, the
+              question for Girl would display 5 to hint that the answer is (女の子) おんなのこ and
+              not (少女) しょうじょ which only has 3 morae [しょ, う, じょ].
             </P>
           </Container>
 
