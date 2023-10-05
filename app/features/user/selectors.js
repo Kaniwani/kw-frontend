@@ -40,6 +40,7 @@ export const selectUserSettings = createSelector(
       'autoExpandAnswerOnFailure',
       'infoDetailLevelOnSuccess',
       'infoDetailLevelOnFailure',
+      'repeatUntilCorrect',
       'autoAdvanceOnSuccess',
       'autoAdvanceOnSuccessDelayMilliseconds',
       'followMe',
@@ -75,7 +76,8 @@ export const selectFreshUser = createSelector(
     selectReviewsCount,
     getBy(['entities', 'reviews'], (x = {}) => Object.keys(x).length),
   ],
-  (nextReviewDate, lessonsCount, reviewsCount, reviewEntitiesCount) => !nextReviewDate && lessonsCount && !reviewsCount && !reviewEntitiesCount
+  (nextReviewDate, lessonsCount, reviewsCount, reviewEntitiesCount) =>
+    !nextReviewDate && lessonsCount && !reviewsCount && !reviewEntitiesCount
 );
 
 export const selectLastWkSyncDate = createSelector(

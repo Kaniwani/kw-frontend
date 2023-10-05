@@ -97,6 +97,12 @@ export function SettingsForm({ minWk, maxWk, handleSubmit, submitting, submitSuc
           normalize={infoLevelNameToNum}
           note="Incorrect lessons are always high detail."
         />
+        <Field
+          name="repeatUntilCorrect"
+          label="Repeat item until correct:"
+          component={ToggleField}
+          parse={Boolean}
+        />
         <SubSection>
           <H4>Auto Advance</H4>
           <Field
