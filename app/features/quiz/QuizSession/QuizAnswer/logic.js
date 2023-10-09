@@ -297,6 +297,7 @@ export const recordAnswerLogic = createLogic({
     const isFinalQuestion = selectIsFinalQuestion(getState());
     const { isCorrect } = selectAnswer(getState());
     const previouslyIncorrect = selectCurrentPreviouslyIncorrect(getState());
+    const { repeatUntilCorrect } = selectUserSettings(getState());
     stopAutoAdvance();
 
     // only add to correct/incorrect totals on first attempt
@@ -316,7 +317,7 @@ export const recordAnswerLogic = createLogic({
         setTimeout(() => history.push(`/${category}`), 1000);
       }
       dispatch(quiz.session.current.replace());
-    } else {
+    } else if (!repeatUntilCorrect) {
       dispatch(quiz.session.current.rotate());
     }
 
@@ -391,7 +392,9 @@ export const autoAdvanceLogic = createLogic({
   type: quiz.question.advance,
   warnTimeout: 11000,
   process({ getState }, dispatch, done) {
-    const { autoAdvanceOnSuccessDelayMilliseconds } = selectUserSettings(getState());
+    const { autoAdvanceOnSuccessDelayMilliseconds, repeatUntilCorrect } = selectUserSettings(
+      getState()
+    );
     const answerIgnored = selectAnswerIgnored(getState());
 
     if (answerIgnored) {
@@ -403,7 +406,9 @@ export const autoAdvanceLogic = createLogic({
       setTimeout(() => {
         dispatch(quiz.answer.reset());
         dispatch(quiz.info.reset());
-        dispatch(quiz.session.current.rotate());
+        if (!repeatUntilCorrect) {
+          dispatch(quiz.session.current.rotate());
+        }
         done();
       }, msDelay);
     } else {
