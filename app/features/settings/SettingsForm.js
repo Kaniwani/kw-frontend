@@ -99,7 +99,7 @@ export function SettingsForm({ minWk, maxWk, handleSubmit, submitting, submitSuc
         />
         <Field
           name="repeatUntilCorrect"
-          label="Repeat item until correct:"
+          label="Repeat quiz question until correct:"
           component={ToggleField}
           parse={Boolean}
         />
