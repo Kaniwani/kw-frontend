@@ -8,7 +8,6 @@ import H2 from 'common/components/H2';
 import P from 'common/components/P';
 import A from 'common/components/A';
 import Strike from 'common/components/Strike';
-import Contact from 'features/contact';
 
 ContactPage.propTypes = {};
 
@@ -45,9 +44,14 @@ function ContactPage() {
               <span lang="ja">ありがとうございます。</span>
             </P>
           </Element>
-        </Container>
-        <Container>
-          <Contact />
+          <Element>
+            <P constrain>
+              To get in contact with us about anything, simply{' '}
+              <A href="mailto:garygrantgraham+kw@gmail.com;duncan.bay+kw@gmail.com?subject=KaniWani%20Enquiry">
+                send an email to Gary & Duncan
+              </A>
+            </P>
+          </Element>
         </Container>
       </PageWrapper>
     </>
