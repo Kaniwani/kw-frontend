@@ -13,7 +13,6 @@ import searchLogic from 'features/search/logic';
 import quizSessionLogic from 'features/quiz/QuizSession/logic';
 import quizAnswerLogic from 'features/quiz/QuizSession/QuizAnswer/logic';
 import settingsLogic from 'features/settings/logic';
-import contactLogic from 'features/contact/logic';
 
 import { app } from 'common/actions';
 import announcements from 'features/announcements/actions';
@@ -62,5 +61,4 @@ export default [
   ...quizSessionLogic,
   ...quizAnswerLogic,
   ...settingsLogic,
-  ...contactLogic,
 ];
